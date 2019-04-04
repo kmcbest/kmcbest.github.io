@@ -295,7 +295,7 @@ function check() {
     var shards = Forge_shards(isShark, nFodderStar, nFodderRank, nFodderLevel, nFodderSig);
     strReport = `接受锻造者<strong>${nReceiverStar}星${nReceiverName}</strong>初始锻造经验为：${receiverInitialExp}<br />锻造狗粮<strong>${nFodderStar}星${nFodderName}</strong>产生${fodderFinalExp}点经验${strBonus}，最终总经验为：${new_exp}<br />接受锻造者变为<br />锻造等级：${result.targetLevel}<br />剩余经验：${result.remainingExp}<br />碎片奖励：${shards} ${nFodderStar + 1}星${strShark}。`
     if (nFodderRank > nFodderStar + 1) {
-        strReport = `错误：${nFodderStar}星机器人不可能达到${nFodderRank}阶！`;
+        strReport = `错误：${nFodderStar}星机器人不可能达到${nFodderRank}阶！`;//
     }
     if (nFodderLevel > nFodderRank * 10) {
         strReport = `错误：${nFodderRank}阶最大等级为${nFodderRank * 10}！`;

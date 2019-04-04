@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calculate</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 1px;
+        }
+
+        #calculater {
+            margin: auto;
+            margin-top: 30px;
+            border: solid 6px #2371D3;
+            border-spacing: 0px;
+        }
+
+        .title {
+            text-align: center;
+        }
+
+        #display {
+            width: 100%;
+            height: 30px;
+            border-bottom: solid 4px #2371D3;
+            font-weight: bold;
+            color: #193D83;
+            font-family: 黑体;
+            padding-left: 2px;
+        }
+
+        .numberkey {
+            cursor: pointer;
+            width: 40px;
+            height: 30px;
+            border: solid 1px #FFFFFF;
+            background: #2371d3;
+            color: #FFFFFF;
+            text-align: center;
+            font-weight: bold;
+            font-family: 黑体;
+        }
+
+        #equality {
+            cursor: pointer;
+            width: 40px;
+            height: 100%;
+            background: #2371d3;
+            border: solid 1px #FFFFFF;
+            color: #FFFFFF;
+            text-align: center;
+            font-weight: bold;
+            font-family: 黑体;
+        }
+
+        .numberkey:hover {
+            background: #EA6F30;
+        }
+
+        #equality:hover {
+            background: #EA6F30;
+        }
+    </style>
+    <script type="text/javascript" src="forge_calc_1.js"></script>
+    <script>
+        var results = "";
+        var calresults = "";
+
+        function calculater() {
+            var curValue = event.srcElement.innerText;
+            if (curValue == "=" || curValue == "C") {
+                return;
+            }
+
+            results += event.srcElement.innerText;
+            display.innerText = results;
+        }
+
+        function resultcalculate() {
+            calresults = eval(results);
+            if (results == "") {
+                calresults = "0";
+            }
+            display.innerText = calresults;
+        }
+
+        function del() {
+
+            results = "";
+            display.innerText = "0";
+
+        }
+        function show_value(x) {
+            document.getElementById("fodder_level_value").innerHTML = x;
+        }
+        function show_value2(x) {
+            document.getElementById("fodder_sig_value").innerHTML = x;
+        }
+        function show_value3(x) {
+            document.getElementById("fodder_forge_value").innerHTML = x;
+        }
+
+
+    </script>
+
+</head>
+
+<body>
+    <h2 class="title">Input your forge fodder</h2>
+    <form id="fodder_form">
+        Name:
+        <select id="fodder_name">
+            <option>斗士-碾碎器</option>
+            <option>斗士-猩猩队长</option>
+            <option>斗士-钢锁</option>
+            <option>斗士-斗擎</option>
+            <option>斗士-汽车大师</option>
+            <option>斗士-野牛</option>
+            <option>斗士-饿鲨</option>
+            <option>战士-雷震</option>
+            <option>战士-探长</option>
+            <option>战士-碎骨魔</option>
+            <option>战士-漂移</option>
+            <option>战士-阿尔茜</option>
+            <option>战士-热破</option>
+            <option>战士-巨蝎勇士</option>
+            <option>战士-饿鲨</option>
+            <option>侦查-风刃</option>
+            <option>侦查-路障</option>
+            <option>侦查-小黄蜂</option>
+            <option>侦查-横炮</option>
+            <option>侦查-反冲</option>
+            <option>侦查-警车</option>
+            <option>侦查-爵士</option>
+            <option>侦查-黄豹</option>
+            <option>侦查-饿鲨</option>
+            <option>科技-声波</option>
+            <option>科技-震荡波</option>
+            <option>科技-犀牛</option>
+            <option>科技-救护车</option>
+            <option>科技-幻影</option>
+            <option>科技-录音机</option>
+            <option>科技-千斤顶</option>
+            <option>科技-天火</option>
+            <option>科技-饿鲨</option>
+            <option>爆破-爆威</option>
+            <option>爆破-黄蜂</option>
+            <option>爆破-铁皮</option>
+            <option>爆破-喷气机</option>
+            <option>爆破-惊破天</option>
+            <option>爆破-搅拌者</option>
+            <option>爆破-震天尊</option>
+            <option>爆破-饿鲨</option>
+            <option>战术-战威</option>
+            <option>战术-恐龙勇士</option>
+            <option>战术-战擎</option>
+            <option>战术-通天晓</option>
+            <option>战术-红蜘蛛</option>
+            <option>战术-大黄蜂</option>
+            <option>战术-狂飙</option>
+            <option>战术-饿鲨</option>
+        </select><br />
+        Star:
+        <select id="fodder_star">
+            <option>1</option>
+            <option>2</option>
+            <option  selected="true">3</option>
+            <option>4</option>
+        </select><br />
+        Rank:
+        <select id="fodder_rank">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option  selected="true">4</option>
+            <option>5</option>
+        </select><br />
+        <!-- Level: <span id="fodder_level_value" style="color:black;"></span>
+        <br /> -->
+        Level: <input type="number" min="1" max="50" step="1" id="fodder_level" value="1">
+        <br />
+        Sig: <input type="number" min="0" max="100" step="1" id="fodder_sig" value="0">
+        <br />
+        Forge level: <input type="number" min="0" max="100" step="1" id="fodder_forgelevel" value="0">
+        <br />
+        Remaining exp:
+        <input type="number" min="0" id="fodder_remain_exp" value="0"><br />
+        <br />
+
+    </form>
+    <h2 class="title">Input your forge receiver</h2>
+
+    <form id="receiver_form">
+        Name:
+        <select id="receiver_name">
+            <option>斗士-碾碎器</option>
+            <option>斗士-猩猩队长</option>
+            <option>斗士-钢锁</option>
+            <option>斗士-斗擎</option>
+            <option>斗士-汽车大师</option>
+            <option>斗士-野牛</option>
+            <option>斗士-饿鲨</option>
+            <option>战士-雷震</option>
+            <option>战士-探长</option>
+            <option>战士-碎骨魔</option>
+            <option>战士-漂移</option>
+            <option>战士-阿尔茜</option>
+            <option>战士-热破</option>
+            <option>战士-巨蝎勇士</option>
+            <option>战士-饿鲨</option>
+            <option>侦查-风刃</option>
+            <option>侦查-路障</option>
+            <option>侦查-小黄蜂</option>
+            <option>侦查-横炮</option>
+            <option>侦查-反冲</option>
+            <option>侦查-警车</option>
+            <option>侦查-爵士</option>
+            <option>侦查-黄豹</option>
+            <option>侦查-饿鲨</option>
+            <option>科技-声波</option>
+            <option>科技-震荡波</option>
+            <option>科技-犀牛</option>
+            <option>科技-救护车</option>
+            <option>科技-幻影</option>
+            <option>科技-录音机</option>
+            <option>科技-千斤顶</option>
+            <option>科技-天火</option>
+            <option>科技-饿鲨</option>
+            <option>爆破-爆威</option>
+            <option>爆破-黄蜂</option>
+            <option>爆破-铁皮</option>
+            <option>爆破-喷气机</option>
+            <option>爆破-惊破天</option>
+            <option>爆破-搅拌者</option>
+            <option>爆破-震天尊</option>
+            <option>爆破-饿鲨</option>
+            <option>战术-战威</option>
+            <option>战术-恐龙勇士</option>
+            <option>战术-战擎</option>
+            <option>战术-通天晓</option>
+            <option>战术-红蜘蛛</option>
+            <option>战术-大黄蜂</option>
+            <option>战术-狂飙</option>
+            <option>战术-饿鲨</option>
+        </select><br />
+        Star:
+        <select id="receiver_star">
+            <option>3</option>
+            <option>4</option>
+            <option selected="true">5</option>
+        </select><br />
+        Rank:
+        <select id="receiver_rank">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option selected="true">5</option>
+        </select><br />
+        Forge level: <input type="number" min="0" max="100" step="1" id="receiver_forge" value="0">
+        <br />
+        Remaining exp:
+        <input type="number" min="0" id="receiver_remain_exp" value="0"><br />
+        <br />
+        <input type="button" name="confirmAlter" value="Calculate" onclick="check()" />
+
+    </form>
+
+
+
+    <h2 class="title">Forge result</h2><br />
+    <span id="forge_report"></span> <br />
+</body>

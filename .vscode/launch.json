@@ -9,7 +9,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}/forge_calc_1.js"
+            "program": "${workspaceFolder}/raid_store.js"
         },
 
         {

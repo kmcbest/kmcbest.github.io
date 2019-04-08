@@ -300,7 +300,7 @@ function check() {
     if (nFodderLevel > nFodderRank * 10) {
         strReport = `错误：${nFodderRank}阶最大等级为${nFodderRank * 10}！`;
     }
-    if (nFodderStar>nReceiverStar-1){
+    if (nFodderStar > nReceiverStar - 1) {
         strReport = `错误：不能用${nFodderStar}星机器人喂给${nReceiverStar}星！`;
     }
     document.getElementById("forge_report").innerHTML = strReport;
@@ -308,7 +308,7 @@ function check() {
     // console.log(shards);
 }
 
-// console.log(Level_exp(false, 2, 1, 1, 0, 1));
+console.log(Level_exp(false, 2, 1, 1, 0, 1));
 // var new_exp = Level_exp(isShark, 3, 4, 40, 100, 1.0) + Forge_Remain_exp(3, 0, 15, isFodder) + Forge_Remain_exp(5, 0, 0, isBot);
 // console.log(new_exp);
 // var result = Forge_Result(5, new_exp);

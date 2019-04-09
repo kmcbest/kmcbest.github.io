@@ -3,3 +3,15 @@ body {background-color: rgb(223, 223, 223);}
 *{padding: 0px 1% 0px 1% ;}
 p{font-size:12pt}
 h1,h2{text-align:center}
+h4,h5{margin-bottom: -1%}
+
+h3::after {
+    display: inline-block;
+    content: "";
+    border-top: .1rem solid black;
+    width: 12rem;
+    margin: 0 1rem;
+    transform: translateY(-.4rem);
+}
+
+

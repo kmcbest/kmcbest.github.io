@@ -8,7 +8,10 @@
     <title>明天卖啥？</title>
 
     <style>
-        p{padding: 0px 20px 0px 20px ;}
+        p {
+            padding: 0px 20px 0px 20px;
+        }
+
         .tooltip {
             position: relative;
             display: inline-block;
@@ -57,7 +60,6 @@
         .title {
             text-align: center;
         }
-
     </style>
     <script type="text/javascript" src="raid_store.js"></script>
 
@@ -72,7 +74,7 @@
     </script>
     <p id="todayInStore"></p> <br />
     <script type="text/javascript">
-        document.getElementById('todayInStore').innerHTML = '突袭商店商品为：' + getItems(allItems_cn, true);
+        document.getElementById('todayInStore').innerHTML = '突袭商店商品为：' + getItems(allItems_cn, item_prices, true).item;
     </script>
     <p id="tomorrowDate"></p> <br />
     <script type="text/javascript">
@@ -80,7 +82,11 @@
     </script>
     <p id="tomorrowInStore"></p> <br />
     <script type="text/javascript">
-        document.getElementById('tomorrowInStore').innerHTML = '<strong>突袭商店商品为：' + getItems(allItems_cn, false) + '</strong>';
+        document.getElementById('tomorrowInStore').innerHTML = '<strong>突袭商店商品为：' + getItems(allItems_cn, item_prices, false).item + '</strong>';
+    </script>
+    <p id="itemPrice"></p> <br />
+    <script type="text/javascript">
+        document.getElementById('itemPrice').innerHTML = '<strong>总价格为：</strong>' + getItems(allItems_cn, item_prices, false).price + ' = <strong>' + eval(getItems(allItems_cn, item_prices, false).price) / 10000 + ' 万</strong>突袭币';
     </script>
 
 </body>

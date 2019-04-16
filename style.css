@@ -26,8 +26,8 @@ h5 {
     font-size: 11pt;
     border-bottom: 1px dotted rgb(104, 104, 104);
     display: inline-block;
-    padding:0;
-    margin-left:12px;
+    padding: 0;
+    margin-left: 12px;
 }
 
 ul {
@@ -41,4 +41,9 @@ h3::after {
     width: 12rem;
     margin: 0 1rem;
     transform: translateY(-.4rem);
+}
+
+strong {
+    margin: 0;
+    padding: 0;
 }

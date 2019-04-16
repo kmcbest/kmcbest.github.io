@@ -49,5 +49,5 @@ function todayis(isToday) {
         return strTheDate;
     }
 }
-console.log(getItems(allItems_cn, false));
-console.log(todayis(false));
+// console.log(getItems(allItems_cn, false));
+// console.log(todayis(false));

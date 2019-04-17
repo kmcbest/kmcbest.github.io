@@ -49,61 +49,14 @@
 
         * {
             padding: 0;
-            margin: 1px;
-        }
-
-        #calculater {
-            margin: auto;
-            margin-top: 30px;
-            border: solid 6px #2371D3;
-            border-spacing: 0px;
+            margin: 2px;
         }
 
         .title {
             text-align: center;
         }
 
-        #display {
-            width: 100%;
-            height: 30px;
-            border-bottom: solid 4px #2371D3;
-            font-weight: bold;
-            color: #193D83;
-            font-family: 黑体;
-            padding-left: 2px;
-        }
 
-        .numberkey {
-            cursor: pointer;
-            width: 40px;
-            height: 30px;
-            border: solid 1px #FFFFFF;
-            background: #2371d3;
-            color: #FFFFFF;
-            text-align: center;
-            font-weight: bold;
-            font-family: 黑体;
-        }
-
-        #equality {
-            cursor: pointer;
-            width: 40px;
-            height: 100%;
-            background: #2371d3;
-            border: solid 1px #FFFFFF;
-            color: #FFFFFF;
-            text-align: center;
-            font-weight: bold;
-            font-family: 黑体;
-        }
-
-        .numberkey:hover {
-            background: #EA6F30;
-        }
-
-        #equality:hover {
-            background: #EA6F30;
-        }
     </style>
     <script type="text/javascript" src="forge_calc_cn.js"></script>
     <script>
@@ -283,6 +236,11 @@
 
     <h2 class="title">锻造结果</h2><br />
     <span id="forge_report"></span> <br />
+    <h2 class="title">锻造小贴士</h2><br />
+    <p id="ftip"></p> <br />
+    <script type="text/javascript">
+        document.getElementById('ftip').innerHTML = getTip();
+    </script>
 </body>
 
 </html>

@@ -182,6 +182,7 @@ function spinCrystal(crystalType, crystalNumber) {
 function showBots() {
     var crystalType = document.getElementById("crystal_type").value;
     var crsytalString;
+    var nCrystals=10;
     var botString = "", currentBot = "";
     if (crystalType.indexOf("高等") > 0) {
         crsytalString = 'PBC';
@@ -198,9 +199,10 @@ function showBots() {
     }
     if (crystalType.indexOf("5星水晶") > 0) {
         crsytalString = 'Five Star';
+        nCrystals = 1;
     }
 
-    var spinResult = spinCrystal(crsytalString, 10);
+    var spinResult = spinCrystal(crsytalString, nCrystals);
     // console.log(spinResult.botStar + '星' + spinResult.bot);
     // console.log(spinResult.length);
 

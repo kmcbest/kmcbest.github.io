@@ -147,7 +147,10 @@ function spinCrystal(crystalType, crystalNumber) {
                         break;
                 }
                 break;
-
+            case 'Five Star':
+                botStar = 5;
+                poppedBot = getBot(5);
+                break;
             default:
                 break;
         }
@@ -192,6 +195,9 @@ function showBots() {
     }
     if (crystalType.indexOf("乖巧") > 0) {
         crsytalString = 'Good as Gold';
+    }
+    if (crystalType.indexOf("5星水晶") > 0) {
+        crsytalString = 'Five Star';
     }
 
     var spinResult = spinCrystal(crsytalString, 10);

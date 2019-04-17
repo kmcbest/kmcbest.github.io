@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>百炼为战开水晶模拟器</title>
+
+    <style>
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        * {
+            padding: 0;
+            margin: 2px;
+        }
+
+        .title,
+        input,
+        span,
+        form {
+            text-align: center;
+        }
+    </style>
+    <script type="text/javascript" src="crystal_popping.js"></script>
+    <script>
+        var results = "";
+        var calresults = "";
+
+
+
+    </script>
+
+</head>
+
+<body>
+    <h2 class="title">试试手气？</h2>
+    <br />
+    <form id="crystal_form">
+        请选择你要开启的水晶类型：
+        <select id="crystal_type">
+            <option>10个高等机器人水晶</option>
+            <option>10个3~5星土豪水晶</option>
+            <option>10个金轮水晶（含5星大/小黄蜂）</option>
+            <option>10个乖巧水晶（含4星大/小黄蜂）</option>
+        </select><br />
+    </form>
+    <br />
+    <div style="text-align:center;">
+        <input type="button" name="confirmAlter" value="开！" onclick="showBots()" />
+    </div>
+    <h2 class="title">结果</h2><br />
+    <div style="text-align: center;">
+        <span id="crystal_report"></span><br />
+    </div>
+</body>
+
+</html>

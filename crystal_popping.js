@@ -44,8 +44,8 @@ function spinCrystal(crystalType, crystalNumber) {
     var botType, botStar, poppedBot;
     var spec_pbc = { 0: 0.01, 1: 0.26, 2: 0.73 }; // 4, 3, 2 star
     var spec_monthly = { 0: 0.015, 1: 0.135, 2: 0.85 }; // 5, 4, 3 star
-    var spec_wheel = { 0: 0.01, 1: 0.02, 2: 0.02, 3: 0.14, 4: 0.84 };  // 5 Bee, 4 Bee, 5, 4, 3, star
-    var spec_gag = { 0: 0.0075, 1: 0.0551, 2: 0.015, 3: 0.26, 4: 0.725 }; // 4 Bee, 3 Bee, 4, 3, 2 star
+    var spec_wheel = { 0: 0.01, 1: 0.02, 2: 0.01, 3: 0.12, 4: 0.84 };  // 5 Bee, 4 Bee, 5, 4, 3, star
+    var spec_gag = { 0: 0.0075, 1: 0.0551, 2: 0.0075, 3: 0.2049, 4: 0.725 }; // 4 Bee, 3 Bee, 4, 3, 2 star
     var botArray5 = new Array();
     var botArray4 = new Array();
     var botArray3 = new Array();

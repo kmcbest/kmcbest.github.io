@@ -60,13 +60,7 @@
         }
     </style>
     <script type="text/javascript" src="crystal_popping.js"></script>
-    <script>
-        var results = "";
-        var calresults = "";
-
-
-
-    </script>
+    <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
 
 </head>
 
@@ -91,6 +85,17 @@
     <div style="text-align: center;">
         <span id="crystal_report"></span><br />
     </div>
+    <p id="clientip"></p> <br />
+    <script type="text/javascript">
+        $.getJSON('https://api.ipify.org?format=json', function (data) {
+            var el=document.getElementById('clientip');
+            var ips = data.ip;
+            var ipSections = ips.split(".",2);
+            el.innerHTML = '你的IP是：' + ipSections[0] + '.' + ipSections[1] + '.*.*';
+
+        });
+    </script>
+
 </body>
 
 </html>

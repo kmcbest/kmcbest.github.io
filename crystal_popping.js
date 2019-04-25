@@ -1,5 +1,8 @@
 'use strict';
 
+
+
+
 function getBot(nStar) {
     var theBot;
     var list2 = ['碾碎器', '钢锁', '斗擎', '汽车大师', '雷震', '碎骨魔', '阿尔茜', '风刃', '路障', '横炮', '犀牛', '救护车', '幻影', '铁皮', '搅拌者', '战擎', '大黄蜂'];
@@ -182,7 +185,7 @@ function spinCrystal(crystalType, crystalNumber) {
 function showBots() {
     var crystalType = document.getElementById("crystal_type").value;
     var crsytalString;
-    var nCrystals=10;
+    var nCrystals = 10;
     var botString = "", currentBot = "";
     if (crystalType.indexOf("高等") > 0) {
         crsytalString = 'PBC';
@@ -215,4 +218,30 @@ function showBots() {
     }
     document.getElementById("crystal_report").innerHTML = botString;
 }
+
+// $.getJSON('//freegeoip.net/json/?callback=?', function (data) {
+//     console.log(JSON.stringify(data, null, 2));
+// });
+
+// function myIP() {
+//     if (window.XMLHttpRequest) xmlhttp = new XMLHttpRequest();
+//     else 
+//     xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+//     xmlhttp.open("GET", " http://api.hostip.info/get_html.php ", false);
+//     xmlhttp.send();
+
+//     hostipInfo = xmlhttp.responseText.split("n");
+
+//     for (i = 0; hostipInfo.length >= i; i++) {
+//         ipAddress = hostipInfo[i].split(":");
+//         if (ipAddress[0] == "IP") return ipAddress[1];
+//     }
+
+//     return false;
+// }
+
+// console.log(myIP());
+
+
 

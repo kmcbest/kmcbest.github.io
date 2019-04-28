@@ -180,7 +180,6 @@ function spinCrystal(crystalType, crystalNumber) {
 
     return [botArray5, botArray4, botArray3, botArray2];
 }
-// console.log(getBot(5));
 
 function showBots() {
     var crystalType = document.getElementById("crystal_type").value;
@@ -219,29 +218,7 @@ function showBots() {
     document.getElementById("crystal_report").innerHTML = botString;
 }
 
-// $.getJSON('//freegeoip.net/json/?callback=?', function (data) {
-//     console.log(JSON.stringify(data, null, 2));
-// });
 
-// function myIP() {
-//     if (window.XMLHttpRequest) xmlhttp = new XMLHttpRequest();
-//     else 
-//     xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-
-//     xmlhttp.open("GET", " http://api.hostip.info/get_html.php ", false);
-//     xmlhttp.send();
-
-//     hostipInfo = xmlhttp.responseText.split("n");
-
-//     for (i = 0; hostipInfo.length >= i; i++) {
-//         ipAddress = hostipInfo[i].split(":");
-//         if (ipAddress[0] == "IP") return ipAddress[1];
-//     }
-
-//     return false;
-// }
-
-// console.log(myIP());
 
 
 

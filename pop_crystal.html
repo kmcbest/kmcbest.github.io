@@ -88,7 +88,7 @@
     <p id="clientip"></p> <br />
     <script type="text/javascript">
         $.getJSON('https://api.ipify.org?format=json', function (data) {
-            var el=document.getElementById('clientip');
+            var el=document.getElementById('clientip');                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
             var ips = data.ip;
             var ipSections = ips.split(".",2);
             el.innerHTML = '你的IP是：' + ipSections[0] + '.' + ipSections[1] + '.*.*';

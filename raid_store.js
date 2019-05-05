@@ -14,7 +14,11 @@ function getItems(items, prices, isToday) {
     var startTime = new Date('4/8/2019');
     var today = new Date();
     var timeDiff = today.getTime() - startTime;
+    console.log(timeDiff);
+
     var daysBetween = Math.floor(timeDiff / one_day) % 28;
+    console.log(daysBetween);
+
     var item_and_price = {};
     if (isToday === true) {
         item_and_price.item = items[daysBetween];
@@ -22,8 +26,8 @@ function getItems(items, prices, isToday) {
         return item_and_price;
     }
     else {
-        item_and_price.item = items[daysBetween + 1];
-        item_and_price.price = prices[daysBetween + 1];
+        item_and_price.item = items[(daysBetween + 1) % 28];
+        item_and_price.price = prices[(daysBetween + 1) % 28];
         return item_and_price;
     }
 }

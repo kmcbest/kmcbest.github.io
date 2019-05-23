@@ -67,6 +67,8 @@
 <body>
     <h2 class="title">试试手气？</h2>
     <br />
+    <p id="clientip"></p>
+    <p id="nCrystal"></p>
     <form id="crystal_form">
         请选择你要开启的水晶类型：
         <select id="crystal_type">
@@ -75,22 +77,24 @@
             <option>1个5星水晶</option>
             <option>10个金轮水晶（含5星大/小黄蜂）</option>
             <option>10个乖巧水晶（含4星大/小黄蜂）</option>
+            <option>10个三阶骑士水晶2.0</option>
+            <option>1个四阶骑士水晶</option>
         </select><br />
     </form>
     <br />
     <div style="text-align:center;">
         <input type="button" name="confirmAlter" value="开！" onclick="showBots()" />
     </div>
+
     <h2 class="title">结果</h2><br />
     <div style="text-align: center;">
         <span id="crystal_report"></span><br />
     </div>
-    <p id="clientip"></p> <br />
     <script type="text/javascript">
         $.getJSON('https://api.ipify.org?format=json', function (data) {
-            var el=document.getElementById('clientip');                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+            var el = document.getElementById('clientip');
             var ips = data.ip;
-            var ipSections = ips.split(".",2);
+            var ipSections = ips.split(".", 2);
             el.innerHTML = '你的IP是：' + ipSections[0] + '.' + ipSections[1] + '.*.*';
 
         });

@@ -8,6 +8,11 @@
     <title>百炼为战开水晶模拟器</title>
 
     <style>
+        textarea {
+            width: 30%;
+            height: 200px;
+        }
+
         .tooltip {
             position: relative;
             display: inline-block;
@@ -68,7 +73,6 @@
     <h2 class="title">试试手气？</h2>
     <br />
     <p id="clientip"></p>
-    <p id="nCrystal"></p>
     <form id="crystal_form">
         请选择你要开启的水晶类型：
         <select id="crystal_type">
@@ -99,7 +103,8 @@
 
         });
     </script>
-
+    <p id="nCrystal"></p>
+    <textarea id="complete_report"></textarea>
 </body>
 
 </html>

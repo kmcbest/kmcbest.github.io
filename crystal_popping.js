@@ -1,7 +1,7 @@
 'use strict';
 var totalCrystals = 0;
 
-
+var allRewards = new Array();
 
 function getBot(strType) {
     var theBot;
@@ -10,7 +10,7 @@ function getBot(strType) {
     var list4 = ['碾碎器', '猩猩队长', '钢锁', '斗擎', '汽车大师', '野牛', '雷震', '探长', '碎骨魔', '漂移', '阿尔茜', '热破', '巨蝎勇士', '风刃', '路障', '横炮', '反冲', '警车', '爵士', '黄豹', '声波', '震荡波', '犀牛', '救护车', '幻影', '录音机', '千斤顶', '爆威', '黄蜂勇士', '铁皮', '喷气机', '惊破天', '搅拌者', '震天尊', '战威', '恐龙勇士', '战擎', '通天晓', '红蜘蛛', '狂飙'];
     var list5 = ['碾碎器', '猩猩队长', '钢锁', '斗擎', '碎骨魔', '漂移', '阿尔茜', '热破', '路障', '反冲', '警车', '黄豹', '声波', '震荡波', '犀牛', '幻影', '爆威', '黄蜂勇士', '惊破天', '搅拌者', '战威', '恐龙勇士', '通天晓', '红蜘蛛'];
     var listBee = ['大黄蜂', '小黄蜂'];
-    var listClassSpark = ['T3斗士火种','T3战士火种','T3侦查火种','T3科技火种','T3爆破火种','T3战术火种'];
+    var listClassSpark = ['T3斗士火种', 'T3战士火种', 'T3侦查火种', 'T3科技火种', 'T3爆破火种', 'T3战术火种'];
     // console.log(nStar);
     // var listT1A = ['T1阿尔法火种'];
     // var listT2A = ['T2阿尔法火种'];
@@ -24,25 +24,25 @@ function getBot(strType) {
 
     switch (strType) {
         case '2 star':
-            theBot = list2[Math.floor(Math.random() * list2.length)]
+            theBot = list2[Math.floor(Math.random() * list2.length)];
             break;
         case '3 star':
-            theBot = list3[Math.floor(Math.random() * list3.length)]
+            theBot = list3[Math.floor(Math.random() * list3.length)];
             break;
         case '4 star':
-            theBot = list4[Math.floor(Math.random() * list4.length)]
+            theBot = list4[Math.floor(Math.random() * list4.length)];
             break;
         case '5 star':
-            theBot = list5[Math.floor(Math.random() * list5.length)]
+            theBot = list5[Math.floor(Math.random() * list5.length)];
             break;
         case 'Bee':
-            theBot = listBee[Math.floor(Math.random() * listBee.length)]
+            theBot = listBee[Math.floor(Math.random() * listBee.length)];
             break;
         case 'Mods':
-            theBot = listMods[Math.floor(Math.random() * listMods.length)]
+            theBot = listMods[Math.floor(Math.random() * listMods.length)];
             break;
         case 't3c':
-            theBot = listClassSpark[Math.floor(Math.random() * listClassSpark.length)]
+            theBot = listClassSpark[Math.floor(Math.random() * listClassSpark.length)];
             break;
         default:
             break;
@@ -174,8 +174,8 @@ function spinCrystal(crystalType, crystalNumber) {
                 break;
             case 'T3 Knight':
                 botType = weightedRand(spec_t3k);
-                console.log('here goes: ' + botType);
-                
+                // console.log('here goes: ' + botType);
+
                 switch (botType) {
                     case '0':
                         botStar = 4;
@@ -255,22 +255,22 @@ function spinCrystal(crystalType, crystalNumber) {
         // console.log(poppedBot);
         switch (botStar) {
             case 5:
-                botArray5.push({ botStar: botStar +'星 - ', bot: poppedBot });
+                botArray5.push({ botStar: botStar + '星', bot: poppedBot });
                 break;
             case 4:
-                botArray4.push({ botStar: botStar +'星 - ', bot: poppedBot });
+                botArray4.push({ botStar: botStar + '星', bot: poppedBot });
                 break;
             case 3:
-                botArray3.push({ botStar: botStar +'星 - ', bot: poppedBot });
+                botArray3.push({ botStar: botStar + '星', bot: poppedBot });
                 break;
             case 2:
-                botArray2.push({ botStar: botStar +'星 - ', bot: poppedBot });
+                botArray2.push({ botStar: botStar + '星', bot: poppedBot });
                 break;
             case '4m':
-                modArray4.push({ botStar: '4星 - ', bot: poppedBot });
+                modArray4.push({ botStar: '4星', bot: poppedBot });
                 break;
             case '3m':
-                modArray3.push({ botStar: '3星 - ', bot: poppedBot });
+                modArray3.push({ botStar: '3星', bot: poppedBot });
                 break;
             case 'others':
                 goodiesArray.push({ botStar: '', bot: poppedBot });
@@ -288,7 +288,7 @@ function showBots() {
     var crystalType = document.getElementById("crystal_type").value;
     var crsytalString;
     var nCrystals = 10;
-    var botString = "", currentBot = "";
+    var botString = "", currentBot = "", complete_report = "";
     if (crystalType.indexOf("高等") > 0) {
         crsytalString = 'PBC';
     }
@@ -318,11 +318,12 @@ function showBots() {
     var spinResult = spinCrystal(crsytalString, nCrystals);
     // console.log(spinResult.botStar + '星' + spinResult.bot);
     // console.log(spinResult.length);
-
+ 
     for (let index = 0; index < spinResult.length; index++) {
         // console.log(spinResult[index].length);
         for (let jndex = 0; jndex < spinResult[index].length; jndex++) {
             currentBot = spinResult[index][jndex].botStar + spinResult[index][jndex].bot;
+            allRewards.push(currentBot)
             botString = botString + currentBot + '<br />';
         }
     }
@@ -331,6 +332,19 @@ function showBots() {
     totalCrystals += nCrystals;
     document.getElementById("nCrystal").innerHTML = '累计已开 <font color="red">' + totalCrystals + '</font> 个水晶';
 
+    allRewards.sort();
+    allRewards.reverse();
+    let counts = {};
+    allRewards.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
+    // var keynames = Object.keys(counts)
+    // console.log(keynames);
+
+    for (var name in counts) {
+        let dummyTag = "";
+        dummyTag += "(" + counts[name] + ")" + name + "\n";
+        complete_report += dummyTag;
+    }
+    document.getElementById("complete_report").value = '累计获得：\n'+ complete_report;
 }
 
 

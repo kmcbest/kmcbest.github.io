@@ -7,12 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>百炼为战锻造计算器</title>
 
-<!--     <style>
+    <style>
         body {
             margin-left: 5%;
             margin-right: 5%;
         }
-
         .tooltip {
             position: relative;
             display: inline-block;
@@ -60,69 +59,14 @@
         .title {
             text-align: center;
         }
-    </style> -->
-    <link href="https://cdn.bootcss.com/jquery/1.10.1/themes/base/jquery.ui.all.min.css" rel="stylesheet">
+    </style>
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
     <script type="text/javascript" src="forge_calc_cn.js"></script>
     <script>
         var results = "";
         var calresults = "";
     </script>
-    <script>
-        $(function () {
-            $(document).tooltip();
-        });
-    </script>
-    <style>
-        label {
-            display: inline-block;
-            width: 5em;
-        }
-    </style>
-    <style>
-        #tooltip {
-            text-align: center;
-            color: #fff;
-            background: #111;
-            position: absolute;
-            z-index: 100;
-            padding: 15px;
-        }
 
-        #tooltip:after
-
-        /* triangle decoration */
-            {
-            width: 0;
-            height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-top: 10px solid #111;
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: -10px;
-            margin-left: -10px;
-        }
-
-        #tooltip.top:after {
-            border-top-color: transparent;
-            border-bottom: 10px solid #111;
-            top: -20px;
-            bottom: auto;
-        }
-
-        #tooltip.left:after {
-            left: 10px;
-            margin: 0;
-        }
-
-        #tooltip.right:after {
-            right: 10px;
-            left: auto;
-            margin: 0;
-        }
-    </style>
 </head>
 
 <body>
@@ -200,16 +144,12 @@
         级： <input type="number" min="1" max="50" step="1" id="fodder_level" value="1">
         <br />
         招牌等级： <input type="number" min="0" max="100" step="1" id="fodder_sig" value="0">
-        <a href="#" title="（官方bug）狗粮锻造等级超过75，和75级的经验是一样的">锻造等级</a>：
-        <input type="number" min="0" max="100" step="1" id="fodder_forgelevel" value="0">
+        锻造等级： <input type="number" min="0" max="100" step="1" id="fodder_forgelevel" value="0">
         <br />
-        <a href="#" title="锻造时不满一级时剩余的经验">剩余经验</a>
-        <input type="number" min="0" id="fodder_remain_exp" value="0"><br />
-
-        <!--         <div class="tooltip">剩余经验（这是什么？）
+        <div class="tooltip">剩余经验（这是什么？）
             <span class="tooltiptext">锻造时不满一级时剩余的经验</span>
-        </div> -->
-
+        </div>
+        <input type="number" min="0" id="fodder_remain_exp" value="0"><br />
         黄金/矿比例：
         <select id="gold_coeff">
             <option selected="true">0.9787（混用两类矿的平均值）</option>

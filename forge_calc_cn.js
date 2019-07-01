@@ -4,6 +4,8 @@ var isBot = false;
 var isFodder = true;
 window.forgeResult = {};
 window.totalForges = 1;
+window.totalGold = 0;
+window.totalSparks = {};
 function Level_exp(isShark, nStar, nRank, nLevel, nSig, fBonus) {
     var nExp = 0;
     if (isShark === true) {
@@ -191,7 +193,7 @@ function Level_exp(isShark, nStar, nRank, nLevel, nSig, fBonus) {
 
 
 function getTip() {
-    var forge_tips = ['狗粮与接受锻造者同类别，经验加成10%，同人物加成20%。', '招牌产生的经验是恒定的，不享受同类别/同人物加成。', '锻造狗粮自身已有的锻造经验，不享受同类别/同人物加成。', '招牌程序给饿鲨，产生的经验翻倍。', '一个2/3/4星招牌的经验分别为：31/220/1100点（普通机器人），62/440/2200点（饿鲨）。', '如果火种足够，4星狗粮宁可升级到5阶50级也比4阶40级节省黄金。', '锻造，就是花费大量黄金、矿和火种换取少量战力的过程。', '锻造除了提升攻击和血量外，还会提升类别克制的百分比，最高为167%，即我方加攻67%，对方减攻67%。', '机器人可以在任何时段锻造，但因为锻造提升战力较满，建议先升级/升阶，再锻造。', '解锁100锻造也称开放锻造上限，方法是吃掉一个低一星的同人物，例如5星警车吃掉4星警车，才能锻造到100级，否则只能75级。', '（官方bug）锻造狗粮自身锻造等级超过75级后，被吃掉时会产生锻造亏损，建议纯狗粮不要进行深度锻造。', '饿鲨产生的锻造经验比普通机器人高，但是一定要升到本阶满，例如2阶20级，4阶40级，这时经验大约是同类别普通机器人的1.5倍。但如果只升到2阶1级，那锻造经验是相等的。 ', '招牌程序给饿鲨，锻造经验翻倍，但得到的碎片只是饿鲨碎片。', '矿13的阶数越高，使用时花费的黄金越多。', '升级时使用基础矿的平均黄金/经验比为1.049，使用类别矿为0.907。', '狗粮星等越高，越省黄金。', '一个招牌带来的经验与碎片，换算成黄金价值为3.1万（三星招牌）和8.9万（四星招牌）。', '锻造狗粮消耗掉也不会返还升级用的火种：不要为了锻造低星狗粮耽误了高星机器人的升级。', '锻造快满100级时要小心溢出，预览可能显示101级或更多，但其实到不了，多余的材料都浪费。', '狗粮自身的锻造经验会得到传承，但是第0级的经验会亏损，3星狗粮亏42点，4星亏254点。'];
+    var forge_tips = ['狗粮与接受锻造者同类别，经验加成10%，同人物加成20%。', '招牌产生的经验是恒定的，不享受同类别/同人物加成。', '锻造狗粮自身已有的锻造经验，不享受同类别/同人物加成。', '招牌程序给饿鲨，产生的经验翻倍。', '一个2/3/4星招牌的经验分别为：31/220/1100点（普通机器人），62/440/2200点（饿鲨）。', '如果火种足够，4星狗粮宁可升级到5阶50级也比4阶40级节省黄金。', '锻造，就是花费大量黄金、矿和火种换取少量战力的过程。', '锻造除了提升攻击和血量外，还会提升类别克制的百分比，最高为167%，即我方加攻67%，对方减攻67%。', '机器人可以在任何时段锻造，但因为锻造提升战力较慢，建议先升级/升阶，再锻造。', '解锁100锻造也称开放锻造上限，方法是吃掉一个低一星的同人物，例如5星警车吃掉4星警车，才能锻造到100级，否则只能75级。', '（官方bug）锻造狗粮自身锻造等级超过75级后，被吃掉时会产生锻造亏损，建议纯狗粮不要进行深度锻造。', '饿鲨产生的锻造经验比普通机器人高，但是一定要升到本阶满，例如2阶20级，4阶40级，这时经验大约是同类别普通机器人的1.5倍。但如果只升到2阶1级，那锻造经验是相等的。 ', '招牌程序给饿鲨，锻造经验翻倍，但得到的碎片只是饿鲨碎片。', '矿13的阶数越高，使用时花费的黄金越多。', '升级时使用基础矿的平均黄金/经验比为1.049，使用类别矿为0.907。', '狗粮星等越高，越省黄金。', '一个招牌带来的经验与碎片，换算成黄金价值为3.1万（三星招牌）和8.9万（四星招牌）。', '锻造狗粮消耗掉也不会返还升级用的火种：不要为了锻造低星狗粮耽误了高星机器人的升级。', '锻造快满100级时要小心溢出，预览可能显示101级或更多，但其实到不了，多余的材料都浪费。', '狗粮自身的锻造经验会得到传承，但是第0级的经验会亏损，3星狗粮亏42点，4星亏254点。'];
     var tipNumber = Math.floor(Math.random() * forge_tips.length);
     return '（' + (tipNumber + 1).toString() + '）' + forge_tips[tipNumber];
 
@@ -209,13 +211,15 @@ function Forge_Remain_exp(nTier, nForge, nRemain, isFodder) {
     }
     return nExp;
 }
+
 function Forge_Result(nTier, nExp) {
     var nLevel = 0;
     var currentExp = 0;
     if (nExp < fd[nTier - 2].pts[0]) {
         var result = {
             targetLevel: 0,
-            remainingExp: nExp
+            remainingExp: nExp,
+            expToMax: fd[nTier - 2].cumul[100] - nExp,
         };
     }
     else {
@@ -226,7 +230,8 @@ function Forge_Result(nTier, nExp) {
         }
         var result = {
             targetLevel: nLevel,
-            remainingExp: nExp - fd[nTier - 2].cumul[nLevel - 1]
+            remainingExp: nExp - fd[nTier - 2].cumul[nLevel - 1],
+            expToMax: fd[nTier - 2].cumul[100] - nExp,
         };
     }
     return result;
@@ -248,10 +253,8 @@ function Forge_shards(isShark, nTier, nRank, nLevel, nSig) {
                 }
             }
         }
-
     } else {
         nShards = (2 * nTier * nTier - 10 * nTier + 13) * (7.5 * nRank * nRank - 12.5 * nRank + 25 + 1 * nLevel + 11 * nSig);
-
     }
     return nShards;
 }
@@ -281,45 +284,47 @@ function check() {
         strBonus = `（享受同人物加成${bonus}）`;
     }
 
+    $(document).ready(function () {
+        $.getJSON("https://kmcbest.github.io/forgeData.json", function (data, textStatus, jqXHR) {
+            // var forgeData = JSON.parse(data);
+            var nFodderStar = Number($("#fodder_star").val());
+            var nFodderRank = Number($("#fodder_rank").val());
+            var nFodderLevel = Number($("#fodder_level").val());
+            var nFodderSig = Number($("#fodder_sig").val());
+            var nFodderForge = Number($("#fodder_forgelevel").val());
+            var nFodderRemainExp = Number($("#fodder_remain_exp").val());
+            var nReceiverStar = Number($("#receiver_star").val());
+            var nReceiverForge = Number($("#receiver_forge").val());
+            var nReceiverRemain = Number($("#receiver_remain_exp").val());
 
-    var nFodderStar = Number(document.getElementById("fodder_star").value);
-    var nFodderRank = Number(document.getElementById("fodder_rank").value);
-    var nFodderLevel = Number(document.getElementById("fodder_level").value);
+            if (nFodderRank > nFodderStar + 1) {
+                strReport = `错误：${nFodderStar}星机器人不可能达到${nFodderRank}阶！`;
+            } else if (nFodderLevel > nFodderRank * 10) {
+                strReport = `错误：${nFodderRank}阶最大等级为${nFodderRank * 10}！`;
+            } else if (nFodderStar > nReceiverStar - 1) {
+                strReport = `错误：不能用${nFodderStar}星机器人喂给${nReceiverStar}星！`;
+            } else {
+                var fodderFinalExp = Level_exp(isShark, nFodderStar, nFodderRank, nFodderLevel, nFodderSig, bonus) + Forge_Remain_exp(nFodderStar, nFodderForge, nFodderRemainExp, isFodder);
+                var receiverInitialExp = Forge_Remain_exp(nReceiverStar, nReceiverForge, nReceiverRemain, isBot);
+                var new_exp = receiverInitialExp + fodderFinalExp;
+                var result = Forge_Result(nReceiverStar, new_exp);
+                // console.log(forgeResult.length);
 
-    var nFodderSig = Number(document.getElementById("fodder_sig").value);
-    var nFodderForge = Number(document.getElementById("fodder_forgelevel").value);
-    var nFodderRemainExp = Number(document.getElementById("fodder_remain_exp").value);
+                window.forgeResult = result;
+                // console.log(window.forgeResult.remainingExp);
+                var sparks = calcSparks(nFodderStar, nFodderRank, data);
+                var gold = Math.floor(calcGold(nFodderStar, nFodderRank, nFodderLevel, data));
+                // $("#fodder_resource").html("Gold: " + d.toString() + "<br> Sparks:" + JSON.stringify(c));
 
-    var nReceiverStar = Number(document.getElementById("receiver_star").value);
-    var nReceiverForge = Number(document.getElementById("receiver_forge").value);
-    var nReceiverRemain = Number(document.getElementById("receiver_remain_exp").value);
+                var shards = Forge_shards(isShark, nFodderStar, nFodderRank, nFodderLevel, nFodderSig);
+                strReport = `### 第${window.totalForges}次锻造 ###<br />锻造狗粮<strong>${nFodderStar}星${nFodderName}</strong>产生${fodderFinalExp}点经验${strBonus}<br />接受锻造者<strong>${nReceiverStar}星${nReceiverName}</strong>初始锻造经验为：${receiverInitialExp}</br>最终总经验为：${new_exp}<br />锻造后<strong>${nReceiverStar}星${nReceiverName}</strong>变为<strong>锻造等级：${result.targetLevel}，剩余经验：${result.remainingExp}</strong><br />碎片奖励：${nFodderStar + 1}星${strShark} ${shards}。<br />当前狗粮<strong>${nFodderStar}星${nFodderName}</strong>升级花费：<font color="red">黄金${gold}，火种${sparks}</font><br />离锻造满级还差${result.expToMax}点经验，还需要<font color="blue">${Math.ceil(result.expToMax / fodderFinalExp)}</font>只这样的狗粮。`
+            }
 
-    // alert(Level_exp(isShark,nFodderStar,nFodderRank,nFodderLevel, nFodderSig, bonus));
-    // var result=Level_exp(false,nFodderStar,nFodderRank,nFodderLevel, nFodderSig, bonus);
-    // console.log(Level_exp(isShark, nFodderStar, nFodderRank, nFodderLevel, nFodderSig, 1));
-    var fodderFinalExp = Level_exp(isShark, nFodderStar, nFodderRank, nFodderLevel, nFodderSig, bonus) + Forge_Remain_exp(nFodderStar, nFodderForge, nFodderRemainExp, isFodder);
-    var receiverInitialExp = Forge_Remain_exp(nReceiverStar, nReceiverForge, nReceiverRemain, isBot);
-    var new_exp = receiverInitialExp + fodderFinalExp;
-    var result = Forge_Result(nReceiverStar, new_exp);
-    // console.log(forgeResult.length);
-    
-    window.forgeResult = result;
-    // console.log(window.forgeResult.remainingExp);
-    
-    var shards = Forge_shards(isShark, nFodderStar, nFodderRank, nFodderLevel, nFodderSig);
-    strReport = `第${window.totalForges}次锻造<br />接受锻造者<strong>${nReceiverStar}星${nReceiverName}</strong>初始锻造经验为：${receiverInitialExp}<br />锻造狗粮<strong>${nFodderStar}星${nFodderName}</strong>产生${fodderFinalExp}点经验${strBonus}，最终总经验为：${new_exp}<br />接受锻造者变为<br />锻造等级：${result.targetLevel}<br />剩余经验：${result.remainingExp}<br />碎片奖励：${shards} ${nFodderStar + 1}星${strShark}。`
-    if (nFodderRank > nFodderStar + 1) {
-        strReport = `错误：${nFodderStar}星机器人不可能达到${nFodderRank}阶！`;//
-    }
-    if (nFodderLevel > nFodderRank * 10) {
-        strReport = `错误：${nFodderRank}阶最大等级为${nFodderRank * 10}！`;
-    }
-    if (nFodderStar > nReceiverStar - 1) {
-        strReport = `错误：不能用${nFodderStar}星机器人喂给${nReceiverStar}星！`;
-    }
-    document.getElementById("forge_report").innerHTML = strReport;
-    // console.log(Level_exp(isShark, nFodderStar, nFodderRank, nFodderLevel, nFodderSig, 1));
-    // console.log(shards);
+            $("#forge_report").html(strReport);
+
+        });
+    });
+
 }
 function copyResult() {
     var nReceiverForge;
@@ -332,19 +337,79 @@ function copyResult() {
         nReceiverForge = 0;
         nReceiverRemain = 0;
     }
-    
+
     document.getElementById("receiver_forge").value = nReceiverForge;
     document.getElementById("receiver_remain_exp").value = nReceiverRemain;
     window.totalForges += 1;
 }
-// console.log(Level_exp(false, 2, 1, 1, 0, 1));
-// var new_exp = Level_exp(isShark, 3, 4, 40, 100, 1.0) + Forge_Remain_exp(3, 0, 15, isFodder) + Forge_Remain_exp(5, 0, 0, isBot);
-// console.log(new_exp);
-// var result = Forge_Result(5, new_exp);
-
-// console.log('Final level: ' + result.targeLevel);
-// console.log('Remaining Exp: ' + result.remainingExp);
 
 
 
+// var currentCoeff = 0.978735143;
+function mergeProperty(obj1, obj2) {
+    for (var k in obj2) {
+        if (k in obj1) {
+            obj1[k] += obj2[k];
+        } else {
+            obj1[k] = obj2[k];
+        }
+    }
+}
+
+function calcGold(botStar, botRank, botLevel, forgeData) {
+    var totalGold = 0;
+    var coeffString = document.getElementById("gold_coeff").value;
+    var coeffArray = coeffString.split('（')
+    var currentCoeff = Number(coeffArray[0]);
+    for (let i = 1; i <= botRank; i++) {
+        if (i < botRank) {
+            var finalLevel = forgeData[botStar.toString()][i.toString()].cost.length;
+        } else {
+            var finalLevel = botLevel;
+        }
+        for (let j = 0; j < finalLevel; j++) {
+            if (forgeData[botStar.toString()][i.toString()].coeff[j] == 1) {
+                totalGold += forgeData[botStar.toString()][i.toString()].cost[j] * forgeData[botStar.toString()][i.toString()].coeff[j];
+            } else {
+                totalGold += forgeData[botStar.toString()][i.toString()].cost[j] * eval(forgeData[botStar.toString()][i.toString()].coeff[j]);
+            }
+        }
+    }
+    return totalGold;
+}
+
+function calcSparks(botStar, botRank, forgeData) {
+    var finalSparks = {};
+    var strReport = "";
+    for (let i = 1; i <= botRank; i++) {
+        mergeProperty(finalSparks, forgeData[botStar.toString()][i.toString()].sparks);
+    }
+    for (var k in finalSparks) {
+        strReport += k + "*" + finalSparks[k] + " ";
+    }
+    return strReport;
+}
+
+
+function calcResource() {
+    $(document).ready(function () {
+        $.getJSON("https://kmcbest.github.io/forgeData.json", function (data, textStatus, jqXHR) {
+            // var forgeData = JSON.parse(data);
+            var nFodderStar = Number($("#fodder_star").val());
+            var nFodderRank = Number($("#fodder_rank").val());
+            var nFodderLevel = Number($("#fodder_level").val());
+            var c = calcSparks(nFodderStar, nFodderRank, data);
+            var d = Math.floor(calcGold(nFodderStar, nFodderRank, nFodderLevel, data));
+            $("#fodder_resource").html("Gold: " + d.toString() + "<br> Sparks:" + JSON.stringify(c));
+            // $("#result").html(JSON.stringify(c));
+            // console.log(c);
+        });
+    });
+}
+// $(document).ready(function () {
+//     $("#fodder_rank, #fodder_level, #fodder_star").change(function (e) {
+//         e.preventDefault();
+//         calcResource();
+//     });
+// });
 

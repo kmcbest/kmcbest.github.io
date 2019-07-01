@@ -55,16 +55,12 @@
         .title {
             text-align: center;
         }
-
-
     </style>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
     <script type="text/javascript" src="forge_calc_cn.js"></script>
     <script>
         var results = "";
         var calresults = "";
-
-
-
     </script>
 
 </head>
@@ -227,7 +223,14 @@
         <br />
         剩余经验：
         <input type="number" min="0" id="receiver_remain_exp" value="0"><br />
-        <br />
+
+        黄金/矿比例：
+        <select id="gold_coeff">
+            <option selected="true">0.9787（混用两类矿的平均值）</option>
+            <option>0.884（理论最小值，仅使用200彩矿）</option>
+            <option>1.0529（理论最大值，仅使用5阶标准矿）</option>
+            <option>0.9079（彩矿平均值）</option>
+        </select> <br />
         <input type="button" name="confirmAlter" value="计算" onclick="check()" />
 
     </form>
@@ -235,9 +238,11 @@
 
 
     <h2 class="title">锻造结果</h2><br />
+    <span id="fodder_resource"></span> <br />
+
     <span id="forge_report"></span> <br />
-     <input type="button" name="takeNote" value="保存结果" onclick="copyResult()" />
-   <h2 class="title">锻造小贴士</h2><br />
+    <input type="button" name="takeNote" value="保存结果" onclick="copyResult()" />
+    <h2 class="title">锻造小贴士</h2><br />
     <p id="ftip"></p> <br />
     <script type="text/javascript">
         document.getElementById('ftip').innerHTML = getTip();

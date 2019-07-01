@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Forge resource</title>
+
+    <style>
+        textarea {
+            width: 30%;
+            height: 200px;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        * {
+            padding: 0;
+            margin: 2px;
+        }
+
+        .title,
+        input,
+        span,
+        form {
+            text-align: center;
+        }
+    </style>
+    <script type="text/javascript" src="newtest.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+
+</head>
+
+<body>
+<!--     <h2 class="title">试试手气？</h2>
+    <br />
+    <p id="clientip"></p>
+    <form id="crystal_form">
+        请选择你要开启的水晶类型：
+        <select id="crystal_type">
+            <option>10个高等机器人水晶</option>
+            <option>10个3~5星土豪水晶</option>
+            <option>1个5星水晶</option>
+            <option>10个金轮水晶（含5星大/小黄蜂）</option>
+            <option>10个乖巧水晶（含4星大/小黄蜂）</option>
+            <option>10个三阶骑士水晶2.0</option>
+            <option>1个四阶骑士水晶</option>
+        </select><br />
+    </form>
+    <br />
+    <div style="text-align:center;">
+        <input type="button" name="confirmAlter" value="开！" onclick="showBots()" />
+    </div> -->
+    <input type="button" name="resource" value="计算" onclick="calcResource()" />
+    <div style="text-align: center;">
+        <span id="result"></span><br />
+    </div>
+
+<!--     <h2 class="title">结果</h2><br />
+    <div style="text-align: center;">
+        <span id="crystal_report"></span><br />
+    </div>
+    <script type="text/javascript">
+        $.getJSON('https://api.ipify.org?format=json', function (data) {
+            var el = document.getElementById('clientip');
+            var ips = data.ip;
+            var ipSections = ips.split(".", 2);
+            el.innerHTML = '你的IP是：' + ipSections[0] + '.' + ipSections[1] + '.*.*';
+
+        });
+    </script>
+    <p id="nCrystal"></p>
+    <textarea id="complete_report"></textarea> -->
+</body>
+
+</html>

@@ -5,7 +5,7 @@ bot_level = 40
 
 
 // console.log(fdata[bot_star.toString()][bot_rank.toString()][bot_level - 1]);
-const fs = require('fs')
+// const fs = require('fs')
 
 // fs.readFile('forgeData.json', (err, data) => {
 //     if (err) throw err;
@@ -14,7 +14,7 @@ const fs = require('fs')
 //     console.log(global.forgeData["5"]);
 // })
 
-var forgeData = JSON.parse(fs.readFileSync('forgeData.json').toString());
+// var forgeData = JSON.parse(fs.readFileSync('forgeData.json').toString());
 
 currentCoeff = 0.978735143;
 function mergeProperty(obj1, obj2) {
@@ -55,15 +55,19 @@ function calcSparks(botStar, botRank, forgeData) {
 }
 
 
+function calcResource() {
+    $(document).ready(function () {
+        $.getJSON("https://kmcbest.github.io/forgeData.json", function (data, textStatus, jqXHR) {
+            // var forgeData = JSON.parse(data);
+            var c = calcSparks(4, 5, data);
+            var d = Math.floor(calcGold(4, 5, 50, data));
+            $("#result").html(d.toString());
+            // $("#result").html(JSON.stringify(c));
+            // console.log(c);
+        });
+    });
+}
 
-
-var c = calcSparks(4, 5, forgeData);
-var d = Math.floor(calcGold(4,5,50,forgeData));
-// console.log(c);
-
-console.log(JSON.stringify(c));
-
-console.log(d);
 
 
 

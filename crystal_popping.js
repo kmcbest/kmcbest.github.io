@@ -10,6 +10,8 @@ function getBot(strType) {
     var list4 = ['碾碎器', '猩猩队长', '钢锁', '斗擎', '汽车大师', '野牛', '雷震', '探长', '碎骨魔', '漂移', '阿尔茜', '热破', '巨蝎勇士', '风刃', '路障', '横炮', '反冲', '警车', '爵士', '黄豹', '声波', '震荡波', '犀牛', '救护车', '幻影', '录音机', '千斤顶', '爆威', '黄蜂勇士', '铁皮', '喷气机', '惊破天', '搅拌者', '震天尊', '战威', '恐龙勇士', '战擎', '通天晓', '红蜘蛛', '狂飙'];
     var list5 = ['碾碎器', '猩猩队长', '钢锁', '斗擎', '碎骨魔', '漂移', '阿尔茜', '热破', '路障', '反冲', '警车', '黄豹', '声波', '震荡波', '犀牛', '幻影', '爆威', '黄蜂勇士', '惊破天', '搅拌者', '战威', '恐龙勇士', '通天晓', '红蜘蛛'];
     var listBee = ['大黄蜂', '小黄蜂'];
+    var listNP = ['暗黑擎天柱'];
+    var listTC = ['惊天雷'];
     var listClassSpark = ['T3斗士火种', 'T3战士火种', 'T3侦查火种', 'T3科技火种', 'T3爆破火种', 'T3战术火种'];
     // console.log(nStar);
     // var listT1A = ['T1阿尔法火种'];
@@ -38,6 +40,12 @@ function getBot(strType) {
         case 'Bee':
             theBot = listBee[Math.floor(Math.random() * listBee.length)];
             break;
+        case 'NP':
+            theBot = listNP[Math.floor(Math.random() * listNP.length)];
+            break;
+        case 'TC':
+            theBot = listTC[Math.floor(Math.random() * listTC.length)];
+            break;
         case 'Mods':
             theBot = listMods[Math.floor(Math.random() * listMods.length)];
             break;
@@ -63,6 +71,7 @@ function spinCrystal(crystalType, crystalNumber) {
     var spec_pbc = { 0: 0.01, 1: 0.26, 2: 0.73 }; // Premium bot  4, 3, 2 star
     var spec_monthly = { 0: 0.015, 1: 0.135, 2: 0.85 }; // Monthly featured: 5, 4, 3 star
     var spec_wheel = { 0: 0.01, 1: 0.02, 2: 0.01, 3: 0.12, 4: 0.84 };  // Gold wheel: 5 Bee, 4 Bee, 5, 4, 3, star
+    var spec_matrix = { 0: 0.005, 1: 0.015, 2: 0.0025, 3: 0.01, 4: 0.1175, 5:0.85 };  // Dark Matrix: 5 NP, 4 NP, 4 TC, 5, 4, 3, star
     var spec_gag = { 0: 0.0075, 1: 0.0551, 2: 0.0075, 3: 0.2049, 4: 0.725 }; // Good as Gold 4 Bee, 3 Bee, 4, 3, 2 star
     var spec_t3k = { 0: 0.04, 1: 0.1, 2: 0.06, 3: 0.07, 4: 0.3, 5: 0.15, 6: 0.25, 7: 0.03 };  // T3 Knight: 4-Star Bot (4%)     3-Star Bot (10%)     4-Star Mod (6%)     3-Star Mod (7%)     Tier 1 Alpha Spark (30%)     T3 Basic Spark (15%)     750 4-Star Bot Shards (25%)     Tier 2 Alpha Spark (3%) 
     var spec_t4k = { 0: 0.25, 1: 0.25, 2: 0.25, 3: 0.17, 4: 0.03, 5: 0.04, 6: 0.01 } // T4 Knight : T3 Class Spark (25%)     4-Star Bot (25%)     4-Star Mod (25%)     5-Star Bot Crystal Shards  (17%)     5-Star Bot (3%)     Tier 4 Basic Spark (4%)     Tier 3 Alpha Spark Essence (1%) 
@@ -107,6 +116,37 @@ function spinCrystal(crystalType, crystalNumber) {
                         poppedBot = getBot('4 star');
                         break;
                     case '2':
+                        botStar = 3;
+                        poppedBot = getBot('3 star');
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 'Dark Matrix':
+                botType = weightedRand(spec_matrix);
+                switch (botType) {
+                    case '0':
+                        botStar = 5;
+                        poppedBot = getBot('NP');
+                        break;
+                    case '1':
+                        botStar = 4;
+                        poppedBot = getBot('NP');
+                        break;
+                    case '2':
+                        botStar = 4;
+                        poppedBot = getBot('TC');
+                        break;
+                    case '3':
+                        botStar = 5;
+                        poppedBot = getBot('5 star');
+                        break;
+                    case '4':
+                        botStar = 4;
+                        poppedBot = getBot('4 star');
+                        break;
+                    case '5':
                         botStar = 3;
                         poppedBot = getBot('3 star');
                         break;
@@ -298,6 +338,9 @@ function showBots() {
     }
     if (crystalType.indexOf("金轮") > 0) {
         crsytalString = 'Gold Wheel';
+    }
+    if (crystalType.indexOf("矩阵") > 0) {
+        crsytalString = 'Dark Matrix';
     }
     if (crystalType.indexOf("乖巧") > 0) {
         crsytalString = 'Good as Gold';

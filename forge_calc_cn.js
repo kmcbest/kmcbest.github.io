@@ -249,7 +249,7 @@ function Forge_shards(isShark, nTier, nRank, nLevel, nSig) {
             }
             else {
                 if (nRank === 5) {
-                    nShards = 1100 + nRank * 100 + nLevel + nSig * 80;
+                    nShards = 500 + nRank * 100 + nLevel + nSig * 80;
                 }
             }
         }

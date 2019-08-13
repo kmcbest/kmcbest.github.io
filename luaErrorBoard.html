@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#btnJson").click(function () {
+                const Url = "https://webhook.site/token/e7ffdbc3-34c9-4192-8a19-10d01a159bbd/requests?page=1";
+                $.get(Url, function (data) {
+                    var dataJson = JSON.stringify(data)
+                    var message = ""
+                    for (let i = 0; i < data.total; i++) {
+                        if (data.data[i.toString()].method == "POST") {
+                            message += `（${i+1}）机器（${data.data[i.toString()].request.machine}）出错时间：${data.data[i.toString()].request.timpStamp}<br /><strong>${data.data[i.toString()].request.type_of_fight}</strong> 战至第 ${data.data[i.toString()].request.nRounds} 场，出现“${data.data[i.toString()].request.additional}”错误。<br /><br />`
+                            // console.log(data.data[i.toString()].content);
+                        }
+                    }
+                    $("#mytext").html(message);
+                    // console.log(message);
+                });
+            });
+            // $("#btnPost").click(function () {
+            //     const Url = "https://postb.in/b/1564970513060-9791802985128";
+            //     $.post(Url, {name:"duck", city:"some"}, function(data, status){
+            //         console.log(status);
+
+            //     });
+            // });
+        });
+    </script>
+</head>
+
+<body>
+    <!-- <p>Click or move the mouse pointer over this paragraph.</p> -->
+    <input type="button" value="查看日志" id="btnJson">
+    <!-- <input type="button" value="Post" id="btnPost"> -->
+    <p id="mytext"></p>
+
+    <!-- <textarea id="data" rows="5" cols="40"></textarea> -->
+    <br />
+    <!-- <input id="clickMe" type="button" value="Get Json" />
+    <input type="button" value="Modify Json" id="clickAgain"> -->
+    <!-- <input type="button" value="Dummy" id="actionButton"> -->
+</body>
+
+</html>

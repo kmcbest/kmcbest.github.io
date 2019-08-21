@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>百炼为战锻造计算器</title>
-
+    <link rel="stylesheet" href="https://cdn.staticfile.org/jqueryui/1.12.1/jquery-ui.min.css">
+    <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
     <style>
         body {
             margin-left: 5%;
             margin-right: 5%;
         }
+
         .tooltip {
             position: relative;
             display: inline-block;
@@ -59,14 +61,78 @@
         .title {
             text-align: center;
         }
+
+        .ui-slider {
+            display: inline-block;
+            width: 6em;
+            top:3px;
+        }
+
+        #custom-handle_level, #custom-handle_sig, #custom-handle_forgefodder, #custom-handle_forgereceiver {
+            width: 2em;
+            height: 1.2em;
+            top: 50%;
+            margin-top: -.6em;
+            text-align: center;
+            line-height: 1.6em;
+        }
     </style>
-    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
-    <script type="text/javascript" src="forge_calc_cn.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.staticfile.org/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
     <script>
         var results = "";
         var calresults = "";
     </script>
-
+    <script>
+        $(function () {
+            var handle1 = $("#custom-handle_level");
+            $("#slider_level").slider({
+                min: 1,
+                max: 50,
+                create: function () {
+                    handle1.text($(this).slider("value"));
+                },
+                slide: function (event, ui) {
+                    handle1.text(ui.value);
+                }
+            });
+            var handle2 = $("#custom-handle_sig");
+            $("#slider_sig").slider({
+                min: 0,
+                max: 100,
+                create: function () {
+                    handle2.text($(this).slider("value"));
+                },
+                slide: function (event, ui) {
+                    handle2.text(ui.value);
+                }
+            });
+            var handle3 = $("#custom-handle_forgefodder");
+            $("#slider_forgefodder").slider({
+                min: 0,
+                max: 100,
+                create: function () {
+                    handle3.text($(this).slider("value"));
+                },
+                slide: function (event, ui) {
+                    handle3.text(ui.value);
+                }
+            });
+            var handle4 = $("#custom-handle_forgereceiver");
+            $("#slider_forgereceiver").slider({
+                min: 0,
+                max: 100,
+                create: function () {
+                    handle4.text($(this).slider("value"));
+                },
+                slide: function (event, ui) {
+                    handle4.text(ui.value);
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript" src="forge_calc_cn.js"></script>
 </head>
 
 <body>
@@ -141,10 +207,21 @@
         </select>
         <!-- Level: <span id="fodder_level_value" style="color:black;"></span>
         <br /> -->
-        级： <input type="number" min="1" max="50" step="1" id="fodder_level" value="1">
+
+        <!-- <input type="number" min="1" max="50" step="1" id="fodder_level" value="1">
+        <br /> -->
+        &nbsp;级别： <div id="slider_level">
+            <div id="custom-handle_level" class="ui-slider-handle"></div>
+        </div>
         <br />
-        招牌等级： <input type="number" min="0" max="100" step="1" id="fodder_sig" value="0">
-        锻造等级： <input type="number" min="0" max="100" step="1" id="fodder_forgelevel" value="0">
+        <!-- 招牌： <input type="number" min="0" max="100" step="1" id="fodder_sig" value="0"> -->
+        招牌： <div id="slider_sig">
+            <div id="custom-handle_sig" class="ui-slider-handle"></div>
+        </div>
+        <!-- 锻造： <input type="number" min="0" max="100" step="1" id="fodder_forgelevel" value="0"> -->
+        &nbsp;&nbsp;&nbsp;&nbsp;锻造： <div id="slider_forgefodder">
+            <div id="custom-handle_forgefodder" class="ui-slider-handle"></div>
+        </div>
         <br />
         <div class="tooltip">剩余经验（这是什么？）
             <span class="tooltiptext">锻造时不满一级时剩余的经验</span>
@@ -229,7 +306,10 @@
             <option>4</option>
             <option selected="true">5</option>
         </select><br /> -->
-        锻造等级： <input type="number" min="0" max="100" step="1" id="receiver_forge" value="0">
+        <!-- 锻造等级： <input type="number" min="0" max="100" step="1" id="receiver_forge" value="0"> -->
+        锻造： <div id="slider_forgereceiver">
+            <div id="custom-handle_forgereceiver" class="ui-slider-handle"></div>
+        </div>
         <br />
         剩余经验：
         <input type="number" min="0" id="receiver_remain_exp" value="0"><br />

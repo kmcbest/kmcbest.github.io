@@ -65,10 +65,13 @@
         .ui-slider {
             display: inline-block;
             width: 6em;
-            top:3px;
+            top: 3px;
         }
 
-        #custom-handle_level, #custom-handle_sig, #custom-handle_forgefodder, #custom-handle_forgereceiver {
+        #custom-handle_level,
+        #custom-handle_sig,
+        #custom-handle_forgefodder,
+        #custom-handle_forgereceiver {
             width: 2em;
             height: 1.2em;
             top: 50%;
@@ -90,6 +93,7 @@
             $("#slider_level").slider({
                 min: 1,
                 max: 50,
+                value: 50,
                 create: function () {
                     handle1.text($(this).slider("value"));
                 },
@@ -194,16 +198,16 @@
         <select id="fodder_star">
             <option>1</option>
             <option>2</option>
-            <option selected="true">3</option>
-            <option>4</option>
+            <option>3</option>
+            <option selected="true">4</option>
         </select>
         阶：
         <select id="fodder_rank">
             <option>1</option>
             <option>2</option>
             <option>3</option>
-            <option selected="true">4</option>
-            <option>5</option>
+            <option>4</option>
+            <option selected="true">5</option>
         </select>
         <!-- Level: <span id="fodder_level_value" style="color:black;"></span>
         <br /> -->

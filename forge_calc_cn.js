@@ -289,16 +289,16 @@ function check() {
             // var forgeData = JSON.parse(data);
             var nFodderStar = Number($("#fodder_star").val());
             var nFodderRank = Number($("#fodder_rank").val());
-            var nFodderLevel = Number($("#slider_level").slider( "value" ));
-            var nFodderSig = Number($("#slider_sig").slider( "value" ));
-            var nFodderForge = Number($("#slider_forgefodder").slider( "value" ));
+            var nFodderLevel = Number($("#slider_level").slider("value"));
+            var nFodderSig = Number($("#slider_sig").slider("value"));
+            var nFodderForge = Number($("#slider_forgefodder").slider("value"));
             // var nFodderLevel = Number($("#fodder_level").val());
             // var nFodderSig = Number($("#fodder_sig").val());
             // var nFodderForge = Number($("#fodder_forgelevel").val());
             var nFodderRemainExp = Number($("#fodder_remain_exp").val());
             var nReceiverStar = Number($("#receiver_star").val());
             // var nReceiverForge = Number($("#receiver_forge").val());
-            var nReceiverForge = Number($("#slider_forgereceiver").slider( "value" ));
+            var nReceiverForge = Number($("#slider_forgereceiver").slider("value"));
             var nReceiverRemain = Number($("#receiver_remain_exp").val());
 
             if (nFodderRank > nFodderStar + 1) {
@@ -342,7 +342,10 @@ function copyResult() {
         nReceiverRemain = 0;
     }
 
-    document.getElementById("receiver_forge").value = nReceiverForge;
+    // document.getElementById("receiver_forge").value = nReceiverForge;
+    $("#slider_forgereceiver").slider("value", nReceiverForge);
+    var handle4 = $("#custom-handle_forgereceiver");
+    handle4.text(nReceiverForge);
     document.getElementById("receiver_remain_exp").value = nReceiverRemain;
     window.totalForges += 1;
 }

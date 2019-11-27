@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TFTF Forge Calculator</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/jqueryui/1.12.1/jquery-ui.min.css">
+    <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+    <style>
+        body {
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        * {
+            padding: 0;
+            margin: 2px;
+        }
+
+        .title {
+            text-align: center;
+        }
+
+        .ui-slider {
+            display: inline-block;
+            width: 6em;
+            top: 3px;
+        }
+
+        #custom-handle_level,
+        #custom-handle_sig,
+        #custom-handle_forgefodder,
+        #custom-handle_forgereceiver {
+            width: 2em;
+            height: 1.2em;
+            top: 50%;
+            margin-top: -.6em;
+            text-align: center;
+            line-height: 1.6em;
+        }
+    </style>
+    <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.staticfile.org/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+    <script>
+        var results = "";
+        var calresults = "";
+    </script>
+    <script>
+        $(function () {
+            var handle1 = $("#custom-handle_level");
+            $("#slider_level").slider({
+                min: 1,
+                max: 50,
+                value: 50,
+                create: function () {
+                    handle1.text($(this).slider("value"));
+                },
+                slide: function (event, ui) {
+                    handle1.text(ui.value);
+                }
+            });
+            var handle2 = $("#custom-handle_sig");
+            $("#slider_sig").slider({
+                min: 0,
+                max: 100,
+                create: function () {
+                    handle2.text($(this).slider("value"));
+                },
+                slide: function (event, ui) {
+                    handle2.text(ui.value);
+                }
+            });
+            var handle3 = $("#custom-handle_forgefodder");
+            $("#slider_forgefodder").slider({
+                min: 0,
+                max: 100,
+                create: function () {
+                    handle3.text($(this).slider("value"));
+                },
+                slide: function (event, ui) {
+                    handle3.text(ui.value);
+                }
+            });
+            var handle4 = $("#custom-handle_forgereceiver");
+            $("#slider_forgereceiver").slider({
+                min: 0,
+                max: 100,
+                create: function () {
+                    handle4.text($(this).slider("value"));
+                },
+                slide: function (event, ui) {
+                    handle4.text(ui.value);
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript" src="forge_calc_en.js"></script>
+</head>
+
+<body>
+    <h2 class="title">Fodder info</h2>
+    <form id="fodder_form">
+        Name
+        <select id="fodder_name">
+            <option>Brawler-Grindor</option>
+            <option>Brawler-Optimus Primal</option>
+            <option>Brawler-Grimlock</option>
+            <option>Brawler-Optimus Prime</option>
+            <option>Brawler-Motormaster</option>
+            <option>Brawler-Tantrum</option>
+            <option>Brawler-Thundercracker</option>
+            <option>Brawler-Sharkticon</option>
+            <option>Warrior-Bludgeon</option>
+            <option>Warrior-Hound</option>
+            <option>Warrior-Bonecrusher</option>
+            <option>Warrior-Drift</option>
+            <option>Warrior-Arcee</option>
+            <option>Warrior-Hot Rod</option>
+            <option>Warrior-Scorponok</option>
+            <option>Warrior-Sharkticon</option>
+            <option>Scout-Windblade</option>
+            <option>Scout-Barricade</option>
+            <option>Scout-Bumblebee</option>
+            <option>Scout-Sideswipe</option>
+            <option>Scout-Kickback</option>
+            <option>Scout-Prowl</option>
+            <option>Scout-Jazz</option>
+            <option>Scout-Cheetor</option>
+            <option>Scout-Sharkticon</option>
+            <option>Tech-Soundwave</option>
+            <option>Tech-Shockwave</option>
+            <option>Tech-Rhinox</option>
+            <option>Tech-Ratchet</option>
+            <option>Tech-Mirage</option>
+            <option>Tech-Blaster</option>
+            <option>Tech-Wheeljack</option>
+            <option>Tech-Jetfire</option>
+            <option>Tech-Sharkticon</option>
+            <option>Demo-Megatron</option>
+            <option>Demo-Waspinator</option>
+            <option>Demo-Ironhide</option>
+            <option>Demo-Ramjet</option>
+            <option>Demo-Galvatron</option>
+            <option>Demo-Mixmaster</option>
+            <option>Demo-Megatronus</option>
+            <option>Demo-Sharkticon</option>
+            <option>Tact-Megatron</option>
+            <option>Tact-Dinobot</option>
+            <option>Tact-Optimus Prime</option>
+            <option>Tact-Ultra Magnus</option>
+            <option>Tact-Starscream</option>
+            <option>Tact-Bumblebee</option>
+            <option>Tact-Cyclonus</option>
+            <option>Tact-Nemesis Prime</option>
+            <option>Tact-Sharkticon</option>
+        </select><br>
+        Star
+        <select id="fodder_star">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option selected="true">4</option>
+        </select>
+        Rank
+        <select id="fodder_rank">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option selected="true">5</option>
+        </select>
+        <!-- Level: <span id="fodder_level_value" style="color:black;"></span>
+        <br /> -->
+
+        <!-- <input type="number" min="1" max="50" step="1" id="fodder_level" value="1">
+        <br /> -->
+        &nbsp;Level&nbsp;<div id="slider_level">
+            <div id="custom-handle_level" class="ui-slider-handle"></div>
+        </div>
+        <br />
+        <!-- 招牌： <input type="number" min="0" max="100" step="1" id="fodder_sig" value="0"> -->
+        Sig level&nbsp;&nbsp;<div id="slider_sig">
+            <div id="custom-handle_sig" class="ui-slider-handle"></div>
+        </div>
+        <!-- 锻造： <input type="number" min="0" max="100" step="1" id="fodder_forgelevel" value="0"> -->
+        &nbsp;&nbsp;&nbsp;&nbsp;Forge level&nbsp;&nbsp;<div id="slider_forgefodder">
+            <div id="custom-handle_forgefodder" class="ui-slider-handle"></div>
+        </div>
+        <br />
+        <div class="tooltip">Remaining exp (what's this?)
+            <span class="tooltiptext">Exp filled in the current level</span>
+        </div>
+        <input type="number" min="0" id="fodder_remain_exp" value="0"><br />
+        Gold/Ore ratio
+        <select id="gold_coeff">
+            <option selected="true">0.9787 (average ratio using class ore and normal ore evenly)</option>
+            <option>0.884 (theoretical min ratio using only T1 class ore)</option>
+            <option>1.0529 (theoretical max ratio using only T5 normal ore)</option>
+            <option>0.9079 (average ratio using all tiers of class ore)</option>
+        </select>
+        <br />
+
+    </form>
+    <h2 class="title">Receiver info</h2>
+
+    <form id="receiver_form">
+        Bot name
+        <select id="receiver_name">
+            <option>Brawler-Grindor</option>
+            <option>Brawler-Optimus Primal</option>
+            <option>Brawler-Grimlock</option>
+            <option>Brawler-Optimus Prime</option>
+            <option>Brawler-Motormaster</option>
+            <option>Brawler-Tantrum</option>
+            <option>Brawler-Thundercracker</option>
+            <option>Brawler-Sharkticon</option>
+            <option>Warrior-Bludgeon</option>
+            <option>Warrior-Hound</option>
+            <option>Warrior-Bonecrusher</option>
+            <option>Warrior-Drift</option>
+            <option>Warrior-Arcee</option>
+            <option>Warrior-Hot Rod</option>
+            <option>Warrior-Scorponok</option>
+            <option>Warrior-Sharkticon</option>
+            <option>Scout-Windblade</option>
+            <option>Scout-Barricade</option>
+            <option>Scout-Bumblebee</option>
+            <option>Scout-Sideswipe</option>
+            <option>Scout-Kickback</option>
+            <option>Scout-Prowl</option>
+            <option>Scout-Jazz</option>
+            <option>Scout-Cheetor</option>
+            <option>Scout-Sharkticon</option>
+            <option>Tech-Soundwave</option>
+            <option>Tech-Shockwave</option>
+            <option>Tech-Rhinox</option>
+            <option>Tech-Ratchet</option>
+            <option>Tech-Mirage</option>
+            <option>Tech-Blaster</option>
+            <option>Tech-Wheeljack</option>
+            <option>Tech-Jetfire</option>
+            <option>Tech-Sharkticon</option>
+            <option>Demo-Megatron</option>
+            <option>Demo-Waspinator</option>
+            <option>Demo-Ironhide</option>
+            <option>Demo-Ramjet</option>
+            <option>Demo-Galvatron</option>
+            <option>Demo-Mixmaster</option>
+            <option>Demo-Megatronus</option>
+            <option>Demo-Sharkticon</option>
+            <option>Tact-Megatron</option>
+            <option>Tact-Dinobot</option>
+            <option>Tact-Optimus Prime</option>
+            <option>Tact-Ultra Magnus</option>
+            <option>Tact-Starscream</option>
+            <option>Tact-Bumblebee</option>
+            <option>Tact-Cyclonus</option>
+            <option>Tact-Nemesis Prime</option>
+            <option>Tact-Sharkticon</option>
+        </select><br />
+        Star
+        <select id="receiver_star">
+            <option>3</option>
+            <option>4</option>
+            <option selected="true">5</option>
+        </select>
+        <!-- 阶：
+        <select id="receiver_rank">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option selected="true">5</option>
+        </select><br /> -->
+        <!-- 锻造等级： <input type="number" min="0" max="100" step="1" id="receiver_forge" value="0"> -->
+        Forge level &nbsp;<div id="slider_forgereceiver">
+            <div id="custom-handle_forgereceiver" class="ui-slider-handle"></div>
+        </div>
+        <br />
+        Remaining exp
+        <input type="number" min="0" id="receiver_remain_exp" value="0"><br />
+        <input type="button" name="confirmAlter" value="Calculate" onclick="check()" />
+    </form>
+
+    <h2 class="title">Forge result</h2>
+    <span id="fodder_resource"></span> <br />
+    <span id="forge_report"></span> <br />
+    <input type="button" name="takeNote" value="Save" title="Update the receiver's forge level" onclick="copyResult()" />
+    <h2 class="title">Forge tips</h2><br />
+    <p id="ftip"></p> <br />
+    <script type="text/javascript">
+        document.getElementById('ftip').innerHTML = getTip();
+    </script>
+</body>
+
+</html>

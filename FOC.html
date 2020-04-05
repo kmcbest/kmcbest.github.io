@@ -1,0 +1,127 @@
+<html>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.0/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true });</script>
+    腐朽的堡垒（Fortress of Corruption）
+    <div class="mermaid">
+        graph BT
+        %% 左路
+        Start(起点) --> L0(空)
+        L0(空) --> L11(恐龙勇士)
+        L0(空) --> L21(警车)
+        Start(起点) --> R0(空)
+        R0 --> R11(阿尔茜)
+        R0 --> R21(风刃)
+
+        %%click Start callback "aaaaa"
+        subgraph 一厅
+
+        L11 --> L12(漂移)
+        L21 --> L22(搅拌者)
+        L12 --> LBoss1(犀牛)
+        L22 --> LBoss1
+
+        R11 --> R12(横炮)
+        R21 --> R22(录音机)
+        R12 --> RBoss1(爆威)
+
+        end
+
+
+        LBoss1 --> L05(空) --> LGoon1(惊天雷)
+        R22 --> RBoss1
+        RBoss1 --> R05(空) --> RGoon1(爵士)
+
+        subgraph 二厅
+        LGoon1 --> L13(斗擎)
+        L13 --> L14(钢锁)
+
+        LGoon1 --> L23(天火)
+        L23 --> L24(野牛)
+        L14 --> LBoss2(碎骨魔)
+        L24 --> LBoss2
+        LBoss2 --> MidBoss(战威)
+
+        RGoon1 --> R13(汽车大师)
+        R13 --> R14(幻影)
+        RGoon1 --> R23(热破)
+        R23 --> R24(红蜘蛛)
+        R14 --> RBoss2(雷震)
+        R24 --> RBoss2
+        RBoss2 --> MidBoss
+
+        end
+        MidBoss --> L1(空)
+        MidBoss --> R1(空)
+        L1 --> L15(通天晓)
+        L1 --> L25(声波)
+        R1 --> R25(天火)
+        R1 --> R15(黄蜂勇士)
+
+        subgraph 三厅
+        L15 --> L16(碾碎器)
+
+        L25 --> L26(斗擎)
+        L16 --> LBoss3(猩猩队长)
+        L26 --> LBoss3
+        R25 --> R26(路障)
+        R15 --> R16(千斤顶)
+        R16 --> RBoss3(黄豹)
+        R26 --> RBoss3
+        end
+
+        LBoss3 --> LGoon2(狂飙)
+        RBoss3 --> RGoon2(惊破天)
+        subgraph 四厅
+        LGoon2 --> L17(钢锁)
+        L17 --> L18(喷气机)
+        LGoon2 --> L27(蝎子)
+        L27 --> L28(救护车)
+        L18 --> LBoss4(暗黑擎天柱)
+        L28 --> LBoss4
+        LBoss4 --> BigBoss(亡灵天尊)
+
+        RGoon2 --> R17(战擎)
+        R17 --> R18(小黄蜂)
+        RGoon2 --> R27(反冲)
+        R27 --> R28(铁皮)
+        R18 --> RBoss4(震荡波)
+        R28 --> RBoss4
+        RBoss4 --> BigBoss(亡灵天尊)
+
+        end
+        classDef brawler fill:#956FE7,color:#FFF,stroke:#333,stroke-width:2px;
+        classDef warrior fill:#EE7976,stroke:#333,stroke-width:2px;
+        classDef scout fill:#a3e043,stroke:#333,stroke-width:2px;
+        classDef tech fill:#C7E6EA,stroke:#333,stroke-width:2px;
+        classDef demo fill:#F9EDA6,stroke:#333,stroke-width:2px;
+        classDef tact fill:#19439C,color:#FFF,stroke:#333,stroke-width:2px;
+
+        class LGoon1,L13,L14,L24,L16,L26,LBoss3,L17,R13 brawler;
+        class L12,LBoss2,L27,R11,R23,RBoss2,BigBoss warrior;
+        class L21,R12,R21,RGoon1,R26,R27,R18,RBoss3 scout;
+        class LBoss1,L23,L25,L28,R22,R14,R16,R25,RBoss4 tech;
+        class L22,L18,RBoss1,R15,RGoon2,R28 demo;
+        class L11,MidBoss,L15,LBoss4,R24,R17,LGoon2 tact;
+    </div>
+    <script>
+        var callback = function (message) {
+            alert(message);
+        }
+        var config = {
+            startOnLoad: true,
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                // curve: 'cardinal',
+            },
+            securityLevel: 'loose',
+        };
+
+        mermaid.initialize(config);
+    </script>
+
+</body>
+
+</html>

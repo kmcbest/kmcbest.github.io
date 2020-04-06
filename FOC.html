@@ -2,10 +2,20 @@
 
 <head>
     <meta charset="UTF-8">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
     <title>腐朽的堡垒（Fortress of Corruption）</title>
+    <!-- <link rel="stylesheet" href="style.css" /> -->
 </head>
+<style>
+    body {
+        background-color: rgb(223, 223, 223);
+    }
+
+    p {
+        font-size: 12pt
+    }
+</style>
 <h1>地图</h1>
 点击各个节点人物，查看模块与对策。
 
@@ -43,26 +53,30 @@
         RBoss1 --> R05(空) --> RGoon1(爵士)
 
         subgraph 二厅
-        LGoon1 --> L13(斗擎)
+        LGoon1 --> L06(空) --> L07(空)
+        L07 --> L13(斗擎)
         L13 --> L14(钢锁)
 
-        LGoon1 --> L23(天火)
+        L07 --> L23(天火)
         L23 --> L24(野牛)
         L14 --> LBoss2(碎骨魔)
         L24 --> LBoss2
-        LBoss2 --> MidBoss(战威)
+        LBoss2 --> M0(空)
+        M0 --> MidBoss(战威)
 
-        RGoon1 --> R13(汽车大师)
+        RGoon1 --> R06(空) --> R07(空)
+        R07 --> R13(汽车大师)
         R13 --> R14(幻影)
-        RGoon1 --> R23(热破)
+        R07 --> R23(热破)
         R23 --> R24(红蜘蛛)
         R14 --> RBoss2(雷震)
         R24 --> RBoss2
-        RBoss2 --> MidBoss
+        RBoss2 --> M0
 
         end
-        MidBoss --> L1(空)
-        MidBoss --> R1(空)
+        MidBoss --> M1(空)
+        M1 --> L1(空)
+        M1 --> R1(空)
         L1 --> L15(通天晓)
         L1 --> L25(声波)
         R1 --> R25(天火)
@@ -80,20 +94,20 @@
         R26 --> RBoss3
         end
 
-        LBoss3 --> LGoon2(狂飙)
-        RBoss3 --> RGoon2(惊破天)
         subgraph 四厅
-        LGoon2 --> L17(钢锁)
+        LBoss3 --> L08(空) --> LGoon2(狂飙) --> L09(空) --> L10(空) 
+        RBoss3 --> R08(空) --> RGoon2(惊破天)--> R09(空) --> R10(空) 
+        L10 --> L17(钢锁)
         L17 --> L18(喷气机)
-        LGoon2 --> L27(蝎子)
+        L10 --> L27(蝎子)
         L27 --> L28(救护车)
         L18 --> LBoss4(暗黑擎天柱)
         L28 --> LBoss4
         LBoss4 --> BigBoss(亡灵天尊)
 
-        RGoon2 --> R17(战擎)
+        R10 --> R17(战擎)
         R17 --> R18(小黄蜂)
-        RGoon2 --> R27(反冲)
+        R10 --> R27(反冲)
         R27 --> R28(铁皮)
         R18 --> RBoss4(震荡波)
         R28 --> RBoss4

@@ -1,0 +1,84 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
+    <title>腐朽的堡垒（Fortress of Corruption）</title>
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+</head>
+<style>
+    body {
+        background-color: rgb(223, 223, 223);
+    }
+
+    p {
+        font-size: 12pt
+    }
+</style>
+<h1>地图</h1>
+点击各个节点人物，查看模块与对策。<br>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.0/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true });</script>
+    <div style="position:absolute;margin-left:5%;margin-top: 20px;width:600px;height: 400px; background-color: aqua;">
+        <div class="mermaid" style="position:relative;float: left;width: 300px;">
+            graph LR
+            %%subgraph Basic
+            Damage((1)) --- Sequencer((2))
+            Sequencer --- Courage[3]
+            Courage --- Cpunch((4))
+            Sequencer --- Pierce[3]
+            Pierce --- CritR((1))
+            Pierce --- CritD((1))
+            Sequencer --- Sniper((1))
+            Sniper --- Guns((1))
+            %%end
+        </div>
+        <div class="mermaid" style="position: relative; float:left;width: 205px;">
+            graph LR
+            %%subgraph Advanced
+            Star[1] --- Glass[1]
+            Star --- Unfazed[1]
+            Glass --- DoubleEdge[1]
+            %%end
+        </div>
+        <div style="position: relative; float:left; width:90px; height: 140px;"></div>
+        <div class="mermaid" style="position: relative;float:left; width:100px">
+            graph LR
+            Stand[1]
+            Assassin[1]
+        </div>
+        <div class="mermaid" style="position: relative;float:left; width:200px">
+            graph LR
+            %%subgraph Advanced
+            Star[1] --- Glass[1]
+            Star --- Unfazed[1]
+            Glass --- DoubleEdge[1]
+            %%end
+        </div>
+
+    </div>
+    <script>
+        var callback = function (message) {
+            alert(message);
+        }
+        var config = {
+            startOnLoad: true,
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                // curve: 'cardinal',
+            },
+            securityLevel: 'loose',
+        };
+
+        mermaid.initialize(config);
+    </script>
+
+
+
+</body>
+
+</html>

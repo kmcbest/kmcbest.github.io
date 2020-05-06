@@ -23,36 +23,36 @@
     <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.0/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({ startOnLoad: true });</script>
     <h1>攻击型精通</h1>
-    <div style="position:relative;margin-left:5%;margin-top: 20px;width:90%;height: 500px; background-color: aqua;">
+    <div style="position:relative;margin-left:5%;margin-top: 20px;width:1000;height: 500px; background-color: aqua;">
 
         <div class="mermaid" style="position:relative;float: left;width: 45%;">
             graph LR
             %%subgraph Basic
-            Damage((伤害)) --- Sequencer((定序器))
-            Sequencer --- Courage[勇气]
-            Courage --- Cpunch((反击))
-            Sequencer --- Pierce[穿透护甲]
-            Pierce --- CritR((暴击几率))
-            Pierce --- CritD((暴击伤害))
-            Sequencer --- Sniper((狙击手))
-            Sniper --- Guns((枪手))
+            Damage[伤害] --- Sequencer[定序器]
+            Sequencer --- Courage(勇气)
+            Courage --- Cpunch[反击]
+            Sequencer --- Pierce(穿透护甲)
+            Pierce --- CritR[暴击几率]
+            Pierce --- CritD[暴击伤害]
+            Sequencer --- Sniper[狙击手]
+            Sniper --- Guns[枪手]
             %%end
         </div>
         <div class="mermaid" style="position: relative; float:left;width: 25%;">
             graph LR
-            Star[追星者] --- Glass[玻璃大炮]
+            Star[追星者] --- Glass(玻璃大炮)
             Star --- Unfazed[镇静]
-            Glass --- DoubleEdge[双刃剑]
+            Glass --- DoubleEdge>双刃剑]
         </div>
         <div style="position: relative; float:left; width:20%; height: 144px;"></div>
         <div class="mermaid" style="position: relative;float:left; width:15%">
             graph LR
-            Stand[同心协力]
-            Assassin[暗杀]
+            Stand(同心协力)
+            Assassin(暗杀)
         </div>
         <div class="mermaid" style="position: relative;float:left; width:20%">
             graph LR
-            Despair[绝望] --- Suppresion[镇压] --- Stupefy[昏迷]
+            Despair{{绝望}} --- Suppresion[镇压] --- Stupefy(昏迷)
             Despair --- Deep[深度创伤]
 
         </div>

@@ -16,48 +16,127 @@
         font-size: 12pt
     }
 </style>
-<h1>地图</h1>
-点击各个节点人物，查看模块与对策。<br>
 
 <body>
+    <header id="title-block-header">
+        <h1 class="title">百炼为战全精通</h1>
+        <p class="author">公理天城翻译官</p>
+    </header>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.0/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({ startOnLoad: true });</script>
     <h1>攻击型精通</h1>
-    <div style="position:relative;margin-left:5%;margin-top: 20px;width:1000;height: 500px; background-color: aqua;">
-
+    <p>方形为免费精通，梯形为一阶精通，六边形为二阶精通</p>
+    <div style="position:relative;margin-left:5%;margin-top: 20px;width:1000;height: 400px; background-color:none;">
         <div class="mermaid" style="position:relative;float: left;width: 45%;">
             graph LR
-            %%subgraph Basic
             Damage[伤害] --- Sequencer[定序器]
-            Sequencer --- Courage(勇气)
+            Sequencer --- Courage[/勇气\]
             Courage --- Cpunch[反击]
-            Sequencer --- Pierce(穿透护甲)
+            Sequencer --- Pierce[/穿透护甲\]
             Pierce --- CritR[暴击几率]
             Pierce --- CritD[暴击伤害]
             Sequencer --- Sniper[狙击手]
             Sniper --- Guns[枪手]
-            %%end
+            click Damage "#伤害damage"
+            click Sequencer "#定序器sequencer"
+            click Courage "#勇气courage"
+            click Cpunch "#反击counterpunch"
+            click Pierce "#穿透护甲pierce-armor"
+            click CritR "#暴击几率critical-rate"
+            click CritD "#暴击伤害critical-damage"
+            click Sniper "#狙击手sniper"
+            click Guns "#枪手gunslinger"
         </div>
-        <div class="mermaid" style="position: relative; float:left;width: 25%;">
+
+        <div class="mermaid" style="position: relative; float:left;width: 35%;">
             graph LR
-            Star[追星者] --- Glass(玻璃大炮)
-            Star --- Unfazed[镇静]
-            Glass --- DoubleEdge>双刃剑]
+            Star{{追星者}} --- Glass[/玻璃大炮\]
+            Star --- Unfazed{{镇静}}
+            Glass --- DoubleEdge{{双刃剑}}
+            click Star "#追星者star-seeker"
+            click Glass "#玻璃大炮glass-cannon"
+            click DoubleEdge "#双刃剑double-edge"
+            click Unfazed "#镇静unfazed"
         </div>
         <div style="position: relative; float:left; width:20%; height: 144px;"></div>
-        <div class="mermaid" style="position: relative;float:left; width:15%">
+        <div class="mermaid" style="position: relative;float:left;height: 130px;">
             graph LR
-            Stand(同心协力)
-            Assassin(暗杀)
-        </div>
-        <div class="mermaid" style="position: relative;float:left; width:20%">
-            graph LR
-            Despair{{绝望}} --- Suppresion[镇压] --- Stupefy(昏迷)
-            Despair --- Deep[深度创伤]
+            Stand[/同心协力\]
+            Assassin[/暗杀\]
+            click Stand "#同心协力stand-together"
+            click Assassin "#暗杀assassin"
 
+        </div>
+        <div class="mermaid" style="position: relative;float:left; width:35%">
+            graph LR
+            Despair{{绝望}} --- Suppresion{{镇压}} --- Stupefy{{昏迷}}
+            Despair --- Deep{{深度创伤}}
+            click Despair "#绝望despair"
+            click Suppresion "#镇压suppression"
+            click Stupefy "#昏迷stupefy"
+            click Deep "#深度创伤deep-wounds"
         </div>
 
     </div>
+
+    <h1>防御型精通</h1>
+    <p>方形为免费精通，梯形为一阶精通，六边形为二阶精通</p>
+    <div style="position:relative;margin-left:5%;margin-top: 20px;width:1000;height: 400px; background-color:none;">
+        <div class="mermaid" style="position:relative;float: left;width: 45%;">
+            graph LR
+            Health[生命值] --- Armor[护甲]
+            Armor --- Full[/气壮山河\]
+            Armor --- ResistMelee[/近战抵抗\]
+            Armor --- ResistRanged[/远程抵抗\]
+            ResistMelee --- CritRResist[暴击抗性]
+            ResistMelee --- CritDResist[暴击伤害抗性]
+            ResistRanged --- EnergyResist[能量抵抗]
+            click Health "#生命值health"
+            click Armor "#护甲armor"
+            click Full "#气壮山河full-mettle"
+            click ResistMelee "#近战抵抗resist-melee"
+            click CritRResist "#暴击抗性critical-resistance"
+            click CritDResist "#暴击伤害抗性critical-damage-resistance"
+            click ResistRanged "#远程抵抗resist-ranged"
+            click EnergyResist "#能量抵抗energy-resistance"
+
+
+        </div>
+
+        <div class="mermaid" style="position: relative; float:left;width: 45%;">
+            graph LR
+            Nano[/纳米修复\] --- Feed[疯狂喂食]
+            Nano --- Willpower{{顽强意志}}
+            Willpower --- BleedResist[/流血抗性\]
+            Willpower --- ShockResist{{震击抗性}}
+            Willpower --- Silica[/燃烧抗性\]
+            ShockResist --- Capacitor{{电容器}}
+            ShockResist --- Inhibitor{{抑制器}}
+            click Nano "#纳米修复nano-repair"
+            click Feed "#疯狂喂食feeding-frenzy"
+            click Willpower "#顽强意志willpower"
+            click BleedResist "#流血抗性bleed-resistance"
+            click ShockResist "#震击抗性shock-resistance"
+            click Capacitor "#电容器capacitor"
+            click Silica "#燃烧抗性silica-plating"
+            click Inhibitor "#抑制器inhibitor"
+        </div>
+        <div class="mermaid" style="position: relative;float:left;width: 45%;">
+            graph RL
+            PerfectBlock[/完美格挡\] --- LastStand{{背水一战}}
+            LastStand --- EnhanceBlock[/强化格挡\]
+            LastStand --- Recalibration[/校准\]
+
+            click EnhanceBlock "#强化格挡enhance-block"
+            click Recalibration "#校准recalibration"
+            click LastStand "#背水一战last-stand"
+            click PerfectBlock "#完美格挡perfect-block"
+
+        </div>
+
+
+    </div>
+
     <script>
         var callback = function (message) {
             alert(message);
@@ -75,10 +154,7 @@
         mermaid.initialize(config);
     </script>
 
-    <header id="title-block-header">
-        <h1 class="title">百炼为战全精通</h1>
-        <p class="author">公理天城翻译官</p>
-    </header>
+
     <nav id="TOC" role="doc-toc">
         <ul>
             <li><a href="#精通基础知识">精通基础知识</a>
@@ -142,7 +218,6 @@
             </li>
         </ul>
     </nav>
-    <p>作者：公理天城翻译官</p>
     <h1 id="精通基础知识">精通基础知识</h1>
     <p>精通是这个游戏在3.0中加入的功能，用于对角色进行微调，调整的方面很多，有的调整的是基础数值的调整，有的相当于增加了技能。精通是全局性的，不针对特定角色（虽然有些精通对特定角色效果明显）</p>
     <h2 id="精通点的获得">精通点的获得</h2>

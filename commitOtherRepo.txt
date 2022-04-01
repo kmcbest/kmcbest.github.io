@@ -1,0 +1,4 @@
+git remote -v
+
+git push secondary
+git pull secondary master

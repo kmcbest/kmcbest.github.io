@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>漫画发布信息生成器</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/jqueryui/1.12.1/jquery-ui.min.css">
+    <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+    <style>
+        body {
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        * {
+            padding: 0;
+            margin: 2px;
+        }
+
+        .title {
+            text-align: center;
+        }
+
+        .ui-slider {
+            display: inline-block;
+            width: 6em;
+            top: 3px;
+        }
+
+        #custom-handle_level,
+        #custom-handle_sig,
+        #custom-handle_forgefodder,
+        #custom-handle_forgereceiver {
+            width: 2em;
+            height: 1.2em;
+            top: 50%;
+            margin-top: -.6em;
+            text-align: center;
+            line-height: 1.6em;
+        }
+    </style>
+    <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.staticfile.org/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+    <script>
+        var results = "";
+        var calresults = "";
+        Date.prototype.toDateInputValue = (function () {
+            var local = new Date(this);
+            local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+            return local.toJSON().slice(0, 10);
+        });
+        $(document).ready(function () {
+            $('#finishDate').val(new Date().toDateInputValue());
+        });
+    </script>
+    <script>
+
+        function genAll() {
+            var weiboText = "";
+            var forumText = "";
+            var continuity = $("#continuity").val();
+            if (continuity == "其他") { continuity = $("#otherContinuity").val(); }
+
+            var EngTitle = $("#EngTitle").val();
+            if (EngTitle == "其他") { EngTitle = $("#otherEngTitle").val(); }
+
+            var CnTitle = $("#CnTitle").val();
+            if (CnTitle == "其他") { CnTitle = $("#otherCnTitle").val(); }
+
+            var translator = $("#translator").val();
+            if (translator == "其他") { translator = $("#otherTranslator").val(); }
+
+            var proofread = $("#proofread").val();
+            if (proofread == "其他") { proofread = $("#otherProofread").val(); }
+
+            var typesetter = $("#typesetter").val();
+            if (typesetter == "其他") { typesetter = $("#otherTypesetter").val(); }
+
+		if ($("#subtitle").val() !== "")
+            {var subtitle = "“" + $("#subtitle").val() + "”";}
+            else
+            {var subtitle = $("#subtitle").val();}
+            var catchPhrase = $("#catchPhrase").val();
+            var finishDate = $("#finishDate").val();
+            var issueNumber = $("#issueNumber").val();
+            var cloud189cn = $("#cloud189cn").val();
+            var panbaidu = $("#panbaidu").val();
+
+            forumText = `<中文漫画>[${continuity}]${CnTitle}（${EngTitle}） 第${issueNumber}话\n${CnTitle} 第${issueNumber}话 ${subtitle}\n${EngTitle} ${issueNumber}\n\n${catchPhrase}\n\n翻译：${translator}\n校对：${proofread}\n修填：${typesetter}\n汉化完成日期：${finishDate}\n\n下载链接：\n天翼云：${cloud189cn}\n百度网盘：${panbaidu}\n`
+            weiboText = `<中文漫画>[${continuity}]《${CnTitle}》（${EngTitle}）第${issueNumber}话 ${subtitle}\n${catchPhrase}\n翻译：${getCast(translator)}校对：${getCast(proofread)}修填：${getCast(typesetter)}\n翼：${cloud189cn}\n度：${panbaidu}\n【塞联阵分享见评】\n@变形金刚中国联盟 #IDW变形金刚漫画# #变形金刚漫画经典对白#`
+
+            $("#weiboText").html(weiboText);
+            $("#forumText").html(forumText);
+        }
+        function getCast(inputString) {
+            var castDict = {
+                "KillMaster.C": "@KillMaster_C ",
+                "狂飙": "@狂飙CH3N5HiN ",
+                "太阳风": "@太阳风_郄 ",
+                "枪威": "@DK_of_Tarn ",
+                "警车": "@警车Andrea ",
+                "糖番茄": "糖番茄 ",
+                "罗嗦": "@卢西奥天天-Mynah ",
+                "废狗": "二两饭 ",
+            }
+            if (typeof (inputString) == "string") return castDict[inputString];
+            else if (typeof (inputString) == "object") {
+                // console.log(castDict[inputString[0]]);
+
+                var listWeibo = "";
+                for (var key in inputString) {
+                    // console.log(inputString[key]);
+                    listWeibo += castDict[inputString[key]];
+                }
+                return listWeibo;
+            }
+
+        }
+        function cpText(EID) {
+            var copyText = document.getElementById(EID);
+            // var copyText = $('#weiboText').val();
+            console.log(copyText.innerHTML);
+
+            copyText.select();
+            copyText.setSelectionRange(0, 99999)
+            document.execCommand("copy");
+            // alert("Copied the text: " + copyText.value);
+        }
+    </script>
+
+
+</head>
+
+<body>
+
+
+    <h2 class="title">文件信息</h2>
+    <form id="input_form">
+        脉系：
+        <select id="continuity">
+            <option>IDW 2019</option>
+            <option>IDW 2020</option>
+            <option>IDW 2021</option>
+            <option>其他</option>
+        </select>
+        <input type="text" id="otherContinuity"><br>
+        英文标题：
+        <select id="EngTitle">
+            <option>Transformers (ongoing)</option>
+            <!-- <option>Transformers: Galaxies</option> -->
+            <option>Wreckers: Tread & Circuits</option>
+            <!-- <option>Secrets & Lies</option> -->
+            <!-- <option>Transformers: Escape</option> -->
+            <option>Transformers: Beast Wars</option>
+            <option>King Grimlock</option>
+            <option>War's End</option>
+            <option>其他</option>
+        </select>
+        <input type="text" id="otherEngTitle"><br>
+
+        中译标题：
+        <select id="CnTitle">
+            <option>变形金刚：壮美新纪元</option>
+            <!-- <option>变形金刚：群星录</option> -->
+            <!-- <option>变形金刚：秘密与谎言</option> -->
+            <option>回收救援队：技中计</option>
+            <!-- <option>变形金刚：逃离</option> -->
+            <option>变形金刚：野兽战争</option>
+            <option>钢大王</option>
+            <option>变形金刚：硝烟散尽</option>
+            <option>其他</option>
+        </select>
+        <input type="text" id="otherCnTitle"><br>
+
+        期数：<input type="text" id="issueNumber" value="0"><br>
+
+        中译副标题：
+        <input type="text" id="subtitle"><br>
+
+        中心句：<br>
+        <textarea id="catchPhrase" rows="4" cols="40">“”</textarea><br>
+
+        翻译：
+        <select id="translator">
+            <option>狂飙</option>
+            <option>太阳风</option>
+            <option>KillMaster.C</option>
+            <!-- <option>刀光</option> -->
+            <option>枪威</option>
+            <option>警车</option>
+            <option>糖番茄</option>
+            <option>其他</option>
+        </select>
+        <input type="text" id="otherTranslator"><br>
+
+        校对：
+        <select id="proofread" multiple>
+            <option>狂飙</option>
+            <option>太阳风</option>
+            <option>KillMaster.C</option>
+            <!-- <option>刀光</option> -->
+            <option>枪威</option>
+            <option>警车</option>
+            <option>糖番茄</option>
+            <option>其他</option>
+        </select>
+        <input type="text" id="otherProofread"><br>
+
+        修填：
+        <select id="typesetter" multiple>
+            <option>罗嗦</option>
+            <option>废狗</option>
+            <option>警车</option>
+            <option>太阳风</option>
+            <option>KillMaster.C</option>
+            <option>狂飙</option>
+            <option>其他</option>
+        </select>
+        <input type="text" id="otherTypesetter"><br>
+
+        完成日期：
+        <!--<input type="date" id="finishDate" name="trip-start" value="2020-10-24"><br><br>-->
+        <input type="date" id="finishDate"><br><br>
+
+        下载链接与提取码<br>
+        天翼云：<input type="text" id="cloud189cn"><br>
+        百度网盘：<input type="text" id="panbaidu"><br>
+        <input type="button" name="confirmAlter" value="生成" onclick="genAll()" />
+    </form>
+
+    <h2 class="title">输出</h2>
+
+    微博发布方案：<button onclick='cpText("weiboText")'>复制</button><br>
+    <textarea id="weiboText" rows="10" cols="50"></textarea> <br /><br /><br />
+
+    论坛发布方案：<button onclick='cpText("forumText")'>复制</button><br>
+    <textarea id="forumText" rows="10" cols="50"></textarea> <br />
+
+</body>
+
+</html>

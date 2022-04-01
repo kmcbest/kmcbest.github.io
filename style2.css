@@ -1,0 +1,36 @@
+body {
+    background-color: rgb(223, 223, 223);
+}
+
+table,td, th{ 
+	border:1px solid black;
+}
+thead {
+	    border-bottom: solid thick;
+	    border-left: 1px solid black;
+}
+
+h1, h2 {
+	font-weight: bold;
+}
+p {
+    font-size: 14pt;
+    line-height:1.8;
+}
+
+li {
+	font-size: 14pt;
+	}
+
+li p {
+    text-indent: 0em;
+}
+
+p{
+	text-indent: 2em;
+}
+
+strong {
+    margin: 0;
+    padding: 0;
+}

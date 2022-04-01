@@ -285,7 +285,7 @@ function check() {
     }
 
     $(document).ready(function () {
-        $.getJSON("https://kmcbest.github.io/forgeData.json", function (data, textStatus, jqXHR) {
+        $.getJSON("forgeData.json", function (data, textStatus, jqXHR) {
             // var forgeData = JSON.parse(data);
             var nFodderStar = Number($("#fodder_star").val());
             var nFodderRank = Number($("#fodder_rank").val());

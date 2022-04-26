@@ -77,11 +77,11 @@
         请选择你要开启的水晶类型：
         <select id="crystal_type">
             <option>10个高等机器人水晶</option>
-            <option>10个3~5星土豪水晶</option>
+            <option>10个3~5星土豪水晶（注¹）</option>
             <option>1个5星水晶</option>
-            <option>10个黑暗矩阵星水晶（含4、5星暗黑擎天柱与4星惊天雷）</option>
+<!--            <option>10个黑暗矩阵星水晶（含4、5星暗黑擎天柱与4星惊天雷）</option>
             <option>10个金轮水晶（含5星大/小黄蜂）</option>
-            <option>10个乖巧水晶（含4星大/小黄蜂）</option>
+            <option>10个乖巧水晶（含4星大/小黄蜂）</option>-->
             <option>10个三阶骑士水晶2.0</option>
             <option>1个四阶骑士水晶</option>
         </select><br />
@@ -95,6 +95,9 @@
     <div style="text-align: center;">
         <span id="crystal_report"></span><br />
     </div>
+    
+
+    
     <script type="text/javascript">
         $.getJSON('https://api.ipify.org?format=json', function (data) {
             var el = document.getElementById('clientip');
@@ -106,6 +109,9 @@
     </script>
     <p id="nCrystal"></p>
     <textarea id="complete_report"></textarea>
+    <br>
+    
+    注¹：3~5星土豪水晶为一般化水晶，不包括当前的专属人物。
 </body>
 
 </html>

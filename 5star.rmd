@@ -199,5 +199,25 @@ G1铁皮在3月31日登场。
 - 饿鲨S-1000：5星饿鲨水晶小概率开出
 - 挽歌：在发布时直接明码标价购买：￥648一个五星，没有盲盒套路
 - 闹翻天：直接氪金648或者通过限时礼包（3500能量块）购买，比较亲民，后续可通过精英传送水晶（3~5星）开出来，可以直接能量块购买，有一周的传送事件竞技场可以获得碎片
-- G1铁皮：同闹翻天的营销策略完全相同。648￥直接买-开水晶-能量块礼包-专题竞技场开水晶，分阶段满足各类玩家的需求。
+- G1铁皮：同闹翻天的营销策略完全相同。648￥直接买-开精英要塞水晶-能量块礼包-专题竞技场开水晶，分阶段满足各类玩家的需求。
+- 滑流：精英恶毒嘲讽水晶，其他没变。从这里也能看出卡邦正在试点“五周专题人物+两周炒冷饭”的人物发布策略。
+
+
+<!-- ```{r echo=FALSE, message=FALSE, warning=FALSE} -->
+<!-- library(magick) -->
+<!-- # Produce graphic -->
+<!-- fig <- image_graph(width = 800, height = 600, res = 96) -->
+<!-- ggplot2::qplot(factor(cyl), data = mtcars, fill = factor(gear)) -->
+<!-- invisible(dev.off()) -->
+
+
+<!-- frink <- image_read("https://jeroen.github.io/images/frink.png") -->
+
+<!-- fig %>% -->
+<!--   image_rotate(10) %>% -->
+<!--   image_implode(.6) %>% -->
+<!--   image_composite(frink, offset = "+140+70") %>% -->
+<!--   image_annotate("Very usefull stuff", size = 40, location = "+300+100", color = "navy", boxcolor = "pink") -->
+<!-- ``` -->
+
 

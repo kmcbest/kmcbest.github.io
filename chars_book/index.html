@@ -128,6 +128,7 @@
 <li class="chapter" data-level="6.6" data-path="侦查系.html"><a href="侦查系.html#反冲"><i class="fa fa-check"></i><b>6.6</b> 反冲<span></span></a></li>
 <li class="chapter" data-level="6.7" data-path="侦查系.html"><a href="侦查系.html#黄豹"><i class="fa fa-check"></i><b>6.7</b> 黄豹<span></span></a></li>
 <li class="chapter" data-level="6.8" data-path="侦查系.html"><a href="侦查系.html#爵士"><i class="fa fa-check"></i><b>6.8</b> 爵士<span></span></a></li>
+<li class="chapter" data-level="6.9" data-path="侦查系.html"><a href="侦查系.html#滑流"><i class="fa fa-check"></i><b>6.9</b> 滑流<span></span></a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="科技系.html"><a href="科技系.html"><i class="fa fa-check"></i><b>7</b> <img src="images/Tech-small.png" style="height:0.6cm" />科技系<span></span></a>
 <ul>
@@ -192,7 +193,7 @@
 <div id="header">
 <h1 class="title">百炼为战全人物解析</h1>
 <p class="author"><em>公理天城翻译官</em></p>
-<p class="date"><em>更新时间：2022-05-10</em></p>
+<p class="date"><em>更新时间：2022-05-30</em></p>
 </div>
 <div id="更新与简介" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">1</span> 更新与简介<a href="index.html#更新与简介" class="anchor-section" aria-label="Anchor link to header"></a></h1>
@@ -200,6 +201,11 @@
 <h2><span class="header-section-number">1.1</span> 更新日志<a href="index.html#更新日志" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><em>（只包含主要的更新，不含小修改）</em></p>
 <ul>
+<li>2022年5月30日：
+<ul>
+<li>新增<a href="侦查系.html#滑流">滑流</a>，调整<a href="战术系.html#大黄蜂">大黄蜂</a>，<a href="战术系.html#通天晓">通天晓</a>，<a href="斗士系.html#斗擎">斗擎</a>，<a href="斗士系.html#碾碎器">碾碎器</a></li>
+<li>更新<a href="对战ai策略.html#在哪找对练">在哪找对练？</a>，加入第三幕的敌人位置。</li>
+</ul></li>
 <li>2022年5月10日：
 <ul>
 <li>新增<a href="对战ai策略.html#在哪找对练">在哪找对练？</a>一节，介绍最快在哪里能找到特定的机器人对手进行练习。</li>
@@ -227,15 +233,16 @@
 <li>修正一些写得比较简略的早期角色。更新一些后续调整过的角色如天火。</li>
 <li>协同部分将逐步修改为只写<strong>受益</strong>和双向型，即“当前角色从其他角色得到的协同”，<strong>不再包含授益</strong>，即“当前角色给其他角色的协同”（这些写在对应角色的受益协同中）。默认为受益，双向的特别标注</li>
 <li>加入每个类别的技能关键点统计，例如战术系有7人可破甲，6人可施加DOT，等等。</li>
+<li>开启专门章节讲特色的协同。</li>
 </ul>
 </div>
 <div id="前言" class="section level2 hasAnchor" number="1.3">
 <h2><span class="header-section-number">1.3</span> 前言<a href="index.html#前言" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>《变形金刚：百炼为战》（Transformers: Forged to Fight）是一款以变形金刚为主题的格斗类手游，由Kabam公司开发，2017年4月正式上线。游戏采用了来自多个脉系的变形金刚进行格斗对战，战斗模式为一对一（玩家对电脑AI），没有玩家间实时对战的功能。</p>
 <p>《百炼为战》在画面、人物形象、游戏模式与动作设计方面均让人眼前一亮，尤其在变形金刚这个IP的游戏中属于佼佼者。但游戏对系统要求高，频繁的卡顿与bug一直困扰并限制着新玩家入坑。运营思路的缺乏也让这个游戏始终只拥有十分小众的玩家群体。</p>
-<p>作为游戏的铁杆粉丝，我在游戏公测时入坑，一直玩到今天，经历了游戏中的各种变化，对这个游戏的感情很深。于是在这个游戏走到晚期，角色稳定下来之后，结合自己对角色的使用的理解，写下了这篇《全人物解析》。</p>
+<p>作为游戏的铁杆粉丝，我在游戏公测时入坑，一直玩到今天，经历了游戏中的各种变化，对这个游戏的感情很深。于是在这个游戏走到晚期，角色稳定下来之后，结合自己对角色的使用的理解，写下了这篇《全人物解析》。目前看来，游戏有复苏的迹象，新人物频频登场，于是继续把新人物的心得也持续更新。</p>
 <p>以下的内容均来自本人使用过程中的经验和与玩家群体交流的心得，感谢所有玩家对这个游戏和我本人的帮助。文中内容乃一家之言，供交流学习用，如有批评指正，欢迎来信： <a href="mailto:kmc.best@qq.com" class="email">kmc.best@qq.com</a></p>
-<p><strong>本人主号于2021年2月底弃用，之后零星地给网友带带号，跟进了解游戏的进展，并对本文做持续更新。</strong></p>
+<!-- **本人主号于2021年2月底弃用，之后零星地给网友带带号，跟进了解游戏的进展，并对本文做持续更新。** -->
 
 </div>
 </div>

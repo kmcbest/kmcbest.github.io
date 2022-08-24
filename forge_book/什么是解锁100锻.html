@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3 什么是解锁100锻 | 百炼为战全锻造</title>
   <meta name="description" content="百炼为战锻造的知识" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3 什么是解锁100锻 | 百炼为战全锻造" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="百炼为战锻造的知识" />
   
@@ -32,8 +31,8 @@
   
 <link rel="prev" href="什么是锻造.html"/>
 <link rel="next" href="锻造的花费如何.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,6 +48,9 @@
 
 
 
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 
@@ -125,8 +127,8 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="什么是解锁100锻" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> 什么是解锁100锻</h1>
+<div id="什么是解锁100锻" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> 什么是解锁100锻<a href="什么是解锁100锻.html#什么是解锁100锻" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>由于游戏加载画面中那一句中文翻译的错误，很多玩家没理解什么叫“最高锻造等级解锁”，所以这里还是用平实的语言再解释一遍：刚刚拿到一个角色的时候，他的锻造等级最高只有75级，在锻造满75级后再想锻造，系统会提示“需要x星的xxx才能继续”——具体来说，就是要吃掉一张比这个卡牌的星等低一级的同样一张卡牌，76~100的锻造等级才会解锁。</p>
 <p>没错，如果你是四星战擎，就需要吃三星战擎（不能是两星战擎，也不能是三星斗擎，虽然也叫“擎天柱”），如果是五星侦察大黄蜂，就需要吃四星侦察大黄蜂，而不能是四星战术大黄蜂。模块方面也是相同的（超导体2000和超导体1000就像战擎和斗擎一样，不能互相解锁用的）。</p>
 </div>
@@ -140,7 +142,6 @@
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -159,6 +160,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -179,6 +181,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 },
@@ -193,7 +199,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

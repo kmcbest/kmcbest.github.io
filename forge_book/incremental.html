@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>8 分开喂还是嵌套喂 | 百炼为战全锻造</title>
   <meta name="description" content="百炼为战锻造的知识" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
 
   <meta property="og:title" content="8 分开喂还是嵌套喂 | 百炼为战全锻造" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="百炼为战锻造的知识" />
   
@@ -32,8 +31,8 @@
   
 <link rel="prev" href="锻造的奖励.html"/>
 <link rel="next" href="招牌的价值.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,6 +48,9 @@
 
 
 
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 
@@ -125,8 +127,8 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="incremental" class="section level1" number="8">
-<h1><span class="header-section-number">8</span> 分开喂还是嵌套喂</h1>
+<div id="incremental" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">8</span> 分开喂还是嵌套喂<a href="incremental.html#incremental" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>这也是一个千古问题。例如，我有三星警车和四星警车各一只，锻造给五星的警车的时候，是<strong>分开喂（三星喂五星，然后四星喂五星）</strong>，还是<strong>嵌套喂（三星喂四星，四星再喂五星）</strong>划算？</p>
 <p>现在有了<a href="锻造计算器.html#锻造计算器">锻造计算器</a>，我们可以直接模拟锻造（假设狗粮和五星警车都是未升级、未觉醒）。</p>
 <p>分开喂：</p>
@@ -168,7 +170,6 @@
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -187,6 +188,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -207,6 +209,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 },
@@ -221,7 +227,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

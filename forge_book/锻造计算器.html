@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>14 锻造计算器 | 百炼为战全锻造</title>
   <meta name="description" content="百炼为战锻造的知识" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
 
   <meta property="og:title" content="14 锻造计算器 | 百炼为战全锻造" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="百炼为战锻造的知识" />
   
@@ -32,8 +31,8 @@
   
 <link rel="prev" href="锻造小贴士.html"/>
 <link rel="next" href="附录.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,6 +48,9 @@
 
 
 
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 
@@ -125,8 +127,8 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="锻造计算器" class="section level1" number="14">
-<h1><span class="header-section-number">14</span> 锻造计算器</h1>
+<div id="锻造计算器" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">14</span> 锻造计算器<a href="锻造计算器.html#锻造计算器" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>国外大神Trailfire弃坑前留下过一些经验数据并写成了在线表格，可以进行锻造的估算。我对他的Excel表格进行了分析，修正了一大批错误，并补齐了五星全部的数据，用Javascript写成了<a href="../calculator_cn.html">网页计算器</a>供大家使用。</p>
 <p>计算器的界面如图：</p>
 <p><img src="index_insertimage_2.png" /></p>
@@ -151,7 +153,6 @@
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -170,6 +171,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -190,6 +192,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 },
@@ -204,7 +210,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

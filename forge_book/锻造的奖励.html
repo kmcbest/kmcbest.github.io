@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>7 锻造的奖励 | 百炼为战全锻造</title>
   <meta name="description" content="百炼为战锻造的知识" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
 
   <meta property="og:title" content="7 锻造的奖励 | 百炼为战全锻造" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="百炼为战锻造的知识" />
   
@@ -32,8 +31,8 @@
   
 <link rel="prev" href="锻造材料的培育.html"/>
 <link rel="next" href="incremental.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,6 +48,9 @@
 
 
 
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 
@@ -125,15 +127,15 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="锻造的奖励" class="section level1" number="7">
-<h1><span class="header-section-number">7</span> 锻造的奖励</h1>
+<div id="锻造的奖励" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">7</span> 锻造的奖励<a href="锻造的奖励.html#锻造的奖励" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>也许其他游戏类似锻造的功能（重生、回退、分解）会把所有升级材料都返还，但这个游戏没有。不过，锻造是有奖励的，分为资源与碎片奖励。</p>
-<div id="资源奖励" class="section level2" number="7.1">
-<h2><span class="header-section-number">7.1</span> 资源奖励</h2>
+<div id="资源奖励" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> 资源奖励<a href="锻造的奖励.html#资源奖励" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>资源奖励没什么可说的，一些类别矿和黄金，因为实在太少，估计大家一般也不关心具体返回多少资源，我也没有记录过，毕竟最关键的火种是不返还的。</p>
 </div>
-<div id="碎片奖励" class="section level2" number="7.2">
-<h2><span class="header-section-number">7.2</span> 碎片奖励</h2>
+<div id="碎片奖励" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> 碎片奖励<a href="锻造的奖励.html#碎片奖励" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>锻造的另一项收成是高一星等的碎片（除了一星模块不给二星模块碎片），这个是有公式可算的（适用于2，3，4星材料）：</p>
 <p><span class="math inline">\(S_{shard} = (2N^2 - 10N + 13) \times [ (7.5R^2-12.5 R + 25) + L + 11S_{sig}) ]\)</span></p>
 <p>其中：</p>
@@ -178,7 +180,6 @@
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -197,6 +198,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -217,6 +219,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 },
@@ -231,7 +237,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

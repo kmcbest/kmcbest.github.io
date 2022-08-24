@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>百炼为战全锻造</title>
   <meta name="description" content="百炼为战锻造的知识" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
 
   <meta property="og:title" content="百炼为战全锻造" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="百炼为战锻造的知识" />
   
@@ -32,8 +31,8 @@
   
 
 <link rel="next" href="什么是锻造.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,6 +48,9 @@
 
 
 
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 
@@ -128,10 +130,10 @@
 <div id="header">
 <h1 class="title">百炼为战全锻造</h1>
 <p class="author"><em>公理天城翻译官</em></p>
-<p class="date"><em>更新时间：2021-03-17</em></p>
+<p class="date"><em>更新时间：2022-08-24</em></p>
 </div>
-<div id="前言" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> 前言</h1>
+<div id="前言" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> 前言<a href="index.html#前言" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>百炼为战英文名“Forged To Fight”，这个游戏最初开始宣传的时候，媒体直译“锻造战斗”，我还喷过这个翻译太没品。后来游戏正式发布的时候看到叫《百炼为战》心里稍微好受了些。当然，开始的时候可能谁也没注意到这个“百”字的含义。如今游戏开服已有一年多，相信大家都对“100锻”（满锻）这个无底洞都有了深深的体会。</p>
 <p>游戏厂商没有关于锻造这项功能给玩家出具足够的说明。与升级升阶不同在于，锻造会让玩家失去卡牌，锻造的心得都是玩家们靠自己的实践得出的。为此，国外有玩家制作了锻造材料表、锻造碎片表、锻造经验计算器等辅助教程。但关于锻造的问题依然是层出不穷，以下我就结合我的心得和玩家常见的问题谈谈我眼中的锻造。</p>
 <p>推荐阅读方式：</p>
@@ -151,7 +153,6 @@
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -170,6 +171,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -190,6 +192,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 },
@@ -204,7 +210,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

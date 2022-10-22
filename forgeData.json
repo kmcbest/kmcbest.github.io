@@ -173,7 +173,7 @@
                 "currentCoeff",
                 "currentCoeff"
             ],
-            "sparks": ""
+            "sparks": "T2B*1, T1C*1"
         },
         "2": {
             "cost": [
@@ -381,7 +381,7 @@
                 "currentCoeff"
             ],
             "sparks": {
-                "T2B ": 3,
+                "T2B": 3,
                 "T2C": 2,
                 "T1A": 1
             }

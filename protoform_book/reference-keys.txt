@@ -33,9 +33,9 @@ fig:unnamed-chunk-34
 fig:unnamed-chunk-35
 fig:unnamed-chunk-36
 fig:unnamed-chunk-37
-tab:unnamed-chunk-38
-tab:unnamed-chunk-39
-tab:unnamed-chunk-40
+fig:unnamed-chunk-38
+fig:unnamed-chunk-39
+fig:unnamed-chunk-40
 tab:unnamed-chunk-41
 tab:unnamed-chunk-42
 tab:unnamed-chunk-43
@@ -67,6 +67,9 @@ tab:unnamed-chunk-68
 tab:unnamed-chunk-69
 tab:unnamed-chunk-70
 tab:unnamed-chunk-71
+tab:unnamed-chunk-72
+tab:unnamed-chunk-73
+tab:unnamed-chunk-74
 更新与简介
 更新日志
 前言
@@ -141,6 +144,7 @@ tab:unnamed-chunk-71
 暴力刷到60级
 不再有新人物
 新昆塔莎的双11
+探索领袖难度
 技术资料
 经验与指挥官等级
 级以前

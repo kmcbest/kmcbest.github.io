@@ -42,12 +42,12 @@ fig:unnamed-chunk-43
 fig:unnamed-chunk-44
 fig:unnamed-chunk-45
 fig:unnamed-chunk-46
-tab:unnamed-chunk-47
+fig:unnamed-chunk-47
 fig:unnamed-chunk-48
 fig:unnamed-chunk-49
 tab:unnamed-chunk-50
-tab:unnamed-chunk-51
-tab:unnamed-chunk-52
+fig:unnamed-chunk-51
+fig:unnamed-chunk-52
 tab:unnamed-chunk-53
 tab:unnamed-chunk-54
 tab:unnamed-chunk-55
@@ -79,6 +79,9 @@ tab:unnamed-chunk-80
 tab:unnamed-chunk-81
 tab:unnamed-chunk-82
 tab:unnamed-chunk-83
+tab:unnamed-chunk-84
+tab:unnamed-chunk-85
+tab:unnamed-chunk-86
 更新与简介
 更新日志
 前言
@@ -158,6 +161,7 @@ tab:unnamed-chunk-83
 通用币废了但泰坦币大放送
 长命的百炼
 第一个也是最后一个六阶
+告别百炼为战
 成熟期
 四星五星人物获取记录
 技术资料

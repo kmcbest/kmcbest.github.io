@@ -1,0 +1,192 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Midjourney Prompt Generator</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="./md5.js"></script>
+</head>
+
+<body>
+  <p>This is a page for generating Midjourney prompts.</p>
+  <textarea id="input-text" rows="4" cols="50"></textarea>
+  <button id="translate-button">Translate</button>
+  <div id="artists-droplist"></div>
+  <div id="checkboxes"></div>
+  <p>Image weight</p>
+  <select id="image-weight">
+    <option value="--iw 1.0">--iw 1.0</option>
+    <option value="--iw 0.5">--iw 0.5</option>
+    <option value="--iw 0.6">--iw 0.6</option>
+    <option value="--iw 0.9">--iw 0.9</option>
+  </select>
+  <p>Aspect ratio</p>
+  <select id="aspect-ratio">
+    <option value="--ar 2:3">--ar 2:3</option>
+    <option value="--ar 3:4">--ar 3:4</option>
+    <option value="--ar 16:9">--ar 16:9</option>
+    <option value="--ar 9:16">--ar 9:16</option>
+  </select>
+  <br>
+  <button id="generate-button">Generate!</button><br>
+  <textarea id="output-text" rows="4" cols="50" readonly></textarea>
+  <button id="copy-button">Copy</button>
+
+  <script>
+    $(document).ready(function () {
+      // Set the default value for the textarea
+      $("#input-text").val("Enter your text here...");
+      // Remove the default value when the user clicks on the textarea
+      $("#input-text").click(function () {
+        $(this).val("");
+      });
+    });
+    // Read the JSON file and create artist droplist
+    $.getJSON("https://api.myjson.online/v1/records/5bd0d77a-1da2-4a65-8014-286b09fa3bb9", function (jsonObject) {
+      const data = jsonObject.data
+      // Get the values of the "艺术家" key
+      //console.log(data);
+      const artists = data.artists;
+      // Split the values into an array of artists
+      const artistList = artists.split(",");
+      // Create a dropdown menu with the artist list
+      const dropdown = $("<select id='artistDropdown'></select>");
+      $.each(artistList, function (index, item) {
+        const option = $("<option></option>").attr("value", item).text(item);
+        dropdown.append(option);
+      });
+      // Append the dropdown menu to the #artist div
+      var h3 = $("<h3></h3>").text("艺术家风格");
+      $("#artists-droplist").append(h3).append(dropdown).append("<br>");
+    });
+
+
+    // Read the JSON file and create checkboxes
+    $.getJSON("https://api.myjson.online/v1/records/51d68517-54ad-43de-8978-26ce31f1fca9", function (jsonObject) {
+      const data = jsonObject.data;
+      $.each(data, function (key, value) {
+        // Create a H3 heading with the key
+        var h3 = $("<h3></h3>").text(key);
+        // Append the heading to the checkboxes div
+        $("#checkboxes").append(h3);
+        // Split the value by comma and create a checkbox for each item
+        //console.log(typeof (value))
+        var items = value.split(",");
+        $.each(items, function (index, item) {
+          // Create a checkbox with the item as the text and value
+          //console.log(item)
+          var checkbox = $("<input></input>").attr("type", "checkbox").attr("value", item).text(item);
+          // Append the checkbox to the checkboxes div
+          var label = $("<label></label>").text(item.trim());
+          $("#checkboxes").append(checkbox).append(label);
+        });
+        // Add a new line after the last checkbox
+        $("#checkboxes").append("<br>");
+      });
+    });
+
+    // Translate the input text using an API and replace the content
+    $("#translate-button").click(function () {
+      // Get the input text
+      var inputText = $("#input-text").val();
+      // Call the API with the input text as the query parameter
+      var q = inputText;
+      var appid = "20230329001619987"; // 请自行获取
+      var key = "vyHaC_QtTi4Q2dSn1HIC"; // 请自行获取
+      var salt = (new Date).getTime();
+      var str1 = appid + q + salt + key;
+      var sign = md5(str1);
+      $.ajax({
+        url: 'https://fanyi-api.baidu.com/api/trans/vip/translate',
+        type: 'post',
+        dataType: 'jsonp',
+        data: {
+          q: q,
+          from: 'auto',
+          to: 'en',
+          appid: appid,
+          salt: salt,
+          sign: sign
+        },
+        success: function (data) {
+          // console.log(data)
+          transText = data.trans_result[0].dst;
+          // console.log(transText)
+          $("#input-text").val(transText);
+        }
+      });
+
+
+
+    });
+
+    // Generate the output text by joining the input text, checkbox values and droplist values
+    $("#generate-button").click(function () {
+      // Get the input text
+      var inputText = $("#input-text").val();
+      var artistStyle = $("#artistDropdown").val();
+
+      if (artistStyle.slice(0, 3) == "000") {
+        artistStyle = "";
+      }
+      else {
+        artistStyle = "by " + artistStyle.slice(5);
+      }
+      // Get the checked checkboxes and map their values to an array
+      var checkedValues = $("input[type='checkbox']:checked").map(function () {
+        return $(this).val();
+      }).get();
+      // Join the array with comma
+      var checkedText = checkedValues.join(",");
+      // Get the selected image weight value
+      var imageWeight = $("#image-weight").val();
+      // Get the selected aspect ratio value
+      var aspectRatio = $("#aspect-ratio").val();
+
+      // Join all the values with comma and set it as the output text
+      var outputText = inputText + "," + checkedText + "," + artistStyle + "," + imageWeight + "," + aspectRatio;
+      $("#output-text").val(outputText);
+    });
+
+    // Copy the output text to the clipboard
+    $("#copy-button").click(function () {
+      // Select the output text
+      $("#output-text").select();
+      // Copy it to the clipboard
+      document.execCommand("copy");
+    });
+    function GetBaidu(inputText) {
+      var transText
+      var q = inputText;
+      console.log(q)
+      var appid = "20230329001619987"; // 请自行获取
+      var key = "vyHaC_QtTi4Q2dSn1HIC"; // 请自行获取
+      var salt = (new Date).getTime();
+      var str1 = appid + q + salt + key;
+      var sign = md5(str1);
+      $.ajax({
+        url: 'https://fanyi-api.baidu.com/api/trans/vip/translate',
+        type: 'post',
+        dataType: 'jsonp',
+        data: {
+          q: q,
+          from: 'auto',
+          to: 'en',
+          appid: appid,
+          salt: salt,
+          sign: sign
+        },
+        success: function (data) {
+          console.log(data)
+          transText = data.trans_result[0].dst;
+          return transText;
+        }
+      });
+    }
+  </script>
+
+</body>
+
+</html>

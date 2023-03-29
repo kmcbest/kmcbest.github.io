@@ -33,14 +33,14 @@
   <button id="generate-button">Generate!</button><br>
   <textarea id="output-text" rows="4" cols="50" readonly></textarea>
   <button id="copy-button">Copy</button>
-
+  <p style="margin-bottom: 150px;"></p>
   <script>
     $(document).ready(function () {
       // Set the default value for the textarea
       $("#input-text").val("Enter your text here...");
       // Remove the default value when the user clicks on the textarea
       $("#input-text").click(function () {
-        $(this).val("");
+        if ($(this).val() == "Enter your text here...") $(this).val("");
       });
     });
     // Read the JSON file and create artist droplist

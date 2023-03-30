@@ -17,13 +17,13 @@
 
 <body>
     <h1>Midjourney Prompt Generator</h1>
-    <p>This is a page for generating Midjourney prompts. Enter below the creative descriptions of your image in English,
-        or use other language then click the "Translate" button to get the English translation.</p>
+    <p>在下方文本框用英语输入图片描述，亦可输入其他语言，点“Translate”按钮自动翻译为英语。其余固定内容可以勾选。</p>
     <textarea id="input-text" rows="4" cols="50"></textarea>
-    <button id="translate-button">Translate</button>
+    <button id="translate-button" style="height: 30px;">Translate</button>
     <div id="artists-droplist"></div>
     <div id="checkboxes"></div>
-    <p>Image weight</p>
+    <br>
+    <label>Image weight</label>
     <select id="image-weight">
         <option value="">None</option>
         <option value="--iw 1.0">--iw 1.0</option>
@@ -31,7 +31,7 @@
         <option value="--iw 0.6">--iw 0.6</option>
         <option value="--iw 0.9">--iw 0.9</option>
     </select>
-    <p>Aspect ratio</p>
+    <label>Aspect ratio</label>
     <select id="aspect-ratio">
         <option value="--ar 16:9">--ar 16:9</option>
         <option value="--ar 4:3">--ar 4:3</option>
@@ -40,10 +40,10 @@
         <option value="--ar 9:16">--ar 9:16</option>
         <option value="--ar 1:1">--ar 1:1</option>
     </select>
-    <br>
-    <button id="generate-button">Generate!</button><br>
-    <textarea id="output-text" rows="4" cols="50" readonly></textarea>
-    <button id="copy-button">Copy</button>
+    <br><br><br>
+    <button id="generate-button" style="height: 30px;">Generate!</button><br>
+    <textarea id="output-text" rows="4" cols="50"></textarea>
+    <button id="copy-button" style="height: 30px;">Copy</button>
     <p style="margin-bottom: 150px;"></p>
     <script>
         $(document).ready(function () {
@@ -55,27 +55,79 @@
             });
         });
         // Read the JSON file and create artist droplist
-        $.getJSON("https://api.myjson.online/v1/records/5bd0d77a-1da2-4a65-8014-286b09fa3bb9", function (jsonObject) {
-            const data = jsonObject.data
-            // Get the values of the "艺术家" key
-            //console.log(data);
-            const artists = data.artists;
-            // Split the values into an array of artists
-            const artistList = artists.split(",");
-            // Create a dropdown menu with the artist list
-            const dropdown = $("<select id='artistDropdown'></select>");
-            $.each(artistList, function (index, item) {
-                const option = $("<option></option>").attr("value", item).text(item);
-                dropdown.append(option);
-            });
-            // Append the dropdown menu to the #artist div
-            var h3 = $("<h3></h3>").text("艺术家风格");
-            $("#artists-droplist").append(h3).append(dropdown).append("<br>");
-        });
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("x-collection-access-token", "04414d5e-9d37-467c-be31-4115d330e71b");
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        fetch("https://api.myjson.online/v1/records/5bd0d77a-1da2-4a65-8014-286b09fa3bb9", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                const data = result.data;
+                const artists = data.artists;
+                // Split the values into an array of artists
+                const artistList = artists.split(",");
+                // Create a dropdown menu with the artist list
+                const dropdown = $("<select id='artistDropdown'></select>");
+                $.each(artistList, function (index, item) {
+                    const option = $("<option></option>").attr("value", item).text(item);
+                    dropdown.append(option);
+                });
+                // Append the dropdown menu to the #artist div
+                var h3 = $("<h3></h3>").text("艺术家风格");
+                $("#artists-droplist").append(h3).append(dropdown).append("<br>");
+            })
+            .catch(error => console.log('error', error));
+
+        //$.getJSON("https://api.myjson.online/v1/records/5bd0d77a-1da2-4a65-8014-286b09fa3bb9", function (jsonObject) {
+        //const data = jsonObject.data
+        // Get the values of the "艺术家" key
+        //console.log(data);
+
+        //});
+
+        fetch("https://api.myjson.online/v1/records/51d68517-54ad-43de-8978-26ce31f1fca9", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                const data = result.data;
+
+                $.each(data, function (key, value) {
+                    // Create a H3 heading with the key
+                    var h3 = $("<h3></h3>").text(key);
+                    // Append the heading to the checkboxes div
+                    $("#checkboxes").append(h3);
+                    // Split the value by comma and create a checkbox for each item
+                    //console.log(typeof (value))
+                    var items = value.split(",");
+                    $.each(items, function (index, item) {
+                        // Create a checkbox with the item as the text and value
+                        //console.log(item)
+                        //var checkbox = $("<input></input>").attr("type", "checkbox").attr("class", "larger").attr("value", item);
+                        // Append the checkbox to the checkboxes div
+                        //var label = $("<label></label>").text(item.trim());
+                        //$("#checkboxes").append(checkbox).append(label);
+                        var checkbox = $("<input>").attr({
+                            type: "checkbox",
+                            class: "larger",
+                            value: item.trim()
+                        });
+                        var label = $("<label>").text(item.trim());
+                        $("#checkboxes").append(label.prepend(checkbox));
+                    });
+                    // Add a new line after the last checkbox
+                    $("#checkboxes").append("<br>");
+                });
+            })
+            .catch(error => console.log('error', error));
+
 
 
         // Read the JSON file and create checkboxes
-        $.getJSON("https://api.myjson.online/v1/records/51d68517-54ad-43de-8978-26ce31f1fca9", function (jsonObject) {
+        /* $.getJSON("https://api.myjson.online/v1/records/51d68517-54ad-43de-8978-26ce31f1fca9", function (jsonObject) {
             const data = jsonObject.data;
             $.each(data, function (key, value) {
                 // Create a H3 heading with the key
@@ -88,15 +140,22 @@
                 $.each(items, function (index, item) {
                     // Create a checkbox with the item as the text and value
                     //console.log(item)
-                    var checkbox = $("<input></input>").attr("type", "checkbox").attr("class", "larger").attr("value", item);
+                    //var checkbox = $("<input></input>").attr("type", "checkbox").attr("class", "larger").attr("value", item);
                     // Append the checkbox to the checkboxes div
-                    var label = $("<label></label>").text(item.trim());
-                    $("#checkboxes").append(checkbox).append(label);
+                    //var label = $("<label></label>").text(item.trim());
+                    //$("#checkboxes").append(checkbox).append(label);
+                    var checkbox = $("<input>").attr({
+                        type: "checkbox",
+                        class: "larger",
+                        value: item.trim()
+                    });
+                    var label = $("<label>").text(item.trim());
+                    $("#checkboxes").append(label.prepend(checkbox));
                 });
                 // Add a new line after the last checkbox
                 $("#checkboxes").append("<br>");
             });
-        });
+        }); */
 
         // Translate the input text using an API and replace the content
         $("#translate-button").click(function () {
@@ -157,7 +216,7 @@
             var aspectRatio = $("#aspect-ratio").val();
 
             // Join all the values with comma and set it as the output text
-            var outputText = inputText + " | " + checkedText + ", " + artistStyle + "::1 " + imageWeight + " " + aspectRatio;
+            var outputText = inputText + " :: " + checkedText + ", " + artistStyle + "::1 " + imageWeight + " " + aspectRatio;
             $("#output-text").val(outputText);
         });
 
@@ -168,34 +227,7 @@
             // Copy it to the clipboard
             document.execCommand("copy");
         });
-        function GetBaidu(inputText) {
-            var transText
-            var q = inputText;
-            console.log(q)
-            var appid = "20230329001619987"; // 请自行获取
-            var key = "vyHaC_QtTi4Q2dSn1HIC"; // 请自行获取
-            var salt = (new Date).getTime();
-            var str1 = appid + q + salt + key;
-            var sign = md5(str1);
-            $.ajax({
-                url: 'https://fanyi-api.baidu.com/api/trans/vip/translate',
-                type: 'post',
-                dataType: 'jsonp',
-                data: {
-                    q: q,
-                    from: 'auto',
-                    to: 'en',
-                    appid: appid,
-                    salt: salt,
-                    sign: sign
-                },
-                success: function (data) {
-                    console.log(data)
-                    transText = data.trans_result[0].dst;
-                    return transText;
-                }
-            });
-        }
+
     </script>
 
 </body>

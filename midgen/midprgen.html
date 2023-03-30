@@ -19,7 +19,9 @@
     <h1>Midjourney Prompt Generator</h1>
     <p>在下方文本框用英语输入图片描述，亦可输入其他语言，点“Translate”按钮自动翻译为英语。其余固定内容可以勾选。</p>
     <textarea id="input-text" rows="4" cols="50"></textarea>
+    <br>
     <button id="translate-button" style="height: 30px;">Translate</button>
+    <button id="clear-button" style="height: 30px;">Clear</button>
     <div id="artists-droplist"></div>
     <div id="checkboxes"></div>
     <br>
@@ -54,6 +56,7 @@
                 if ($(this).val() == "Enter your text here...") $(this).val("");
             });
         });
+
         // Read the JSON file and create artist droplist
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -188,7 +191,10 @@
                 }
             });
 
+            $("#clear-button").click(function () {
 
+                $("#input-text").val("");
+            });
 
         });
 
@@ -202,7 +208,7 @@
                 artistStyle = "";
             }
             else {
-                artistStyle = "by " + artistStyle.slice(5);
+                artistStyle = "by " + artistStyle.slice(5) + "::1";
             }
             // Get the checked checkboxes and map their values to an array
             var checkedValues = $("input[type='checkbox']:checked").map(function () {
@@ -216,7 +222,7 @@
             var aspectRatio = $("#aspect-ratio").val();
 
             // Join all the values with comma and set it as the output text
-            var outputText = inputText + " :: " + checkedText + ", " + artistStyle + "::1 " + imageWeight + " " + aspectRatio;
+            var outputText = "/imagine " + inputText + " :: " + checkedText + ", " + artistStyle + imageWeight + " " + aspectRatio;
             $("#output-text").val(outputText);
         });
 

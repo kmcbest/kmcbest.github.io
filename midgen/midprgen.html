@@ -22,6 +22,8 @@
     <br>
     <button id="translate-button" style="height: 30px;">Translate</button>
     <button id="clear-button" style="height: 30px;">Clear</button>
+    <h3>参考图片</h3>
+    <textarea id="ref-image" rows="2" cols="50"></textarea>
     <div id="artists-droplist"></div>
     <div id="checkboxes"></div>
     <br>
@@ -42,6 +44,7 @@
         <option value="--ar 9:16">--ar 9:16</option>
         <option value="--ar 1:1">--ar 1:1</option>
     </select>
+    <label>Seed</label> <input type="text" id="seed" size = "20">
     <br>
     <label><input type="checkbox" id="appendimagine" value="/imagine " class="larger">Add "/imagine"</label>
     <br><br>
@@ -204,13 +207,15 @@
         $("#generate-button").click(function () {
             // Get the input text
             var inputText = $("#input-text").val();
-            var artistStyle = $("#artistDropdown").val();
 
+            var refImage = $("#ref-image").val() + " ";
+
+            var artistStyle = $("#artistDropdown").val();
             if (artistStyle.slice(0, 3) == "000") {
                 artistStyle = "";
             }
             else {
-                artistStyle = "by " + artistStyle.slice(5) + "::1";
+                artistStyle = "by " + artistStyle.slice(5) + "::2";
             }
             // Get the checked checkboxes and map their values to an array
             var checkedValues = $("input[type='checkbox']:checked").map(function () {
@@ -223,16 +228,20 @@
             var imageWeight = $("#image-weight").val();
             // Get the selected aspect ratio value
             var aspectRatio = $("#aspect-ratio").val();
-
-            // Join all the values with comma and set it as the output text
-            if ($('input[id="appendimagine"]').is(':checked')) {
-                var outputText = "/imagine " + inputText + " :: " + checkedText + ", " + artistStyle + imageWeight + " " + aspectRatio;
+            if ($("#seed").val() != "") {
+                var seed = " --seed " + $("#seed").val() + " ";
             } else {
-                var outputText = inputText + " :: " + checkedText + ", " + artistStyle + imageWeight + " " + aspectRatio;
-
+                var seed = "";
+            }
+        
+            
+            // Join all the values with comma and set it as the output text
+            var outputText = refImage + inputText + " :: " + checkedText + ", " + artistStyle + imageWeight + " " + aspectRatio + seed;
+            if ($('input[id="appendimagine"]').is(':checked')) {
+                var outputText = "/imagine " + outputText.trim();
             }
 
-            $("#output-text").val(outputText);
+            $("#output-text").val(outputText.trim());
         });
 
         // Copy the output text to the clipboard

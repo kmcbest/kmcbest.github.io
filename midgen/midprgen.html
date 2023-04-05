@@ -215,7 +215,7 @@
                 artistStyle = "";
             }
             else {
-                artistStyle = "by " + artistStyle.slice(5) + "::2 ";
+                artistStyle = "by " + artistStyle.trim() + "::2 ";
             }
             // Get the checked checkboxes and map their values to an array
             var checkedValues = $("input[type='checkbox']:checked").map(function () {

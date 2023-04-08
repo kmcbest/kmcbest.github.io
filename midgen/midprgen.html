@@ -44,9 +44,31 @@
         <option value="--ar 9:16">--ar 9:16</option>
         <option value="--ar 1:1">--ar 1:1</option>
     </select>
-    <label>Seed</label> <input type="text" id="seed" size = "20">
+    <label>Seed</label> <input type="text" id="seed" size = "20"><br>
+    <label>--no</label> <input type="text" id="exclude" size = "20"><br>
+    <label>Quality</label>
+    <select id="quality">
+        <option value="--q 1">--q 1</option>
+        <option value="--q 2">--q 2</option>
+        <option value="--q 0.5">--q 0.5</option>
+        <option value="--q 0.25">--q 0.25</option>
+    </select>
+    <label>Stylize</label>
+    <select id="stylize">
+        <option value="--s 100">--s 100</option>
+        <option value="--s 500">--s 500</option>
+        <option value="--s 1000">--s 1000</option>
+    </select>
+    <label>Chaos</label>
+    <select id="chaos">
+        <option value="--c 0">--c 0</option>
+        <option value="--c 50">--c 50</option>
+        <option value="--c 100">--c 100</option>
+    </select>
+  
     <br>
     <label><input type="checkbox" id="appendimagine" value="/imagine " class="larger">Add "/imagine"</label>
+    <label><input type="checkbox" id="niji" value="--niji " class="larger">--niji</label>
     <br><br>
     <button id="generate-button" style="height: 30px;">Generate!</button><br>
     <textarea id="output-text" rows="4" cols="50"></textarea>
@@ -219,7 +241,7 @@
             }
             // Get the checked checkboxes and map their values to an array
             var checkedValues = $("input[type='checkbox']:checked").map(function () {
-                if ($(this).val() != "/imagine ")
+                if ( ($(this).val() != "/imagine ") && ($(this).val() != "--niji ") )
                     return $(this).val();
             }).get();
             // Join the array with comma
@@ -228,19 +250,28 @@
             var imageWeight = $("#image-weight").val();
             // Get the selected aspect ratio value
             var aspectRatio = $("#aspect-ratio").val();
+            var quality = $("#quality").val();
+            var stylize = $("#stylize").val();
+            var chaos = $("#chaos").val();
             if ($("#seed").val() != "") {
                 var seed = " --seed " + $("#seed").val() + " ";
             } else {
                 var seed = "";
             }
-        
+            if ($("#exclude").val() != "") {
+                var exclude = " --no " + $("#exclude").val() + " ";
+            } else {
+                var exclude = "";
+            }
             
             // Join all the values with comma and set it as the output text
-            var outputText = refImage + inputText + " / " + checkedText + ", " + artistStyle + imageWeight + " " + aspectRatio + seed;
+            var outputText = refImage.trim() + " " + inputText.trim() + " / " + checkedText.trim() + ", " + artistStyle.trim() + " " + imageWeight.trim() + " " + aspectRatio.trim() + " " + quality.trim() + " " + stylize.trim() + " " + chaos.trim() +  seed + exclude;
             if ($('input[id="appendimagine"]').is(':checked')) {
                 var outputText = "/imagine " + outputText.trim();
             }
-
+            if ($('input[id="niji"]').is(':checked')) {
+                var outputText = outputText.trim() + " --niji 5 --upanime";
+            }
             $("#output-text").val(outputText.trim());
         });
 

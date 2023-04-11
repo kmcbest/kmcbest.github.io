@@ -44,8 +44,8 @@
         <option value="--ar 9:16">--ar 9:16</option>
         <option value="--ar 1:1">--ar 1:1</option>
     </select>
-    <label>Seed</label> <input type="text" id="seed" size = "20"><br>
-    <label>--no</label> <input type="text" id="exclude" size = "20"><br>
+    <label>Seed</label> <input type="text" id="seed" size="20"><br>
+    <label>--no</label> <input type="text" id="exclude" size="20"><br>
     <label>Quality</label>
     <select id="quality">
         <option value="--q 1">--q 1</option>
@@ -65,7 +65,7 @@
         <option value="--c 50">--c 50</option>
         <option value="--c 100">--c 100</option>
     </select>
-  
+
     <br>
     <label><input type="checkbox" id="appendimagine" value="/imagine " class="larger">Add "/imagine"</label>
     <label><input type="checkbox" id="niji" value="--niji " class="larger">--niji</label>
@@ -81,6 +81,9 @@
             // Remove the default value when the user clicks on the textarea
             $("#input-text").click(function () {
                 if ($(this).val() == "Enter your text here...") $(this).val("");
+            });
+            $("#clear-button").click(function () {
+                $("#input-text").val("");
             });
         });
 
@@ -218,10 +221,7 @@
                 }
             });
 
-            $("#clear-button").click(function () {
 
-                $("#input-text").val("");
-            });
 
         });
 
@@ -241,7 +241,7 @@
             }
             // Get the checked checkboxes and map their values to an array
             var checkedValues = $("input[type='checkbox']:checked").map(function () {
-                if ( ($(this).val() != "/imagine ") && ($(this).val() != "--niji ") )
+                if (($(this).val() != "/imagine ") && ($(this).val() != "--niji "))
                     return $(this).val();
             }).get();
             // Join the array with comma
@@ -263,9 +263,9 @@
             } else {
                 var exclude = "";
             }
-            
+
             // Join all the values with comma and set it as the output text
-            var outputText = refImage.trim() + " " + inputText.trim() + " / " + checkedText.trim() + ", " + artistStyle.trim() + " " + imageWeight.trim() + " " + aspectRatio.trim() + " " + quality.trim() + " " + stylize.trim() + " " + chaos.trim() +  seed + exclude;
+            var outputText = refImage.trim() + " " + inputText.trim() + " / " + checkedText.trim() + ", " + artistStyle.trim() + " " + imageWeight.trim() + " " + aspectRatio.trim() + " " + quality.trim() + " " + stylize.trim() + " " + chaos.trim() + seed + exclude;
             if ($('input[id="appendimagine"]').is(':checked')) {
                 var outputText = "/imagine " + outputText.trim();
             }

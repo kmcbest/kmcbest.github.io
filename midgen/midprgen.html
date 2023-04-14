@@ -24,7 +24,9 @@
     <button id="clear-button" style="height: 30px;">Clear</button>
     <h3>参考图片</h3>
     <textarea id="ref-image" rows="2" cols="50"></textarea>
-    <div id="artists-droplist"></div>
+    <div id="illustrators-droplist"></div>
+    <div id="photographers-droplist"></div>
+    <div id="nijis-droplist"></div>
     <div id="checkboxes"></div>
     <br>
     <label>Image weight</label>
@@ -101,18 +103,40 @@
             .then(response => response.json())
             .then(result => {
                 const data = result.data;
-                const artists = data.artists;
                 // Split the values into an array of artists
-                const artistList = artists.split(",");
+                const illustrators = data.illustrator;
+                const illustratorsList = illustrators.split(",");
+                const photographers = data.photographer;
+                const photographersList = photographers.split(",");
+                const nijis = data.niji;
+                const nijisList = nijis.split(",");
+
                 // Create a dropdown menu with the artist list
-                const dropdown = $("<select id='artistDropdown'></select>");
-                $.each(artistList, function (index, item) {
-                    const option = $("<option></option>").attr("value", item).text(item);
-                    dropdown.append(option);
+                const illustratorsdropdown = $("<select id='illustratorsDropdown'></select>");
+                $.each(illustratorsList, function (index, item) {
+                    const option = $("<option></option>").attr("value", item.trim()).text(item);
+                    illustratorsdropdown.append(option);
                 });
                 // Append the dropdown menu to the #artist div
-                var h3 = $("<h3></h3>").text("艺术家风格");
-                $("#artists-droplist").append(h3).append(dropdown).append("<br>");
+                var h3 = $("<h3></h3>").text("Illustrator");
+                $("#illustrators-droplist").append(h3).append(illustratorsdropdown).append("<br>");
+
+                const photographersdropdown = $("<select id='photographersDropdown'></select>");
+                $.each(photographersList, function (index, item) {
+                    const option = $("<option></option>").attr("value", item.trim()).text(item);
+                    photographersdropdown.append(option);
+                });
+                // Append the dropdown menu to the #artist div
+                var h3 = $("<h3></h3>").text("Photographer");
+                $("#photographers-droplist").append(h3).append(photographersdropdown).append("<br>");
+                const nijisdropdown = $("<select id='nijisDropdown'></select>");
+                $.each(nijisList, function (index, item) {
+                    const option = $("<option></option>").attr("value", item.trim()).text(item);
+                    nijisdropdown.append(option);
+                });
+                // Append the dropdown menu to the #artist div
+                var h3 = $("<h3></h3>").text("Niji");
+                $("#nijis-droplist").append(h3).append(nijisdropdown).append("<br>");
             })
             .catch(error => console.log('error', error));
 
@@ -232,13 +256,17 @@
 
             var refImage = $("#ref-image").val() + " ";
 
-            var artistStyle = $("#artistDropdown").val();
-            if (artistStyle == "Nobody") {
-                artistStyle = "";
-            }
-            else {
-                artistStyle = "by " + artistStyle.trim() + "::2 ";
-            }
+            var illustratorStyle = $("#illustratorsDropdown").val().replace("Nobody", "")
+
+            var photographerStyle = $("#photographersDropdown").val().replace("Nobody", "");
+            // var nijiStyle = $("#nijisDropdown").val(function (index, value) {
+            //     return value.replace("Nobody", "");
+            // });
+            var nijiStyle = $("#nijisDropdown").val().replace("Nobody","");
+            
+            var artistStyle = "in the style of " + illustratorStyle + " " + photographerStyle + " " + nijiStyle + "::2 ";
+
+
             // Get the checked checkboxes and map their values to an array
             var checkedValues = $("input[type='checkbox']:checked").map(function () {
                 if (($(this).val() != "/imagine ") && ($(this).val() != "--niji "))

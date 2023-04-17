@@ -50,8 +50,8 @@
     <label>--no</label> <input type="text" id="exclude" size="20"><br>
     <label>Quality</label>
     <select id="quality">
-        <option value="--q 1">--q 1</option>
         <option value="--q 2">--q 2</option>
+        <option value="--q 1">--q 1</option>
         <option value="--q 0.5">--q 0.5</option>
         <option value="--q 0.25">--q 0.25</option>
     </select>
@@ -256,15 +256,14 @@
 
             var refImage = $("#ref-image").val() + " ";
 
-            var illustratorStyle = $("#illustratorsDropdown").val().replace("Nobody", "")
+            var illustratorStyle = $("#illustratorsDropdown").val().trim().replace("Nobody", "")
+            var photographerStyle = $("#photographersDropdown").val().trim().replace("Nobody", "");
+            var nijiStyle = $("#nijisDropdown").val().trim().replace("Nobody", "");
 
-            var photographerStyle = $("#photographersDropdown").val().replace("Nobody", "");
-            // var nijiStyle = $("#nijisDropdown").val(function (index, value) {
-            //     return value.replace("Nobody", "");
-            // });
-            var nijiStyle = $("#nijisDropdown").val().replace("Nobody","");
-            
-            var artistStyle = "in the style of " + illustratorStyle + " " + photographerStyle + " " + nijiStyle + "::2 ";
+            var finalStyle = illustratorStyle + photographerStyle + nijiStyle;
+            var artistStyle
+            if (finalStyle.trim() == "") artistStyle = "";
+            else artistStyle = "in the style of " + finalStyle.trim() + "::2 ";
 
 
             // Get the checked checkboxes and map their values to an array
@@ -284,7 +283,8 @@
             if ($("#seed").val() != "") {
                 var seed = " --seed " + $("#seed").val() + " ";
             } else {
-                var seed = "";
+                let randomInt = Math.floor(Math.random() * 4294967296);
+                var seed = " --seed " + randomInt;
             }
             if ($("#exclude").val() != "") {
                 var exclude = " --no " + $("#exclude").val() + " ";
@@ -293,12 +293,12 @@
             }
 
             // Join all the values with comma and set it as the output text
-            var outputText = refImage.trim() + " " + inputText.trim() + " / " + checkedText.trim() + ", " + artistStyle.trim() + " " + imageWeight.trim() + " " + aspectRatio.trim() + " " + quality.trim() + " " + stylize.trim() + " " + chaos.trim() + seed + exclude;
+            var outputText = refImage.trim() + " " + inputText.trim() + " / " + checkedText.trim() + " / " + artistStyle.trim() + " / " + imageWeight.trim() + " " + aspectRatio.trim() + " " + quality.trim() + " " + stylize.trim() + " " + chaos.trim() + seed + exclude;
             if ($('input[id="appendimagine"]').is(':checked')) {
                 var outputText = "/imagine " + outputText.trim();
             }
             if ($('input[id="niji"]').is(':checked')) {
-                var outputText = outputText.trim() + " --niji 5 --upanime";
+                var outputText = outputText.trim() + " --niji 5 --upanime --style expressive";
             }
             $("#output-text").val(outputText.trim());
         });

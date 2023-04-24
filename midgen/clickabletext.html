@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Clickable Text Generator</title>
+  </head>
+  <body>
+    <textarea id="input" rows="5" cols="50"></textarea>
+    <br />
+    <button onclick="generate()">生成</button>
+    <br /><br />
+    <div id="output"></div>
+
+    <script>
+      function generate() {
+        var input = document.getElementById("input");
+        var output = document.getElementById("output");
+        var lines = input.value.split('\n');
+        var result = "";
+        for (var i = 0; i < lines.length; i++) {
+          result += '<p onclick="copyToClipboard(\'' + lines[i] + '\')">' + lines[i] + '</p>';
+        }
+        output.innerHTML = result;
+      }
+
+      function copyToClipboard(text) {
+        var textarea = document.createElement("textarea");
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        alert(text + " 已经复制到剪贴板!");
+      }
+    </script>
+  </body>
+</html>

@@ -1,37 +1,129 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Clickable Text Generator</title>
-  </head>
-  <body>
-    <textarea id="input" rows="5" cols="50"></textarea>
-    <br />
-    <button onclick="generate()">生成</button>
-    <br /><br />
-    <div id="output"></div>
+<head>
+<meta charset="UTF-8">
+<title>Clickable Text Generator</title>
+<style>
+/* Tooltip CSS */
+[data-tooltip] {
+position: relative;
+cursor: pointer;
+}
 
-    <script>
-      function generate() {
-        var input = document.getElementById("input");
-        var output = document.getElementById("output");
-        var lines = input.value.split('\n');
-        var result = "";
-        for (var i = 0; i < lines.length; i++) {
-          result += '<p onclick="copyToClipboard(\'' + lines[i] + '\')">' + lines[i] + '</p>';
-        }
-        output.innerHTML = result;
-      }
+  [data-tooltip]:hover::before {
+    content: attr(data-tooltip);
+    background: #000;
+    color: #fff;
+    font-size: 14px;
+    padding: 5px 10px;
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
 
-      function copyToClipboard(text) {
-        var textarea = document.createElement("textarea");
-        textarea.value = text;
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand("copy");
-        document.body.removeChild(textarea);
-        alert(text + " 已经复制到剪贴板!");
-      }
-    </script>
-  </body>
+  /* Mouseover CSS */
+  .highlight {
+    background-color: #eee;
+  }
+  
+  /* Click CSS */
+  .clicked {
+    color: red;
+  }
+
+  /* Tooltip box CSS */
+  .tooltip-box {
+    position: fixed;
+    opacity: 0;
+    pointer-events: none;
+    background-color: #000;
+    color: #fff;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  }
+
+  .show-tooltip {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(-20px);
+    animation: tooltip-anim 2s forwards;
+  }
+
+  @keyframes tooltip-anim {
+    0% { opacity: 1; transform: translateY(-20px); }
+    90% { opacity: 1; transform: translateY(-60px); }
+    100% { opacity: 0; transform: translateY(-80px); }
+  }
+</style>
+
+</head>
+<body>
+<textarea id="input" rows="5" cols="50"></textarea>
+<br />
+<button onclick="generate()">生成</button>
+<br /><br />
+<div id="output"></div>
+
+<!-- Tooltip box -->
+<div id="tooltip-box" class="tooltip-box"></div>
+
+<script>
+  function generate() {
+    var input = document.getElementById("input");
+    var output = document.getElementById("output");
+    var lines = input.value.split('\n');
+    var result = "";
+    for (var i = 0; i < lines.length; i++) {
+      result += '<p data-tooltip="' + lines[i] + '" onclick="copyToClipboard(\'' + lines[i] + '\')" onmouseover="highlight(this)" onmouseout="unhighlight(this)">' + lines[i] + '</p>';
+    }
+    output.innerHTML = result;
+  }
+
+  function copyToClipboard(text) {
+    var textarea = document.createElement("textarea");
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+
+    // Clicked CSS
+    event.target.classList.add("clicked");
+
+    // Tooltip Message
+    var tooltip = text + " 已经复制到剪贴板！";
+    var tooltipBox = document.getElementById("tooltip-box");
+    tooltipBox.innerHTML = tooltip;
+
+    // Calculate tooltip position
+    var mouseX = event.clientX;
+    var mouseY = event.clientY;
+    tooltipBox.style.top = (mouseY + 20) + "px";
+    tooltipBox.style.left = (mouseX - 100) + "px";
+
+    // Show tooltip
+    tooltipBox.classList.add("show-tooltip");
+
+    // Hide tooltip
+    setTimeout(function() { 
+      tooltipBox.classList.remove("show-tooltip");
+    }, 2000);
+  }
+
+  function highlight(element) {
+    element.classList.add("highlight");
+  }
+
+  function unhighlight(element) {
+    element.classList.remove("highlight");
+  }
+</script>
+
+</body>
 </html>

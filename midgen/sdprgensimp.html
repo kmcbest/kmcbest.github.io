@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Stable Diffusion Prompt Generator</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            //prefix和suffix的默认内容
+            $("#prefixTextbox").val("(masterpiece),(best quality)");
+            $("#suffixTextbox").val("(photo-realistic), ultra-detailed, Clear features");
+            // 清除Editing文本框中的内容
+            $("#clearButton").click(function () {
+                $("#editingTextbox").val("");
+            });
+
+            // 按下箭头时，在Editing文本框内容左右两端添加一对英文括号()
+            $("#upButton").click(function () {
+                var text = $("#editingTextbox").val();
+                $("#editingTextbox").val("(" + text + ")");
+            });
+
+            // 按上箭头时，从Editing文本框内容左右两端脱去一对英文括号()
+            $("#downButton").click(function () {
+                var text = $("#editingTextbox").val();
+                if (text.charAt(0) === "(" && text.charAt(text.length - 1) === ")") {
+                    $("#editingTextbox").val(text.slice(1, -1));
+                }
+            });
+            $(document).keydown(function (event) {
+
+                // 如果按下Ctrl键
+                if (event.ctrlKey) {
+                    switch (event.keyCode) { // 判断按下的键码
+
+                        case 38: // 上箭头
+                            event.preventDefault(); // 阻止默认行为（即防止页面滚动）
+                            $("#upButton").click(); // 触发Up按钮单击事件
+                            break;
+
+                        case 40: // 下箭头
+                            event.preventDefault(); // 阻止默认行为（即防止页面滚动）
+                            $("#downButton").click(); // 触发Down按钮单击事件
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+            });
+
+            // 按submit按钮时，将Editing文本框现有的内容前面加上一个英文逗号，追加到combined多选文本框，然后清除编辑框现有内容
+            $("#submitButton").click(function () {
+                var text = $("#editingTextbox").val();
+                if (text !== "") {
+                    if ($("#combinedTextbox").val() !== "") {
+                        $("#combinedTextbox").val($("#combinedTextbox").val() + ", (" + text + ")");
+                    } else {
+                        $("#combinedTextbox").val($("#combinedTextbox").val() + "(" + text + ")");
+                    }
+                }
+                $("#editingTextbox").val("");
+            });
+            // 监听输入框中的回车键事件
+            $("#editingTextbox").keypress(function (event) {
+                if (event.which == 13) { // 按下的键是Enter键
+                    event.preventDefault(); // 阻止默认行为（即防止输入换行符）
+                    $("#submitButton").click(); // 触发Submit按钮的单击事件
+                }
+            });
+
+            // 点击Generate按钮时，将Prefix、Combined和Suffix三个文本框中的内容用英文逗号和换行连接起来，并将结果显示在Result多行文本框中
+            $("#generateButton").click(function () {
+                var prefixText = $("#prefixTextbox").val().trim(); // 去除头尾空格
+                var combinedText = $("#combinedTextbox").val().trim();
+                var suffixText = $("#suffixTextbox").val().trim();
+
+                // 如果没有填写任何文本框，则不进行操作
+                if (prefixText === "" && combinedText === "" && suffixText === "") {
+                    return;
+                }
+
+                // 将各文本框中的内容用英文逗号和换行连接起来
+                var outputText = "";
+                if (prefixText !== "") {
+                    outputText += prefixText + ", \n";
+                }
+                if (combinedText !== "") {
+                    outputText += combinedText + ", \n";
+                }
+                if (suffixText !== "") {
+                    outputText += suffixText;
+                }
+
+                $("#resultTextbox").val(outputText);
+            });
+            // Generate numeric weight按钮单击事件处理程序
+            $("#weightButton").click(function () {
+                var prefixText = $("#prefixTextbox").val().trim(); // 去除头尾空格
+                var combinedText = $("#combinedTextbox").val().trim();
+                var suffixText = $("#suffixTextbox").val().trim();
+
+                // 如果没有填写任何文本框，则不进行操作
+                if (prefixText === "" && combinedText === "" && suffixText === "") {
+                    return;
+                }
+
+                // 将各文本框中的内容用英文逗号和换行连接起来
+                var outputText = "";
+                if (prefixText !== "") {
+                    outputText += prefixText + ", \n";
+                }
+                if (combinedText !== "") {
+                    outputText += combinedText + ", \n";
+                }
+                if (suffixText !== "") {
+                    outputText += suffixText;
+                }
+                var parts = outputText.split(/,\s*/);
+                var stack = [];
+                parts.forEach((part, index, parts) => {
+                    // console.log(part)
+                    var matchresult = part.match(/\(/g)
+                    var n = matchresult ? matchresult.length:0;
+                    var innerText = part.replace(/\(*([^\(\)]*)\)*$/, "$1");
+                    // console.log(part + ";///" + innerText)
+                    var weight = 1 + (n - 1) / 10;
+                    if (weight > 1) {
+                        stack.push("(" + innerText + ":" + weight.toFixed(1) + ")");
+                    } else {
+                        stack.push("(" + innerText + ")");
+                    }
+                });
+                var replacedText = stack.join(", ");
+                /*                 const regex = /(\((?:\([^)]+\))*[^)]+\))/g;
+                                const joinedText = "";
+                                outputText.replace(regex, (match) => {
+                                    if (!match) return "";
+                
+                                    // Extract the inner text of the current matched parentheses group
+                                    const innerText = match.substring(2, match.length - 3);
+                
+                                    // Compute the total weight based on the number of nested pairs of parentheses
+                                    const depth = regex.exec(innerText).length + 1;
+                                    const weight = depth * 0.1;
+                
+                                    // Format the final result as "(inner text):weight"
+                                    const formattedWeight = `${innerText}:${weight}`;
+                
+                                    // Append the processed parenthesis group to the output string
+                                    joinedText += formattedWeight;
+                
+                                    // Return the new value to replace the old one in the regular expression match
+                                    return formattedWeight;
+                                }); */
+
+                // var replacedText = outputText.replace(/\((\({2,}\))(\w*)\)/g, function (match, p1, p2) {
+                //     var weight = (p1.length - 1) / 10 + 1;
+                //     return "(" + p2 + ":" + weight.toFixed(1) + ")";
+                // });
+                // var joinedText = replacedText.split(/\r?\n/).join("\n"); // 连接字符串，并使用英文逗号+换行符将它们分隔开
+                $("#resultTextbox").val(replacedText);
+                // combinedTextbox.val(joinedText); // 设置Combined文本框的内容为连接后的字符串
+            });
+            // 点击Copy按钮时，将Result文本框中的内容复制到剪贴板
+            $("#copyButton").click(function () {
+                $("#resultTextbox").select();
+                document.execCommand("copy");
+            });
+        });
+    </script>
+    <style>
+        textarea {
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Stable Diffusion Prompt Generator<br>(Simplified)</h1>
+    <label for="prefixTextbox">Prefix:</label><br>
+    <textarea id="prefixTextbox" rows="3"></textarea><br>
+
+    <label for="editingTextbox">Type in custom prompt and use the up/down arrows <br>to increase/reduce prompt weight
+        (hotkey: ctrl+up/down).
+        <br>Press Enter or click Submit to append the prompt to the combined textarea.</label><br>
+    <button id="clearButton">Clear</button>
+    <!-- <textarea id="editingTextbox" rows="1" style="width: 250px;"></textarea> -->
+    <input type="text" id="editingTextbox" style="width: 250px;">
+    <button id="upButton">&uarr;</button>
+    <button id="downButton">&darr;</button>
+    <button id="submitButton">Submit</button><br>
+
+    <label for="combinedTextbox">Combined:</label><br>
+    <textarea id="combinedTextbox" rows="6"
+        placeholder="You can paste any useful prompt here to start with."></textarea><br>
+
+    <label for="suffixTextbox">Suffix:</label><br>
+    <textarea id="suffixTextbox" rows="3"></textarea><br>
+
+    <button id="generateButton">Generate</button>
+    <button id="weightButton">Generate numeric weight</button><br>
+    <label for="resultTextbox">Result:</label><br>
+    <textarea id="resultTextbox" rows="6"></textarea><br>
+
+    <button id="copyButton">Copy</button>
+</body>
+
+</html>

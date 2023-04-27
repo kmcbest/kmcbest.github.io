@@ -188,24 +188,24 @@
     <label for="editingTextbox">Type in custom prompt and use the up/down arrows <br>to increase/reduce prompt weight
         (hotkey: ctrl+up/down).
         <br>Press Enter or click Submit to append the prompt to the combined textarea.</label><br>
-    <button id="clearButton">Clear</button>
+    <button id="clearButton">❌</button>
     <!-- <textarea id="editingTextbox" rows="1" style="width: 250px;"></textarea> -->
-    <input type="text" id="editingTextbox" style="width: 250px;">
+    <input type="text" id="editingTextbox" style="width: 220px; height: 40px; line-height: 40px;">
     <button id="upButton">&uarr;</button>
     <button id="downButton">&darr;</button>
     <button id="submitButton">Submit</button><br>
 
     <label for="combinedTextbox">Combined:</label><br>
-    <textarea id="combinedTextbox" rows="6"
+    <textarea resize="both" id="combinedTextbox" rows="8"
         placeholder="You can paste any useful prompt here to start with."></textarea><br>
 
     <label for="suffixTextbox">Suffix:</label><br>
     <textarea id="suffixTextbox" rows="3"></textarea><br>
 
     <button id="generateButton">Generate</button>
-    <button id="weightButton">Generate numeric weight</button><br>
+    <button id="weightButton">Generate ":1.x"</button><br>
     <label for="resultTextbox">Result:</label><br>
-    <textarea id="resultTextbox" rows="6"></textarea><br>
+    <textarea id="resultTextbox" rows="10"></textarea><br>
 
     <button id="copyButton">Copy</button>
 </body>

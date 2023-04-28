@@ -111,7 +111,41 @@
                 //     textarea.selectionEnd = start + 1;
                 // }
             });
+            const delFullWord = $('#delFullWord');
+            delFullWord.on('click', function () {
+                const combinedTextbox = $('#combinedTextbox');
+                const start = combinedTextbox[0].selectionStart;
+                if (start===combinedTextbox.val().length) return;
+                let promptStart = -1;
+                let promptEnd = -1;
 
+                // 从光标位置向左查找英文逗号或最开始处
+                for (let i = start; i >= 0; i--) {
+                    if (combinedTextbox.val()[i] === ',') {
+                        promptStart = i + 1;
+                        break;
+                    }
+                    if (i === 0) {
+                        promptStart = i;
+                    }
+                }
+
+                // 从光标位置向右查找英文逗号或最末尾
+                for (let i = start; i < combinedTextbox.val().length; i++) {
+                    if (combinedTextbox.val()[i] === ',' || i === combinedTextbox.val().length - 1) {
+                        promptEnd = i + 1;
+                        break;
+                    }
+                }
+
+                // 输出 promptStart 和 promptEnd 间的内容
+                // console.log(combinedTextbox.val().substring(promptStart, promptEnd));
+                const newVal = combinedTextbox.val().substring(0, promptStart) + combinedTextbox.val().substring(promptEnd);
+                combinedTextbox.val(newVal);
+                combinedTextbox.focus();
+                combinedTextbox[0].selectionStart = promptStart;
+                combinedTextbox[0].selectionEnd = promptStart;
+            });
             // 绑定快捷键
             $(function () {
                 $('#editingTextbox').on('keydown', function (event) {
@@ -283,7 +317,8 @@
     <textarea resize="both" id="combinedTextbox" rows="8"
         placeholder="You can paste any useful prompt here to start with."></textarea>
     <button id="cUpButton">&uarr;</button>
-    <button id="cDownButton">&darr;</button>
+    <button id="cDownButton">&darr;</button><br>
+    <button id="delFullWord">❌</button>
     <br>
 
     <label for="suffixTextbox">Suffix:</label><br>

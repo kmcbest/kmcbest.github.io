@@ -18,39 +18,147 @@
                 $("#editingTextbox").val("");
             });
 
-            // 按下箭头时，在Editing文本框内容左右两端添加一对英文括号()
+            // 按上箭头时，在Editing文本框内容左右两端添加一对英文括号()
             $("#upButton").click(function () {
                 var text = $("#editingTextbox").val();
                 $("#editingTextbox").val("(" + text + ")");
             });
 
-            // 按上箭头时，从Editing文本框内容左右两端脱去一对英文括号()
+            // 按下箭头时，从Editing文本框内容左右两端脱去一对英文括号()
             $("#downButton").click(function () {
                 var text = $("#editingTextbox").val();
                 if (text.charAt(0) === "(" && text.charAt(text.length - 1) === ")") {
                     $("#editingTextbox").val(text.slice(1, -1));
                 }
             });
-            $(document).keydown(function (event) {
 
-                // 如果按下Ctrl键
-                if (event.ctrlKey) {
-                    switch (event.keyCode) { // 判断按下的键码
-
-                        case 38: // 上箭头
-                            event.preventDefault(); // 阻止默认行为（即防止页面滚动）
-                            $("#upButton").click(); // 触发Up按钮单击事件
-                            break;
-
-                        case 40: // 下箭头
-                            event.preventDefault(); // 阻止默认行为（即防止页面滚动）
-                            $("#downButton").click(); // 触发Down按钮单击事件
-                            break;
-
-                        default:
-                            break;
+            // 按上箭头时，在combinedTextbox文本框当前提示词内容左右两端添加一对英文括号()
+            $("#cUpButton").click(function () {
+                const textarea = $('#combinedTextbox')[0]
+                const start = textarea.selectionStart;
+                let promptStart = -1;
+                let promptEnd = -1;
+                // 从光标位置向左查找左括号
+                for (let i = start - 1; i >= 0; i--) {
+                    if (textarea.value[i] === '(') {
+                        promptStart = i;
+                        break;
+                    } else if (textarea.value[i] === ')') {
+                        break;
                     }
                 }
+                // 从光标位置向右查找右括号
+                for (let i = start; i < textarea.value.length; i++) {
+                    if (textarea.value[i] === ')') {
+                        promptEnd = i;
+                        break;
+                    } else if (textarea.value[i] === '(') {
+                        break;
+                    }
+                }
+                if (promptStart !== -1 && promptEnd !== -1) {
+                    $('#combinedTextbox').focus();
+                    const temp = "(" + textarea.value.substring(promptStart + 1, promptEnd) + ")";
+                    textarea.value = textarea.value.substring(0, promptStart + 1) + temp + textarea.value.substring(promptEnd);
+                    textarea.selectionStart = start + 1;
+                    textarea.selectionEnd = start + 1;
+                }
+            });
+            // 按下箭头时，在combinedTextbox文本框当前提示词内容左右两端减去一对英文括号()，只有一对括号时则不减，以免“脱光”
+            $("#cDownButton").click(function () {
+                const textarea = $('#combinedTextbox')[0]
+                const start = textarea.selectionStart;
+                let promptStart = -1;
+                let promptEnd = -1;
+                // 从光标位置向左查找左括号
+                for (let i = start - 1; i >= 0; i--) {
+                    if (textarea.value[i] === '(') {
+                        if (i != 0) {
+                            if (textarea.value[i - 1] === '(') {
+                                $('#combinedTextbox').val($('#combinedTextbox').val().substring(0, i) + $('#combinedTextbox').val().substring(i + 1));
+                            }
+                        }
+                        break;
+                    } else if (textarea.value[i] === ')') {
+                        break;
+                    }
+                }
+                // 从光标位置向右查找右括号
+                for (let i = start; i < textarea.value.length; i++) {
+                    if (textarea.value[i] === ')') {
+                        if (i != textarea.value.length - 1) {
+                            if (textarea.value[i + 1] === ')') {
+                                $('#combinedTextbox').val($('#combinedTextbox').val().substring(0, i) + $('#combinedTextbox').val().substring(i + 1));
+                            }
+                        }
+                        break;
+                    } else if (textarea.value[i] === '(') {
+                        break;
+                    }
+                }
+                $('#combinedTextbox').focus();
+                textarea.selectionStart = start - 1;
+                textarea.selectionEnd = start - 1;
+                // if (promptStart !== -1 && promptEnd !== -1) {
+                //     $('#combinedTextbox').focus();
+                //     const temp = "(" + textarea.value.substring(promptStart + 1, promptEnd) + ")";
+                //     textarea.value = textarea.value.substring(0, promptStart + 1) + temp + textarea.value.substring(promptEnd);
+                //     textarea.selectionStart = start + 1;
+                //     textarea.selectionEnd = start + 1;
+                // }
+            });
+
+            // 绑定快捷键
+            $(function () {
+                $('#editingTextbox').on('keydown', function (event) {
+
+                    // $(document).keydown(function (event) {
+
+                    // 如果按下Ctrl键
+                    if (event.ctrlKey) {
+                        switch (event.keyCode) { // 判断按下的键码
+
+                            case 38: // 上箭头
+                                event.preventDefault(); // 阻止默认行为（即防止页面滚动）
+                                $("#upButton").click(); // 触发Up按钮单击事件
+                                break;
+
+                            case 40: // 下箭头
+                                event.preventDefault(); // 阻止默认行为（即防止页面滚动）
+                                $("#downButton").click(); // 触发Down按钮单击事件
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                });
+            });
+            // 绑定快捷键
+            $(function () {
+                $('#combinedTextbox').on('keydown', function (event) {
+
+                    // $(document).keydown(function (event) {
+
+                    // 如果按下Ctrl键
+                    if (event.ctrlKey) {
+                        switch (event.keyCode) { // 判断按下的键码
+
+                            case 38: // 上箭头
+                                event.preventDefault(); // 阻止默认行为（即防止页面滚动）
+                                $("#cUpButton").click(); // 触发Up按钮单击事件
+                                break;
+
+                            case 40: // 下箭头
+                                event.preventDefault(); // 阻止默认行为（即防止页面滚动）
+                                $("#cDownButton").click(); // 触发Down按钮单击事件
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                });
             });
 
             // 按submit按钮时，将Editing文本框现有的内容前面加上一个英文逗号，追加到combined多选文本框，然后清除编辑框现有内容
@@ -125,7 +233,7 @@
                 parts.forEach((part, index, parts) => {
                     // console.log(part)
                     var matchresult = part.match(/\(/g)
-                    var n = matchresult ? matchresult.length:0;
+                    var n = matchresult ? matchresult.length : 0;
                     var innerText = part.replace(/\(*([^\(\)]*)\)*$/, "$1");
                     // console.log(part + ";///" + innerText)
                     var weight = 1 + (n - 1) / 10;
@@ -135,36 +243,8 @@
                         stack.push("(" + innerText + ")");
                     }
                 });
-                var replacedText = stack.join(", ");
-                /*                 const regex = /(\((?:\([^)]+\))*[^)]+\))/g;
-                                const joinedText = "";
-                                outputText.replace(regex, (match) => {
-                                    if (!match) return "";
-                
-                                    // Extract the inner text of the current matched parentheses group
-                                    const innerText = match.substring(2, match.length - 3);
-                
-                                    // Compute the total weight based on the number of nested pairs of parentheses
-                                    const depth = regex.exec(innerText).length + 1;
-                                    const weight = depth * 0.1;
-                
-                                    // Format the final result as "(inner text):weight"
-                                    const formattedWeight = `${innerText}:${weight}`;
-                
-                                    // Append the processed parenthesis group to the output string
-                                    joinedText += formattedWeight;
-                
-                                    // Return the new value to replace the old one in the regular expression match
-                                    return formattedWeight;
-                                }); */
+                $("#resultTextbox").val(stack.join(", "));
 
-                // var replacedText = outputText.replace(/\((\({2,}\))(\w*)\)/g, function (match, p1, p2) {
-                //     var weight = (p1.length - 1) / 10 + 1;
-                //     return "(" + p2 + ":" + weight.toFixed(1) + ")";
-                // });
-                // var joinedText = replacedText.split(/\r?\n/).join("\n"); // 连接字符串，并使用英文逗号+换行符将它们分隔开
-                $("#resultTextbox").val(replacedText);
-                // combinedTextbox.val(joinedText); // 设置Combined文本框的内容为连接后的字符串
             });
             // 点击Copy按钮时，将Result文本框中的内容复制到剪贴板
             $("#copyButton").click(function () {
@@ -197,7 +277,10 @@
 
     <label for="combinedTextbox">Combined:</label><br>
     <textarea resize="both" id="combinedTextbox" rows="8"
-        placeholder="You can paste any useful prompt here to start with."></textarea><br>
+        placeholder="You can paste any useful prompt here to start with."></textarea>
+    <button id="cUpButton">&uarr;</button>
+    <button id="cDownButton">&darr;</button>
+    <br>
 
     <label for="suffixTextbox">Suffix:</label><br>
     <textarea id="suffixTextbox" rows="3"></textarea><br>

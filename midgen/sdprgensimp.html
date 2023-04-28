@@ -89,16 +89,20 @@
                         if (i != textarea.value.length - 1) {
                             if (textarea.value[i + 1] === ')') {
                                 $('#combinedTextbox').val($('#combinedTextbox').val().substring(0, i) + $('#combinedTextbox').val().substring(i + 1));
+                                $('#combinedTextbox').focus();
+                                textarea.selectionStart = start - 1;
+                                textarea.selectionEnd = start - 1;
                             }
                         }
                         break;
                     } else if (textarea.value[i] === '(') {
                         break;
                     }
+                    $('#combinedTextbox').focus();
+                    textarea.selectionStart = start;
+                    textarea.selectionEnd = start;
                 }
-                $('#combinedTextbox').focus();
-                textarea.selectionStart = start - 1;
-                textarea.selectionEnd = start - 1;
+
                 // if (promptStart !== -1 && promptEnd !== -1) {
                 //     $('#combinedTextbox').focus();
                 //     const temp = "(" + textarea.value.substring(promptStart + 1, promptEnd) + ")";

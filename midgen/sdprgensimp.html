@@ -12,7 +12,7 @@
 
             // prefix和suffix的默认内容
             $("#prefixTextbox").val("(masterpiece),(best quality)");
-            $("#suffixTextbox").val("(photo-realistic), ultra-detailed, Clear features");
+            $("#suffixTextbox").val("(photo-realistic), (ultra-detailed), (Clear features)");
             // 清除Editing文本框中的内容
             $("#clearButton").click(function () {
                 $("#editingTextbox").val("");
@@ -145,6 +145,19 @@
                 combinedTextbox.focus();
                 combinedTextbox[0].selectionStart = promptStart;
                 combinedTextbox[0].selectionEnd = promptStart;
+            });
+
+            var reduceButton = $("#reduceButton");
+            var increaseButton = $("#increaseButton");
+            var combinedBox = $("#combinedTextbox");
+            reduceButton.click(function () {
+                var lineHeight = parseInt(combinedBox.css("line-height"));
+                console.log(combinedBox)
+                combinedBox.css("height", combinedBox.height() - lineHeight);
+            });
+            increaseButton.click(function () {
+                var lineHeight = parseInt(combinedBox.css("line-height"));
+                combinedBox.css("height", combinedBox.height() + lineHeight);
             });
             // 绑定快捷键
             $(function () {
@@ -308,8 +321,16 @@
         });
     </script>
     <style>
+        #combinedTextbox {
+            width: 300px;
+            height: 200px;
+            line-height: 1;
+            /* 设置combinedBox的行高为1.5倍字体大小 */
+        }
+
         textarea {
             width: 300px;
+
         }
     </style>
 </head>
@@ -330,11 +351,13 @@
     <button id="submitButton">Submit</button><br>
 
     <label for="combinedTextbox">Combined:</label><br>
-    <textarea resize="both" id="combinedTextbox" rows="8"
+    <textarea resize="both" id="combinedTextbox" rows="4"
         placeholder="You can paste any useful prompt here to start with."></textarea>
     <button id="cUpButton">&uarr;</button>
     <button id="cDownButton">&darr;</button><br>
-    <button id="delFullWord">❌</button>
+    <button id="delFullWord">Del full word</button>
+    <button class="button" id="reduceButton">Reduce height</button>
+    <button class="button" id="increaseButton">Increase height</button>
     <br>
 
     <label for="suffixTextbox">Suffix:</label><br>
@@ -346,6 +369,7 @@
     <textarea id="resultTextbox" rows="10"></textarea><br>
 
     <button id="copyButton">Copy</button>
+    <p style="margin-bottom: 150px;"></p>
 </body>
 
 </html>

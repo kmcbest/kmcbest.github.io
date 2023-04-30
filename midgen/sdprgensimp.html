@@ -203,10 +203,11 @@
             $("#submitButton").click(function () {
                 var textbox = $("#combinedTextbox");
                 var combText = textbox.val();
-                textbox.focus();
+                // textbox.focus();
                 var text = $("#editingTextbox").val();
                 if (text !== "") {
                     if ($("#combinedTextbox").val() !== "") {
+                        text = '(' + text + '), '
                         var startPos = textbox[0].selectionStart;
                         var endPos = textbox[0].selectionEnd;
 
@@ -215,10 +216,12 @@
                         var after = combText.substring(endPos, combText.length);
 
                         // 插入逗号
-                        var newText = before + '(' + text + '),' + after;
+                        var newText = before + text + after;
                         $("#combinedTextbox").val(newText);
+                        textbox[0].selectionStart = startPos + text.length
+                        textbox[0].selectionEnd = startPos + text.length
                     } else {
-                        $("#combinedTextbox").val($("#combinedTextbox").val() + "(" + text + ")");
+                        $("#combinedTextbox").val($("#combinedTextbox").val() + "(" + text + "), ");
                     }
                 }
                 $("#editingTextbox").val("");

@@ -10,7 +10,7 @@
     <script>
         $(document).ready(function () {
 
-            //prefix和suffix的默认内容
+            // prefix和suffix的默认内容
             $("#prefixTextbox").val("(masterpiece),(best quality)");
             $("#suffixTextbox").val("(photo-realistic), ultra-detailed, Clear features");
             // 清除Editing文本框中的内容
@@ -115,7 +115,7 @@
             delFullWord.on('click', function () {
                 const combinedTextbox = $('#combinedTextbox');
                 const start = combinedTextbox[0].selectionStart;
-                if (start===combinedTextbox.val().length) return;
+                if (start === combinedTextbox.val().length) return;
                 let promptStart = -1;
                 let promptEnd = -1;
 
@@ -199,17 +199,30 @@
                 });
             });
 
-            // 按submit按钮时，将Editing文本框现有的内容前面加上一个英文逗号，追加到combined多选文本框，然后清除编辑框现有内容
+            // 按submit按钮时，将editingTextbox文本框现有的内容前面加上一个英文逗号，追加到combined多选文本框，然后清除编辑框现有内容
             $("#submitButton").click(function () {
+                var textbox = $("#combinedTextbox");
+                var combText = textbox.val();
+                textbox.focus();
                 var text = $("#editingTextbox").val();
                 if (text !== "") {
                     if ($("#combinedTextbox").val() !== "") {
-                        $("#combinedTextbox").val($("#combinedTextbox").val() + ", (" + text + ")");
+                        var startPos = textbox[0].selectionStart;
+                        var endPos = textbox[0].selectionEnd;
+
+                        // 将内容分割成光标前和光标后两部分
+                        var before = combText.substring(0, startPos);
+                        var after = combText.substring(endPos, combText.length);
+
+                        // 插入逗号
+                        var newText = before + '(' + text + '),' + after;
+                        $("#combinedTextbox").val(newText);
                     } else {
                         $("#combinedTextbox").val($("#combinedTextbox").val() + "(" + text + ")");
                     }
                 }
                 $("#editingTextbox").val("");
+
             });
             // 监听输入框中的回车键事件
             $("#editingTextbox").keypress(function (event) {

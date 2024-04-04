@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>8 分开喂还是嵌套喂 | 百炼为战全锻造</title>
   <meta name="description" content="百炼为战锻造的知识" />
-  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
   <meta property="og:title" content="8 分开喂还是嵌套喂 | 百炼为战全锻造" />
   <meta property="og:type" content="book" />
@@ -54,6 +54,10 @@
 
 
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -91,7 +95,10 @@
 </ul></li>
 <li class="chapter" data-level="8" data-path="incremental.html"><a href="incremental.html"><i class="fa fa-check"></i><b>8</b> 分开喂还是嵌套喂</a></li>
 <li class="chapter" data-level="9" data-path="招牌的价值.html"><a href="招牌的价值.html"><i class="fa fa-check"></i><b>9</b> 招牌的价值</a></li>
-<li class="chapter" data-level="10" data-path="锻造结尾注意事项.html"><a href="锻造结尾注意事项.html"><i class="fa fa-check"></i><b>10</b> 锻造结尾注意事项</a></li>
+<li class="chapter" data-level="10" data-path="锻造结尾注意事项.html"><a href="锻造结尾注意事项.html"><i class="fa fa-check"></i><b>10</b> 锻造结尾注意事项</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="锻造结尾注意事项.html"><a href="锻造结尾注意事项.html#利用升阶bug节约最多4级锻造材料"><i class="fa fa-check"></i><b>10.1</b> 利用升阶Bug节约最多4级锻造材料</a></li>
+</ul></li>
 <li class="chapter" data-level="11" data-path="对号入座的建议.html"><a href="对号入座的建议.html"><i class="fa fa-check"></i><b>11</b> 对号入座的建议</a>
 <ul>
 <li class="chapter" data-level="11.1" data-path="对号入座的建议.html"><a href="对号入座的建议.html#我是萌新"><i class="fa fa-check"></i><b>11.1</b> 我是萌新</a></li>
@@ -132,22 +139,22 @@
 <p>这也是一个千古问题。例如，我有三星警车和四星警车各一只，锻造给五星的警车的时候，是<strong>分开喂（三星喂五星，然后四星喂五星）</strong>，还是<strong>嵌套喂（三星喂四星，四星再喂五星）</strong>划算？</p>
 <p>现在有了<a href="锻造计算器.html#锻造计算器">锻造计算器</a>，我们可以直接模拟锻造（假设狗粮和五星警车都是未升级、未觉醒）。</p>
 <p>分开喂：</p>
-<div class="figure">
-<img src="index_insertimage_4.png" alt="" />
-<p class="caption">三星喂五星</p>
+<div class="float">
+<img src="index_insertimage_4.png" alt="三星喂五星" />
+<div class="figcaption">三星喂五星</div>
 </div>
-<div class="figure">
-<img src="index_insertimage_5.png" alt="" />
-<p class="caption">四星喂五星</p>
+<div class="float">
+<img src="index_insertimage_5.png" alt="四星喂五星" />
+<div class="figcaption">四星喂五星</div>
 </div>
 <p>嵌套喂：</p>
-<div class="figure">
-<img src="index_insertimage_6.png" alt="" />
-<p class="caption">三星先喂四星</p>
+<div class="float">
+<img src="index_insertimage_6.png" alt="三星先喂四星" />
+<div class="figcaption">三星先喂四星</div>
 </div>
-<div class="figure">
-<img src="index_insertimage_7.png" alt="" />
-<p class="caption">四星再喂五星</p>
+<div class="float">
+<img src="index_insertimage_7.png" alt="四星再喂五星" />
+<div class="figcaption">四星再喂五星</div>
 </div>
 <p>所以能看到，分开喂的结果是3阶剩2740，嵌套喂是3阶剩2486，<strong>分开喂划算</strong>。</p>
 <p>但是很多人至今不理解，官方不是说了锻造经验会传承的吗，为什么嵌套喂还亏了？很长一段时间我也不理解。在我分析Trailfire的锻造经验表格的时候，我也发现他表格的计算与实际的观测是有差异的，经过一整个下午的反复比较，我终于发现了卡邦程序员留下的一个bug<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>：在接受锻造经验的时候不是从1级开始，而是从<strong>0级</strong>开始，0级需要的经验和1级相同。但是在传承的时候，第0级的经验会亏损！3星狗粮亏42点，4星亏254点，而2740-2486=254！</p>

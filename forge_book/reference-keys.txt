@@ -16,6 +16,7 @@ tab:unnamed-chunk-2
 incremental
 招牌的价值
 锻造结尾注意事项
+利用升阶bug节约最多4级锻造材料
 对号入座的建议
 我是萌新
 我是中期玩家

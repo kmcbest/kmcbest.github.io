@@ -154,6 +154,10 @@
         document.getElementById('loadUrlBtn').addEventListener('click', function () {
             let url = document.getElementById('csvUrl').value;
             if (url) {
+                if (!url.startsWith('http') && !url.startsWith('https')) {
+                    // 如果是相对路径，则添加当前页面的基础路径
+                    url = './' + url;  // 确保 URL 使用相对路径
+                }
                 fetch(url)
                     .then(response => response.text())
                     .then(data => parseCSV(data))

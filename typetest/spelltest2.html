@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>背日文单词应用</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .input-container {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .input-container input {
+            padding: 10px;
+            font-size: 18px;
+            width: 200px;
+        }
+
+        .input-container button {
+            padding: 10px 20px;
+            margin-left: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .message {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .message.correct {
+            color: green;
+        }
+
+        .message.error {
+            color: red;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .progress {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .controls {
+            text-align: center;
+        }
+
+        .controls button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="container">
+        <h1>背日文单词应用</h1>
+
+        <div class="controls">
+            <button id="loadLocalBtn">加载本地CSV</button>
+            <input type="text" id="csvUrl" placeholder="输入CSV文件网址">
+            <button id="loadUrlBtn">加载网络CSV</button>
+        </div>
+
+        <div class="settings hidden">
+            <p id="totalWords">总单词数: 0</p>
+            <label for="numWords">练习单词数 (可选): </label>
+            <input type="number" id="numWords" min="1" value="10">
+            <br>
+            <label for="orderSelect">选择顺序: </label>
+            <select id="orderSelect">
+                <option value="sequential">顺序</option>
+                <option value="random">随机</option>
+            </select>
+            <br>
+            <button id="startBtn">开始练习</button>
+        </div>
+
+        <div class="practice hidden">
+            <div class="progress">
+                <p id="questionNumber">第 1 个 / 共 0 个</p>
+            </div>
+            <div class="input-container">
+                <input type="text" id="userInput" placeholder="输入假名">
+                <button id="submitBtn">提交</button>
+                <button id="skipBtn">跳过</button>
+            </div>
+            <div id="message" class="message hidden"></div>
+            <div id="meaning" class="message hidden"></div>
+        </div>
+
+        <div class="controls hidden">
+            <button id="restartBtn">重新开始</button>
+        </div>
+    </div>
+
+    <script>
+        let wordList = [];
+        let currentIndex = 0;
+        let totalWords = 0;
+        let numWords = 10;
+        let order = 'sequential';
+
+        // 加载本地CSV文件
+        document.getElementById('loadLocalBtn').addEventListener('click', function () {
+            let inputFile = document.createElement('input');
+            inputFile.type = 'file';
+            inputFile.accept = '.csv';
+            inputFile.addEventListener('change', function (event) {
+                let file = event.target.files[0];
+                if (file) {
+                    let reader = new FileReader();
+                    reader.onload = function () {
+                        parseCSV(reader.result);
+                    };
+                    reader.readAsText(file);
+                }
+            });
+            inputFile.click();
+        });
+
+        // 加载网络CSV文件
+        document.getElementById('loadUrlBtn').addEventListener('click', function () {
+            let url = document.getElementById('csvUrl').value;
+            if (url) {
+                fetch(url)
+                    .then(response => response.text())
+                    .then(data => parseCSV(data))
+                    .catch(error => alert('加载CSV文件失败: ' + error));
+            }
+        });
+
+        // 解析CSV数据
+        function parseCSV(data) {
+            let rows = data.split('\n').map(row => row.trim()).filter(row => row);
+            if (rows.length <= 1 || !rows[0].startsWith('日文,假名,英文解释')) {
+                alert('CSV文件格式不正确!');
+                return;
+            }
+
+            wordList = rows.slice(1).map(row => {
+                let cols = row.split(',').map(col => col.trim());
+                if (cols.length === 3) {
+                    return { word: cols[1], meaning: cols[2] };
+                }
+                return null;
+            }).filter(item => item);
+
+            totalWords = wordList.length;
+            document.getElementById('totalWords').textContent = '总单词数: ' + totalWords;
+            document.querySelector('.settings').classList.remove('hidden');
+        }
+
+        // 开始练习
+        document.getElementById('startBtn').addEventListener('click', function () {
+            numWords = parseInt(document.getElementById('numWords').value) || 10;
+            order = document.getElementById('orderSelect').value;
+            currentIndex = 0;
+
+            document.querySelector('.settings').classList.add('hidden');
+            document.querySelector('.practice').classList.remove('hidden');
+            document.getElementById('restartBtn').classList.remove('hidden');
+
+            showNextQuestion();
+        });
+
+        // 显示下一个问题
+        function showNextQuestion() {
+            if (currentIndex >= numWords || currentIndex >= totalWords) {
+                document.getElementById('message').textContent = '练习完成！';
+                document.getElementById('message').classList.remove('hidden');
+                return;
+            }
+
+            let word = getNextWord();
+            document.getElementById('questionNumber').textContent = `第 ${currentIndex + 1} 个 / 共 ${numWords}个`;
+            document.getElementById('userInput').value = '';
+            document.getElementById('meaning').classList.add('hidden');
+            document.getElementById('message').classList.add('hidden');
+            // 清除之前显示的假名
+            const previousWordElement = document.getElementById('wordDisplay');
+            if (previousWordElement) {
+                previousWordElement.remove();
+            }
+
+            // 创建并显示当前单词的假名
+            let wordElement = document.createElement('p');
+            wordElement.id = 'wordDisplay'; // 给它一个 ID，方便之后删除
+            wordElement.textContent = word.word; // 使用假名显示
+            document.getElementById('questionNumber').appendChild(wordElement); // 把假名显示在“第 X 个”下方
+        }
+
+        // 获取下一个单词
+        function getNextWord() {
+            let word = wordList[currentIndex];
+            if (order === 'random') {
+                let randomIndex = Math.floor(Math.random() * totalWords);
+                word = wordList[randomIndex];
+            }
+            return word;
+        }
+
+        // 提交按钮
+        document.getElementById('submitBtn').addEventListener('click', function () {
+            let userInput = document.getElementById('userInput').value.trim();
+            let currentWord = wordList[currentIndex];
+
+            if (userInput === currentWord.word) {
+                document.getElementById('message').textContent = '正确';
+                document.getElementById('message').classList.remove('hidden');
+                document.getElementById('message').classList.add('correct');
+                document.getElementById('meaning').textContent = currentWord.meaning;
+                document.getElementById('meaning').classList.remove('hidden');
+                // 只有在用户输入正确时，才增加 currentIndex
+                setTimeout(function () {
+                    currentIndex++;  // 增加 currentIndex
+                    showNextQuestion();  // 显示下一个问题
+                }, 1500);  // 等待 1 秒后显示下一个问题
+            } else {
+                document.getElementById('message').textContent = '错误';
+                document.getElementById('message').classList.remove('hidden');
+                document.getElementById('message').classList.add('error');
+            }
+        });
+
+        // 跳过按钮
+        document.getElementById('skipBtn').addEventListener('click', function () {
+            let currentWord = wordList[currentIndex - 1];
+            document.getElementById('meaning').textContent = currentWord.meaning;
+            document.getElementById('meaning').classList.remove('hidden');
+            setTimeout(function () {
+                currentIndex++;  // 增加 currentIndex
+                showNextQuestion();  // 显示下一个问题
+            }, 2500);  // 等待 1 秒后显示下一个问题
+        });
+
+        // 重新开始按钮
+        document.getElementById('restartBtn').addEventListener('click', function () {
+            currentIndex = 0;
+            document.getElementById('message').classList.add('hidden');
+            document.getElementById('meaning').classList.add('hidden');
+            showNextQuestion();
+        });
+
+        // 输入框按下回车键事件
+        document.getElementById('userInput').addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {  // 检查是否是回车键
+                event.preventDefault();  // 防止表单提交（如果有的话）
+                document.getElementById('submitBtn').click();  // 触发提交按钮点击事件
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -188,7 +188,14 @@
             wordList = rows.slice(1).map(row => {
                 let cols = row.split(',').map(col => col.trim());
                 if (cols.length === 3) {
-                    return { word: cols[1], meaning: cols[2] };
+                    // return { word: cols[1], meaning: cols[2] };
+                    if (cols[0] !== cols[1]) {
+                        // 如果不同，显示 "第一列（第二列）=第三列"
+                        return { word: cols[1], meaning: `${cols[0]}（${cols[1]}） = ${cols[2]}` };
+                    } else {
+                        // 如果相同，只显示 "第二列=第三列"
+                        return { word: cols[1], meaning: `${cols[1]} = ${cols[2]}` };
+                    }
                 }
                 return null;
             }).filter(item => item);

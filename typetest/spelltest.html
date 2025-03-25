@@ -23,6 +23,7 @@
 
         h1 {
             text-align: center;
+            font-size: 16px;
         }
 
         .input-container {
@@ -33,21 +34,21 @@
 
         .input-container input {
             padding: 10px;
-            font-size: 18px;
-            width: 200px;
+            font-size: 14px;
+            width: 150px;
         }
 
         .input-container button {
-            padding: 10px 20px;
+            padding: 5px 10px;
             margin-left: 10px;
-            font-size: 16px;
+            font-size: 14px;
             cursor: pointer;
         }
 
         .message {
             text-align: center;
-            font-size: 18px;
-            margin-top: 20px;
+            font-size: 16px;
+            margin-top: 18px;
         }
 
         .message.correct {
@@ -64,19 +65,30 @@
 
         .progress {
             text-align: center;
-            font-size: 18px;
-            margin-bottom: 20px;
+            font-size: 14px;
+            margin-bottom: 12px;
         }
 
         .controls {
             text-align: center;
+            /* width: 150px; */
         }
 
         .controls button {
-            padding: 10px 20px;
-            font-size: 16px;
+            padding: 5px 10px;
+            font-size: 12px;
             cursor: pointer;
             margin: 5px;
+        }
+
+        .controls input[type="text"] {
+            width: 100px;
+            padding: 5px;
+            /* 可选：根据需要调整内边距 */
+            font-size: 12px;
+            /* 可选：保持字体大小一致 */
+            margin: 5px;
+            /* 可选：保持与其他元素的间距一致 */
         }
     </style>
 </head>
@@ -87,9 +99,9 @@
         <h1>typing test</h1>
 
         <div class="controls">
-            <button id="loadLocalBtn">加载本地CSV</button>
+            <button id="loadLocalBtn">本地CSV</button>
             <input type="text" id="csvUrl" placeholder="输入CSV文件网址">
-            <button id="loadUrlBtn">加载网络CSV</button>
+            <button id="loadUrlBtn">网络CSV</button>
         </div>
 
         <div class="settings hidden">
@@ -176,7 +188,14 @@
             wordList = rows.slice(1).map(row => {
                 let cols = row.split(',').map(col => col.trim());
                 if (cols.length === 3) {
-                    return { word: cols[1], meaning: cols[2] };
+                    // return { word: cols[1], meaning: cols[2] };
+                    if (cols[0] !== cols[1]) {
+                        // 如果不同，显示 "第一列（第二列）=第三列"
+                        return { word: cols[1], meaning: `${cols[0]}（${cols[1]}） = ${cols[2]}` };
+                    } else {
+                        // 如果相同，只显示 "第二列=第三列"
+                        return { word: cols[1], meaning: `${cols[1]} = ${cols[2]}` };
+                    }
                 }
                 return null;
             }).filter(item => item);

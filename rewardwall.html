@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>成长记录 — 奖励记录墙</title>
+<style>
+:root{--accent:#ff5a5f;--muted:#9aa3ad;--bg:#f7f8fa}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter, "Helvetica Neue", Arial, sans-serif;background:var(--bg);color:#222}
+.app{max-width:980px;margin:18px auto;padding:18px}
+.header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.title{font-size:1.6rem;font-weight:700}
+.counters{display:flex;gap:12px;margin-top:8px}
+.counter{background:#fff;padding:10px 14px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.06);min-width:120px;text-align:center}
+.counter .num{font-size:1.25rem;font-weight:700;color:var(--accent)}
+.controls{display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.calendar-wrap{margin-top:14px;background:#fff;padding:12px;border-radius:12px;box-shadow:0 6px 18px rgba(16,24,40,0.06)}
+.calendar-header{display:flex;align-items:center;justify-content:space-between}
+.month-nav{display:flex;gap:8px;align-items:center}
+.btn{background:#f1f5f9;border:none;padding:8px 10px;border-radius:8px;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:12px}
+.weekday{font-size:0.8rem;text-align:center;color:var(--muted)}
+.day{min-height:76px;background:transparent;padding:8px;border-radius:8px;position:relative;cursor:pointer}
+.day .date-num{position:absolute;left:8px;top:6px;font-size:0.9rem}
+.day.inactive{opacity:0.28}
+.day.selected{outline:2px solid rgba(0,0,0,0.06);background:linear-gradient(0deg, rgba(255,90,95,0.05), transparent)}
+.dots{position:absolute;right:6px;bottom:6px;display:flex;gap:6px;align-items:center}
+.check{font-weight:700;font-size:14px;line-height:14px;color:var(--accent);display:inline-flex;align-items:center;justify-content:center}
+.check.exchanged{color:#c0c6cc}
+.add-fab{position:fixed;right:18px;bottom:18px;background:var(--accent);color:#fff;border:none;width:56px;height:56px;border-radius:50%;font-size:28px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(255,90,95,0.18);cursor:pointer}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;z-index:100}
+.modal{background:#fff;padding:18px;border-radius:12px;max-width:520px;width:94%;max-height:80%;overflow-y:auto}
+.field{margin-bottom:10px}
+select,input[type=text],input[type=password],input[type=number],textarea{width:100%;padding:8px;border-radius:8px;border:1px solid #e6e9ee}
+.small{font-size:0.9rem;color:#666}
+.footer-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:8px}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 16px;border-radius:8px;opacity:0;transition:opacity 0.25s;z-index:300}
+.toast.show{opacity:1}
+@media (max-width:640px){.day{min-height:72px}.counter{min-width:96px}.title{font-size:1.2rem}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <div>
+      <div class="title">成长记录</div>
+      <div class="small">记录你的每一个小进步 ✨</div>
+    </div>
+    <div class="counters">
+      <div class="counter">
+        <div class="small">累计勾数</div>
+        <div id="counter-total" class="num">0</div>
+      </div>
+      <div class="counter">
+        <div class="small">未兑奖勾数</div>
+        <div id="counter-unexchanged" class="num">0</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div style="display:flex;align-items:center;gap:8px">
+      <button id="prev-month" class="btn">◀</button>
+      <div style="display:flex;gap:6px;align-items:center">
+        <select id="month-select" class="btn"></select>
+        <select id="year-select" class="btn"></select>
+      </div>
+      <button id="next-month" class="btn">▶</button>
+    </div>
+
+    <div style="margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <button id="exchange-btn" class="btn">兑奖</button>
+      <button id="sync-load" class="btn">从JSONBin加载</button>
+      <button id="sync-save" class="btn">保存到JSONBin</button>
+      <button id="clear-all" class="btn" style="background:#ffb3b3;">清空所有</button>
+    </div>
+  </div>
+
+  <div class="calendar-wrap">
+    <div class="calendar-header">
+      <div class="small">点击日期后点右下角+号新增奖励</div>
+    </div>
+
+    <div class="grid" id="weekday-row">
+      <div class="weekday">周日</div><div class="weekday">周一</div><div class="weekday">周二</div>
+      <div class="weekday">周三</div><div class="weekday">周四</div><div class="weekday">周五</div><div class="weekday">周六</div>
+    </div>
+
+    <div class="grid" id="calendar-grid"></div>
+  </div>
+</div>
+
+<button class="add-fab" id="add-btn" title="添加奖励">＋</button>
+<div id="modal-root" style="display:none"></div>
+<div id="toast" class="toast"></div>
+
+<script>
+/* ---------- 配置区域（请勿泄露 Access Key） ---------- */
+const JSONBIN_BIN_ID = "68c28604ae596e708feac025";
+const JSONBIN_ACCESS_KEY = "$2a$10$8cu0oI2pzg9N066DcsEE6Oje01xZmWlviF96CIAGe8P75hiJI3M/u";
+const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
+const CLEAR_PASSWORD_SHA256 = "b575e13270b4785f35ab667154d178d97dc4ecd1564e094dbb31043f84af2523";
+/* ---------------------------------------------------- */
+
+const STORE_KEY = 'reward_wall_data_v1';
+let events = {};              // { "YYYY-MM-DD": [ {id, reason, createdAt, exchanged} ] }
+let selectedDate = null;
+const commonReasons = ["好好吃饭","睡觉早","自己做家务","完成作业","坚持运动","帮助他人"];
+
+const grid = document.getElementById('calendar-grid');
+const monthSelect = document.getElementById('month-select');
+const yearSelect = document.getElementById('year-select');
+const prevBtn = document.getElementById('prev-month');
+const nextBtn = document.getElementById('next-month');
+const addBtn = document.getElementById('add-btn');
+const counterTotal = document.getElementById('counter-total');
+const counterUn = document.getElementById('counter-unexchanged');
+const exchangeBtn = document.getElementById('exchange-btn');
+const modalRoot = document.getElementById('modal-root');
+const syncLoad = document.getElementById('sync-load');
+const syncSave = document.getElementById('sync-save');
+const clearAllBtn = document.getElementById('clear-all');
+const toastEl = document.getElementById('toast');
+
+function showToast(msg, duration=2000){
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  setTimeout(()=> toastEl.classList.remove('show'), duration);
+}
+
+function saveLocal(){ localStorage.setItem(STORE_KEY, JSON.stringify(events)); }
+function loadLocal(){ const raw = localStorage.getItem(STORE_KEY); if(raw){ try{ events = JSON.parse(raw) }catch(e){ events={} }}}
+function ymd(date){ const y=date.getFullYear(); const m=String(date.getMonth()+1).padStart(2,'0'); const d=String(date.getDate()).padStart(2,'0'); return `${y}-${m}-${d}`; }
+function uid(){return 'id_'+Math.random().toString(36).slice(2,9)}
+
+let viewYear, viewMonth;
+function initMonthYear(){
+  const now=new Date(); viewYear=now.getFullYear(); viewMonth=now.getMonth();
+  for(let m=0;m<12;m++){ const opt=document.createElement('option'); opt.value=m; opt.textContent=(m+1)+'月'; monthSelect.appendChild(opt); }
+  for(let y=viewYear-5;y<=viewYear+5;y++){ const opt=document.createElement('option'); opt.value=y; opt.textContent=y+'年'; yearSelect.appendChild(opt); }
+  monthSelect.value = viewMonth; yearSelect.value = viewYear;
+}
+
+function renderCalendar(){
+  grid.innerHTML = '';
+  const first = new Date(viewYear, viewMonth, 1);
+  const startDay = first.getDay();
+  const daysInMonth = new Date(viewYear, viewMonth+1, 0).getDate();
+  const prevDays = startDay;
+  const totalCells = Math.ceil((prevDays + daysInMonth)/7)*7;
+  const startDate = new Date(viewYear, viewMonth, 1 - prevDays);
+
+  for(let i=0;i<totalCells;i++){
+    const d = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+i);
+    const cell = document.createElement('div'); cell.className='day';
+    const iso = ymd(d);
+    const num = document.createElement('div'); num.className='date-num'; num.textContent = d.getDate(); cell.appendChild(num);
+    if(d.getMonth() !== viewMonth) cell.classList.add('inactive');
+    if(selectedDate===iso) cell.classList.add('selected');
+
+    cell.addEventListener('click', ()=>{ selectedDate=iso; renderCalendar(); if(events[iso] && events[iso].length>0){ openDayDetailModal(iso); } });
+
+    const dotsWrap = document.createElement('div'); dotsWrap.className='dots';
+    const arr = events[iso] || [];
+    const show = Math.min(3, arr.length);
+for(let k=0;k<show;k++){
+  const ch = document.createElement('span');
+  ch.className = 'check' + (arr[k].exchanged ? ' exchanged' : '');
+  ch.textContent = '✓';
+  ch.title = arr[k].reason; // 加 tooltip
+  dotsWrap.appendChild(ch);
+}
+    if(arr.length > 3){
+      const more = document.createElement('div'); more.className='small'; more.style.fontSize='11px'; more.style.marginLeft='6px';
+      more.textContent = '+' + (arr.length - 3);
+      dotsWrap.appendChild(more);
+    }
+    cell.appendChild(dotsWrap);
+    grid.appendChild(cell);
+  }
+  updateCounters();
+}
+
+function updateCounters(){
+  let tot=0, un=0;
+  Object.values(events).forEach(arr=>{ tot+=arr.length; un+=arr.filter(e=>!e.exchanged).length });
+  counterTotal.textContent = tot;
+  counterUn.textContent = un;
+}
+
+function createModal(title, build){
+  modalRoot.style.display='block';
+  modalRoot.innerHTML = '';
+  const bd = document.createElement('div'); bd.className='modal-backdrop';
+  const m = document.createElement('div'); m.className='modal';
+  m.innerHTML = `<div style="font-weight:700;margin-bottom:8px">${title}</div>`;
+  bd.appendChild(m); modalRoot.appendChild(bd);
+  build(m);
+  bd.addEventListener('click', (e)=>{ if(e.target===bd) closeModal(); });
+  return m;
+}
+function closeModal(){ modalRoot.style.display='none'; modalRoot.innerHTML=''; }
+
+function openAddModal(defaultDate){
+  const date = defaultDate || selectedDate || ymd(new Date());
+  createModal(`为 ${date} 添加奖励`, (root)=>{
+    root.innerHTML = `
+      <div class="field"><label class="small">奖励原因</label><input id="reason-input" type="text" placeholder="例如：自己做家务" /></div>
+      <div class="field"><select id="preset-select"><option value="">— 选择常用原因 —</option>${commonReasons.map(r=>`<option>${r}</option>`).join('')}</select></div>
+      <div class="footer-actions"><button id="cancel" class="btn">取消</button><button id="save" class="btn">保存</button></div>
+    `;
+    root.querySelector('#preset-select').addEventListener('change', e=>{ root.querySelector('#reason-input').value = e.target.value; });
+    root.querySelector('#cancel').addEventListener('click', closeModal);
+    root.querySelector('#save').addEventListener('click', ()=>{
+      const reason = root.querySelector('#reason-input').value.trim();
+      if(!reason){ showToast('请输入奖励原因'); return; }
+      const item = { id: uid(), reason, createdAt: new Date().toISOString(), exchanged: false };
+      events[date] = events[date] || [];
+      events[date].unshift(item); // newest first in the day's array
+      saveLocal(); renderCalendar(); closeModal();
+    });
+  });
+}
+
+function openExchangeModal(){
+  const unCount = Object.values(events).flat().filter(e=>!e.exchanged).length;
+  createModal('兑奖', (root)=>{
+    root.innerHTML = `
+      <div class="field"><div class="small">当前可兑奖的勾数：<strong>${unCount}</strong></div></div>
+      <div class="field"><input id="exchange-num" type="number" min="1" max="${unCount}" placeholder="兑换多少个勾" /></div>
+      <div class="footer-actions"><button id="cancel" class="btn">取消</button><button id="do-exchange" class="btn">兑奖</button></div>
+    `;
+    root.querySelector('#cancel').addEventListener('click', closeModal);
+    root.querySelector('#do-exchange').addEventListener('click', ()=>{
+      const v = parseInt(root.querySelector('#exchange-num').value, 10);
+      if(!v || v<=0 || v>unCount){ showToast('请输入不超过当前未兑奖勾数的正整数'); return; }
+
+      // 收集所有未兑换项，转换 createdAt 为时间戳，稳定排序（最早 -> 最晚）
+      const all = [];
+      Object.entries(events).forEach(([date, arr])=>{
+        arr.forEach(item=>{
+          if(!item.exchanged){
+            const ts = Date.parse(item.createdAt); // 毫秒时间戳
+            all.push({ date, id: item.id, ts });
+          }
+        });
+      });
+      // 按时间戳从小到大排序（最早的在前）
+      all.sort((a,b)=> a.ts - b.ts);
+
+      // 取前 v 个（最早的 v 个），并标记为 exchanged
+      const toMark = all.slice(0, v);
+      toMark.forEach(t=>{
+        const arr = events[t.date] || [];
+        const it = arr.find(x=>x.id === t.id);
+        if(it) it.exchanged = true;
+      });
+
+      saveLocal(); renderCalendar(); closeModal();
+    });
+  });
+}
+
+function openDayDetailModal(date){
+  const list = events[date] || [];
+  createModal(`${date} 的奖励记录`, (root)=>{
+    if(list.length === 0){ root.innerHTML += '<div class="small">没有记录</div>'; return; }
+    const ul = document.createElement('ul');
+    list.forEach(item=>{
+      const li = document.createElement('li');
+      const mark = document.createElement('span'); mark.className = 'check' + (item.exchanged ? ' exchanged' : ''); mark.textContent = '✓';
+      li.appendChild(mark);
+      li.appendChild(document.createTextNode(' ' + item.reason + '  '));
+      const tspan = document.createElement('span'); tspan.className='small'; tspan.style.marginLeft='8px'; tspan.textContent = item.createdAt;
+      li.appendChild(tspan);
+      ul.appendChild(li);
+    });
+    root.appendChild(ul);
+    const footer = document.createElement('div'); footer.className='footer-actions';
+    const closeBtn = document.createElement('button'); closeBtn.className='btn'; closeBtn.textContent='关闭'; closeBtn.onclick = closeModal;
+    footer.appendChild(closeBtn); root.appendChild(footer);
+  });
+}
+
+function sha256text(text){
+  // 返回 Promise<string>，16 进制小写
+  return crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)).then(buf => {
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  });
+}
+
+async function remoteLoad(){
+  if(!JSONBIN_BIN_ID || !JSONBIN_ACCESS_KEY){ showToast('未配置 JSONBin'); return; }
+  try{
+    const r = await fetch(`${JSONBIN_URL}/latest`, { headers: { 'X-Access-Key': JSONBIN_ACCESS_KEY } });
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const data = await r.json();
+    if(data && data.record && data.record.events && typeof data.record.events === 'object'){
+      events = data.record.events;
+      saveLocal();
+      renderCalendar();
+      showToast('加载成功');
+    } else {
+      showToast('返回的 JSON 中没有 events 字段');
+    }
+  } catch(e){
+    showToast('加载失败: ' + e.message);
+  }
+}
+
+async function remoteSave(){
+  if(!JSONBIN_BIN_ID || !JSONBIN_ACCESS_KEY){ showToast('未配置 JSONBin'); return; }
+  try{
+    // 始终以 { events: events } 结构写入，保证远端有 events 字段（即使为空对象）
+    const payload = { events };
+    const r = await fetch(JSONBIN_URL, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'X-Access-Key': JSONBIN_ACCESS_KEY },
+      body: JSON.stringify(payload)
+    });
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    showToast('保存成功');
+  } catch(e){
+    showToast('保存失败: ' + e.message);
+  }
+}
+
+function clearAllData(){
+  createModal('清空所有数据', (root)=>{
+    root.innerHTML = `
+      <div class="field"><label class="small">请输入密码以确认清空：</label><input id="pwd-input" type="password" /></div>
+      <div class="small" style="margin-bottom:8px;color:#666">**谨慎操作**：清空后本地记录将被清除，若随后点击“保存到JSONBin”会覆盖远端（建议先备份）。</div>
+      <div class="footer-actions"><button id="cancel" class="btn">取消</button><button id="confirm" class="btn" style="background:#ff5a5f;color:#fff">确认清空</button></div>
+    `;
+    root.querySelector('#cancel').addEventListener('click', closeModal);
+    root.querySelector('#confirm').addEventListener('click', async ()=>{
+      const pwd = root.querySelector('#pwd-input').value || '';
+      if(!pwd){ showToast('请输入密码'); return; }
+      const h = await sha256text(pwd);
+      if(h !== CLEAR_PASSWORD_SHA256){ showToast('密码错误'); return; }
+      // 清空内存和本地存储
+      events = {};
+      saveLocal();
+      renderCalendar();
+      closeModal();
+      showToast('已清空所有本地数据');
+    });
+  });
+}
+
+/* ---------- 初始化与事件绑定 ---------- */
+initMonthYear();
+loadLocal();
+renderCalendar();
+remoteLoad(); // 页面打开时自动尝试加载远端（若成功会覆盖本地）
+
+monthSelect.addEventListener('change', ()=>{ viewMonth = parseInt(monthSelect.value,10); renderCalendar(); });
+yearSelect.addEventListener('change', ()=>{ viewYear = parseInt(yearSelect.value,10); renderCalendar(); });
+prevBtn.addEventListener('click', ()=>{ viewMonth--; if(viewMonth<0){ viewMonth=11; viewYear--; yearSelect.value = viewYear; } monthSelect.value = viewMonth; renderCalendar(); });
+nextBtn.addEventListener('click', ()=>{ viewMonth++; if(viewMonth>11){ viewMonth=0; viewYear++; yearSelect.value = viewYear; } monthSelect.value = viewMonth; renderCalendar(); });
+addBtn.addEventListener('click', ()=> openAddModal());
+exchangeBtn.addEventListener('click', openExchangeModal);
+syncLoad.addEventListener('click', remoteLoad);
+syncSave.addEventListener('click', remoteSave);
+clearAllBtn.addEventListener('click', clearAllData);
+</script>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <title>格斗游戏面板定制 Demo</title>
+  <style>
+    body {
+      background: #222;
+      color: #ddd;
+      font-family: sans-serif;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #c {
+      border: 2px solid #555;
+      background: #111;
+      margin-top: 10px;
+      cursor: default;
+    }
+
+    .controls {
+      margin: 10px;
+    }
+
+    button,
+    input {
+      margin: 5px;
+      padding: 6px 12px;
+    }
+
+    #tooltip {
+      position: absolute;
+      padding: 6px 12px;
+      background: rgba(0, 255, 255, 0.85);
+      color: #000;
+      border-radius: 4px;
+      display: none;
+      font-size: 14px;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* 右键菜单 */
+    #menu {
+      position: absolute;
+      display: none;
+      background: #fff;
+      border: 1px solid #aaa;
+      border-radius: 5px;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      z-index: 10000;
+      font-size: 14px;
+    }
+
+    #menu div {
+      padding: 6px 14px;
+      cursor: pointer;
+      color: #000;
+    }
+
+    #menu div:hover {
+      background: #eee;
+    }
+  </style>
+
+  <!-- 在线优先，失败则加载本地 Fabric.js -->
+  <script>
+    const localFabric = "fabric.min.js"; // 本地文件路径
+    const script = document.createElement("script");
+    script.src = "https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.2.4/fabric.min.js";
+    script.onload = () => console.log("已成功加载在线 Fabric.js");
+    script.onerror = () => {
+      console.warn("无法加载在线 Fabric.js，改用本地版本");
+      const localScript = document.createElement("script");
+      localScript.src = localFabric;
+      localScript.onload = () => console.log("已加载本地 Fabric.js");
+      document.head.appendChild(localScript);
+    };
+    document.head.appendChild(script);
+  </script>
+</head>
+
+<body>
+  <h2>格斗游戏 Hitbox 面板定制 Demo</h2>
+
+  <div class="controls">
+    <input type="file" id="file" multiple>
+    <button id="save">保存结果</button>
+    <button id="clear">清空画布</button>
+    <button id="removeBg">去背景（点色抠图）</button>
+    <label><input type="checkbox" id="contiguous" checked> 连续模式</label>
+    <label>阈值: <input type="range" id="threshold" min="0" max="150" value="40"></label>
+    <br>
+    <label>加载开孔图层: <input type="file" id="mask"></label>
+  </div>
+
+  <canvas id="c" width="960" height="540"></canvas>
+  <p style="font-size:14px">⚠️ Demo 画布缩小为 960×540，最终保存时仍会导出全尺寸。</p>
+
+  <!-- Tooltip -->
+  <div id="tooltip"></div>
+  <!-- 右键菜单 -->
+  <div id="menu">
+    <div id="menu-delete">删除</div>
+    <div id="menu-copy">复制</div>
+    <div id="menu-top">置顶</div>
+  </div>
+
+  <script>
+    function initCanvas() {
+      if (typeof fabric === "undefined") {
+        setTimeout(initCanvas, 50);
+        return;
+      }
+
+      const canvas = new fabric.Canvas('c', { backgroundColor: '#222' });
+      let maskObj = null;
+      let removeBgMode = false;
+      let targetObject = null; // 右键选中的对象
+
+      fabric.Object.prototype.set({
+        transparentCorners: false,
+        cornerColor: 'cyan',
+        borderColor: 'cyan',
+        cornerStyle: 'circle',
+        cornerSize: 10,
+        rotatingPointOffset: 30
+      });
+
+      function showTooltip(msg, x, y) {
+        const tip = document.getElementById("tooltip");
+        tip.textContent = msg;
+        tip.style.left = (x + 10) + "px";
+        tip.style.top = (y + 10) + "px";
+        tip.style.display = "block";
+        tip.style.opacity = "1";
+        setTimeout(() => {
+          tip.style.transition = "opacity 0.5s";
+          tip.style.opacity = "0";
+          setTimeout(() => { tip.style.display = "none"; tip.style.transition = ""; }, 500);
+        }, 1500);
+      }
+
+      // 加载普通素材
+      document.getElementById('file').onchange = e => {
+        const files = [...e.target.files];
+        files.forEach(file => {
+          const reader = new FileReader();
+          reader.onload = f => {
+            fabric.Image.fromURL(f.target.result, img => {
+              img.set({
+                left: 100,
+                top: 100,
+                opacity: 0.9,
+                selectable: true
+              });
+              img.scaleToWidth(300);
+              canvas.add(img).setActiveObject(img);
+              if (maskObj) canvas.bringToFront(maskObj);
+            });
+          };
+          reader.readAsDataURL(file);
+        });
+        e.target.value = "";
+      };
+
+      // 加载开孔图层
+      document.getElementById('mask').onchange = e => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = f => {
+          fabric.Image.fromURL(f.target.result, img => {
+            if (maskObj) canvas.remove(maskObj);
+            maskObj = img;
+            maskObj.set({
+              left: 0,
+              top: 0,
+              selectable: false,
+              evented: false,
+              opacity: 0.5
+            });
+            maskObj.scaleToWidth(canvas.width);
+            canvas.add(maskObj);
+            canvas.bringToFront(maskObj);
+          });
+        };
+        reader.readAsDataURL(file);
+        e.target.value = "";
+      };
+
+      // 保存（恢复素材不透明）
+      document.getElementById('save').onclick = () => {
+        if (maskObj) canvas.remove(maskObj);
+
+        const originalOpacity = [];
+        canvas.getObjects().forEach((obj, i) => {
+          originalOpacity[i] = obj.opacity;
+          if (obj.type === 'image') obj.opacity = 1;
+        });
+
+        const dataURL = canvas.toDataURL({
+          format: 'png',
+          multiplier: 1920 / canvas.width
+        });
+
+        canvas.getObjects().forEach((obj, i) => {
+          obj.opacity = originalOpacity[i];
+        });
+
+        if (maskObj) canvas.add(maskObj).bringToFront(maskObj);
+
+        const a = document.createElement('a');
+        a.href = dataURL;
+        a.download = "panel.png";
+        a.click();
+      };
+
+      // 清空
+      document.getElementById('clear').onclick = () => {
+        canvas.clear();
+        canvas.backgroundColor = '#222';
+        maskObj = null;
+      };
+
+      // 去背景按钮
+      document.getElementById('removeBg').onclick = () => {
+        if (!canvas.getActiveObject() || canvas.getActiveObject().type !== "image") {
+          alert("请先选择一个图片素材");
+          return;
+        }
+        removeBgMode = true;
+        canvas.defaultCursor = "crosshair";
+        const rect = canvas.upperCanvasEl.getBoundingClientRect();
+        showTooltip("现在点击素材上的背景区域，即可去除相近颜色", rect.left + canvas.width / 2, rect.top + 30);
+      };
+
+      // 点击取色并抠图
+      canvas.on("mouse:down", opt => {
+        if (!removeBgMode) return;
+        const imgObj = canvas.getActiveObject();
+        if (!imgObj || imgObj.type !== "image") return;
+
+        const pointer = canvas.getPointer(opt.e);
+        const el = imgObj.getElement();
+
+        const tmpCanvas = document.createElement("canvas");
+        tmpCanvas.width = el.width;
+        tmpCanvas.height = el.height;
+        const tmpCtx = tmpCanvas.getContext("2d");
+        tmpCtx.drawImage(el, 0, 0);
+
+        const imageData = tmpCtx.getImageData(0, 0, tmpCanvas.width, tmpCanvas.height);
+        const data = imageData.data;
+        const threshold = parseInt(document.getElementById("threshold").value);
+        const contiguous = document.getElementById("contiguous").checked;
+
+        const imgX = Math.floor((pointer.x - imgObj.left) / imgObj.scaleX);
+        const imgY = Math.floor((pointer.y - imgObj.top) / imgObj.scaleY);
+
+        if (imgX < 0 || imgY < 0 || imgX >= tmpCanvas.width || imgY >= tmpCanvas.height) {
+          removeBgMode = false;
+          canvas.defaultCursor = "default";
+          return;
+        }
+
+        const idx0 = (imgY * tmpCanvas.width + imgX) * 4;
+        const targetColor = { r: data[idx0], g: data[idx0 + 1], b: data[idx0 + 2] };
+
+        function colorCloseEnough(r, g, b) {
+          const dr = r - targetColor.r, dg = g - targetColor.g, db = b - targetColor.b;
+          return Math.sqrt(dr * dr + dg * dg + db * db) <= threshold;
+        }
+
+        function floodFill(sx, sy) {
+          const stack = [[sx, sy]];
+          const visited = new Uint8Array(tmpCanvas.width * tmpCanvas.height);
+          while (stack.length) {
+            const [x, y] = stack.pop();
+            if (x < 0 || y < 0 || x >= tmpCanvas.width || y >= tmpCanvas.height) continue;
+            const idx = y * tmpCanvas.width + x;
+            if (visited[idx]) continue;
+            visited[idx] = 1;
+            const i = idx * 4;
+            if (!colorCloseEnough(data[i], data[i + 1], data[i + 2])) continue;
+            data[i + 3] = 0;
+            stack.push([x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]);
+          }
+        }
+
+        if (contiguous) {
+          floodFill(imgX, imgY);
+        } else {
+          for (let i = 0; i < data.length; i += 4) {
+            if (colorCloseEnough(data[i], data[i + 1], data[i + 2])) {
+              data[i + 3] = 0;
+            }
+          }
+        }
+
+        tmpCtx.putImageData(imageData, 0, 0);
+
+        fabric.Image.fromURL(tmpCanvas.toDataURL(), newImg => {
+          newImg.set({
+            left: imgObj.left,
+            top: imgObj.top,
+            angle: imgObj.angle,
+            scaleX: imgObj.scaleX,
+            scaleY: imgObj.scaleY,
+            opacity: 0.9
+          });
+          canvas.remove(imgObj);
+          canvas.add(newImg).setActiveObject(newImg);
+          if (maskObj) canvas.bringToFront(maskObj);
+        });
+
+        removeBgMode = false;
+        canvas.defaultCursor = "default";
+      });
+
+      // Delete 删除选中图层
+      document.addEventListener("keydown", e => {
+        if (e.key === "Delete") {
+          const obj = canvas.getActiveObject();
+          if (obj && obj !== maskObj) {
+            canvas.remove(obj);
+          }
+        }
+      });
+
+      // 右键菜单
+      const menu = document.getElementById('menu');
+
+      canvas.upperCanvasEl.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+        const obj = canvas.findTarget(e, false);
+        if (obj && obj !== maskObj) {
+          targetObject = obj;
+          menu.style.left = e.clientX + "px";
+          menu.style.top = e.clientY + "px";
+          menu.style.display = "block";
+        } else {
+          menu.style.display = "none";
+        }
+      });
+
+      document.addEventListener('click', () => {
+        menu.style.display = "none";
+      });
+
+      document.getElementById('menu-delete').onclick = () => {
+        if (targetObject) {
+          canvas.remove(targetObject);
+          menu.style.display = "none";
+        }
+      };
+
+      document.getElementById('menu-copy').onclick = () => {
+        if (targetObject) {
+          targetObject.clone(clone => {
+            clone.set({
+              left: targetObject.left + 20,
+              top: targetObject.top + 20
+            });
+            canvas.add(clone);
+            canvas.setActiveObject(clone);
+            canvas.renderAll();
+          });
+          menu.style.display = "none";
+        }
+      };
+
+      document.getElementById('menu-top').onclick = () => {
+        if (targetObject) {
+          canvas.bringToFront(targetObject);
+          canvas.renderAll();
+          menu.style.display = "none";
+        }
+      };
+    }
+
+    initCanvas();
+  </script>
+</body>
+
+</html>

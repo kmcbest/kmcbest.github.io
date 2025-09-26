@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Watchlist</title>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+        /* 保留少量自定义（和 Tailwind 共存） */
+        .actress-item {
+            border-left-width: 4px;
+        }
+
+        .site-popup {
+            position: absolute;
+            background: white;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+            border-radius: 0.5rem;
+            z-index: 1000;
+            min-width: 200px;
+        }
+
+        .site-popup a {
+            display: block;
+            padding: 10px 16px;
+            color: #111827;
+            text-decoration: none;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .site-popup a:hover {
+            background-color: #f8fafc;
+        }
+
+        /* Toast 小提示 */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            transform: none;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800">
+    <div class="max-w-4xl mx-auto p-6">
+        <header class="mb-6">
+            <h1 class="text-2xl font-semibold text-slate-900 text-center">Watchlist</h1>
+            <p class="mt-2 text-center text-sm text-slate-500">管理关注女优与作品 — 支持编辑 / 排序 / 搜索站点</p>
+        </header>
+
+        <!-- 操作区：添加 & 排序开关 -->
+        <div class="mb-4 flex flex-wrap gap-3 items-center justify-between">
+            <div class="flex gap-3">
+                <button id="addActress" class="px-3 py-1 rounded bg-indigo-600 text-white hover:bg-indigo-700">+
+                    添加女优</button>
+
+                <button id="toggleSortMode"
+                    class="px-3 py-1 rounded border border-slate-200 bg-white hover:bg-slate-50">
+                    排序模式
+                </button>
+
+                <button id="saveSortBtn"
+                    class="px-3 py-1 rounded bg-emerald-600 text-white hover:bg-emerald-700 hidden">保存排序</button>
+                <button id="cancelSortBtn"
+                    class="px-3 py-1 rounded border border-slate-200 bg-white hover:bg-slate-50 hidden">取消排序</button>
+            </div>
+
+            <div class="text-sm text-slate-500">提示：进入排序模式后，使用左右的按钮调整顺序，完成后点击“保存排序”。</div>
+        </div>
+
+        <!-- 女优列表 -->
+        <section class="mb-6">
+            <div id="actressList" class="space-y-4"></div>
+        </section>
+
+        <!-- Site List 编辑区 -->
+        <section class="bg-white rounded-lg shadow p-5">
+            <h2 class="text-lg font-medium mb-2">搜索站点列表</h2>
+            <p class="text-sm text-slate-500 mb-2">每行一个站点名，例如：<code class="bg-slate-100 px-1 rounded">xasiat</code></p>
+            <textarea id="siteListInput" class="w-full border rounded p-3 min-h-[120px] text-sm"></textarea>
+            <div class="mt-3 flex gap-3">
+                <button id="saveSiteList"
+                    class="px-3 py-1 rounded bg-indigo-600 text-white hover:bg-indigo-700">保存站点列表</button>
+                <button id="resetSiteList" class="px-3 py-1 rounded border bg-white">重置为当前数据</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- 站点弹出菜单 -->
+    <div id="sitePopup" class="site-popup hidden"></div>
+
+    <!-- Toast 提示 -->
+    <div id="toast" class="toast px-4 py-2 rounded shadow bg-yellow-300 text-slate-800"></div>
+
+    <script>
+        // ========================
+        // 配置：请替换为你自己的 Bin ID 和 Access Key
+        // ========================
+        const BIN_ID = '68d60a1643b1c97be9506422';
+        const ACCESS_KEY = '$2a$10$Hi5BNn/VXRh8AX9uTMxQMezW9baqQFhRNXmih/MWi.x0OJ.yKc9m.';
+        const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+
+        // 全局数据（runtime）
+        let data = {
+            config: { sitelist: [] },
+            actresses: []
+        };
+
+        // 本地排序临时副本（进入排序模式时生成）
+        let sortMode = false;
+        let stagingActresses = null; // 用于排序但未保存
+
+        // ========================
+        // 工具函数
+        // ========================
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast px-4 py-2 rounded shadow ' + (isError ? 'bg-red-600 text-white' : 'bg-amber-300 text-slate-900') + ' show';
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, isError ? 4000 : 2500);
+        }
+
+        async function fetchData() {
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'GET',
+                    headers: {
+                        'X-Access-Key': ACCESS_KEY,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (!res.ok) throw new Error(`加载失败: ${res.status}`);
+                const json = await res.json();
+                return json.record;
+            } catch (err) {
+                console.error('Fetch failed:', err);
+                throw err;
+            }
+        }
+
+        async function updateData(payload) {
+            const res = await fetch(API_URL, {
+                method: 'PUT',
+                headers: {
+                    'X-Access-Key': ACCESS_KEY,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+            if (!res.ok) throw new Error(`保存失败: ${res.status}`);
+            return res.json();
+        }
+
+        // 解析 Markdown 待办项：支持 - [ ] / - [x] / 普通行
+        function parseWorks(text) {
+            const lines = text.split('\n').filter(line => line.trim() !== '');
+            return lines.map(line => {
+                const matchDone = line.match(/^\s*-\s*\[x\]\s*(.+)$/i);
+                const matchNotDone = line.match(/^\s*-\s*\[\s\]\s*(.+)$/);
+
+                if (matchDone) {
+                    return { title: matchDone[1].trim(), done: true };
+                } else if (matchNotDone) {
+                    return { title: matchNotDone[1].trim(), done: false };
+                } else {
+                    return { title: line.trim(), done: false };
+                }
+            });
+        }
+
+        function generateWorksText(works) {
+            return works.map(w => w.done ? `- [x] ${w.title}` : `- [ ] ${w.title}`).join('\n');
+        }
+
+        async function saveToCloud(payload = null) {
+            try {
+                // 如果传了 payload 就用它（用于保存排序时），否则用全局 data
+                const toSave = payload || data;
+                await updateData(toSave);
+                showToast('已保存到云端！');
+                // 如果保存后是成功保存排序，要同步主 data
+                if (payload) {
+                    data = JSON.parse(JSON.stringify(payload));
+                }
+            } catch (err) {
+                showToast(err.message || '保存失败', true);
+            }
+        }
+
+        // ========================
+        // DOM 操作
+        // ========================
+        function renderSiteList() {
+            const el = document.getElementById('siteListInput');
+            el.value = (data.config && data.config.sitelist) ? data.config.sitelist.join('\n') : '';
+        }
+
+        document.getElementById('saveSiteList').addEventListener('click', () => {
+            const text = document.getElementById('siteListInput').value;
+            data.config.sitelist = text.split('\n').map(s => s.trim()).filter(s => s !== '');
+            saveToCloud();
+        });
+        document.getElementById('resetSiteList').addEventListener('click', () => {
+            renderSiteList();
+            showToast('已恢复为当前数据');
+        });
+
+        // 添加新女优
+        document.getElementById('addActress').addEventListener('click', () => {
+            const name = prompt('请输入女优姓名：');
+            if (!name) return;
+            data.actresses.push({
+                name,
+                expanded: true,
+                works: []
+            });
+            renderActressList();
+            saveToCloud();
+        });
+
+        // 排序模式切换按钮绑定
+        const toggleSortBtn = document.getElementById('toggleSortMode');
+        const saveSortBtn = document.getElementById('saveSortBtn');
+        const cancelSortBtn = document.getElementById('cancelSortBtn');
+
+        toggleSortBtn.addEventListener('click', () => {
+            sortMode = !sortMode;
+            if (sortMode) {
+                // 进入排序模式：复制一个 staging 数组用于操作（不改主 data）
+                stagingActresses = JSON.parse(JSON.stringify(data.actresses || []));
+                toggleSortBtn.textContent = '退出排序';
+                saveSortBtn.classList.remove('hidden');
+                cancelSortBtn.classList.remove('hidden');
+                showToast('进入排序模式（改变尚未保存）');
+            } else {
+                // 退出排序模式：放弃 staging
+                stagingActresses = null;
+                toggleSortBtn.textContent = '排序模式';
+                saveSortBtn.classList.add('hidden');
+                cancelSortBtn.classList.add('hidden');
+            }
+            renderActressList();
+        });
+
+        cancelSortBtn.addEventListener('click', () => {
+            // 放弃改动，恢复主 data
+            sortMode = false;
+            stagingActresses = null;
+            toggleSortBtn.textContent = '排序模式';
+            saveSortBtn.classList.add('hidden');
+            cancelSortBtn.classList.add('hidden');
+            renderActressList();
+            showToast('已取消排序操作');
+        });
+
+        saveSortBtn.addEventListener('click', async () => {
+            if (!stagingActresses) return;
+            const payload = {
+                ...data,
+                actresses: JSON.parse(JSON.stringify(stagingActresses))
+            };
+            await saveToCloud(payload);
+            // 应用到主 data，并退出排序模式
+            data = payload;
+            sortMode = false;
+            stagingActresses = null;
+            toggleSortBtn.textContent = '排序模式';
+            saveSortBtn.classList.add('hidden');
+            cancelSortBtn.classList.add('hidden');
+            renderActressList();
+        });
+
+        // 渲染所有女优（根据 sortMode 决定用 data.actresses 还是 stagingActresses）
+        // 渲染所有女优（根据 sortMode 决定用 data.actresses 还是 stagingActresses）
+        function renderActressList() {
+            const container = document.getElementById('actressList');
+            container.innerHTML = '';
+
+            // 选择当前显示的数据源
+            const list = sortMode ? (stagingActresses || []) : (data.actresses || []);
+
+            if (!list.length) {
+                container.innerHTML = `<div class="bg-white p-4 rounded shadow text-slate-500">暂无关注女优，点击“+ 添加女优”添加。</div>`;
+                return;
+            }
+
+            list.forEach((a, idx) => {
+                const item = document.createElement('div');
+                item.className = 'actress-item bg-white rounded-lg p-4 shadow-sm flex flex-col';
+
+                // header：左侧为箭头+名字，右侧为按钮
+                const header = document.createElement('div');
+                header.className = 'flex items-center justify-between gap-4';
+
+                // 左侧：箭头 + 名字（可点击展开/收起）
+                const leftBox = document.createElement('div');
+                leftBox.className = 'flex items-center gap-3 cursor-pointer select-none';
+
+                const arrowSpan = document.createElement('span');
+                arrowSpan.className = 'arrow inline-block transition-transform duration-200';
+                arrowSpan.textContent = '▶';
+                arrowSpan.style.transform = a.expanded ? 'rotate(90deg)' : 'rotate(0deg)';
+
+                const nameSpan = document.createElement('span');
+                nameSpan.className = 'text-lg font-medium text-slate-800';
+                nameSpan.textContent = a.name;
+
+                leftBox.appendChild(arrowSpan);
+                leftBox.appendChild(nameSpan);
+
+                // 点击切换展开/收起状态
+                leftBox.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const arr = sortMode ? stagingActresses : data.actresses;
+                    if (!arr || !arr[idx]) return;
+                    arr[idx].expanded = !arr[idx].expanded;
+                    if (!sortMode) saveToCloud(); // 非排序模式立即保存
+                    renderActressList(); // 重新渲染
+                });
+
+                // 右侧：排序或删除按钮
+                const rightBox = document.createElement('div');
+                rightBox.className = 'flex items-center gap-2';
+
+                if (sortMode) {
+                    const mkBtn = (text, title, handler) => {
+                        const b = document.createElement('button');
+                        b.className = 'text-sm px-2 py-1 rounded hover:bg-slate-100';
+                        b.title = title;
+                        b.textContent = text;
+                        b.onclick = (ev) => { ev.stopPropagation(); handler(); };
+                        return b;
+                    };
+                    rightBox.appendChild(mkBtn('🔝', '置顶', () => moveActress(idx, 'top')));
+                    rightBox.appendChild(mkBtn('⬆', '上移', () => moveActress(idx, 'up')));
+                    rightBox.appendChild(mkBtn('⬇', '下移', () => moveActress(idx, 'down')));
+                    rightBox.appendChild(mkBtn('🔚', '置底', () => moveActress(idx, 'bottom')));
+                }
+
+                // 删除按钮
+                const delBtn = document.createElement('button');
+                delBtn.className = 'text-sm px-2 py-1 rounded hover:bg-rose-50';
+                delBtn.title = '删除';
+                delBtn.innerHTML = `<span class="text-rose-600">🗑️</span>`;
+                delBtn.style.background = 'transparent';
+                delBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    if (!confirm(`确定要删除女优 "${a.name}" 吗？`)) return;
+                    if (sortMode) {
+                        stagingActresses.splice(idx, 1);
+                    } else {
+                        data.actresses.splice(idx, 1);
+                    }
+                    if (!sortMode) saveToCloud();
+                    renderActressList();
+                };
+                rightBox.appendChild(delBtn);
+
+                header.appendChild(leftBox);
+                header.appendChild(rightBox);
+                item.appendChild(header);
+
+                // 内容区：只在 expanded 时显示内容
+                const content = document.createElement('div');
+                content.className = 'actress-content mt-3';
+
+                if (a.expanded) {
+                    // 创建 textarea（编辑区）
+                    const textarea = document.createElement('textarea');
+                    textarea.className = 'works-input w-full border rounded p-2 text-sm';
+                    textarea.value = generateWorksText(a.works || []);
+                    textarea.dataset.index = idx;
+                    textarea.style.display = 'none'; // 默认隐藏
+
+                    // 保存按钮
+                    const saveBtn = document.createElement('button');
+                    saveBtn.className = 'mt-2 px-3 py-1 rounded bg-indigo-600 text-white hidden';
+                    saveBtn.textContent = '保存作品';
+                    saveBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        const text = textarea.value;
+                        const arr = sortMode ? stagingActresses : data.actresses;
+                        if (!arr || !arr[idx]) return;
+                        arr[idx].works = parseWorks(text);
+                        if (!sortMode) saveToCloud();
+                        renderActressList();
+                    };
+
+                    // 作品列表容器
+                    const workList = document.createElement('ul');
+                    workList.className = 'work-list space-y-2';
+
+                    // 编辑按钮
+                    const editBtn = document.createElement('button');
+                    editBtn.className = 'mt-3 px-3 py-1 rounded border border-slate-200 bg-white';
+                    editBtn.textContent = '编辑作品';
+                    editBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        const show = textarea.style.display === 'none';
+                        textarea.style.display = show ? 'block' : 'none';
+                        saveBtn.style.display = show ? 'inline-block' : 'none';
+                        editBtn.textContent = show ? '取消编辑' : '编辑作品';
+                        const arr = sortMode ? stagingActresses : data.actresses;
+                        textarea.value = generateWorksText((arr[idx] && arr[idx].works) ? arr[idx].works : []);
+                    };
+
+                    // 添加到 content
+                    content.appendChild(textarea);
+                    content.appendChild(saveBtn);
+                    content.appendChild(workList);
+                    content.appendChild(editBtn);
+
+                    // 渲染作品列表
+                    renderWorkList(workList, idx, sortMode);
+                }
+                // 如果 !a.expanded，content 为空，不添加任何内容
+
+                item.appendChild(content);
+                container.appendChild(item);
+            });
+        }
+        // 渲染单个作品列表
+        function renderWorkList(container, actressIdx, isStaging = false) {
+            if (!container || !container.tagName) return;
+            container.innerHTML = '';
+            const arr = isStaging ? (stagingActresses || []) : (data.actresses || []);
+            const works = (arr[actressIdx] && arr[actressIdx].works) ? arr[actressIdx].works : [];
+
+            works.forEach((work, workIdx) => {
+                const li = document.createElement('li');
+                li.className = `work-item flex items-center gap-3 p-2 rounded ${work.done ? 'line-through text-slate-400 bg-slate-50' : 'bg-slate-100'}`;
+
+                const cb = document.createElement('input');
+                cb.type = 'checkbox';
+                cb.checked = work.done;
+                cb.onchange = (e) => {
+                    work.done = cb.checked;
+                    // 如果在排序模式下，修改 staging，否则修改 data
+                    if (isStaging) {
+                        // stagingActresses already references correct object
+                    } else {
+                        // 保存勾选状态
+                        saveToCloud();
+                    }
+                    // 只重新渲染 the list
+                    renderActressList();
+                };
+
+                const titleSpan = document.createElement('span');
+                titleSpan.className = 'title flex-1 cursor-pointer';
+                titleSpan.textContent = work.title;
+                titleSpan.onclick = (e) => {
+                    e.stopPropagation();
+                    showSitePopup(e, work.title);
+                };
+
+                li.appendChild(cb);
+                li.appendChild(titleSpan);
+                container.appendChild(li);
+            });
+        }
+
+        // 显示站点弹出菜单
+        function showSitePopup(e, title) {
+            const popup = document.getElementById('sitePopup');
+            popup.innerHTML = '';
+            popup.classList.remove('hidden');
+
+            const rect = e.target.getBoundingClientRect();
+            popup.style.left = `${rect.left}px`;
+            popup.style.top = `${rect.bottom + window.scrollY + 8}px`;
+
+            (data.config.sitelist || []).forEach(site => {
+                const a = document.createElement('a');
+                a.href = `https://www.google.com/search?q=${encodeURIComponent(title + ' ' + site)}`;
+                a.target = "_blank";
+                a.textContent = `🔍 搜索 ${site}`;
+                popup.appendChild(a);
+            });
+
+            // 点击其他地方关闭
+            function close(event) {
+                if (!popup.contains(event.target) && !event.target.classList.contains('title')) {
+                    popup.classList.add('hidden');
+                    document.removeEventListener('click', close);
+                }
+            }
+            setTimeout(() => document.addEventListener('click', close), 100);
+        }
+
+        // 排序移动函数（修改 stagingActresses）
+        function moveActress(i, action) {
+            if (!stagingActresses) return;
+            const arr = stagingActresses;
+            if (action === 'top' && i > 0) {
+                arr.unshift(arr.splice(i, 1)[0]);
+            } else if (action === 'up' && i > 0) {
+                [arr[i - 1], arr[i]] = [arr[i], arr[i - 1]];
+            } else if (action === 'down' && i < arr.length - 1) {
+                [arr[i + 1], arr[i]] = [arr[i], arr[i + 1]];
+            } else if (action === 'bottom' && i < arr.length - 1) {
+                arr.push(arr.splice(i, 1)[0]);
+            }
+            renderActressList();
+        }
+
+        // ========================
+        // 初始化
+        // ========================
+        async function init() {
+            const container = document.getElementById('actressList');
+            container.innerHTML = '<div class="bg-white p-4 rounded shadow text-slate-500 italic">加载中...</div>';
+
+            try {
+                const fetched = await fetchData();
+                if (fetched) data = fetched;
+            } catch (err) {
+                container.innerHTML = `<div class="bg-rose-50 p-4 rounded text-rose-700">加载失败：${err.message}。请检查网络或密钥。</div>`;
+                showToast('加载失败，请检查网络或设置', true);
+                console.error(err);
+            }
+
+            if (!data.config) data.config = { sitelist: [] };
+            if (!data.actresses) data.actresses = [];
+
+            renderSiteList();
+            renderActressList();
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+
+</html>

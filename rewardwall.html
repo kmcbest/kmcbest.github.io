@@ -215,7 +215,9 @@ function openAddModal(defaultDate){
     root.querySelector('#save').addEventListener('click', ()=>{
       const reason = root.querySelector('#reason-input').value.trim();
       if(!reason){ showToast('请输入奖励原因'); return; }
-      const item = { id: uid(), reason, createdAt: new Date().toISOString(), exchanged: false };
+      //const item = { id: uid(), reason, createdAt: new Date().toISOString(), exchanged: false };
+      const item = { id: uid(), reason, createdAt: toBeijingString(), exchanged: false };
+      
       events[date] = events[date] || [];
       events[date].unshift(item); // newest first in the day's array
       saveLocal(); renderCalendar(); closeModal();
@@ -290,6 +292,16 @@ function sha256text(text){
   });
 }
 
+function toBeijingString(date = new Date()){
+  const y = date.getFullYear();
+  const m = String(date.getMonth()+1).padStart(2,'0');
+  const d = String(date.getDate()).padStart(2,'0');
+  const hh = String(date.getHours()).padStart(2,'0');
+  const mm = String(date.getMinutes()).padStart(2,'0');
+  const ss = String(date.getSeconds()).padStart(2,'0');
+  return `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
+}
+  
 async function remoteLoad(){
   if(!JSONBIN_BIN_ID || !JSONBIN_ACCESS_KEY){ showToast('未配置 JSONBin'); return; }
   try{

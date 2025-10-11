@@ -8,6 +8,8 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts-wordcloud@2.0.0/dist/echarts-wordcloud.min.js"></script>
 
     <style>
         /* 保留少量自定义（和 Tailwind 共存） */
@@ -50,6 +52,15 @@
 
         .toast.show {
             opacity: 1;
+        }
+
+        /* Word Cloud 样式 */
+        #wordCloud {
+            width: 100%;
+            height: 400px;
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -95,6 +106,13 @@
                     class="px-3 py-1 rounded bg-indigo-600 text-white hover:bg-indigo-700">保存站点列表</button>
                 <button id="resetSiteList" class="px-3 py-1 rounded border bg-white">重置为当前数据</button>
             </div>
+        </section>
+
+        <!-- Word Cloud 部分 -->
+        <section class="mt-8 bg-white rounded-lg shadow p-5">
+            <h2 class="text-lg font-medium mb-2">女优词云</h2>
+            <p id="wordCloudStats" class="text-sm text-slate-500 mb-4">女优总数：0，作品总数：0</p>
+            <canvas id="wordCloud"></canvas>
         </section>
     </div>
 
@@ -197,7 +215,6 @@
 
         async function saveToCloud() {
             try {
-                // 只保存主 data
                 await updateData(data);
                 showToast('所有改动已保存到云端！');
             } catch (err) {
@@ -234,10 +251,10 @@
                 works: []
             });
             renderActressList();
+            renderWordCloud();
             showToast('新女优已添加，请点击“保存所有改动”上传。');
         });
 
-        // 新增：保存所有改动
         document.getElementById('saveAllBtn').addEventListener('click', async () => {
             if (sortMode) {
                 showToast('请先完成排序或取消排序操作。', true);
@@ -246,8 +263,6 @@
             await saveToCloud();
         });
 
-
-        // 排序模式切换按钮绑定
         const toggleSortBtn = document.getElementById('toggleSortMode');
         const saveSortBtn = document.getElementById('saveSortBtn');
         const cancelSortBtn = document.getElementById('cancelSortBtn');
@@ -255,55 +270,48 @@
         toggleSortBtn.addEventListener('click', () => {
             sortMode = !sortMode;
             if (sortMode) {
-                // 进入排序模式：复制一个 staging 数组用于操作（不改主 data）
                 stagingActresses = JSON.parse(JSON.stringify(data.actresses || []));
                 toggleSortBtn.textContent = '退出排序';
                 saveSortBtn.classList.remove('hidden');
                 cancelSortBtn.classList.remove('hidden');
                 showToast('进入排序模式（改变尚未保存）');
             } else {
-                // 退出排序模式：放弃 staging
                 stagingActresses = null;
                 toggleSortBtn.textContent = '排序模式';
                 saveSortBtn.classList.add('hidden');
                 cancelSortBtn.classList.add('hidden');
             }
             renderActressList();
+            renderWordCloud();
         });
 
         cancelSortBtn.addEventListener('click', () => {
-            // 放弃改动，恢复主 data
             sortMode = false;
             stagingActresses = null;
             toggleSortBtn.textContent = '排序模式';
             saveSortBtn.classList.add('hidden');
             cancelSortBtn.classList.add('hidden');
             renderActressList();
+            renderWordCloud();
             showToast('已取消排序操作');
         });
 
         saveSortBtn.addEventListener('click', async () => {
             if (!stagingActresses) return;
-            // 将排序后的 stagingActresses 同步回主 data
             data.actresses = JSON.parse(JSON.stringify(stagingActresses));
-
-            // 退出排序模式
             sortMode = false;
             stagingActresses = null;
             toggleSortBtn.textContent = '排序模式';
             saveSortBtn.classList.add('hidden');
             cancelSortBtn.classList.add('hidden');
-
             renderActressList();
+            renderWordCloud();
             showToast('排序已保存到本地，请点击“保存所有改动”上传。');
         });
 
-        // 渲染所有女优（根据 sortMode 决定用 data.actresses 还是 stagingActresses）
         function renderActressList() {
             const container = document.getElementById('actressList');
             container.innerHTML = '';
-
-            // 选择当前显示的数据源
             const list = sortMode ? (stagingActresses || []) : (data.actresses || []);
 
             if (!list.length) {
@@ -314,12 +322,11 @@
             list.forEach((a, idx) => {
                 const item = document.createElement('div');
                 item.className = 'actress-item bg-white rounded-lg p-4 shadow-sm flex flex-col';
+                item.id = `actress-${encodeURIComponent(a.name)}`;
 
-                // header：左侧为箭头+名字，右侧为按钮
                 const header = document.createElement('div');
                 header.className = 'flex items-center justify-between gap-4';
 
-                // 左侧：箭头 + 名字（可点击展开/收起）
                 const leftBox = document.createElement('div');
                 leftBox.className = 'flex items-center gap-3 cursor-pointer select-none';
 
@@ -335,17 +342,15 @@
                 leftBox.appendChild(arrowSpan);
                 leftBox.appendChild(nameSpan);
 
-                // 点击切换展开/收起状态
                 leftBox.addEventListener('click', (e) => {
                     e.stopPropagation();
                     const arr = sortMode ? stagingActresses : data.actresses;
                     if (!arr || !arr[idx]) return;
                     arr[idx].expanded = !arr[idx].expanded;
                     if (!sortMode) showToast('已更新到本地，请点击“保存所有改动”上传。');
-                    renderActressList(); // 重新渲染
+                    renderActressList();
                 });
 
-                // 右侧：排序或删除按钮
                 const rightBox = document.createElement('div');
                 rightBox.className = 'flex items-center gap-2';
 
@@ -367,7 +372,6 @@
                     rightBox.appendChild(mkBtn('🔚', '置底', () => moveActress(idx, 'bottom')));
                 }
 
-                // 删除按钮
                 const delBtn = document.createElement('button');
                 delBtn.className = 'text-sm px-2 py-1 rounded hover:bg-rose-50';
                 delBtn.title = '删除';
@@ -383,6 +387,7 @@
                     }
                     if (!sortMode) showToast('已删除，请点击“保存所有改动”上传。');
                     renderActressList();
+                    renderWordCloud();
                 };
                 rightBox.appendChild(delBtn);
 
@@ -390,19 +395,16 @@
                 header.appendChild(rightBox);
                 item.appendChild(header);
 
-                // 内容区：只在 expanded 时显示内容
                 const content = document.createElement('div');
                 content.className = 'actress-content mt-3';
 
                 if (a.expanded) {
-                    // 创建 textarea（编辑区）
                     const textarea = document.createElement('textarea');
                     textarea.className = 'works-input w-full border rounded p-2 text-sm';
                     textarea.value = generateWorksText(a.works || []);
                     textarea.dataset.index = idx;
-                    textarea.style.display = 'none'; // 默认隐藏
+                    textarea.style.display = 'none';
 
-                    // 保存按钮
                     const saveBtn = document.createElement('button');
                     saveBtn.className = 'mt-2 px-3 py-1 rounded bg-indigo-600 text-white hidden';
                     saveBtn.textContent = '保存作品';
@@ -414,13 +416,12 @@
                         arr[idx].works = parseWorks(text);
                         if (!sortMode) showToast('作品已更新到本地，请点击“保存所有改动”上传。');
                         renderActressList();
+                        renderWordCloud();
                     };
 
-                    // 作品列表容器
                     const workList = document.createElement('ul');
                     workList.className = 'work-list space-y-2';
 
-                    // 编辑按钮
                     const editBtn = document.createElement('button');
                     editBtn.className = 'mt-3 px-3 py-1 rounded border border-slate-200 bg-white';
                     editBtn.textContent = '编辑作品';
@@ -434,22 +435,19 @@
                         textarea.value = generateWorksText((arr[idx] && arr[idx].works) ? arr[idx].works : []);
                     };
 
-                    // 添加到 content
                     content.appendChild(textarea);
                     content.appendChild(saveBtn);
                     content.appendChild(workList);
                     content.appendChild(editBtn);
 
-                    // 渲染作品列表
                     renderWorkList(workList, idx, sortMode);
                 }
-                // 如果 !a.expanded，content 为空，不添加任何内容
 
                 item.appendChild(content);
                 container.appendChild(item);
             });
         }
-        // 渲染单个作品列表
+
         function renderWorkList(container, actressIdx, isStaging = false) {
             if (!container || !container.tagName) return;
             container.innerHTML = '';
@@ -465,8 +463,8 @@
                 cb.checked = work.done;
                 cb.onchange = (e) => {
                     work.done = cb.checked;
-                    // 只重新渲染 the list
                     renderActressList();
+                    renderWordCloud();
                     showToast('已更新到本地，请点击“保存所有改动”上传。');
                 };
 
@@ -484,7 +482,6 @@
             });
         }
 
-        // 显示站点弹出菜单
         function showSitePopup(e, title) {
             const popup = document.getElementById('sitePopup');
             popup.innerHTML = '';
@@ -502,7 +499,6 @@
                 popup.appendChild(a);
             });
 
-            // 点击其他地方关闭
             function close(event) {
                 if (!popup.contains(event.target) && !event.target.classList.contains('title')) {
                     popup.classList.add('hidden');
@@ -512,7 +508,6 @@
             setTimeout(() => document.addEventListener('click', close), 100);
         }
 
-        // 排序移动函数（修改 stagingActresses）
         function moveActress(i, action) {
             if (!stagingActresses) return;
             const arr = stagingActresses;
@@ -526,11 +521,92 @@
                 arr.push(arr.splice(i, 1)[0]);
             }
             renderActressList();
+            renderWordCloud();
         }
 
-        // ========================
-        // 初始化
-        // ========================
+        function renderWordCloud() {
+            const container = document.getElementById('wordCloud');
+
+            // 替换 canvas 为 div 容器（只做一次）
+            if (container.tagName.toLowerCase() === 'canvas') {
+                const newDiv = document.createElement('div');
+                newDiv.id = container.id;
+                newDiv.style.width = container.style.width || '100%';
+                newDiv.style.height = container.style.height || '400px';
+                newDiv.style.background = 'white';
+                newDiv.style.borderRadius = '0.5rem';
+                newDiv.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+                container.parentNode.replaceChild(newDiv, container);
+            }
+
+            const chartDom = document.getElementById('wordCloud');
+            if (!chartDom) return;
+
+            const chart = echarts.init(chartDom, null, { renderer: 'svg' });
+
+            const list = sortMode ? (stagingActresses || []) : (data.actresses || []);
+            if (!list.length) {
+                chart.clear();
+                chartDom.innerHTML = `<div class="text-slate-500 text-center mt-10">暂无数据</div>`;
+                document.getElementById('wordCloudStats').textContent = '女优总数：0，作品总数：0';
+                return;
+            }
+
+            // 计算女优总数和作品总数
+            const actressCount = list.length;
+            const workCount = list.reduce((sum, actress) => sum + (actress.works ? actress.works.length : 0), 0);
+            document.getElementById('wordCloudStats').textContent = `女优总数：${actressCount}，作品总数：${workCount}`;
+
+            const wordData = list.map(a => ({
+                name: a.name,
+                value: Math.max(10, (a.works ? a.works.length : 0) * 5)
+            }));
+
+            const option = {
+                tooltip: {
+                    show: true,
+                    formatter: p => `${p.name}：${p.value}`
+                },
+                series: [{
+                    type: 'wordCloud',
+                    shape: 'circle',
+                    keepAspect: true,
+                    gridSize: 4,
+                    sizeRange: [18, 40],
+                    rotationRange: [-30, 30],
+                    rotationStep: 45,
+                    textStyle: {
+                        color: () => `rgb(${Math.round(Math.random() * 160)}, ${Math.round(Math.random() * 160)}, ${Math.round(Math.random() * 160)})`,
+                        fontWeight: 'bold'
+                    },
+                    shrinkToFit: true,
+                    emphasis: {
+                        textStyle: {
+                            shadowBlur: 10,
+                            shadowColor: '#333'
+                        }
+                    },
+                    data: wordData
+                }]
+            };
+
+            chart.setOption(option);
+
+            // 点击跳转到对应女优
+            chart.off('click');
+            chart.on('click', (params) => {
+                const name = params.name;
+                const id = `actress-${encodeURIComponent(name)}`;
+                const element = document.getElementById(id);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+
+            // 监听窗口大小变化
+            window.addEventListener('resize', () => chart.resize());
+        }
+
         async function init() {
             const container = document.getElementById('actressList');
             container.innerHTML = '<div class="bg-white p-4 rounded shadow text-slate-500 italic">加载中...</div>';
@@ -544,13 +620,12 @@
                 console.error(err);
             }
 
-            if (!data.config) data.config = {
-                sitelist: []
-            };
+            if (!data.config) data.config = { sitelist: [] };
             if (!data.actresses) data.actresses = [];
 
             renderSiteList();
             renderActressList();
+            renderWordCloud();
         }
 
         window.addEventListener('DOMContentLoaded', init);

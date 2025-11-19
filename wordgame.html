@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语单词挑战 (带音效版)</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --wrong-color: #f44336;
+            --bg-color: #e0f7fa;
+            --text-color: #37474f;
+            --accent-color: #00bcd4;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Segoe UI', sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            user-select: none;
+        }
+
+        .score-board {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--text-color);
+            background: white;
+            padding: 10px 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border: 3px solid var(--accent-color);
+        }
+
+        .game-container {
+            text-align: center;
+            width: 95%;
+            max-width: 700px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .emoji-display {
+            font-size: 8rem;
+            margin-bottom: 20px;
+            position: relative;
+            height: 160px;
+            line-height: 160px;
+            transition: transform 0.3s;
+        }
+
+        .success-mark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 10rem;
+            color: var(--primary-color);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-shadow: 3px 3px 6px rgba(255,255,255,0.8);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .success-mark.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .word-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 40px;
+            min-height: 70px;
+        }
+
+        .letter-slot {
+            width: 55px;
+            height: 65px;
+            border-bottom: 5px solid #555;
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--text-color);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            text-transform: uppercase;
+        }
+
+        .keyboard {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .key-btn {
+            width: 55px;
+            height: 55px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            background-color: white;
+            border: 2px solid #cfd8dc;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #b0bec5;
+            transition: all 0.1s;
+            color: #455a64;
+            position: relative;
+        }
+
+        .key-btn:active {
+            transform: translateY(5px);
+            box-shadow: none;
+        }
+
+        .key-btn.correct {
+            background-color: #e8f5e9;
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            box-shadow: 0 5px 0 #a5d6a7;
+            pointer-events: none;
+        }
+        
+        .key-btn.correct:active {
+             box-shadow: none;
+        }
+
+        .key-btn.wrong {
+            background-color: #ffebee;
+            border-color: var(--wrong-color);
+            color: #e0e0e0;
+            pointer-events: none;
+            box-shadow: none;
+            transform: translateY(5px);
+        }
+
+        .key-btn.wrong::after {
+            content: '×';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            color: var(--wrong-color);
+        }
+
+        .next-btn {
+            padding: 15px 40px;
+            font-size: 1.4rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+            transition: background-color 0.2s;
+            font-family: inherit;
+        }
+        
+        .next-btn:hover {
+            background-color: #00acc1;
+        }
+
+        .next-btn.restart {
+            background-color: #FF9800;
+        }
+        .next-btn.restart:hover {
+            background-color: #F57C00;
+        }
+
+        .result-message {
+            font-size: 2rem;
+            color: var(--text-color);
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        /* 静音开关 (可选) */
+        .mute-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.5rem;
+            background: white;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="mute-btn" id="muteBtn" onclick="toggleMute()">🔊</button>
+
+    <div class="score-board">
+        ⭐ <span id="score">0</span> / <span id="totalRound">20</span>
+    </div>
+
+    <div class="game-container">
+        <div class="emoji-display">
+            <span id="emoji">❓</span>
+            <div class="success-mark" id="successMark">✓</div>
+        </div>
+        
+        <div class="result-message" id="resultMessage"></div>
+
+        <div class="word-container" id="wordContainer"></div>
+
+        <div class="keyboard" id="keyboard"></div>
+
+        <div class="controls">
+            <button class="next-btn" id="actionBtn" onclick="handleAction()">跳过 ➔</button>
+        </div>
+    </div>
+
+    <script>
+        // ==================== 音效管理 (Base64嵌入) ====================
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        let isMuted = false;
+
+        // 使用简单的合成音效函数，避免引入巨大的Base64字符串，保证加载速度和兼容性
+        // 这种方式不需要下载文件，完全由代码生成声音
+        
+        const sounds = {
+            // 0. 游戏开始/重新开始 (清脆的上行音)
+            start: () => playTone(440, 'sine', 0.1, 0.1), 
+            
+            // 1. 按对字母 (高频短促的叮声)
+            correct: () => playTone(880, 'sine', 0.05, 0.1),
+            
+            // 2. 按错字母 (低频沉闷的嗡声)
+            wrong: () => playTone(150, 'sawtooth', 0.1, 0.2),
+            
+            // 3. 答对一题 (成功和弦)
+            success: () => playMelody([523, 659, 784, 1046], 0.1),
+            
+            // 4. 完成一轮 (胜利号角)
+            win: () => playMelody([523, 523, 523, 659, 784, 1046, 784, 1046], 0.15) 
+        };
+
+        // 播放单音
+        function playTone(freq, type, attack, decay) {
+            if(isMuted) return;
+            if(audioContext.state === 'suspended') audioContext.resume();
+
+            const osc = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+
+            osc.type = type;
+            osc.frequency.value = freq;
+
+            gain.gain.setValueAtTime(0, audioContext.currentTime);
+            gain.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + attack); // 音量不用太大
+            gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + attack + decay);
+
+            osc.connect(gain);
+            gain.connect(audioContext.destination);
+
+            osc.start();
+            osc.stop(audioContext.currentTime + attack + decay);
+        }
+
+        // 播放旋律
+        function playMelody(notes, speed) {
+            if(isMuted) return;
+            notes.forEach((note, index) => {
+                setTimeout(() => {
+                    playTone(note, 'triangle', 0.05, speed);
+                }, index * (speed * 1000));
+            });
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            document.getElementById('muteBtn').innerText = isMuted ? '🔇' : '🔊';
+        }
+
+
+        // ==================== 题库 (100+) ====================
+        const fullQuestionBank = [
+            // Animals
+            { emoji: '🐶', word: 'DOG' }, { emoji: '🐱', word: 'CAT' }, { emoji: '🐭', word: 'MOUSE' },
+            { emoji: '🐹', word: 'HAMSTER' }, { emoji: '🐰', word: 'RABBIT' }, { emoji: '🦊', word: 'FOX' },
+            { emoji: '🐻', word: 'BEAR' }, { emoji: '🐼', word: 'PANDA' }, { emoji: '🐨', word: 'KOALA' },
+            { emoji: '🐯', word: 'TIGER' }, { emoji: '🦁', word: 'LION' }, { emoji: '🐮', word: 'COW' },
+            { emoji: '🐷', word: 'PIG' }, { emoji: '🐸', word: 'FROG' }, { emoji: '🐵', word: 'MONKEY' },
+            { emoji: '🐔', word: 'CHICKEN' }, { emoji: '🐧', word: 'PENGUIN' }, { emoji: '🐦', word: 'BIRD' },
+            { emoji: '🦆', word: 'DUCK' }, { emoji: '🦅', word: 'EAGLE' }, { emoji: '🦉', word: 'OWL' },
+            { emoji: '🦇', word: 'BAT' }, { emoji: '🐺', word: 'WOLF' }, { emoji: '🐴', word: 'HORSE' },
+            { emoji: '🦄', word: 'UNICORN' }, { emoji: '🐝', word: 'BEE' }, { emoji: '🐛', word: 'BUG' },
+            { emoji: '🦋', word: 'BUTTERFLY' }, { emoji: '🐌', word: 'SNAIL' }, { emoji: '🐢', word: 'TURTLE' },
+            { emoji: '🐍', word: 'SNAKE' }, { emoji: '🐳', word: 'WHALE' }, { emoji: '🐬', word: 'DOLPHIN' },
+            { emoji: '🐟', word: 'FISH' }, { emoji: '🐙', word: 'OCTOPUS' }, { emoji: '🦈', word: 'SHARK' },
+            { emoji: '🦀', word: 'CRAB' }, { emoji: '🐜', word: 'ANT' }, { emoji: '🐘', word: 'ELEPHANT' },
+            { emoji: '🦒', word: 'GIRAFFE' }, { emoji: '🦓', word: 'ZEBRA' }, { emoji: '🦢', word: 'SWAN' },
+
+            // Food
+            { emoji: '🍎', word: 'APPLE' }, { emoji: '🍐', word: 'PEAR' }, { emoji: '🍊', word: 'ORANGE' },
+            { emoji: '🍋', word: 'LEMON' }, { emoji: '🍌', word: 'BANANA' }, { emoji: '🍉', word: 'WATERMELON' },
+            { emoji: '🍇', word: 'GRAPE' }, { emoji: '🍓', word: 'STRAWBERRY' }, { emoji: '🍒', word: 'CHERRY' },
+            { emoji: '🍑', word: 'PEACH' }, { emoji: '🥭', word: 'MANGO' }, { emoji: '🍍', word: 'PINEAPPLE' },
+            { emoji: '🥝', word: 'KIWI' }, { emoji: '🍅', word: 'TOMATO' }, { emoji: '🌽', word: 'CORN' },
+            { emoji: '🥕', word: 'CARROT' }, { emoji: '🥔', word: 'POTATO' }, { emoji: '🍞', word: 'BREAD' },
+            { emoji: '🧀', word: 'CHEESE' }, { emoji: '🥚', word: 'EGG' }, { emoji: '🥩', word: 'MEAT' },
+            { emoji: '🍔', word: 'BURGER' }, { emoji: '🍕', word: 'PIZZA' }, { emoji: '🌭', word: 'HOTDOG' },
+            { emoji: '🍟', word: 'FRIES' }, { emoji: '🍚', word: 'RICE' }, { emoji: '🍦', word: 'ICECREAM' },
+            { emoji: '🍩', word: 'DONUT' }, { emoji: '🍪', word: 'COOKIE' }, { emoji: '🎂', word: 'CAKE' },
+            { emoji: '🍫', word: 'CHOCOLATE' }, { emoji: '🍬', word: 'CANDY' }, { emoji: '🍯', word: 'HONEY' },
+            { emoji: '🥛', word: 'MILK' },
+
+            // Nature / Weather
+            { emoji: '🌞', word: 'SUN' }, { emoji: '🌙', word: 'MOON' }, { emoji: '⭐', word: 'STAR' },
+            { emoji: '☁️', word: 'CLOUD' }, { emoji: '🌧️', word: 'RAIN' }, { emoji: '❄️', word: 'SNOW' },
+            { emoji: '🔥', word: 'FIRE' }, { emoji: '💧', word: 'WATER' }, { emoji: '🌲', word: 'TREE' },
+            { emoji: '🌵', word: 'CACTUS' }, { emoji: '🌸', word: 'FLOWER' }, { emoji: '🌹', word: 'ROSE' },
+            { emoji: '🌻', word: 'SUNFLOWER' }, { emoji: '🍂', word: 'LEAF' }, { emoji: '🌍', word: 'EARTH' },
+
+            // Transport / Objects
+            { emoji: '🚗', word: 'CAR' }, { emoji: '🚕', word: 'TAXI' }, { emoji: '🚌', word: 'BUS' },
+            { emoji: '🚲', word: 'BIKE' }, { emoji: '🚂', word: 'TRAIN' }, { emoji: '✈️', word: 'PLANE' },
+            { emoji: '🚀', word: 'ROCKET' }, { emoji: '🚁', word: 'HELICOPTER' }, { emoji: '🚢', word: 'SHIP' },
+            { emoji: '⌚', word: 'WATCH' }, { emoji: '📷', word: 'CAMERA' }, { emoji: '💻', word: 'COMPUTER' },
+            { emoji: '📱', word: 'PHONE' }, { emoji: '📺', word: 'TV' }, { emoji: '📖', word: 'BOOK' },
+            { emoji: '🔑', word: 'KEY' }, { emoji: '🔒', word: 'LOCK' }, { emoji: '🔨', word: 'HAMMER' },
+            { emoji: '🎁', word: 'GIFT' }, { emoji: '🎈', word: 'BALLOON' }, { emoji: '⚽', word: 'BALL' },
+            { emoji: '🖊️', word: 'PEN' }, { emoji: '✏️', word: 'PENCIL' }, { emoji: '🏠', word: 'HOUSE' },
+
+            // Body / Clothes
+            { emoji: '👕', word: 'SHIRT' }, { emoji: '👗', word: 'DRESS' }, { emoji: '👞', word: 'SHOE' },
+            { emoji: '🎩', word: 'HAT' }, { emoji: '👓', word: 'GLASSES' }, { emoji: '👀', word: 'EYE' },
+            { emoji: '👂', word: 'EAR' }, { emoji: '👃', word: 'NOSE' }, { emoji: '👄', word: 'MOUTH' },
+            { emoji: '🖐️', word: 'HAND' }
+        ];
+
+        const ROUND_SIZE = 20;
+        let currentRoundList = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        
+        let currentQuestionData = {};
+        let guessedLetters = [];
+        let isQuestionComplete = false;
+        let isGameFinished = false;
+
+        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        const emojiEl = document.getElementById('emoji');
+        const wordContainer = document.getElementById('wordContainer');
+        const keyboardEl = document.getElementById('keyboard');
+        const scoreEl = document.getElementById('score');
+        const totalRoundEl = document.getElementById('totalRound');
+        const successMark = document.getElementById('successMark');
+        const actionBtn = document.getElementById('actionBtn');
+        const resultMessageEl = document.getElementById('resultMessage');
+
+        // 初始化
+        initGame();
+
+        function initGame() {
+            // 【音效 0】 游戏开始/重新开始
+            sounds.start();
+
+            const shuffledBank = [...fullQuestionBank];
+            shuffleArray(shuffledBank);
+            currentRoundList = shuffledBank.slice(0, ROUND_SIZE);
+
+            currentQuestionIndex = 0;
+            score = 0;
+            isGameFinished = false;
+            
+            scoreEl.innerText = '0';
+            totalRoundEl.innerText = ROUND_SIZE;
+            actionBtn.innerText = "跳过 ➔";
+            actionBtn.classList.remove('restart');
+            actionBtn.onclick = handleAction;
+            resultMessageEl.style.display = 'none';
+            wordContainer.style.display = 'flex';
+            keyboardEl.style.display = 'flex';
+
+            loadQuestion(currentQuestionIndex);
+        }
+
+        function loadQuestion(index) {
+            if (index >= ROUND_SIZE) {
+                finishGame();
+                return;
+            }
+
+            isQuestionComplete = false;
+            successMark.classList.remove('show');
+            currentQuestionData = currentRoundList[index];
+            
+            guessedLetters = new Array(currentQuestionData.word.length).fill(false);
+            
+            emojiEl.textContent = currentQuestionData.emoji;
+            actionBtn.innerText = "跳过 ➔";
+            
+            renderWordSlots();
+            renderKeyboard();
+        }
+
+        function handleAction() {
+            if (isGameFinished) {
+                initGame();
+            } else {
+                skipQuestion();
+            }
+        }
+
+        function skipQuestion() {
+            if (isQuestionComplete) return;
+            currentQuestionIndex++;
+            loadQuestion(currentQuestionIndex);
+        }
+
+        function checkWin() {
+            if (!guessedLetters.includes(false)) {
+                isQuestionComplete = true;
+                score++;
+                scoreEl.innerText = score;
+                
+                // 【音效 3】 答对一题
+                sounds.success();
+
+                successMark.classList.add('show');
+                
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    loadQuestion(currentQuestionIndex);
+                }, 1500);
+            }
+        }
+
+        function finishGame() {
+            isGameFinished = true;
+            
+            // 【音效 4】 完成一轮 (播放胜利音乐)
+            sounds.win();
+
+            emojiEl.textContent = "🏆";
+            successMark.classList.remove('show');
+            
+            wordContainer.style.display = 'none';
+            keyboardEl.style.display = 'none';
+            
+            resultMessageEl.style.display = 'block';
+            
+            let message = "";
+            if(score === ROUND_SIZE) message = "太棒了！全对！💯";
+            else if(score > ROUND_SIZE * 0.8) message = "非常优秀！🌟";
+            else if(score > ROUND_SIZE * 0.5) message = "做得不错！👍";
+            else message = "继续加油！💪";
+
+            resultMessageEl.innerHTML = `${message}<br>最终得分: ${score} / ${ROUND_SIZE}`;
+
+            actionBtn.innerText = "🔄 重新开始";
+            actionBtn.classList.add('restart');
+        }
+
+        function renderWordSlots() {
+            wordContainer.innerHTML = '';
+            for (let i = 0; i < currentQuestionData.word.length; i++) {
+                const slot = document.createElement('div');
+                slot.className = 'letter-slot';
+                slot.textContent = guessedLetters[i] ? currentQuestionData.word[i] : '';
+                wordContainer.appendChild(slot);
+            }
+        }
+
+        function renderKeyboard() {
+            keyboardEl.innerHTML = '';
+            const answerLetters = new Set(currentQuestionData.word.split(''));
+            const n = currentQuestionData.word.length;
+            const totalKeys = Math.max(n + 4, Math.floor(n * 1.8)); 
+            
+            const keyboardSet = new Set(answerLetters);
+            while (keyboardSet.size < totalKeys) {
+                const randomChar = alphabet[Math.floor(Math.random() * alphabet.length)];
+                keyboardSet.add(randomChar);
+            }
+            
+            const keyboardArray = Array.from(keyboardSet);
+            shuffleArray(keyboardArray);
+
+            keyboardArray.forEach(char => {
+                const btn = document.createElement('button');
+                btn.className = 'key-btn';
+                btn.textContent = char;
+                btn.onclick = () => handleKeyClick(btn, char);
+                keyboardEl.appendChild(btn);
+            });
+        }
+
+        function handleKeyClick(btn, char) {
+            if (isQuestionComplete || isGameFinished) return;
+            
+            // 触发 Web Audio API (浏览器要求必须先有交互才能播放声音，所以第一次点击可能没声音，之后就好了)
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+
+            const targetWord = currentQuestionData.word;
+            
+            if (targetWord.includes(char)) {
+                // 【音效 1】 按对字母
+                sounds.correct();
+
+                btn.classList.add('correct');
+                let anyUpdate = false;
+                for (let i = 0; i < targetWord.length; i++) {
+                    if (targetWord[i] === char && !guessedLetters[i]) {
+                        guessedLetters[i] = true;
+                        anyUpdate = true;
+                    }
+                }
+                if (anyUpdate) {
+                    renderWordSlots();
+                    checkWin();
+                }
+            } else {
+                // 【音效 2】 按错字母
+                sounds.wrong();
+                btn.classList.add('wrong');
+            }
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+    </script>
+</body>
+</html>

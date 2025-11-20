@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语字母自然拼读挑战</title>
+    <style>
+        :root {
+            --primary-color: #673AB7; /* 深紫色主调，更有神秘感 */
+            --accent-color: #FFC107; /* 琥珀色点缀 */
+            --success-color: #4CAF50;
+            --wrong-color: #f44336;
+            --bg-color: #ede7f6;
+            --text-color: #4527a0;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Segoe UI', sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            user-select: none;
+        }
+
+        .mute-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.5rem;
+            background: white;
+            border: 2px solid #d1c4e9;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .score-board {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--text-color);
+            background: white;
+            padding: 10px 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border: 3px solid var(--primary-color);
+        }
+
+        .game-container {
+            text-align: center;
+            width: 95%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 4px solid #d1c4e9;
+        }
+
+        /* Emoji 显示区 */
+        .display-area {
+            position: relative;
+            height: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .big-emoji {
+            font-size: 9rem;
+            line-height: 1.2;
+            /* 增加一点浮动动画，更生动 */
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .speaker-btn {
+            margin-top: 10px;
+            font-size: 2rem;
+            background: var(--accent-color);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: transform 0.1s;
+            color: #5d4037;
+        }
+        .speaker-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* 选项区域 */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .option-btn {
+            height: 85px;
+            font-size: 3rem;
+            font-weight: bold;
+            background-color: white;
+            border: 3px solid #b39ddb;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #9575cd;
+            transition: all 0.1s;
+            color: var(--primary-color);
+            font-family: inherit;
+        }
+
+        .option-btn:active {
+            transform: translateY(6px);
+            box-shadow: none;
+        }
+
+        .option-btn.correct {
+            background-color: #e8f5e9;
+            border-color: var(--success-color);
+            color: var(--success-color);
+            box-shadow: 0 6px 0 #a5d6a7;
+            pointer-events: none;
+        }
+        
+        .option-btn.wrong {
+            background-color: #ffebee;
+            border-color: var(--wrong-color);
+            color: #ffcdd2;
+            pointer-events: none;
+            box-shadow: none;
+            transform: translateY(6px);
+            position: relative;
+        }
+        .option-btn.wrong::after {
+            content: '×';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            color: var(--wrong-color);
+        }
+
+        .controls {
+            margin-top: 10px;
+        }
+        .next-btn {
+            padding: 15px 50px;
+            font-size: 1.4rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+            font-family: inherit;
+        }
+        .next-btn:hover { background-color: #5e35b1; }
+        
+        .next-btn.restart {
+            background-color: var(--success-color);
+        }
+
+        .result-message {
+            display: none;
+            font-size: 2.2rem;
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <button class="mute-btn" id="muteBtn" onclick="toggleMute()">🔊</button>
+
+    <div class="score-board">
+        <span id="score">0</span> / 26
+    </div>
+
+    <div class="game-container">
+        <div class="result-message" id="resultMessage"></div>
+
+        <div id="gamePlayArea">
+            <div class="display-area">
+                <!-- 这里只显示Emoji -->
+                <div class="big-emoji" id="displayEmoji">❓</div>
+                <!-- 按钮点击重读单词 -->
+                <button class="speaker-btn" onclick="speakCurrentWord()">📢</button>
+            </div>
+
+            <div class="options-grid" id="optionsContainer"></div>
+        </div>
+
+        <div class="controls">
+            <button class="next-btn" id="actionBtn" onclick="handleAction()">跳过 ➔</button>
+        </div>
+    </div>
+
+    <script>
+        // ==================== 1. 数据准备：A-Z 对应 Emoji 和 单词 ====================
+        const alphabetData = [
+            { letter: 'A', emoji: '🍎', word: 'Apple' },
+            { letter: 'B', emoji: '🐝', word: 'Bee' },
+            { letter: 'C', emoji: '🐱', word: 'Cat' },
+            { letter: 'D', emoji: '🐶', word: 'Dog' },
+            { letter: 'E', emoji: '🐘', word: 'Elephant' },
+            { letter: 'F', emoji: '🐟', word: 'Fish' },
+            { letter: 'G', emoji: '🍇', word: 'Grape' },
+            { letter: 'H', emoji: '🏠', word: 'House' },
+            { letter: 'I', emoji: '🍦', word: 'Ice cream' },
+            { letter: 'J', emoji: '🧃', word: 'Juice' },
+            { letter: 'K', emoji: '🔑', word: 'Key' },
+            { letter: 'L', emoji: '🦁', word: 'Lion' },
+            { letter: 'M', emoji: '🌙', word: 'Moon' },
+            { letter: 'N', emoji: '👃', word: 'Nose' },
+            { letter: 'O', emoji: '🍊', word: 'Orange' },
+            { letter: 'P', emoji: '🐷', word: 'Pig' },
+            { letter: 'Q', emoji: '👑', word: 'Queen' },
+            { letter: 'R', emoji: '🐰', word: 'Rabbit' },
+            { letter: 'S', emoji: '🌞', word: 'Sun' },
+            { letter: 'T', emoji: '🐯', word: 'Tiger' },
+            { letter: 'U', emoji: '☂️', word: 'Umbrella' },
+            { letter: 'V', emoji: '🎻', word: 'Violin' },
+            { letter: 'W', emoji: '🍉', word: 'Watermelon' },
+            { letter: 'X', emoji: '🎄', word: 'X-mas' }, // X 开头的具象词很难找，X-mas 比较常见
+            { letter: 'Y', emoji: '🪀', word: 'Yo-yo' },
+            { letter: 'Z', emoji: '🦓', word: 'Zebra' }
+        ];
+
+        // ==================== 2. 音效系统 (Web Audio API) ====================
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        let isMuted = false;
+
+        const sfx = {
+            start: () => playTone(440, 'sine', 0.1, 0.1),
+            correct: () => playTone(880, 'triangle', 0.05, 0.1),
+            wrong: () => playTone(150, 'sawtooth', 0.1, 0.2),
+            win: () => playMelody([523, 523, 659, 784, 523, 784, 1046], 0.15)
+        };
+
+        function playTone(freq, type, attack, decay) {
+            if(isMuted) return;
+            if(audioContext.state === 'suspended') audioContext.resume();
+            const osc = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            osc.type = type;
+            osc.frequency.value = freq;
+            gain.gain.setValueAtTime(0, audioContext.currentTime);
+            gain.gain.linearRampToValueAtTime(0.2, audioContext.currentTime + attack);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + attack + decay);
+            osc.connect(gain);
+            gain.connect(audioContext.destination);
+            osc.start();
+            osc.stop(audioContext.currentTime + attack + decay);
+        }
+
+        function playMelody(notes, speed) {
+            if(isMuted) return;
+            notes.forEach((note, index) => {
+                setTimeout(() => {
+                    playTone(note, 'sine', 0.05, speed);
+                }, index * (speed * 1000));
+            });
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            document.getElementById('muteBtn').innerText = isMuted ? '🔇' : '🔊';
+        }
+
+        // ==================== 3. 语音朗读 (TTS) ====================
+        function speakCurrentWord() {
+            if(isGameFinished || isMuted) return;
+            
+            window.speechSynthesis.cancel(); // 停止之前的
+
+            const currentData = currentRoundList[currentIndex];
+            // 朗读 "单词" (例如: "Apple")
+            const utterance = new SpeechSynthesisUtterance(currentData.letter);
+            utterance.lang = 'en-US'; 
+            utterance.rate = 0.9;
+            utterance.pitch = 1.1; 
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // ==================== 4. 游戏逻辑 ====================
+        
+        let currentRoundList = [];
+        let currentIndex = 0;
+        let score = 0;
+        let isQuestionComplete = false;
+        let isGameFinished = false;
+
+        const displayEl = document.getElementById('displayEmoji');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const scoreEl = document.getElementById('score');
+        const actionBtn = document.getElementById('actionBtn');
+        const gamePlayArea = document.getElementById('gamePlayArea');
+        const resultMessageEl = document.getElementById('resultMessage');
+
+        initGame();
+
+        function initGame() {
+            sfx.start();
+
+            // 完整复制一份数据并打乱，保证26个字母都出一遍
+            currentRoundList = [...alphabetData];
+            shuffleArray(currentRoundList);
+
+            currentIndex = 0;
+            score = 0;
+            isGameFinished = false;
+            
+            scoreEl.innerText = '0';
+            actionBtn.innerText = "跳过 ➔";
+            actionBtn.classList.remove('restart');
+            actionBtn.onclick = handleAction;
+
+            resultMessageEl.style.display = 'none';
+            gamePlayArea.style.display = 'block';
+
+            loadQuestion(currentIndex);
+        }
+
+        function loadQuestion(index) {
+            if (index >= 26) {
+                finishGame();
+                return;
+            }
+
+            isQuestionComplete = false;
+            const currentData = currentRoundList[index];
+
+            // 1. 显示 Emoji (谜面)
+            displayEl.innerText = currentData.emoji;
+            
+            // 2. 朗读 单词 (线索)
+            // 延时一点点，等待界面刷新
+            setTimeout(() => {
+                speakCurrentWord();
+            }, 300);
+
+            // 3. 生成选项 (答案是字母)
+            renderOptions(currentData);
+        }
+
+        function renderOptions(data) {
+            optionsContainer.innerHTML = '';
+            const targetLetter = data.letter;
+
+            // 准备干扰项：从剩余的25个字母中随机选3个
+            const otherItems = alphabetData.filter(item => item.letter !== targetLetter);
+            shuffleArray(otherItems);
+            const wrongItems = otherItems.slice(0, 3);
+            
+            // 组合正确项和干扰项
+            // 为了方便，选项只存字母
+            const options = [targetLetter, ...wrongItems.map(i => i.letter)];
+            shuffleArray(options);
+
+            // 生成按钮
+            options.forEach(optLetter => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                // 显示 "Aa" 格式，帮助孩子同时认读大小写
+                btn.innerText = `${optLetter}${optLetter.toLowerCase()}`; 
+                btn.onclick = () => handleOptionClick(btn, optLetter, targetLetter);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function handleOptionClick(btn, selectedLetter, targetLetter) {
+            if (isQuestionComplete || isGameFinished) return;
+            if (audioContext.state === 'suspended') audioContext.resume();
+
+            if (selectedLetter === targetLetter) {
+                // === 答对 ===
+                sfx.correct();
+                btn.classList.add('correct');
+                isQuestionComplete = true;
+                score++;
+                scoreEl.innerText = score;
+
+                // 1秒后自动下一题
+                setTimeout(() => {
+                    currentIndex++;
+                    loadQuestion(currentIndex);
+                }, 1000);
+            } else {
+                // === 答错 ===
+                sfx.wrong();
+                btn.classList.add('wrong');
+            }
+        }
+
+        function handleAction() {
+            if (isGameFinished) {
+                initGame(); 
+            } else {
+                if(isQuestionComplete) return;
+                currentIndex++;
+                loadQuestion(currentIndex);
+            }
+        }
+
+        function finishGame() {
+            isGameFinished = true;
+            sfx.win();
+            
+            gamePlayArea.style.display = 'none';
+            resultMessageEl.style.display = 'block';
+
+            let msg = "";
+            if(score === 26) msg = "太厉害了！全对！🎉";
+            else if(score >= 20) msg = "非常棒！🌟";
+            else msg = "完成挑战！🎈";
+
+            resultMessageEl.innerHTML = `${msg}<br>最终得分: ${score} / 26`;
+
+            actionBtn.innerText = "🔄 再玩一次";
+            actionBtn.classList.add('restart');
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+    </script>
+</body>
+</html>

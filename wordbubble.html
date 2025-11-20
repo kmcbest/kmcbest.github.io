@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bubble Pop English</title>
+    <title>Bubble Pop English (Final)</title>
     <style>
         :root {
             --bg-top: #81d4fa;
             --bg-bottom: #29b6f6;
             --bubble-border: rgba(255, 255, 255, 0.6);
+            --wrong-color: #f44336;
         }
 
         body {
@@ -18,6 +19,7 @@
             font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
             touch-action: none; /* 禁止手机默认触摸行为 */
             user-select: none;
+            -webkit-user-select: none;
         }
 
         /* UI 层：位于游戏层之上 */
@@ -31,8 +33,8 @@
             z-index: 10;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* 改为顶部对齐 */
-            gap: 20px; /* 增加元素之间的间距 */
+            justify-content: flex-start; /* 顶部对齐 */
+            gap: 20px; /* 元素间隔 */
             padding: 20px;
             box-sizing: border-box;
         }
@@ -58,7 +60,7 @@
             pointer-events: auto; /* 允许点击听读音 */
             cursor: pointer;
             transition: transform 0.1s;
-            margin-top: 10px;
+            margin-top: 5px;
         }
         .target-board:active { transform: scale(0.95); }
 
@@ -98,17 +100,19 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             border: 5px solid #4CAF50;
             animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 80%;
+            max-width: 400px;
         }
 
-        h1 { margin: 0 0 10px 0; color: #2E7D32; font-size: 3rem; }
-        p { font-size: 1.5rem; color: #555; margin: 10px 0 30px 0; }
+        h1 { margin: 0 0 10px 0; color: #2E7D32; font-size: 2.5rem; }
+        p { font-size: 1.2rem; color: #555; margin: 10px 0 30px 0; }
 
         .btn {
             background: #FF9800;
             color: white;
             border: none;
-            padding: 15px 60px;
-            font-size: 1.8rem;
+            padding: 15px 50px;
+            font-size: 1.5rem;
             border-radius: 50px;
             cursor: pointer;
             box-shadow: 0 6px 0 #F57C00;
@@ -182,8 +186,6 @@
             <span class="target-label">Target:</span>
             <span class="target-word" id="targetWord">READY</span>
         </div>
-
-        <div style="height: 50px;"></div> <!-- 占位 -->
     </div>
 
     <!-- 菜单/结算遮罩 -->
@@ -218,24 +220,14 @@
             { id: 'book', emoji: '📖', word: 'Book' }
         ];
 
-        // ==================== 2. 音频系统 ====================
+        // ==================== 2. 音频系统 (兼容性增强版) ====================
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         
-        const sfx = {
-            // 泡泡破裂声 (高频短音)
-            pop: (combo = 0) => { 
-                // 连击越高，音调越高
-                const pitch = 400 + (combo * 100);
-                playTone(pitch, 'sine', 0.01, 0.1); 
-            },
-            // 错误声 (低沉杂音)
-            wrong: () => playTone(150, 'sawtooth', 0.05, 0.3),
-            // 游戏结束
-            over: () => playMelody([300, 250, 200, 150], 0.2)
-        };
-
+        // 合成音效
         function playTone(freq, type, attack, decay) {
+            // 尝试恢复音频上下文
             if(audioCtx.state === 'suspended') audioCtx.resume();
+            
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             osc.type = type;
@@ -253,12 +245,37 @@
             notes.forEach((note, i) => setTimeout(() => playTone(note, 'triangle', 0.05, speed), i * speed * 1000));
         }
 
+        const sfx = {
+            pop: (combo = 0) => { 
+                const pitch = 400 + (combo * 100);
+                playTone(pitch, 'sine', 0.01, 0.1); 
+            },
+            wrong: () => playTone(150, 'sawtooth', 0.05, 0.3),
+            over: () => playMelody([300, 250, 200, 150], 0.2)
+        };
+
+        // 语音播报 (防御性编程版)
         function speak(text) {
-            window.speechSynthesis.cancel();
-            const u = new SpeechSynthesisUtterance(text);
-            u.lang = 'en-US';
-            u.rate = 1.0;
-            window.speechSynthesis.speak(u);
+            if (!window.speechSynthesis) return; // 不支持就不读，别报错
+
+            try {
+                window.speechSynthesis.cancel(); // 必加，防止安卓队列卡死
+
+                const u = new SpeechSynthesisUtterance(text);
+                u.lang = 'en-US';
+                u.rate = 1.0;
+
+                // 尝试获取声音，解决Chrome偶尔静音bug
+                const voices = window.speechSynthesis.getVoices();
+                const enVoice = voices.find(v => v.lang.includes('en'));
+                if(enVoice) u.voice = enVoice;
+
+                u.onerror = (e) => console.warn("Speech Error:", e);
+                
+                window.speechSynthesis.speak(u);
+            } catch (e) {
+                console.error("TTS Exception:", e);
+            }
         }
 
         // ==================== 3. 游戏引擎 ====================
@@ -271,19 +288,28 @@
             isPlaying: false,
             score: 0,
             lives: 3,
-            targetItem: null, // 当前要找的目标对象
-            bubbles: [], // 屏幕上的泡泡DOM数组
-            spawnRate: 1500, // 初始生成速度 (ms)
-            speed: 2, // 初始上升速度 (px/frame)
+            targetItem: null,
+            bubbles: [],
+            spawnRate: 1500,
+            speed: 2, // 掉落速度
             lastSpawnTime: 0,
             combo: 0,
             gameLoopId: null
         };
 
         function startGame() {
-            if(audioCtx.state === 'suspended') audioCtx.resume();
-            
-            // 重置数据
+            // --- 关键修复：点击瞬间解锁音频上下文 ---
+            if(audioCtx.state === 'suspended') {
+                audioCtx.resume().catch(e => console.error(e));
+            }
+
+            // --- 关键修复：点击瞬间解锁语音引擎 ---
+            // 即使不读内容，也要调一下speak，骗过浏览器的自动播放限制
+            if (window.speechSynthesis) {
+                window.speechSynthesis.speak(new SpeechSynthesisUtterance(""));
+            }
+
+            // 重置游戏数据
             state.score = 0;
             state.lives = 3;
             state.bubbles = [];
@@ -292,32 +318,27 @@
             state.combo = 0;
             state.isPlaying = true;
             
-            // 清空屏幕
             container.innerHTML = '';
             updateUI();
-            
             overlay.style.display = 'none';
             
-            // 设置第一个目标
             setNewTarget();
 
-            // 启动循环
-            requestAnimationFrame(gameLoop);
+            // 防止重复启动循环
+            if (state.gameLoopId) cancelAnimationFrame(state.gameLoopId);
+            state.gameLoopId = requestAnimationFrame(gameLoop);
         }
 
         function setNewTarget() {
-            // 随机选一个作为目标
             state.targetItem = gameData[Math.floor(Math.random() * gameData.length)];
             
-            // 更新UI
+            // UI更新
             document.getElementById('targetWord').innerText = state.targetItem.word;
-            
-            // 视觉提醒
             const board = document.getElementById('targetBoard');
             board.style.transform = "scale(1.2)";
             setTimeout(() => board.style.transform = "scale(1)", 200);
 
-            // 读出来
+            // 读音
             speak("Find the " + state.targetItem.word);
         }
 
@@ -333,45 +354,42 @@
                 spawnBubble();
                 state.lastSpawnTime = timestamp;
                 
-                // 难度随时间增加：生成变快，速度变快
+                // 难度曲线
                 if(state.spawnRate > 600) state.spawnRate -= 10; 
-                if(state.speed < 6) state.speed += 0.002;
+                if(state.speed < 7) state.speed += 0.002;
             }
 
             // 2. 移动泡泡
             const bubblesToRemove = [];
             state.bubbles.forEach(b => {
-                // 更新位置
                 let y = parseFloat(b.dataset.y);
+                // 修改：向下掉落 (y 增加)
                 y += (parseFloat(b.dataset.speed) || state.speed);
                 b.dataset.y = y;
                 b.style.top = y + 'px';
 
-                // 检查是否飘出顶部
+                // 修改：检查是否掉出屏幕下方
                 if (y > window.innerHeight + 80) {
                     bubblesToRemove.push(b);
-                    // 如果飘走的是目标，且玩家没点，可以扣分也可以不扣
-                    // 这里设计轻松一点：飘走不扣命，只扣连击
                     if(b.dataset.id === state.targetItem.id) {
-                        state.combo = 0;
+                        state.combo = 0; // 漏掉目标，连击中断
                     }
                 }
             });
 
-            // 3. 清理飘出去的泡泡
             bubblesToRemove.forEach(b => removeBubble(b));
 
             state.gameLoopId = requestAnimationFrame(gameLoop);
         }
 
         function spawnBubble() {
-            // 决定生成什么：30%概率是目标，70%是干扰项
+            // 概率：35% 目标，65% 干扰
             let item;
             if (Math.random() < 0.35) {
                 item = state.targetItem;
             } else {
-                // 随机找一个非目标的干扰项
                 let distractor = gameData[Math.floor(Math.random() * gameData.length)];
+                // 简单防重
                 while(distractor.id === state.targetItem.id) {
                     distractor = gameData[Math.floor(Math.random() * gameData.length)];
                 }
@@ -382,13 +400,13 @@
             bubble.className = 'bubble';
             bubble.innerText = item.emoji;
             bubble.dataset.id = item.id;
-            bubble.dataset.speed = state.speed * (0.8 + Math.random() * 0.4); // 速度有快有慢
+            bubble.dataset.speed = state.speed * (0.8 + Math.random() * 0.4);
 
-            // 随机水平位置 (10% - 90%)
+            // 随机 X 轴位置
             const left = 10 + Math.random() * 80;
             bubble.style.left = left + '%';
             
-            // 初始垂直位置 (屏幕底部下方)
+            // 修改：初始位置在屏幕上方看不见的地方
             const startY = -100;
             bubble.dataset.y = startY;
             bubble.style.top = startY + 'px';
@@ -398,7 +416,7 @@
             bubble.style.width = size + 'px';
             bubble.style.height = size + 'px';
 
-            // 绑定点击事件 (Mobile compatible)
+            // 触摸/点击事件
             bubble.addEventListener('pointerdown', (e) => handleBubbleClick(e, bubble, item));
 
             container.appendChild(bubble);
@@ -406,10 +424,10 @@
         }
 
         function handleBubbleClick(e, bubble, item) {
-            e.preventDefault(); // 防止双击缩放等
+            e.preventDefault(); 
             
             if (item.id === state.targetItem.id) {
-                // === 点对了 ===
+                // 正确
                 state.score += 10 + (state.combo * 2);
                 state.combo++;
                 sfx.pop(state.combo);
@@ -418,23 +436,18 @@
                 removeBubble(bubble);
                 updateUI();
 
-                // 累积一定分数后，切换目标
-                if(state.combo % 5 === 0) { // 每连击5次换个目标
-                     setNewTarget();
-                }
+                if(state.combo % 5 === 0) setNewTarget();
             } else {
-                // === 点错了 ===
+                // 错误
                 state.lives--;
                 state.combo = 0;
                 sfx.wrong();
                 
-                bubble.style.background = 'rgba(255, 0, 0, 0.5)'; // 变红警示
+                bubble.style.background = 'rgba(255, 0, 0, 0.5)';
                 showPopEffect(e.clientX, e.clientY, "❌");
                 updateUI();
 
-                if(state.lives <= 0) {
-                    gameOver();
-                }
+                if(state.lives <= 0) gameOver();
             }
         }
 
@@ -470,6 +483,20 @@
                 <button class="btn" onclick="startGame()">Try Again ➔</button>
             `;
         }
+
+        // === 初始化逻辑：强制加载语音列表 (针对Android Chrome) ===
+        if (window.speechSynthesis) {
+            window.speechSynthesis.onvoiceschanged = function() {
+                const v = window.speechSynthesis.getVoices();
+                console.log("Voices loaded:", v.length);
+            };
+            window.speechSynthesis.getVoices(); // 触发一次加载
+        }
+
+        // 防止手机拖拽页面
+        document.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+        }, { passive: false });
 
     </script>
 </body>

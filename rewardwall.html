@@ -265,7 +265,7 @@ function openExchangeModal(){
         if(it) it.exchanged = true;
       });
       const now = toBeijingString();
-      const line = `\n${now} - ${prize}\n`;
+      const line = `${now} - ${prize}\n`;
       redeemedItems += line;
       updateRedeemedDisplay();
       saveLocal(); renderCalendar(); closeModal();

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>机械键盘连击(Chatter)测试工具 - 终极版</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --panel-bg: #2b2b2b;
+            --key-bg: #3e3e3e;
+            --key-shadow: #222;
+            --text-color: #eee;
+            --highlight-color: #00e676;
+            --error-color: #ff1744;
+            --active-color: #2979ff;
+            --knob-color: #e0e0e0;
+            --base-size: 50px;
+            --gap: 6px;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            user-select: none;
+            overflow-x: hidden;
+        }
+
+        /* --- 顶部控制面板 --- */
+        .control-deck {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            margin-bottom: 20px;
+            background: var(--panel-bg);
+            padding: 15px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            border: 1px solid #333;
+        }
+
+        .setting-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .setting-group label {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input[type="number"] {
+            background: #111;
+            border: 1px solid #444;
+            color: var(--active-color);
+            padding: 8px;
+            border-radius: 6px;
+            width: 70px;
+            font-family: monospace;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        button.btn-reset {
+            padding: 8px 16px;
+            background: #444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+            height: 40px;
+        }
+        button.btn-reset:hover { background: #555; }
+        button.btn-reset:active { transform: translateY(1px); }
+
+        /* --- 酷炫旋钮 (CSS Knob) --- */
+        .knob-wrapper {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .knob {
+            width: 46px;
+            height: 46px;
+            background: linear-gradient(145deg, #ddd, #999);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 
+                inset 2px 2px 5px rgba(255,255,255,0.5),
+                inset -2px -2px 5px rgba(0,0,0,0.2),
+                0 5px 10px rgba(0,0,0,0.5);
+            cursor: ns-resize; /* 提示上下拖动 */
+            transform: rotate(-135deg); /* 初始角度 */
+            transition: transform 0.1s linear; /* 平滑转动 */
+        }
+
+        .knob::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 12px;
+            background: #ff5252;
+            border-radius: 2px;
+            box-shadow: 0 0 5px rgba(255, 82, 82, 0.8);
+        }
+
+        .knob-label {
+            position: absolute;
+            bottom: -20px;
+            width: 100px;
+            text-align: center;
+            font-size: 10px;
+            color: #888;
+            pointer-events: none;
+        }
+
+        /* 播放/暂停指示灯 */
+        .status-led {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #333;
+            margin-left: 10px;
+            box-shadow: 0 0 2px rgba(0,0,0,0.5);
+            transition: 0.3s;
+        }
+        .status-led.on {
+            background: #00e676;
+            box-shadow: 0 0 8px #00e676;
+        }
+
+        /* --- 跑马灯区域 --- */
+        .marquee-container {
+            width: 100%;
+            max-width: 1200px;
+            height: 60px;
+            background: #000;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden; /* 必须隐藏溢出 */
+            border-radius: 6px;
+            border: 1px solid #333;
+            display: flex;
+            align-items: center;
+        }
+
+        .marquee-track {
+            display: flex;
+            position: absolute;
+            left: 0;
+            will-change: transform; /* 性能优化 */
+            white-space: nowrap;
+        }
+
+        .marquee-item {
+            font-family: 'Consolas', monospace;
+            font-size: 22px;
+            color: #666;
+            margin-right: 100px;
+            transition: color 0.2s;
+        }
+        
+        /* 准星线：帮助用户聚焦中间 */
+        .marquee-center-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--active-color), transparent);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .marquee-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, #1a1a1a 0%, transparent 10%, transparent 90%, #1a1a1a 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* --- 键盘区域 --- */
+        .keyboard-wrapper {
+            background: var(--panel-bg);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            gap: var(--gap);
+            margin-bottom: 20px;
+            transform: scale(0.9);
+        }
+
+        .row { display: flex; gap: var(--gap); }
+
+        .key {
+            height: var(--base-size);
+            min-width: var(--base-size);
+            background-color: var(--key-bg);
+            border-radius: 4px;
+            border-bottom: 3px solid var(--key-shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #ccc;
+            position: relative;
+            box-sizing: border-box;
+            transition: all 0.05s;
+        }
+
+        .key.active {
+            background-color: var(--active-color);
+            color: white;
+            transform: translateY(2px);
+            border-bottom-width: 0px;
+            margin-bottom: 3px;
+        }
+        .key.tested { border: 1px solid var(--highlight-color); color: var(--highlight-color); border-bottom: 3px solid #1b5e20; }
+        .key.chatter { background-color: var(--error-color) !important; color: white !important; animation: shake 0.2s; }
+
+        /* 特殊尺寸工具类 */
+        .u-125 { min-width: calc(var(--base-size) * 1.25); }
+        .u-150 { min-width: calc(var(--base-size) * 1.5); }
+        .u-175 { min-width: calc(var(--base-size) * 1.75); }
+        .u-200 { min-width: calc(var(--base-size) * 2.0); }
+        .u-225 { min-width: calc(var(--base-size) * 2.25); }
+        .u-275 { min-width: calc(var(--base-size) * 2.75); }
+        .u-625 { min-width: calc(var(--base-size) * 6.25); }
+        
+        /* Grid 布局辅助 */
+        .grid-numpad { display: grid; grid-template-columns: repeat(4, var(--base-size)); gap: var(--gap); }
+        .span-v-2 { grid-row: span 2; height: 100% !important; }
+        .span-h-2 { grid-column: span 2; width: 100% !important; }
+
+        /* 日志 */
+        .log-panel {
+            width: 100%;
+            max-width: 900px;
+            height: 120px;
+            background: #111;
+            border: 1px solid #333;
+            overflow-y: auto;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 13px;
+            border-radius: 6px;
+        }
+        .log-line { margin-bottom: 2px; border-bottom: 1px solid #222; padding: 2px 0; }
+        .log-err { color: #ff5252; }
+
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+    </style>
+</head>
+<body>
+
+    <!-- 控制台 -->
+    <div class="control-deck">
+        <div class="setting-group">
+            <label>连击阈值 (MS)</label>
+            <input type="number" id="threshold" value="80">
+        </div>
+
+        <div class="setting-group" style="align-items: center;">
+            <label>文字速度</label>
+            <!-- 旋钮组件 -->
+            <div class="knob-wrapper" id="speed-control">
+                <div class="knob" id="knob-el"></div>
+                <div class="knob-label">拖拽旋转 / 点击暂停</div>
+            </div>
+        </div>
+
+        <div class="setting-group" style="align-items: center;">
+            <label>状态</label>
+            <div class="status-led on" id="status-led"></div>
+        </div>
+
+        <button class="btn-reset" onclick="resetTest()">重置测试</button>
+    </div>
+
+    <!-- 跑马灯 -->
+    <div class="marquee-container">
+        <div class="marquee-overlay"></div>
+        <div class="marquee-center-line"></div>
+        <div class="marquee-track" id="track">
+            <!-- JS 填充 -->
+        </div>
+    </div>
+
+    <!-- 键盘 -->
+    <div class="keyboard-wrapper" id="keyboard"></div>
+
+    <!-- 日志 -->
+    <div class="log-panel" id="log">
+        <div style="color: #666;">系统就绪。请旋转上方旋钮调整文字速度...</div>
+    </div>
+
+<script>
+    /* =========================================
+       1. 跑马灯逻辑 (JS Animation)
+       ========================================= */
+    const track = document.getElementById('track');
+    const knobEl = document.getElementById('knob-el');
+    const ledEl = document.getElementById('status-led');
+    const texts = [
+        "I sang, and thought I sang very well; but he just looked up into my face with a very quizzical expression, and said, ‘How long have you been singing, Mademoiselle?’",
+        "The quick brown fox jumps over the lazy dog",
+        "Ajax, Be Careful Driving Elephants For Game Hunters Into Jaguar Killing. Liquid Mahouts Never Offer Prize Quickly. Research Shows They Usually Vomit Wildly X-terminating Young Zebras.",
+        "The fjord office was affected by the five flawed mufflers.",
+        "Sphinx of black quartz, judge my vow.",
+        "Pack my box with five dozen liquor jugs."
+    ];
+
+    // 初始化内容：为了无缝滚动，我们需要足够长的内容
+    // 策略：复制文本直到宽度足以覆盖屏幕两次
+    let contentHTML = "";
+    for(let i=0; i<4; i++) { // 重复4遍基本够用了
+        texts.forEach(t => contentHTML += `<span class="marquee-item">${t}</span>`);
+    }
+    track.innerHTML = contentHTML;
+
+    // 状态变量
+    let currentX = 0;
+    let speed = 0.5; // 初始速度 px/frame
+    let isPaused = false;
+    let animationId;
+
+    // 旋钮逻辑
+    let isDragging = false;
+    let startY = 0;
+    let knobValue = 0.3; // 0.0 ~ 1.0 (对应速度 0 ~ 5)
+    
+    // 更新旋钮视觉和速度
+    function updateKnob(val) {
+        // 限制范围
+        val = Math.max(0, Math.min(1, val));
+        knobValue = val;
+        
+        // 计算角度: 0 -> -135deg, 1 -> 135deg (共270度范围)
+        const angle = -135 + (val * 270);
+        knobEl.style.transform = `rotate(${angle}deg)`;
+
+        // 更新速度
+        speed = val * 6; // 最大速度 6
+        
+        // 联动暂停状态
+        if (speed < 0.1) {
+            isPaused = true;
+            ledEl.classList.remove('on');
+        } else {
+            isPaused = false;
+            ledEl.classList.add('on');
+        }
+    }
+
+    // 动画循环
+    function animate() {
+        if (!isPaused) {
+            currentX -= speed;
+            const firstItem = track.firstElementChild;
+            // 无缝逻辑：如果第一个元素完全跑出了左边界，把它移动到队尾
+            // 为了避免计算开销，我们简单粗暴一点：当整体偏移量超过了一半时重置
+            // 更好的方法：检测 track 的宽度
+            const trackWidth = track.scrollWidth / 2; // 因为我们内容重复了很多次，大概估算
+            
+            // 当移动距离超过总长度的一半时，瞬间拉回来，制造无限循环假象
+            if (Math.abs(currentX) >= track.scrollWidth / 2) {
+                currentX = 0;
+            }
+
+            track.style.transform = `translateX(${currentX}px)`;
+        }
+        animationId = requestAnimationFrame(animate);
+    }
+
+    // 旋钮事件绑定
+    const knobControl = document.getElementById('speed-control');
+    
+    knobControl.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startY = e.clientY;
+        e.preventDefault(); // 防止选中文本
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const deltaY = startY - e.clientY; // 向上拖动是正
+        const step = deltaY * 0.01; // 灵敏度
+        updateKnob(knobValue + step);
+        startY = e.clientY;
+    });
+
+    window.addEventListener('mouseup', () => {
+        isDragging = false;
+    });
+
+    // 点击切换暂停/播放
+    knobControl.addEventListener('click', (e) => {
+        // 如果是拖动结束的 click，忽略
+        if (Math.abs(e.movementY) > 0) return; 
+        
+        isPaused = !isPaused;
+        if (isPaused) {
+            ledEl.classList.remove('on');
+        } else {
+            ledEl.classList.add('on');
+            if (knobValue < 0.1) updateKnob(0.3); // 如果当前是0速度，点击则给个初速度
+        }
+    });
+
+    // 初始化旋钮位置
+    updateKnob(0.1); // 默认 30% 速度
+    animate();
+
+
+    /* =========================================
+       2. 键盘渲染 & 逻辑 (保持不变但适配新样式)
+       ========================================= */
+    // 布局数据简化引用...
+    const layoutConfig = {
+        main: [
+            [{c:'Backquote',l:'`'},{c:'Digit1',l:'1'},{c:'Digit2',l:'2'},{c:'Digit3',l:'3'},{c:'Digit4',l:'4'},{c:'Digit5',l:'5'},{c:'Digit6',l:'6'},{c:'Digit7',l:'7'},{c:'Digit8',l:'8'},{c:'Digit9',l:'9'},{c:'Digit0',l:'0'},{c:'Minus',l:'-'},{c:'Equal',l:'='},{c:'Backspace',l:'Bksp',w:'u-200'}],
+            [{c:'Tab',l:'Tab',w:'u-150'},{c:'KeyQ',l:'Q'},{c:'KeyW',l:'W'},{c:'KeyE',l:'E'},{c:'KeyR',l:'R'},{c:'KeyT',l:'T'},{c:'KeyY',l:'Y'},{c:'KeyU',l:'U'},{c:'KeyI',l:'I'},{c:'KeyO',l:'O'},{c:'KeyP',l:'P'},{c:'BracketLeft',l:'['},{c:'BracketRight',l:']'},{c:'Backslash',l:'\\',w:'u-150'}],
+            [{c:'CapsLock',l:'Caps',w:'u-175'},{c:'KeyA',l:'A'},{c:'KeyS',l:'S'},{c:'KeyD',l:'D'},{c:'KeyF',l:'F'},{c:'KeyG',l:'G'},{c:'KeyH',l:'H'},{c:'KeyJ',l:'J'},{c:'KeyK',l:'K'},{c:'KeyL',l:'L'},{c:'Semicolon',l:';'},{c:'Quote',l:"'"},{c:'Enter',l:'Enter',w:'u-225'}],
+            [{c:'ShiftLeft',l:'Shift',w:'u-225'},{c:'KeyZ',l:'Z'},{c:'KeyX',l:'X'},{c:'KeyC',l:'C'},{c:'KeyV',l:'V'},{c:'KeyB',l:'B'},{c:'KeyN',l:'N'},{c:'KeyM',l:'M'},{c:'Comma',l:','},{c:'Period',l:'.'},{c:'Slash',l:'/'},{c:'ShiftRight',l:'Shift',w:'u-275'}],
+            [{c:'ControlLeft',l:'Ctrl',w:'u-125'},{c:'MetaLeft',l:'Win',w:'u-125'},{c:'AltLeft',l:'Alt',w:'u-125'},{c:'Space',l:'',w:'u-625'},{c:'AltRight',l:'Alt',w:'u-125'},{c:'MetaRight',l:'Win',w:'u-125'},{c:'ContextMenu',l:'Menu',w:'u-125'},{c:'ControlRight',l:'Ctrl',w:'u-125'}]
+        ],
+        nav: [
+            [{c:'Insert',l:'Ins'},{c:'Home',l:'Home'},{c:'PageUp',l:'PgUp'}],
+            [{c:'Delete',l:'Del'},{c:'End',l:'End'},{c:'PageDown',l:'PgDn'}],
+            [{c:'ghost',l:'',w:'u-100', style:'visibility:hidden; height:50px'}], 
+            [{c:'ghost',l:'',style:'visibility:hidden'},{c:'ArrowUp',l:'↑'},{c:'ghost',l:'',style:'visibility:hidden'}],
+            [{c:'ArrowLeft',l:'←'},{c:'ArrowDown',l:'↓'},{c:'ArrowRight',l:'→'}]
+        ],
+        numpad: [
+            {c:'NumLock',l:'Num'},{c:'NumpadDivide',l:'/'},{c:'NumpadMultiply',l:'*'},{c:'NumpadSubtract',l:'-'},
+            {c:'Numpad7',l:'7'},{c:'Numpad8',l:'8'},{c:'Numpad9',l:'9'},{c:'NumpadAdd',l:'+', rowSpan:2},
+            {c:'Numpad4',l:'4'},{c:'Numpad5',l:'5'},{c:'Numpad6',l:'6'},
+            {c:'Numpad1',l:'1'},{c:'Numpad2',l:'2'},{c:'Numpad3',l:'3'},{c:'NumpadEnter',l:'Ent', rowSpan:2},
+            {c:'Numpad0',l:'0', colSpan:2},{c:'NumpadDecimal',l:'.'}
+        ],
+        f_row: [
+             {c:'Escape',l:'Esc', m:1},
+             {c:'F1',l:'F1'},{c:'F2',l:'F2'},{c:'F3',l:'F3'},{c:'F4',l:'F4', m:0.5},
+             {c:'F5',l:'F5'},{c:'F6',l:'F6'},{c:'F7',l:'F7'},{c:'F8',l:'F8', m:0.5},
+             {c:'F9',l:'F9'},{c:'F10',l:'F10'},{c:'F11',l:'F11'},{c:'F12',l:'F12', m:0.5},
+             {c:'PrintScreen',l:'Prt'},{c:'ScrollLock',l:'Scr'},{c:'Pause',l:'Pau'}
+        ]
+    };
+
+    const container = document.getElementById('keyboard');
+    const logEl = document.getElementById('log');
+    let keyState = {};
+
+    function renderKeyboard() {
+        container.innerHTML = '';
+
+        // F-Row
+        const fRowDiv = document.createElement('div');
+        fRowDiv.className = 'row';
+        fRowDiv.style.marginBottom = '15px';
+        layoutConfig.f_row.forEach(k => {
+            const keyEl = createKey(k);
+            if(k.m) keyEl.style.marginRight = `calc(var(--base-size) * ${k.m})`;
+            fRowDiv.appendChild(keyEl);
+        });
+        container.appendChild(fRowDiv);
+
+        const bodyDiv = document.createElement('div');
+        bodyDiv.style.display = 'flex';
+        bodyDiv.style.gap = '15px';
+
+        // Main
+        const mainDiv = document.createElement('div');
+        mainDiv.style.display = 'flex';
+        mainDiv.style.flexDirection = 'column';
+        mainDiv.style.gap = 'var(--gap)';
+        layoutConfig.main.forEach(row => {
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'row';
+            row.forEach(k => rowDiv.appendChild(createKey(k)));
+            mainDiv.appendChild(rowDiv);
+        });
+        bodyDiv.appendChild(mainDiv);
+
+        // Nav
+        const navDiv = document.createElement('div');
+        navDiv.style.display = 'flex';
+        navDiv.style.flexDirection = 'column';
+        navDiv.style.gap = 'var(--gap)';
+        layoutConfig.nav.forEach(row => {
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'row';
+            row.forEach(k => rowDiv.appendChild(createKey(k)));
+            navDiv.appendChild(rowDiv);
+        });
+        bodyDiv.appendChild(navDiv);
+
+        // Numpad (Grid)
+        const numDiv = document.createElement('div');
+        numDiv.className = 'grid-numpad';
+        
+        layoutConfig.numpad.forEach(k => {
+            const el = createKey(k);
+            if(k.rowSpan) el.classList.add('span-v-2');
+            if(k.colSpan) el.classList.add('span-h-2');
+            numDiv.appendChild(el);
+        });
+        bodyDiv.appendChild(numDiv);
+        container.appendChild(bodyDiv);
+    }
+
+    function createKey(k) {
+        const el = document.createElement('div');
+        el.className = `key ${k.w || ''}`;
+        el.id = `key-${k.c}`;
+        if (k.style) el.setAttribute('style', el.getAttribute('style') + ';' + k.style);
+        el.textContent = k.l;
+        return el;
+    }
+
+    function addLog(msg, type = '') {
+        const div = document.createElement('div');
+        div.className = `log-line ${type}`;
+        div.innerText = `[${new Date().toLocaleTimeString()}] ${msg}`;
+        logEl.prepend(div);
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if(e.code !== 'F12' && e.code !== 'F5') e.preventDefault();
+        
+        const code = e.code;
+        const keyEl = document.getElementById(`key-${code}`);
+        const now = performance.now();
+        const threshold = parseInt(document.getElementById('threshold').value) || 80;
+
+
+        if (keyEl) {
+            keyEl.classList.add('active');
+            if (!keyState[code]) keyState[code] = { lastTime: 0 };
+            
+            if (!e.repeat) {
+                const diff = now - keyState[code].lastTime;
+                if (keyState[code].lastTime !== 0 && diff < threshold) {
+                    keyEl.classList.add('chatter');
+                    addLog(`❌ 连击警告: ${code} 间隔 ${diff.toFixed(1)}ms`, 'log-err');
+                } else {
+                    keyEl.classList.remove('chatter');
+                    keyEl.classList.add('tested');
+                }
+                keyState[code].lastTime = now;
+            }
+        }
+    });
+
+    document.addEventListener('keyup', (e) => {
+        const keyEl = document.getElementById(`key-${e.code}`);
+        if(keyEl) keyEl.classList.remove('active');
+    });
+
+    window.resetTest = function() {
+        keyState = {};
+        logEl.innerHTML = '';
+        document.querySelectorAll('.key').forEach(k => k.classList.remove('active', 'tested', 'chatter'));
+        updateKnob(0.3); // 重置速度
+        addLog('测试已重置');
+    }
+
+    renderKeyboard();
+</script>
+</body>
+</html>

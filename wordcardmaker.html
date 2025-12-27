@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>儿童识字卡片生成器 - 终极版</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- 引入更多字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@700&family=Comic+Neue:wght@700&family=Fredoka:wght@600&family=Itim&family=Patrick+Hand&family=Varela+Round&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #FF9AA2;
+            --bg: #fdfdfd;
+            --panel-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            color: #333;
+        }
+
+        /* 左侧控制面板 */
+        .controls {
+            width: 360px;
+            background: var(--panel-bg);
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            overflow-y: auto;
+            border-right: 1px solid #eee;
+        }
+
+        h2 { margin: 0 0 5px 0; color: #444; font-size: 1.3rem; }
+        .sub-title { font-size: 0.85rem; color: #888; margin-bottom: 10px; }
+        
+        .control-group {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+
+        input[type="text"]:focus { border-color: var(--primary); outline: none; }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 5px;
+            transition: all 0.2s;
+            font-size: 1rem;
+        }
+
+        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn:active { transform: translateY(0); }
+        .btn-secondary { background-color: #6c757d; font-size: 0.9rem; padding: 8px; }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+
+        /* 颜色选择器容器 */
+        .color-picker {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .color-swatch {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .color-swatch:hover { transform: scale(1.1); }
+        .color-swatch.active { border-color: #555; transform: scale(1.15); }
+        
+        .icon-btn {
+            width: 32px; height: 32px; border-radius: 50%;
+            background: #eee; color: #555; display: flex; 
+            align-items: center; justify-content: center;
+            cursor: pointer; font-weight: bold; border: 3px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+        }
+        .icon-btn:hover { background: #e2e6ea; }
+        .icon-btn.active { border-color: #555; background: #ddd; }
+        .random-btn { background: linear-gradient(135deg, #FF9AA2, #B5EAD7); color: white; border:none; }
+
+        /* 自定义颜色面板 */
+        .custom-panel {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            border: 1px solid #e9ecef;
+        }
+        .slider-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .slider-label { width: 20px; font-weight: bold; color: #666; }
+        .slider-val { width: 30px; font-size: 0.8rem; text-align: right; color: #666; }
+        input[type=range] { flex: 1; accent-color: var(--primary); cursor: pointer; }
+
+        /* 右侧预览区域 */
+        .preview-area {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: radial-gradient(#e0e0e0 1px, transparent 1px);
+            background-size: 20px 20px;
+            padding: 40px;
+            position: relative;
+        }
+
+        canvas {
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            border-radius: 20px;
+            max-height: 95%;
+            max-width: 95%;
+            cursor: grab;
+            background: white; 
+        }
+        
+        canvas:active { cursor: grabbing; }
+
+        .hint { font-size: 0.8rem; color: #999; margin-top: 5px; }
+
+        /* 模式切换 */
+        .tabs { display: flex; gap: 5px; margin-bottom: 10px; background: #eee; padding: 4px; border-radius: 8px; }
+        .tab { flex: 1; padding: 8px; text-align: center; cursor: pointer; border-radius: 6px; font-size: 0.9rem; transition: background 0.2s;}
+        .tab.active { background: white; color: var(--primary); font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="controls">
+        <div>
+            <h2>🎨 识字卡片生成器</h2>
+            <div class="sub-title">为孩子定制专属英文卡片</div>
+        </div>
+
+        <div class="control-group">
+            <label>1. 英文单词</label>
+            <input type="text" id="wordInput" placeholder="例如: Apple" value="Apple" oninput="updateCard()">
+            <div class="hint">输入单词会自动尝试匹配 Emoji</div>
+        </div>
+
+        <div class="control-group">
+            <label>2. 配色方案</label>
+            <div class="color-picker" id="colorPicker">
+                <!-- 预设颜色由JS生成 -->
+                <div class="icon-btn random-btn" onclick="randomizeColors()" title="随机配色">🎲</div>
+                <div class="icon-btn" onclick="toggleCustomColor()" id="btnCustomColor" title="自定义颜色">➕</div>
+            </div>
+
+            <!-- 这里的滑杆默认隐藏 -->
+            <div id="customColorPanel" class="hidden custom-panel">
+                <label style="font-size: 0.9rem;">背景色 (RGB)</label>
+                <div class="slider-row">
+                    <span class="slider-label" style="color:#ff6b6b">R</span>
+                    <input type="range" id="bgR" min="0" max="255" value="255" oninput="updateCustomColor()">
+                    <span id="valR" class="slider-val">255</span>
+                </div>
+                <div class="slider-row">
+                    <span class="slider-label" style="color:#51cf66">G</span>
+                    <input type="range" id="bgG" min="0" max="255" value="255" oninput="updateCustomColor()">
+                    <span id="valG" class="slider-val">255</span>
+                </div>
+                <div class="slider-row">
+                    <span class="slider-label" style="color:#339af0">B</span>
+                    <input type="range" id="bgB" min="0" max="255" value="255" oninput="updateCustomColor()">
+                    <span id="valB" class="slider-val">255</span>
+                </div>
+                
+                <div style="display:flex; justify-content: space-between; align-items: center; margin-top:10px;">
+                    <label style="margin:0; font-size: 0.9rem;">文字/线条颜色</label>
+                    <input type="color" id="textColor" value="#FF9AA2" oninput="updateCustomColor()" style="height:30px; width:50px; border:none; padding:0; background:none;">
+                </div>
+                <div id="colorPreviewBox" style="height: 30px; border-radius:5px; margin-top:10px; border:1px solid #ddd; display:flex; align-items:center; justify-content:center; font-size:0.8rem;">预览配色</div>
+            </div>
+
+            <button class="btn btn-outline" style="margin-top:15px" onclick="generateNewTexture()">🔄 刷新背景纹理 (点击切换图案)</button>
+        </div>
+
+        <div class="control-group">
+            <label>3. 内容模式</label>
+            <div class="tabs">
+                <div class="tab active" onclick="setMode('emoji')">Emoji 模式</div>
+                <div class="tab" onclick="setMode('image')">本地图片</div>
+            </div>
+
+            <!-- Emoji 控制 -->
+            <div id="emojiControls">
+                <input type="text" id="emojiInput" value="🍎" style="font-size: 2rem; text-align: center; border-radius: 12px;" oninput="updateCard()">
+                <div class="hint" style="text-align: center;">如果没自动变，请手动粘贴Emoji</div>
+                <button class="btn btn-secondary" style="margin-top: 10px;" onclick="searchEmojiOnline()">🔍 去 Emojipedia 找表情</button>
+            </div>
+
+            <!-- 图片 控制 -->
+            <div id="imageControls" class="hidden">
+                <input type="file" id="imageUpload" accept="image/*" onchange="handleImageUpload(this)" style="font-size:0.9rem;">
+                <div class="hint">🖱️ 拖拽移动图片，滚轮缩放大小</div>
+                <button class="btn btn-outline" style="font-size:0.8rem; margin-top:5px;" onclick="resetImagePosition()">重置位置</button>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label>4. 字体设置</label>
+            <select id="fontSelect" onchange="updateCard()">
+                <option value="'Fredoka', sans-serif">Fredoka (推荐：圆润可爱)</option>
+                <option value="'Balsamiq Sans', cursive">Balsamiq (手写风格)</option>
+                <option value="'Patrick Hand', cursive">Patrick Hand (儿童手写)</option>
+                <option value="'Itim', cursive">Itim (童趣风格)</option>
+                <option value="'Comic Neue', cursive">Comic Neue (漫画风格)</option>
+                <option value="'Varela Round', sans-serif">Varela Round (简洁圆角)</option>
+            </select>
+        </div>
+
+        <div class="control-group" style="border:none;">
+            <label>5. 导出设置</label>
+            <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:#666;">
+                <span>小 (600px)</span>
+                <span id="widthVal" style="font-weight:bold; color:var(--primary)">1200px</span>
+                <span>超大 (4000px)</span>
+            </div>
+            <input type="range" id="exportWidth" min="600" max="4000" value="1200" step="100" style="width:100%; margin-top:5px;" oninput="document.getElementById('widthVal').innerText = this.value + 'px'">
+            <button class="btn" onclick="downloadCard()">💾 保存卡片到本地</button>
+        </div>
+    </div>
+
+    <div class="preview-area">
+        <canvas id="cardCanvas"></canvas>
+    </div>
+
+    <script>
+        // --- 核心配置 ---
+        const canvas = document.getElementById('cardCanvas');
+        const ctx = canvas.getContext('2d');
+        const BASE_WIDTH = 1000;
+        const BASE_HEIGHT = 1500;
+        
+        let state = {
+            word: "Apple",
+            colorIndex: 0, 
+            customColor: { bg: '#ffffff', text: '#333333' },
+            mode: 'emoji', 
+            emoji: "🍎",
+            image: null, 
+            imgX: 0, imgY: 0, imgScale: 1,
+            textureSeed: Math.floor(Math.random() * 1000000), 
+            font: "'Fredoka', sans-serif"
+        };
+
+        const colors = [
+            { bg: '#FFDAC1', text: '#FF9AA2' }, { bg: '#E2F0CB', text: '#88D8B0' },
+            { bg: '#B5EAD7', text: '#FF9AA2' }, { bg: '#C7CEEA', text: '#9facd8' },
+            { bg: '#FFB7B2', text: '#FF6961' }, { bg: '#FFF5BA', text: '#F4D03F' },
+            { bg: '#F0E68C', text: '#CD853F' }, { bg: '#E0FFFF', text: '#87CEEB' }
+        ];
+
+        const emojiMap = {
+            'apple': '🍎', 'banana': '🍌', 'cat': '🐱', 'dog': '🐶', 
+            'car': '🚗', 'sun': '☀️', 'moon': '🌙', 'star': '⭐',
+            'book': '📖', 'tree': '🌳', 'flower': '🌸', 'fish': '🐟',
+            'bear': '🐻', 'rabbit': '🐰', 'pig': '🐷', 'duck': '🦆',
+            'tiger': '🐯', 'lion': '🦁', 'cow': '🐮', 'monkey': '🐵'
+        };
+
+        function init() {
+            canvas.width = BASE_WIDTH;
+            canvas.height = BASE_HEIGHT;
+            
+            const picker = document.getElementById('colorPicker');
+            const btnRandom = document.querySelector('.random-btn');
+            
+            colors.forEach((c, idx) => {
+                const swatch = document.createElement('div');
+                swatch.className = `color-swatch ${idx === 0 ? 'active' : ''}`;
+                swatch.style.backgroundColor = c.bg;
+                swatch.title = "预设配色";
+                swatch.onclick = () => {
+                    document.querySelectorAll('.color-swatch').forEach(el => el.classList.remove('active'));
+                    document.querySelectorAll('.icon-btn').forEach(el => el.classList.remove('active'));
+                    swatch.classList.add('active');
+                    document.getElementById('customColorPanel').classList.add('hidden');
+                    state.colorIndex = idx;
+                    draw();
+                };
+                picker.insertBefore(swatch, btnRandom);
+            });
+
+            document.fonts.ready.then(draw);
+            setupCanvasInteractions();
+            updateCustomColor(false);
+            draw();
+        }
+
+        function toggleCustomColor() {
+            const panel = document.getElementById('customColorPanel');
+            const btn = document.getElementById('btnCustomColor');
+            
+            // 只要点击自定义或随机，都进入自定义模式
+            panel.classList.remove('hidden');
+            document.querySelectorAll('.color-swatch').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.icon-btn').forEach(el => el.classList.remove('active'));
+            btn.classList.add('active');
+            
+            state.colorIndex = -1; 
+            // 如果面板之前是隐藏的，可能需要同步一下颜色到state
+            updateCustomColor();
+        }
+
+        // --- 随机颜色逻辑 ---
+        function randomizeColors() {
+            // 1. 生成马卡龙背景色 (RGB高值，低饱和)
+            // 简单算法：RGB 中至少有两个通道在 200 以上，另一个在 150 以上
+            const r = Math.floor(200 + Math.random() * 55);
+            const g = Math.floor(200 + Math.random() * 55);
+            const b = Math.floor(180 + Math.random() * 75);
+            
+            // 2. 生成适配的文字颜色 (通常用同色系的深色 或者 互补色)
+            // 这里为了简单且好看，我们生成一个较深的颜色
+            const tr = Math.floor(r * 0.4); 
+            const tg = Math.floor(g * 0.4); 
+            const tb = Math.floor(b * 0.4);
+            
+            // 3. 更新 DOM 元素
+            document.getElementById('bgR').value = r;
+            document.getElementById('bgG').value = g;
+            document.getElementById('bgB').value = b;
+            
+            // 将 RGB 转 Hex 给 input[type=color] 使用
+            const toHex = (c) => {
+                const hex = c.toString(16);
+                return hex.length == 1 ? "0" + hex : hex;
+            }
+            document.getElementById('textColor').value = "#" + toHex(tr) + toHex(tg) + toHex(tb);
+
+            // 4. 激活自定义模式并绘制
+            toggleCustomColor();
+            updateCustomColor();
+        }
+
+        function updateCustomColor(shouldDraw = true) {
+            const r = document.getElementById('bgR').value;
+            const g = document.getElementById('bgG').value;
+            const b = document.getElementById('bgB').value;
+            
+            document.getElementById('valR').innerText = r;
+            document.getElementById('valG').innerText = g;
+            document.getElementById('valB').innerText = b;
+
+            const bgColor = `rgb(${r}, ${g}, ${b})`;
+            const textColor = document.getElementById('textColor').value;
+
+            state.customColor = { bg: bgColor, text: textColor };
+            
+            const preview = document.getElementById('colorPreviewBox');
+            preview.style.backgroundColor = bgColor;
+            preview.style.color = textColor;
+
+            if (state.colorIndex === -1 && shouldDraw) {
+                draw();
+            }
+        }
+
+        // --- 绘制逻辑 ---
+        function draw() {
+            let theme = (state.colorIndex === -1) ? state.customColor : colors[state.colorIndex];
+            renderToContext(ctx, canvas.width, canvas.height, theme);
+        }
+
+        function renderToContext(targetCtx, w, h, theme) {
+            const ratio = w / BASE_WIDTH;
+            
+            // 背景
+            targetCtx.fillStyle = theme.bg;
+            targetCtx.fillRect(0, 0, w, h);
+
+            // 纹理
+            drawTexture(targetCtx, w, h, theme.text);
+
+            // 内容
+            if (state.mode === 'emoji') {
+                targetCtx.save();
+                targetCtx.textAlign = "center";
+                targetCtx.textBaseline = "middle";
+                const fontSize = w * 0.5;
+                targetCtx.font = `${fontSize}px "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif`;
+                targetCtx.fillText(state.emoji, w / 2, h / 2 - (50 * ratio));
+                targetCtx.restore();
+            } else if (state.mode === 'image') {
+                if (state.image) {
+                    targetCtx.save();
+                    targetCtx.translate(w/2, h/2);
+                    const finalScale = state.imgScale * ratio;
+                    targetCtx.scale(finalScale, finalScale);
+                    targetCtx.translate(state.imgX / state.imgScale, state.imgY / state.imgScale); 
+                    const iw = state.image.width;
+                    const ih = state.image.height;
+                    targetCtx.drawImage(state.image, -iw/2, -ih/2);
+                    targetCtx.restore();
+                } else {
+                    targetCtx.save();
+                    targetCtx.fillStyle = 'rgba(0,0,0,0.1)';
+                    targetCtx.font = `bold ${40*ratio}px Arial`;
+                    targetCtx.textAlign = "center";
+                    targetCtx.fillText("请上传图片", w/2, h/2);
+                    targetCtx.restore();
+                }
+            }
+
+            // 文字
+            const word = state.word;
+            if (word) {
+                targetCtx.save();
+                targetCtx.textAlign = "center";
+                targetCtx.textBaseline = "middle";
+                
+                let fontSize = 180 * ratio;
+                targetCtx.font = `900 ${fontSize}px ${state.font}`;
+                let textWidth = targetCtx.measureText(word).width;
+                const maxW = w * 0.85;
+                
+                while (textWidth > maxW && fontSize > 20) {
+                    fontSize -= 5;
+                    targetCtx.font = `900 ${fontSize}px ${state.font}`;
+                    textWidth = targetCtx.measureText(word).width;
+                }
+
+                const x = w / 2;
+                const y = h * 0.82; 
+
+                targetCtx.fillStyle = "rgba(0,0,0,0.15)";
+                targetCtx.fillText(word, x + (8*ratio), y + (8*ratio));
+
+                targetCtx.strokeStyle = "#FFFFFF";
+                targetCtx.lineWidth = 25 * ratio;
+                targetCtx.lineJoin = "round";
+                targetCtx.miterLimit = 2;
+                targetCtx.strokeText(word, x, y);
+
+                targetCtx.strokeStyle = theme.text;
+                targetCtx.lineWidth = 4 * ratio;
+                targetCtx.strokeText(word, x, y);
+
+                targetCtx.fillStyle = theme.text;
+                targetCtx.fillText(word, x, y);
+
+                targetCtx.restore();
+            }
+        }
+
+        // --- 增强版纹理绘制 (7种) ---
+        function drawTexture(ctx, w, h, color) {
+            const ratio = w / BASE_WIDTH;
+            const rng = new Math.seedrandom(state.textureSeed);
+            
+            // 0-6 共7种纹理
+            const patternType = Math.floor(rng() * 7); 
+            const baseSize = 40 + rng() * 40; 
+            const size = baseSize * ratio;
+
+            ctx.save();
+            ctx.fillStyle = color;
+            ctx.strokeStyle = color;
+            ctx.globalAlpha = 0.12; 
+
+            if (patternType === 0) { // 圆点
+                for (let x = 0; x < w; x += size) {
+                    for (let y = 0; y < h; y += size) {
+                        ctx.beginPath();
+                        const offsetX = (Math.floor(y / size) % 2 === 0) ? size / 2 : 0;
+                        ctx.arc(x + offsetX, y, size * 0.15, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+            } else if (patternType === 1) { // 斜线
+                ctx.lineWidth = size * 0.15;
+                for (let x = -h; x < w + h; x += size) {
+                    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x + h, h); ctx.stroke();
+                }
+            } else if (patternType === 2) { // 十字
+                ctx.lineWidth = size * 0.1; ctx.lineCap = "round";
+                const cs = size * 0.25;
+                for (let x = 0; x < w; x += size) {
+                    for (let y = 0; y < h; y += size) {
+                        const cx = x + size/2, cy = y + size/2;
+                        ctx.beginPath();
+                        ctx.moveTo(cx - cs, cy); ctx.lineTo(cx + cs, cy);
+                        ctx.moveTo(cx, cy - cs); ctx.lineTo(cx, cy + cs);
+                        ctx.stroke();
+                    }
+                }
+            } else if (patternType === 3) { // 方格
+                ctx.lineWidth = 2 * ratio;
+                ctx.setLineDash([5 * ratio, 5 * ratio]);
+                for (let x = 0; x < w; x += size) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
+                for (let y = 0; y < h; y += size) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+                ctx.setLineDash([]);
+            } else if (patternType === 4) { // 三角形 (新)
+                const ts = size * 0.3;
+                for (let x = 0; x < w; x += size) {
+                    for (let y = 0; y < h; y += size) {
+                        // 随机偏移一点让它看起来活泼
+                        const dx = (rng() - 0.5) * size * 0.5;
+                        const dy = (rng() - 0.5) * size * 0.5;
+                        const cx = x + size/2 + dx;
+                        const cy = y + size/2 + dy;
+                        ctx.beginPath();
+                        ctx.moveTo(cx, cy - ts);
+                        ctx.lineTo(cx + ts, cy + ts);
+                        ctx.lineTo(cx - ts, cy + ts);
+                        ctx.closePath();
+                        ctx.stroke(); // 或者 ctx.fill()
+                    }
+                }
+            } else if (patternType === 5) { // 波浪线 (新)
+                ctx.lineWidth = 3 * ratio;
+                const waveHeight = size * 0.3;
+                for (let y = 0; y < h; y += size) {
+                    ctx.beginPath();
+                    for (let x = 0; x <= w; x += size) {
+                         ctx.quadraticCurveTo(x + size/4, y - waveHeight, x + size/2, y);
+                         ctx.quadraticCurveTo(x + size*0.75, y + waveHeight, x + size, y);
+                    }
+                    ctx.stroke();
+                }
+            } else if (patternType === 6) { // 爱心 (新)
+                const hs = size * 0.005; // Heart scale
+                for (let x = 0; x < w; x += size) {
+                    for (let y = 0; y < h; y += size) {
+                        const cx = x + size/2;
+                        const cy = y + size/2;
+                        ctx.save();
+                        ctx.translate(cx, cy);
+                        ctx.scale(hs, hs);
+                        ctx.beginPath();
+                        // 简易爱心路径
+                        ctx.moveTo(0, 0);
+                        ctx.bezierCurveTo(-50, -50, -100, 0, 0, 100);
+                        ctx.bezierCurveTo(100, 0, 50, -50, 0, 0);
+                        ctx.fill();
+                        ctx.restore();
+                    }
+                }
+            }
+
+            ctx.restore();
+        }
+
+        // --- 通用函数 ---
+        function updateCard() {
+            state.word = document.getElementById('wordInput').value;
+            state.emoji = document.getElementById('emojiInput').value;
+            state.font = document.getElementById('fontSelect').value;
+            const lowerWord = state.word.toLowerCase().trim();
+            if (emojiMap[lowerWord] && state.mode === 'emoji') {
+                state.emoji = emojiMap[lowerWord];
+                document.getElementById('emojiInput').value = state.emoji;
+            }
+            draw();
+        }
+
+        function generateNewTexture() {
+            state.textureSeed = Math.floor(Math.random() * 1000000);
+            draw();
+        }
+
+        function setMode(mode) {
+            state.mode = mode;
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            if (mode === 'emoji') {
+                tabs[0].classList.add('active');
+                document.getElementById('emojiControls').classList.remove('hidden');
+                document.getElementById('imageControls').classList.add('hidden');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('emojiControls').classList.add('hidden');
+                document.getElementById('imageControls').classList.remove('hidden');
+            }
+            draw();
+        }
+
+        function searchEmojiOnline() {
+            const query = state.word || "apple";
+            window.open(`https://emojipedia.org/search/?q=${query}`, '_blank');
+        }
+
+        function handleImageUpload(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        state.image = img;
+                        resetImagePosition();
+                    }
+                    img.src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function resetImagePosition() {
+            if (!state.image) return;
+            const canvasRatio = BASE_WIDTH / BASE_HEIGHT;
+            const imgRatio = state.image.width / state.image.height;
+            if (imgRatio > canvasRatio) {
+                state.imgScale = BASE_HEIGHT / state.image.height;
+            } else {
+                state.imgScale = BASE_WIDTH / state.image.width;
+            }
+            state.imgX = 0; state.imgY = 0;
+            draw();
+        }
+
+        function setupCanvasInteractions() {
+            let isDragging = false;
+            let lastX, lastY;
+            canvas.addEventListener('mousedown', (e) => {
+                if (state.mode !== 'image') return;
+                isDragging = true;
+                lastX = e.offsetX; lastY = e.offsetY;
+            });
+            window.addEventListener('mouseup', () => isDragging = false);
+            canvas.addEventListener('mousemove', (e) => {
+                if (!isDragging || state.mode !== 'image') return;
+                const dx = e.offsetX - lastX;
+                const dy = e.offsetY - lastY;
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                state.imgX += (dx * scaleX); 
+                state.imgY += (dy * scaleX);
+                lastX = e.offsetX; lastY = e.offsetY;
+                draw();
+            });
+            canvas.addEventListener('wheel', (e) => {
+                if (state.mode !== 'image') return;
+                e.preventDefault();
+                const zoomSpeed = 0.05;
+                if (e.deltaY < 0) state.imgScale *= (1 + zoomSpeed);
+                else state.imgScale *= (1 - zoomSpeed);
+                draw();
+            }, { passive: false });
+        }
+
+        function downloadCard() {
+            const width = parseInt(document.getElementById('exportWidth').value);
+            const height = width * 1.5;
+            const offCanvas = document.createElement('canvas');
+            offCanvas.width = width;
+            offCanvas.height = height;
+            const offCtx = offCanvas.getContext('2d');
+            
+            let theme = (state.colorIndex === -1) ? state.customColor : colors[state.colorIndex];
+            renderToContext(offCtx, width, height, theme);
+            
+            const link = document.createElement('a');
+            link.download = `Card-${state.word}.png`;
+            link.href = offCanvas.toDataURL('image/png');
+            link.click();
+        }
+
+        Math.seedrandom = function(s) {
+            s = Math.floor(s); 
+            var mask = 0xffffffff;
+            var m_w  = (123456789 + s) & mask;
+            var m_z  = (987654321 - s) & mask;
+            return function() {
+                m_z = (36969 * (m_z & 65535) + (m_z >> 16)) & mask;
+                m_w = (18000 * (m_w & 65535) + (m_w >> 16)) & mask;
+                var result = ((m_z << 16) + (m_w & 65535)) >>> 0;
+                result /= 4294967296;
+                return result;
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>

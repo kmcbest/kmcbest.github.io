@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Fanfic Architect V5 (Cloud)</title>
+    <title>AI Fanfic Architect V5.1 (Cloud)</title>
     <style>
         :root {
             --bg-color: #121212;
@@ -207,8 +207,8 @@
     // =========================================================
     // ⚠️ 配置区域：请在此处填入你的 JSONBIN 信息 ⚠️
     // =========================================================
-    const JSONBIN_BIN_ID = "695dd6d9ae596e708fca3334"; // 例: "65a12345..."
-    const JSONBIN_ACCESS_KEY = "$2a$10$mieisGzXJ1HWb2WWO/gwVuFS6mcBP2j7jqjCJtwV8HmUbz/b9X6G."; // 例: "$2a$10$..."
+    const JSONBIN_BIN_ID = "695dd6d9ae596e708fca3334"; 
+    const JSONBIN_ACCESS_KEY = "$2a$10$mieisGzXJ1HWb2WWO/gwVuFS6mcBP2j7jqjCJtwV8HmUbz/b9X6G.";
     // =========================================================
     
     const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
@@ -242,22 +242,27 @@
         characters: [] 
     };
 
-    const STORAGE_KEY = 'fanfic_builder_v5'; 
+    const STORAGE_KEY = 'fanfic_builder_v5_1'; 
 
     window.onload = async () => {
-        // 1. 先加载本地缓存，保证界面不为空
+        // 1. 先尝试加载本地缓存
         loadLocal();
+        
+        // 2. 如果本地是空的，初始化一个角色
         if(appData.characters.length === 0) addNewChar();
         else renderCharList();
+
+        // 3. 渲染一次 Preview
         generatePrompt();
 
-        // 2. 尝试从云端加载最新数据
+        // 4. 尝试从云端加载最新数据 (静默模式)
         if(JSONBIN_BIN_ID && JSONBIN_ACCESS_KEY) {
-            await remoteLoad(false); // false 表示静默加载，不弹窗打扰
+            await remoteLoad(false); 
         } else {
-            showCloudStatus("⚠️ API Key/Bin ID missing in code.");
+            showCloudStatus("⚠️ API Key/Bin ID missing.");
         }
         
+        // 5. 绑定输入监听
         document.body.addEventListener('input', (e) => handleInput(e));
         document.body.addEventListener('change', (e) => handleInput(e));
     };
@@ -353,7 +358,6 @@
         }
     }
 
-    // --- Prompt Gen ---
     function generatePrompt() {
         let p = "";
         if(appData.useMeta) {
@@ -380,9 +384,36 @@
         document.getElementById('output').textContent = p;
     }
 
-    // --- Local Storage ---
+    // --- State & Storage Management ---
+
+    // 1. 将 appData 里的内容填充到 UI 输入框
+    function updateUI() {
+        document.getElementById('meta-goal').value = appData.metaGoal || "";
+        document.getElementById('story-so-far').value = appData.storySoFar || "";
+        document.getElementById('task-overview').value = appData.taskOverview || "";
+        document.getElementById('scene-beats').value = appData.sceneBeats || "";
+        document.getElementById('tone-rules').value = appData.toneRules || PREFILL_TONE;
+        document.getElementById('end-instr').value = appData.endInstr || PREFILL_END;
+        document.getElementById('use-meta').checked = appData.useMeta !== false;
+        document.getElementById('use-story').checked = appData.useStory !== false;
+        document.getElementById('use-tone').checked = appData.useTone !== false;
+    }
+
+    // 2. 从本地缓存读取数据 -> 更新 appData -> 更新 UI
+    function loadLocal() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if(saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                appData = { ...appData, ...parsed }; // 合并数据
+                updateUI(); // 刷新 UI 文本框
+            } catch(e) { console.error(e); }
+        }
+    }
+
+    // 3. 从 UI 读取数据 -> 更新 appData -> 写入本地缓存
     function saveLocal() {
-        // 更新非角色数据
+        // 读取非角色数据
         appData.metaGoal = document.getElementById('meta-goal').value;
         appData.storySoFar = document.getElementById('story-so-far').value;
         appData.taskOverview = document.getElementById('task-overview').value;
@@ -395,26 +426,6 @@
 
         localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
         document.getElementById('save-status').textContent = "Local Saved " + new Date().toLocaleTimeString();
-    }
-
-    function loadLocal() {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if(saved) {
-            try {
-                const parsed = JSON.parse(saved);
-                appData = { ...appData, ...parsed };
-                // Restore UI
-                document.getElementById('meta-goal').value = appData.metaGoal;
-                document.getElementById('story-so-far').value = appData.storySoFar;
-                document.getElementById('task-overview').value = appData.taskOverview;
-                document.getElementById('scene-beats').value = appData.sceneBeats;
-                document.getElementById('tone-rules').value = appData.toneRules;
-                document.getElementById('end-instr').value = appData.endInstr;
-                document.getElementById('use-meta').checked = appData.useMeta;
-                document.getElementById('use-story').checked = appData.useStory;
-                document.getElementById('use-tone').checked = appData.useTone;
-            } catch(e) { console.error(e); }
-        }
     }
 
     // --- Cloud Sync (JSONBIN) ---
@@ -439,7 +450,6 @@
         showCloudStatus("Downloading...");
 
         try {
-            // 注意：JSONBin V3 获取数据默认会包裹在 record 对象里，但也可能被设为直接返回
             const res = await fetch(`${JSONBIN_URL}/latest`, {
                 method: 'GET',
                 headers: {
@@ -451,21 +461,27 @@
             if(!res.ok) throw new Error(`HTTP Error ${res.status}`);
             
             const json = await res.json();
-            // JSONBin V3 结构通常是 { record: { ... }, metadata: { ... } }
+            // JSONBin V3 结构处理
             const remoteData = json.record || json;
 
-            // 简单校验数据完整性
-            if(remoteData && remoteData.characters) {
-                appData = remoteData;
-                saveLocal(); // 更新本地缓存
-                // 刷新界面
-                loadLocal(); 
-                renderCharList();
-                generatePrompt();
-                showCloudStatus("☁️ Synced: " + new Date().toLocaleTimeString());
-            } else {
-                throw new Error("Invalid data format");
-            }
+            // ⚠️ 关键修正：
+            // 1. 更新内存数据 (合并，保留默认值)
+            appData = { ...appData, ...remoteData };
+            
+            // 2. 强制刷新 UI (把下载下来的 Tone, Story 等填入输入框)
+            updateUI(); 
+            
+            // 3. 重新渲染角色列表
+            renderCharList();
+            
+            // 4. 更新 Preview
+            generatePrompt();
+            
+            // 5. 最后再把这份正确的数据存入 LocalStorage
+            // (千万不能在这里调用 saveLocal()，因为 saveLocal 会从 input 读取，如果 updateUI 没执行完就读会出问题)
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+
+            showCloudStatus("☁️ Synced: " + new Date().toLocaleTimeString());
 
         } catch(err) {
             console.error(err);
@@ -481,7 +497,7 @@
             return;
         }
 
-        // 确保 appData 是最新的
+        // 先从屏幕读取最新状态
         saveLocal(); 
 
         toggleLoading(true);

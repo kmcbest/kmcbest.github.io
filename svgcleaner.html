@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG 刀模提取工具 (A4 打印版)</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --bg-color: #f1f5f9;
+            --panel-bg: #ffffff;
+            --border-color: #cbd5e1;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            color: #334155;
+            height: 100vh;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            margin: 0 0 15px 0;
+            font-size: 1.4rem;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tag {
+            background: #e0f2fe;
+            color: #0284c7;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            border: 1px solid #bae6fd;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .panel {
+            flex: 1;
+            background: var(--panel-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border-color);
+            background: #f8fafc;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .editor-area {
+            flex: 1;
+            padding: 15px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100%;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 10px;
+            font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+            font-size: 12px;
+            resize: none;
+            box-sizing: border-box;
+            background: #fdfdfd;
+        }
+
+        textarea:focus {
+            outline: 2px solid var(--primary-color);
+            border-color: transparent;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        button:hover { background-color: #1d4ed8; }
+        button.secondary { background-color: #64748b; }
+        button.secondary:hover { background-color: #475569; }
+
+        .options {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            font-size: 13px;
+            background: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .options label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        #preview-container {
+            flex: 1;
+            /* 模拟 A4 纸背景 */
+            background-color: #52525b; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 20px;
+        }
+
+        /* 预览中的 SVG 样式 */
+        #preview-container svg {
+            background: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            /* 这里仅仅是为了预览显示，不影响下载文件 */
+            max-width: 90%; 
+            max-height: 90%;
+        }
+
+        .stats-bar {
+            padding: 8px 15px;
+            background: #f1f5f9;
+            border-top: 1px solid var(--border-color);
+            font-size: 12px;
+            color: #64748b;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>✂️ SVG 刀模提取器 <span class="tag">A4 打印版</span></h1>
+
+    <div class="container">
+        <!-- 左侧：输入区域 -->
+        <div class="panel">
+            <div class="panel-header">
+                <span>1. 粘贴原始 HTML 代码</span>
+                <div class="options">
+                    <label title="如果勾选，输出尺寸将自动缩放以填满 A4 纸">
+                        <input type="checkbox" id="fitA4" checked> 
+                        📄 缩放至铺满 A4 纸
+                    </label>
+                </div>
+                <button onclick="processSVG()">✨ 开始提取</button>
+            </div>
+            <div class="editor-area">
+                <textarea id="inputCode" placeholder="在此处粘贴包含 <svg> 的原始 HTML 代码..."></textarea>
+            </div>
+        </div>
+
+        <!-- 右侧：结果区域 -->
+        <div class="panel">
+            <div class="panel-header">
+                <span>2. 预览 (白色区域代表A4纸/画板)</span>
+                <div style="display:flex; gap:10px;">
+                    <button class="secondary" onclick="copyToClipboard()">📋 复制代码</button>
+                    <button onclick="downloadSVG()">💾 下载 SVG</button>
+                </div>
+            </div>
+            <div class="editor-area" style="padding:0;">
+                <div id="preview-container">
+                    <span style="color:#a1a1aa">预览区域</span>
+                </div>
+                <!-- 隐藏输出框 -->
+                <textarea id="outputCode" style="display:none;"></textarea>
+            </div>
+            <div class="stats-bar">
+                <span id="statsInfo">等待处理...</span>
+                <span id="sizeInfo"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function processSVG() {
+            const input = document.getElementById('inputCode').value;
+            const fitA4 = document.getElementById('fitA4').checked;
+
+            if (!input.trim()) {
+                alert("请先粘贴代码！");
+                return;
+            }
+
+            // 1. 暴力预处理：移除图片防止卡顿
+            let cleanInput = input.replace(/href\s*=\s*["']data:image\/[^"']*["']/g, 'href=""');
+            cleanInput = cleanInput.replace(/<image[^>]*>/gi, ''); 
+
+            // 2. 解析 DOM
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(cleanInput, 'text/html');
+            const originalSvg = doc.querySelector('svg');
+
+            if (!originalSvg) {
+                alert("未找到 <svg> 标签，请检查代码。");
+                return;
+            }
+
+            // 3. 获取原始尺寸和 viewBox
+            // 优先使用 viewBox，因为它是最准确的坐标系
+            let viewBox = originalSvg.getAttribute('viewBox');
+            let vbX=0, vbY=0, vbW=1000, vbH=1000;
+
+            if (viewBox) {
+                const parts = viewBox.split(/[\s,]+/).map(parseFloat);
+                if(parts.length === 4) { [vbX, vbY, vbW, vbH] = parts; }
+            } else {
+                // 如果没有 viewBox，尝试读取 width/height 属性
+                vbW = parseFloat(originalSvg.getAttribute('width')) || 1000;
+                vbH = parseFloat(originalSvg.getAttribute('height')) || 1000;
+                viewBox = `0 0 ${vbW} ${vbH}`;
+            }
+
+            // 4. 计算输出尺寸 (核心逻辑)
+            let outputWidthStr, outputHeightStr;
+            let sizeInfoText = "";
+
+            if (fitA4) {
+                // A4 尺寸 (mm)
+                const A4_W = 210;
+                const A4_H = 297;
+                const MARGIN = 10; // 边距 10mm
+                
+                // 可用区域
+                const targetW = A4_W - (MARGIN * 2);
+                const targetH = A4_H - (MARGIN * 2);
+
+                // 计算宽高比
+                const contentRatio = vbW / vbH;
+                const targetRatio = targetW / targetH;
+
+                let finalW, finalH;
+
+                // 简单的缩放逻辑：fit inside
+                if (contentRatio > targetRatio) {
+                    // 内容更宽，以宽度为准
+                    finalW = targetW;
+                    finalH = targetW / contentRatio;
+                } else {
+                    // 内容更高，以高度为准
+                    finalH = targetH;
+                    finalW = targetH * contentRatio;
+                }
+
+                outputWidthStr = finalW.toFixed(2) + "mm";
+                outputHeightStr = finalH.toFixed(2) + "mm";
+                sizeInfoText = `📦 尺寸已调整: ${outputWidthStr} x ${outputHeightStr} (适配 A4)`;
+
+            } else {
+                // 保持原始尺寸 (假设 SVG 里的单位可以直接用，或者是像素)
+                // 大多数 web SVG 是像素，为了 AI 打开不变成微米级，我们不加单位，让 AI 默认为 px
+                outputWidthStr = vbW;
+                outputHeightStr = vbH;
+                sizeInfoText = `📦 原始尺寸 (未缩放)`;
+            }
+
+            // 5. 提取路径
+            const cutLines = [];
+            const foldLines = [];
+            const elements = doc.querySelectorAll('path, line, polyline, rect, circle, ellipse');
+
+            elements.forEach(el => {
+                const stroke = el.getAttribute('stroke');
+                if (!stroke) return;
+
+                // 颜色识别特征
+                const isBlue = stroke.includes('#2028b0') || stroke.includes('32, 40, 176') || stroke.includes('32,40,176');
+                const isRed = stroke.includes('#fa0000') || stroke.includes('250, 0, 0') || stroke.includes('250,0,0');
+
+                if (!isBlue && !isRed) return;
+
+                // 属性清洗
+                let attrs = [];
+                ['d', 'x1', 'y1', 'x2', 'y2', 'cx', 'cy', 'r', 'rx', 'ry', 'points'].forEach(attr => {
+                    if (el.hasAttribute(attr)) attrs.push(`${attr}="${el.getAttribute(attr)}"`);
+                });
+
+                // 保留线型（虚线）
+                if (el.hasAttribute('stroke-dasharray')) attrs.push(`stroke-dasharray="${el.getAttribute('stroke-dasharray')}"`);
+                
+                // 统一线宽，方便打印看清 (0.5px)
+                attrs.push(`stroke-width="0.5"`);
+
+                const tag = el.tagName.toLowerCase();
+                
+                if (isBlue) {
+                    cutLines.push(`    <${tag} ${attrs.join(' ')} />`);
+                } else if (isRed) {
+                    foldLines.push(`    <${tag} ${attrs.join(' ')} />`);
+                }
+            });
+
+            // 6. 生成最终 SVG
+            // 注意：我们通过 width/height 设置物理尺寸，但 viewBox 保持原始数据不变，
+            // 这样就实现了“缩放内容以适应纸张”而不破坏图形几何关系。
+            const outputSvg = `
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="${outputWidthStr}" height="${outputHeightStr}" viewBox="${viewBox}">
+  <!-- 切割线 (Cut) - 蓝色 -->
+  <g id="cut-lines" stroke="#2028b0" fill="none">
+${cutLines.join('\n')}
+  </g>
+
+  <!-- 折叠线 (Fold) - 红色 -->
+  <g id="fold-lines" stroke="#fa0000" fill="none">
+${foldLines.join('\n')}
+  </g>
+</svg>`.trim();
+
+            // 7. 更新界面
+            document.getElementById('preview-container').innerHTML = outputSvg;
+            document.getElementById('outputCode').value = outputSvg;
+            document.getElementById('statsInfo').innerHTML = `🔵 切割线: ${cutLines.length} | 🔴 折叠线: ${foldLines.length}`;
+            document.getElementById('sizeInfo').innerHTML = sizeInfoText;
+        }
+
+        function downloadSVG() {
+            const content = document.getElementById('outputCode').value;
+            if (!content) return;
+            const blob = new Blob([content], { type: 'image/svg+xml' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'dieline_A4.svg';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function copyToClipboard() {
+            const content = document.getElementById('outputCode');
+            if (!content.value) return;
+            content.style.display = 'block';
+            content.select();
+            document.execCommand('copy');
+            content.style.display = 'none';
+            const btn = document.querySelector('button.secondary');
+            const originalText = btn.innerText;
+            btn.innerText = '✅ 已复制';
+            setTimeout(() => btn.innerText = originalText, 1500);
+        }
+    </script>
+</body>
+</html>

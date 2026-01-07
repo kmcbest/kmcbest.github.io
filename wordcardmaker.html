@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>儿童识字卡片生成器 - 多功能版</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@700&family=Comic+Neue:wght@700&family=Fredoka:wght@600&family=Itim&family=Patrick+Hand&family=Varela+Round&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #FF9AA2;
+            --bg: #fdfdfd;
+            --panel-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            color: #333;
+        }
+
+        /* 0. 左侧控制面板加宽 */
+        .controls {
+            width: 420px; /* 加宽以容纳更多内容 */
+            background: var(--panel-bg);
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            overflow-y: auto;
+            border-right: 1px solid #eee;
+            flex-shrink: 0;
+        }
+
+        h2 { margin: 0 0 5px 0; color: #444; font-size: 1.3rem; }
+        .sub-title { font-size: 0.85rem; color: #888; margin-bottom: 10px; }
+        
+        .control-group {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        
+        /* 每个单词的输入块 */
+        .item-group {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .item-label {
+            font-size: 0.85rem; color: #888; font-weight: bold; margin-bottom: 5px;
+            display: flex; justify-content: space-between;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 0.95rem;
+            transition: border 0.3s;
+        }
+
+        input[type="text"]:focus { border-color: var(--primary); outline: none; }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 5px;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-secondary { background-color: #6c757d; font-size: 0.85rem; padding: 6px; }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+
+        .color-picker { display: flex; gap: 8px; flex-wrap: wrap; }
+        .color-swatch {
+            width: 30px; height: 30px; border-radius: 50%;
+            cursor: pointer; border: 3px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .color-swatch:hover { transform: scale(1.1); }
+        .color-swatch.active { border-color: #555; transform: scale(1.15); }
+        
+        .icon-btn {
+            width: 30px; height: 30px; border-radius: 50%;
+            background: #eee; color: #555; display: flex; 
+            align-items: center; justify-content: center;
+            cursor: pointer; font-weight: bold; border: 3px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .icon-btn.active { border-color: #555; background: #ddd; }
+        .random-btn { background: linear-gradient(135deg, #FF9AA2, #B5EAD7); color: white; border:none; }
+
+        .custom-panel {
+            background: #f8f9fa; padding: 12px; border-radius: 10px;
+            margin-top: 10px; border: 1px solid #e9ecef;
+        }
+        .slider-row { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+        .slider-label { width: 15px; font-weight: bold; color: #666; font-size: 0.8rem; }
+        .slider-val { width: 25px; font-size: 0.75rem; text-align: right; color: #666; }
+        input[type=range] { flex: 1; accent-color: var(--primary); cursor: pointer; }
+
+        .preview-area {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: radial-gradient(#e0e0e0 1px, transparent 1px);
+            background-size: 20px 20px;
+            padding: 30px;
+            position: relative;
+        }
+
+        canvas {
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            border-radius: 20px;
+            max-height: 95%;
+            max-width: 95%;
+            cursor: grab;
+            background: white; 
+        }
+        canvas:active { cursor: grabbing; }
+
+        .hint { font-size: 0.75rem; color: #999; margin-top: 3px; }
+
+        .tabs { display: flex; gap: 5px; margin-top: 8px; background: #e9ecef; padding: 3px; border-radius: 6px; }
+        .tab { flex: 1; padding: 5px; text-align: center; cursor: pointer; border-radius: 4px; font-size: 0.8rem; }
+        .tab.active { background: white; color: var(--primary); font-weight: bold; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+
+        .hidden { display: none; }
+        
+        /* 模式切换小按钮 */
+        .mode-switch { font-size: 0.8rem; cursor: pointer; color: var(--primary); text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <div class="controls">
+        <div>
+            <h2>🎨 识字卡片生成器</h2>
+            <div class="sub-title">多功能版：支持组合词卡</div>
+        </div>
+
+        <!-- 1. 单词数量选择 -->
+        <div class="control-group">
+            <label>1. 卡片布局 & 单词数</label>
+            <select id="itemCountSelect" onchange="handleCountChange()">
+                <option value="1">单张 (1个单词)</option>
+                <option value="2">上下分栏 (2个单词)</option>
+                <option value="3">横条列表 (3个单词)</option>
+                <option value="4">田字格 (4个单词)</option>
+            </select>
+        </div>
+
+        <!-- 2. 动态生成的输入框区域 -->
+        <div id="dynamicInputs">
+            <!-- JS 将在这里生成内容 -->
+        </div>
+
+        <!-- 3. 配色方案 -->
+        <div class="control-group">
+            <label>3. 配色方案</label>
+            <div class="color-picker" id="colorPicker">
+                <!-- 预设颜色由JS生成 -->
+                <div class="icon-btn random-btn" onclick="randomizeColors()" title="随机配色">🎲</div>
+                <div class="icon-btn" onclick="toggleCustomColor()" id="btnCustomColor" title="自定义颜色">➕</div>
+            </div>
+
+            <div id="customColorPanel" class="hidden custom-panel">
+                <label style="font-size: 0.85rem;">背景色 (RGB)</label>
+                <div class="slider-row">
+                    <span class="slider-label" style="color:#ff6b6b">R</span>
+                    <input type="range" id="bgR" min="0" max="255" value="255" oninput="updateCustomColor()">
+                    <span id="valR" class="slider-val">255</span>
+                </div>
+                <div class="slider-row">
+                    <span class="slider-label" style="color:#51cf66">G</span>
+                    <input type="range" id="bgG" min="0" max="255" value="255" oninput="updateCustomColor()">
+                    <span id="valG" class="slider-val">255</span>
+                </div>
+                <div class="slider-row">
+                    <span class="slider-label" style="color:#339af0">B</span>
+                    <input type="range" id="bgB" min="0" max="255" value="255" oninput="updateCustomColor()">
+                    <span id="valB" class="slider-val">255</span>
+                </div>
+                
+                <div style="font-size:0.8rem; margin-top:8px; color:#666;">
+                    *多词模式下，文字颜色自动根据位置分配或随机生成
+                </div>
+            </div>
+            
+            <button class="btn btn-outline" style="margin-top:10px" onclick="generateNewTexture()">🔄 刷新背景纹理</button>
+        </div>
+
+        <!-- 4. 字体设置 -->
+        <div class="control-group">
+            <label>4. 字体设置</label>
+            <select id="fontSelect" onchange="updateCard()">
+                <option value="'Fredoka', sans-serif">Fredoka (推荐：圆润可爱)</option>
+                <option value="'Balsamiq Sans', cursive">Balsamiq (手写风格)</option>
+                <option value="'Patrick Hand', cursive">Patrick Hand (儿童手写)</option>
+                <option value="'Itim', cursive">Itim (童趣风格)</option>
+                <option value="'Comic Neue', cursive">Comic Neue (漫画风格)</option>
+                <option value="'Varela Round', sans-serif">Varela Round (简洁圆角)</option>
+            </select>
+        </div>
+
+        <!-- 5. 导出设置 -->
+        <div class="control-group" style="border:none;">
+            <label>5. 导出设置</label>
+            <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:#666;">
+                <span>小 (600px)</span>
+                <span id="widthVal" style="font-weight:bold; color:var(--primary)">1200px</span>
+                <span>超大 (4000px)</span>
+            </div>
+            <input type="range" id="exportWidth" min="600" max="4000" value="1200" step="100" style="width:100%; margin-top:5px;" oninput="document.getElementById('widthVal').innerText = this.value + 'px'">
+            <button class="btn" onclick="downloadCard()">💾 保存卡片到本地</button>
+        </div>
+    </div>
+
+    <div class="preview-area">
+        <canvas id="cardCanvas"></canvas>
+    </div>
+
+    <script>
+        // --- 核心配置 ---
+        const canvas = document.getElementById('cardCanvas');
+        const ctx = canvas.getContext('2d');
+        const BASE_WIDTH = 1000;
+        const BASE_HEIGHT = 1500;
+        
+        // 预定义颜色
+        const colors = [
+            { bg: '#FFDAC1', text: '#FF9AA2' }, { bg: '#E2F0CB', text: '#88D8B0' },
+            { bg: '#B5EAD7', text: '#FF9AA2' }, { bg: '#C7CEEA', text: '#9facd8' },
+            { bg: '#FFB7B2', text: '#FF6961' }, { bg: '#FFF5BA', text: '#F4D03F' },
+            { bg: '#F0E68C', text: '#CD853F' }, { bg: '#E0FFFF', text: '#87CEEB' }
+        ];
+        
+        // Emoji 字典
+        const emojiMap = {
+            'apple': '🍎', 'banana': '🍌', 'cat': '🐱', 'dog': '🐶', 
+            'sun': '☀️', 'moon': '🌙', 'star': '⭐', 'book': '📖', 
+            'tree': '🌳', 'flower': '🌸', 'fish': '🐟', 'bird': '🐦',
+            'happy': '😊', 'sad': '😢', 'hot': '🔥', 'cold': '❄️',
+            'big': '🐘', 'small': '🐜', 'up': '⬆️', 'down': '⬇️'
+        };
+
+        // --- 全局状态 ---
+        let state = {
+            count: 1, // 单词数量 1-4
+            items: [
+                // 初始化4个槽位，避免切换时数据丢失
+                { word: "Apple", emoji: "🍎", mode: 'emoji', image: null, imgX: 0, imgY: 0, imgScale: 1 },
+                { word: "Banana", emoji: "🍌", mode: 'emoji', image: null, imgX: 0, imgY: 0, imgScale: 1 },
+                { word: "Cat", emoji: "🐱", mode: 'emoji', image: null, imgX: 0, imgY: 0, imgScale: 1 },
+                { word: "Dog", emoji: "🐶", mode: 'emoji', image: null, imgX: 0, imgY: 0, imgScale: 1 }
+            ],
+            colorIndex: 0, 
+            bgRGB: [255, 218, 193], // 默认背景
+            textColors: ['#FF9AA2', '#FF9AA2', '#FF9AA2', '#FF9AA2'], // 每个单词的颜色
+            textureSeed: Math.floor(Math.random() * 1000000), 
+            font: "'Fredoka', sans-serif"
+        };
+
+        function init() {
+            canvas.width = BASE_WIDTH;
+            canvas.height = BASE_HEIGHT;
+            
+            // 初始化颜色面板
+            const picker = document.getElementById('colorPicker');
+            const btnRandom = document.querySelector('.random-btn');
+            colors.forEach((c, idx) => {
+                const swatch = document.createElement('div');
+                swatch.className = `color-swatch ${idx === 0 ? 'active' : ''}`;
+                swatch.style.backgroundColor = c.bg;
+                swatch.onclick = () => applyPresetColor(idx);
+                picker.insertBefore(swatch, btnRandom);
+            });
+
+            // 初始生成输入框
+            renderInputs();
+            applyPresetColor(0); // 应用默认色
+            
+            document.fonts.ready.then(draw);
+            setupCanvasInteractions();
+            draw();
+        }
+
+        // --- 动态生成输入框逻辑 ---
+        function handleCountChange() {
+            state.count = parseInt(document.getElementById('itemCountSelect').value);
+            renderInputs();
+            draw();
+        }
+
+        function renderInputs() {
+            const container = document.getElementById('dynamicInputs');
+            container.innerHTML = ''; // 清空
+
+            for (let i = 0; i < state.count; i++) {
+                const item = state.items[i];
+                const div = document.createElement('div');
+                div.className = 'item-group';
+                div.innerHTML = `
+                    <div class="item-label">
+                        <span>单词 #${i+1}</span>
+                        <div class="tabs" style="margin:0; font-size:0.7rem;">
+                            <div class="tab ${item.mode === 'emoji' ? 'active' : ''}" onclick="switchItemMode(${i}, 'emoji')">Emoji</div>
+                            <div class="tab ${item.mode === 'image' ? 'active' : ''}" onclick="switchItemMode(${i}, 'image')">图片</div>
+                        </div>
+                    </div>
+                    <input type="text" value="${item.word}" placeholder="输入单词" oninput="updateItemWord(${i}, this.value)" style="margin-bottom:5px;">
+                    
+                    <div id="emoji-ctrl-${i}" class="${item.mode !== 'emoji' ? 'hidden' : ''}" style="display:flex; gap:5px;">
+                        <input type="text" value="${item.emoji}" oninput="updateItemEmoji(${i}, this.value)" style="width:50px; text-align:center;">
+                        <button class="btn-secondary" onclick="searchEmoji(${i})">🔍 搜图</button>
+                    </div>
+
+                    <div id="img-ctrl-${i}" class="${item.mode !== 'image' ? 'hidden' : ''}">
+                        <input type="file" accept="image/*" onchange="uploadItemImage(${i}, this)" style="font-size:0.8rem;">
+                        <button class="btn-secondary" style="margin-top:2px; width:auto;" onclick="resetImgPos(${i})">重置位置</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            }
+        }
+
+        // --- 数据更新逻辑 ---
+        function updateItemWord(index, val) {
+            state.items[index].word = val;
+            // 自动匹配
+            const lower = val.toLowerCase().trim();
+            if (emojiMap[lower] && state.items[index].mode === 'emoji') {
+                state.items[index].emoji = emojiMap[lower];
+                // 更新DOM显示
+                renderInputs(); // 简单粗暴重绘输入区以更新emoji框的值，或者单独操作DOM
+                // 为了不失去焦点，最好只更新对应input，这里简化处理：
+                document.querySelectorAll(`#emoji-ctrl-${index} input`)[0].value = emojiMap[lower];
+            }
+            draw();
+        }
+
+        function updateItemEmoji(index, val) {
+            state.items[index].emoji = val;
+            draw();
+        }
+
+        function switchItemMode(index, mode) {
+            state.items[index].mode = mode;
+            renderInputs(); // 重新渲染以更新 active tab 和显示/隐藏
+            draw();
+        }
+
+        function searchEmoji(index) {
+            window.open(`https://emojipedia.org/search/?q=${state.items[index].word}`, '_blank');
+        }
+
+        function uploadItemImage(index, input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        state.items[index].image = img;
+                        resetImgPos(index);
+                    }
+                    img.src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function resetImgPos(index) {
+            if (!state.items[index].image) return;
+            // 这里的重置逻辑需要知道该 item 占用的区域大小，
+            // 比较复杂，这里先简单重置为默认，绘制时自适应
+            state.items[index].imgScale = 1; 
+            state.items[index].imgX = 0;
+            state.items[index].imgY = 0;
+            draw();
+        }
+
+        // --- 颜色处理 ---
+        function hexToRgb(hex) {
+            const bigint = parseInt(hex.substring(1), 16);
+            return [(bigint >> 16) & 255, (bigint >> 8) & 255, bigint & 255];
+        }
+        function rgbToHex(r, g, b) {
+            return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+        }
+
+        function applyPresetColor(idx) {
+            const c = colors[idx];
+            state.colorIndex = idx;
+            state.bgRGB = hexToRgb(c.bg);
+            // 所有单词用同一个预设文字色
+            state.textColors = Array(4).fill(c.text);
+            
+            // 更新UI
+            document.getElementById('bgR').value = state.bgRGB[0];
+            document.getElementById('bgG').value = state.bgRGB[1];
+            document.getElementById('bgB').value = state.bgRGB[2];
+            document.querySelectorAll('.color-swatch').forEach((el, i) => {
+                if(i===idx) el.classList.add('active'); else el.classList.remove('active');
+            });
+            document.getElementById('btnCustomColor').classList.remove('active');
+            document.getElementById('customColorPanel').classList.add('hidden');
+            
+            draw();
+        }
+
+        function toggleCustomColor() {
+            document.getElementById('customColorPanel').classList.remove('hidden');
+            document.getElementById('btnCustomColor').classList.add('active');
+            document.querySelectorAll('.color-swatch').forEach(el => el.classList.remove('active'));
+            state.colorIndex = -1;
+        }
+
+        function updateCustomColor() {
+            const r = parseInt(document.getElementById('bgR').value);
+            const g = parseInt(document.getElementById('bgG').value);
+            const b = parseInt(document.getElementById('bgB').value);
+            state.bgRGB = [r, g, b];
+            document.getElementById('valR').innerText = r;
+            document.getElementById('valG').innerText = g;
+            document.getElementById('valB').innerText = b;
+            
+            // 如果是手动调背景，文字颜色如果不改可能看不清，这里暂不自动变
+            if (state.colorIndex !== -1) {
+                state.colorIndex = -1; // 切换到自定义
+            }
+            draw();
+        }
+
+        function randomizeColors() {
+            // 背景：浅色马卡龙
+            const r = Math.floor(210 + Math.random() * 45);
+            const g = Math.floor(210 + Math.random() * 45);
+            const b = Math.floor(210 + Math.random() * 45);
+            state.bgRGB = [r, g, b];
+            
+            // 为每个单词生成不同的深色
+            for(let i=0; i<4; i++) {
+                // 生成深色对比色
+                const tr = Math.floor(Math.random() * 150);
+                const tg = Math.floor(Math.random() * 150);
+                const tb = Math.floor(Math.random() * 150);
+                state.textColors[i] = rgbToHex(tr, tg, tb);
+            }
+
+            // 更新UI
+            document.getElementById('bgR').value = r;
+            document.getElementById('bgG').value = g;
+            document.getElementById('bgB').value = b;
+            toggleCustomColor();
+            draw();
+        }
+
+        // --- 核心绘制逻辑 (Layout Engine) ---
+        function draw() {
+            renderToContext(ctx, canvas.width, canvas.height);
+        }
+
+        function renderToContext(targetCtx, w, h) {
+            const bgColor = `rgb(${state.bgRGB[0]}, ${state.bgRGB[1]}, ${state.bgRGB[2]})`;
+            
+            // 1. 背景
+            targetCtx.fillStyle = bgColor;
+            targetCtx.fillRect(0, 0, w, h);
+
+            // 2. 纹理 (使用第一个单词的颜色作为纹理色，或者统一淡灰色)
+            drawTexture(targetCtx, w, h, state.textColors[0]);
+
+            // 3. 布局计算
+            const count = state.count;
+            let regions = []; // 存储 {x, y, w, h}
+
+            if (count === 1) {
+                regions.push({x: 0, y: 0, w: w, h: h});
+            } else if (count === 2) {
+                // 上下分
+                regions.push({x: 0, y: 0, w: w, h: h/2});
+                regions.push({x: 0, y: h/2, w: w, h: h/2});
+                // 分割线
+                drawSeparator(targetCtx, 0, h/2, w, h/2);
+            } else if (count === 3) {
+                // 三行横条
+                const h3 = h / 3;
+                regions.push({x: 0, y: 0, w: w, h: h3});
+                regions.push({x: 0, y: h3, w: w, h: h3});
+                regions.push({x: 0, y: h3*2, w: w, h: h3});
+                drawSeparator(targetCtx, 0, h3, w, h3);
+                drawSeparator(targetCtx, 0, h3*2, w, h3*2);
+            } else if (count === 4) {
+                // 田字格
+                const w2 = w/2, h2 = h/2;
+                regions.push({x: 0, y: 0, w: w2, h: h2});
+                regions.push({x: w2, y: 0, w: w2, h: h2});
+                regions.push({x: 0, y: h2, w: w2, h: h2});
+                regions.push({x: w2, y: h2, w: w2, h: h2});
+                drawSeparator(targetCtx, 0, h2, w, h2); // 横
+                drawSeparator(targetCtx, w2, 0, w2, h); // 竖
+            }
+
+            // 4. 绘制每个项目
+            regions.forEach((r, i) => {
+                const item = state.items[i];
+                const color = state.textColors[i];
+                // 3个单词时特殊布局 (左图右字)
+                const layoutType = (count === 3) ? 'horizontal' : 'vertical';
+                drawItem(targetCtx, item, r.x, r.y, r.w, r.h, color, layoutType, i);
+            });
+        }
+
+        function drawSeparator(ctx, x1, y1, x2, y2) {
+            ctx.save();
+            ctx.strokeStyle = "rgba(255,255,255,0.6)";
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawItem(ctx, item, x, y, w, h, color, layout, index) {
+            ctx.save();
+            // 剪裁区域，防止溢出
+            ctx.beginPath();
+            ctx.rect(x, y, w, h);
+            ctx.clip();
+
+            // 相对坐标基准
+            const cx = x + w/2;
+            const cy = y + h/2;
+
+            if (layout === 'horizontal') {
+                // === 横向布局 (左图右字) ===
+                const splitX = x + w * 0.35; // 图片占左边 35%
+                
+                // 1. 绘制内容 (Emoji/Image) 左侧居中
+                const leftCx = x + (w * 0.35) / 2;
+                const leftCy = cy;
+                
+                if (item.mode === 'emoji') {
+                    const fontSize = Math.min(w * 0.2, h * 0.6);
+                    ctx.textAlign = "center"; ctx.textBaseline = "middle";
+                    ctx.font = `${fontSize}px "Segoe UI Emoji"`;
+                    ctx.fillText(item.emoji, leftCx, leftCy);
+                } else if (item.image) {
+                    drawImageInBox(ctx, item, leftCx, leftCy, w*0.3, h*0.8);
+                }
+
+                // 2. 绘制文字 右侧居中
+                if (item.word) {
+                    const rightCx = splitX + (w * 0.65) / 2;
+                    // 限制文字最大宽度
+                    const maxTextW = w * 0.6; 
+                    const maxTextH = h * 0.8;
+                    drawAdaptiveText(ctx, item.word, rightCx, cy, maxTextW, maxTextH, color);
+                }
+
+            } else {
+                // === 纵向布局 (上图下字) ===
+                // 内容中心稍微偏上
+                const contentCy = y + h * 0.45;
+                const textCy = y + h * 0.82; 
+                
+                // 1. 内容
+                if (item.mode === 'emoji') {
+                    // 字体大小随区域大小变化
+                    const fontSize = Math.min(w * 0.5, h * 0.45);
+                    ctx.textAlign = "center"; ctx.textBaseline = "middle";
+                    ctx.font = `${fontSize}px "Segoe UI Emoji"`;
+                    ctx.fillText(item.emoji, cx, contentCy);
+                } else if (item.image) {
+                    drawImageInBox(ctx, item, cx, contentCy, w*0.8, h*0.55);
+                } else if (item.mode === 'image' && !item.image) {
+                     ctx.fillStyle = 'rgba(0,0,0,0.1)';
+                     ctx.font = `bold ${20}px Arial`;
+                     ctx.textAlign = "center";
+                     ctx.fillText("上传图片", cx, contentCy);
+                }
+
+                // 2. 文字
+                if (item.word) {
+                    // 文字位于下方，需自适应
+                    const maxTextW = w * 0.9;
+                    const maxTextH = h * 0.25; // 留给文字的高度
+                    // 如果是4格，文字位置稍微调整
+                    const tY = (state.count === 4) ? y + h * 0.85 : y + h * 0.82;
+                    drawAdaptiveText(ctx, item.word, cx, tY, maxTextW, maxTextH, color);
+                }
+            }
+
+            ctx.restore();
+        }
+
+// 辅助：自适应绘制文字 (修复了导出时字体过小的问题)
+        function drawAdaptiveText(ctx, text, x, y, maxW, maxH, color) {
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            
+            // --- 修改开始：动态初始字号 ---
+            // 之前是固定 180，现在从“最大可用高度”开始尝试
+            // 这样无论是预览(1000px)还是导出(4000px)，都会自动缩放适配
+            let fontSize = maxH; 
+            // --- 修改结束 ---
+
+            ctx.font = `900 ${fontSize}px ${state.font}`;
+            let textMetrics = ctx.measureText(text);
+            
+            // 循环缩小直到适配宽度和高度
+            // 增加了步进值 (fontSize/20) 以便在大分辨率下计算更快
+            while ((textMetrics.width > maxW || fontSize > maxH) && fontSize > 20) {
+                fontSize -= Math.max(5, fontSize * 0.05); // 动态步进，大字号缩得快
+                ctx.font = `900 ${fontSize}px ${state.font}`;
+                textMetrics = ctx.measureText(text);
+            }
+
+            // 绘制效果
+            ctx.fillStyle = "rgba(0,0,0,0.15)";
+            const shadowOffset = Math.max(2, fontSize * 0.04);
+            ctx.fillText(text, x + shadowOffset, y + shadowOffset);
+
+            ctx.strokeStyle = "#FFFFFF";
+            ctx.lineWidth = Math.max(3, fontSize * 0.12);
+            ctx.lineJoin = "round";
+            ctx.miterLimit = 2;
+            ctx.strokeText(text, x, y);
+
+            ctx.strokeStyle = color;
+            ctx.lineWidth = Math.max(1, fontSize * 0.02);
+            ctx.strokeText(text, x, y);
+
+            ctx.fillStyle = color;
+            ctx.fillText(text, x, y);
+        }
+        // 辅助：绘制图片 (支持拖拽缩放)
+        function drawImageInBox(ctx, item, cx, cy, maxW, maxH) {
+            ctx.save();
+            ctx.translate(cx, cy);
+            
+            // 基础自适应缩放
+            if (item.imgScale === 1 && item.imgX === 0) {
+                 // 如果还没动过，计算一个初始 fit 比例
+                 // 这里只是绘制时的临时计算，不改变 state
+            }
+            
+            // 计算图片显示的原始比例
+            const ratioW = maxW / item.image.width;
+            const ratioH = maxH / item.image.height;
+            const baseScale = Math.min(ratioW, ratioH);
+            
+            // 叠加用户的缩放和位移
+            ctx.scale(baseScale * item.imgScale, baseScale * item.imgScale);
+            // 位移需要反向除以 scale 吗？ 
+            // 我们的拖拽逻辑是直接加像素，所以在 scale 之前 translate 比较直观，
+            // 或者在 scale 之后 translate (dx/scale)
+            ctx.translate(item.imgX / baseScale / item.imgScale, item.imgY / baseScale / item.imgScale);
+
+            ctx.drawImage(item.image, -item.image.width/2, -item.image.height/2);
+            ctx.restore();
+        }
+
+// --- 纹理绘制 (优化版：加大加粗的日月星) ---
+        function drawTexture(ctx, w, h, color) {
+            const ratio = w / BASE_WIDTH;
+            const rng = new Math.seedrandom(state.textureSeed);
+            
+            const patternType = Math.floor(rng() * 8); 
+            const baseSize = 50 + rng() * 40; 
+            const size = baseSize * ratio;
+
+            ctx.save();
+            ctx.fillStyle = color;
+            ctx.strokeStyle = color;
+            ctx.globalAlpha = 0.15; 
+
+            let cx, cy;
+
+            if (patternType === 0) { // === 圆点 ===
+                for (let x = 0; x < w; x += size) for (let y = 0; y < h; y += size) {
+                    ctx.beginPath(); 
+                    cx = x + ((Math.floor(y/size)%2) ? size/2 : 0);
+                    ctx.arc(cx, y, size*0.15, 0, 6.28); 
+                    ctx.fill();
+                }
+            } else if (patternType === 1) { // === 斜线 ===
+                ctx.lineWidth = size * 0.12;
+                for (let x = -h; x < w + h; x += size) { 
+                    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x + h, h); ctx.stroke(); 
+                }
+            } else if (patternType === 2) { // === 十字 ===
+                ctx.lineWidth = size*0.08; ctx.lineCap="round"; const cs=size*0.2;
+                for(let x=0; x<w; x+=size) for(let y=0; y<h; y+=size){
+                    cx=x+size/2; cy=y+size/2; ctx.beginPath();
+                    ctx.moveTo(cx-cs,cy); ctx.lineTo(cx+cs,cy); 
+                    ctx.moveTo(cx,cy-cs); ctx.lineTo(cx,cy+cs); ctx.stroke();
+                }
+            } else if (patternType === 3) { // === 虚线方格 ===
+                ctx.lineWidth = 2*ratio; ctx.setLineDash([6*ratio, 6*ratio]);
+                for(let x=0; x<w; x+=size){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
+                for(let y=0; y<h; y+=size){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+                ctx.setLineDash([]);
+            } else {
+                // === 形状类纹理 (爱心, 星星, 月亮, 太阳) ===
+                // 统一加粗线条，解决“笔划虚”的问题
+                ctx.lineWidth = size * 0.08; 
+                ctx.lineCap = "round";
+                ctx.lineJoin = "round";
+
+                for (let x = 0; x < w; x += size) {
+                    for (let y = 0; y < h; y += size) {
+                        cx = x + size/2; 
+                        cy = y + size/2;
+                        
+                        // 随机偏移
+                        const offsetX = (rng() - 0.5) * size * 0.3;
+                        const offsetY = (rng() - 0.5) * size * 0.3;
+                        cx += offsetX; cy += offsetY;
+
+                        ctx.save();
+                        ctx.translate(cx, cy);
+
+                        if (patternType === 4) { // === ❤️ 爱心 (填充) ===
+                            const hs = size * 0.008; // 稍微加大
+                            ctx.scale(hs, hs);
+                            ctx.beginPath();
+                            ctx.moveTo(0, 0);
+                            ctx.bezierCurveTo(-50, -50, -100, 0, 0, 100);
+                            ctx.bezierCurveTo(100, 0, 50, -50, 0, 0);
+                            ctx.fill();
+                        } else if (patternType === 5) { // === ⭐ 五角星 (加大) ===
+                            const r = size * 0.35; // 半径从0.25增加到0.35
+                            ctx.beginPath();
+                            for(let i=0; i<5; i++){
+                                ctx.lineTo(Math.cos((18+i*72)/180*Math.PI)*r, 
+                                           -Math.sin((18+i*72)/180*Math.PI)*r);
+                                ctx.lineTo(Math.cos((54+i*72)/180*Math.PI)*r*0.4, 
+                                           -Math.sin((54+i*72)/180*Math.PI)*r*0.4);
+                            }
+                            ctx.closePath();
+                            ctx.stroke();
+                        } else if (patternType === 6) {  // === 🌙 新月（月牙，瘦版） ===
+							const rOuter = size * 0.42;      // 外圆半径
+							const rInner = rOuter * 0.75;   // 内圆半径（越小越瘦）
+							const offsetX = rOuter * 0.35;  // 内圆向右偏移（决定月牙锋利程度）
+
+							ctx.save();
+							ctx.rotate(-0.5); // 倾斜角度可保留
+
+							ctx.beginPath();
+
+							// 1. 外圆弧（C 形，背部向左）
+							ctx.arc(
+							    0, 0,
+							    rOuter,
+							    0.3 * Math.PI,
+							    1.7 * Math.PI,
+							    false
+							);
+
+							// 2. 内圆弧（反向画，用来“挖”）
+							ctx.arc(
+							    offsetX, 0,
+							    rInner,
+							    1.7 * Math.PI,
+							    0.3 * Math.PI,
+							    true
+							);
+
+							ctx.closePath();
+							ctx.stroke();
+							ctx.restore();
+
+                        } else if (patternType === 7) { // === ☀️ 太阳 (加大) ===
+                            const r = size * 0.18; // 核心半径从0.12增加到0.18
+                            ctx.beginPath();
+                            ctx.arc(0, 0, r, 0, 2 * Math.PI);
+                            ctx.stroke();
+                            // 光芒
+                            for(let i=0; i<8; i++) {
+                                ctx.rotate(Math.PI / 4);
+                                ctx.beginPath();
+                                ctx.moveTo(r * 1.5, 0); // 光芒起点外移
+                                ctx.lineTo(r * 2.2, 0); // 光芒长度增加
+                                ctx.stroke();
+                            }
+                        }
+                        ctx.restore();
+                    }
+                }
+            }
+            ctx.restore();
+        }
+        // --- 交互处理 (多区域拖拽) ---
+        function updateCard() {
+             state.font = document.getElementById('fontSelect').value;
+             draw();
+        }
+        function generateNewTexture() { state.textureSeed = Math.floor(Math.random()*1e6); draw(); }
+
+        function downloadCard() {
+            const width = parseInt(document.getElementById('exportWidth').value);
+            const height = width * 1.5;
+            const offCanvas = document.createElement('canvas');
+            offCanvas.width = width; offCanvas.height = height;
+            const offCtx = offCanvas.getContext('2d');
+            renderToContext(offCtx, width, height);
+            const link = document.createElement('a');
+            link.download = `Card-${state.items[0].word}-Combined.png`;
+            link.href = offCanvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // 复杂的拖拽逻辑：判断鼠标在哪个区域
+        function setupCanvasInteractions() {
+            let isDragging = false;
+            let activeIndex = -1;
+            let lastX, lastY;
+
+            function getRegionIndex(x, y) {
+                const w = canvas.offsetWidth;
+                const h = canvas.offsetHeight;
+                // 将显示坐标转换为相对比例 (0.0 - 1.0)
+                const rx = x / w;
+                const ry = y / h;
+                
+                if (state.count === 1) return 0;
+                if (state.count === 2) return ry < 0.5 ? 0 : 1;
+                if (state.count === 3) return ry < 0.33 ? 0 : (ry < 0.66 ? 1 : 2);
+                if (state.count === 4) {
+                    if (rx < 0.5 && ry < 0.5) return 0;
+                    if (rx >= 0.5 && ry < 0.5) return 1;
+                    if (rx < 0.5 && ry >= 0.5) return 2;
+                    return 3;
+                }
+                return -1;
+            }
+
+            canvas.addEventListener('mousedown', (e) => {
+                const idx = getRegionIndex(e.offsetX, e.offsetY);
+                if (idx !== -1 && state.items[idx].mode === 'image') {
+                    isDragging = true;
+                    activeIndex = idx;
+                    lastX = e.offsetX; lastY = e.offsetY;
+                }
+            });
+
+            window.addEventListener('mouseup', () => { isDragging = false; activeIndex = -1; });
+
+            canvas.addEventListener('mousemove', (e) => {
+                if (!isDragging || activeIndex === -1) return;
+                const dx = e.offsetX - lastX;
+                const dy = e.offsetY - lastY;
+                
+                // 将屏幕位移转换为 Canvas 内部位移
+                // 这里 canvas.width 很大，但 CSS 显示很小
+                const scale = canvas.width / canvas.offsetWidth;
+                
+                state.items[activeIndex].imgX += dx * scale;
+                state.items[activeIndex].imgY += dy * scale;
+                
+                lastX = e.offsetX; lastY = e.offsetY;
+                draw();
+            });
+
+            canvas.addEventListener('wheel', (e) => {
+                const idx = getRegionIndex(e.offsetX, e.offsetY);
+                if (idx !== -1 && state.items[idx].mode === 'image') {
+                    e.preventDefault();
+                    const zoomSpeed = 0.05;
+                    if (e.deltaY < 0) state.items[idx].imgScale *= (1 + zoomSpeed);
+                    else state.items[idx].imgScale *= (1 - zoomSpeed);
+                    draw();
+                }
+            }, { passive: false });
+        }
+
+        Math.seedrandom = function(s) {
+            s = Math.floor(s); var mask = 0xffffffff;
+            var m_w = (123456789 + s) & mask; var m_z = (987654321 - s) & mask;
+            return function() {
+                m_z = (36969 * (m_z & 65535) + (m_z >> 16)) & mask;
+                m_w = (18000 * (m_w & 65535) + (m_w >> 16)) & mask;
+                return (((m_z << 16) + (m_w & 65535)) >>> 0) / 4294967296;
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>

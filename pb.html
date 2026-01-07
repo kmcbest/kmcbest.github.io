@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Fanfic Architect V3.1</title>
+    <title>AI Fanfic Architect V5 (Cloud)</title>
     <style>
         :root {
             --bg-color: #121212;
@@ -12,10 +12,11 @@
             --input-bg: #333;
             --text-main: #e0e0e0;
             --text-muted: #888;
-            --accent: #4caf50; /* Green for Active */
-            --highlight: #2196f3; /* Blue for focus/primary */
+            --accent: #4caf50;
+            --highlight: #2196f3;
             --border: #444;
             --danger: #ff5252;
+            --warning: #ff9800;
         }
 
         body {
@@ -28,20 +29,17 @@
             overflow: hidden;
         }
 
-        /* 滚动条美化 */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-color); }
         ::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
 
-        /* --- 布局 --- */
         .container { display: flex; width: 100%; height: 100%; }
         .panel { padding: 20px; display: flex; flex-direction: column; gap: 15px; overflow-y: auto; }
         .left-panel { flex: 1.3; border-right: 1px solid var(--border); }
         .right-panel { flex: 1; background-color: #181818; }
 
-        h3 { margin: 0 0 10px 0; font-size: 0.95rem; color: var(--highlight); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; justify-content: space-between; }
+        h3 { margin: 0 0 10px 0; font-size: 0.95rem; color: var(--highlight); text-transform: uppercase; letter-spacing: 1px; }
 
-        /* --- 通用控件 --- */
         input[type="text"], textarea {
             background-color: var(--input-bg);
             border: 1px solid var(--border);
@@ -54,25 +52,41 @@
             resize: vertical;
             font-size: 0.9rem;
         }
-        
         textarea:focus, input:focus { outline: 1px solid var(--highlight); border-color: var(--highlight); }
 
         .btn {
             background-color: var(--input-bg);
             border: 1px solid var(--border);
             color: var(--text-main);
-            padding: 8px 16px;
+            padding: 8px 12px;
             cursor: pointer;
             border-radius: 4px;
             transition: 0.2s;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
         }
         .btn:hover { background-color: #444; }
         .btn-primary { background-color: var(--highlight); border-color: var(--highlight); color: white; }
         .btn-primary:hover { background-color: #1976d2; }
-        .btn-add { width: 100%; border-style: dashed; color: #888; margin-top: 5px; }
         
-        /* --- 角色卡片 --- */
+        /* Cloud Sync Buttons */
+        .btn-cloud { background-color: #2c3e50; border-color: #34495e; color: #ecf0f1; }
+        .btn-cloud:hover { background-color: #34495e; color: #fff; }
+
+        .sync-area {
+            background: #252525;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #444;
+            margin-top: auto;
+        }
+        .sync-buttons { display: flex; gap: 10px; margin-top: 10px; }
+        .sync-status { font-size: 0.75rem; color: #aaa; margin-top: 5px; text-align: right; min-height: 1.2em;}
+        
+        /* Character Cards */
         .char-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border);
@@ -80,75 +94,44 @@
             margin-bottom: 12px;
             transition: all 0.3s ease;
         }
-        
         .char-card.inactive { opacity: 0.6; border-color: #333; }
-        
         .char-header {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            background-color: #2d2d2d;
-            border-radius: 6px 6px 0 0;
-            gap: 12px;
-            user-select: none;
+            display: flex; align-items: center; padding: 10px;
+            background-color: #2d2d2d; border-radius: 6px 6px 0 0; gap: 12px;
         }
-
         .char-toggle { transform: scale(1.2); cursor: pointer; accent-color: var(--accent); }
-
-        .char-name-display {
-            flex: 1;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            color: var(--text-main);
-        }
-
-        .char-body {
-            padding: 12px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            border-top: 1px solid var(--border);
-        }
+        .char-name-display { flex: 1; font-weight: bold; font-size: 1rem; cursor: pointer; }
+        .char-body { padding: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; border-top: 1px solid var(--border); }
         .char-body.hidden { display: none; }
-
-        /* 字段块 */
+        
         .field-block {
-            background-color: #1a1a1a;
-            padding: 8px;
-            border-radius: 4px;
-            border: 1px solid #333;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
+            background-color: #1a1a1a; padding: 8px; border-radius: 4px; border: 1px solid #333;
+            display: flex; flex-direction: column; gap: 5px;
         }
         .field-block.full-width { grid-column: span 2; }
-        
         .field-header { display: flex; align-items: center; gap: 8px; }
         .field-label { font-size: 0.75rem; color: var(--text-muted); font-weight: bold; cursor: pointer; flex:1; }
         .field-check { cursor: pointer; accent-color: var(--highlight); }
-        
         .field-block.inactive textarea { opacity: 0.4; pointer-events: none; }
         .field-block.inactive .field-label { text-decoration: line-through; opacity: 0.5; }
 
-        /* --- 预览区 --- */
         .preview-box {
-            flex: 1;
-            background-color: #111;
-            border: 1px solid var(--border);
-            padding: 15px;
-            white-space: pre-wrap;
-            font-family: 'Consolas', monospace;
-            font-size: 0.9rem;
-            color: #ddd;
-            overflow-y: auto;
-            line-height: 1.5;
+            flex: 1; background-color: #111; border: 1px solid var(--border); padding: 15px;
+            white-space: pre-wrap; font-family: 'Consolas', monospace; font-size: 0.9rem; color: #ddd; overflow-y: auto;
         }
-        
         .status-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; color: #666; font-size: 0.8rem; }
+        
+        /* Loading Overlay */
+        #loading-overlay {
+            position: fixed; top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.7); z-index: 999; display: none;
+            align-items: center; justify-content: center; color: white; font-size: 1.5rem;
+        }
     </style>
 </head>
 <body>
+
+<div id="loading-overlay">☁️ Syncing with Cloud...</div>
 
 <div class="container">
     <!-- 左侧：编辑区 -->
@@ -156,10 +139,7 @@
         
         <!-- 1. 全局配置 -->
         <div>
-            <h3>
-                <span>🛠️ Global Context</span>
-                <span style="font-size:0.7rem; font-weight:normal; color:#666;">Checks include/exclude sections</span>
-            </h3>
+            <h3>🛠️ Global Context</h3>
             <div style="display:flex; gap:15px; margin-bottom:12px;">
                 <label style="cursor:pointer; display:flex; align-items:center; gap:5px; font-size:0.9rem;">
                     <input type="checkbox" id="use-meta" checked> Internal Notes
@@ -172,32 +152,40 @@
                 </label>
             </div>
             <textarea id="meta-goal" placeholder="Goal & Theme..." rows="2"></textarea>
-            <textarea id="story-so-far" placeholder="Story So Far (Key plot points)..." rows="3" style="margin-top:8px;"></textarea>
+            <textarea id="story-so-far" placeholder="Story So Far..." rows="3" style="margin-top:8px;"></textarea>
         </div>
 
         <!-- 2. 角色管理 -->
         <div>
-            <h3>
-                <span>👥 Character Roster</span>
-            </h3>
+            <h3>👥 Character Roster</h3>
             <div id="char-container"></div>
-            <button class="btn btn-add" onclick="addNewChar()">+ Add New Character</button>
+            <button class="btn" onclick="addNewChar()" style="width:100%; border-style:dashed; color:#888;">+ Add New Character</button>
         </div>
 
         <!-- 3. 当前场景 -->
         <div>
-            <h3>🎬 Scene Beats (Required)</h3>
-            <input type="text" id="task-overview" placeholder="Task Overview (e.g. Continue the training scene...)" style="margin-bottom:8px;">
+            <h3>🎬 Scene Beats</h3>
+            <input type="text" id="task-overview" placeholder="Task Overview..." style="margin-bottom:8px;">
             <textarea id="scene-beats" placeholder="- Beat 1&#10;- Beat 2..." rows="6"></textarea>
         </div>
         
-        <!-- 4. Tone & Rules (可折叠) -->
-        <details open>
-            <summary style="cursor:pointer; color:var(--highlight); font-weight:bold; font-size:0.9rem; margin-bottom:5px;">🎨 TONE & ENDING INSTRUCTION</summary>
+        <!-- 4. Tone (收起) -->
+        <details>
+            <summary style="cursor:pointer; color:var(--highlight); font-weight:bold; font-size:0.9rem;">🎨 Tone & Config</summary>
             <textarea id="tone-rules" rows="7" style="font-size:0.85rem; margin-top:5px;"></textarea>
-            <label style="font-size:0.8rem; color:#888; margin-top:8px; display:block;">Ending Instruction:</label>
             <input type="text" id="end-instr" style="margin-top:2px;">
         </details>
+
+        <!-- 5. 云端同步区域 -->
+        <div class="sync-area">
+            <h3 style="color:#aaa; font-size:0.85rem; border-bottom:1px solid #444; padding-bottom:5px;">☁️ CLOUD SYNC (JSONBIN)</h3>
+            <div class="sync-buttons">
+                <button class="btn btn-cloud" onclick="remoteLoad(true)" title="Download from Cloud">⬇️ Load</button>
+                <button class="btn btn-cloud" onclick="remoteSave()" title="Upload to Cloud">⬆️ Save</button>
+                <button class="btn" onclick="copyDataString()" title="Backup to clipboard" style="margin-left:auto;">📋 Copy</button>
+            </div>
+            <div id="cloud-status" class="sync-status">Ready</div>
+        </div>
     </div>
 
     <!-- 右侧：预览区 -->
@@ -210,13 +198,21 @@
         <div style="display:flex; gap:10px; margin-top:10px;">
             <button class="btn btn-primary" onclick="copyPrompt()">📋 Copy Prompt</button>
             <button class="btn" onclick="generatePrompt()">🔄 Refresh</button>
-            <button class="btn" onclick="clearBeats()" style="background-color:#333; color:#ff5252; margin-left:auto; border-color:#555;">🗑️ Clear Beats</button>
+            <button class="btn" onclick="clearBeats()" style="margin-left:auto; color:#ff5252;">🗑️ Clear Beats</button>
         </div>
     </div>
 </div>
 
 <script>
-    // --- 预填内容常量 ---
+    // =========================================================
+    // ⚠️ 配置区域：请在此处填入你的 JSONBIN 信息 ⚠️
+    // =========================================================
+    const JSONBIN_BIN_ID = "695dd6d9ae596e708fca3334"; // 例: "65a12345..."
+    const JSONBIN_ACCESS_KEY = "$2a$10$mieisGzXJ1HWb2WWO/gwVuFS6mcBP2j7jqjCJtwV8HmUbz/b9X6G."; // 例: "$2a$10$..."
+    // =========================================================
+    
+    const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
+
     const PREFILL_TONE = `- Start IN MEDIAS RES with physical motion or dialogue.
 - NO scenic opening, NO mood painting, NO weather/time-of-day prose.
 - Focus on technique, tension, internal thought, relationship dynamics.
@@ -226,7 +222,6 @@
 
     const PREFILL_END = `End the passage as Lucia and Mika square up. Hard stop. No metaphor, no moral, no soft landing.`;
 
-    // --- 角色字段配置 ---
     const FIELDS_CONFIG = [
         { key: 'appearance', label: 'Appearance', rows: 2, full: false },
         { key: 'moves', label: 'Combat Style & Moves', rows: 3, full: true }, 
@@ -240,62 +235,49 @@
         { key: 'sexual', label: 'Sexual Indicator/Dynamics', rows: 2, full: false }
     ];
 
-    // --- 数据状态 ---
     let appData = {
-        metaGoal: "",
-        storySoFar: "",
-        taskOverview: "",
-        sceneBeats: "",
-        toneRules: PREFILL_TONE, // 默认使用你的预填内容
-        endInstr: PREFILL_END,   // 默认使用你的预填内容
-        useMeta: true,
-        useStory: true,
-        useTone: true,
+        metaGoal: "", storySoFar: "", taskOverview: "", sceneBeats: "",
+        toneRules: PREFILL_TONE, endInstr: PREFILL_END,
+        useMeta: true, useStory: true, useTone: true,
         characters: [] 
     };
 
-    // --- 初始化 ---
-    window.onload = () => {
-        loadData();
-        
-        // 如果没有角色，添加一个空的方便开始
+    const STORAGE_KEY = 'fanfic_builder_v5'; 
+
+    window.onload = async () => {
+        // 1. 先加载本地缓存，保证界面不为空
+        loadLocal();
         if(appData.characters.length === 0) addNewChar();
         else renderCharList();
-
         generatePrompt();
+
+        // 2. 尝试从云端加载最新数据
+        if(JSONBIN_BIN_ID && JSONBIN_ACCESS_KEY) {
+            await remoteLoad(false); // false 表示静默加载，不弹窗打扰
+        } else {
+            showCloudStatus("⚠️ API Key/Bin ID missing in code.");
+        }
         
-        // 事件监听
         document.body.addEventListener('input', (e) => handleInput(e));
         document.body.addEventListener('change', (e) => handleInput(e));
     };
 
     function handleInput(e) {
-        if(e.target.closest('.char-card')) {
-            updateCharData(e.target);
-        } else {
-            if(appData.hasOwnProperty(e.target.id)) {
-                appData[e.target.id] = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-            }
+        if(e.target.closest('.char-card')) updateCharData(e.target);
+        else if(appData.hasOwnProperty(e.target.id)) {
+            appData[e.target.id] = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
         }
-        saveData();
+        saveLocal();
         generatePrompt();
     }
 
-    // --- 角色逻辑 ---
+    // --- Core Logic ---
     function addNewChar() {
-        const newChar = {
-            id: Date.now(),
-            name: "",
-            active: true,
-            expanded: true,
-            fields: {}
-        };
-        FIELDS_CONFIG.forEach(f => {
-            newChar.fields[f.key] = { text: "", active: true };
-        });
+        const newChar = { id: Date.now(), name: "", active: true, expanded: true, fields: {} };
+        FIELDS_CONFIG.forEach(f => newChar.fields[f.key] = { text: "", active: true });
         appData.characters.push(newChar);
         renderCharList();
-        saveData();
+        saveLocal();
         generatePrompt();
     }
 
@@ -303,171 +285,104 @@
         if(confirm("Delete this character?")) {
             appData.characters = appData.characters.filter(c => c.id !== id);
             renderCharList();
-            saveData();
+            saveLocal();
             generatePrompt();
         }
     }
 
     function toggleExpand(id) {
         const char = appData.characters.find(c => c.id === id);
-        if(char) {
-            char.expanded = !char.expanded;
-            renderCharList();
-        }
+        if(char) { char.expanded = !char.expanded; renderCharList(); }
     }
 
     function renderCharList() {
         const container = document.getElementById('char-container');
         container.innerHTML = "";
-
         appData.characters.forEach(char => {
             const card = document.createElement('div');
             card.className = `char-card ${char.active ? '' : 'inactive'} ${char.expanded ? '' : 'collapsed'}`;
             card.dataset.id = char.id;
-
-            const displayName = char.name ? char.name : "New Character";
-
-            let headerHtml = `
-                <div class="char-header">
-                    <input type="checkbox" class="char-toggle" ${char.active ? 'checked' : ''} onchange="toggleCharActive(${char.id})" title="Enable/Disable Character in Prompt">
-                    <div class="char-name-display" onclick="toggleExpand(${char.id})">
-                        ${displayName} 
-                        <span style="font-size:0.8rem; color:#666; margin-left:5px;">${char.expanded ? '▼' : '▶'}</span>
-                    </div>
-                    <button class="btn" style="padding:2px 8px; font-size:0.7rem; background:transparent; border:1px solid #555;" onclick="deleteChar(${char.id})">✖</button>
-                </div>
-            `;
-
-            let fieldsHtml = `<div class="char-body ${char.expanded ? '' : 'hidden'}">`;
             
-            // 名字输入
-            fieldsHtml += `
-                <div class="field-block full-width">
-                    <div class="field-header">
-                        <span class="field-label" style="color:var(--highlight);">CHARACTER NAME</span>
-                    </div>
-                    <input type="text" class="char-name-input" value="${char.name}" placeholder="e.g. Juri">
+            let html = `
+                <div class="char-header">
+                    <input type="checkbox" class="char-toggle" ${char.active ? 'checked' : ''} onchange="toggleCharActive(${char.id})">
+                    <div class="char-name-display" onclick="toggleExpand(${char.id})">${char.name || "New Character"}</div>
+                    <button class="btn" style="padding:2px 6px; background:transparent;" onclick="deleteChar(${char.id})">✖</button>
                 </div>
-            `;
-
-            // 详细字段
+                <div class="char-body ${char.expanded ? '' : 'hidden'}">
+                    <div class="field-block full-width">
+                        <div class="field-header"><span class="field-label" style="color:var(--highlight);">NAME</span></div>
+                        <input type="text" class="char-name-input" value="${char.name}" placeholder="e.g. Juri">
+                    </div>`;
+            
             FIELDS_CONFIG.forEach(cfg => {
                 const fData = char.fields[cfg.key];
-                fieldsHtml += `
+                html += `
                     <div class="field-block ${cfg.full ? 'full-width' : ''} ${fData.active ? '' : 'inactive'}">
                         <div class="field-header">
-                            <input type="checkbox" class="field-check field-toggle" data-key="${cfg.key}" ${fData.active ? 'checked' : ''}>
+                            <input type="checkbox" class="field-toggle" data-key="${cfg.key}" ${fData.active ? 'checked' : ''}>
                             <span class="field-label" onclick="toggleFieldCheck(this)">${cfg.label.toUpperCase()}</span>
                         </div>
-                        <textarea data-key="${cfg.key}" class="field-text" rows="${cfg.rows}" placeholder="${getPlaceholder(cfg.key)}">${fData.text}</textarea>
-                    </div>
-                `;
+                        <textarea data-key="${cfg.key}" class="field-text" rows="${cfg.rows}">${fData.text}</textarea>
+                    </div>`;
             });
-            fieldsHtml += `</div>`;
-
-            card.innerHTML = headerHtml + fieldsHtml;
+            html += `</div>`;
+            card.innerHTML = html;
             container.appendChild(card);
         });
     }
 
-    function getPlaceholder(key) {
-        const placeholders = {
-            moves: "Specific moves, style (e.g. Taekwondo), ki usage...",
-            appearance: "Height, build, eye color, outfit...",
-            sexual: "Sexual tension, dynamics, preferences...",
-            relationships: "Relation to others, hierarchy..."
-        };
-        return placeholders[key] || "Details...";
-    }
-
     function toggleCharActive(id) {
         const char = appData.characters.find(c => c.id === id);
-        if(char) {
-            char.active = !char.active;
-            renderCharList(); // Re-render to update opacity
-            saveData();
-            generatePrompt();
-        }
+        if(char) { char.active = !char.active; renderCharList(); saveLocal(); generatePrompt(); }
     }
 
-    window.toggleFieldCheck = function(labelEl) {
-        const checkbox = labelEl.previousElementSibling;
-        checkbox.click();
-    }
+    window.toggleFieldCheck = function(el) { el.previousElementSibling.click(); }
 
     function updateCharData(target) {
-        const card = target.closest('.char-card');
-        const charId = parseInt(card.dataset.id);
-        const char = appData.characters.find(c => c.id === charId);
-        
+        const char = appData.characters.find(c => c.id === parseInt(target.closest('.char-card').dataset.id));
         if(!char) return;
-
         if(target.classList.contains('char-name-input')) {
             char.name = target.value;
-            card.querySelector('.char-name-display').innerHTML = (char.name || "New Character") + ` <span style="font-size:0.8rem; color:#666;">▼</span>`;
+            target.closest('.char-card').querySelector('.char-name-display').textContent = char.name || "New Character";
         } else if (target.classList.contains('field-text')) {
-            const key = target.dataset.key;
-            char.fields[key].text = target.value;
+            char.fields[target.dataset.key].text = target.value;
         } else if (target.classList.contains('field-toggle')) {
-            const key = target.dataset.key;
-            char.fields[key].active = target.checked;
-            const block = target.closest('.field-block');
-            if(target.checked) block.classList.remove('inactive');
-            else block.classList.add('inactive');
+            char.fields[target.dataset.key].active = target.checked;
+            target.closest('.field-block').classList.toggle('inactive', !target.checked);
         }
     }
 
-    // --- Prompt 生成 ---
+    // --- Prompt Gen ---
     function generatePrompt() {
         let p = "";
-
-        // 1. Meta
         if(appData.useMeta) {
             p += `[INTERNAL STORY NOTES — do NOT narrate directly]\n`;
             if(appData.metaGoal) p += `Goal/Theme: ${appData.metaGoal}\n`;
             p += `\n`;
         }
-
-        // 2. Characters
         const activeChars = appData.characters.filter(c => c.active);
         if(activeChars.length > 0) {
             p += `[CHARACTER SHEETS — Strict adherence to traits required]\n`;
             activeChars.forEach(c => {
-                const name = c.name || "Unknown";
-                p += `=== ${name.toUpperCase()} ===\n`;
+                p += `=== ${(c.name||"Unknown").toUpperCase()} ===\n`;
                 FIELDS_CONFIG.forEach(cfg => {
                     const fData = c.fields[cfg.key];
-                    if(fData.active && fData.text.trim()) {
-                        p += `[${cfg.label}]: ${fData.text}\n`;
-                    }
+                    if(fData.active && fData.text.trim()) p += `[${cfg.label}]: ${fData.text}\n`;
                 });
                 p += `\n`;
             });
         }
-
-        // 3. Story
-        if(appData.useStory && appData.storySoFar) {
-            p += `[STORY SO FAR — Context only]\n${appData.storySoFar}\n\n`;
-        }
-
-        // 4. Task & Beats
-        p += `[YOUR TASK]\n${appData.taskOverview || "Write the scene based on the beats below."}\n\n`;
-        p += `[SCENE BEATS — Organic integration required]\n${appData.sceneBeats}\n\n`;
-
-        // 5. Tone
-        if(appData.useTone) {
-            p += `[TONE & RULES]\n${appData.toneRules}\n\n`;
-            p += `[ENDING INSTRUCTION]\n${appData.endInstr}`;
-        }
-
+        if(appData.useStory && appData.storySoFar) p += `[STORY SO FAR — Context only]\n${appData.storySoFar}\n\n`;
+        p += `[YOUR TASK]\n${appData.taskOverview || "Write the scene."}\n\n`;
+        p += `[SCENE BEATS]\n${appData.sceneBeats}\n\n`;
+        if(appData.useTone) p += `[TONE & RULES]\n${appData.toneRules}\n\n[ENDING INSTRUCTION]\n${appData.endInstr}`;
         document.getElementById('output').textContent = p;
     }
 
-    // --- 存储 ---
-    // 使用新的 Key 确保加载新的默认值
-    const STORAGE_KEY = 'fanfic_builder_v3_1'; 
-
-    function saveData() {
+    // --- Local Storage ---
+    function saveLocal() {
+        // 更新非角色数据
         appData.metaGoal = document.getElementById('meta-goal').value;
         appData.storySoFar = document.getElementById('story-so-far').value;
         appData.taskOverview = document.getElementById('task-overview').value;
@@ -479,44 +394,141 @@
         appData.useTone = document.getElementById('use-tone').checked;
 
         localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
-        document.getElementById('save-status').textContent = "Saved " + new Date().toLocaleTimeString();
+        document.getElementById('save-status').textContent = "Local Saved " + new Date().toLocaleTimeString();
     }
 
-    function loadData() {
+    function loadLocal() {
         const saved = localStorage.getItem(STORAGE_KEY);
         if(saved) {
             try {
                 const parsed = JSON.parse(saved);
                 appData = { ...appData, ...parsed };
+                // Restore UI
+                document.getElementById('meta-goal').value = appData.metaGoal;
+                document.getElementById('story-so-far').value = appData.storySoFar;
+                document.getElementById('task-overview').value = appData.taskOverview;
+                document.getElementById('scene-beats').value = appData.sceneBeats;
+                document.getElementById('tone-rules').value = appData.toneRules;
+                document.getElementById('end-instr').value = appData.endInstr;
+                document.getElementById('use-meta').checked = appData.useMeta;
+                document.getElementById('use-story').checked = appData.useStory;
+                document.getElementById('use-tone').checked = appData.useTone;
             } catch(e) { console.error(e); }
         }
-        
-        // 恢复 UI
-        document.getElementById('meta-goal').value = appData.metaGoal;
-        document.getElementById('story-so-far').value = appData.storySoFar;
-        document.getElementById('task-overview').value = appData.taskOverview;
-        document.getElementById('scene-beats').value = appData.sceneBeats;
-        document.getElementById('tone-rules').value = appData.toneRules; // 这里会是你的默认值或保存的值
-        document.getElementById('end-instr').value = appData.endInstr;
-        document.getElementById('use-meta').checked = appData.useMeta;
-        document.getElementById('use-story').checked = appData.useStory;
-        document.getElementById('use-tone').checked = appData.useTone;
     }
 
+    // --- Cloud Sync (JSONBIN) ---
+
+    function showCloudStatus(msg, isError=false) {
+        const el = document.getElementById('cloud-status');
+        el.textContent = msg;
+        el.style.color = isError ? '#ff5252' : '#aaa';
+    }
+
+    function toggleLoading(show) {
+        document.getElementById('loading-overlay').style.display = show ? 'flex' : 'none';
+    }
+
+    async function remoteLoad(isManual = true) {
+        if(!JSONBIN_BIN_ID || !JSONBIN_ACCESS_KEY) {
+            if(isManual) alert("Please configure JSONBIN_BIN_ID and JSONBIN_ACCESS_KEY in the code first.");
+            return;
+        }
+
+        if(isManual) toggleLoading(true);
+        showCloudStatus("Downloading...");
+
+        try {
+            // 注意：JSONBin V3 获取数据默认会包裹在 record 对象里，但也可能被设为直接返回
+            const res = await fetch(`${JSONBIN_URL}/latest`, {
+                method: 'GET',
+                headers: {
+                    'X-Access-Key': JSONBIN_ACCESS_KEY,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if(!res.ok) throw new Error(`HTTP Error ${res.status}`);
+            
+            const json = await res.json();
+            // JSONBin V3 结构通常是 { record: { ... }, metadata: { ... } }
+            const remoteData = json.record || json;
+
+            // 简单校验数据完整性
+            if(remoteData && remoteData.characters) {
+                appData = remoteData;
+                saveLocal(); // 更新本地缓存
+                // 刷新界面
+                loadLocal(); 
+                renderCharList();
+                generatePrompt();
+                showCloudStatus("☁️ Synced: " + new Date().toLocaleTimeString());
+            } else {
+                throw new Error("Invalid data format");
+            }
+
+        } catch(err) {
+            console.error(err);
+            showCloudStatus("Sync Failed: " + err.message, true);
+        } finally {
+            if(isManual) toggleLoading(false);
+        }
+    }
+
+    async function remoteSave() {
+        if(!JSONBIN_BIN_ID || !JSONBIN_ACCESS_KEY) {
+            alert("Please configure JSONBIN_BIN_ID and JSONBIN_ACCESS_KEY in the code first.");
+            return;
+        }
+
+        // 确保 appData 是最新的
+        saveLocal(); 
+
+        toggleLoading(true);
+        showCloudStatus("Uploading...");
+
+        try {
+            const res = await fetch(JSONBIN_URL, {
+                method: 'PUT',
+                headers: {
+                    'X-Access-Key': JSONBIN_ACCESS_KEY,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(appData)
+            });
+
+            if(!res.ok) throw new Error(`HTTP Error ${res.status}`);
+            
+            showCloudStatus("☁️ Saved to Cloud: " + new Date().toLocaleTimeString());
+
+        } catch(err) {
+            console.error(err);
+            showCloudStatus("Upload Failed: " + err.message, true);
+        } finally {
+            toggleLoading(false);
+        }
+    }
+
+    // --- Misc ---
     function clearBeats() {
         document.getElementById('scene-beats').value = "";
-        saveData();
+        saveLocal();
+        generatePrompt();
     }
 
     function copyPrompt() {
         navigator.clipboard.writeText(document.getElementById('output').textContent)
-            .then(() => {
-                const btn = document.querySelector('.btn-primary');
-                const orig = btn.innerHTML;
-                btn.innerHTML = "✅ Copied!";
-                setTimeout(() => btn.innerHTML = orig, 1500);
-            });
+            .then(() => alert("Copied!"));
     }
+    
+    function copyDataString() {
+        saveLocal();
+        const str = btoa(unescape(encodeURIComponent(JSON.stringify(appData))));
+        navigator.clipboard.writeText(str).then(() => {
+            alert("Backup string copied to clipboard (Manual backup).");
+        });
+    }
+
 </script>
 </body>
 </html>

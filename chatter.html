@@ -234,9 +234,10 @@
         .key.active {
             background-color: var(--active-color);
             color: white;
-            transform: translateY(2px);
-            border-bottom-width: 0px;
-            margin-bottom: 3px;
+            border-bottom-color: #1976D2; /* 让底部阴影也变成深蓝色，增加整体感 */
+            transform: none;
+            /* transform: translateY(2px); 如果需要震动就改回这样 */
+            margin-bottom: 0px;  /* 如果需要震动就改成3px */
         }
         .key.tested { border: 1px solid var(--highlight-color); color: var(--highlight-color); border-bottom: 3px solid #1b5e20; }
         .key.chatter { background-color: var(--error-color) !important; color: white !important; animation: shake 0.2s; }

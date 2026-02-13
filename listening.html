@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎧 智能双语听力工作站</title>
-    <!-- 引入读取 MP3 标签的库 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
     <style>
         :root {
@@ -28,11 +27,18 @@
         /* 字幕区 */
         .caption-box {
             height: 100px; min-height: 100px; background: var(--caption-bg); border-radius: 16px;
-            display: flex; align-items: center; justify-content: center; padding: 0 30px;
-            text-align: center; position: relative; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            display: flex; align-items: center; justify-content: space-between; padding: 0 20px;
+            position: relative; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
         }
+        .caption-text-wrap { flex: 1; text-align: center; display: flex; flex-direction: column; justify-content: center; height: 100%; overflow: hidden; }
         #liveCaption { color: #f8fafc; font-size: 1.1rem; line-height: 1.4; }
-        .blind-overlay { position: absolute; inset: 0; background: var(--caption-bg); border-radius: 16px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 5; color: #94a3b8; }
+        
+        /* 字幕区右侧按钮 */
+        .caption-control { width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; transition: 0.2s; flex-shrink: 0; margin-left: 10px; }
+        .caption-control:hover { background: rgba(255,255,255,0.2); transform: scale(1.05); }
+        .caption-control:active { transform: scale(0.95); }
+
+        .blind-overlay { position: absolute; inset: 0; background: var(--caption-bg); border-radius: 16px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 5; color: #94a3b8; padding-right: 70px; /* 避开按钮 */ }
         .blind-overlay.hidden { display: none; }
 
         /* 词典面板 */
@@ -74,22 +80,26 @@
     </aside>
 
     <main class="main-content">
+        <!-- 改进后的字幕区 -->
         <div class="caption-box">
             <div id="blindOverlay" class="blind-overlay" onclick="toggleBlind(false)">
-                <span>🙈 盲听开启 (点击临时查看)</span>
+                <span>🙈 盲听开启 (点击显示)</span>
             </div>
-            <div id="liveCaption">请先在左侧选择文件</div>
+            <div class="caption-text-wrap">
+                <div id="liveCaption">等待加载内容...</div>
+            </div>
+            <!-- 右侧播放按钮 -->
+            <button class="caption-control" id="topPlayBtn" onclick="togglePlay()">▶</button>
         </div>
 
         <div class="dict-panel" id="dictPanel">
             <div style="color: #94a3b8; text-align:center; margin-top: 40px;">
-                💡 选中字幕中的单词，在此显示英汉翻译
+                💡 选中单词显示翻译 · 空格键切换播放/暂停
             </div>
         </div>
 
         <div class="controls">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap:10px;">
-                <!-- 这里的内容将由 ID3 Title 或文件名动态填充 -->
                 <span id="curName" style="font-size: 0.9rem; font-weight: 600; color: var(--primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1;">未选择内容</span>
                 <div style="display: flex; gap: 8px; flex-shrink: 0;">
                     <button class="btn btn-outline" onclick="toggleBlind()">🙈 盲听</button>
@@ -121,6 +131,7 @@
         const blindOverlay = document.getElementById('blindOverlay');
         const transProgress = document.getElementById('transProgress');
         const curNameDisplay = document.getElementById('curName');
+        const topPlayBtn = document.getElementById('topPlayBtn');
 
         let audioFiles = [];
         let currentSubtitles = [];
@@ -146,35 +157,17 @@
             `).join('');
         }
 
-        // --- 加载曲目并读取 ID3 信息 ---
         async function loadTrack(id) {
             const track = audioFiles[id];
-            
-            // UI 激活状态
             document.querySelectorAll('.file-item').forEach(e => e.classList.remove('active'));
             document.getElementById(`item-${id}`).classList.add('active');
-
-            // 1. 设置默认显示名为文件名
             curNameDisplay.innerText = track.file.name;
 
-            // 2. 尝试读取 ID3 Tag (Title)
-            const jsmediatags = window.jsmediatags;
-            jsmediatags.read(track.file, {
-                onSuccess: function(tag) {
-                    if (tag.tags && tag.tags.title) {
-                        // 如果有 ID3 Title，则更新显示
-                        curNameDisplay.innerText = `🎵 ${tag.tags.title}`;
-                    }
-                },
-                onError: function(error) {
-                    console.log('读取 ID3 失败，使用文件名:', error.type, error.info);
-                }
+            window.jsmediatags.read(track.file, {
+                onSuccess: (tag) => { if (tag.tags && tag.tags.title) curNameDisplay.innerText = `🎵 ${tag.tags.title}`; }
             });
 
-            // 3. 加载音频流
             audioPlayer.src = URL.createObjectURL(track.file);
-            
-            // 4. 加载字幕
             if (track.srt) {
                 const text = await track.srt.text();
                 currentSubtitles = parseSRT(text);
@@ -187,7 +180,25 @@
             audioPlayer.play();
         }
 
-        // --- SRT 解析 ---
+        // --- 播放逻辑控制 ---
+        function togglePlay() {
+            if (audioPlayer.paused) audioPlayer.play();
+            else audioPlayer.pause();
+        }
+
+        // 监听空格键
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault(); // 防止页面滚动
+                togglePlay();
+            }
+        });
+
+        // 更新按钮图标
+        audioPlayer.onplay = () => topPlayBtn.innerText = '⏸';
+        audioPlayer.onpause = () => topPlayBtn.innerText = '▶';
+
+        // --- 字幕解析 ---
         function parseSRT(data) {
             const items = [];
             data.trim().split(/\n\s*\n/).forEach(block => {
@@ -219,7 +230,7 @@
 
         function jumpTo(time) { audioPlayer.currentTime = time; audioPlayer.play(); }
 
-        // --- 英汉查词 (MyMemory API) ---
+        // --- 英汉查词 ---
         document.addEventListener('mouseup', () => {
             const sel = window.getSelection().toString().trim();
             if (sel && sel.length < 50 && /^[a-zA-Z\s-'\.]+$/.test(sel)) {
@@ -228,35 +239,29 @@
         });
 
         async function lookupWord(word) {
-            dictPanel.innerHTML = `<div>🔍 正在查询英汉词典: <b>${word}</b>...</div>`;
+            dictPanel.innerHTML = `<div>🔍 正在查询: <b>${word}</b>...</div>`;
             try {
                 const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(word)}&langpair=en|zh-CN`);
                 const data = await res.json();
-                const trans = data.responseData.translatedText;
                 dictPanel.innerHTML = `
                     <div class="dict-word">${word}</div>
-                    <div class="dict-trans">${trans}</div>
+                    <div class="dict-trans">${data.responseData.translatedText}</div>
                 `;
-            } catch (e) {
-                dictPanel.innerHTML = `<div>❌ 查询失败</div>`;
-            }
+            } catch (e) { dictPanel.innerHTML = `<div>❌ 查询失败</div>`; }
         }
 
         // --- 全文翻译 ---
         async function translateFullTranscript() {
             if (!currentSubtitles.length) return;
             const btn = document.getElementById('btnTransAll');
-            btn.disabled = true;
-            btn.innerText = "翻译中...";
-            
+            btn.disabled = true; btn.innerText = "翻译中...";
             for (let i = 0; i < currentSubtitles.length; i++) {
                 if (currentSubtitles[i].cn) continue;
                 try {
                     const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(currentSubtitles[i].text)}&langpair=en|zh-CN`);
                     const data = await res.json();
-                    const trans = data.responseData.translatedText;
-                    currentSubtitles[i].cn = trans;
-                    document.getElementById(`cn-${i}`).innerText = trans;
+                    currentSubtitles[i].cn = data.responseData.translatedText;
+                    document.getElementById(`cn-${i}`).innerText = currentSubtitles[i].cn;
                     transProgress.style.width = `${((i + 1) / currentSubtitles.length) * 100}%`;
                     await new Promise(r => setTimeout(r, 200));
                 } catch (e) { console.error(e); }
@@ -272,14 +277,11 @@
             if (idx !== -1) {
                 const item = currentSubtitles[idx];
                 liveCaption.innerHTML = `<div>${item.text}</div><div style="font-size:0.85rem; color:#94a3b8; margin-top:4px;">${item.cn}</div>`;
-                
                 document.querySelectorAll('.transcript-line').forEach(l => l.classList.remove('active'));
                 const line = document.getElementById(`line-${idx}`);
                 if (line) {
                     line.classList.add('active');
-                    if (!sidebarRight.contains(document.activeElement)) {
-                        line.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
+                    if (!sidebarRight.contains(document.activeElement)) line.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
             }
         });

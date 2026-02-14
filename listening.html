@@ -24,21 +24,21 @@
         .sidebar-right { width: 0; background: var(--panel); border-left: 0 solid #e2e8f0; overflow: hidden; transition: width 0.3s ease; display: flex; flex-direction: column; }
         .sidebar-right.expanded { width: 350px; border-left-width: 1px; }
 
-        /* 字幕区 */
+        /* 字幕区 - 允许内容高度自适应或保持居中 */
         .caption-box {
             height: 100px; min-height: 100px; background: var(--caption-bg); border-radius: 16px;
             display: flex; align-items: center; justify-content: space-between; padding: 0 20px;
             position: relative; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
         }
         .caption-text-wrap { flex: 1; text-align: center; display: flex; flex-direction: column; justify-content: center; height: 100%; overflow: hidden; }
-        #liveCaption { color: #f8fafc; font-size: 1.1rem; line-height: 1.4; }
         
-        /* 字幕区右侧按钮 */
-        .caption-control { width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; transition: 0.2s; flex-shrink: 0; margin-left: 10px; }
+        /* 实时字幕样式：缩小行高以适应多行 */
+        #liveCaption { color: #f8fafc; font-size: 1.1rem; line-height: 1.3; font-weight: 400; }
+        
+        .caption-control { width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; transition: 0.2s; flex-shrink: 0; margin-left: 10px; z-index: 10; }
         .caption-control:hover { background: rgba(255,255,255,0.2); transform: scale(1.05); }
-        .caption-control:active { transform: scale(0.95); }
 
-        .blind-overlay { position: absolute; inset: 0; background: var(--caption-bg); border-radius: 16px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 5; color: #94a3b8; padding-right: 70px; /* 避开按钮 */ }
+        .blind-overlay { position: absolute; inset: 0; background: var(--caption-bg); border-radius: 16px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 5; color: #94a3b8; padding-right: 70px; }
         .blind-overlay.hidden { display: none; }
 
         /* 词典面板 */
@@ -46,8 +46,8 @@
         .dict-word { font-size: 1.4rem; font-weight: bold; color: var(--primary); }
         .dict-trans { font-size: 1.1rem; color: #1e293b; margin-top: 8px; padding-top: 8px; border-top: 1px dashed #eee; }
 
-        /* 右侧全文 */
-        .transcript-line { padding: 10px; font-size: 0.9rem; cursor: pointer; border-bottom: 1px solid #f1f5f9; transition: 0.2s; }
+        /* 右侧全文列表也需要支持换行 */
+        .transcript-line { padding: 10px; font-size: 0.9rem; cursor: pointer; border-bottom: 1px solid #f1f5f9; transition: 0.2s; line-height: 1.4; }
         .transcript-line:hover { background: #f8fafc; }
         .transcript-line.active { background: #eff6ff; border-left: 4px solid var(--primary); }
         .cn-text { color: #64748b; font-size: 0.85rem; margin-top: 4px; display: block; }
@@ -59,7 +59,6 @@
         .file-item { padding: 10px; border-radius: 8px; cursor: pointer; margin-bottom: 4px; font-size: 0.85rem; word-break: break-all; }
         .file-item.active { background: #eff6ff; color: var(--primary); font-weight: bold; }
 
-        /* 按钮 */
         .btn { background: var(--primary); color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
         .btn-outline { background: transparent; border: 1px solid #cbd5e1; color: #475569; }
         .btn-sm { padding: 4px 8px; font-size: 0.75rem; background: var(--accent); }
@@ -80,7 +79,6 @@
     </aside>
 
     <main class="main-content">
-        <!-- 改进后的字幕区 -->
         <div class="caption-box">
             <div id="blindOverlay" class="blind-overlay" onclick="toggleBlind(false)">
                 <span>🙈 盲听开启 (点击显示)</span>
@@ -88,13 +86,12 @@
             <div class="caption-text-wrap">
                 <div id="liveCaption">等待加载内容...</div>
             </div>
-            <!-- 右侧播放按钮 -->
             <button class="caption-control" id="topPlayBtn" onclick="togglePlay()">▶</button>
         </div>
 
         <div class="dict-panel" id="dictPanel">
             <div style="color: #94a3b8; text-align:center; margin-top: 40px;">
-                💡 选中单词显示翻译 · 空格键切换播放/暂停
+                💡 选中单词显示翻译 · 空格键播放/暂停
             </div>
         </div>
 
@@ -180,35 +177,40 @@
             audioPlayer.play();
         }
 
-        // --- 播放逻辑控制 ---
         function togglePlay() {
             if (audioPlayer.paused) audioPlayer.play();
             else audioPlayer.pause();
         }
 
-        // 监听空格键
         window.addEventListener('keydown', (e) => {
             if (e.code === 'Space') {
-                e.preventDefault(); // 防止页面滚动
+                e.preventDefault();
                 togglePlay();
             }
         });
 
-        // 更新按钮图标
         audioPlayer.onplay = () => topPlayBtn.innerText = '⏸';
         audioPlayer.onpause = () => topPlayBtn.innerText = '▶';
 
-        // --- 字幕解析 ---
+        // --- SRT 解析：重点修改处 ---
         function parseSRT(data) {
             const items = [];
-            data.trim().split(/\n\s*\n/).forEach(block => {
+            // 使用正则表达式匹配块，更加稳健
+            const blocks = data.trim().split(/\n\s*\n/);
+            blocks.forEach(block => {
                 const lines = block.split(/\r?\n/);
                 if (lines.length >= 3) {
                     const time = lines[1].match(/(\d+:\d+:\d+,\d+) --> (\d+:\d+:\d+,\d+)/);
-                    if (time) items.push({
-                        start: sToSec(time[1]), end: sToSec(time[2]),
-                        text: lines.slice(2).join(' '), cn: ''
-                    });
+                    if (time) {
+                        // 【核心改动】：使用 .join('<br>') 而不是 .join(' ') 来保留换行
+                        const text = lines.slice(2).join('<br>');
+                        items.push({
+                            start: sToSec(time[1]), 
+                            end: sToSec(time[2]),
+                            text: text, 
+                            cn: ''
+                        });
+                    }
                 }
             });
             return items;
@@ -220,6 +222,7 @@
         }
 
         function renderFull() {
+            // 右侧全文列表也使用 innerHTML，这样解析出来的 <br> 会生效
             fullTranscript.innerHTML = currentSubtitles.map((s, i) => `
                 <div class="transcript-line" id="line-${i}" onclick="jumpTo(${s.start})">
                     <div class="en-text">${s.text}</div>
@@ -258,7 +261,9 @@
             for (let i = 0; i < currentSubtitles.length; i++) {
                 if (currentSubtitles[i].cn) continue;
                 try {
-                    const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(currentSubtitles[i].text)}&langpair=en|zh-CN`);
+                    // 翻译时需要注意：API 可能不识别 <br>，可以简单替换回空格进行请求
+                    const cleanText = currentSubtitles[i].text.replace(/<br>/g, ' ');
+                    const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(cleanText)}&langpair=en|zh-CN`);
                     const data = await res.json();
                     currentSubtitles[i].cn = data.responseData.translatedText;
                     document.getElementById(`cn-${i}`).innerText = currentSubtitles[i].cn;
@@ -276,7 +281,10 @@
             const idx = currentSubtitles.findIndex(s => now >= s.start && now <= s.end);
             if (idx !== -1) {
                 const item = currentSubtitles[idx];
-                liveCaption.innerHTML = `<div>${item.text}</div><div style="font-size:0.85rem; color:#94a3b8; margin-top:4px;">${item.cn}</div>`;
+                // 顶部实时字幕显示：包含原生的英文换行
+                liveCaption.innerHTML = `<div class="en-wrap">${item.text}</div>` + 
+                    (item.cn ? `<div style="font-size:0.85rem; color:#94a3b8; margin-top:4px;">${item.cn}</div>` : '');
+                
                 document.querySelectorAll('.transcript-line').forEach(l => l.classList.remove('active'));
                 const line = document.getElementById(`line-${idx}`);
                 if (line) {

@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>快乐方块</title>
+    <style>
+        :root {
+            --bg-color: #FFF8E1;
+            --panel-bg: #FFECB3;
+            --accent-color: #FF6F00;
+            --button-color: #29B6F6;
+            --button-shadow: #0277BD;
+            --star-color: #FFCA28;
+            --text-font: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: var(--text-font);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            touch-action: none;
+            user-select: none;
+        }
+
+        #game-layout {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            align-items: flex-start;
+            border: 5px solid #FFCC80;
+        }
+
+        canvas#tetris {
+            background-color: #263238;
+            border-radius: 8px;
+            border: 4px solid #455A64;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            display: block;
+        }
+
+        .side-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 140px;
+        }
+
+        .stat-box {
+            background: var(--panel-bg);
+            padding: 6px;
+            border-radius: 12px;
+            text-align: center;
+            border: 3px solid #FFE082;
+        }
+
+        .stat-title {
+            font-size: 13px;
+            color: #795548;
+            margin-bottom: 2px;
+            font-weight: bold;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--accent-color);
+            text-shadow: 1px 1px 0 #FFF;
+        }
+
+        canvas#next-tetris {
+            background-color: #37474F;
+            border-radius: 8px;
+            margin-top: 2px;
+            border: 2px solid #546E7A;
+        }
+
+        .star-icon {
+            color: var(--star-color);
+            text-shadow: 1px 1px 0 #8D6E63;
+        }
+
+        button {
+            background-color: var(--button-color);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: inherit;
+            box-shadow: 0 4px 0 var(--button-shadow);
+            transition: all 0.1s;
+            width: 100%;
+        }
+
+        button:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 var(--button-shadow);
+        }
+
+        button.star-btn {
+            background: linear-gradient(to bottom, #FFEB3B, #FBC02D);
+            color: #5D4037;
+            box-shadow: 0 4px 0 #F57F17;
+            border: 2px solid #FFF;
+            padding: 8px;
+        }
+        
+        button.star-btn:disabled {
+            background: #CFD8DC;
+            color: #90A4AE;
+            box-shadow: none;
+            border-color: #CFD8DC;
+            transform: translateY(4px);
+            cursor: not-allowed;
+        }
+
+        button.restart-btn {
+            background-color: #FF7043;
+            box-shadow: 0 4px 0 #D84315;
+        }
+
+        /* 配色选择器样式 */
+        .color-selector {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--panel-bg);
+            border-radius: 20px;
+            padding: 5px 10px;
+            border: 3px solid #FFE082;
+            margin-top: 5px;
+        }
+        
+        .color-selector button {
+            width: 35px;
+            height: 35px;
+            padding: 0;
+            font-size: 18px;
+            border-radius: 50%;
+            background: #7E57C2;
+            box-shadow: 0 3px 0 #512DA8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .color-index {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--accent-color);
+            background: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .controls {
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            grid-template-rows: repeat(2, 60px);
+            gap: 12px;
+        }
+        
+        .d-pad-btn {
+            width: 60px;
+            height: 60px;
+            font-size: 26px;
+            border-radius: 50%;
+            background: #7E57C2;
+            box-shadow: 0 5px 0 #512DA8;
+        }
+        .d-pad-btn:active { box-shadow: 0 0 0 #512DA8; }
+
+        #message-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: white;
+            z-index: 100;
+            display: none;
+            backdrop-filter: blur(5px);
+        }
+        #message-overlay h1 {
+            font-size: 40px;
+            color: #FF5252;
+            text-shadow: 3px 3px 0 #FFF;
+            margin-bottom: 20px;
+        }
+        #message-overlay button { width: auto; padding: 15px 40px; font-size: 20px; }
+
+    </style>
+</head>
+<body>
+
+    <div id="game-layout">
+        <canvas id="tetris" width="240" height="480"></canvas>
+
+        <div class="side-panel">
+            <div class="stat-box">
+                <div class="stat-title">下一个</div>
+                <canvas id="next-tetris" width="70" height="70"></canvas>
+            </div>
+            
+            <!-- 配色切换器 -->
+            <div class="stat-box">
+                <div class="stat-title">🎨 配色方案</div>
+                <div class="color-selector">
+                    <button onclick="changeColorScheme(-1)">◀</button>
+                    <span class="color-index" id="color-scheme-index">1/9</span>
+                    <button onclick="changeColorScheme(1)">▶</button>
+                </div>
+            </div>
+            
+            <div class="stat-box">
+                <div class="stat-title">已消除行数</div>
+                <div class="stat-value" id="lines">0</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-title">星星 <span class="star-icon">★</span></div>
+                <div class="stat-value" id="stars">1</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-title">分数</div>
+                <div class="stat-value" id="score">0</div>
+            </div>
+
+            <button class="star-btn" id="use-star-btn" onclick="useStar()">
+                ✨魔法消除✨<br><span style="font-size:11px">(满10行+1星)</span>
+            </button>
+
+            <button onclick="startGame()">▶ 开始游戏</button>
+            <button class="restart-btn" onclick="resetGame()">↻ 重新开始</button>
+        </div>
+    </div>
+
+    <div class="controls">
+        <div></div>
+        <button class="d-pad-btn" onclick="playerRotate(1)">↻</button>
+        <div></div>
+        <button class="d-pad-btn" onclick="playerMove(-1)">←</button>
+        <button class="d-pad-btn" onclick="playerDrop()">↓</button>
+        <button class="d-pad-btn" onclick="playerMove(1)">→</button>
+    </div>
+
+    <div id="message-overlay">
+        <h1 id="msg-title">GAME OVER</h1>
+        <button class="restart-btn" onclick="resetGame()">再玩一次</button>
+    </div>
+
+    <script>
+        // --- 音效系统 ---
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioCtx = new AudioContext();
+
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            const now = audioCtx.currentTime;
+
+            if (type === 'move') {
+                osc.type = 'triangle'; osc.frequency.setValueAtTime(300, now); osc.frequency.exponentialRampToValueAtTime(100, now + 0.1);
+                gainNode.gain.setValueAtTime(0.05, now); gainNode.gain.linearRampToValueAtTime(0, now + 0.1);
+                osc.start(now); osc.stop(now + 0.1);
+            } else if (type === 'rotate') {
+                osc.type = 'sine'; osc.frequency.setValueAtTime(400, now); osc.frequency.linearRampToValueAtTime(600, now + 0.15);
+                gainNode.gain.setValueAtTime(0.1, now); gainNode.gain.linearRampToValueAtTime(0, now + 0.15);
+                osc.start(now); osc.stop(now + 0.15);
+            } else if (type === 'drop') {
+                osc.type = 'square'; osc.frequency.setValueAtTime(100, now);
+                gainNode.gain.setValueAtTime(0.05, now); gainNode.gain.linearRampToValueAtTime(0, now + 0.1);
+                osc.start(now); osc.stop(now + 0.1);
+            } else if (type === 'clear') {
+                [400, 523, 659].forEach((f, i) => {
+                    let o = audioCtx.createOscillator();
+                    let g = audioCtx.createGain();
+                    o.connect(g); g.connect(audioCtx.destination);
+                    o.frequency.value = f;
+                    g.gain.setValueAtTime(0.05, now); g.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+                    o.start(now); o.stop(now + 0.4);
+                });
+            } else if (type === 'star') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(1000, now); osc.frequency.setValueAtTime(2000, now + 0.1);
+                gainNode.gain.setValueAtTime(0.1, now); gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+                osc.start(now); osc.stop(now + 0.5);
+            } else if (type === 'magic') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(200, now); osc.frequency.linearRampToValueAtTime(800, now + 0.5);
+                gainNode.gain.setValueAtTime(0.1, now); gainNode.gain.linearRampToValueAtTime(0, now + 0.5);
+                osc.start(now); osc.stop(now + 0.5);
+            } else if (type === 'gameover') {
+                osc.type = 'sawtooth'; osc.frequency.setValueAtTime(200, now); osc.frequency.exponentialRampToValueAtTime(50, now + 1.5);
+                gainNode.gain.setValueAtTime(0.2, now); gainNode.gain.linearRampToValueAtTime(0, now + 1.5);
+                osc.start(now); osc.stop(now + 1.5);
+            }
+        }
+
+        // --- 所有配色方案 ---
+        const colorSchemes = [
+            [null, '#FF1744', '#2979FF', '#651FFF', '#00E676', '#FF9100', '#54b4c7', '#FFEA00'], // 原版
+            [null, '#FFB6C1', '#A1DDD6', '#B8A9FF', '#FBC28B', '#C1E1C1', '#F4C2E6', '#FFE79B'], // 梦幻马卡龙
+            [null, '#FF69B4', '#7BD3FF', '#D88CFF', '#FFB07C', '#AAE6AA', '#FF99CC', '#FFD966'], // 复古甜美粉
+            [null, '#FF9A9E', '#90DBE0', '#C59BFC', '#FFB77C', '#A8E6CF', '#FDB0C0', '#FFF2A1'], // 冰激凌马卡龙
+            [null, '#FF1744', '#00E5FF', '#FFEA00', '#FF9100', '#00E676', '#D500F9', '#FF4081'], // 高对比霓虹
+            [null, '#FF5252', '#40C4FF', '#FFD740', '#FF6E40', '#69F0AE', '#E040FB', '#FF80AB'], // 深色背景友好
+            [null, '#F44336', '#2196F3', '#4CAF50', '#FF9800', '#9C27B0', '#FFEB3B', '#E91E63'], // 经典增强
+            [null, '#FF0000', '#0044FF', '#00FF44', '#FFAA00', '#AA00FF', '#00FFFF', '#FF44AA'], // 极简高对比
+            [null, '#FF3344', '#33AAFF', '#FFDD44', '#FF8844', '#66DD88', '#CC44FF', '#FF66BB']  // 明亮糖果
+        ];
+        
+        let currentSchemeIndex = 0; // 当前配色索引
+        let colors = colorSchemes[currentSchemeIndex]; // 当前配色
+
+        const pieces = 'ILJOTSZ';
+
+        function createPiece(type) {
+            if (type === 'I') return [[0, 1, 0, 0],[0, 1, 0, 0],[0, 1, 0, 0],[0, 1, 0, 0]];
+            if (type === 'L') return [[0, 2, 0],[0, 2, 0],[0, 2, 2]];
+            if (type === 'J') return [[0, 3, 0],[0, 3, 0],[3, 3, 0]];
+            if (type === 'O') return [[4, 4],[4, 4]];
+            if (type === 'Z') return [[5, 5, 0],[0, 5, 5],[0, 0, 0]];
+            if (type === 'S') return [[0, 6, 6],[6, 6, 0],[0, 0, 0]];
+            if (type === 'T') return [[0, 7, 0],[7, 7, 7],[0, 0, 0]];
+        }
+
+        const arena = createMatrix(10, 20);
+        const player = {
+            pos: {x: 0, y: 0},
+            matrix: null,
+            nextMatrix: null,
+            score: 0,
+            lines: 0,
+            linesSinceLastStar: 1,
+            stars: 1
+        };
+
+        let isGameOver = false;
+        let isPaused = true;
+
+        function createMatrix(w, h) {
+            const matrix = [];
+            while (h--) matrix.push(new Array(w).fill(0));
+            return matrix;
+        }
+
+        // --- 3D 亮晶晶渲染 ---
+        function drawBlock(ctx, x, y, colorIndex, isGhost = false, scale = gridScale) {
+            const px = x * scale;
+            const py = y * scale;
+            const size = scale;
+
+            if (isGhost) {
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+                ctx.strokeRect(px + 2, py + 2, size - 4, size - 4);
+                return;
+            }
+
+            ctx.fillStyle = colors[colorIndex];
+            ctx.fillRect(px, py, size, size);
+
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+            ctx.beginPath();
+            ctx.moveTo(px, py + size); ctx.lineTo(px + size, py + size); ctx.lineTo(px + size, py); ctx.fill();
+
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+            ctx.beginPath();
+            ctx.moveTo(px, py); ctx.lineTo(px + size, py); ctx.lineTo(px, py + size); ctx.fill();
+
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+            ctx.fillRect(px + 4, py + 4, size - 8, size / 3 - 2);
+
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+            ctx.strokeRect(px, py, size, size);
+        }
+
+        function draw() {
+            context.fillStyle = '#263238';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+
+            arena.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value !== 0) drawBlock(context, x, y, value);
+                });
+            });
+
+            if (!isPaused && !isGameOver && player.matrix) {
+                const ghostPos = { ...player.pos };
+                while (!collide(arena, { pos: ghostPos, matrix: player.matrix })) {
+                    ghostPos.y++;
+                }
+                ghostPos.y--;
+                
+                player.matrix.forEach((row, y) => {
+                    row.forEach((value, x) => {
+                        if (value !== 0) drawBlock(context, x + ghostPos.x, y + ghostPos.y, value, true);
+                    });
+                });
+
+                player.matrix.forEach((row, y) => {
+                    row.forEach((value, x) => {
+                        if (value !== 0) drawBlock(context, x + player.pos.x, y + player.pos.y, value);
+                    });
+                });
+            }
+            drawNext();
+        }
+
+        function drawNext() {
+            nextContext.fillStyle = '#37474F';
+            nextContext.fillRect(0, 0, nextCanvas.width, nextCanvas.height);
+            if (player.nextMatrix) {
+                const matrix = player.nextMatrix;
+                const boxSize = nextCanvas.width / gridScale;
+                const offsetX = (boxSize - matrix[0].length) / 2;
+                const offsetY = (boxSize - matrix.length) / 2;
+                matrix.forEach((row, y) => {
+                    row.forEach((value, x) => {
+                        if (value !== 0) drawBlock(nextContext, x + offsetX, y + offsetY, value, false, gridScale);
+                    });
+                });
+            }
+        }
+
+        function collide(arena, player) {
+            const m = player.matrix; const o = player.pos;
+            for (let y = 0; y < m.length; ++y) {
+                for (let x = 0; x < m[y].length; ++x) {
+                    if (m[y][x] !== 0 && (arena[y + o.y] && arena[y + o.y][x + o.x]) !== 0) return true;
+                }
+            }
+            return false;
+        }
+
+        function merge(arena, player) {
+            player.matrix.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value !== 0) arena[y + player.pos.y][x + player.pos.x] = value;
+                });
+            });
+        }
+
+        function rotate(matrix, dir) {
+            for (let y = 0; y < matrix.length; ++y) {
+                for (let x = 0; x < y; ++x) [matrix[x][y], matrix[y][x]] = [matrix[y][x], matrix[x][y]];
+            }
+            if (dir > 0) matrix.forEach(row => row.reverse()); else matrix.reverse();
+        }
+
+        function playerReset() {
+            if (player.nextMatrix === null) player.nextMatrix = createPiece(pieces[pieces.length * Math.random() | 0]);
+            player.matrix = player.nextMatrix;
+            player.nextMatrix = createPiece(pieces[pieces.length * Math.random() | 0]);
+            player.pos.y = 0;
+            player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
+            if (collide(arena, player)) {
+                isGameOver = true;
+                playSound('gameover');
+                document.getElementById('message-overlay').style.display = 'flex';
+            }
+        }
+
+        function playerDrop() {
+            if (isPaused || isGameOver) return;
+            player.pos.y++;
+            if (collide(arena, player)) {
+                player.pos.y--;
+                merge(arena, player);
+                playSound('drop');
+                arenaSweep();
+                playerReset();
+                updateUI();
+            } else {
+                playSound('move');
+            }
+            draw();
+        }
+
+        function playerMove(offset) {
+            if (isPaused || isGameOver) return;
+            player.pos.x += offset;
+            if (collide(arena, player)) player.pos.x -= offset;
+            else playSound('move');
+            draw();
+        }
+
+        function playerRotate(dir) {
+            if (isPaused || isGameOver) return;
+            const pos = player.pos.x;
+            let offset = 1;
+            rotate(player.matrix, dir);
+            while (collide(arena, player)) {
+                player.pos.x += offset;
+                offset = -(offset + (offset > 0 ? 1 : -1));
+                if (offset > player.matrix[0].length) {
+                    rotate(player.matrix, -dir);
+                    player.pos.x = pos;
+                    return;
+                }
+            }
+            playSound('rotate');
+            draw();
+        }
+
+        function arenaSweep() {
+            let rowCount = 0;
+            outer: for (let y = arena.length - 1; y > 0; --y) {
+                for (let x = 0; x < arena[y].length; ++x) {
+                    if (arena[y][x] === 0) continue outer;
+                }
+                const row = arena.splice(y, 1)[0].fill(0);
+                arena.unshift(row);
+                ++y;
+                rowCount++;
+            }
+
+            if (rowCount > 0) {
+                playSound('clear');
+                player.score += rowCount * 10 * rowCount;
+                player.lines += rowCount;
+                player.linesSinceLastStar += rowCount;
+
+                while (player.linesSinceLastStar >= 10) {
+                    player.stars++;
+                    player.linesSinceLastStar -= 10;
+                    setTimeout(() => playSound('star'), 200);
+                }
+                updateUI();
+            }
+        }
+
+        function useStar() {
+            if (isPaused || isGameOver || player.stars <= 0) return;
+            player.stars--;
+            playSound('magic');
+            
+            const rowsToRemove = 5;
+            const limit = Math.min(rowsToRemove, arena.length);
+            arena.splice(arena.length - limit, limit);
+            for(let i=0; i<limit; i++) arena.unshift(new Array(10).fill(0));
+
+            updateUI();
+            draw();
+        }
+
+        function updateUI() {
+            document.getElementById('score').innerText = player.score;
+            document.getElementById('stars').innerText = player.stars;
+            document.getElementById('lines').innerText = player.lines;
+            document.getElementById('use-star-btn').disabled = player.stars <= 0;
+        }
+
+        function startGame() {
+            if (isGameOver) resetGame();
+            else if (isPaused) {
+                isPaused = false;
+                document.getElementById('message-overlay').style.display = 'none';
+                if (!player.matrix) playerReset();
+                draw();
+            }
+        }
+
+        function resetGame() {
+            arena.forEach(row => row.fill(0));
+            player.score = 0;
+            player.lines = 0;
+            player.stars = 0;
+            player.linesSinceLastStar = 0;
+            player.matrix = null;
+            player.nextMatrix = null;
+            isGameOver = false;
+            isPaused = false;
+            document.getElementById('message-overlay').style.display = 'none';
+            playerReset();
+            updateUI();
+            draw();
+        }
+
+        // --- 配色切换功能 ---
+        function changeColorScheme(direction) {
+            currentSchemeIndex = (currentSchemeIndex + direction + colorSchemes.length) % colorSchemes.length;
+            colors = colorSchemes[currentSchemeIndex];
+            
+            // 更新显示
+            document.getElementById('color-scheme-index').innerText = `${currentSchemeIndex + 1}/${colorSchemes.length}`;
+            
+            // 实时重绘
+            draw();
+            
+            // 播放提示音
+            playSound('rotate');
+        }
+
+        document.addEventListener('keydown', event => {
+            if([32, 37, 38, 39, 40].includes(event.keyCode)) event.preventDefault();
+            if (isPaused && event.keyCode !== 83) return;
+            if (event.keyCode === 37) playerMove(-1);
+            else if (event.keyCode === 39) playerMove(1);
+            else if (event.keyCode === 40) playerDrop();
+            else if (event.keyCode === 38) playerRotate(1);
+            else if (event.keyCode === 83) useStar();
+        });
+
+        // 初始化
+        const canvas = document.getElementById('tetris');
+        const context = canvas.getContext('2d');
+        const nextCanvas = document.getElementById('next-tetris');
+        const nextContext = nextCanvas.getContext('2d');
+        const gridScale = 24;
+        
+        // 初始化配色显示
+        document.getElementById('color-scheme-index').innerText = `1/${colorSchemes.length}`;
+        
+        context.fillStyle = '#263238';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.fillStyle = '#fff'; context.font = '20px Arial'; context.textAlign = 'center';
+        context.fillText("点击开始游戏", canvas.width/2, canvas.height/2);
+    </script>
+</body>
+</html>

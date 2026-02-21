@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>快乐方块</title>
+    <title>快乐方块 - 激萌Q弹版</title>
     <style>
         :root {
             --bg-color: #FFF8E1;
@@ -31,10 +31,10 @@
 
         #game-layout {
             display: flex;
-            gap: 15px;
-            padding: 15px;
+            gap: 12px;
+            padding: 12px;
             background: white;
-            border-radius: 25px;
+            border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             align-items: flex-start;
             border: 5px solid #FFCC80;
@@ -51,14 +51,14 @@
         .side-panel {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
             width: 140px;
         }
 
         .stat-box {
             background: var(--panel-bg);
-            padding: 6px;
-            border-radius: 12px;
+            padding: 5px;
+            border-radius: 10px;
             text-align: center;
             border: 3px solid #FFE082;
         }
@@ -71,7 +71,7 @@
         }
 
         .stat-value {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 900;
             color: var(--accent-color);
             text-shadow: 1px 1px 0 #FFF;
@@ -93,14 +93,14 @@
             background-color: var(--button-color);
             color: white;
             border: none;
-            padding: 10px;
-            border-radius: 12px;
+            padding: 8px;
+            border-radius: 10px;
             font-size: 14px;
             font-weight: bold;
             cursor: pointer;
             font-family: inherit;
             box-shadow: 0 4px 0 var(--button-shadow);
-            transition: all 0.1s;
+            transition: transform 0.1s, box-shadow 0.1s;
             width: 100%;
         }
 
@@ -114,7 +114,7 @@
             color: #5D4037;
             box-shadow: 0 4px 0 #F57F17;
             border: 2px solid #FFF;
-            padding: 8px;
+            padding: 6px;
         }
         
         button.star-btn:disabled {
@@ -131,23 +131,22 @@
             box-shadow: 0 4px 0 #D84315;
         }
 
-        /* 配色选择器样式 */
         .color-selector {
             display: flex;
             align-items: center;
             justify-content: space-between;
             background: var(--panel-bg);
             border-radius: 20px;
-            padding: 5px 10px;
+            padding: 3px 8px;
             border: 3px solid #FFE082;
-            margin-top: 5px;
+            margin-top: 2px;
         }
         
         .color-selector button {
-            width: 35px;
-            height: 35px;
+            width: 30px;
+            height: 30px;
             padding: 0;
-            font-size: 18px;
+            font-size: 16px;
             border-radius: 50%;
             background: #7E57C2;
             box-shadow: 0 3px 0 #512DA8;
@@ -157,13 +156,13 @@
         }
         
         .color-index {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: bold;
             color: var(--accent-color);
             background: white;
-            padding: 3px 10px;
+            padding: 2px 8px;
             border-radius: 20px;
-            min-width: 40px;
+            min-width: 35px;
             text-align: center;
         }
 
@@ -219,33 +218,34 @@
                 <canvas id="next-tetris" width="70" height="70"></canvas>
             </div>
             
-            <!-- 配色切换器 -->
-            <div class="stat-box">
-                <div class="stat-title">🎨 配色方案</div>
+            <div class="stat-box" style="padding: 2px 5px;">
                 <div class="color-selector">
                     <button onclick="changeColorScheme(-1)">◀</button>
                     <span class="color-index" id="color-scheme-index">1/9</span>
                     <button onclick="changeColorScheme(1)">▶</button>
                 </div>
             </div>
+
+            <div class="stat-box">
+                <div class="stat-title">模式切换</div>
+                <button id="mode-btn" onclick="toggleMode()" style="background-color: #81C784; padding: 6px; box-shadow: 0 4px 0 #388E3C; margin-top: 2px;">
+                    🐌 手动下落
+                </button>
+            </div>
             
-            <div class="stat-box">
-                <div class="stat-title">已消除行数</div>
-                <div class="stat-value" id="lines">0</div>
-            </div>
-
-            <div class="stat-box">
-                <div class="stat-title">星星 <span class="star-icon">★</span></div>
-                <div class="stat-value" id="stars">1</div>
-            </div>
-
-            <div class="stat-box">
-                <div class="stat-title">分数</div>
-                <div class="stat-value" id="score">0</div>
+            <div class="stat-box" style="display: flex; justify-content: space-around;">
+                <div>
+                    <div class="stat-title">行数</div>
+                    <div class="stat-value" id="lines">0</div>
+                </div>
+                <div>
+                    <div class="stat-title">星星<span class="star-icon">★</span></div>
+                    <div class="stat-value" id="stars">1</div>
+                </div>
             </div>
 
             <button class="star-btn" id="use-star-btn" onclick="useStar()">
-                ✨魔法消除✨<br><span style="font-size:11px">(满10行+1星)</span>
+                ✨魔法爆炸✨<br><span style="font-size:11px">(满10行+1星)</span>
             </button>
 
             <button onclick="startGame()">▶ 开始游戏</button>
@@ -258,7 +258,7 @@
         <button class="d-pad-btn" onclick="playerRotate(1)">↻</button>
         <div></div>
         <button class="d-pad-btn" onclick="playerMove(-1)">←</button>
-        <button class="d-pad-btn" onclick="playerDrop()">↓</button>
+        <button class="d-pad-btn" onclick="playerDrop(true)">↓</button>
         <button class="d-pad-btn" onclick="playerMove(1)">→</button>
     </div>
 
@@ -272,7 +272,7 @@
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         const audioCtx = new AudioContext();
 
-        function playSound(type) {
+        function playSound(type, level = 1) {
             if (audioCtx.state === 'suspended') audioCtx.resume();
             const osc = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
@@ -289,28 +289,25 @@
                 gainNode.gain.setValueAtTime(0.1, now); gainNode.gain.linearRampToValueAtTime(0, now + 0.15);
                 osc.start(now); osc.stop(now + 0.15);
             } else if (type === 'drop') {
-                osc.type = 'square'; osc.frequency.setValueAtTime(100, now);
-                gainNode.gain.setValueAtTime(0.05, now); gainNode.gain.linearRampToValueAtTime(0, now + 0.1);
+                osc.type = 'square'; osc.frequency.setValueAtTime(150, now); osc.frequency.exponentialRampToValueAtTime(50, now + 0.1);
+                gainNode.gain.setValueAtTime(0.1, now); gainNode.gain.linearRampToValueAtTime(0, now + 0.1);
                 osc.start(now); osc.stop(now + 0.1);
             } else if (type === 'clear') {
-                [400, 523, 659].forEach((f, i) => {
+                const baseFreq = 300 + level * 100;
+                [baseFreq, baseFreq*1.25, baseFreq*1.5].forEach((f, i) => {
                     let o = audioCtx.createOscillator();
                     let g = audioCtx.createGain();
                     o.connect(g); g.connect(audioCtx.destination);
-                    o.frequency.value = f;
-                    g.gain.setValueAtTime(0.05, now); g.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
-                    o.start(now); o.stop(now + 0.4);
+                    o.type = level > 2 ? 'square' : 'sine';
+                    o.frequency.setValueAtTime(f, now + i*0.05);
+                    g.gain.setValueAtTime(0.1, now + i*0.05); g.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+                    o.start(now + i*0.05); o.stop(now + 0.5);
                 });
-            } else if (type === 'star') {
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(1000, now); osc.frequency.setValueAtTime(2000, now + 0.1);
-                gainNode.gain.setValueAtTime(0.1, now); gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
-                osc.start(now); osc.stop(now + 0.5);
             } else if (type === 'magic') {
                 osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(200, now); osc.frequency.linearRampToValueAtTime(800, now + 0.5);
-                gainNode.gain.setValueAtTime(0.1, now); gainNode.gain.linearRampToValueAtTime(0, now + 0.5);
-                osc.start(now); osc.stop(now + 0.5);
+                osc.frequency.setValueAtTime(200, now); osc.frequency.linearRampToValueAtTime(1200, now + 0.6);
+                gainNode.gain.setValueAtTime(0.15, now); gainNode.gain.linearRampToValueAtTime(0, now + 0.6);
+                osc.start(now); osc.stop(now + 0.6);
             } else if (type === 'gameover') {
                 osc.type = 'sawtooth'; osc.frequency.setValueAtTime(200, now); osc.frequency.exponentialRampToValueAtTime(50, now + 1.5);
                 gainNode.gain.setValueAtTime(0.2, now); gainNode.gain.linearRampToValueAtTime(0, now + 1.5);
@@ -320,45 +317,59 @@
 
         // --- 所有配色方案 ---
         const colorSchemes = [
-            [null, '#FF1744', '#2979FF', '#651FFF', '#00E676', '#FF9100', '#54b4c7', '#FFEA00'], // 原版
-            [null, '#FFB6C1', '#A1DDD6', '#B8A9FF', '#FBC28B', '#C1E1C1', '#F4C2E6', '#FFE79B'], // 梦幻马卡龙
-            [null, '#FF69B4', '#7BD3FF', '#D88CFF', '#FFB07C', '#AAE6AA', '#FF99CC', '#FFD966'], // 复古甜美粉
-            [null, '#FF9A9E', '#90DBE0', '#C59BFC', '#FFB77C', '#A8E6CF', '#FDB0C0', '#FFF2A1'], // 冰激凌马卡龙
-            [null, '#FF1744', '#00E5FF', '#FFEA00', '#FF9100', '#00E676', '#D500F9', '#FF4081'], // 高对比霓虹
-            [null, '#FF5252', '#40C4FF', '#FFD740', '#FF6E40', '#69F0AE', '#E040FB', '#FF80AB'], // 深色背景友好
-            [null, '#F44336', '#2196F3', '#4CAF50', '#FF9800', '#9C27B0', '#FFEB3B', '#E91E63'], // 经典增强
-            [null, '#FF0000', '#0044FF', '#00FF44', '#FFAA00', '#AA00FF', '#00FFFF', '#FF44AA'], // 极简高对比
-            [null, '#FF3344', '#33AAFF', '#FFDD44', '#FF8844', '#66DD88', '#CC44FF', '#FF66BB']  // 明亮糖果
+            [null, '#00E676', '#FF9100', '#2979FF', '#FFEA00', '#D500F9', '#FF1744', '#00E5FF'], // 原版强化
+            [null, '#FFB6C1', '#FBC28B', '#B8A9FF', '#FFE79B', '#F4C2E6', '#FF9A9E', '#A1DDD6'], // 梦幻马卡龙
+            [null, '#FF69B4', '#FFB07C', '#D88CFF', '#FFD966', '#FF99CC', '#F44336', '#7BD3FF'], // 复古甜美粉
+            [null, '#A8E6CF', '#FFB77C', '#C59BFC', '#FFF2A1', '#FDB0C0', '#FF5252', '#90DBE0'], // 冰激凌
+            [null, '#00E676', '#FF9100', '#D500F9', '#FFEA00', '#00E5FF', '#FF1744', '#FF4081'], // 霓虹
+            [null, '#69F0AE', '#FF6E40', '#E040FB', '#FFD740', '#FF80AB', '#FF5252', '#40C4FF'], // 深色友好
+            [null, '#4CAF50', '#FF9800', '#9C27B0', '#FFEB3B', '#E91E63', '#F44336', '#2196F3'], // 经典增强
+            [null, '#00FF44', '#FFAA00', '#AA00FF', '#00FFFF', '#FF44AA', '#FF0000', '#0044FF'], // 极简高对比
+            [null, '#66DD88', '#FF8844', '#CC44FF', '#FFDD44', '#FF66BB', '#FF3344', '#33AAFF']  // 明亮糖果
         ];
         
-        let currentSchemeIndex = 0; // 当前配色索引
-        let colors = colorSchemes[currentSchemeIndex]; // 当前配色
+        let currentSchemeIndex = 0; 
+        let colors = colorSchemes[currentSchemeIndex]; 
 
         const pieces = 'ILJOTSZ';
 
         function createPiece(type) {
-            if (type === 'I') return [[0, 1, 0, 0],[0, 1, 0, 0],[0, 1, 0, 0],[0, 1, 0, 0]];
-            if (type === 'L') return [[0, 2, 0],[0, 2, 0],[0, 2, 2]];
-            if (type === 'J') return [[0, 3, 0],[0, 3, 0],[3, 3, 0]];
-            if (type === 'O') return [[4, 4],[4, 4]];
-            if (type === 'Z') return [[5, 5, 0],[0, 5, 5],[0, 0, 0]];
-            if (type === 'S') return [[0, 6, 6],[6, 6, 0],[0, 0, 0]];
-            if (type === 'T') return [[0, 7, 0],[7, 7, 7],[0, 0, 0]];
+            if (type === 'I') return [[0, 1, 0, 0],[0, 1, 0, 0],[0, 1, 0, 0],[0, 1, 0, 0]]; // 史莱姆
+            if (type === 'L') return [[0, 2, 0],[0, 2, 0],[0, 2, 2]]; // 猫咪
+            if (type === 'J') return [[0, 3, 0],[0, 3, 0],[3, 3, 0]]; // 独眼
+            if (type === 'O') return [[4, 4],[4, 4]]; // 胖熊
+            if (type === 'Z') return [[5, 5, 0],[0, 5, 5],[0, 0, 0]]; // 蝙蝠
+            if (type === 'S') return [[0, 6, 6],[6, 6, 0],[0, 0, 0]]; // 恶魔
+            if (type === 'T') return [[0, 7, 0],[7, 7, 7],[0, 0, 0]]; // 兔子
         }
 
         const arena = createMatrix(10, 20);
+        const animGrid = createMatrix(10, 20); 
+        
         const player = {
             pos: {x: 0, y: 0},
             matrix: null,
             nextMatrix: null,
             score: 0,
             lines: 0,
-            linesSinceLastStar: 1,
-            stars: 1
+            stars: 1,
+            sx: 1, 
+            sy: 1  
         };
 
         let isGameOver = false;
-        let isPaused = true;
+        let gameState = 'MENU'; 
+        let isAutoDrop = false; // 默认手动模式
+        
+        let lastTime = 0;
+        let dropCounter = 0;
+        let dropInterval = 1000;
+
+        let particles = [];
+        let floatingTexts = [];
+        let screenShake = 0;
+        let clearingLinesInfo = [];
+        let clearDelayTimer = 0;
 
         function createMatrix(w, h) {
             const matrix = [];
@@ -366,67 +377,211 @@
             return matrix;
         }
 
-        // --- 3D 亮晶晶渲染 ---
-        function drawBlock(ctx, x, y, colorIndex, isGhost = false, scale = gridScale) {
-            const px = x * scale;
-            const py = y * scale;
-            const size = scale;
+        for(let y=0; y<20; y++) {
+            for(let x=0; x<10; x++) {
+                animGrid[y][x] = {sx: 1, sy: 1, expr: 'normal'};
+            }
+        }
+
+        function roundRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+
+        function drawMonster(ctx, x, y, size, colorIndex, isGhost = false, expr = 'normal', sx = 1, sy = 1) {
+            const px = x * size;
+            const py = y * size;
+            const color = colors[colorIndex];
+            const type = colorIndex; 
+
+            ctx.save();
+            ctx.translate(px + size / 2, py + size / 2);
+            ctx.scale(sx, sy);
 
             if (isGhost) {
+                ctx.globalAlpha = 0.3;
+                ctx.strokeStyle = '#FFF';
                 ctx.lineWidth = 2;
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
-                ctx.strokeRect(px + 2, py + 2, size - 4, size - 4);
+                roundRect(ctx, -size/2 + 2, -size/2 + 2, size - 4, size - 4, 6);
+                ctx.stroke();
+                ctx.restore();
                 return;
             }
 
-            ctx.fillStyle = colors[colorIndex];
-            ctx.fillRect(px, py, size, size);
+            ctx.fillStyle = 'rgba(0,0,0,0.2)';
+            roundRect(ctx, -size/2 + 4, -size/2 + 4, size - 4, size - 4, 8);
+            ctx.fill();
 
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-            ctx.beginPath();
-            ctx.moveTo(px, py + size); ctx.lineTo(px + size, py + size); ctx.lineTo(px + size, py); ctx.fill();
+            ctx.fillStyle = color;
+            roundRect(ctx, -size/2 + 2, -size/2 + 2, size - 4, size - 4, 8);
+            ctx.fill();
 
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-            ctx.beginPath();
-            ctx.moveTo(px, py); ctx.lineTo(px + size, py); ctx.lineTo(px, py + size); ctx.fill();
+            ctx.fillStyle = 'rgba(255,255,255,0.4)';
+            roundRect(ctx, -size/2 + 4, -size/2 + 4, size - 8, size/3.5, 5);
+            ctx.fill();
 
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-            ctx.fillRect(px + 4, py + 4, size - 8, size / 3 - 2);
+            ctx.fillStyle = color;
+            if (type === 2) { 
+                ctx.beginPath(); ctx.moveTo(-size/2+2, -size/2+4); ctx.lineTo(-size/4, -size/2-6); ctx.lineTo(0, -size/2+2); ctx.fill();
+                ctx.beginPath(); ctx.moveTo(size/2-2, -size/2+4); ctx.lineTo(size/4, -size/2-6); ctx.lineTo(0, -size/2+2); ctx.fill();
+            } else if (type === 7) { 
+                ctx.beginPath(); ctx.ellipse(-size/4, -size/2+2, 4, 10, 0, 0, Math.PI*2); ctx.fill();
+                ctx.beginPath(); ctx.ellipse(size/4, -size/2+2, 4, 10, 0, 0, Math.PI*2); ctx.fill();
+            } else if (type === 6) { 
+                ctx.fillStyle = '#FF5252';
+                ctx.beginPath(); ctx.moveTo(-size/4, -size/2+2); ctx.lineTo(-size/3, -size/2-5); ctx.lineTo(-size/6, -size/2+2); ctx.fill();
+                ctx.beginPath(); ctx.moveTo(size/4, -size/2+2); ctx.lineTo(size/3, -size/2-5); ctx.lineTo(size/6, -size/2+2); ctx.fill();
+            } else if (type === 5) { 
+                ctx.fillStyle = color;
+                ctx.beginPath(); ctx.moveTo(-size/2+2, 0); ctx.lineTo(-size/2-6, -5); ctx.lineTo(-size/2-2, 5); ctx.fill();
+                ctx.beginPath(); ctx.moveTo(size/2-2, 0); ctx.lineTo(size/2+6, -5); ctx.lineTo(size/2+2, 5); ctx.fill();
+            }
 
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = 'rgba(0,0,0,0.2)';
-            ctx.strokeRect(px, py, size, size);
+            let eyeY = -2;
+            ctx.fillStyle = '#FFF';
+
+            if (expr === 'normal') {
+                if (type === 3) { 
+                    ctx.beginPath(); ctx.arc(0, eyeY, 6, 0, Math.PI*2); ctx.fill();
+                    ctx.fillStyle = '#000'; ctx.beginPath(); ctx.arc(0, eyeY, 2.5, 0, Math.PI*2); ctx.fill();
+                } else { 
+                    ctx.beginPath(); ctx.arc(-5, eyeY, 4, 0, Math.PI*2); ctx.fill();
+                    ctx.beginPath(); ctx.arc(5, eyeY, 4, 0, Math.PI*2); ctx.fill();
+                    ctx.fillStyle = '#000';
+                    ctx.beginPath(); ctx.arc(-5, eyeY, 1.5, 0, Math.PI*2); ctx.fill();
+                    ctx.beginPath(); ctx.arc(5, eyeY, 1.5, 0, Math.PI*2); ctx.fill();
+                }
+                ctx.strokeStyle = '#000'; ctx.lineWidth = 1;
+                ctx.beginPath(); ctx.arc(0, 4, 3, 0, Math.PI); ctx.stroke();
+            } else if (expr === 'happy') {
+                ctx.strokeStyle = '#000'; ctx.lineWidth = 1.5;
+                if (type === 3) {
+                    ctx.beginPath(); ctx.moveTo(-4, eyeY); ctx.lineTo(0, eyeY-3); ctx.lineTo(4, eyeY); ctx.stroke();
+                } else {
+                    ctx.beginPath(); ctx.moveTo(-8, eyeY); ctx.lineTo(-5, eyeY-3); ctx.lineTo(-2, eyeY); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(2, eyeY); ctx.lineTo(5, eyeY-3); ctx.lineTo(8, eyeY); ctx.stroke();
+                }
+                ctx.fillStyle = '#FF5252';
+                ctx.beginPath(); ctx.arc(0, 3, 5, 0, Math.PI); ctx.fill();
+            }
+
+            ctx.restore();
+        }
+
+        function updatePhysics() {
+            player.sx += (1 - player.sx) * 0.25;
+            player.sy += (1 - player.sy) * 0.25;
+
+            for(let y=0; y<20; y++) {
+                for(let x=0; x<10; x++) {
+                    let cell = animGrid[y][x];
+                    cell.sx += (1 - cell.sx) * 0.2;
+                    cell.sy += (1 - cell.sy) * 0.2;
+                }
+            }
+            if (screenShake > 0.1) screenShake *= 0.8; else screenShake = 0;
+        }
+
+        class Particle {
+            constructor(x, y, color, speed) {
+                this.x = x; this.y = y; this.color = color;
+                this.vx = (Math.random() - 0.5) * speed;
+                this.vy = (Math.random() - 0.5) * speed - 2; 
+                this.life = 1.0;
+                this.decay = Math.random() * 0.04 + 0.02;
+                this.size = Math.random() * 5 + 3;
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                this.vy += 0.25; 
+                this.life -= this.decay;
+                this.size *= 0.95;
+            }
+            draw(ctx) {
+                ctx.globalAlpha = Math.max(0, this.life);
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+                ctx.fill();
+                ctx.globalAlpha = 1.0;
+            }
+        }
+
+        class FloatingText {
+            constructor(text, x, y, color, size) {
+                this.text = text; this.x = x; this.y = y; this.color = color;
+                this.size = size; this.life = 1.0; this.vy = -1.5;
+            }
+            update() {
+                this.y += this.vy;
+                this.life -= 0.02;
+            }
+            draw(ctx) {
+                ctx.globalAlpha = Math.max(0, this.life);
+                ctx.fillStyle = this.color;
+                ctx.font = `bold ${this.size}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.shadowColor = '#000';
+                ctx.shadowBlur = 4;
+                ctx.fillText(this.text, this.x, this.y);
+                ctx.shadowBlur = 0;
+                ctx.globalAlpha = 1.0;
+            }
         }
 
         function draw() {
             context.fillStyle = '#263238';
             context.fillRect(0, 0, canvas.width, canvas.height);
 
+            context.save();
+            if (screenShake > 0) {
+                context.translate((Math.random()-0.5)*screenShake, (Math.random()-0.5)*screenShake);
+            }
+
             arena.forEach((row, y) => {
                 row.forEach((value, x) => {
-                    if (value !== 0) drawBlock(context, x, y, value);
+                    if (value !== 0) {
+                        const anim = animGrid[y][x];
+                        drawMonster(context, x, y, gridScale, value, false, anim.expr, anim.sx, anim.sy);
+                    }
                 });
             });
 
-            if (!isPaused && !isGameOver && player.matrix) {
+            if (gameState === 'PLAYING' && player.matrix) {
                 const ghostPos = { ...player.pos };
-                while (!collide(arena, { pos: ghostPos, matrix: player.matrix })) {
-                    ghostPos.y++;
-                }
+                while (!collide(arena, { pos: ghostPos, matrix: player.matrix })) { ghostPos.y++; }
                 ghostPos.y--;
                 
                 player.matrix.forEach((row, y) => {
                     row.forEach((value, x) => {
-                        if (value !== 0) drawBlock(context, x + ghostPos.x, y + ghostPos.y, value, true);
+                        if (value !== 0) {
+                            drawMonster(context, x + ghostPos.x, y + ghostPos.y, gridScale, value, true, 'normal', 1, 1);
+                        }
                     });
                 });
 
                 player.matrix.forEach((row, y) => {
                     row.forEach((value, x) => {
-                        if (value !== 0) drawBlock(context, x + player.pos.x, y + player.pos.y, value);
+                        if (value !== 0) {
+                            drawMonster(context, x + player.pos.x, y + player.pos.y, gridScale, value, false, 'normal', player.sx, player.sy);
+                        }
                     });
                 });
             }
+
+            particles.forEach(p => p.draw(context));
+            floatingTexts.forEach(t => t.draw(context));
+
+            context.restore();
             drawNext();
         }
 
@@ -440,14 +595,16 @@
                 const offsetY = (boxSize - matrix.length) / 2;
                 matrix.forEach((row, y) => {
                     row.forEach((value, x) => {
-                        if (value !== 0) drawBlock(nextContext, x + offsetX, y + offsetY, value, false, gridScale);
+                        if (value !== 0) {
+                            drawMonster(nextContext, x + offsetX, y + offsetY, gridScale, value, false, 'normal', 1, 1);
+                        }
                     });
                 });
             }
         }
 
-        function collide(arena, player) {
-            const m = player.matrix; const o = player.pos;
+        function collide(arena, p) {
+            const m = p.matrix; const o = p.pos;
             for (let y = 0; y < m.length; ++y) {
                 for (let x = 0; x < m[y].length; ++x) {
                     if (m[y][x] !== 0 && (arena[y + o.y] && arena[y + o.y][x + o.x]) !== 0) return true;
@@ -459,7 +616,12 @@
         function merge(arena, player) {
             player.matrix.forEach((row, y) => {
                 row.forEach((value, x) => {
-                    if (value !== 0) arena[y + player.pos.y][x + player.pos.x] = value;
+                    if (value !== 0) {
+                        arena[y + player.pos.y][x + player.pos.x] = value;
+                        animGrid[y + player.pos.y][x + player.pos.x].sx = 1.4;
+                        animGrid[y + player.pos.y][x + player.pos.x].sy = 0.6;
+                        animGrid[y + player.pos.y][x + player.pos.x].expr = 'normal';
+                    }
                 });
             });
         }
@@ -477,39 +639,48 @@
             player.nextMatrix = createPiece(pieces[pieces.length * Math.random() | 0]);
             player.pos.y = 0;
             player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
+            player.sx = 1; player.sy = 1;
+            
+            dropInterval = Math.max(100, 1000 - player.lines * 10);
+
             if (collide(arena, player)) {
-                isGameOver = true;
+                gameState = 'GAMEOVER';
                 playSound('gameover');
                 document.getElementById('message-overlay').style.display = 'flex';
             }
         }
 
-        function playerDrop() {
-            if (isPaused || isGameOver) return;
+        function playerDrop(manual = false) {
+            if (gameState !== 'PLAYING') return;
             player.pos.y++;
+            if (manual) {
+                player.sx = 0.9; player.sy = 1.1; 
+            }
+
             if (collide(arena, player)) {
                 player.pos.y--;
                 merge(arena, player);
                 playSound('drop');
                 arenaSweep();
-                playerReset();
-                updateUI();
-            } else {
+            } else if (manual) {
                 playSound('move');
             }
-            draw();
+            dropCounter = 0;
         }
 
         function playerMove(offset) {
-            if (isPaused || isGameOver) return;
+            if (gameState !== 'PLAYING') return;
             player.pos.x += offset;
-            if (collide(arena, player)) player.pos.x -= offset;
-            else playSound('move');
-            draw();
+            if (collide(arena, player)) {
+                player.pos.x -= offset;
+            } else {
+                playSound('move');
+                player.sx = 0.8; player.sy = 1.15;
+            }
         }
 
         function playerRotate(dir) {
-            if (isPaused || isGameOver) return;
+            if (gameState !== 'PLAYING') return;
             const pos = player.pos.x;
             let offset = 1;
             rotate(player.matrix, dir);
@@ -523,122 +694,233 @@
                 }
             }
             playSound('rotate');
-            draw();
+            player.sx = 1.3; player.sy = 0.8;
         }
 
+        // --- 修复点：自上而下的扫描，彻底解决数组塌陷导致的错乱 Bug ---
         function arenaSweep() {
-            let rowCount = 0;
-            outer: for (let y = arena.length - 1; y > 0; --y) {
+            let linesToClear = [];
+            
+            // 必须从 0 到 length 顺序扫描（从上到下）
+            for (let y = 0; y < arena.length; ++y) {
+                let isFull = true;
                 for (let x = 0; x < arena[y].length; ++x) {
-                    if (arena[y][x] === 0) continue outer;
+                    if (arena[y][x] === 0) { isFull = false; break; }
                 }
+                if (isFull) linesToClear.push(y);
+            }
+
+            if (linesToClear.length > 0) {
+                gameState = 'CLEARING';
+                clearingLinesInfo = linesToClear;
+                clearDelayTimer = 40; 
+
+                linesToClear.forEach(y => {
+                    for(let x=0; x<10; x++) {
+                        animGrid[y][x].expr = 'happy';
+                        animGrid[y][x].sy = 1.3;
+                        animGrid[y][x].sx = 0.8;
+                    }
+                });
+            } else {
+                playerReset();
+            }
+        }
+
+        function executeClear() {
+            const count = clearingLinesInfo.length;
+            playSound('clear', count);
+            screenShake = count * 4;
+
+            let centerTextY = 0;
+
+            // 因为 clearingLinesInfo 是从上到下的顺序，结合 unshift 保证了旧行完美下落，不会错位。
+            clearingLinesInfo.forEach(y => {
+                centerTextY += y;
+                for(let x=0; x<10; x++) {
+                    const pCount = count * 6; 
+                    const speed = count * 4;
+                    for(let i=0; i<pCount; i++) {
+                        particles.push(new Particle(
+                            x * gridScale + gridScale/2, 
+                            y * gridScale + gridScale/2, 
+                            colors[arena[y][x]], 
+                            speed
+                        ));
+                    }
+                }
+                
+                // 核心修复逻辑
                 const row = arena.splice(y, 1)[0].fill(0);
                 arena.unshift(row);
-                ++y;
-                rowCount++;
+                
+                const animRow = animGrid.splice(y, 1)[0];
+                animRow.forEach(c => { c.sx = 1; c.sy = 1; c.expr = 'normal'; });
+                animGrid.unshift(animRow);
+            });
+
+            centerTextY = (centerTextY / count) * gridScale;
+            let comboText = "GOOD!"; let color = "#00E5FF"; let tSize = 20;
+            if(count === 2) { comboText = "GREAT!!"; color = "#FFEA00"; tSize = 25; }
+            if(count === 3) { comboText = "AWESOME!!!"; color = "#FF9100"; tSize = 30; }
+            if(count === 4) { comboText = "TETRIS!!!!"; color = "#FF1744"; tSize = 40; }
+            floatingTexts.push(new FloatingText(comboText, canvas.width/2, centerTextY, color, tSize));
+
+            player.score += count * 10 * count;
+            player.lines += count;
+            
+            let newStars = Math.floor(player.lines / 10);
+            if (newStars > player.stars - 1) { 
+                player.stars++;
+                setTimeout(() => playSound('magic'), 200);
             }
 
-            if (rowCount > 0) {
-                playSound('clear');
-                player.score += rowCount * 10 * rowCount;
-                player.lines += rowCount;
-                player.linesSinceLastStar += rowCount;
-
-                while (player.linesSinceLastStar >= 10) {
-                    player.stars++;
-                    player.linesSinceLastStar -= 10;
-                    setTimeout(() => playSound('star'), 200);
-                }
-                updateUI();
-            }
+            updateUI();
+            playerReset();
+            gameState = 'PLAYING';
         }
 
         function useStar() {
-            if (isPaused || isGameOver || player.stars <= 0) return;
+            if (gameState !== 'PLAYING' || player.stars <= 0) return;
             player.stars--;
             playSound('magic');
             
             const rowsToRemove = 5;
             const limit = Math.min(rowsToRemove, arena.length);
+            
+            for(let y = arena.length - limit; y < arena.length; y++) {
+                for(let x = 0; x < 10; x++) {
+                    if(arena[y][x] !== 0) {
+                        for(let i=0; i<8; i++) {
+                            particles.push(new Particle(x*gridScale+12, y*gridScale+12, colors[arena[y][x]], 15));
+                        }
+                    }
+                }
+            }
+
+            screenShake = 15;
+            floatingTexts.push(new FloatingText("✨MAGIC CLEAR✨", canvas.width/2, canvas.height - 50, "#FFEA00", 25));
+
             arena.splice(arena.length - limit, limit);
-            for(let i=0; i<limit; i++) arena.unshift(new Array(10).fill(0));
+            for(let i=0; i<limit; i++) {
+                arena.unshift(new Array(10).fill(0));
+                animGrid.unshift(new Array(10).fill().map(()=>({sx:1, sy:1, expr:'normal'})));
+            }
+            animGrid.splice(animGrid.length - limit, limit);
 
             updateUI();
-            draw();
+        }
+
+        // --- 增加：模式切换功能 ---
+        function toggleMode() {
+            isAutoDrop = !isAutoDrop;
+            const btn = document.getElementById('mode-btn');
+            if (isAutoDrop) {
+                btn.innerHTML = '⏱️ 自动下落';
+                btn.style.backgroundColor = '#FF7043';
+                btn.style.boxShadow = '0 4px 0 #D84315';
+            } else {
+                btn.innerHTML = '🐌 手动下落';
+                btn.style.backgroundColor = '#81C784';
+                btn.style.boxShadow = '0 4px 0 #388E3C';
+            }
+            playSound('move');
         }
 
         function updateUI() {
-            document.getElementById('score').innerText = player.score;
+            // document.getElementById('score').innerText = player.score;
             document.getElementById('stars').innerText = player.stars;
             document.getElementById('lines').innerText = player.lines;
             document.getElementById('use-star-btn').disabled = player.stars <= 0;
         }
 
         function startGame() {
-            if (isGameOver) resetGame();
-            else if (isPaused) {
-                isPaused = false;
+            if (gameState === 'GAMEOVER') resetGame();
+            else if (gameState === 'MENU') {
+                gameState = 'PLAYING';
                 document.getElementById('message-overlay').style.display = 'none';
                 if (!player.matrix) playerReset();
-                draw();
             }
         }
 
         function resetGame() {
             arena.forEach(row => row.fill(0));
+            animGrid.forEach(row => row.fill().map(c=>{c.sx=1; c.sy=1; c.expr='normal'}));
             player.score = 0;
             player.lines = 0;
-            player.stars = 0;
-            player.linesSinceLastStar = 0;
+            player.stars = 1;
             player.matrix = null;
             player.nextMatrix = null;
-            isGameOver = false;
-            isPaused = false;
+            particles = [];
+            floatingTexts = [];
+            gameState = 'PLAYING';
             document.getElementById('message-overlay').style.display = 'none';
             playerReset();
             updateUI();
-            draw();
         }
 
-        // --- 配色切换功能 ---
         function changeColorScheme(direction) {
             currentSchemeIndex = (currentSchemeIndex + direction + colorSchemes.length) % colorSchemes.length;
             colors = colorSchemes[currentSchemeIndex];
-            
-            // 更新显示
             document.getElementById('color-scheme-index').innerText = `${currentSchemeIndex + 1}/${colorSchemes.length}`;
-            
-            // 实时重绘
-            draw();
-            
-            // 播放提示音
             playSound('rotate');
+        }
+
+        function update(time = 0) {
+            const deltaTime = time - lastTime;
+            lastTime = time;
+
+            if (gameState === 'PLAYING') {
+                // 只有处于自动下落模式才会自然累加计时器并掉落
+                if (isAutoDrop) {
+                    dropCounter += deltaTime;
+                    if (dropCounter > dropInterval) {
+                        playerDrop();
+                    }
+                }
+            } else if (gameState === 'CLEARING') {
+                clearDelayTimer--;
+                if (clearDelayTimer <= 0) {
+                    executeClear();
+                }
+            }
+
+            updatePhysics();
+            
+            particles.forEach(p => p.update());
+            particles = particles.filter(p => p.life > 0);
+            
+            floatingTexts.forEach(t => t.update());
+            floatingTexts = floatingTexts.filter(t => t.life > 0);
+
+            draw();
+            requestAnimationFrame(update);
         }
 
         document.addEventListener('keydown', event => {
             if([32, 37, 38, 39, 40].includes(event.keyCode)) event.preventDefault();
-            if (isPaused && event.keyCode !== 83) return;
+            if (gameState !== 'PLAYING') return;
             if (event.keyCode === 37) playerMove(-1);
             else if (event.keyCode === 39) playerMove(1);
-            else if (event.keyCode === 40) playerDrop();
+            else if (event.keyCode === 40) playerDrop(true);
             else if (event.keyCode === 38) playerRotate(1);
-            else if (event.keyCode === 83) useStar();
+            else if (event.keyCode === 83) useStar(); 
         });
 
-        // 初始化
         const canvas = document.getElementById('tetris');
         const context = canvas.getContext('2d');
         const nextCanvas = document.getElementById('next-tetris');
         const nextContext = nextCanvas.getContext('2d');
         const gridScale = 24;
         
-        // 初始化配色显示
         document.getElementById('color-scheme-index').innerText = `1/${colorSchemes.length}`;
         
         context.fillStyle = '#263238';
         context.fillRect(0, 0, canvas.width, canvas.height);
         context.fillStyle = '#fff'; context.font = '20px Arial'; context.textAlign = 'center';
-        context.fillText("点击开始游戏", canvas.width/2, canvas.height/2);
+        context.fillText("点击 ▶ 开始游戏", canvas.width/2, canvas.height/2);
+        
+        requestAnimationFrame(update); 
     </script>
 </body>
 </html>

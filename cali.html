@@ -8,7 +8,7 @@
         :root {
             --grid-color: #d81e06;
             --grid-size: 15mm;     /* 80%大小 */
-            --font-family: "DFKaiShu-GB5", "AR PL UKai CN", "AR PL UKai", "KaiTi", "STKaiti", "楷体", serif;
+            --font-family: "KaiTi", "STKaiti", "楷体", "DFKaiShu-GB5", "AR PL UKai CN", "AR PL UKai",  serif;
         }
 
         body { margin: 0; padding: 0; background-color: #f5f5f5; font-family: sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -157,16 +157,16 @@
         // 完整的 Unicode CJK Strokes 数据
         const strokeData = {
             basic: [
-                { name: "点", char: "丶", ex: "主" }, { name: "横", char: "一", ex: "三" },
-                { name: "竖", char: "丨", ex: "中" }, { name: "撇", char: "丿", ex: "人" },
+                { name: "点", char: "丶", ex: "主" }, { name: "横", char: "一", ex: "王" },
+                { name: "竖", char: "丨", ex: "中" }, { name: "撇", char: "㇒", ex: "金" },
                 { name: "捺", char: "㇏", ex: "大" }, { name: "提", char: "㇀", ex: "冰" },
-                { name: "竖撇", char: "㇒", ex: "月" }
+                { name: "竖撇", char: "丿", ex: "月" }
             ],
             hook: [
                 { name: "横钩", char: "㇖", ex: "买" }, { name: "横折钩", char: "㇆", ex: "羽" },
                 { name: "竖钩", char: "亅", ex: "小" }, { name: "竖提", char: "㇙", ex: "长" },
                 { name: "弯钩", char: "㇁", ex: "家" }, { name: "卧钩", char: "㇃", ex: "心" },
-                { name: "斜钩", char: "㇂", ex: "我" }, { name: "竖弯", char: "㇄", ex: "四" }
+                { name: "斜钩", char: "㇂", ex: "飞" }, { name: "竖弯", char: "㇄", ex: "西" }
             ],
             complex: [
                 { name: "竖弯钩", char: "乚", ex: "礼" }, { name: "横折", char: "㇕", ex: "口" },

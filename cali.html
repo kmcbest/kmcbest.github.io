@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>全能汉字笔画描红生成器 (80%大小版)</title>
+    <title>全能汉字笔画描红生成器 (带笔顺引导版)</title>
     <style>
         :root {
             --grid-color: #d81e06;
-            /* --- 修改处：大小调整为 15mm (原18mm) --- */
-            --grid-size: 15mm;     
-            --trace-color: #e8e8e8;
+            --grid-size: 15mm;     /* 80%大小 */
             --font-family: "DFKaiShu-GB5", "AR PL UKai CN", "AR PL UKai", "KaiTi", "STKaiti", "楷体", serif;
         }
 
-        body { margin: 0; padding: 0; background-color: #f5f5f5; font-family: sans-serif; }
+        body { margin: 0; padding: 0; background-color: #f5f5f5; font-family: sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 
         /* --- 控制面板 --- */
         .controls {
@@ -25,12 +23,7 @@
         .panel-section { margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
         .category-title { font-size: 14px; color: #d81e06; font-weight: bold; margin: 10px 0 5px 0; }
         
-        /* 笔画按钮容器 */
-        .stroke-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-            gap: 6px;
-        }
+        .stroke-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 6px; }
         .stroke-btn {
             background: #fff; border: 1px solid #ddd; border-radius: 4px;
             padding: 4px; cursor: pointer; text-align: center; transition: all 0.2s;
@@ -44,8 +37,20 @@
         .action-bar { text-align: right; margin-top: 20px; position: sticky; bottom: 0; background: white; padding: 10px 0; border-top: 2px solid #eee; }
         button { padding: 10px 20px; font-size: 16px; border-radius: 4px; cursor: pointer; border: none; margin-left: 10px; }
         button.main { background-color: #2c3e50; color: white; }
+        button.config { background-color: #e67e22; color: white; }
         button.print { background-color: #d81e06; color: white; }
         button.clear { background-color: white; border: 1px solid #ccc; color: #666; padding: 5px 10px; font-size: 12px;}
+
+        /* --- 模态框 (配置用) --- */
+        .modal {
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.5); align-items: center; justify-content: center;
+        }
+        .modal-content {
+            background-color: #fff; padding: 20px; border-radius: 8px; width: 80%; max-width: 600px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .modal textarea { height: 200px; font-family: monospace; font-size: 12px; }
 
         /* --- A4 纸张 --- */
         .page {
@@ -57,29 +62,39 @@
             display: flex; justify-content: space-between; margin-bottom: 8mm;
             font-family: var(--font-family); border-bottom: 2px solid var(--grid-color);
         }
-        /* --- 修改处：增加了 justify-content: center 让缩小后的格子居中显示 --- */
         .row { display: flex; margin-bottom: 3mm; gap: 2mm; justify-content: center; }
         
         .tianzige {
             width: var(--grid-size); height: var(--grid-size); border: 1px solid var(--grid-color);
             position: relative; display: flex; align-items: center; justify-content: center;
         }
+        /* 田字格虚线 */
         .tianzige::before {
             content: ''; position: absolute; top: 50%; left: 0; right: 0; border-top: 1px dashed var(--grid-color); transform: translateY(-50%);
         }
         .tianzige::after {
             content: ''; position: absolute; left: 50%; top: 0; bottom: 0; border-left: 1px dashed var(--grid-color); transform: translateX(-50%);
         }
-        .char { font-family: var(--font-family); font-size: calc(var(--grid-size) * 0.75); z-index: 1; }
+
+        /* 特殊类：隐藏内部虚线（用于第一个笔顺格） */
+        .tianzige.no-grid::before, .tianzige.no-grid::after { display: none; }
+
+        .char { font-family: var(--font-family); font-size: calc(var(--grid-size) * 0.75); z-index: 1; position: relative; }
         .black { color: #000; }
         .trace { 
-                 color: #000000;  /* 基础色设为纯黑 */
-                 opacity: 0.35;   /* 关键在这里：设置15%的不透明度 */
-                }
+             color: #000000; 
+             opacity: 0.35; /* 描红淡化 */
+        }
+
+        /* 笔顺 Canvas */
+        .stroke-canvas {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2; pointer-events: none;
+        }
 
         @media print {
             body { background: white; margin: 0; }
-            .controls { display: none; }
+            .controls, .modal { display: none; }
             .page { margin: 0; box-shadow: none; page-break-after: always; height: 297mm; }
         }
     </style>
@@ -87,18 +102,15 @@
 <body>
 
     <div class="controls">
-        <h2>全能硬笔书法字帖 (80%大小版)</h2>
+        <h2>全能硬笔书法字帖 (带笔顺引导)</h2>
 
         <!-- 笔画选择面板 -->
         <div class="panel-section">
             <label>笔画库（点击添加到下方）：</label>
-            
             <div class="category-title">一、基础笔画</div>
             <div class="stroke-grid" id="group-basic"></div>
-
             <div class="category-title">二、折笔与钩法</div>
             <div class="stroke-grid" id="group-hook"></div>
-
             <div class="category-title">三、复杂复合笔画</div>
             <div class="stroke-grid" id="group-complex"></div>
         </div>
@@ -109,10 +121,8 @@
                 <label>模式1：笔画 + 范字</label>
                 <button class="clear" onclick="document.getElementById('mode1Input').value=''">清空</button>
             </div>
-            <textarea id="mode1Input">㇕,口
-乚,礼
-㇈,九
-㇋,及</textarea>
+            <textarea id="mode1Input">丶,主
+丨,中</textarea>
         </div>
 
         <div class="panel-section">
@@ -121,58 +131,71 @@
         </div>
 
         <div class="action-bar">
+            <button class="config" onclick="openConfig()">🛠 导入笔顺配置</button>
             <button class="main" onclick="generate()">生成预览</button>
             <button class="print" onclick="window.print()">打印 / 保存PDF</button>
         </div>
     </div>
 
+    <!-- 打印区域 -->
     <div id="print-area"></div>
+
+    <!-- 配置模态框 -->
+    <div id="configModal" class="modal">
+        <div class="modal-content">
+            <h3>导入笔顺数据</h3>
+            <p style="font-size:12px; color:#666">请将“笔画轨迹录入工具”生成的代码完整粘贴到下方（const strokePaths = ...）：</p>
+            <textarea id="configInput" placeholder="在此粘贴 const strokePaths = { ... };"></textarea>
+            <div style="text-align:right; margin-top:10px;">
+                <button class="clear" onclick="closeConfig()">取消</button>
+                <button class="main" onclick="saveConfig()">保存并应用</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         // 完整的 Unicode CJK Strokes 数据
         const strokeData = {
             basic: [
-                { name: "点", char: "丶", ex: "主" },
-                { name: "横", char: "一", ex: "三" },
-                { name: "竖", char: "丨", ex: "中" },
-                { name: "撇", char: "丿", ex: "人" },
-                { name: "捺", char: "㇏", ex: "大" },
-                { name: "提", char: "㇀", ex: "冰" },
+                { name: "点", char: "丶", ex: "主" }, { name: "横", char: "一", ex: "三" },
+                { name: "竖", char: "丨", ex: "中" }, { name: "撇", char: "丿", ex: "人" },
+                { name: "捺", char: "㇏", ex: "大" }, { name: "提", char: "㇀", ex: "冰" },
                 { name: "竖撇", char: "㇒", ex: "月" }
             ],
             hook: [
-                { name: "横钩", char: "㇖", ex: "买" },
-                { name: "横折钩", char: "㇆", ex: "羽" },
-                { name: "竖钩", char: "亅", ex: "小" },
-                { name: "竖提", char: "㇙", ex: "长" },
-                { name: "弯钩", char: "㇁", ex: "家" },
-                { name: "卧钩", char: "㇃", ex: "心" },
-                { name: "斜钩", char: "㇂", ex: "我" },
-                { name: "竖弯", char: "㇄", ex: "四" }
+                { name: "横钩", char: "㇖", ex: "买" }, { name: "横折钩", char: "㇆", ex: "羽" },
+                { name: "竖钩", char: "亅", ex: "小" }, { name: "竖提", char: "㇙", ex: "长" },
+                { name: "弯钩", char: "㇁", ex: "家" }, { name: "卧钩", char: "㇃", ex: "心" },
+                { name: "斜钩", char: "㇂", ex: "我" }, { name: "竖弯", char: "㇄", ex: "四" }
             ],
             complex: [
-                { name: "竖弯钩", char: "乚", ex: "礼" },
-                { name: "横折", char: "㇕", ex: "口" },
-                { name: "竖折", char: "㇗", ex: "山" },
-                { name: "撇折", char: "㇜", ex: "去" },
-                { name: "撇点", char: "㇛", ex: "女" },
-                { name: "横折提", char: "㇊", ex: "计" },
-                { name: "横折弯", char: "㇍", ex: "投" },
-                { name: "横折弯钩", char: "㇈", ex: "九" },
-                { name: "横撇弯钩", char: "㇌", ex: "陈" },
-                { name: "横折折", char: "㇅", ex: "凹" },
-                { name: "横折折撇", char: "㇋", ex: "及" },
-                { name: "竖折折", char: "㇞", ex: "鼎" },
-                { name: "竖折折钩", char: "㇉", ex: "弓" },
-                { name: "横折折折", char: "㇎", ex: "凸" },
+                { name: "竖弯钩", char: "乚", ex: "礼" }, { name: "横折", char: "㇕", ex: "口" },
+                { name: "竖折", char: "㇗", ex: "山" }, { name: "撇折", char: "㇜", ex: "去" },
+                { name: "撇点", char: "㇛", ex: "女" }, { name: "横折提", char: "㇊", ex: "计" },
+                { name: "横折弯", char: "㇍", ex: "投" }, { name: "横折弯钩", char: "㇈", ex: "九" },
+                { name: "横撇弯钩", char: "㇌", ex: "陈" }, { name: "横折折", char: "㇅", ex: "凹" },
+                { name: "横折折撇", char: "㇋", ex: "及" }, { name: "竖折折", char: "㇞", ex: "鼎" },
+                { name: "竖折折钩", char: "㇉", ex: "弓" }, { name: "横折折折", char: "㇎", ex: "凸" },
                 { name: "横折折折钩", char: "㇡", ex: "乃" }
             ]
         };
+
+        // 全局变量：存储加载的笔顺数据
+        let loadedPaths = {};
 
         function initControls() {
             renderGroup('group-basic', strokeData.basic);
             renderGroup('group-hook', strokeData.hook);
             renderGroup('group-complex', strokeData.complex);
+            
+            // 从 LocalStorage 加载配置
+            const saved = localStorage.getItem('strokePathsConfig');
+            if (saved) {
+                try {
+                    loadedPaths = JSON.parse(saved);
+                    console.log("笔顺配置已加载");
+                } catch(e) { console.error("配置加载失败", e); }
+            }
         }
 
         function renderGroup(id, list) {
@@ -193,16 +216,94 @@
             input.value += `${prefix}${char},${ex}`;
         }
 
-        function createBox(text, type) {
+        // --- 核心修改：创建格子 ---
+        function createBox(text, type, isGuideMode = false) {
             const box = document.createElement('div');
             box.className = 'tianzige';
+            
+            // 如果是笔顺引导格（Mode1的第一个），加上 no-grid 类以隐藏虚线
+            if (isGuideMode) {
+                box.classList.add('no-grid');
+            }
+
+            // 1. 放入文字
             if (text && text.trim()) {
                 const span = document.createElement('span');
                 span.className = `char ${type}`;
                 span.textContent = text;
                 box.appendChild(span);
+
+                // 2. 如果有笔顺数据，且是引导模式，绘制Canvas
+                if (isGuideMode && loadedPaths[text]) {
+                    renderStrokeGuide(box, loadedPaths[text]);
+                }
             }
             return box;
+        }
+
+// --- 修改后的绘制函数：去箭头，加起笔圆点 ---
+        function renderStrokeGuide(container, points) {
+            const canvas = document.createElement('canvas');
+            canvas.className = 'stroke-canvas';
+            const size = 150; 
+            canvas.width = size; 
+            canvas.height = size;
+            container.appendChild(canvas);
+
+            const ctx = canvas.getContext('2d');
+            const lw = 4; // 定义线宽
+
+            // 1. 绘制红线轨迹
+            ctx.beginPath();
+            ctx.strokeStyle = 'red';
+            ctx.lineWidth = lw;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            points.forEach((p, i) => {
+                const x = p[0] * size;
+                const y = p[1] * size;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            ctx.stroke();
+
+            // 2. 绘制起笔实心圆点
+            if (points.length > 0) {
+                const start = points[0];
+                const sx = start[0] * size;
+                const sy = start[1] * size;
+
+                ctx.beginPath();
+                // 半径设为 lw (线宽)，那么直径就是 2 * lw (两倍线宽)
+                ctx.arc(sx, sy, 2*lw, 0, Math.PI * 2);
+                ctx.fillStyle = 'red';
+                ctx.fill();
+            }
+        }
+        // --- 配置相关 ---
+        function openConfig() { document.getElementById('configModal').style.display = 'flex'; }
+        function closeConfig() { document.getElementById('configModal').style.display = 'none'; }
+        
+        function saveConfig() {
+            let input = document.getElementById('configInput').value.trim();
+            if (!input) return;
+
+            // 简单的清理：去掉 const strokePaths = 和最后的 ;
+            // 这样用户直接全选粘贴也没事
+            input = input.replace(/const\s+\w+\s*=\s*/, '');
+            input = input.replace(/;$/, '');
+
+            try {
+                const json = JSON.parse(input);
+                loadedPaths = json;
+                localStorage.setItem('strokePathsConfig', JSON.stringify(json));
+                alert('配置保存成功！');
+                closeConfig();
+                generate(); // 重新生成预览
+            } catch (e) {
+                alert('数据格式错误，请确保粘贴的是正确的 JSON 内容。\n' + e.message);
+            }
         }
 
         function generate() {
@@ -224,10 +325,9 @@
             let currentPage = createNewPage();
             printArea.appendChild(currentPage);
             let rows = 0;
-            // --- 修改处：格子变小后，每页可以放 13 行 ---
             const limit = 13; 
 
-            // --- 模式 1 (1黑 + 5灰 + 3汉字) ---
+            // --- 模式 1 ---
             const m1Text = document.getElementById('mode1Input').value;
             m1Text.split('\n').forEach(line => {
                 if(!line.trim()) return;
@@ -245,17 +345,22 @@
                 
                 const div = document.createElement('div');
                 div.className = 'row';
-                // 1范 + 5灰 (笔画)
-                div.appendChild(createBox(s, 'black'));
+                
+                // 1. 引导格 (黑色范字 + 隐藏虚线 + 红色箭头)
+                // 传入第三个参数 true 表示这是引导格
+                div.appendChild(createBox(s, 'black', true));
+                
+                // 2. 5个灰色描红 (笔画)
                 for(let i=0; i<5; i++) div.appendChild(createBox(s, 'trace'));
-                // 3灰 (汉字)
+                
+                // 3. 3个灰色描红 (汉字)
                 for(let i=0; i<3; i++) div.appendChild(createBox(w, 'trace'));
                 
                 currentPage.appendChild(div);
                 rows++;
             });
 
-            // --- 模式 2 (整字) ---
+            // --- 模式 2 (保持不变) ---
             const m2Text = document.getElementById('mode2Input').value;
             const chars = m2Text.split('').filter(c=>c.trim());
             chars.forEach(c => {

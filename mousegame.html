@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ 鼠标小能手大冒险 ✨</title>
+    <style>
+        /* 全局重置与高级字体设定 */
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-drag: none;
+            font-family: 'Nunito', 'Comic Sans MS', 'Microsoft YaHei', sans-serif;
+        }
+        
+        /* 动态天空背景 */
+        body {
+            margin: 0; padding: 0;
+            background: linear-gradient(180deg, #74ebd5 0%, #ACB6E5 100%);
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; overflow: hidden;
+            position: relative;
+        }
+
+        /* 纯CSS动态云朵背景 */
+        .cloud {
+            position: absolute; background: white; border-radius: 50px;
+            opacity: 0.6; animation: drift linear infinite; pointer-events: none; z-index: 0;
+        }
+        .cloud::before, .cloud::after {
+            content: ''; position: absolute; background: white; border-radius: 50%;
+        }
+        .c1 { width: 100px; height: 30px; top: 10%; animation-duration: 40s; }
+        .c1::before { width: 40px; height: 40px; top: -20px; left: 15px; }
+        .c1::after { width: 30px; height: 30px; top: -15px; left: 55px; }
+        .c2 { width: 150px; height: 50px; top: 30%; animation-duration: 55s; opacity: 0.4;}
+        .c2::before { width: 70px; height: 70px; top: -35px; left: 20px; }
+        .c2::after { width: 50px; height: 50px; top: -20px; left: 80px; }
+        @keyframes drift {
+            0% { transform: translateX(-200px); }
+            100% { transform: translateX(100vw); }
+        }
+
+        /* 游戏主容器：毛玻璃质感 (Glassmorphism) */
+        #game-container {
+            width: 850px; height: 680px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 4px solid rgba(255, 255, 255, 0.8);
+            border-radius: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15), inset 0 0 20px rgba(255,255,255,0.5);
+            position: relative; overflow: hidden; z-index: 1;
+            display: flex; flex-direction: column;
+        }
+
+        .screen {
+            width: 100%; height: 580px; position: absolute; top: 0; left: 0;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        .hidden { opacity: 0; transform: scale(0.9); pointer-events: none; z-index: -1; }
+        .active { opacity: 1; transform: scale(1); z-index: 10; }
+
+        h1 { font-size: 42px; color: #FF6B6B; margin-bottom: 5px; text-shadow: 2px 2px 0px #FFF, 4px 4px 0px rgba(0,0,0,0.1); }
+        p.subtitle { font-size: 22px; color: #2C3E50; margin-bottom: 30px; font-weight: bold; }
+        .instruction {
+            position: absolute; top: 25px; left: 50%; transform: translateX(-50%);
+            background: #FFF; padding: 10px 30px; border-radius: 30px;
+            font-size: 22px; color: #FF6B6B; font-weight: bold;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05); width: 85%; text-align: center;
+            border: 3px solid #FFD166;
+        }
+
+        /* 3D 果冻按钮 */
+        .btn {
+            padding: 15px 45px; font-size: 28px; font-weight: bold; color: white;
+            background: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 100%);
+            border: none; border-radius: 50px; cursor: pointer;
+            box-shadow: 0 8px 0 #FF758C, 0 15px 20px rgba(0,0,0,0.2);
+            transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 0 #FF758C, 0 20px 25px rgba(0,0,0,0.2); }
+        .btn:active { transform: translateY(8px); box-shadow: 0 0px 0 #FF758C, 0 5px 10px rgba(0,0,0,0.2); }
+        
+        .next-level-btn {
+            position: absolute; bottom: 30px; right: 30px; display: none; z-index: 50;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #4ECDC4;
+            box-shadow: 0 8px 0 #7dd5ce, 0 15px 20px rgba(0,0,0,0.2); text-shadow: none;
+        }
+
+        /* 底部高级悬浮导航栏 */
+        #global-nav {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 90px;
+            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px);
+            border-top: 2px solid rgba(255,255,255,0.9); display: none;
+            justify-content: center; align-items: center; gap: 40px; z-index: 100;
+            box-shadow: 0 -10px 20px rgba(0,0,0,0.05);
+        }
+        .nav-btn {
+            padding: 12px 25px; font-size: 20px; font-weight: bold; color: white;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border: none; border-radius: 20px; cursor: pointer;
+            box-shadow: 0 6px 0 #0288D1, 0 10px 15px rgba(0,0,0,0.1); transition: all 0.1s;
+        }
+        .nav-btn:active:not(:disabled) { transform: translateY(6px); box-shadow: 0 0 0 #0288D1; }
+        .nav-btn:disabled { background: #E0E0E0; box-shadow: 0 6px 0 #BDBDBD; color: #9E9E9E; cursor: not-allowed; }
+        .nav-btn.restart-btn { background: linear-gradient(135deg, #f83600 0%, #f9d423 100%); box-shadow: 0 6px 0 #E65100; }
+
+        /* --- 各关卡绝美样式 --- */
+
+        /* 关卡1：悬停 (多层茂密草丛与发光动物) */
+        .bush-container { display: flex; gap: 60px; margin-top: 50px; }
+        .bush { width: 160px; height: 160px; cursor: pointer; position: relative; }
+        .bush svg { width: 100%; height: 100%; transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); filter: drop-shadow(0 15px 15px rgba(0,0,0,0.15)); z-index: 2; position: relative;}
+        .bush:hover svg { transform: translateY(-30px) scale(1.05); }
+        .animal-svg { position: absolute; bottom: 10px; left: 30px; width: 100px; height: 100px; opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; z-index: 1;}
+        .bush.found .animal-svg { opacity: 1; bottom: 50px; filter: drop-shadow(0 0 15px rgba(255,215,0,0.8)); }
+        .bush.found svg { opacity: 0.6; transform: translateY(10px) scale(0.9); }
+
+        /* 关卡2：气球 (高光球体与飘带) */
+        .balloon-area { width: 100%; height: 450px; position: relative; margin-top: 30px;}
+        .balloon { position: absolute; width: 90px; height: 130px; cursor: pointer; transition: transform 0.1s; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));}
+        .balloon:active { transform: scale(0.8); }
+        @keyframes float-balloon { 0% {transform: translateY(0) rotate(-2deg);} 50% {transform: translateY(-30px) rotate(2deg);} 100% {transform: translateY(0) rotate(-2deg);} }
+
+        /* 关卡3：滚轮 (深海渐变与光晕宝箱) */
+        #scroll-area {
+            width: 85%; height: 350px; overflow-y: auto; border-radius: 30px; margin-top: 50px;
+            background: linear-gradient(180deg, #4facfe 0%, #00f2fe 30%, #01579B 70%, #00102A 100%);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.5); position: relative; scroll-behavior: smooth;
+        }
+        #scroll-area::-webkit-scrollbar { width: 25px; }
+        #scroll-area::-webkit-scrollbar-track { background: rgba(255,255,255,0.2); border-radius: 20px; }
+        #scroll-area::-webkit-scrollbar-thumb { background: #FFD166; border-radius: 20px; border: 4px solid #4facfe;}
+        .scroll-content { height: 1800px; position: relative; }
+        .treasure { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); width: 140px; height: 140px; cursor: pointer; transition: all 0.3s; filter: drop-shadow(0 20px 20px rgba(0,0,0,0.5));}
+        .treasure:hover { transform: translateX(-50%) scale(1.05); }
+        .glow { filter: drop-shadow(0 0 30px #FFD700) drop-shadow(0 0 60px #FFA500) !important; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { transform: translateX(-50%) scale(1); } 50% { transform: translateX(-50%) scale(1.1); } 100% { transform: translateX(-50%) scale(1); } }
+
+        /* 关卡4：拖拽 (Q弹果冻怪兽与漂浮食物) */
+        .drag-area { width: 100%; height: 450px; position: relative; margin-top: 30px;}
+        .monster { position: absolute; top: 120px; left: 325px; width: 200px; height: 200px; filter: drop-shadow(0 20px 15px rgba(0,0,0,0.2)); transition: all 0.2s;}
+        .monster.eating { transform: scale(1.1) translateY(-10px); }
+        .food-bubble {
+            position: absolute; width: 80px; height: 80px; background: rgba(255,255,255,0.9);
+            border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 50px;
+            cursor: grab; box-shadow: 0 10px 20px rgba(0,0,0,0.1), inset 0 -5px 10px rgba(0,0,0,0.1);
+            border: 3px solid #FFF; animation: float-bubble 3s ease-in-out infinite;
+        }
+        .food-bubble:active { cursor: grabbing; transform: scale(0.9); animation: none; box-shadow: 0 5px 10px rgba(0,0,0,0.1); }
+        @keyframes float-bubble { 0%, 100% {transform: translateY(0);} 50% {transform: translateY(-15px);} }
+
+        /* 关卡5：双击 (带材质的蛋与高级碎裂) */
+        .egg-container { position: relative; width: 220px; height: 280px; cursor: pointer; margin-top: 60px; filter: drop-shadow(0 20px 20px rgba(0,0,0,0.2));}
+        .egg-svg { width: 100%; height: 100%; transition: transform 0.1s; }
+        .shake { animation: eggShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
+        @keyframes eggShake { 10%, 90% { transform: translate3d(-5px, 0, 0) rotate(-5deg); } 20%, 80% { transform: translate3d(5px, 0, 0) rotate(5deg); } 30%, 50%, 70% { transform: translate3d(-10px, -5px, 0) rotate(-10deg); } 40%, 60% { transform: translate3d(10px, 5px, 0) rotate(10deg); } }
+        .dino-baby { position: absolute; top: 20px; left: 30px; width: 160px; height: 160px; opacity: 0; pointer-events: none;}
+        .crack-line { stroke: #5d4037; stroke-width: 4; fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset 0.3s ease-out; }
+
+        /* 关卡6：右键 (拟物化UI与可爱服务员) */
+        .restaurant-area { width: 100%; height: 450px; display: flex; flex-direction: column; align-items: center; position: relative; margin-top: 30px;}
+        .customer { width: 180px; height: 180px; margin-top: 80px; filter: drop-shadow(0 15px 15px rgba(0,0,0,0.15)); transition: all 0.3s;}
+        .bubble {
+            position: absolute; top: 40px; left: 480px; width: 140px; height: 100px;
+            background: #FFF; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            font-size: 50px; box-shadow: 0 15px 25px rgba(0,0,0,0.1); border: 4px solid #FFD166;
+            animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        .bubble::after {
+            content:''; position: absolute; bottom: -18px; left: 30px;
+            border-width: 20px 20px 0 0; border-style: solid; border-color: #FFD166 transparent transparent transparent;
+        }
+        .bubble::before { /* 内部白三角盖住边框 */
+            content:''; position: absolute; bottom: -12px; left: 33px; z-index: 2;
+            border-width: 15px 15px 0 0; border-style: solid; border-color: #FFF transparent transparent transparent;
+        }
+        @keyframes popIn { 0% { transform: scale(0) translateY(50px); opacity: 0; } 100% { transform: scale(1) translateY(0); opacity: 1; } }
+        
+        #context-menu {
+            position: absolute; background: rgba(255,255,255,0.9); backdrop-filter: blur(15px);
+            border: 3px solid #FFF; border-radius: 25px; padding: 15px; display: none; flex-direction: row; gap: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2); z-index: 200; transform-origin: top left;
+            animation: menuPop 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes menuPop { 0% {transform: scale(0.5); opacity: 0;} 100% {transform: scale(1); opacity: 1;} }
+        .menu-item {
+            width: 70px; height: 70px; font-size: 40px; display: flex; justify-content: center; align-items: center;
+            cursor: pointer; border-radius: 15px; transition: all 0.2s; background: #f8f9fa; box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+        }
+        .menu-item:hover { background: #FFD166; transform: scale(1.15) translateY(-5px); box-shadow: 0 10px 15px rgba(255, 209, 102, 0.4); }
+
+    </style>
+</head>
+<body>
+
+<!-- 动态天空云朵 -->
+<div class="cloud c1"></div>
+<div class="cloud c2"></div>
+
+<div id="game-container">
+    
+    <!-- 欢迎界面 -->
+    <div id="screen-0" class="screen active" style="background: transparent;">
+        <!-- 高级 SVG 鼠标图标 -->
+        <svg width="180" height="180" viewBox="0 0 100 100" style="filter: drop-shadow(0 15px 15px rgba(0,0,0,0.2)); margin-bottom: 20px;">
+            <defs>
+                <linearGradient id="mouseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#ffffff"/>
+                    <stop offset="100%" stop-color="#e0e0e0"/>
+                </linearGradient>
+                <linearGradient id="wheelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#FF6B6B"/>
+                    <stop offset="100%" stop-color="#C0392B"/>
+                </linearGradient>
+            </defs>
+            <rect x="20" y="10" width="60" height="80" rx="30" fill="url(#mouseGrad)" stroke="#B0BEC5" stroke-width="2"/>
+            <path d="M 20 40 Q 50 50 80 40" fill="none" stroke="#B0BEC5" stroke-width="2" />
+            <rect x="46" y="20" width="8" height="15" rx="4" fill="url(#wheelGrad)" />
+            <!-- 闪亮星星 -->
+            <path d="M 10 10 L 15 20 L 25 25 L 15 30 L 10 40 L 5 30 L -5 25 L 5 20 Z" fill="#FFD700" transform="scale(0.5) translate(140, 20)" animation="pulse 2s infinite"/>
+        </svg>
+        <h1>鼠标小能手大冒险</h1>
+        <p class="subtitle">超华丽的幼儿园特供版！</p>
+        <button class="btn" onclick="startGame()">▶️ 开始魔法冒险</button>
+    </div>
+
+    <!-- 第1关：悬停 -->
+    <div id="screen-1" class="screen hidden">
+        <div class="instruction">第一关：不用按键！把光标移到草丛上找找小动物！</div>
+        <div class="bush-container"></div>
+        <button class="btn next-level-btn" onclick="goToLevel(currentLevel + 1)">✨ 太棒啦！去下一关</button>
+    </div>
+
+    <!-- 第2关：单击 -->
+    <div id="screen-2" class="screen hidden">
+        <div class="instruction">第二关：对准气球，用【左键】戳破它们！</div>
+        <div class="balloon-area"></div>
+        <button class="btn next-level-btn" onclick="goToLevel(currentLevel + 1)">✨ 太棒啦！去下一关</button>
+    </div>
+
+    <!-- 第3关：滚轮 -->
+    <div id="screen-3" class="screen hidden">
+        <div class="instruction">第三关：拨动【滚轮】潜入海底，找到发光宝箱并点击！</div>
+        <div id="scroll-area">
+            <div class="scroll-content">
+                <div style="text-align:center; padding-top: 80px; color:white; font-size: 26px; font-weight: bold; text-shadow: 0 2px 5px rgba(0,0,0,0.5);">👇 潜水员，往下滚动吧！ 👇</div>
+                <!-- 海底点缀 -->
+                <svg width="50" height="50" style="position:absolute; top:400px; left:20%; opacity:0.5;" viewBox="0 0 50 50"><circle cx="25" cy="25" r="15" fill="none" stroke="#FFF" stroke-width="3"/></svg>
+                <svg width="30" height="30" style="position:absolute; top:800px; right:30%; opacity:0.5;" viewBox="0 0 50 50"><circle cx="25" cy="25" r="15" fill="none" stroke="#FFF" stroke-width="3"/></svg>
+                
+                <!-- 精美宝箱 -->
+                <svg class="treasure" viewBox="0 0 100 100" onclick="findTreasure()">
+                    <defs>
+                        <linearGradient id="wood" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#8D6E63"/>
+                            <stop offset="100%" stop-color="#5D4037"/>
+                        </linearGradient>
+                        <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#FFF176"/>
+                            <stop offset="100%" stop-color="#F57F17"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- 箱体 -->
+                    <rect x="10" y="40" width="80" height="50" fill="url(#wood)" rx="5" />
+                    <!-- 盖子 -->
+                    <path d="M 10 40 Q 50 0 90 40 Z" fill="url(#wood)" />
+                    <!-- 金边 -->
+                    <path d="M 10 40 Q 50 0 90 40" fill="none" stroke="url(#gold)" stroke-width="6" stroke-linecap="round"/>
+                    <rect x="10" y="85" width="80" height="5" fill="url(#gold)" />
+                    <rect x="15" y="40" width="5" height="45" fill="url(#gold)" />
+                    <rect x="80" y="40" width="5" height="45" fill="url(#gold)" />
+                    <!-- 锁 -->
+                    <rect id="treasure-lock" x="40" y="35" width="20" height="20" fill="url(#gold)" rx="5" />
+                    <circle cx="50" cy="45" r="3" fill="#3E2723"/>
+                </svg>
+            </div>
+        </div>
+        <button class="btn next-level-btn" onclick="goToLevel(currentLevel + 1)">✨ 寻宝成功！去下一关</button>
+    </div>
+
+    <!-- 第4关：拖拽 -->
+    <div id="screen-4" class="screen hidden">
+        <div class="instruction">第四关：按住【左键】拖动水果，喂给贪吃小怪兽！</div>
+        <div class="drag-area">
+            <!-- 贪吃小怪兽 -->
+            <svg class="monster" viewBox="0 0 100 100">
+                <defs>
+                    <radialGradient id="monsterGrad" cx="30%" cy="30%" r="70%">
+                        <stop offset="0%" stop-color="#FF8A80"/>
+                        <stop offset="100%" stop-color="#D50000"/>
+                    </radialGradient>
+                </defs>
+                <path d="M 10 50 Q 10 10 50 10 Q 90 10 90 50 Q 90 90 50 90 Q 10 90 10 50 Z" fill="url(#monsterGrad)" />
+                <!-- 萌萌大眼 -->
+                <circle cx="35" cy="35" r="12" fill="white" /><circle cx="35" cy="35" r="5" fill="#212121" />
+                <circle cx="30" cy="32" r="3" fill="white" /> <!-- 高光 -->
+                <circle cx="65" cy="35" r="12" fill="white" /><circle cx="65" cy="35" r="5" fill="#212121" />
+                <circle cx="60" cy="32" r="3" fill="white" /> <!-- 高光 -->
+                <!-- 腮红 -->
+                <ellipse cx="20" cy="50" rx="8" ry="4" fill="#FF5252" opacity="0.6"/>
+                <ellipse cx="80" cy="50" rx="8" ry="4" fill="#FF5252" opacity="0.6"/>
+                <!-- 大嘴巴 -->
+                <path id="monster-mouth" d="M 30 60 Q 50 85 70 60" fill="#3E2723" stroke="#3E2723" stroke-width="4" stroke-linecap="round" />
+                <path d="M 40 70 Q 50 80 60 70" fill="#FF5252" /> <!-- 舌头 -->
+            </svg>
+            <div class="food-bubble">🍎</div>
+            <div class="food-bubble">🍌</div>
+            <div class="food-bubble">🍇</div>
+        </div>
+        <button class="btn next-level-btn" onclick="goToLevel(currentLevel + 1)">✨ 吃饱啦！去下一关</button>
+    </div>
+
+    <!-- 第5关：双击 -->
+    <div id="screen-5" class="screen hidden">
+        <div class="instruction">第五关：对准恐龙蛋【连续快点两下左键】，敲开它！</div>
+        <div class="egg-container" onmousedown="handleEggClick()">
+            <!-- 恐龙宝宝 -->
+            <svg class="dino-baby" viewBox="0 0 100 100">
+                <defs>
+                    <radialGradient id="dinoGrad" cx="40%" cy="30%" r="70%">
+                        <stop offset="0%" stop-color="#B9F6CA"/>
+                        <stop offset="100%" stop-color="#00C853"/>
+                    </radialGradient>
+                </defs>
+                <path d="M 20 60 Q 20 20 50 20 Q 80 20 80 60 Q 80 90 50 90 Q 20 90 20 60 Z" fill="url(#dinoGrad)" />
+                <circle cx="35" cy="45" r="8" fill="white" /><circle cx="35" cy="45" r="4" fill="black" /><circle cx="32" cy="43" r="2" fill="white" />
+                <circle cx="65" cy="45" r="8" fill="white" /><circle cx="65" cy="45" r="4" fill="black" /><circle cx="62" cy="43" r="2" fill="white" />
+                <!-- 蛋壳帽 -->
+                <path d="M 25 35 L 35 45 L 50 30 L 65 45 L 75 35 Q 50 5 25 35 Z" fill="#FFF9C4" />
+                <path d="M 40 65 Q 50 75 60 65" fill="none" stroke="#1B5E20" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            <!-- 恐龙蛋 -->
+            <svg class="egg-svg" id="the-egg" viewBox="0 0 100 100">
+                <defs>
+                    <radialGradient id="eggSkin" cx="30%" cy="30%" r="70%">
+                        <stop offset="0%" stop-color="#FFF9C4"/>
+                        <stop offset="100%" stop-color="#FBC02D"/>
+                    </radialGradient>
+                </defs>
+                <ellipse cx="50" cy="50" rx="40" ry="50" fill="url(#eggSkin)" />
+                <!-- 斑点 -->
+                <circle cx="35" cy="30" r="6" fill="#F57F17" opacity="0.4"/>
+                <circle cx="65" cy="40" r="10" fill="#F57F17" opacity="0.4"/>
+                <circle cx="45" cy="70" r="8" fill="#F57F17" opacity="0.4"/>
+                <circle cx="20" cy="55" r="5" fill="#F57F17" opacity="0.4"/>
+                <!-- 动态裂纹 -->
+                <path id="crack1" class="crack-line" d="M 30 10 L 45 25 L 35 45 L 55 55" />
+                <path id="crack2" class="crack-line" d="M 70 95 L 55 80 L 70 65 L 50 50" />
+            </svg>
+        </div>
+        <button class="btn next-level-btn" onclick="goToLevel(currentLevel + 1)">✨ 孵化成功！去下一关</button>
+    </div>
+
+    <!-- 第6关：右键 -->
+    <div id="screen-6" class="screen hidden">
+        <div class="instruction">第六关：用【右键】呼出菜单，左键选择客人要的菜！</div>
+        <div class="restaurant-area" oncontextmenu="handleRightClick(event)">
+            <div class="bubble" id="order-bubble">🍔</div>
+            <!-- 可爱客人 -->
+            <svg class="customer" viewBox="0 0 100 100">
+                <defs>
+                    <linearGradient id="custGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#E1BEE7"/>
+                        <stop offset="100%" stop-color="#8E24AA"/>
+                    </linearGradient>
+                </defs>
+                <rect x="15" y="20" width="70" height="80" rx="35" fill="url(#custGrad)" />
+                <circle cx="35" cy="45" r="8" fill="white" /><circle cx="35" cy="45" r="4" fill="black" /><circle cx="33" cy="43" r="2" fill="white"/>
+                <circle cx="65" cy="45" r="8" fill="white" /><circle cx="65" cy="45" r="4" fill="black" /><circle cx="63" cy="43" r="2" fill="white"/>
+                <ellipse cx="20" cy="55" rx="6" ry="3" fill="#F06292" opacity="0.8"/>
+                <ellipse cx="80" cy="55" rx="6" ry="3" fill="#F06292" opacity="0.8"/>
+                <path id="customer-mouth" d="M 40 65 Q 50 75 60 65" fill="none" stroke="#4A148C" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+            
+            <div id="context-menu">
+                <div class="menu-item" onclick="serveFood('🍔')">🍔</div>
+                <div class="menu-item" onclick="serveFood('🍟')">🍟</div>
+                <div class="menu-item" onclick="serveFood('🍗')">🍗</div>
+                <div class="menu-item" onclick="serveFood('🍦')">🍦</div>
+            </div>
+        </div>
+        <button class="btn next-level-btn" onclick="goToLevel(1)">🎉 全部完成！点我重玩 🎉</button>
+    </div>
+
+    <!-- 底部全局导航栏 -->
+    <div id="global-nav">
+        <button id="btn-prev" class="nav-btn" onclick="goToLevel(currentLevel - 1)">⬅️ 上一关</button>
+        <button id="btn-restart" class="nav-btn restart-btn" onclick="goToLevel(1)">🔄 重新开始</button>
+        <button id="btn-next" class="nav-btn" onclick="goToLevel(currentLevel + 1)">下一关 ➡️</button>
+    </div>
+
+</div>
+
+<script>
+    // ---------------- 高级音效引擎 (加入和弦与丰富波形) ----------------
+    let audioCtx;
+    function initAudio() {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+    }
+    function playTone(freq, type, duration, vol=0.1, slide=false) {
+        if(!audioCtx) return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        if(slide) osc.frequency.exponentialRampToValueAtTime(freq/2, audioCtx.currentTime + duration);
+        gain.gain.setValueAtTime(0, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(vol, audioCtx.currentTime + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.start(); osc.stop(audioCtx.currentTime + duration);
+    }
+    // 特效音
+    function playPop() { playTone(900, 'sine', 0.1, 0.2); setTimeout(()=>playTone(1200, 'sine', 0.1, 0.1), 30); }
+    function playHover() { playTone(1200, 'sine', 0.08, 0.05); }
+    function playSuccess() { playTone(440, 'sine', 0.1, 0.1); setTimeout(()=>playTone(554, 'sine', 0.1, 0.1), 100); setTimeout(()=>playTone(659, 'sine', 0.3, 0.15), 200); }
+    function playCrack() { playTone(200, 'sawtooth', 0.1, 0.1); playTone(800, 'square', 0.05, 0.05); }
+    function playError() { playTone(300, 'triangle', 0.2, 0.1, true); setTimeout(()=>playTone(250, 'triangle', 0.2, 0.1, true), 150); }
+    function playEat() { playTone(800, 'sine', 0.1, 0.1); setTimeout(()=>playTone(1000, 'sine', 0.15, 0.1), 80); }
+    function playTada() {
+        playTone(523.25, 'square', 0.1, 0.08); setTimeout(()=>playTone(659.25, 'square', 0.1, 0.08), 100);
+        setTimeout(()=>playTone(783.99, 'square', 0.1, 0.08), 200); setTimeout(()=>playTone(1046.50, 'square', 0.4, 0.12), 300);
+    }
+
+    // ---------------- 全局控制 ----------------
+    let currentLevel = 0;
+    const totalLevels = 6;
+
+    function startGame() {
+        initAudio(); goToLevel(1);
+    }
+
+    function goToLevel(level) {
+        if(level < 1 || level > totalLevels) return;
+        document.getElementById(`screen-${currentLevel}`).classList.remove('active');
+        document.getElementById(`screen-${currentLevel}`).classList.add('hidden');
+        
+        currentLevel = level; playSuccess();
+        
+        const nextBtn = document.querySelector(`#screen-${currentLevel} .next-level-btn`);
+        if(nextBtn) nextBtn.style.display = 'none';
+
+        document.getElementById(`screen-${currentLevel}`).classList.remove('hidden');
+        document.getElementById(`screen-${currentLevel}`).classList.add('active');
+
+        const nav = document.getElementById('global-nav');
+        nav.style.display = 'flex';
+        document.getElementById('btn-prev').disabled = (currentLevel === 1);
+        document.getElementById('btn-next').disabled = (currentLevel === totalLevels);
+
+        if(currentLevel === 1) setupLevel1();
+        else if(currentLevel === 2) setupLevel2();
+        else if(currentLevel === 3) setupLevel3();
+        else if(currentLevel === 4) setupLevel4();
+        else if(currentLevel === 5) setupLevel5();
+        else if(currentLevel === 6) setupLevel6();
+    }
+
+    function showNextButton() {
+        playTada();
+        const nextBtn = document.querySelector(`#screen-${currentLevel} .next-level-btn`);
+        if(nextBtn) { nextBtn.style.display = 'block'; nextBtn.style.animation = 'float-bubble 2s ease-in-out infinite'; }
+    }
+
+    // ---------------- 关卡1：悬停 (高级SVG动物) ----------------
+    let bushesFound = 0;
+    function setupLevel1() {
+        const container = document.querySelector('.bush-container');
+        container.innerHTML = ''; bushesFound = 0;
+        // 萌萌动物SVG：白兔、黄橘猫、棕熊
+        const animals =[
+            `<svg class="animal-svg" viewBox="0 0 100 100"><circle cx="50" cy="60" r="35" fill="#FFF"/><ellipse cx="35" cy="25" rx="10" ry="25" fill="#FFF"/><ellipse cx="65" cy="25" rx="10" ry="25" fill="#FFF"/><circle cx="40" cy="55" r="5" fill="#000"/><circle cx="60" cy="55" r="5" fill="#000"/><path d="M 45 65 Q 50 70 55 65" fill="none" stroke="#000" stroke-width="2"/><ellipse cx="30" cy="65" rx="6" ry="3" fill="#FF8A80"/><ellipse cx="70" cy="65" rx="6" ry="3" fill="#FF8A80"/></svg>`,
+            `<svg class="animal-svg" viewBox="0 0 100 100"><circle cx="50" cy="60" r="35" fill="#FFB74D"/><path d="M 15 35 L 30 50 L 40 25 Z" fill="#FFB74D"/><path d="M 85 35 L 70 50 L 60 25 Z" fill="#FFB74D"/><circle cx="35" cy="55" r="4" fill="#000"/><circle cx="65" cy="55" r="4" fill="#000"/><path d="M 45 65 L 50 70 L 55 65" fill="none" stroke="#000" stroke-width="2"/><ellipse cx="25" cy="65" rx="5" ry="3" fill="#FF5252" opacity="0.6"/><ellipse cx="75" cy="65" rx="5" ry="3" fill="#FF5252" opacity="0.6"/></svg>`,
+            `<svg class="animal-svg" viewBox="0 0 100 100"><circle cx="50" cy="60" r="35" fill="#8D6E63"/><circle cx="25" cy="35" r="15" fill="#8D6E63"/><circle cx="75" cy="35" r="15" fill="#8D6E63"/><circle cx="35" cy="55" r="4" fill="#000"/><circle cx="65" cy="55" r="4" fill="#000"/><circle cx="50" cy="65" r="12" fill="#D7CCC8"/><circle cx="50" cy="62" r="3" fill="#000"/><path d="M 45 68 Q 50 72 55 68" fill="none" stroke="#000" stroke-width="2"/></svg>`
+        ];
+        for(let i=0; i<3; i++) {
+            const bushDiv = document.createElement('div');
+            bushDiv.className = 'bush';
+            bushDiv.innerHTML = `
+                ${animals[i]}
+                <svg viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="grass${i}" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#69F0AE"/>
+                            <stop offset="100%" stop-color="#00C853"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M 10 90 Q 20 20 50 30 Q 80 20 90 90 Z" fill="url(#grass${i})"/>
+                    <path d="M 25 90 Q 30 40 50 45 Q 70 40 75 90 Z" fill="#00E676"/>
+                    <path d="M 40 90 Q 45 60 50 60 Q 55 60 60 90 Z" fill="#B9F6CA"/>
+                </svg>`;
+            bushDiv.addEventListener('mouseenter', () => {
+                if(!bushDiv.classList.contains('found')) {
+                    playHover(); bushDiv.classList.add('found'); bushesFound++;
+                    if(bushesFound === 3) showNextButton();
+                }
+            });
+            container.appendChild(bushDiv);
+        }
+    }
+
+    // ---------------- 关卡2：单击 (高光气球) ----------------
+    let balloonsPopped = 0;
+    function setupLevel2() {
+        const area = document.querySelector('.balloon-area');
+        area.innerHTML = ''; balloonsPopped = 0;
+        const colors =[
+            { id:'b1', c1:'#FF8A80', c2:'#D50000' },
+            { id:'b2', c1:'#84FFFF', c2:'#00B8D4' },
+            { id:'b3', c1:'#FFFF8D', c2:'#FFD600' }
+        ];
+        for(let i=0; i<3; i++) {
+            const b = document.createElement('div');
+            b.className = 'balloon';
+            b.style.left = (220 * i + 120) + 'px';
+            b.style.top = (100 + Math.random() * 80) + 'px';
+            b.style.animation = `float-balloon ${2.5 + Math.random()}s ease-in-out infinite`;
+            b.innerHTML = `
+                <svg viewBox="0 0 100 150">
+                    <defs>
+                        <radialGradient id="${colors[i].id}" cx="35%" cy="35%" r="65%">
+                            <stop offset="0%" stop-color="${colors[i].c1}"/>
+                            <stop offset="100%" stop-color="${colors[i].c2}"/>
+                        </radialGradient>
+                    </defs>
+                    <ellipse cx="50" cy="50" rx="45" ry="55" fill="url(#${colors[i].id})" />
+                    <path d="M 45 105 L 50 115 L 55 105 Z" fill="${colors[i].c2}" />
+                    <path d="M 50 115 Q 30 130 50 150" fill="none" stroke="#ECEFF1" stroke-width="3" />
+                    <ellipse cx="35" cy="30" rx="10" ry="18" fill="#FFF" opacity="0.4" transform="rotate(-30 35 30)"/>
+                </svg>`;
+            b.onclick = function() {
+                playPop(); b.style.transform = 'scale(1.5)'; b.style.opacity = '0';
+                setTimeout(()=> b.style.display = 'none', 150);
+                balloonsPopped++; if(balloonsPopped === 3) showNextButton();
+            };
+            area.appendChild(b);
+        }
+    }
+
+    // ---------------- 关卡3：滚轮 ----------------
+    let treasureFound = false;
+    function setupLevel3() {
+        treasureFound = false;
+        document.getElementById('scroll-area').scrollTop = 0;
+        const lock = document.getElementById('treasure-lock');
+        lock.setAttribute('fill', 'url(#gold)');
+        document.querySelector('.treasure').classList.remove('glow');
+    }
+    function findTreasure() {
+        if(!treasureFound) {
+            playTada(); treasureFound = true;
+            document.getElementById('treasure-lock').setAttribute('fill', '#FFF');
+            document.querySelector('.treasure').classList.add('glow');
+            showNextButton();
+        }
+    }
+
+    // ---------------- 关卡4：拖拽 (修复+全局监听) ----------------
+    let foodsFed = 0;
+    let currentDraggingFood = null;
+    let dragOffsetX = 0, dragOffsetY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+        if(!currentDraggingFood || currentLevel !== 4) return;
+        const parentRect = document.querySelector('.drag-area').getBoundingClientRect();
+        let newX = e.clientX - parentRect.left - dragOffsetX;
+        let newY = e.clientY - parentRect.top - dragOffsetY;
+        currentDraggingFood.style.left = newX + 'px';
+        currentDraggingFood.style.top = newY + 'px';
+        
+        // 张嘴互动反馈
+        const mRect = document.querySelector('.monster').getBoundingClientRect();
+        const fRect = currentDraggingFood.getBoundingClientRect();
+        const fX = fRect.left + fRect.width/2; const fY = fRect.top + fRect.height/2;
+        const mouth = document.getElementById('monster-mouth');
+        if(fX > mRect.left && fX < mRect.right && fY > mRect.top && fY < mRect.bottom) {
+            mouth.setAttribute('d', 'M 30 60 Q 50 100 70 60'); // 大张嘴
+        } else {
+            mouth.setAttribute('d', 'M 30 60 Q 50 85 70 60'); // 恢复正常
+        }
+    });
+
+    document.addEventListener('mouseup', (e) => {
+        if(!currentDraggingFood || currentLevel !== 4) return;
+        const food = currentDraggingFood;
+        currentDraggingFood = null;
+        food.style.zIndex = ''; food.style.animation = 'float-bubble 3s ease-in-out infinite';
+        
+        const fRect = food.getBoundingClientRect();
+        const m = document.querySelector('.monster');
+        const mRect = m.getBoundingClientRect();
+        const fX = fRect.left + fRect.width/2; const fY = fRect.top + fRect.height/2;
+        
+        if(fX > mRect.left && fX < mRect.right && fY > mRect.top && fY < mRect.bottom) {
+            playEat(); food.style.display = 'none'; foodsFed++;
+            m.classList.add('eating');
+            setTimeout(()=> m.classList.remove('eating'), 200);
+            document.getElementById('monster-mouth').setAttribute('d', 'M 30 60 Q 50 85 70 60'); // 恢复嘴型
+            if(foodsFed === 3) showNextButton();
+        }
+    });
+
+    function setupLevel4() {
+        foodsFed = 0;
+        const foods = document.querySelectorAll('.food-bubble');
+        const pos =[{t: 250, l: 80}, {t: 280, l: 650}, {t: 100, l: 150}];
+        foods.forEach((food, i) => {
+            food.style.display = 'flex';
+            food.style.top = pos[i].t + 'px'; food.style.left = pos[i].l + 'px';
+            food.onmousedown = function(e) {
+                currentDraggingFood = food; food.style.animation = 'none';
+                const rect = food.getBoundingClientRect();
+                dragOffsetX = e.clientX - rect.left; dragOffsetY = e.clientY - rect.top;
+                food.style.zIndex = 100;
+            };
+        });
+    }
+
+    // ---------------- 关卡5：双击 (高级描边动画) ----------------
+    let eggCracks = 0;
+    let lastClickTime = 0;
+    function setupLevel5() {
+        eggCracks = 0; lastClickTime = 0;
+        const egg = document.getElementById('the-egg');
+        egg.style.opacity = 1; egg.style.transform = 'scale(1)';
+        document.getElementById('crack1').style.strokeDashoffset = 100;
+        document.getElementById('crack2').style.strokeDashoffset = 100;
+        const dino = document.querySelector('.dino-baby');
+        dino.style.opacity = 0; dino.style.animation = 'none';
+    }
+    function handleEggClick() {
+        const now = new Date().getTime();
+        const egg = document.getElementById('the-egg');
+        if (now - lastClickTime < 800) {
+            playCrack(); eggCracks++; egg.classList.remove('shake');
+            void egg.offsetWidth; // 触发重绘
+            if(eggCracks === 1) { document.getElementById('crack1').style.strokeDashoffset = 0; } 
+            else if (eggCracks === 2) { document.getElementById('crack2').style.strokeDashoffset = 0; } 
+            else if (eggCracks >= 3) {
+                egg.style.transform = 'scale(1.2)'; egg.style.opacity = 0;
+                playSuccess();
+                setTimeout(() => {
+                    const dino = document.querySelector('.dino-baby');
+                    dino.style.opacity = 1; dino.style.animation = 'float-bubble 2s infinite';
+                    showNextButton();
+                }, 100);
+            }
+            lastClickTime = 0;
+        } else {
+            playHover(); egg.classList.add('shake');
+            setTimeout(() => egg.classList.remove('shake'), 400);
+            lastClickTime = now;
+        }
+    }
+
+    // ---------------- 关卡6：右键菜单 (毛玻璃UI) ----------------
+    let ordersServed = 0;
+    let currentOrder = '';
+    const menuItems = ['🍔', '🍟', '🍗', '🍦'];
+
+    function setupLevel6() {
+        ordersServed = 0;
+        document.getElementById('context-menu').style.display = 'none';
+        document.getElementById('customer-mouth').setAttribute('d', 'M 40 65 Q 50 75 60 65');
+        newOrder();
+    }
+    function newOrder() {
+        currentOrder = menuItems[Math.floor(Math.random() * menuItems.length)];
+        const bubble = document.getElementById('order-bubble');
+        bubble.style.animation = 'none'; void bubble.offsetWidth; bubble.style.animation = 'popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+        bubble.innerText = currentOrder;
+        document.getElementById('customer-mouth').setAttribute('d', 'M 40 65 Q 50 75 60 65');
+    }
+    function handleRightClick(e) {
+        e.preventDefault();
+        const menu = document.getElementById('context-menu');
+        const parentRect = document.querySelector('.restaurant-area').getBoundingClientRect();
+        menu.style.display = 'flex';
+        menu.style.left = (e.clientX - parentRect.left + 15) + 'px';
+        menu.style.top = (e.clientY - parentRect.top + 15) + 'px';
+        playPop();
+    }
+    document.addEventListener('click', (e) => {
+        if(currentLevel === 6 && !e.target.classList.contains('menu-item')) {
+            document.getElementById('context-menu').style.display = 'none';
+        }
+    });
+    function serveFood(food) {
+        document.getElementById('context-menu').style.display = 'none';
+        if(food === currentOrder) {
+            playSuccess(); ordersServed++;
+            document.getElementById('customer-mouth').setAttribute('d', 'M 35 60 Q 50 85 65 60'); // 大笑
+            if(ordersServed >= 3) {
+                document.getElementById('order-bubble').innerText = '😋';
+                showNextButton();
+            } else {
+                setTimeout(newOrder, 1200);
+            }
+        } else {
+            playError();
+            document.getElementById('customer-mouth').setAttribute('d', 'M 40 75 Q 50 65 60 75'); // 难过
+            const customer = document.querySelector('.customer');
+            customer.style.transform = 'translateX(-15px)';
+            setTimeout(() => customer.style.transform = 'translateX(15px)', 100);
+            setTimeout(() => customer.style.transform = 'translateX(0)', 200);
+        }
+    }
+</script>
+</body>
+</html>

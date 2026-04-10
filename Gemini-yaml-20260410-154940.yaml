@@ -1,29 +1,36 @@
+# 1. 强制定义新的策略组（即使 APP 界面没做，内核也能识别）
+proxy-groups:
+  - name: ♊️ Gemini 专用
+    type: select
+    proxies:
+      - 🚀 节点选择  # 借用闪电猫原有的自动组
+      - 美国-01      # 建议手动填入你机场里稳定的美国节点名
+      - 日本-01
+      - DIRECT
+
+  - name: 💎 Ai Studio
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - 香港-01      # AI Studio 有时支持香港，根据你实际测试调整
+      - 美国-01
+      - DIRECT
+
+# 2. 精细化规则分流
 rules:
-  # --- 第一部分：AI 相关域名 (强制走代理) ---
-  - DOMAIN-SUFFIX,ai.google.dev,PROXY
-  - DOMAIN,aistudio.google.com,PROXY
-  - DOMAIN-SUFFIX,googleapis.com,PROXY
-  - DOMAIN-SUFFIX,gstatic.com,PROXY
-  - DOMAIN-SUFFIX,accounts.google.com,PROXY
-  - DOMAIN-SUFFIX,clients6.google.com,PROXY
-  - DOMAIN,generativelanguage.googleapis.com,PROXY
-  - DOMAIN-SUFFIX,gemini.google.com,PROXY
-  - DOMAIN-SUFFIX,googleusercontent.com,PROXY
+  # --- Gemini 专属域名 (强制分配给 Gemini 专用开关) ---
+  - DOMAIN-SUFFIX,gemini.google.com,♊️ Gemini 专用
+  - DOMAIN-SUFFIX,googleusercontent.com,♊️ Gemini 专用
+  - DOMAIN,generativelanguage.googleapis.com,♊️ Gemini 专用
 
-  # --- 第二部分：基础办公与直连 (走直连) ---
-  - DOMAIN-SUFFIX,localhost,DIRECT
-  - IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
-  - DOMAIN-SUFFIX,microsoft.com,DIRECT
-  - DOMAIN-SUFFIX,topazlabs.com,DIRECT
+  # --- AI Studio 专属域名 (强制分配给 Ai Studio 开关) ---
+  - DOMAIN,aistudio.google.com,💎 Ai Studio
+  - DOMAIN-SUFFIX,ai.google.dev,💎 Ai Studio
+  - DOMAIN-SUFFIX,clients6.google.com,💎 Ai Studio
 
-  # --- 第三部分：中国大陆流量优化 (走直连) ---
-  - GEOSITE,cn,DIRECT
-  - GEOIP,cn,DIRECT,no-resolve
-
-  # --- 第四部分：广告与拦截 (走拦截) ---
-  # 模拟你 Karing 里的 BanAD
-  - GEOSITE,category-ads-all,REJECT
-
-  # --- 第五部分：默认规则 (兜底) ---
-  # 剩下的所有国外流量走代理
-  - MATCH,PROXY
+  # --- Google 基础服务 (建议跟随大队或直连) ---
+  - DOMAIN-KEYWORD,google,🚀 节点选择
+  - DOMAIN-SUFFIX,gstatic.com,🚀 节点选择
+  
+  # --- 兜底规则 ---
+  - MATCH,🚀 节点选择

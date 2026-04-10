@@ -1,0 +1,29 @@
+rules:
+  # --- 第一部分：AI 相关域名 (强制走代理) ---
+  - DOMAIN-SUFFIX,ai.google.dev,PROXY
+  - DOMAIN,aistudio.google.com,PROXY
+  - DOMAIN-SUFFIX,googleapis.com,PROXY
+  - DOMAIN-SUFFIX,gstatic.com,PROXY
+  - DOMAIN-SUFFIX,accounts.google.com,PROXY
+  - DOMAIN-SUFFIX,clients6.google.com,PROXY
+  - DOMAIN,generativelanguage.googleapis.com,PROXY
+  - DOMAIN-SUFFIX,gemini.google.com,PROXY
+  - DOMAIN-SUFFIX,googleusercontent.com,PROXY
+
+  # --- 第二部分：基础办公与直连 (走直连) ---
+  - DOMAIN-SUFFIX,localhost,DIRECT
+  - IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
+  - DOMAIN-SUFFIX,microsoft.com,DIRECT
+  - DOMAIN-SUFFIX,topazlabs.com,DIRECT
+
+  # --- 第三部分：中国大陆流量优化 (走直连) ---
+  - GEOSITE,cn,DIRECT
+  - GEOIP,cn,DIRECT,no-resolve
+
+  # --- 第四部分：广告与拦截 (走拦截) ---
+  # 模拟你 Karing 里的 BanAD
+  - GEOSITE,category-ads-all,REJECT
+
+  # --- 第五部分：默认规则 (兜底) ---
+  # 剩下的所有国外流量走代理
+  - MATCH,PROXY

@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Watchlist</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts-wordcloud@2.0.0/dist/echarts-wordcloud.min.js"></script>
+
+    <style>
+        /* 保留少量自定义（和 Tailwind 共存） */
+        .actress-item {
+            border-left-width: 4px;
+        }
+
+        .site-popup {
+            position: absolute;
+            background: white;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+            border-radius: 0.5rem;
+            z-index: 1000;
+            min-width: 200px;
+        }
+
+        .site-popup a {
+            display: block;
+            padding: 10px 16px;
+            color: #111827;
+            text-decoration: none;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .site-popup a:hover {
+            background-color: #f8fafc;
+        }
+
+        /* Toast 小提示 */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            transform: none;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        /* Word Cloud 样式 */
+        #wordCloud {
+            width: 100%;
+            height: 400px;
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800">
+    <div class="max-w-4xl mx-auto p-6">
+        <header class="mb-6">
+            <h1 class="text-2xl font-semibold text-slate-900 text-center">Watchlist</h1>
+            <p class="mt-2 text-center text-sm text-slate-500">管理关注女优与作品 — 支持编辑 / 排序 / 搜索站点</p>
+        </header>
+
+        <div class="mb-4 flex flex-wrap gap-3 items-center justify-between">
+            <div class="flex gap-3">
+                <button id="addActress" class="px-3 py-1 rounded bg-indigo-600 text-white hover:bg-indigo-700">+
+                    添加女优</button>
+                <button id="saveAllBtn"
+                    class="px-3 py-1 rounded bg-emerald-600 text-white hover:bg-emerald-700">保存所有改动</button>
+
+                <button id="toggleSortMode"
+                    class="px-3 py-1 rounded border border-slate-200 bg-white hover:bg-slate-50">
+                    排序模式
+                </button>
+
+                <button id="saveSortBtn"
+                    class="px-3 py-1 rounded bg-emerald-600 text-white hover:bg-emerald-700 hidden">保存排序</button>
+                <button id="cancelSortBtn"
+                    class="px-3 py-1 rounded border border-slate-200 bg-white hover:bg-slate-50 hidden">取消排序</button>
+            </div>
+
+            <div class="text-sm text-slate-500">提示：所有改动将暂存本地，请点击“保存所有改动”上传。</div>
+        </div>
+
+        <section class="mb-6">
+            <div id="actressList" class="space-y-4"></div>
+        </section>
+
+        <section class="bg-white rounded-lg shadow p-5">
+            <h2 class="text-lg font-medium mb-2">搜索站点列表</h2>
+            <p class="text-sm text-slate-500 mb-2">每行一个站点名，例如：<code class="bg-slate-100 px-1 rounded">xasiat</code></p>
+            <textarea id="siteListInput" class="w-full border rounded p-3 min-h-[120px] text-sm"></textarea>
+            <div class="mt-3 flex gap-3">
+                <button id="saveSiteList"
+                    class="px-3 py-1 rounded bg-indigo-600 text-white hover:bg-indigo-700">保存站点列表</button>
+                <button id="resetSiteList" class="px-3 py-1 rounded border bg-white">重置为当前数据</button>
+            </div>
+        </section>
+
+        <!-- Word Cloud 部分 -->
+        <section class="mt-8 bg-white rounded-lg shadow p-5">
+            <h2 class="text-lg font-medium mb-2">女优词云</h2>
+            <p id="wordCloudStats" class="text-sm text-slate-500 mb-4">女优总数：0，作品总数：0</p>
+            <canvas id="wordCloud"></canvas>
+        </section>
+    </div>
+
+    <div id="sitePopup" class="site-popup hidden"></div>
+
+    <div id="toast" class="toast px-4 py-2 rounded shadow bg-yellow-300 text-slate-800"></div>
+
+    <script>
+        // ========================
+        // 配置：请替换为你自己的 Bin ID 和 Access Key
+        // ========================
+        const BIN_ID = '34a324e15c12b58eca2b';
+        const ACCESS_KEY = '$2a$10$Hi5BNn/VXRh8AX9uTMxQMezW9baqQFhRNXmih/MWi.x0OJ.yKc9m.';
+        const API_URL = `https://api.npoint.io/${BIN_ID}`;
+
+        // 全局数据（runtime）
+        let data = {
+            config: {
+                sitelist: []
+            },
+            actresses: []
+        };
+
+        // 本地排序临时副本（进入排序模式时生成）
+        let sortMode = false;
+        let stagingActresses = null; // 用于排序但未保存
+
+        // ========================
+        // 工具函数
+        // ========================
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast px-4 py-2 rounded shadow ' + (isError ? 'bg-red-600 text-white' : 'bg-amber-300 text-slate-900') + ' show';
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, isError ? 4000 : 2500);
+        }
+
+        // 获取数据 (GET)
+        async function fetchData() {
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (!res.ok) throw new Error(`加载失败: ${res.status}`);
+
+                // 注意：npoint 直接返回内容，不像 jsonbin 那样包裹在 .record 里
+                const json = await res.json();
+                return json;
+            } catch (err) {
+                console.error('Fetch failed:', err);
+                throw err;
+            }
+        }
+
+        // 更新数据 (POST 或 PUT)
+        // npoint 官方推荐使用 POST 来覆盖更新数据
+        async function updateData(payload) {
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'PUT', // npoint 更新通常使用 POST
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+                if (!res.ok) throw new Error(`保存失败: ${res.status}`);
+                return await res.json();
+            } catch (err) {
+                console.error('Update failed:', err);
+                throw err;
+            }
+        }
+
+        // 解析 Markdown 待办项：支持 - [ ] / - [x] / 普通行
+        function parseWorks(text) {
+            const lines = text.split('\n').filter(line => line.trim() !== '');
+            return lines.map(line => {
+                const matchDone = line.match(/^\s*-\s*\[x\]\s*(.+)$/i);
+                const matchNotDone = line.match(/^\s*-\s*\[\s\]\s*(.+)$/);
+
+                if (matchDone) {
+                    return {
+                        title: matchDone[1].trim(),
+                        done: true
+                    };
+                } else if (matchNotDone) {
+                    return {
+                        title: matchNotDone[1].trim(),
+                        done: false
+                    };
+                } else {
+                    return {
+                        title: line.trim(),
+                        done: false
+                    };
+                }
+            });
+        }
+
+        function generateWorksText(works) {
+            return works.map(w => w.done ? `- [x] ${w.title}` : `- [ ] ${w.title}`).join('\n');
+        }
+
+        async function saveToCloud() {
+            try {
+                await updateData(data);
+                showToast('所有改动已保存到云端！');
+            } catch (err) {
+                showToast(err.message || '保存失败', true);
+            }
+        }
+
+        // ========================
+        // DOM 操作
+        // ========================
+        function renderSiteList() {
+            const el = document.getElementById('siteListInput');
+            el.value = (data.config && data.config.sitelist) ? data.config.sitelist.join('\n') : '';
+        }
+
+        document.getElementById('saveSiteList').addEventListener('click', () => {
+            const text = document.getElementById('siteListInput').value;
+            data.config.sitelist = text.split('\n').map(s => s.trim()).filter(s => s !== '');
+            showToast('站点列表已更新到本地，请点击“保存所有改动”上传。');
+        });
+
+        document.getElementById('resetSiteList').addEventListener('click', () => {
+            renderSiteList();
+            showToast('已恢复为当前数据');
+        });
+
+        // 添加新女优
+        document.getElementById('addActress').addEventListener('click', () => {
+            const name = prompt('请输入女优姓名：');
+            if (!name) return;
+            data.actresses.push({
+                name,
+                expanded: true,
+                works: []
+            });
+            renderActressList();
+            renderWordCloud();
+            showToast('新女优已添加，请点击“保存所有改动”上传。');
+        });
+
+        document.getElementById('saveAllBtn').addEventListener('click', async () => {
+            if (sortMode) {
+                showToast('请先完成排序或取消排序操作。', true);
+                return;
+            }
+            await saveToCloud();
+        });
+
+        const toggleSortBtn = document.getElementById('toggleSortMode');
+        const saveSortBtn = document.getElementById('saveSortBtn');
+        const cancelSortBtn = document.getElementById('cancelSortBtn');
+
+        toggleSortBtn.addEventListener('click', () => {
+            sortMode = !sortMode;
+            if (sortMode) {
+                stagingActresses = JSON.parse(JSON.stringify(data.actresses || []));
+                toggleSortBtn.textContent = '退出排序';
+                saveSortBtn.classList.remove('hidden');
+                cancelSortBtn.classList.remove('hidden');
+                showToast('进入排序模式（改变尚未保存）');
+            } else {
+                stagingActresses = null;
+                toggleSortBtn.textContent = '排序模式';
+                saveSortBtn.classList.add('hidden');
+                cancelSortBtn.classList.add('hidden');
+            }
+            renderActressList();
+            renderWordCloud();
+        });
+
+        cancelSortBtn.addEventListener('click', () => {
+            sortMode = false;
+            stagingActresses = null;
+            toggleSortBtn.textContent = '排序模式';
+            saveSortBtn.classList.add('hidden');
+            cancelSortBtn.classList.add('hidden');
+            renderActressList();
+            renderWordCloud();
+            showToast('已取消排序操作');
+        });
+
+        saveSortBtn.addEventListener('click', async () => {
+            if (!stagingActresses) return;
+            data.actresses = JSON.parse(JSON.stringify(stagingActresses));
+            sortMode = false;
+            stagingActresses = null;
+            toggleSortBtn.textContent = '排序模式';
+            saveSortBtn.classList.add('hidden');
+            cancelSortBtn.classList.add('hidden');
+            renderActressList();
+            renderWordCloud();
+            showToast('排序已保存到本地，请点击“保存所有改动”上传。');
+        });
+
+        function renderActressList() {
+            const container = document.getElementById('actressList');
+            container.innerHTML = '';
+            const list = sortMode ? (stagingActresses || []) : (data.actresses || []);
+
+            if (!list.length) {
+                container.innerHTML = `<div class="bg-white p-4 rounded shadow text-slate-500">暂无关注女优，点击“+ 添加女优”添加。</div>`;
+                return;
+            }
+
+            list.forEach((a, idx) => {
+                const item = document.createElement('div');
+                item.className = 'actress-item bg-white rounded-lg p-4 shadow-sm flex flex-col';
+                item.id = `actress-${encodeURIComponent(a.name)}`;
+
+                const header = document.createElement('div');
+                header.className = 'flex items-center justify-between gap-4';
+
+                const leftBox = document.createElement('div');
+                leftBox.className = 'flex items-center gap-3 cursor-pointer';
+
+                const arrowSpan = document.createElement('span');
+                arrowSpan.className = 'arrow inline-block transition-transform duration-200';
+                arrowSpan.textContent = '▶';
+                arrowSpan.style.transform = a.expanded ? 'rotate(90deg)' : 'rotate(0deg)';
+
+                const nameSpan = document.createElement('span');
+                nameSpan.className = 'text-lg font-medium text-slate-800';
+                nameSpan.textContent = a.name;
+
+                leftBox.appendChild(arrowSpan);
+                leftBox.appendChild(nameSpan);
+
+                leftBox.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const arr = sortMode ? stagingActresses : data.actresses;
+                    if (!arr || !arr[idx]) return;
+                    arr[idx].expanded = !arr[idx].expanded;
+                    if (!sortMode) showToast('已更新到本地，请点击“保存所有改动”上传。');
+                    renderActressList();
+                });
+
+                const rightBox = document.createElement('div');
+                rightBox.className = 'flex items-center gap-2';
+
+                if (sortMode) {
+                    const mkBtn = (text, title, handler) => {
+                        const b = document.createElement('button');
+                        b.className = 'text-sm px-2 py-1 rounded hover:bg-slate-100';
+                        b.title = title;
+                        b.textContent = text;
+                        b.onclick = (ev) => {
+                            ev.stopPropagation();
+                            handler();
+                        };
+                        return b;
+                    };
+                    rightBox.appendChild(mkBtn('🔝', '置顶', () => moveActress(idx, 'top')));
+                    rightBox.appendChild(mkBtn('⬆', '上移', () => moveActress(idx, 'up')));
+                    rightBox.appendChild(mkBtn('⬇', '下移', () => moveActress(idx, 'down')));
+                    rightBox.appendChild(mkBtn('🔚', '置底', () => moveActress(idx, 'bottom')));
+                }
+
+                const delBtn = document.createElement('button');
+                delBtn.className = 'text-sm px-2 py-1 rounded hover:bg-rose-50';
+                delBtn.title = '删除';
+                delBtn.innerHTML = `<span class="text-rose-600">🗑️</span>`;
+                delBtn.style.background = 'transparent';
+                delBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    if (!confirm(`确定要删除女优 "${a.name}" 吗？`)) return;
+                    if (sortMode) {
+                        stagingActresses.splice(idx, 1);
+                    } else {
+                        data.actresses.splice(idx, 1);
+                    }
+                    if (!sortMode) showToast('已删除，请点击“保存所有改动”上传。');
+                    renderActressList();
+                    renderWordCloud();
+                };
+                rightBox.appendChild(delBtn);
+
+                header.appendChild(leftBox);
+                header.appendChild(rightBox);
+                item.appendChild(header);
+
+                const content = document.createElement('div');
+                content.className = 'actress-content mt-3';
+
+                if (a.expanded) {
+                    const textarea = document.createElement('textarea');
+                    textarea.className = 'works-input w-full border rounded p-2 text-sm';
+                    textarea.value = generateWorksText(a.works || []);
+                    textarea.dataset.index = idx;
+                    textarea.style.display = 'none';
+
+                    const saveBtn = document.createElement('button');
+                    saveBtn.className = 'mt-2 px-3 py-1 rounded bg-indigo-600 text-white hidden';
+                    saveBtn.textContent = '保存作品';
+                    saveBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        const text = textarea.value;
+                        const arr = sortMode ? stagingActresses : data.actresses;
+                        if (!arr || !arr[idx]) return;
+                        arr[idx].works = parseWorks(text);
+                        if (!sortMode) showToast('作品已更新到本地，请点击“保存所有改动”上传。');
+                        renderActressList();
+                        renderWordCloud();
+                    };
+
+                    const workList = document.createElement('ul');
+                    workList.className = 'work-list space-y-2';
+
+                    const editBtn = document.createElement('button');
+                    editBtn.className = 'mt-3 px-3 py-1 rounded border border-slate-200 bg-white';
+                    editBtn.textContent = '编辑作品';
+                    editBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        const show = textarea.style.display === 'none';
+                        textarea.style.display = show ? 'block' : 'none';
+                        saveBtn.style.display = show ? 'inline-block' : 'none';
+                        editBtn.textContent = show ? '取消编辑' : '编辑作品';
+                        const arr = sortMode ? stagingActresses : data.actresses;
+                        textarea.value = generateWorksText((arr[idx] && arr[idx].works) ? arr[idx].works : []);
+                    };
+
+                    content.appendChild(textarea);
+                    content.appendChild(saveBtn);
+                    content.appendChild(workList);
+                    content.appendChild(editBtn);
+
+                    renderWorkList(workList, idx, sortMode);
+                }
+
+                item.appendChild(content);
+                container.appendChild(item);
+            });
+        }
+
+        function renderWorkList(container, actressIdx, isStaging = false) {
+            if (!container || !container.tagName) return;
+            container.innerHTML = '';
+            const arr = isStaging ? (stagingActresses || []) : (data.actresses || []);
+            const works = (arr[actressIdx] && arr[actressIdx].works) ? arr[actressIdx].works : [];
+
+            works.forEach((work, workIdx) => {
+                const li = document.createElement('li');
+                li.className = `work-item flex items-center gap-3 p-2 rounded ${work.done ? 'line-through text-slate-400 bg-slate-50' : 'bg-slate-100'}`;
+
+                const cb = document.createElement('input');
+                cb.type = 'checkbox';
+                cb.checked = work.done;
+                cb.onchange = (e) => {
+                    work.done = cb.checked;
+                    renderActressList();
+                    renderWordCloud();
+                    showToast('已更新到本地，请点击“保存所有改动”上传。');
+                };
+
+                const titleSpan = document.createElement('span');
+                titleSpan.className = 'title flex-1 cursor-pointer';
+                titleSpan.textContent = work.title;
+                titleSpan.onclick = (e) => {
+                    e.stopPropagation();
+                    showSitePopup(e, work.title);
+                };
+
+                li.appendChild(cb);
+                li.appendChild(titleSpan);
+                container.appendChild(li);
+            });
+        }
+
+        function showSitePopup(e, title) {
+            const popup = document.getElementById('sitePopup');
+            popup.innerHTML = '';
+            popup.classList.remove('hidden');
+
+            const rect = e.target.getBoundingClientRect();
+            popup.style.left = `${rect.left}px`;
+            popup.style.top = `${rect.bottom + window.scrollY + 8}px`;
+
+            (data.config.sitelist || []).forEach(site => {
+                const a = document.createElement('a');
+                a.href = `https://www.google.com/search?q=${encodeURIComponent(title + ' ' + site)}`;
+                a.target = "_blank";
+                a.textContent = `🔍 搜索 ${site}`;
+                popup.appendChild(a);
+            });
+
+            function close(event) {
+                if (!popup.contains(event.target) && !event.target.classList.contains('title')) {
+                    popup.classList.add('hidden');
+                    document.removeEventListener('click', close);
+                }
+            }
+            setTimeout(() => document.addEventListener('click', close), 100);
+        }
+
+        function moveActress(i, action) {
+            if (!stagingActresses) return;
+            const arr = stagingActresses;
+            if (action === 'top' && i > 0) {
+                arr.unshift(arr.splice(i, 1)[0]);
+            } else if (action === 'up' && i > 0) {
+                [arr[i - 1], arr[i]] = [arr[i], arr[i - 1]];
+            } else if (action === 'down' && i < arr.length - 1) {
+                [arr[i + 1], arr[i]] = [arr[i], arr[i + 1]];
+            } else if (action === 'bottom' && i < arr.length - 1) {
+                arr.push(arr.splice(i, 1)[0]);
+            }
+            renderActressList();
+            renderWordCloud();
+        }
+
+        function renderWordCloud() {
+            const container = document.getElementById('wordCloud');
+
+            // 替换 canvas 为 div 容器（只做一次）
+            if (container.tagName.toLowerCase() === 'canvas') {
+                const newDiv = document.createElement('div');
+                newDiv.id = container.id;
+                newDiv.style.width = container.style.width || '100%';
+                newDiv.style.height = container.style.height || '400px';
+                newDiv.style.background = 'white';
+                newDiv.style.borderRadius = '0.5rem';
+                newDiv.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+                container.parentNode.replaceChild(newDiv, container);
+            }
+
+            const chartDom = document.getElementById('wordCloud');
+            if (!chartDom) return;
+
+            const chart = echarts.init(chartDom, null, { renderer: 'svg' });
+
+            const list = sortMode ? (stagingActresses || []) : (data.actresses || []);
+            if (!list.length) {
+                chart.clear();
+                chartDom.innerHTML = `<div class="text-slate-500 text-center mt-10">暂无数据</div>`;
+                document.getElementById('wordCloudStats').textContent = '女优总数：0，作品总数：0';
+                return;
+            }
+
+            // 计算女优总数和作品总数
+            const actressCount = list.length;
+            const workCount = list.reduce((sum, actress) => sum + (actress.works ? actress.works.length : 0), 0);
+            document.getElementById('wordCloudStats').textContent = `女优总数：${actressCount}，作品总数：${workCount}`;
+
+            const wordData = list.map(a => ({
+                name: a.name,
+                value: Math.max(10, (a.works ? a.works.length : 0) * 5)
+            }));
+
+            const option = {
+                tooltip: {
+                    show: true,
+                    formatter: p => `${p.name}：${p.value}`
+                },
+                series: [{
+                    type: 'wordCloud',
+                    shape: 'circle',
+                    keepAspect: true,
+                    gridSize: 4,
+                    sizeRange: [18, 40],
+                    rotationRange: [-30, 30],
+                    rotationStep: 45,
+                    textStyle: {
+                        color: () => `rgb(${Math.round(Math.random() * 160)}, ${Math.round(Math.random() * 160)}, ${Math.round(Math.random() * 160)})`,
+                        fontWeight: 'bold'
+                    },
+                    shrinkToFit: true,
+                    emphasis: {
+                        textStyle: {
+                            shadowBlur: 10,
+                            shadowColor: '#333'
+                        }
+                    },
+                    data: wordData
+                }]
+            };
+
+            chart.setOption(option);
+
+            // 点击跳转到对应女优
+            chart.off('click');
+            chart.on('click', (params) => {
+                const name = params.name;
+                const id = `actress-${encodeURIComponent(name)}`;
+                const element = document.getElementById(id);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+
+            // 监听窗口大小变化
+            window.addEventListener('resize', () => chart.resize());
+        }
+
+        async function init() {
+            const container = document.getElementById('actressList');
+            container.innerHTML = '<div class="bg-white p-4 rounded shadow text-slate-500 italic">加载中...</div>';
+
+            try {
+                const fetched = await fetchData();
+                if (fetched) data = fetched;
+            } catch (err) {
+                container.innerHTML = `<div class="bg-rose-50 p-4 rounded text-rose-700">加载失败：${err.message}。请检查网络或密钥。</div>`;
+                showToast('加载失败，请检查网络或设置', true);
+                console.error(err);
+            }
+
+            if (!data.config) data.config = { sitelist: [] };
+            if (!data.actresses) data.actresses = [];
+
+            renderSiteList();
+            renderActressList();
+            renderWordCloud();
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+
+</html>

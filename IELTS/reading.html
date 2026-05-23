@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阅读攻略 - 雅思阅读备考指南 | IELTS Prep</title>
+    <meta name="description" content="解析雅思学术类阅读考试结构，针对初中毕业生的长难句攻克方法、同义词替换（Paraphrasing）学习及定位阅读法技巧。">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header / Navbar -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 22H22L12 2Z" stroke="url(#logoGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                        <linearGradient id="logoGrad" x1="2" y1="22" x2="22" y2="2">
+                            <stop offset="0%" stop-color="#14b8a6" />
+                            <stop offset="100%" stop-color="#6366f1" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                IELTS<span>Prep</span>
+            </a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="currentColor" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                </svg>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">首页</a></li>
+                <li><a href="comparison.html" class="nav-link">初中vs雅思</a></li>
+                <li><a href="listening.html" class="nav-link">听力</a></li>
+                <li><a href="reading.html" class="nav-link active">阅读</a></li>
+                <li><a href="writing.html" class="nav-link">写作</a></li>
+                <li><a href="speaking.html" class="nav-link">口语</a></li>
+                <li><a href="resources.html" class="nav-link">资源库</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="page-header">
+            <span class="badge badge-primary">阅读板块 (Reading)</span>
+            <h1>60分钟的<span class="gradient-text">信息寻宝之旅</span></h1>
+            <p>面对总长约3000字的三篇长文，雅思阅读考查的是快速过滤无效信息、精准定位核心考点的能力。</p>
+        </div>
+
+        <div class="content-grid">
+            <div class="content-body">
+                <!-- Part 1: Exam Structure -->
+                <section class="glass-card">
+                    <h3 style="color: var(--primary); margin-bottom: 1rem;">阅读考试结构</h3>
+                    <p>学术类（Academic）阅读包含 <strong>3篇文章</strong>，共 <strong>40道题目</strong>，限时 <strong>60分钟</strong>（无额外誊写答案时间）。文章取材于真实的杂志、期刊、书籍和报纸，主题涉及生物、历史、社会学、心理学、工程等各个学术门类。</p>
+                    
+                    <div style="border: 1px solid var(--card-border); border-radius: 12px; padding: 1.5rem; margin-top: 1.5rem; background: rgba(255,255,255,0.01);">
+                        <h4 style="color: var(--secondary); margin-bottom: 0.8rem;">雅思阅读常考题型</h4>
+                        <ul style="list-style-position: inside; color: var(--text-muted); display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.5rem;">
+                            <li>判断题 (True / False / Not Given)</li>
+                            <li>配对题 (Matching - 段落大意/信息)</li>
+                            <li>单选/多选题 (Multiple Choice)</li>
+                            <li>摘要填空题 (Summary Completion)</li>
+                            <li>图表标记题 (Diagram Labeling)</li>
+                            <li>简答题 (Short Answer Questions)</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Part 2: Difficulties for Middle School Graduates -->
+                <section class="glass-card">
+                    <h3 style="color: var(--primary); margin-bottom: 1rem;">初中毕业生备考的三大拦路虎</h3>
+                    
+                    <details class="detail-box">
+                        <summary>1. 词汇量短缺：一眼望去全是生词</summary>
+                        <div class="detail-content">
+                            <p>初中课本接触的多是诸如 <em>"happy, study, animal"</em> 等基础生活词，而雅思学术阅读文章会出现诸如 <em>"cognitive, photosynthesis, chronological, deteriorating"</em> 等专业或半学术词汇。</p>
+                            <p>当一句话里有3个以上生词时，句子基本就无法读懂。因此，词汇积累是初中生衔接雅思的首要关口。</p>
+                        </div>
+                    </details>
+
+                    <details class="detail-box">
+                        <summary>2. 时间恐慌：读得太慢，题做不完</summary>
+                        <div class="detail-content">
+                            <p>初中生习惯了逐字逐句翻译的“精读”模式。但在雅思中，60分钟读3000字外加做40道题，平均每篇文章只有20分钟。</p>
+                            <p>如果继续坚持“查字典式”的慢读，绝大多数同学在规定时间内只能勉强做完前两篇，最后一篇只能凭直觉瞎猜。</p>
+                        </div>
+                    </details>
+
+                    <details class="detail-box">
+                        <summary>3. 逻辑死穴：分不清 False 和 Not Given</summary>
+                        <div class="detail-content">
+                            <p>判断题是雅思最具特色也是最难的题型。尤其是 <strong>Not Given（未提及）</strong> 和 <strong>False（错误/矛盾）</strong> 的区别。</p>
+                            <p>许多初中同学喜欢加入自己的常识进行推断。记住：雅思只认“原文事实”。原文没说就是 <em>Not Given</em>，原文直接相反才是 <em>False</em>。这种思维方式的转变需要专门的逻辑训练。</p>
+                        </div>
+                    </details>
+                </section>
+
+                <!-- Part 3: Reading Skills -->
+                <section class="glass-card">
+                    <h3 style="color: var(--primary); margin-bottom: 1rem;">核心阅读技能训练</h3>
+                    <div class="roadmap">
+                        <div class="roadmap-step">
+                            <h4>长难句结构拆解 (Sentence Parsing)</h4>
+                            <p>学术英语中充斥着复杂的定语从句、同位语从句和非谓语动词。平时练习中，拿出一句话，找出其核心的“主语+谓语+宾语”，把修饰成分剥离。只有看懂了句子骨架，才能在词汇不足时依然猜对大意。</p>
+                        </div>
+                        <div class="roadmap-step">
+                            <h4>Skimming & Scanning (略读与寻读)</h4>
+                            <p><strong>Skimming</strong>：通过阅读文章标题、各段首尾句，在1-2分钟内抓取文章大意。
+                            <br><strong>Scanning</strong>：利用题目中的“定位词”（如大写字母、数字、特殊名词），在原文中像扫描仪一样快速搜寻，定位到考点句。</p>
+                        </div>
+                        <div class="roadmap-step">
+                            <h4>同义改写意识 (Paraphrase Mapping)</h4>
+                            <p>雅思阅读的本质就是“同义替换”。做完题后，一定要在笔记本里整理“题目词汇 ↔ 原文词汇”的对照表。比如：<em>"at present ↔ currently"</em>，<em>"produce ↔ generate"</em>。这是最高效的提分秘诀。</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar & Recommended Resources -->
+            <div class="sidebar">
+                <div class="glass-card">
+                    <h3 style="color: var(--primary); margin-bottom: 1rem;">推荐阅读资源</h3>
+                    
+                    <div class="resource-list">
+                        <div class="resource-item">
+                            <div class="resource-item-icon">📚</div>
+                            <div class="resource-item-content">
+                                <h4>刘洪波《雅思阅读真经 5》/《总纲》</h4>
+                                <p>国内极受推崇的雅思阅读辅导书。深入讲解“同义替换”和“真经定位法”，通俗易懂，适合新手。</p>
+                                <span class="resource-tag">书籍</span>
+                            </div>
+                        </div>
+
+                        <div class="resource-item">
+                            <div class="resource-item-icon">📚</div>
+                            <div class="resource-item-content">
+                                <h4>高中英语3500词汇表</h4>
+                                <p>先花时间打牢高中的词汇基础，这是看懂雅思长难句的底线保障。</p>
+                                <span class="resource-tag">基础词汇</span>
+                            </div>
+                        </div>
+
+                        <div class="resource-item">
+                            <div class="resource-item-icon">🌐</div>
+                            <div class="resource-item-content">
+                                <h4>National Geographic Kids</h4>
+                                <p>国家地理少年版。主题与雅思学术文章（动物、自然、科技）非常重合，但词汇较简单，极其适合过渡期阅读。</p>
+                                <span class="resource-tag">推荐网站</span>
+                            </div>
+                        </div>
+
+                        <div class="resource-item">
+                            <div class="resource-item-icon">🌐</div>
+                            <div class="resource-item-content">
+                                <h4>Science Daily (科学日报)</h4>
+                                <p>提供最新的科学研究简报。文章短小精悍，用词地道，是雅思阅读科普文的重要背景来源。</p>
+                                <span class="resource-tag">学术网站</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo" style="margin-bottom: 1rem;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 22H22L12 2Z" stroke="url(#logoGrad2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <defs>
+                            <linearGradient id="logoGrad2" x1="2" y1="22" x2="22" y2="2">
+                                <stop offset="0%" stop-color="#14b8a6" />
+                                <stop offset="100%" stop-color="#6366f1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    IELTS<span>Prep</span>
+                </a>
+                <p style="font-size: 0.9rem;">专为初中毕业生从零了解雅思设计的公益科普站点。祝你在高中衔接阶段，英语水平突飞猛进！</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-group">
+                    <h4>快速导航</h4>
+                    <ul>
+                        <li><a href="index.html">首页介绍</a></li>
+                        <li><a href="comparison.html">初中 vs 雅思</a></li>
+                        <li><a href="resources.html">备考资源库</a></li>
+                    </ul>
+                </div>
+                <div class="footer-group">
+                    <h4>雅思分科</h4>
+                    <ul>
+                        <li><a href="listening.html">听力突破</a></li>
+                        <li><a href="reading.html">阅读攻略</a></li>
+                        <li><a href="writing.html">写作指南</a></li>
+                        <li><a href="speaking.html">口语跨越</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 IELTS Prep Guide. Built for young learners.</p>
+            <p>Deployable to GitHub Pages</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 趣味鼠标训练游戏中心 🎮</title>
+    <!-- Google Fonts for Cute and Premium Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Nunito:wght@400;700;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --space-bg: radial-gradient(circle at center, #1b0a3a 0%, #080214 100%);
+            --cute-pink: #ff85a1;
+            --cute-blue: #70d6ff;
+            --cute-yellow: #ffd166;
+            --magic-green: #2ecc71;
+            --neon-blue: #00f0ff;
+            --neon-pink: #ff007f;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--space-bg);
+            font-family: 'Nunito', 'Microsoft YaHei', sans-serif;
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Twinkling star background */
+        #star-field {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle linear infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Title Area */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-family: 'ZCOOL KuaiLe', sans-serif;
+            font-size: 52px;
+            background: linear-gradient(135deg, #70d6ff, #ff85a1, #ffd166);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(112, 214, 255, 0.25);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #a78bfa;
+            font-weight: bold;
+        }
+
+        /* Status & Tool bar */
+        .toolbar {
+            width: 100%;
+            max-width: 960px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 15px 30px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #d1d5db;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ff9f43; /* Yellow: local scanning pending */
+            box-shadow: 0 0 8px #ff9f43;
+        }
+
+        .status-dot.active {
+            background: var(--magic-green);
+            box-shadow: 0 0 8px var(--magic-green);
+        }
+
+        .status-dot.offline {
+            background: #a8a29e;
+            box-shadow: 0 0 8px #a8a29e;
+        }
+
+        .btn-scan {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-family: 'ZCOOL KuaiLe', sans-serif;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.2) 0%, rgba(255, 0, 127, 0.2) 100%);
+            border: 1.5px solid var(--neon-blue);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            outline: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-scan:hover {
+            transform: scale(1.05);
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.5);
+        }
+
+        .btn-scan:active {
+            transform: scale(0.98);
+        }
+
+        /* Game Grid */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 960px;
+            padding-bottom: 40px;
+        }
+
+        /* Game Card */
+        .game-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 2px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 45px rgba(112, 214, 255, 0.25);
+        }
+
+        /* Specific card highlights */
+        .game-card.space-adventure:hover { border-color: var(--neon-blue); box-shadow: 0 15px 35px rgba(0, 240, 255, 0.3); }
+        .game-card.magic-forest:hover { border-color: var(--magic-green); box-shadow: 0 15px 35px rgba(46, 204, 113, 0.3); }
+        .game-card.cute-animals:hover { border-color: var(--cute-pink); box-shadow: 0 15px 35px rgba(255, 133, 161, 0.3); }
+        .game-card.royal-jewelry:hover { border-color: var(--cute-yellow); box-shadow: 0 15px 35px rgba(255, 209, 102, 0.3); }
+
+        .card-icon {
+            width: 90px;
+            height: 90px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 8px 12px rgba(0,0,0,0.25));
+            transition: transform 0.3s ease;
+        }
+
+        .game-card:hover .card-icon {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .game-title {
+            font-family: 'ZCOOL KuaiLe', sans-serif;
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+
+        .game-desc {
+            font-size: 14px;
+            color: #d1d5db;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+
+        .btn-play {
+            width: 100%;
+            padding: 12px 0;
+            font-family: 'ZCOOL KuaiLe', sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            color: #fff;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%);
+            border: 1.5px solid var(--glass-border);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .game-card:hover .btn-play {
+            background: linear-gradient(135deg, var(--neon-blue) 0%, rgba(112, 214, 255, 0.8) 100%);
+            border-color: transparent;
+            box-shadow: 0 5px 15px rgba(112, 214, 255, 0.4);
+        }
+
+        .game-card.space-adventure:hover .btn-play {
+            background: linear-gradient(135deg, var(--neon-blue) 0%, #0097a7 100%);
+            box-shadow: 0 5px 15px rgba(0, 240, 255, 0.4);
+        }
+        .game-card.magic-forest:hover .btn-play {
+            background: linear-gradient(135deg, var(--magic-green) 0%, #1b5e20 100%);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+        }
+        .game-card.cute-animals:hover .btn-play {
+            background: linear-gradient(135deg, var(--cute-pink) 0%, #c2185b 100%);
+            box-shadow: 0 5px 15px rgba(255, 133, 161, 0.4);
+        }
+        .game-card.royal-jewelry:hover .btn-play {
+            background: linear-gradient(135deg, var(--cute-yellow) 0%, #f39c12 100%);
+            box-shadow: 0 5px 15px rgba(255, 209, 102, 0.4);
+        }
+
+        /* Dynamically added label badge */
+        .dynamic-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(46, 204, 113, 0.25);
+            border: 1px solid var(--magic-green);
+            color: #fff;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 10px;
+        }
+
+        /* Drag over overlay */
+        .drag-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(27, 10, 58, 0.9);
+            border: 4px dashed var(--neon-blue);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .drag-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .drag-msg {
+            font-family: 'ZCOOL KuaiLe', sans-serif;
+            font-size: 32px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 13px;
+            color: #6b7280;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="star-field"></div>
+    <div class="drag-overlay" id="drag-overlay">
+        <div class="drag-msg">🫳 放开鼠标，添加这些游戏文件！</div>
+    </div>
+
+    <!-- Hidden folder scanner inputs -->
+    <input type="file" id="folder-input" webkitdirectory directory multiple style="display: none;">
+    <input type="file" id="file-input" multiple accept=".html" style="display: none;">
+
+    <div class="container">
+        <header>
+            <h1>鼠标操作微操训练中心</h1>
+            <p class="subtitle">让眼睛、双手与大脑协调共舞吧！</p>
+        </header>
+
+        <div class="toolbar">
+            <div class="status-badge">
+                <div class="status-dot" id="status-dot"></div>
+                <span id="status-text">正在初始化...</span>
+            </div>
+            <div style="display: flex; gap: 15px;">
+                <button class="btn-scan" onclick="triggerFolderSelect()">
+                    📁 扫描本地文件夹
+                </button>
+                <button class="btn-scan" onclick="triggerFileSelect()">
+                    ➕ 添加新游戏文件
+                </button>
+            </div>
+        </div>
+
+        <div class="game-grid" id="game-grid">
+            <!-- Game cards will be rendered dynamically here -->
+        </div>
+
+        <footer>
+            <p>© 2026 鼠标微操训练营 - 支持拖拽游戏 HTML 文件到此页面载入新游戏</p>
+        </footer>
+    </div>
+
+    <script>
+        // ---------------- Star Field Generator ----------------
+        function buildStars() {
+            const field = document.getElementById('star-field');
+            field.innerHTML = '';
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            for (let i = 0; i < 40; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 3 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * width + 'px';
+                star.style.top = Math.random() * height + 'px';
+                star.style.animationDuration = (4 + Math.random() * 6) + 's';
+                star.style.animationDelay = (Math.random() * -10) + 's';
+                field.appendChild(star);
+            }
+        }
+        window.addEventListener('resize', buildStars);
+        window.addEventListener('load', buildStars);
+
+        // ---------------- Game Data Management ----------------
+
+        // Built-in list of default games
+        const STATIC_GAMES = [
+            {
+                id: 'space_adventure',
+                fileName: 'space_adventure.html',
+                title: '星际小能手大冒险',
+                desc: '牵引光束躲避陨石、绘制亮星唤醒守护神、构建力场防线保卫母星！',
+                themeClass: 'space-adventure',
+                iconSvg: `<svg viewBox="0 0 100 100" width="100%" height="100%">
+                            <polygon points="50,15 20,75 50,60 80,75" fill="none" stroke="var(--neon-blue)" stroke-width="6" stroke-linejoin="round"/>
+                            <circle cx="50" cy="53" r="8" fill="var(--neon-pink)"/>
+                            <path d="M 50 15 L 50 40 M 35 68 L 25 75 M 65 68 L 75 75" stroke="var(--neon-blue)" stroke-width="4" stroke-linecap="round"/>
+                          </svg>`
+            },
+            {
+                id: 'magic_forest',
+                fileName: 'magic_forest.html',
+                title: '魔法森林奇幻工坊',
+                desc: '在林间抓取发光的萤火虫、按比例投放药材搅拌药水、在魔法书上勾勒符文。',
+                themeClass: 'magic-forest',
+                iconSvg: `<svg viewBox="0 0 100 100" width="100%" height="100%">
+                            <path d="M 30 75 Q 50 30 70 75 C 60 85 40 85 30 75 Z" fill="none" stroke="var(--magic-green)" stroke-width="6"/>
+                            <circle cx="50" cy="50" r="12" fill="var(--cute-yellow)" filter="drop-shadow(0 0 8px var(--cute-yellow))"/>
+                            <path d="M 50 20 L 50 35 M 48 38 L 52 38" stroke="var(--magic-green)" stroke-width="4" stroke-linecap="round"/>
+                          </svg>`
+            },
+            {
+                id: 'cute_animals',
+                fileName: 'cute_animals.html',
+                title: '萌宠之家美容沙龙',
+                desc: '给泥泞的小猫洗香香泡泡浴、托碗帮助小狗接骨头、使用剪刀梳子给绵羊理发装扮。',
+                themeClass: 'cute-animals',
+                iconSvg: `<svg viewBox="0 0 100 100" width="100%" height="100%">
+                            <circle cx="50" cy="55" r="22" fill="var(--cute-pink)"/>
+                            <circle cx="28" cy="28" r="9" fill="var(--cute-pink)"/>
+                            <circle cx="50" cy="20" r="9" fill="var(--cute-pink)"/>
+                            <circle cx="72" cy="28" r="9" fill="var(--cute-pink)"/>
+                          </svg>`
+            },
+            {
+                id: 'royal_jewelry',
+                fileName: 'royal_jewelry.html',
+                title: '皇家珠宝设计工坊',
+                desc: '将彩色红蓝绿钻精准镶入空皇冠、拉动滑块穿珍珠、持毛刷摩擦打磨璀璨钻石。',
+                themeClass: 'royal-jewelry',
+                iconSvg: `<svg viewBox="0 0 100 100" width="100%" height="100%">
+                            <polygon points="50,15 80,45 50,85 20,45" fill="none" stroke="var(--cute-yellow)" stroke-width="6" stroke-linejoin="round"/>
+                            <line x1="20" y1="45" x2="80" y2="45" stroke="var(--cute-yellow)" stroke-width="4"/>
+                            <line x1="50" y1="15" x2="50" y2="85" stroke="var(--cute-yellow)" stroke-width="2"/>
+                          </svg>`
+            },
+            {
+                id: 'mousegame',
+                fileName: 'mousegame.html',
+                title: '原版经典鼠标练习',
+                desc: '最初的经典气球戳戳点击和迷宫轨迹划线训练，最适合熟悉鼠标基本控制。',
+                themeClass: 'default',
+                iconSvg: `<svg viewBox="0 0 100 100" width="100%" height="100%">
+                            <rect x="30" y="20" width="40" height="60" rx="20" fill="none" stroke="#fff" stroke-width="6"/>
+                            <line x1="50" y1="20" x2="50" y2="50" stroke="#fff" stroke-width="4"/>
+                            <line x1="30" y1="50" x2="70" y2="50" stroke="#fff" stroke-width="4"/>
+                            <circle cx="50" cy="35" r="4" fill="var(--neon-blue)"/>
+                          </svg>`
+            }
+        ];
+
+        let discoveredGames = [];
+
+        // Save scanned files to localStorage so they persist on file:// protocol
+        function saveCache(list) {
+            try {
+                localStorage.setItem('discovered_games_cache', JSON.stringify(list));
+            } catch (e) {
+                console.warn("Storage failed: ", e);
+            }
+        }
+
+        function loadCache() {
+            try {
+                const cached = localStorage.getItem('discovered_games_cache');
+                return cached ? JSON.parse(cached) : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        // Render the board
+        function renderBoard() {
+            const grid = document.getElementById('game-grid');
+            grid.innerHTML = '';
+
+            // Merge static list with discovered ones (avoiding duplicates)
+            const allGames = [...STATIC_GAMES];
+            discoveredGames.forEach(d => {
+                if (!allGames.some(s => s.fileName.toLowerCase() === d.fileName.toLowerCase())) {
+                    allGames.push(d);
+                }
+            });
+
+            allGames.forEach(game => {
+                const card = document.createElement('div');
+                card.className = `game-card ${game.themeClass || 'default'}`;
+
+                const isDynamic = !STATIC_GAMES.some(s => s.id === game.id);
+                const badgeHtml = isDynamic ? `<span class="dynamic-badge">📂 自定义载入</span>` : '';
+
+                card.innerHTML = `
+                    ${badgeHtml}
+                    <div class="card-icon">
+                        ${game.iconSvg || `<svg viewBox="0 0 100 100" width="100%" height="100%"><rect x="25" y="25" width="50" height="50" fill="none" stroke="#fff" stroke-width="6" rx="10"/><circle cx="50" cy="50" r="10" fill="var(--neon-pink)"/></svg>`}
+                    </div>
+                    <div class="game-title">${game.title}</div>
+                    <div class="game-desc">${game.desc}</div>
+                    <a href="${game.fileName}" class="btn-play">进入训练 ⚡</a>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // ---------------- Scan / Detect Mechanics ----------------
+
+        // Mode A: Auto-fetch directory files (Works when running inside a web server)
+        async function autoDetectServerFiles() {
+            const statusText = document.getElementById('status-text');
+            const statusDot = document.getElementById('status-dot');
+
+            try {
+                statusText.innerText = "正在扫描本地服务器目录...";
+                const response = await fetch('./');
+                if (!response.ok) throw new Error("CORS or Server Index disabled");
+
+                const htmlText = await response.text();
+                
+                // Parse HTML directory index using DOMParser
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlText, 'text/html');
+                const links = Array.from(doc.querySelectorAll('a'));
+
+                const htmlFiles = links
+                    .map(a => a.getAttribute('href'))
+                    .filter(href => href && href.toLowerCase().endsWith('.html') && !href.toLowerCase().includes('index.html') && !href.toLowerCase().includes('index.htm'));
+
+                if (htmlFiles.length === 0) {
+                    throw new Error("No other html files");
+                }
+
+                // Add newly discovered files
+                htmlFiles.forEach(fileName => {
+                    const cleanName = decodeURIComponent(fileName);
+                    if (!STATIC_GAMES.some(s => s.fileName.toLowerCase() === cleanName.toLowerCase())) {
+                        const nameWithoutExt = cleanName.replace('.html', '').replace(/_/g, ' ');
+                        const capitalized = nameWithoutExt.charAt(0).toUpperCase() + nameWithoutExt.slice(1);
+                        
+                        discoveredGames.push({
+                            id: cleanName,
+                            fileName: cleanName,
+                            title: capitalized,
+                            desc: '本地服务器中自动发现的微操关卡，点击立即体验。',
+                            themeClass: 'default'
+                        });
+                    }
+                });
+
+                statusDot.className = "status-dot active";
+                statusText.innerText = `本地服务器模式：自动检测到共 ${STATIC_GAMES.length + discoveredGames.length} 个训练游戏！`;
+                saveCache(discoveredGames);
+                renderBoard();
+
+            } catch (e) {
+                // Fallback to cached games or offline mode
+                console.log("Auto-detection failed, using cache/offline file manager.", e.message);
+                
+                discoveredGames = loadCache();
+                
+                statusDot.className = "status-dot offline";
+                if (discoveredGames.length > 0) {
+                    statusText.innerText = `本地离线模式：已从缓存中读取 ${discoveredGames.length} 个自定义游戏！`;
+                } else {
+                    statusText.innerText = "本地离线模式：支持导入或扫描本地文件夹以读取新关卡。";
+                }
+                renderBoard();
+            }
+        }
+
+        // Mode B: Folder scanning triggers
+        function triggerFolderSelect() {
+            document.getElementById('folder-input').click();
+        }
+
+        function triggerFileSelect() {
+            document.getElementById('file-input').click();
+        }
+
+        // Handlers for inputs
+        document.getElementById('folder-input').addEventListener('change', handleScannedFiles);
+        document.getElementById('file-input').addEventListener('change', handleScannedFiles);
+
+        function handleScannedFiles(e) {
+            const files = Array.from(e.target.files);
+            const htmlFiles = files.filter(f => f.name.toLowerCase().endsWith('.html') && !f.name.toLowerCase().includes('index.html'));
+
+            if (htmlFiles.length === 0) {
+                alert("在此目录中未检测到除 index.html 以外的 HTML 游戏文件！");
+                return;
+            }
+
+            htmlFiles.forEach(file => {
+                const name = file.name;
+                const path = file.webkitRelativePath || name;
+                
+                // If it exists in discovered list already, skip
+                if (!STATIC_GAMES.some(s => s.fileName.toLowerCase() === name.toLowerCase()) &&
+                    !discoveredGames.some(d => d.fileName.toLowerCase() === name.toLowerCase())) {
+                    
+                    const nameWithoutExt = name.replace('.html', '').replace(/_/g, ' ');
+                    const title = nameWithoutExt.charAt(0).toUpperCase() + nameWithoutExt.slice(1);
+                    
+                    discoveredGames.push({
+                        id: name,
+                        fileName: name,
+                        title: title,
+                        desc: '已成功导入的本地自定义微操训练关卡。',
+                        themeClass: 'default'
+                    });
+                }
+            });
+
+            const statusText = document.getElementById('status-text');
+            statusText.innerText = `扫描导入成功：已成功载入 ${discoveredGames.length} 个自定义游戏关卡！`;
+            
+            saveCache(discoveredGames);
+            renderBoard();
+        }
+
+        // Mode C: Drag and Drop Support
+        const overlay = document.getElementById('drag-overlay');
+        window.addEventListener('dragenter', (e) => {
+            e.preventDefault();
+            overlay.classList.add('active');
+        });
+        overlay.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        });
+        overlay.addEventListener('dragleave', () => {
+            overlay.classList.remove('active');
+        });
+        overlay.addEventListener('drop', (e) => {
+            e.preventDefault();
+            overlay.classList.remove('active');
+
+            const files = Array.from(e.dataTransfer.files);
+            const htmlFiles = files.filter(f => f.name.toLowerCase().endsWith('.html') && !f.name.toLowerCase().includes('index.html'));
+
+            if (htmlFiles.length === 0) {
+                alert("请拖拽有效的 HTML 游戏文件！");
+                return;
+            }
+
+            htmlFiles.forEach(file => {
+                const name = file.name;
+                if (!STATIC_GAMES.some(s => s.fileName.toLowerCase() === name.toLowerCase()) &&
+                    !discoveredGames.some(d => d.fileName.toLowerCase() === name.toLowerCase())) {
+                    
+                    const nameWithoutExt = name.replace('.html', '').replace(/_/g, ' ');
+                    const title = nameWithoutExt.charAt(0).toUpperCase() + nameWithoutExt.slice(1);
+                    
+                    discoveredGames.push({
+                        id: name,
+                        fileName: name,
+                        title: title,
+                        desc: '已成功拖拽载入的本地自定义微操关卡。',
+                        themeClass: 'default'
+                    });
+                }
+            });
+
+            const statusText = document.getElementById('status-text');
+            statusText.innerText = `拖动载入成功：新增载入了 ${discoveredGames.length} 个自定义游戏关卡！`;
+            
+            saveCache(discoveredGames);
+            renderBoard();
+        });
+
+        // Initialize board and scanning on load
+        window.addEventListener('DOMContentLoaded', () => {
+            discoveredGames = loadCache();
+            renderBoard();
+            autoDetectServerFiles();
+        });
+    </script>
+</body>
+</html>

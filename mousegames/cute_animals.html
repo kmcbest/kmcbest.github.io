@@ -1,0 +1,1765 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐶 萌宠之家与美容沙龙 🐱</title>
+    <!-- Google Fonts for Cute Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pastel-bg: linear-gradient(135deg, #ffe5ec 0%, #ffebf0 50%, #f0efff 100%);
+            --cute-pink: #ff85a1;
+            --cute-blue: #70d6ff;
+            --cute-yellow: #ffd166;
+            --cute-purple: #b5179e;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 133, 161, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-drag: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--pastel-bg);
+            font-family: 'Nunito', 'Microsoft YaHei', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            color: #4a4a4a;
+        }
+
+        /* Bubble backdrop */
+        #bubble-background {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid rgba(255, 133, 161, 0.2);
+            border-radius: 50%;
+            animation: float-up linear infinite;
+        }
+
+        @keyframes float-up {
+            0% { transform: translateY(105vh) scale(0.6); opacity: 0.1; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.3); opacity: 0; }
+        }
+
+        /* Custom Paw Cursor */
+        .paw-cursor {
+            width: 38px;
+            height: 38px;
+            position: absolute;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            display: none;
+            filter: drop-shadow(0 4px 6px rgba(255, 133, 161, 0.4));
+        }
+
+        /* Main Game Box */
+        #game-container {
+            width: 960px;
+            height: 720px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 3px solid var(--glass-border);
+            border-radius: 40px;
+            box-shadow: 0 20px 50px rgba(255, 133, 161, 0.12), inset 0 0 30px rgba(255, 255, 255, 0.6);
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Screen Manager */
+        .screen {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0; left: 0;
+            opacity: 0;
+            transform: scale(0.96);
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .screen.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+            z-index: 20;
+        }
+
+        /* Header Instruction Banner */
+        .instruction-banner {
+            position: absolute;
+            top: 25px;
+            width: 90%;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid var(--cute-pink);
+            border-radius: 25px;
+            box-shadow: 0 10px 25px rgba(255, 133, 161, 0.15);
+            text-align: center;
+            z-index: 30;
+        }
+
+        .instruction-banner h2 {
+            font-family: 'ZCOOL KuaiLe', 'Nunito', sans-serif;
+            font-size: 24px;
+            color: var(--cute-pink);
+            margin-bottom: 5px;
+        }
+
+        .instruction-banner p {
+            font-size: 16px;
+            color: #5c5c5c;
+            font-weight: bold;
+        }
+
+        /* Welcome Screen Styling */
+        #welcome-screen h1 {
+            font-family: 'ZCOOL KuaiLe', sans-serif;
+            font-size: 56px;
+            color: var(--cute-pink);
+            text-shadow: 3px 3px 0px #fff, 6px 6px 0px rgba(255, 133, 161, 0.15);
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+
+        #welcome-screen .intro-subtitle {
+            font-size: 22px;
+            color: #ff5c8a;
+            margin-bottom: 45px;
+            font-weight: bold;
+        }
+
+        /* Buttons with Cute Jelly Feel */
+        .btn-cute {
+            padding: 18px 45px;
+            font-size: 24px;
+            font-family: 'ZCOOL KuaiLe', sans-serif;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(135deg, #ff85a1 0%, #ffccd5 100%);
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            box-shadow: 0 8px 0 #e05780, 0 15px 25px rgba(255, 133, 161, 0.35);
+            transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            outline: none;
+        }
+
+        .btn-cute:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 0 #e05780, 0 20px 30px rgba(255, 133, 161, 0.4);
+        }
+
+        .btn-cute:active {
+            transform: translateY(8px);
+            box-shadow: 0 0px 0 #e05780, 0 5px 10px rgba(255, 133, 161, 0.2);
+        }
+
+        .next-btn {
+            position: absolute;
+            bottom: 45px;
+            display: none;
+            animation: bounce-next 2s infinite;
+            z-index: 50;
+        }
+
+        @keyframes bounce-next {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Level 1: Bubble Bath Time */
+        #game-bath {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .bath-tub {
+            position: absolute;
+            bottom: 90px;
+            width: 500px;
+            height: 180px;
+            z-index: 25;
+        }
+
+        .kitten-box {
+            position: absolute;
+            bottom: 165px;
+            left: calc(50% - 110px);
+            width: 220px;
+            height: 220px;
+            z-index: 28;
+            transition: transform 0.3s;
+        }
+
+        .mud-spot {
+            position: absolute;
+            background: #8d6e63;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 32;
+            opacity: 0.85;
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.3);
+            transition: width 0.1s, height 0.1s, opacity 0.3s;
+        }
+
+        .bath-soap-bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.85);
+            border: 2px solid var(--cute-blue);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 35;
+            animation: bob-bubble 1.5s ease-out forwards;
+        }
+
+        @keyframes bob-bubble {
+            0% { transform: translateY(0) scale(0.6); opacity: 0; }
+            30% { opacity: 1; }
+            100% { transform: translateY(-80px) scale(1.2); opacity: 0; }
+        }
+
+        /* Shower Head Tool */
+        .shower-head {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            cursor: grab;
+            z-index: 40;
+            display: none;
+        }
+
+        .shower-head:active {
+            cursor: grabbing;
+        }
+
+        .water-spray-svg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 38;
+        }
+
+        /* Level 2: Catch the Treats */
+        #game-treats {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .puppy-catcher {
+            position: absolute;
+            bottom: 90px;
+            left: calc(50% - 80px);
+            width: 160px;
+            height: 160px;
+            z-index: 35;
+            transition: transform 0.1s;
+        }
+
+        .treat-bowl-cursor {
+            position: absolute;
+            width: 140px;
+            height: 70px;
+            pointer-events: none;
+            z-index: 38;
+            transform: translate(-50%, -50%);
+            display: none;
+            filter: drop-shadow(0 5px 8px rgba(0,0,0,0.15));
+        }
+
+        .falling-treat {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            z-index: 34;
+        }
+
+        .treats-score-board {
+            position: absolute;
+            top: 130px;
+            left: 45px;
+            font-family: 'ZCOOL KuaiLe', sans-serif;
+            font-size: 22px;
+            color: var(--cute-pink);
+            background: #fff;
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: 2px solid var(--cute-pink);
+            box-shadow: 0 5px 15px rgba(255,133,161,0.2);
+            z-index: 40;
+        }
+
+        /* Level 3: Sheep Barbershop */
+        #game-barbershop {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sheep-box {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            z-index: 25;
+            margin-top: 75px;
+        }
+
+        .wool-puff {
+            position: absolute;
+            background: #fff;
+            border: 2px dashed var(--cute-pink);
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 32;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s, opacity 0.5s;
+        }
+
+        .wool-puff:hover {
+            transform: scale(1.1);
+        }
+
+        .wool-comb-guide {
+            position: absolute;
+            width: 180px;
+            height: 35px;
+            border: 2px dashed var(--cute-blue);
+            background: rgba(112, 214, 255, 0.15);
+            border-radius: 10px;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 30;
+            font-family: 'ZCOOL KuaiLe', sans-serif;
+            font-size: 15px;
+            color: var(--cute-purple);
+        }
+
+        .accessory-tray {
+            position: absolute;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 85px;
+            background: #fff;
+            border-radius: 25px;
+            border: 2px solid var(--glass-border);
+            display: none;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 40;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .target-glow {
+            animation: pulse-target 1.5s infinite alternate;
+        }
+        @keyframes pulse-target {
+            0% { opacity: 0.35; }
+            100% { opacity: 0.85; }
+        }
+
+        .ribbon-item {
+            width: 70px;
+            height: 70px;
+            cursor: grab;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .ribbon-item:active {
+            cursor: grabbing;
+        }
+
+        /* Tool Cursor attachments */
+        .scissors-tool, .comb-tool {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            pointer-events: none;
+            z-index: 99;
+            transform: translate(-30%, -30%);
+            display: none;
+        }
+
+        /* Victory Screen */
+        .victory-title {
+            font-family: 'ZCOOL KuaiLe', sans-serif;
+            font-size: 52px;
+            color: var(--cute-pink);
+            text-shadow: 3px 3px 0px #fff, 5px 5px 0px rgba(255,133,161,0.2);
+            margin-bottom: 25px;
+        }
+
+        .medal-box {
+            width: 210px;
+            height: 210px;
+            margin-bottom: 35px;
+            position: relative;
+            filter: drop-shadow(0 8px 15px rgba(255,133,161,0.3));
+            animation: float-medal 3s ease-in-out infinite;
+        }
+
+        @keyframes float-medal {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        /* Global HUD Navigation */
+        #hud-nav {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.9);
+            border-top: 1.5px solid var(--glass-border);
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 100;
+        }
+
+        .hud-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .level-badge {
+            font-family: 'ZCOOL KuaiLe', sans-serif;
+            padding: 6px 15px;
+            background: rgba(255, 133, 161, 0.15);
+            border: 1.5px solid var(--cute-pink);
+            color: var(--cute-pink);
+            border-radius: 15px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .hud-btn {
+            padding: 10px 22px;
+            font-size: 16px;
+            font-family: 'ZCOOL KuaiLe', sans-serif;
+            color: #5c5c5c;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1.5px solid #dcdcdc;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .hud-btn:hover:not(:disabled) {
+            background: rgba(255, 133, 161, 0.1);
+            border-color: var(--cute-pink);
+            color: var(--cute-pink);
+        }
+
+        .hud-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .hud-btn.home-btn {
+            background: rgba(112, 214, 255, 0.05);
+            border-color: rgba(112, 214, 255, 0.3);
+        }
+
+        .hud-btn.home-btn:hover {
+            background: rgba(112, 214, 255, 0.15);
+            border-color: var(--cute-blue);
+            color: var(--cute-blue);
+        }
+
+        /* Floating text scores */
+        .score-bubble {
+            position: absolute;
+            font-family: 'ZCOOL KuaiLe', sans-serif;
+            font-weight: bold;
+            color: var(--cute-pink);
+            font-size: 22px;
+            text-shadow: 2px 2px 0px #fff;
+            pointer-events: none;
+            z-index: 99;
+            animation: float-fade 0.8s ease-out forwards;
+        }
+
+        @keyframes float-fade {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-50px) scale(1.3); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="bubble-background"></div>
+
+<!-- Cute magic paw cursor SVG -->
+<svg class="paw-cursor" id="custom-paw-cursor" viewBox="0 0 100 100">
+    <circle cx="50" cy="55" r="22" fill="var(--cute-pink)" />
+    <!-- Small toe pads -->
+    <circle cx="28" cy="28" r="9" fill="var(--cute-pink)" />
+    <circle cx="50" cy="20" r="9" fill="var(--cute-pink)" />
+    <circle cx="72" cy="28" r="9" fill="var(--cute-pink)" />
+    <!-- White inner heart detail -->
+    <path d="M 50 63 Q 42 53 50 48 Q 58 53 50 63 Z" fill="#ffffff" opacity="0.6"/>
+</svg>
+
+<!-- Floating Tools -->
+<svg class="scissors-tool" id="scissors-tool-svg" viewBox="0 0 100 100">
+    <!-- Blade 1 -->
+    <line x1="50" y1="50" x2="20" y2="20" stroke="#7f8c8d" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="20" cy="20" r="8" fill="none" stroke="#2c3e50" stroke-width="4"/>
+    <!-- Blade 2 -->
+    <line x1="50" y1="50" x2="80" y2="20" stroke="#7f8c8d" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="80" cy="20" r="8" fill="none" stroke="#2c3e50" stroke-width="4"/>
+    <!-- Pivot nut -->
+    <circle cx="50" cy="50" r="4" fill="#f1c40f"/>
+</svg>
+
+<svg class="comb-tool" id="comb-tool-svg" viewBox="0 0 100 100">
+    <!-- Comb back -->
+    <rect x="15" y="25" width="70" height="15" rx="5" fill="var(--cute-blue)"/>
+    <!-- Teeth -->
+    <rect x="20" y="40" width="4" height="30" fill="var(--cute-blue)"/>
+    <rect x="28" y="40" width="4" height="30" fill="var(--cute-blue)"/>
+    <rect x="36" y="40" width="4" height="30" fill="var(--cute-blue)"/>
+    <rect x="44" y="40" width="4" height="30" fill="var(--cute-blue)"/>
+    <rect x="52" y="40" width="4" height="30" fill="var(--cute-blue)"/>
+    <rect x="60" y="40" width="4" height="30" fill="var(--cute-blue)"/>
+    <rect x="68" y="40" width="4" height="30" fill="var(--cute-blue)"/>
+    <rect x="76" y="40" width="4" height="30" fill="var(--cute-blue)"/>
+</svg>
+
+
+<div id="game-container">
+    
+    <!-- Screen 0: Welcome -->
+    <div id="screen-welcome" class="screen active">
+        <!-- Cute vector puppy & kitten vector card -->
+        <svg width="180" height="180" viewBox="0 0 200 200" style="margin-bottom: 20px; filter: drop-shadow(0 8px 12px rgba(255,133,161,0.3));">
+            <!-- Kitten left -->
+            <g transform="translate(20, 40)">
+                <circle cx="50" cy="65" r="40" fill="#f8c291"/>
+                <!-- Ears -->
+                <polygon points="15,40 25,10 45,35" fill="#f8c291"/>
+                <polygon points="20,38 27,18 40,34" fill="#ffccd5"/>
+                <polygon points="85,40 75,10 55,35" fill="#f8c291"/>
+                <polygon points="80,38 73,18 60,34" fill="#ffccd5"/>
+                <!-- Face -->
+                <circle cx="35" cy="60" r="5" fill="#000"/>
+                <circle cx="65" cy="60" r="5" fill="#000"/>
+                <path d="M 45 72 Q 50 77 55 72" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"/>
+                <ellipse cx="25" cy="68" rx="6" ry="3" fill="#ff7675" opacity="0.6"/>
+                <ellipse cx="75" cy="68" rx="6" ry="3" fill="#ff7675" opacity="0.6"/>
+            </g>
+            <!-- Puppy right -->
+            <g transform="translate(100, 60)">
+                <circle cx="50" cy="50" r="38" fill="#e2af70"/>
+                <!-- Flappy Ears -->
+                <ellipse cx="15" cy="50" rx="10" ry="25" fill="#c18e50" transform="rotate(15 15 50)"/>
+                <ellipse cx="85" cy="50" rx="10" ry="25" fill="#c18e50" transform="rotate(-15 85 50)"/>
+                <!-- Eyes -->
+                <circle cx="38" cy="45" r="5" fill="#000"/>
+                <circle cx="62" cy="45" r="5" fill="#000"/>
+                <circle cx="50" cy="55" r="6" fill="#4a3b32" rx="3"/>
+                <path d="M 43 62 Q 50 67 57 62" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"/>
+            </g>
+        </svg>
+        <h1>萌宠之家美容沙龙</h1>
+        <p class="intro-subtitle">和小动物们交朋友，练习手部微操！</p>
+        <button class="btn-cute" onclick="startGame()">🐾 开启护理之旅</button>
+    </div>
+
+    <!-- Screen 1: Bubble Bath time -->
+    <div id="screen-bath" class="screen">
+        <div class="instruction-banner">
+            <h2>第 1 关：给脏兮兮的小猫洗澡</h2>
+            <p>1. 按住【左键】在小猫的泥巴污渍上来回摩擦擦泡泡。 2. 拖动【喷淋头】冲走所有泡泡！</p>
+        </div>
+
+        <div id="game-bath">
+            <!-- Kitten Box with Mud Splotches -->
+            <div class="kitten-box" id="bath-kitten">
+                <svg viewBox="0 0 100 100" width="100%" height="100%">
+                    <defs>
+                        <clipPath id="catClip">
+                            <circle cx="50" cy="55" r="35" />
+                        </clipPath>
+                    </defs>
+                    <!-- Body body -->
+                    <circle cx="50" cy="55" r="35" fill="#ffb8b8" />
+                    <!-- Ears -->
+                    <polygon points="18,30 28,5 45,28" fill="#ffb8b8"/>
+                    <polygon points="22,28 29,12 40,26" fill="#ff85a1"/>
+                    <polygon points="82,30 72,5 55,28" fill="#ffb8b8"/>
+                    <polygon points="78,28 71,12 60,26" fill="#ff85a1"/>
+                    <!-- White muzzle -->
+                    <ellipse cx="50" cy="65" rx="16" ry="12" fill="#fff" />
+                    <!-- Eyes with spark -->
+                    <circle cx="35" cy="50" r="7" fill="#4a2511"/>
+                    <circle cx="33" cy="47" r="2.5" fill="#fff"/>
+                    <circle cx="65" cy="50" r="7" fill="#4a2511"/>
+                    <circle cx="63" cy="47" r="2.5" fill="#fff"/>
+                    <!-- Nose & Mouth -->
+                    <polygon points="50,60 46,56 54,56" fill="#ff7675"/>
+                    <path d="M 45 65 Q 50 70 55 65" fill="none" stroke="#4a2511" stroke-width="2.5" stroke-linecap="round"/>
+                    <!-- Cheeks cheeks -->
+                    <circle cx="24" cy="58" r="5" fill="#ff85a1" opacity="0.6"/>
+                    <circle cx="76" cy="58" r="5" fill="#ff85a1" opacity="0.6"/>
+                </svg>
+
+                <!-- Absolute Mud Spots -->
+                <div class="mud-spot" style="left: 30px; top: 120px; width: 45px; height: 35px;" data-progress="100"></div>
+                <div class="mud-spot" style="left: 170px; top: 110px; width: 50px; height: 40px;" data-progress="100"></div>
+                <div class="mud-spot" style="left: 95px; top: 160px; width: 60px; height: 45px;" data-progress="100"></div>
+                <div class="mud-spot" style="left: 100px; top: 70px; width: 40px; height: 30px;" data-progress="100"></div>
+            </div>
+
+            <!-- Bath Tub Front layer overlay -->
+            <svg class="bath-tub" viewBox="0 0 100 45">
+                <!-- Water inside -->
+                <ellipse cx="50" cy="18" rx="42" ry="6" fill="#c3f0ff" opacity="0.7"/>
+                <!-- Tub Outer -->
+                <path d="M 5 15 L 12 38 C 15 42 85 42 88 38 L 95 15 Z" fill="#ffffff" stroke="#ffccd5" stroke-width="2"/>
+                <ellipse cx="50" cy="15" rx="45" ry="5" fill="#fff" stroke="#ffccd5" stroke-width="2"/>
+            </svg>
+
+            <!-- Shower head element -->
+            <svg class="shower-head" id="shower-nozzle" viewBox="0 0 100 100">
+                <path d="M 80 20 Q 50 10 30 40 L 15 50 M 20 40 L 40 60" fill="none" stroke="#95a5a6" stroke-width="7" stroke-linecap="round"/>
+                <!-- Shower plate -->
+                <path d="M 10 55 C 5 62 25 78 30 70 Z" fill="#bdc3c7"/>
+            </svg>
+
+            <!-- Shower water particles -->
+            <svg class="water-spray-svg" id="water-spray-svg-layer"></svg>
+        </div>
+
+        <button class="btn-cute next-btn" onclick="nextLevel()">✨ 冲洗干净了！去下一关</button>
+    </div>
+
+    <!-- Screen 2: Catch the Treats -->
+    <div id="screen-treats" class="screen">
+        <div class="instruction-banner">
+            <h2>第 2 关：小狗接骨头大作战</h2>
+            <p>小狗非常饿！移动鼠标，利用【蓝色宠物食盆】在下方来回滑动接住骨头。小心蜘蛛！</p>
+        </div>
+
+        <div id="game-treats">
+            <div class="treats-score-board" id="treats-scoreboard">成功投喂: 0 / 8</div>
+
+            <!-- Cute dog sitting at bottom center -->
+            <div class="puppy-catcher" id="puppy-avatar">
+                <svg viewBox="0 0 100 100" width="100%" height="100%">
+                    <circle cx="50" cy="65" r="35" fill="#f39c12"/>
+                    <!-- Floppy ears -->
+                    <ellipse cx="15" cy="55" rx="8" ry="22" fill="#d35400"/>
+                    <ellipse cx="85" cy="55" rx="8" ry="22" fill="#d35400"/>
+                    <!-- Dog eyes -->
+                    <circle cx="38" cy="52" r="5" fill="#000"/>
+                    <circle cx="62" cy="52" r="5" fill="#000"/>
+                    <!-- snout snout -->
+                    <ellipse cx="50" cy="68" rx="12" ry="8" fill="#fdfefe"/>
+                    <circle cx="50" cy="64" r="4" fill="#000"/>
+                    <path d="M 45 70 Q 50 74 55 70" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+                    <!-- Blush -->
+                    <circle cx="28" cy="64" r="4" fill="#ff7675" opacity="0.6"/>
+                    <circle cx="72" cy="64" r="4" fill="#ff7675" opacity="0.6"/>
+                    <!-- Happy wagging tail -->
+                    <path d="M 18 80 Q 5 70 12 60" fill="none" stroke="#d35400" stroke-width="7" stroke-linecap="round" id="puppy-tail"/>
+                </svg>
+            </div>
+
+            <!-- Food bowl attached to horizontal cursor -->
+            <svg class="treat-bowl-cursor" id="treat-bowl" viewBox="0 0 100 50">
+                <!-- Bowl outer -->
+                <path d="M 5 15 L 15 45 Q 50 50 85 45 L 95 15 Z" fill="var(--cute-blue)"/>
+                <ellipse cx="50" cy="15" rx="45" ry="6" fill="#fff" stroke="var(--cute-blue)" stroke-width="3"/>
+                <!-- Bone emblem -->
+                <rect x="42" y="25" width="16" height="6" rx="3" fill="#fff"/>
+                <circle cx="42" cy="28" r="5" fill="#fff"/>
+                <circle cx="58" cy="28" r="5" fill="#fff"/>
+            </svg>
+        </div>
+
+        <button class="btn-cute next-btn" onclick="nextLevel()">✨ 小狗吃饱了！去下一关</button>
+    </div>
+
+    <!-- Screen 3: Sheep Barbershop -->
+    <div id="screen-barbershop" class="screen">
+        <div class="instruction-banner">
+            <h2>第 3 关：蓬松小羊的美容沙龙</h2>
+            <p>1. 拿剪刀点击【剪掉毛团】。 2. 拿梳子【水平拖动】理顺杂毛。 3. 给小羊戴上可爱的【粉色蝴蝶结】！</p>
+        </div>
+
+        <div id="game-barbershop">
+            <!-- Target Sheep Box -->
+            <div class="sheep-box" id="barber-sheep">
+                <svg viewBox="0 0 120 120" width="100%" height="100%">
+                    <defs>
+                        <radialGradient id="sheepSkin" cx="40%" cy="30%" r="75%">
+                            <stop offset="0%" stop-color="#ffffff" />
+                            <stop offset="100%" stop-color="#eaeaea" />
+                        </radialGradient>
+                    </defs>
+                    <!-- Legs -->
+                    <rect x="35" y="85" width="10" height="25" rx="4" fill="#7f8c8d"/>
+                    <rect x="75" y="85" width="10" height="25" rx="4" fill="#7f8c8d"/>
+                    <!-- Fluffy body base -->
+                    <circle cx="60" cy="55" r="35" fill="url(#sheepSkin)" />
+                    <!-- Sheep face -->
+                    <ellipse cx="60" cy="55" rx="16" ry="20" fill="#fbc531"/>
+                    <!-- Ears -->
+                    <ellipse cx="40" cy="50" rx="10" ry="5" fill="#fbc531" transform="rotate(-15 40 50)"/>
+                    <ellipse cx="80" cy="50" rx="10" ry="5" fill="#fbc531" transform="rotate(15 80 50)"/>
+                    <!-- Cute eyes -->
+                    <circle cx="53" cy="50" r="4.5" fill="#2f3640"/>
+                    <circle cx="51" cy="48" r="1.5" fill="#fff"/>
+                    <circle cx="67" cy="50" r="4.5" fill="#2f3640"/>
+                    <circle cx="65" cy="48" r="1.5" fill="#fff"/>
+                    <path d="M 56 63 Q 60 67 64 63" fill="none" stroke="#2f3640" stroke-width="2" stroke-linecap="round"/>
+                    <!-- Crown of wool -->
+                    <ellipse cx="60" cy="36" rx="12" ry="8" fill="#fff"/>
+                    <!-- Decorative Bow slot on sheep head -->
+                    <g id="placed-bow" style="display:none;" transform="translate(42, 10)">
+                        <path d="M 10 15 Q 0 5 10 0 Q 20 5 10 15 Z" fill="var(--cute-pink)" />
+                        <path d="M 25 15 Q 35 5 25 0 Q 15 5 25 15 Z" fill="var(--cute-pink)" />
+                        <circle cx="17" cy="10" r="5" fill="#e84393" />
+                    </g>
+                    <!-- Decorative Bow slot target placeholder -->
+                    <g id="target-bow-placeholder" style="display:none;" class="target-glow" transform="translate(42, 10)">
+                        <path d="M 10 15 Q 0 5 10 0 Q 20 5 10 15 Z" fill="none" stroke="var(--cute-pink)" stroke-width="2.5" stroke-dasharray="3 3" />
+                        <path d="M 25 15 Q 35 5 25 0 Q 15 5 25 15 Z" fill="none" stroke="var(--cute-pink)" stroke-width="2.5" stroke-dasharray="3 3" />
+                        <circle cx="17" cy="10" r="4" fill="none" stroke="#e84393" stroke-width="2" />
+                    </g>
+                </svg>
+
+                <!-- Wool Puffs to Trim (Interactive) -->
+                <div class="wool-puff" style="left: -10px; top: 35px; width: 65px; height: 65px;" id="wool-1"></div>
+                <div class="wool-puff" style="left: 230px; top: 35px; width: 65px; height: 65px;" id="wool-2"></div>
+                <div class="wool-puff" style="left: 60px; top: -15px; width: 70px; height: 50px;" id="wool-3"></div>
+                <div class="wool-puff" style="left: 100px; top: 125px; width: 75px; height: 75px;" id="wool-4"></div>
+            </div>
+
+            <!-- Straight dragging comb guide rails -->
+            <div class="wool-comb-guide" id="comb-track" style="left: calc(50% - 90px); top: 185px;">➔ 按住拖拽梳理 ➔</div>
+
+            <!-- Accessory Drawer tray -->
+            <div class="accessory-tray" id="barber-accessories">
+                <span style="font-family: 'ZCOOL KuaiLe'; font-size: 16px; color:#5c5c5c; padding-left: 10px;">拖动装扮小羊:</span>
+                <div class="ribbon-item" id="bow-drag">
+                    <svg viewBox="0 0 100 100" width="60" height="60">
+                        <!-- Red ribbon bow -->
+                        <path d="M 30 50 Q 5 25 30 15 Q 55 25 30 50 Z" fill="var(--cute-pink)"/>
+                        <path d="M 70 50 Q 95 25 70 15 Q 45 25 70 50 Z" fill="var(--cute-pink)"/>
+                        <circle cx="50" cy="35" r="10" fill="#e84393"/>
+                    </svg>
+                </div>
+                <div style="width:20px;"></div>
+            </div>
+        </div>
+
+        <button class="btn-cute next-btn" onclick="showVictory()">🏆 护理沙龙大成功！点我领奖</button>
+    </div>
+
+    <!-- Screen 4: Victory / Medal -->
+    <div id="screen-victory" class="screen">
+        <div class="victory-title">👑 超级爱心护理大师 👑</div>
+        <div class="medal-box">
+            <!-- Large Golden Heart Paw Medal -->
+            <svg viewBox="0 0 100 100" width="100%" height="100%">
+                <!-- Medal Ribbon -->
+                <polygon points="35,0 45,45 35,45" fill="var(--cute-blue)" />
+                <polygon points="65,0 55,45 65,45" fill="var(--cute-blue)" />
+                <rect x="43" y="0" width="14" height="45" fill="var(--cute-pink)" />
+                <!-- Gold heart backing -->
+                <path d="M 50 40 Q 65 25 80 42 Q 80 62 50 82 Q 20 62 20 42 Q 35 25 50 40 Z" fill="#fbc531" stroke="#e1b12c" stroke-width="4"/>
+                <!-- Paw print in center -->
+                <circle cx="50" cy="57" r="10" fill="#ffffff" />
+                <circle cx="39" cy="45" r="4.5" fill="#ffffff" />
+                <circle cx="50" cy="41" r="4.5" fill="#ffffff" />
+                <circle cx="61" cy="45" r="4.5" fill="#ffffff" />
+            </svg>
+        </div>
+        <p style="font-size: 24px; color: #ff5c8a; font-weight: bold; margin-bottom: 35px; text-align: center;">你给小动物们进行了最棒的清洁护理！它们超级开心！</p>
+        <button class="btn-cute" onclick="goToScreen('welcome')">🔄 重新开始体验</button>
+    </div>
+
+    <!-- HUD bottom bar -->
+    <div id="hud-nav">
+        <div class="hud-left">
+            <span class="level-badge" id="hud-badge">LEVEL 1</span>
+            <span style="font-size: 16px; color: #ff5c8a; font-family: 'ZCOOL KuaiLe';">美容院日志</span>
+        </div>
+        <div style="display:flex; gap: 15px;">
+            <button class="hud-btn" id="hud-btn-prev" onclick="prevLevel()">◀ 上一关</button>
+            <button class="hud-btn home-btn" onclick="resetToWelcome()">🐱 结束护理</button>
+            <button class="hud-btn" id="hud-btn-next" onclick="nextLevel()">下一关 ▶</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // ---------------- Advanced Audio Engine (Web Audio API) ----------------
+    let audioCtx = null;
+
+    function initAudio() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+    }
+
+    function playSound(type) {
+        if (!audioCtx) return;
+        const now = audioCtx.currentTime;
+
+        switch (type) {
+            case 'meow':
+                // Synthesized meow: starts low, rises quickly, decays
+                const meowOsc = audioCtx.createOscillator();
+                const meowGain = audioCtx.createGain();
+                meowOsc.type = 'triangle';
+                meowOsc.frequency.setValueAtTime(320, now);
+                meowOsc.frequency.exponentialRampToValueAtTime(780, now + 0.15);
+                meowOsc.frequency.exponentialRampToValueAtTime(680, now + 0.35);
+
+                meowGain.gain.setValueAtTime(0.001, now);
+                meowGain.gain.linearRampToValueAtTime(0.12, now + 0.05);
+                meowGain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+                meowOsc.connect(meowGain);
+                meowGain.connect(audioCtx.destination);
+                meowOsc.start(now);
+                meowOsc.stop(now + 0.35);
+                break;
+
+            case 'bark':
+                // Quick synthesized double "woof" bark
+                const barks = [0, 0.15];
+                barks.forEach(delay => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(180, now + delay);
+                    osc.frequency.exponentialRampToValueAtTime(70, now + delay + 0.08);
+
+                    gain.gain.setValueAtTime(0.15, now + delay);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + delay + 0.08);
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now + delay);
+                    osc.stop(now + delay + 0.08);
+                });
+                break;
+
+            case 'bubble':
+                // Soap bubble pops
+                const popOsc = audioCtx.createOscillator();
+                const popGain = audioCtx.createGain();
+                popOsc.type = 'sine';
+                popOsc.frequency.setValueAtTime(950, now);
+                popOsc.frequency.linearRampToValueAtTime(1500, now + 0.04);
+                popGain.gain.setValueAtTime(0.04, now);
+                popGain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+                popOsc.connect(popGain);
+                popGain.connect(audioCtx.destination);
+                popOsc.start(now);
+                popOsc.stop(now + 0.04);
+                break;
+
+            case 'spray':
+                // Water spray rinse: white noise simulation
+                const bufferSize = audioCtx.sampleRate * 0.12;
+                const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = Math.random() * 2 - 1;
+                }
+                const noise = audioCtx.createBufferSource();
+                noise.buffer = buffer;
+
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = 'bandpass';
+                filter.frequency.setValueAtTime(1200, now);
+
+                const sprayGain = audioCtx.createGain();
+                sprayGain.gain.setValueAtTime(0.08, now);
+                sprayGain.gain.linearRampToValueAtTime(0.001, now + 0.12);
+
+                noise.connect(filter);
+                filter.connect(sprayGain);
+                sprayGain.connect(audioCtx.destination);
+                noise.start(now);
+                noise.stop(now + 0.12);
+                break;
+
+            case 'trim':
+                // Snip scissors sound
+                const scissorOsc = audioCtx.createOscillator();
+                const scissorGain = audioCtx.createGain();
+                scissorOsc.type = 'sawtooth';
+                scissorOsc.frequency.setValueAtTime(800, now);
+                scissorOsc.frequency.exponentialRampToValueAtTime(100, now + 0.05);
+                
+                scissorGain.gain.setValueAtTime(0.05, now);
+                scissorGain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+                
+                scissorOsc.connect(scissorGain);
+                scissorGain.connect(audioCtx.destination);
+                scissorOsc.start(now);
+                scissorOsc.stop(now + 0.05);
+                break;
+
+            case 'comb':
+                // Comb styling rustle
+                const combOsc = audioCtx.createOscillator();
+                const combGain = audioCtx.createGain();
+                combOsc.type = 'sine';
+                combOsc.frequency.setValueAtTime(400, now);
+                combOsc.frequency.setValueAtTime(600, now + 0.05);
+                
+                combGain.gain.setValueAtTime(0.04, now);
+                combGain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+
+                combOsc.connect(combGain);
+                combGain.connect(audioCtx.destination);
+                combOsc.start(now);
+                combOsc.stop(now + 0.1);
+                break;
+
+            case 'tada':
+                // Cute musical chord
+                const chord = [349.23, 440.00, 523.25, 698.46]; // F Major chord
+                chord.forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+                    gain.gain.setValueAtTime(0, now);
+                    gain.gain.linearRampToValueAtTime(0.08, now + idx * 0.08 + 0.02);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.5);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now + idx * 0.08);
+                    osc.stop(now + idx * 0.08 + 0.5);
+                });
+                break;
+
+            case 'click':
+                // Quick high ping
+                const pingOsc = audioCtx.createOscillator();
+                const pingGain = audioCtx.createGain();
+                pingOsc.type = 'sine';
+                pingOsc.frequency.setValueAtTime(784, now);
+                pingGain.gain.setValueAtTime(0.08, now);
+                pingGain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+                pingOsc.connect(pingGain);
+                pingGain.connect(audioCtx.destination);
+                pingOsc.start(now);
+                pingOsc.stop(now + 0.15);
+                break;
+                
+            case 'error':
+                // Low sad meow / fail tone
+                const failOsc = audioCtx.createOscillator();
+                const failGain = audioCtx.createGain();
+                failOsc.type = 'triangle';
+                failOsc.frequency.setValueAtTime(240, now);
+                failOsc.frequency.linearRampToValueAtTime(140, now + 0.3);
+                failGain.gain.setValueAtTime(0.12, now);
+                failGain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+                failOsc.connect(failGain);
+                failGain.connect(audioCtx.destination);
+                failOsc.start(now);
+                failOsc.stop(now + 0.3);
+                break;
+        }
+    }
+
+    // ---------------- Bubble Background Generator ----------------
+    function buildBubbleField() {
+        const bg = document.getElementById('bubble-background');
+        bg.innerHTML = '';
+
+        for (let i = 0; i < 25; i++) {
+            const bub = document.createElement('div');
+            bub.className = 'bg-bubble';
+            const size = Math.random() * 30 + 10;
+            bub.style.width = size + 'px';
+            bub.style.height = size + 'px';
+            bub.style.left = (Math.random() * 100) + 'vw';
+            bub.style.animationDuration = (6 + Math.random() * 8) + 's';
+            bub.style.animationDelay = (Math.random() * -10) + 's';
+            bg.appendChild(bub);
+        }
+    }
+    window.addEventListener('DOMContentLoaded', buildBubbleField);
+
+    // ---------------- Screen / Level Management ----------------
+    let currentScreen = 'welcome';
+    let activeLevelIndex = 1;
+    const totalLevels = 3;
+
+    function goToScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(s => {
+            s.classList.remove('active');
+        });
+        
+        const nextScreen = document.getElementById('screen-' + screenId);
+        nextScreen.classList.add('active');
+        currentScreen = screenId;
+
+        const btn = nextScreen.querySelector('.next-btn');
+        if (btn) btn.style.display = 'none';
+
+        // HUD control
+        const hud = document.getElementById('hud-nav');
+        if (screenId === 'welcome' || screenId === 'victory') {
+            hud.style.display = 'none';
+            document.body.style.cursor = 'auto';
+            document.getElementById('custom-paw-cursor').style.display = 'none';
+        } else {
+            hud.style.display = 'flex';
+            document.body.style.cursor = 'none'; // Hide real cursor
+            document.getElementById('custom-paw-cursor').style.display = 'block';
+            document.getElementById('hud-badge').innerText = `LEVEL ${activeLevelIndex}`;
+            
+            document.getElementById('hud-btn-prev').disabled = (activeLevelIndex === 1);
+            document.getElementById('hud-btn-next').disabled = (activeLevelIndex === totalLevels);
+        }
+
+        // Stop active loops
+        stopGameLoops();
+
+        if (screenId === 'bath') setupBathLevel();
+        else if (screenId === 'treats') setupTreatsLevel();
+        else if (screenId === 'barbershop') setupBarberLevel();
+    }
+
+    function startGame() {
+        initAudio();
+        activeLevelIndex = 1;
+        goToScreen('bath');
+    }
+
+    function nextLevel() {
+        playSound('tada');
+        if (activeLevelIndex < totalLevels) {
+            activeLevelIndex++;
+            if (activeLevelIndex === 2) goToScreen('treats');
+            else if (activeLevelIndex === 3) goToScreen('barbershop');
+        } else {
+            goToScreen('victory');
+        }
+    }
+
+    function prevLevel() {
+        if (activeLevelIndex > 1) {
+            activeLevelIndex--;
+            if (activeLevelIndex === 1) goToScreen('bath');
+            else if (activeLevelIndex === 2) goToScreen('treats');
+        }
+    }
+
+    function showVictory() {
+        playSound('tada');
+        goToScreen('victory');
+    }
+
+    function resetToWelcome() {
+        goToScreen('welcome');
+    }
+
+    // Custom paw cursor coordinate updater
+    document.addEventListener('mousemove', (e) => {
+        const cursor = document.getElementById('custom-paw-cursor');
+        const container = document.getElementById('game-container');
+        const rect = container.getBoundingClientRect();
+        
+        if (e.clientX >= rect.left && e.clientX <= rect.right &&
+            e.clientY >= rect.top && e.clientY <= rect.bottom &&
+            currentScreen !== 'welcome' && currentScreen !== 'victory') {
+            cursor.style.display = 'block';
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        } else {
+            cursor.style.display = 'none';
+        }
+    });
+
+    // Score pop helper
+    function spawnScorePop(x, y, text) {
+        const bubble = document.createElement('div');
+        bubble.className = 'score-bubble';
+        bubble.innerText = text;
+        bubble.style.left = x + 'px';
+        bubble.style.top = y + 'px';
+        document.getElementById('game-container').appendChild(bubble);
+        setTimeout(() => bubble.remove(), 800);
+    }
+
+    let intervalIds = [];
+    function stopGameLoops() {
+        intervalIds.forEach(clearInterval);
+        intervalIds = [];
+    }
+
+
+    // -------------------------------------------------------------
+    // LEVEL 1: BUBBLE BATH TIME
+    // -------------------------------------------------------------
+    let bathPhase = 'scrub'; // 'scrub' or 'rinse' or 'complete'
+    let mudSpotsLeft = 4;
+    let soapBubblesLeft = 0;
+    let draggedShower = null;
+    let showerOffset = { x: 0, y: 0 };
+    let isScrubbing = false;
+
+    function setupBathLevel() {
+        bathPhase = 'scrub';
+        mudSpotsLeft = 4;
+        soapBubblesLeft = 0;
+        draggedShower = null;
+        
+        // Hide shower nozzle & next button
+        document.getElementById('shower-nozzle').style.display = 'none';
+        document.getElementById('water-spray-svg-layer').innerHTML = '';
+
+        // Reset mud spots
+        const spots = document.querySelectorAll('.mud-spot');
+        spots.forEach(spot => {
+            spot.style.display = 'block';
+            spot.style.width = spot.style.left.includes('95px') ? '60px' : (spot.style.left.includes('30px') ? '45px' : (spot.style.left.includes('170px') ? '50px' : '40px'));
+            spot.style.height = spot.style.left.includes('95px') ? '45px' : (spot.style.left.includes('30px') ? '35px' : (spot.style.left.includes('170px') ? '40px' : '30px'));
+            spot.style.opacity = '0.85';
+            spot.dataset.progress = '100';
+
+            // Scrub binding: Hold down mouse and scrub
+            spot.onmousedown = () => { isScrubbing = true; initAudio(); };
+            spot.onmouseenter = () => { if (isScrubbing) scrubMud(spot); };
+        });
+
+        document.addEventListener('mouseup', () => { isScrubbing = false; draggedShower = null; });
+
+        // Bind shower head drag
+        const nozzle = document.getElementById('shower-nozzle');
+        nozzle.onmousedown = (e) => startDragShower(e);
+    }
+
+    function scrubMud(spotEl) {
+        let progress = parseInt(spotEl.dataset.progress) - 15;
+        spotEl.dataset.progress = progress;
+
+        // Shrink mud spot
+        const startW = parseFloat(spotEl.style.width);
+        const startH = parseFloat(spotEl.style.height);
+        spotEl.style.width = (startW * 0.8) + 'px';
+        spotEl.style.height = (startH * 0.8) + 'px';
+
+        // Spawn bubbles
+        spawnBathBubble(parseFloat(spotEl.style.left) + 20, parseFloat(spotEl.style.top) + 15);
+
+        if (progress <= 0) {
+            spotEl.style.display = 'none';
+            mudSpotsLeft--;
+            playSound('meow');
+
+            if (mudSpotsLeft === 0) {
+                bathPhase = 'rinse';
+                // Spawn shower head in tub center
+                const nozzle = document.getElementById('shower-nozzle');
+                nozzle.style.display = 'block';
+                nozzle.style.left = '420px';
+                nozzle.style.top = '440px';
+            }
+        }
+    }
+
+    function spawnBathBubble(x, y) {
+        playSound('bubble');
+        soapBubblesLeft++;
+
+        const field = document.getElementById('bath-kitten'); // append directly to kitten box
+        const bubble = document.createElement('div');
+        bubble.className = 'bath-soap-bubble';
+        
+        const size = Math.random() * 20 + 12;
+        bubble.style.width = size + 'px';
+        bubble.style.height = size + 'px';
+        bubble.style.left = x + 'px';
+        bubble.style.top = y + 'px';
+
+        field.appendChild(bubble);
+        
+        // Custom attribute to track bath bubble target to be washed by water
+        bubble.dataset.active = 'true';
+    }
+
+    function startDragShower(e) {
+        if (bathPhase !== 'rinse') return;
+        draggedShower = document.getElementById('shower-nozzle');
+        const rect = draggedShower.getBoundingClientRect();
+        const parentRect = draggedShower.parentElement.getBoundingClientRect();
+        
+        showerOffset.x = e.clientX - rect.left;
+        showerOffset.y = e.clientY - rect.top;
+    }
+
+    // Global listener for shower movements & bubble rinsing
+    document.addEventListener('mousemove', (e) => {
+        if (currentScreen !== 'bath') return;
+
+        if (draggedShower && bathPhase === 'rinse') {
+            const parentRect = draggedShower.parentElement.getBoundingClientRect();
+            const leftVal = e.clientX - parentRect.left - showerOffset.x;
+            const topVal = e.clientY - parentRect.top - showerOffset.y;
+
+            draggedShower.style.left = leftVal + 'px';
+            draggedShower.style.top = topVal + 'px';
+
+            // Water spray effects from nozzle plate (CX: leftVal + 20, CY: topVal + 70 approx)
+            sprayShowerWater(leftVal + 20, topVal + 70);
+        }
+    });
+
+    function sprayShowerWater(nx, ny) {
+        playSound('spray');
+        
+        // Add transient water particles in SVG layer
+        const layer = document.getElementById('water-spray-svg-layer');
+        const drop = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        drop.setAttribute('cx', nx);
+        drop.setAttribute('cy', ny);
+        drop.setAttribute('r', '5');
+        drop.setAttribute('fill', 'var(--cute-blue)');
+        drop.style.transition = 'all 0.4s ease-out';
+        layer.appendChild(drop);
+
+        // Animate droplets spraying downwards
+        const sprayX = nx + (Math.random() - 0.5) * 45;
+        const sprayY = ny + 90 + Math.random() * 40;
+        
+        requestAnimationFrame(() => {
+            drop.setAttribute('cx', sprayX);
+            drop.setAttribute('cy', sprayY);
+            drop.setAttribute('r', '1');
+            drop.style.opacity = '0';
+        });
+        setTimeout(() => drop.remove(), 400);
+
+        // Check intersection of water stream with bubbles
+        const bubbles = document.querySelectorAll('.bath-soap-bubble');
+        const bathRect = document.getElementById('game-bath').getBoundingClientRect();
+        
+        // Convert local spray coordinates to page-relative viewport coordinates
+        const sprayViewX = bathRect.left + sprayX;
+        const sprayViewY = bathRect.top + sprayY;
+
+        bubbles.forEach(bub => {
+            if (bub.dataset.active === 'false') return;
+
+            const bRect = bub.getBoundingClientRect();
+            const bx = bRect.left + bRect.width / 2;
+            const by = bRect.top + bRect.height / 2;
+
+            const dist = Math.hypot(sprayViewX - bx, sprayViewY - by);
+            if (dist < 40) {
+                // Rinse bubble
+                bub.dataset.active = 'false';
+                bub.style.transition = 'transform 0.2s, opacity 0.2s';
+                bub.style.transform = 'scale(1.4)';
+                bub.style.opacity = '0';
+                
+                setTimeout(() => bub.remove(), 200);
+
+                soapBubblesLeft--;
+                if (soapBubblesLeft <= 0) {
+                    finishBathLevel();
+                }
+            }
+        });
+    }
+
+    function finishBathLevel() {
+        bathPhase = 'complete';
+        if (draggedShower) draggedShower = null;
+        document.getElementById('shower-nozzle').style.display = 'none';
+
+        // Sparkle happy kitten
+        const kitten = document.getElementById('bath-kitten');
+        kitten.style.transform = 'scale(1.15)';
+        playSound('meow');
+
+        // Show completed sparks
+        const rect = kitten.getBoundingClientRect();
+        const parentRect = document.getElementById('game-container').getBoundingClientRect();
+        spawnScorePop(rect.left - parentRect.left + 100, rect.top - parentRect.top + 30, "✨ CLEAN & HAPPY! ✨");
+
+        setTimeout(() => {
+            kitten.style.transform = 'scale(1)';
+            const nextBtn = document.querySelector('#screen-bath .next-btn');
+            nextBtn.style.display = 'block';
+        }, 1200);
+    }
+
+
+    // -------------------------------------------------------------
+    // LEVEL 2: CATCH THE TREATS
+    // -------------------------------------------------------------
+    let treatsCaughtCount = 0;
+    const requiredTreats = 8;
+    let isCatcherActive = false;
+    let bowlWidth = 140;
+
+    function setupTreatsLevel() {
+        treatsCaughtCount = 0;
+        bowlWidth = 140;
+        document.getElementById('treat-bowl').style.width = '140px';
+        document.getElementById('treats-scoreboard').innerText = `成功投喂: 0 / ${requiredTreats}`;
+
+        // Clear treats
+        const field = document.getElementById('game-treats');
+        field.querySelectorAll('.falling-treat').forEach(t => t.remove());
+
+        // Enable bowl follow mouse
+        document.getElementById('treat-bowl').style.display = 'block';
+
+        // Start spawning treats
+        const spawnInterval = setInterval(spawnFallingTreat, 1600);
+        const gameTick = setInterval(updateTreatsMovement, 1000 / 60);
+
+        intervalIds.push(spawnInterval);
+        intervalIds.push(gameTick);
+    }
+
+    // Capture mouse coordinate to update bowl X location
+    document.addEventListener('mousemove', (e) => {
+        if (currentScreen !== 'treats') return;
+        const bowl = document.getElementById('treat-bowl');
+        const container = document.getElementById('game-treats');
+        const rect = container.getBoundingClientRect();
+
+        // Lock bowl Y at 460px, follow X mouse movement
+        let localX = e.clientX - rect.left;
+        if (localX < bowlWidth/2) localX = bowlWidth/2;
+        if (localX > rect.width - bowlWidth/2) localX = rect.width - bowlWidth/2;
+
+        bowl.style.left = localX + 'px';
+        bowl.style.top = '460px';
+
+        // Update dog sitting catcher alignment with slight drag delay (puppy width 160px)
+        const puppy = document.getElementById('puppy-avatar');
+        puppy.style.left = (localX - 80) + 'px';
+    });
+
+    function spawnFallingTreat() {
+        const field = document.getElementById('game-treats');
+        const container = document.getElementById('game-container');
+        const width = container.getBoundingClientRect().width;
+
+        const treat = document.createElement('div');
+        treat.className = 'falling-treat';
+        
+        const xPos = Math.random() * (width - 160) + 80;
+        treat.style.left = xPos + 'px';
+        treat.style.top = '-60px';
+
+        // 75% Bones (good), 25% Spiders (bad)
+        const isSpider = Math.random() < 0.25;
+        treat.dataset.type = isSpider ? 'spider' : 'bone';
+
+        if (isSpider) {
+            // Spider SVG
+            treat.innerHTML = `
+                <svg viewBox="0 0 100 100" width="100%" height="100%">
+                    <circle cx="50" cy="50" r="14" fill="#3a3a3a"/>
+                    <!-- Legs -->
+                    <path d="M 50 50 Q 20 20 10 30 M 50 50 Q 20 50 10 50 M 50 50 Q 20 80 10 70" stroke="#3a3a3a" stroke-width="4" fill="none"/>
+                    <path d="M 50 50 Q 80 20 90 30 M 50 50 Q 80 50 90 50 M 50 50 Q 80 80 90 70" stroke="#3a3a3a" stroke-width="4" fill="none"/>
+                    <circle cx="45" cy="46" r="2" fill="#ff0000"/>
+                    <circle cx="55" cy="46" r="2" fill="#ff0000"/>
+                </svg>
+            `;
+            treat.dataset.speed = 2.0 + Math.random() * 1.5;
+        } else {
+            // Golden or normal bone
+            const isGold = Math.random() < 0.2;
+            treat.dataset.type = isGold ? 'gold-bone' : 'bone';
+            
+            if (isGold) {
+                treat.innerHTML = `
+                    <svg viewBox="0 0 100 100" width="100%" height="100%" style="filter: drop-shadow(0 0 8px var(--cute-yellow));">
+                        <rect x="25" y="42" width="50" height="16" rx="4" fill="var(--cute-yellow)"/>
+                        <circle cx="25" cy="38" r="13" fill="var(--cute-yellow)"/>
+                        <circle cx="25" cy="62" r="13" fill="var(--cute-yellow)"/>
+                        <circle cx="75" cy="38" r="13" fill="var(--cute-yellow)"/>
+                        <circle cx="75" cy="62" r="13" fill="var(--cute-yellow)"/>
+                    </svg>
+                `;
+            } else {
+                treat.innerHTML = `
+                    <svg viewBox="0 0 100 100" width="100%" height="100%">
+                        <rect x="25" y="42" width="50" height="16" rx="4" fill="#ffffff" stroke="#e0e0e0" stroke-width="2"/>
+                        <circle cx="25" cy="38" r="12" fill="#ffffff" stroke="#e0e0e0" stroke-width="2"/>
+                        <circle cx="25" cy="62" r="12" fill="#ffffff" stroke="#e0e0e0" stroke-width="2"/>
+                        <circle cx="75" cy="38" r="12" fill="#ffffff" stroke="#e0e0e0" stroke-width="2"/>
+                        <circle cx="75" cy="62" r="12" fill="#ffffff" stroke="#e0e0e0" stroke-width="2"/>
+                    </svg>
+                `;
+            }
+            treat.dataset.speed = 1.5 + Math.random() * 2.2;
+        }
+
+        field.appendChild(treat);
+    }
+
+    function updateTreatsMovement() {
+        const field = document.getElementById('game-treats');
+        const treats = document.querySelectorAll('.falling-treat');
+        const bowl = document.getElementById('treat-bowl');
+        const bx = parseFloat(bowl.style.left);
+        const by = 470; // Bowl Y center helper
+
+        treats.forEach(treat => {
+            let ty = parseFloat(treat.style.top);
+            const speed = parseFloat(treat.dataset.speed);
+            ty += speed;
+            treat.style.top = ty + 'px';
+
+            const tx = parseFloat(treat.style.left) + 25; // Treat center
+
+            // Catch intersection check
+            if (ty >= by - 35 && ty <= by + 10) {
+                if (tx >= bx - bowlWidth/2 - 10 && tx <= bx + bowlWidth/2 + 10) {
+                    // Caught!
+                    catchTreat(treat);
+                    return;
+                }
+            }
+
+            // Fall past bottom
+            if (ty > 620) {
+                treat.remove();
+            }
+        });
+    }
+
+    function catchTreat(treatEl) {
+        const type = treatEl.dataset.type;
+        const tx = parseFloat(treatEl.style.left) + 25;
+        const bowlY = 450;
+
+        treatEl.remove();
+
+        const tail = document.getElementById('puppy-tail');
+
+        if (type === 'spider') {
+            playSound('error');
+            spawnScorePop(tx, bowlY, "🕸️ Bad Spider!");
+            
+            // Shrink bowl
+            bowlWidth = Math.max(90, bowlWidth - 25);
+            document.getElementById('treat-bowl').style.width = bowlWidth + 'px';
+            
+            // Shake puppy avatar
+            const avatar = document.getElementById('puppy-avatar');
+            avatar.style.transform = 'translateX(-15px)';
+            setTimeout(() => avatar.style.transform = 'translateX(15px)', 100);
+            setTimeout(() => avatar.style.transform = 'translateX(0)', 200);
+        } else {
+            playSound('bark');
+            treatsCaughtCount++;
+            document.getElementById('treats-scoreboard').innerText = `成功投喂: ${treatsCaughtCount} / ${requiredTreats}`;
+
+            // Happy tail wag
+            tail.style.transform = 'rotate(20deg)';
+            setTimeout(() => tail.style.transform = 'rotate(-20deg)', 150);
+            setTimeout(() => tail.style.transform = 'rotate(0deg)', 300);
+
+            if (type === 'gold-bone') {
+                spawnScorePop(tx, bowlY, "🌟 GOLD BONE! +Bowl Size");
+                bowlWidth = Math.min(200, bowlWidth + 30);
+                document.getElementById('treat-bowl').style.width = bowlWidth + 'px';
+            } else {
+                spawnScorePop(tx, bowlY, "🍖 Yum! +1");
+            }
+
+            if (treatsCaughtCount >= requiredTreats) {
+                stopGameLoops();
+                document.getElementById('treat-bowl').style.display = 'none';
+                
+                // Show next button
+                const nextBtn = document.querySelector('#screen-treats .next-btn');
+                nextBtn.style.display = 'block';
+            }
+        }
+    }
+
+
+    // -------------------------------------------------------------
+    // LEVEL 3: SHEEP WOOL BARBERSHOP
+    // -------------------------------------------------------------
+    let activeBarberStage = 'trim'; // 'trim' or 'comb' or 'decorate' or 'complete'
+    let woolPuffsLeft = 4;
+    let combProgress = 0; // 0 to 100%
+    let isCombing = false;
+
+    function setupBarberLevel() {
+        activeBarberStage = 'trim';
+        woolPuffsLeft = 4;
+        combProgress = 0;
+        isCombing = false;
+
+        // Reset elements
+        document.getElementById('placed-bow').style.display = 'none';
+        document.getElementById('comb-track').style.display = 'none';
+        document.getElementById('barber-accessories').style.display = 'none';
+
+        // Enable scissors cursor attachment
+        document.body.style.cursor = 'none';
+        document.getElementById('scissors-tool-svg').style.display = 'block';
+        document.getElementById('comb-tool-svg').style.display = 'none';
+
+        // Setup interactive wool puffs
+        const puffs = document.querySelectorAll('.wool-puff');
+        puffs.forEach((puff, idx) => {
+            puff.style.display = 'block';
+            puff.style.opacity = '1';
+            puff.style.transform = 'scale(1)';
+            puff.innerHTML = `
+                <svg viewBox="0 0 100 100" width="100%" height="100%">
+                    <circle cx="50" cy="50" r="42" fill="#fff" stroke="#dcdcdc" stroke-width="2"/>
+                    <!-- Curly cloud fluff shapes -->
+                    <circle cx="35" cy="35" r="18" fill="#fff"/>
+                    <circle cx="65" cy="35" r="18" fill="#fff"/>
+                    <circle cx="50" cy="65" r="22" fill="#fff"/>
+                </svg>
+            `;
+
+            puff.onclick = (e) => {
+                e.stopPropagation();
+                trimWool(puff);
+            };
+        });
+
+        // Setup Comb Track dragging listeners
+        const track = document.getElementById('comb-track');
+        track.onmousedown = (e) => {
+            if (activeBarberStage !== 'comb') return;
+            isCombing = true;
+            initAudio();
+        };
+
+        // Bow decorator drag logic
+        const bow = document.getElementById('bow-drag');
+        bow.onmousedown = (e) => startDragAccessory(e);
+    }
+
+    // Scissors follow cursor
+    document.addEventListener('mousemove', (e) => {
+        if (currentScreen !== 'barbershop') return;
+
+        const container = document.getElementById('game-container');
+        const rect = container.getBoundingClientRect();
+
+        if (activeBarberStage === 'trim') {
+            const scissors = document.getElementById('scissors-tool-svg');
+            scissors.style.left = e.clientX + 'px';
+            scissors.style.top = e.clientY + 'px';
+        } else if (activeBarberStage === 'comb') {
+            const comb = document.getElementById('comb-tool-svg');
+            comb.style.left = e.clientX + 'px';
+            comb.style.top = e.clientY + 'px';
+
+            if (isCombing) {
+                // Tracking horizontal comb drag along the guide rail (Left-to-Right)
+                // Guide box is at X: 390 -> 570
+                const track = document.getElementById('comb-track');
+                const tRect = track.getBoundingClientRect();
+                const progressPercent = ((e.clientX - tRect.left) / tRect.width) * 100;
+
+                if (progressPercent >= combProgress && progressPercent <= 100) {
+                    playSound('comb');
+                    combProgress = progressPercent;
+                    track.style.background = `linear-gradient(90deg, var(--cute-blue) ${combProgress}%, rgba(112, 214, 255, 0.15) ${combProgress}%)`;
+
+                    if (combProgress >= 95) {
+                        finishCombing();
+                    }
+                }
+            }
+        } else if (activeBarberStage === 'decorate' && draggedBow) {
+            // Dragging bow
+            const bowRect = draggedBow.getBoundingClientRect();
+            draggedBow.style.left = (e.clientX - rect.left - 35) + 'px';
+            draggedBow.style.top = (e.clientY - rect.top - 35) + 'px';
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        isCombing = false;
+        if (draggedBow) {
+            // Hide target placeholder
+            document.getElementById('target-bow-placeholder').style.display = 'none';
+
+            // Check if dropped near the sheep head bow slot dynamically using viewport coordinates
+            const sheepBox = document.getElementById('barber-sheep');
+            const sRect = sheepBox.getBoundingClientRect();
+            const bowRect = draggedBow.getBoundingClientRect();
+            const parentRect = document.getElementById('game-container').getBoundingClientRect();
+            
+            const targetCX = sRect.left + sRect.width / 2;
+            const targetCY = sRect.top + sRect.height * 0.22; // near the head
+
+            const bowX = bowRect.left + bowRect.width / 2;
+            const bowY = bowRect.top + bowRect.height / 2;
+
+            const dist = Math.hypot(bowX - targetCX, bowY - targetCY);
+            if (dist < 80) {
+                // Ribbon placed successfully
+                playSound('tada');
+                draggedBow.style.display = 'none';
+                draggedBow = null;
+
+                document.getElementById('placed-bow').style.display = 'block';
+                finishDecorating();
+            } else {
+                // Return to tray
+                const tray = document.getElementById('barber-accessories');
+                tray.appendChild(draggedBow);
+                draggedBow.style.position = 'static';
+                draggedBow.style.zIndex = '';
+                draggedBow = null;
+            }
+        }
+    });
+
+    function trimWool(puffEl) {
+        initAudio();
+        playSound('trim');
+
+        // Snip animation
+        puffEl.style.transform = 'scale(0.5)';
+        puffEl.style.opacity = '0';
+        setTimeout(() => puffEl.remove(), 250);
+
+        woolPuffsLeft--;
+        const parentRect = document.getElementById('game-container').getBoundingClientRect();
+        const rect = puffEl.getBoundingClientRect();
+        spawnScorePop(rect.left - parentRect.left + 15, rect.top - parentRect.top + 15, "✂️ Trim!");
+
+        if (woolPuffsLeft === 0) {
+            // Switch to Combing
+            activeBarberStage = 'comb';
+            
+            document.getElementById('scissors-tool-svg').style.display = 'none';
+            document.getElementById('comb-tool-svg').style.display = 'block';
+
+            // Show Combing guide rail
+            document.getElementById('comb-track').style.display = 'flex';
+        }
+    }
+
+    function finishCombing() {
+        isCombing = false;
+        activeBarberStage = 'decorate';
+        playSound('tada');
+
+        document.getElementById('comb-track').style.display = 'none';
+        document.getElementById('comb-tool-svg').style.display = 'none';
+        document.body.style.cursor = 'none'; // Attach custom paw back
+        document.getElementById('custom-paw-cursor').style.display = 'block';
+
+        // Show Dress-Up accessories drawer
+        document.getElementById('barber-accessories').style.display = 'flex';
+    }
+
+    let draggedBow = null;
+    function startDragAccessory(e) {
+        if (activeBarberStage !== 'decorate') return;
+        initAudio();
+
+        draggedBow = document.getElementById('bow-drag');
+        const rect = draggedBow.getBoundingClientRect();
+        const parentRect = document.getElementById('game-container').getBoundingClientRect();
+
+        // Show target placeholder
+        document.getElementById('target-bow-placeholder').style.display = 'block';
+
+        // Move to game-container to avoid nested offsetParent issue!
+        document.getElementById('game-container').appendChild(draggedBow);
+
+        draggedBow.style.position = 'absolute';
+        draggedBow.style.left = (rect.left - parentRect.left) + 'px';
+        draggedBow.style.top = (rect.top - parentRect.top) + 'px';
+        draggedBow.style.zIndex = '45';
+
+        playSound('click');
+    }
+
+    function finishDecorating() {
+        activeBarberStage = 'complete';
+        document.getElementById('barber-accessories').style.display = 'none';
+
+        // Happy sparkles
+        const sheep = document.getElementById('barber-sheep');
+        sheep.style.transform = 'scale(1.1)';
+        
+        const parentRect = document.getElementById('game-container').getBoundingClientRect();
+        const sRect = sheep.getBoundingClientRect();
+        spawnScorePop(sRect.left - parentRect.left + 120, sRect.top - parentRect.top + 20, "✨ SO PRETTY! ✨");
+
+        setTimeout(() => {
+            sheep.style.transform = 'scale(1)';
+            const nextBtn = document.querySelector('#screen-barbershop .next-btn');
+            nextBtn.style.display = 'block';
+        }, 1200);
+    }
+</script>
+</body>
+</html>

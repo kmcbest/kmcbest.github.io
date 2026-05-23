@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 星际宇航员与太空守护者 🚀</title>
+    <!-- Google Fonts for premium typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --space-bg: radial-gradient(circle at center, #1b0a3a 0%, #080214 100%);
+            --neon-blue: #00f0ff;
+            --neon-pink: #ff007f;
+            --neon-yellow: #ffeb3b;
+            --neon-green: #39ff14;
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-bg: rgba(15, 10, 30, 0.65);
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-drag: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--space-bg);
+            font-family: 'Nunito', 'Microsoft YaHei', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            color: #fff;
+        }
+
+        /* Ambient Space Background: Twinkling Stars and Nebula */
+        #space-background {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle linear infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .nebula {
+            position: absolute;
+            width: 400px; height: 400px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.25;
+            pointer-events: none;
+            mix-blend-mode: screen;
+            animation: drift 30s ease-in-out infinite alternate;
+        }
+
+        @keyframes drift {
+            0% { transform: translate(-50px, -50px) rotate(0deg); }
+            100% { transform: translate(50px, 50px) rotate(360deg); }
+        }
+
+        /* Custom Space Cursor */
+        .custom-cursor {
+            width: 32px;
+            height: 32px;
+            position: absolute;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            display: none; /* Initial state */
+            filter: drop-shadow(0 0 5px var(--neon-blue));
+        }
+
+        /* Main Game Box */
+        #game-container {
+            width: 960px;
+            height: 720px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid var(--glass-border);
+            border-radius: 30px;
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.15), inset 0 0 25px rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Screen Manager */
+        .screen {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0; left: 0;
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .screen.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+            z-index: 20;
+        }
+
+        /* Header Instruction Banner */
+        .instruction-banner {
+            position: absolute;
+            top: 25px;
+            width: 90%;
+            padding: 15px 30px;
+            background: rgba(10, 5, 25, 0.85);
+            border: 1px solid var(--neon-blue);
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+            text-align: center;
+            z-index: 30;
+        }
+
+        .instruction-banner h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 22px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+            margin-bottom: 5px;
+        }
+
+        .instruction-banner p {
+            font-size: 16px;
+            color: #d1c4e9;
+        }
+
+        /* Welcome Screen Styling */
+        #welcome-screen h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 52px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00f0ff, #ff007f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        #welcome-screen .intro-subtitle {
+            font-size: 20px;
+            color: #a78bfa;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+
+        /* Buttons with Space Aesthetics */
+        .btn-glow {
+            padding: 18px 45px;
+            font-size: 22px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.2) 0%, rgba(255, 0, 127, 0.2) 100%);
+            border: 2px solid var(--neon-blue);
+            border-radius: 40px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            outline: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-glow::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: all 0.5s;
+        }
+
+        .btn-glow:hover {
+            transform: scale(1.05) translateY(-2px);
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 30px rgba(255, 0, 127, 0.6);
+        }
+
+        .btn-glow:hover::before {
+            left: 100%;
+        }
+
+        .btn-glow:active {
+            transform: scale(0.98) translateY(1px);
+        }
+
+        .next-btn {
+            position: absolute;
+            bottom: 100px;
+            display: none;
+            animation: pulse-glow 2s infinite;
+            z-index: 50;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 15px var(--neon-blue); }
+            50% { box-shadow: 0 0 35px var(--neon-blue); }
+        }
+
+        /* Screen 1: Tractor Beam Drag & Avoid Obstacles */
+        #game-tractor-beam {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        #debris-field {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .space-trash {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            cursor: grab;
+            z-index: 35;
+            transition: transform 0.1s;
+        }
+
+        .space-trash:active {
+            cursor: grabbing;
+        }
+
+        .asteroid {
+            position: absolute;
+            width: 55px;
+            height: 55px;
+            pointer-events: none;
+            z-index: 33;
+        }
+
+        .wormhole {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            left: calc(50% - 70px);
+            top: calc(50% - 30px);
+            z-index: 30;
+            animation: rotate-wormhole 8s linear infinite;
+            filter: drop-shadow(0 0 20px var(--neon-pink));
+        }
+
+        @keyframes rotate-wormhole {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.08); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .tractor-beam-line {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 34;
+        }
+
+        .lives-container {
+            position: absolute;
+            top: 130px;
+            left: 40px;
+            font-size: 20px;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-pink);
+            text-shadow: 0 0 8px rgba(255, 0, 127, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 40;
+        }
+
+        .heart-svg {
+            width: 24px;
+            height: 24px;
+            filter: drop-shadow(0 0 5px var(--neon-pink));
+        }
+
+        /* Screen 2: Constellation Connect */
+        #game-constellation {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        #constellation-svg {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 25;
+        }
+
+        .constellation-star {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            z-index: 35;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: translate(-50%, -50%);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .constellation-star:hover {
+            transform: translate(-50%, -50%) scale(1.25);
+        }
+
+        .constellation-star span {
+            position: absolute;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            font-size: 13px;
+            color: #fff;
+            top: 25px;
+            text-shadow: 0 0 5px #000;
+        }
+
+        .completed-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 28;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .completed-overlay.show {
+            opacity: 1;
+        }
+
+        /* Screen 3: Meteor Shield Defense */
+        #game-meteor-defense {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        #meteor-field {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .falling-meteor {
+            position: absolute;
+            width: 60px;
+            height: 80px;
+            cursor: crosshair;
+            z-index: 35;
+        }
+
+        .planet-shield {
+            position: absolute;
+            bottom: 80px;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            z-index: 38;
+            overflow: visible;
+        }
+
+        .defense-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(0, 240, 255, 0.2);
+            border-top: 1px solid var(--neon-blue);
+            box-shadow: 0 -2px 15px rgba(0, 240, 255, 0.4);
+            position: absolute;
+            top: 0;
+        }
+
+        .defense-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-blue), #00c6ff);
+            width: 100%;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        /* Slow motion card / indicator */
+        #slowmo-indicator {
+            position: absolute;
+            top: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 25px;
+            background: rgba(0, 240, 255, 0.2);
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+            display: none;
+            z-index: 40;
+            animation: blinker 1s linear infinite;
+        }
+
+        @keyframes blinker {
+            50% { opacity: 0.5; }
+        }
+
+        /* Screen 4: Victory / Medal Screen */
+        .victory-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--neon-yellow);
+            text-shadow: 0 0 25px rgba(255, 235, 59, 0.6);
+            margin-bottom: 25px;
+        }
+
+        .medal-box {
+            width: 220px;
+            height: 220px;
+            margin-bottom: 35px;
+            position: relative;
+            filter: drop-shadow(0 0 15px rgba(255, 235, 59, 0.5));
+            animation: bounce-medal 3s ease-in-out infinite;
+        }
+
+        @keyframes bounce-medal {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Global HUD / Bottom navigation */
+        #hud-nav {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            height: 80px;
+            background: rgba(10, 5, 25, 0.85);
+            border-top: 1px solid var(--glass-border);
+            display: none; /* Set display flex inside JS */
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 100;
+        }
+
+        .hud-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .level-badge {
+            font-family: 'Orbitron', sans-serif;
+            padding: 6px 15px;
+            background: rgba(0, 240, 255, 0.15);
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(0, 240, 255, 0.5);
+        }
+
+        .hud-btn {
+            padding: 10px 22px;
+            font-size: 15px;
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .hud-btn:hover:not(:disabled) {
+            background: rgba(0, 240, 255, 0.1);
+            border-color: var(--neon-blue);
+        }
+
+        .hud-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .hud-btn.home-btn {
+            background: rgba(255, 0, 127, 0.05);
+            border-color: rgba(255, 0, 127, 0.3);
+        }
+
+        .hud-btn.home-btn:hover {
+            background: rgba(255, 0, 127, 0.15);
+            border-color: var(--neon-pink);
+        }
+
+        /* Floating Score Text Effects */
+        .score-bubble {
+            position: absolute;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            color: var(--neon-yellow);
+            font-size: 24px;
+            text-shadow: 0 0 10px var(--neon-yellow);
+            pointer-events: none;
+            z-index: 99;
+            animation: fly-up-fade 0.8s ease-out forwards;
+        }
+
+        @keyframes fly-up-fade {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-60px) scale(1.3); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Ambient stars will be rendered here dynamically -->
+<div id="space-background"></div>
+
+<!-- Futuristic spaceship cockpit SVG cursor -->
+<svg class="custom-cursor" id="custom-ship-cursor" viewBox="0 0 100 100">
+    <polygon points="50,15 25,75 50,60 75,75" fill="none" stroke="#00f0ff" stroke-width="6" stroke-linejoin="round"/>
+    <polygon points="50,30 35,70 50,60 65,70" fill="#00f0ff" opacity="0.7"/>
+    <circle cx="50" cy="55" r="5" fill="#ff007f"/>
+</svg>
+
+<div id="game-container">
+    
+    <!-- Screen 0: Welcome -->
+    <div id="screen-welcome" class="screen active">
+        <!-- SVG Bouncing Rocket Spacecraft -->
+        <svg width="180" height="180" viewBox="0 0 100 100" style="margin-bottom: 25px; filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.5));">
+            <defs>
+                <linearGradient id="rocketGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#ffffff" />
+                    <stop offset="100%" stop-color="#b0bec5" />
+                </linearGradient>
+                <linearGradient id="flameGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#ffeb3b" />
+                    <stop offset="50%" stop-color="#ff9800" />
+                    <stop offset="100%" stop-color="#f44336" />
+                </linearGradient>
+            </defs>
+            <!-- Flames -->
+            <path d="M 45 75 Q 50 98 55 75 Z" fill="url(#flameGrad)">
+                <animate attributeName="d" values="M 45 75 Q 50 98 55 75 Z; M 42 75 Q 50 102 58 75 Z; M 45 75 Q 50 98 55 75 Z" dur="0.2s" repeatCount="indefinite" />
+            </path>
+            <!-- Body -->
+            <path d="M 50 5 C 30 40 30 70 30 75 L 70 75 C 70 70 70 40 50 5 Z" fill="url(#rocketGrad)" />
+            <!-- Wings -->
+            <path d="M 30 60 L 15 75 L 30 75 Z" fill="#ff007f" />
+            <path d="M 70 60 L 85 75 L 70 75 Z" fill="#ff007f" />
+            <!-- Window -->
+            <circle cx="50" cy="40" r="10" fill="#00f0ff" stroke="#37474f" stroke-width="3" />
+            <circle cx="47" cy="37" r="4" fill="#ffffff" opacity="0.7" />
+            <!-- Nose cone -->
+            <path d="M 50 5 C 43 19 57 19 50 5 Z" fill="#ff007f" />
+        </svg>
+        <h1>星际小能手大冒险</h1>
+        <p class="intro-subtitle">升级版：鼠标控制与快速反应挑战</p>
+        <button class="btn-glow" onclick="startGame()">🛰️ 开始星际任务</button>
+    </div>
+
+    <!-- Screen 1: Asteroid Tractor Beam -->
+    <div id="screen-tractor-beam" class="screen">
+        <div class="instruction-banner">
+            <h2>第 1 关：牵引光束抓垃圾</h2>
+            <p>按住【左键】抓取漂浮垃圾，拖入中央【紫色虫洞】。小心！千万别撞上【飞行的陨石】！</p>
+        </div>
+        
+        <div id="debris-field">
+            <!-- Central Wormhole -->
+            <svg class="wormhole" viewBox="0 0 100 100">
+                <defs>
+                    <radialGradient id="wormGrad" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#000000"/>
+                        <stop offset="30%" stop-color="#4a148c"/>
+                        <stop offset="70%" stop-color="#d500f9"/>
+                        <stop offset="100%" stop-color="#00e5ff" stop-opacity="0"/>
+                    </radialGradient>
+                </defs>
+                <circle cx="50" cy="50" r="50" fill="url(#wormGrad)" />
+                <path d="M 50 10 Q 75 25 50 50 Q 25 75 50 90" fill="none" stroke="#fff" stroke-width="2" opacity="0.3" stroke-linecap="round"/>
+                <path d="M 10 50 Q 25 75 50 50 Q 75 25 90 50" fill="none" stroke="#fff" stroke-width="2" opacity="0.3" stroke-linecap="round"/>
+            </svg>
+
+            <!-- SVG Container for drawing tractor beam line -->
+            <svg class="tractor-beam-line" id="tractor-beam-line-svg">
+                <path id="beam-path" d="" fill="none" stroke="#00f0ff" stroke-width="4" stroke-linecap="round" stroke-dasharray="10 10" style="display:none; filter: drop-shadow(0 0 6px #00f0ff);"/>
+            </svg>
+        </div>
+
+        <div class="lives-container">
+            <span>机体护盾:</span>
+            <div id="tractor-lives" style="display:flex; gap: 5px;"></div>
+        </div>
+
+        <button class="btn-glow next-btn" onclick="nextLevel()">✨ 任务成功！去下一关</button>
+    </div>
+
+    <!-- Screen 2: Constellation Connect -->
+    <div id="screen-constellation" class="screen">
+        <div class="instruction-banner">
+            <h2>第 2 关：星光守护者连线</h2>
+            <p>在浩瀚星空中，按顺序（1 → 2 → 3...）点击发光的亮星，点亮守护神兽星座！</p>
+        </div>
+
+        <div id="game-constellation">
+            <svg id="constellation-svg">
+                <defs>
+                    <filter id="starGlow">
+                        <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+                <!-- Render connection lines here -->
+                <g id="line-group"></g>
+            </svg>
+
+            <!-- Completed animal backdrop -->
+            <div class="completed-overlay" id="constellation-overlay"></div>
+            
+            <!-- Target stars will be absolutely positioned here by JS -->
+            <div id="star-container"></div>
+        </div>
+
+        <button class="btn-glow next-btn" onclick="nextLevel()">✨ 守护神觉醒！去下一关</button>
+    </div>
+
+    <!-- Screen 3: Meteor Shield Defense -->
+    <div id="screen-meteor-defense" class="screen">
+        <div class="instruction-banner">
+            <h2>第 3 关：保卫母星防线</h2>
+            <p>大量流星正砸向防线！快速移动准星并【点击】射击流星。黄金流星可触发【时空减速】！</p>
+        </div>
+
+        <div id="slowmo-indicator">⏳ 时空结界已开启 (速度减缓) ⌛</div>
+
+        <div id="meteor-field">
+            <!-- Planet shield structure at the bottom -->
+            <div class="planet-shield">
+                <div class="defense-bar">
+                    <div class="defense-bar-fill" id="shield-fill"></div>
+                </div>
+                <svg width="100%" height="80" style="position:absolute; bottom:0; left:0; filter: drop-shadow(0 -5px 15px rgba(0,240,255,0.4));">
+                    <defs>
+                        <linearGradient id="shieldGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#001845" />
+                            <stop offset="100%" stop-color="#000814" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M 0 20 C 300 0 660 0 960 20 L 960 80 L 0 80 Z" fill="url(#shieldGrad)" stroke="var(--neon-blue)" stroke-width="2"/>
+                    <path id="shield-ripple" d="M 0 20 C 300 0 660 0 960 20" fill="none" stroke="#fff" stroke-width="3" opacity="0" />
+                </svg>
+            </div>
+        </div>
+
+        <button class="btn-glow next-btn" onclick="showVictory()">🏆 完成全部任务！点我庆贺</button>
+    </div>
+
+    <!-- Screen 4: Victory -->
+    <div id="screen-victory" class="screen">
+        <div class="victory-title">👑 传奇星际守护者 👑</div>
+        <div class="medal-box">
+            <!-- Large SVG Astronaut Medal -->
+            <svg viewBox="0 0 100 100" width="100%" height="100%">
+                <!-- Ribbon -->
+                <polygon points="35,0 45,50 35,50" fill="#ff007f" />
+                <polygon points="65,0 55,50 65,50" fill="#ff007f" />
+                <rect x="42" y="0" width="16" height="50" fill="#00f0ff" />
+                <!-- Golden Badge Ring -->
+                <circle cx="50" cy="65" r="28" fill="#ffd54f" stroke="#ffb300" stroke-width="4" />
+                <circle cx="50" cy="65" r="23" fill="#ffca28" />
+                <!-- Star inside -->
+                <polygon points="50,47 55,58 67,60 58,69 61,81 50,75 39,81 42,69 33,60 45,58" fill="#ffffff" />
+                <!-- Ring Glow lines -->
+                <circle cx="50" cy="65" r="26" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="4 4" />
+            </svg>
+        </div>
+        <p style="font-size: 22px; color: #e9d5ff; font-weight: bold; margin-bottom: 35px; text-align: center;">您成功完成了所有的考验！你的手部控制已经超级敏捷啦！</p>
+        <button class="btn-glow" onclick="goToScreen('welcome')">🔄 重新开始冒险</button>
+    </div>
+
+    <!-- HUD bottom bar -->
+    <div id="hud-nav">
+        <div class="hud-left">
+            <span class="level-badge" id="hud-badge">LEVEL 1</span>
+            <span style="font-size: 16px; color: #a5b4fc; font-family: 'Orbitron'; font-weight: bold;">太空探险日志</span>
+        </div>
+        <div style="display:flex; gap: 15px;">
+            <button class="hud-btn" id="hud-btn-prev" onclick="prevLevel()">◀ 上一关</button>
+            <button class="hud-btn home-btn" onclick="resetToWelcome()">🛸 退出任务</button>
+            <button class="hud-btn" id="hud-btn-next" onclick="nextLevel()">下一关 ▶</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // ---------------- Advanced Audio Engine (Web Audio API) ----------------
+    let audioCtx = null;
+
+    function initAudio() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+    }
+
+    function playSound(type) {
+        if (!audioCtx) return;
+        
+        const now = audioCtx.currentTime;
+        
+        switch(type) {
+            case 'laser':
+                // Retro sci-fi laser blast: fast sweeping pitch down
+                const laserOsc = audioCtx.createOscillator();
+                const laserGain = audioCtx.createGain();
+                laserOsc.type = 'sawtooth';
+                laserOsc.frequency.setValueAtTime(900, now);
+                laserOsc.frequency.exponentialRampToValueAtTime(80, now + 0.15);
+                laserGain.gain.setValueAtTime(0.12, now);
+                laserGain.gain.linearRampToValueAtTime(0.001, now + 0.15);
+                laserOsc.connect(laserGain);
+                laserGain.connect(audioCtx.destination);
+                laserOsc.start(now);
+                laserOsc.stop(now + 0.15);
+                break;
+                
+            case 'explosion':
+                // Noise explosion: bandpass filtered noise
+                const bufferSize = audioCtx.sampleRate * 0.25;
+                const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = Math.random() * 2 - 1;
+                }
+                const noiseNode = audioCtx.createBufferSource();
+                noiseNode.buffer = buffer;
+
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = 'bandpass';
+                filter.frequency.setValueAtTime(250, now);
+                filter.frequency.exponentialRampToValueAtTime(40, now + 0.25);
+
+                const noiseGain = audioCtx.createGain();
+                noiseGain.gain.setValueAtTime(0.25, now);
+                noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+
+                noiseNode.connect(filter);
+                filter.connect(noiseGain);
+                noiseGain.connect(audioCtx.destination);
+                noiseNode.start(now);
+                noiseNode.stop(now + 0.25);
+                break;
+
+            case 'beamSnap':
+                // Synthesized crackle: sharp frequency jump with distortion
+                const snapOsc = audioCtx.createOscillator();
+                const snapGain = audioCtx.createGain();
+                snapOsc.type = 'square';
+                snapOsc.frequency.setValueAtTime(150, now);
+                snapOsc.frequency.setValueAtTime(40, now + 0.05);
+                snapGain.gain.setValueAtTime(0.2, now);
+                snapGain.gain.linearRampToValueAtTime(0.001, now + 0.12);
+                snapOsc.connect(snapGain);
+                snapGain.connect(audioCtx.destination);
+                snapOsc.start(now);
+                snapOsc.stop(now + 0.12);
+                break;
+
+            case 'grab':
+                // Soft synth sweep upwards
+                const grabOsc = audioCtx.createOscillator();
+                const grabGain = audioCtx.createGain();
+                grabOsc.type = 'triangle';
+                grabOsc.frequency.setValueAtTime(280, now);
+                grabOsc.frequency.exponentialRampToValueAtTime(520, now + 0.08);
+                grabGain.gain.setValueAtTime(0.1, now);
+                grabGain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+                grabOsc.connect(grabGain);
+                grabGain.connect(audioCtx.destination);
+                grabOsc.start(now);
+                grabOsc.stop(now + 0.08);
+                break;
+
+            case 'portalIn':
+                // Swirling vortex sound
+                const vortexOsc = audioCtx.createOscillator();
+                const vortexGain = audioCtx.createGain();
+                vortexOsc.type = 'sine';
+                vortexOsc.frequency.setValueAtTime(400, now);
+                vortexOsc.frequency.linearRampToValueAtTime(1000, now + 0.25);
+                vortexOsc.frequency.linearRampToValueAtTime(100, now + 0.5);
+                
+                vortexGain.gain.setValueAtTime(0, now);
+                vortexGain.gain.linearRampToValueAtTime(0.12, now + 0.1);
+                vortexGain.gain.linearRampToValueAtTime(0.001, now + 0.5);
+
+                vortexOsc.connect(vortexGain);
+                vortexGain.connect(audioCtx.destination);
+                vortexOsc.start(now);
+                vortexOsc.stop(now + 0.5);
+                break;
+
+            case 'slowmo':
+                // Time warp bass hum
+                const warpOsc = audioCtx.createOscillator();
+                const warpGain = audioCtx.createGain();
+                warpOsc.type = 'triangle';
+                warpOsc.frequency.setValueAtTime(180, now);
+                warpOsc.frequency.linearRampToValueAtTime(80, now + 0.4);
+                
+                warpGain.gain.setValueAtTime(0.2, now);
+                warpGain.gain.linearRampToValueAtTime(0.001, now + 0.5);
+                warpOsc.connect(warpGain);
+                warpGain.connect(audioCtx.destination);
+                warpOsc.start(now);
+                warpOsc.stop(now + 0.5);
+                break;
+
+            case 'clickStar':
+                // Sweet ring tone
+                const starOsc = audioCtx.createOscillator();
+                const starGain = audioCtx.createGain();
+                starOsc.type = 'sine';
+                starOsc.frequency.setValueAtTime(660, now);
+                starGain.gain.setValueAtTime(0.08, now);
+                starGain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+                starOsc.connect(starGain);
+                starGain.connect(audioCtx.destination);
+                starOsc.start(now);
+                starOsc.stop(now + 0.3);
+                break;
+
+            case 'chordSuccess':
+                // Play major chord sequence
+                const notes = [261.63, 329.63, 392.00, 523.25]; // C major chord
+                notes.forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+                    gain.gain.setValueAtTime(0, now);
+                    gain.gain.linearRampToValueAtTime(0.06, now + idx * 0.08 + 0.02);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.4);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now + idx * 0.08);
+                    osc.stop(now + idx * 0.08 + 0.4);
+                });
+                break;
+
+            case 'tada':
+                // Victory fan-fare
+                const victoryNotes = [523.25, 659.25, 783.99, 1046.50];
+                victoryNotes.forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+                    gain.gain.setValueAtTime(0, now);
+                    gain.gain.linearRampToValueAtTime(0.08, now + idx * 0.08 + 0.02);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.5);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now + idx * 0.08);
+                    osc.stop(now + idx * 0.08 + 0.5);
+                });
+                break;
+                
+            case 'error':
+                // Low buzz sound
+                const errOsc = audioCtx.createOscillator();
+                const errGain = audioCtx.createGain();
+                errOsc.type = 'sawtooth';
+                errOsc.frequency.setValueAtTime(120, now);
+                errOsc.frequency.linearRampToValueAtTime(90, now + 0.25);
+                errGain.gain.setValueAtTime(0.12, now);
+                errGain.gain.linearRampToValueAtTime(0.001, now + 0.25);
+                errOsc.connect(errGain);
+                errGain.connect(audioCtx.destination);
+                errOsc.start(now);
+                errOsc.stop(now + 0.25);
+                break;
+        }
+    }
+
+    // ---------------- Background Starfield Generator ----------------
+    function buildStarfield() {
+        const field = document.getElementById('space-background');
+        field.innerHTML = ''; // Clear previous
+
+        // Generate Nebulae
+        const colors = ['#8a2be2', '#00ffff', '#ff00ff'];
+        for (let i = 0; i < 3; i++) {
+            const neb = document.createElement('div');
+            neb.className = 'nebula';
+            neb.style.background = colors[i];
+            neb.style.left = (Math.random() * 80) + 'vw';
+            neb.style.top = (Math.random() * 80) + 'vh';
+            neb.style.animationDelay = (i * -7) + 's';
+            field.appendChild(neb);
+        }
+
+        // Generate 60 Twinkling Stars
+        for (let i = 0; i < 60; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 3 + 1;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.left = (Math.random() * 100) + 'vw';
+            star.style.top = (Math.random() * 100) + 'vh';
+            star.style.animationDuration = (2 + Math.random() * 4) + 's';
+            star.style.animationDelay = (Math.random() * -5) + 's';
+            field.appendChild(star);
+        }
+    }
+
+    // Initialize stars on load
+    window.addEventListener('DOMContentLoaded', buildStarfield);
+
+    // ---------------- Screen / Level Management ----------------
+    let currentScreen = 'welcome';
+    let activeLevelIndex = 1; // 1, 2, or 3
+    const totalLevels = 3;
+
+    function goToScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(s => {
+            s.classList.remove('active');
+        });
+        
+        const nextScreen = document.getElementById('screen-' + screenId);
+        nextScreen.classList.add('active');
+        currentScreen = screenId;
+
+        // Reset next buttons inside target screens
+        const btn = nextScreen.querySelector('.next-btn');
+        if (btn) btn.style.display = 'none';
+
+        // HUD control
+        const hud = document.getElementById('hud-nav');
+        if (screenId === 'welcome' || screenId === 'victory') {
+            hud.style.display = 'none';
+            document.body.style.cursor = 'auto';
+            document.getElementById('custom-ship-cursor').style.display = 'none';
+        } else {
+            hud.style.display = 'flex';
+            document.body.style.cursor = 'none'; // Hide real cursor
+            document.getElementById('custom-ship-cursor').style.display = 'block';
+            document.getElementById('hud-badge').innerText = `LEVEL ${activeLevelIndex}`;
+            
+            // HUD buttons status
+            document.getElementById('hud-btn-prev').disabled = (activeLevelIndex === 1);
+            document.getElementById('hud-btn-next').disabled = (activeLevelIndex === totalLevels);
+        }
+
+        // Clean up previous game loops if any
+        stopGameLoops();
+
+        // Initialize specific level
+        if (screenId === 'tractor-beam') setupTractorBeamLevel();
+        else if (screenId === 'constellation') setupConstellationLevel();
+        else if (screenId === 'meteor-defense') setupMeteorDefenseLevel();
+    }
+
+    function startGame() {
+        initAudio();
+        activeLevelIndex = 1;
+        goToScreen('tractor-beam');
+    }
+
+    function nextLevel() {
+        playSound('chordSuccess');
+        if (activeLevelIndex < totalLevels) {
+            activeLevelIndex++;
+            if (activeLevelIndex === 2) goToScreen('constellation');
+            else if (activeLevelIndex === 3) goToScreen('meteor-defense');
+        } else {
+            goToScreen('victory');
+        }
+    }
+
+    function prevLevel() {
+        if (activeLevelIndex > 1) {
+            activeLevelIndex--;
+            if (activeLevelIndex === 1) goToScreen('tractor-beam');
+            else if (activeLevelIndex === 2) goToScreen('constellation');
+        }
+    }
+
+    function showVictory() {
+        playSound('tada');
+        goToScreen('victory');
+    }
+
+    function resetToWelcome() {
+        goToScreen('welcome');
+    }
+
+    // Custom ship cursor tracker
+    document.addEventListener('mousemove', (e) => {
+        const cursor = document.getElementById('custom-ship-cursor');
+        const container = document.getElementById('game-container');
+        const rect = container.getBoundingClientRect();
+        
+        // Only show custom ship cursor if mouse is inside the game-container
+        if (e.clientX >= rect.left && e.clientX <= rect.right &&
+            e.clientY >= rect.top && e.clientY <= rect.bottom &&
+            currentScreen !== 'welcome' && currentScreen !== 'victory') {
+            cursor.style.display = 'block';
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        } else {
+            cursor.style.display = 'none';
+        }
+    });
+
+    // Score pop animation effect helper
+    function spawnScorePop(x, y, text) {
+        const bubble = document.createElement('div');
+        bubble.className = 'score-bubble';
+        bubble.innerText = text;
+        bubble.style.left = x + 'px';
+        bubble.style.top = y + 'px';
+        document.getElementById('game-container').appendChild(bubble);
+        setTimeout(() => bubble.remove(), 800);
+    }
+
+    // Central stop system for intervals/animation loops
+    let gameIntervals = [];
+    let animationFrameIds = [];
+    function stopGameLoops() {
+        gameIntervals.forEach(clearInterval);
+        gameIntervals = [];
+        animationFrameIds.forEach(cancelAnimationFrame);
+        animationFrameIds = [];
+    }
+
+
+    // -------------------------------------------------------------
+    // GAME LEVEL 1: ASTEROID TRACTOR BEAM
+    // -------------------------------------------------------------
+    let tractorTrashCount = 0;
+    const requiredTrash = 3;
+    let tractorLives = 3;
+    let draggedTrash = null;
+    let dragOffset = { x: 0, y: 0 };
+    let asteroidObjects = [];
+
+    // Custom Trash SVGs definitions
+    const trashSVGs = [
+        // Satellite
+        `<svg viewBox="0 0 100 100"><rect x="35" y="35" width="30" height="30" fill="#78909c" rx="5"/><rect x="5" y="45" width="30" height="10" fill="#0288d1"/><rect x="65" y="45" width="30" height="10" fill="#0288d1"/><path d="M 50 35 L 50 15 M 40 15 L 60 15" stroke="#cfd8dc" stroke-width="4"/></svg>`,
+        // Broken Rocket Tube
+        `<svg viewBox="0 0 100 100"><rect x="30" y="20" width="40" height="60" fill="#b0bec5" rx="8"/><path d="M 30 35 L 70 35 M 30 65 L 70 65" stroke="#ffd54f" stroke-width="4"/><circle cx="50" cy="50" r="10" fill="#d84315"/></svg>`,
+        // Space Bolt/Nut
+        `<svg viewBox="0 0 100 100"><polygon points="50,10 85,30 85,70 50,90 15,70 15,30" fill="#b0bec5" /><circle cx="50" cy="50" r="20" fill="#37474f"/></svg>`
+    ];
+
+    function setupTractorBeamLevel() {
+        tractorTrashCount = 0;
+        tractorLives = 3;
+        draggedTrash = null;
+        asteroidObjects = [];
+        
+        const field = document.getElementById('debris-field');
+        // Clear old items except wormhole and beam-svg
+        const wormhole = field.querySelector('.wormhole');
+        const beamSvg = field.querySelector('#tractor-beam-line-svg');
+        field.innerHTML = '';
+        field.appendChild(wormhole);
+        field.appendChild(beamSvg);
+
+        updateTractorLivesUI();
+
+        // 1. Spawning Space Trash
+        const trashPositions = [
+            { x: 100, y: 150 },
+            { x: 750, y: 160 },
+            { x: 150, y: 480 }
+        ];
+
+        for (let i = 0; i < requiredTrash; i++) {
+            const trash = document.createElement('div');
+            trash.className = 'space-trash';
+            trash.style.left = trashPositions[i].x + 'px';
+            trash.style.top = trashPositions[i].y + 'px';
+            // Random spin animation
+            trash.style.transform = `rotate(${Math.random() * 360}deg)`;
+            trash.innerHTML = trashSVGs[i % trashSVGs.length];
+            
+            // Set up dragging listeners (custom handlers)
+            trash.addEventListener('mousedown', (e) => startDragTrash(e, trash));
+            field.appendChild(trash);
+        }
+
+        // 2. Spawning Asteroids (Moving hazards)
+        const asteroidCount = 4;
+        const speedVals = [-4, -3, 3, 4];
+        for (let i = 0; i < asteroidCount; i++) {
+            const ast = document.createElement('div');
+            ast.className = 'asteroid';
+            
+            // Layout asteroids away from trash initial positions and center portal
+            let startX = 250 + Math.random() * 450;
+            let startY = 80 + Math.random() * 120;
+            if (i > 1) startY = 400 + Math.random() * 100;
+            
+            ast.style.left = startX + 'px';
+            ast.style.top = startY + 'px';
+            
+            ast.innerHTML = `
+                <svg viewBox="0 0 100 100" style="filter: drop-shadow(0 0 8px rgba(255, 179, 0, 0.4));">
+                    <polygon points="50,5 85,25 95,65 70,95 30,90 5,60 15,25" fill="#5d4037" stroke="#ffa000" stroke-width="4"/>
+                    <!-- Craters -->
+                    <circle cx="35" cy="40" r="10" fill="#3e2723" />
+                    <circle cx="65" cy="65" r="8" fill="#3e2723" />
+                    <circle cx="60" cy="30" r="6" fill="#3e2723" />
+                </svg>
+            `;
+            field.appendChild(ast);
+
+            // Asteroid Physics Object
+            asteroidObjects.push({
+                el: ast,
+                x: startX,
+                y: startY,
+                vx: speedVals[i % speedVals.length],
+                vy: speedVals[(i + 1) % speedVals.length],
+                width: 55,
+                height: 55
+            });
+        }
+
+        // Start Physics Engine Loop
+        const intervalId = setInterval(updatePhysicsLoop, 1000 / 60); // 60 FPS
+        gameIntervals.push(intervalId);
+    }
+
+    function updateTractorLivesUI() {
+        const container = document.getElementById('tractor-lives');
+        container.innerHTML = '';
+        for (let i = 0; i < 3; i++) {
+            const heart = document.createElement('div');
+            heart.style.width = '24px';
+            heart.style.height = '24px';
+            if (i < tractorLives) {
+                heart.innerHTML = `<svg class="heart-svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#ff007f"/></svg>`;
+            } else {
+                heart.innerHTML = `<svg class="heart-svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#37474f"/></svg>`;
+            }
+            container.appendChild(heart);
+        }
+    }
+
+    function startDragTrash(e, trashEl) {
+        initAudio();
+        playSound('grab');
+        draggedTrash = trashEl;
+        const rect = trashEl.getBoundingClientRect();
+        dragOffset.x = e.clientX - rect.left;
+        dragOffset.y = e.clientY - rect.top;
+        draggedTrash.style.transform = 'scale(1.1)';
+        draggedTrash.style.zIndex = 36;
+        
+        // Show tractor beam SVG path
+        const path = document.getElementById('beam-path');
+        path.style.display = 'block';
+    }
+
+    // Global drag move / release listeners inside level
+    document.addEventListener('mousemove', (e) => {
+        if (!draggedTrash || currentScreen !== 'tractor-beam') return;
+        
+        const container = document.getElementById('game-container');
+        const rect = container.getBoundingClientRect();
+        
+        // Calculate coordinate relative to debris-field
+        let leftVal = e.clientX - rect.left - dragOffset.x;
+        let topVal = e.clientY - rect.top - dragOffset.y;
+        
+        // Border boundaries check
+        if (leftVal < 0) leftVal = 0;
+        if (leftVal > rect.width - 60) leftVal = rect.width - 60;
+        if (topVal < 100) topVal = 100; // Under banner
+        if (topVal > rect.height - 140) topVal = rect.height - 140; // Above HUD/lives
+
+        draggedTrash.style.left = leftVal + 'px';
+        draggedTrash.style.top = topVal + 'px';
+
+        // Draw tractor beam line from custom cursor spaceship tip (e.clientX, e.clientY) to trash center
+        const beamPath = document.getElementById('beam-path');
+        const localShipX = e.clientX - rect.left;
+        const localShipY = e.clientY - rect.top;
+        const localTrashX = leftVal + 30;
+        const localTrashY = topVal + 30;
+
+        beamPath.setAttribute('d', `M ${localShipX} ${localShipY} L ${localTrashX} ${localTrashY}`);
+    });
+
+    document.addEventListener('mouseup', () => {
+        if (!draggedTrash) return;
+        
+        draggedTrash.style.transform = 'scale(1)';
+        draggedTrash.style.zIndex = 35;
+        draggedTrash = null;
+
+        // Hide tractor beam
+        const path = document.getElementById('beam-path');
+        path.style.display = 'none';
+    });
+
+    function breakTractorBeam() {
+        if (!draggedTrash) return;
+        
+        playSound('beamSnap');
+        
+        // Spawning red lightning sparks
+        const rect = draggedTrash.getBoundingClientRect();
+        const parentRect = document.getElementById('game-container').getBoundingClientRect();
+        const popX = rect.left - parentRect.left + 30;
+        const popY = rect.top - parentRect.top + 30;
+        spawnScorePop(popX, popY, "💥 BEAM BREAK!");
+
+        // Return trash to an edge location (safe space)
+        draggedTrash.style.transition = 'all 0.5s ease-out';
+        const sides = [
+            { x: 50, y: 150 },
+            { x: 800, y: 160 },
+            { x: 100, y: 480 }
+        ];
+        const randomPos = sides[Math.floor(Math.random() * sides.length)];
+        draggedTrash.style.left = randomPos.x + 'px';
+        draggedTrash.style.top = randomPos.y + 'px';
+        
+        const currentDragged = draggedTrash;
+        setTimeout(() => {
+            if (currentDragged) currentDragged.style.transition = '';
+        }, 500);
+
+        draggedTrash = null;
+        document.getElementById('beam-path').style.display = 'none';
+
+        // Deplete lives
+        tractorLives--;
+        updateTractorLivesUI();
+
+        if (tractorLives <= 0) {
+            playSound('error');
+            alert("飞船护盾损耗完毕！已重置当前关卡。继续加油！");
+            setupTractorBeamLevel();
+        }
+    }
+
+    function updatePhysicsLoop() {
+        const container = document.getElementById('game-container');
+        const rect = container.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+
+        // 1. Move and bounce Asteroids
+        asteroidObjects.forEach(ast => {
+            ast.x += ast.vx;
+            ast.y += ast.vy;
+
+            // Wall collisions (Width: 960, Height: 700)
+            if (ast.x <= 20 || ast.x >= width - ast.width - 20) {
+                ast.vx *= -1;
+                ast.x = Math.max(20, Math.min(ast.x, width - ast.width - 20));
+            }
+            // Constraint within height bounds (under banner, above cockpit)
+            if (ast.y <= 120 || ast.y >= height - ast.height - 110) {
+                ast.vy *= -1;
+                ast.y = Math.max(120, Math.min(ast.y, height - ast.height - 110));
+            }
+
+            // Apply positions
+            ast.el.style.left = ast.x + 'px';
+            ast.el.style.top = ast.y + 'px';
+        });
+
+        // 2. Check collision if player is actively dragging a trash piece
+        if (draggedTrash) {
+            const trashX = parseFloat(draggedTrash.style.left) + 30;
+            const trashY = parseFloat(draggedTrash.style.top) + 30;
+
+            // Check if trash center overlaps with any asteroid center
+            for (let i = 0; i < asteroidObjects.length; i++) {
+                const ast = asteroidObjects[i];
+                const astCX = ast.x + ast.width / 2;
+                const astCY = ast.y + ast.height / 2;
+
+                const distance = Math.hypot(trashX - astCX, trashY - astCY);
+                if (distance < 50) { // Collision threshold (30px radius + 20px asteroid)
+                    breakTractorBeam();
+                    break;
+                }
+            }
+        }
+
+        // 3. Check if any trash is inside the portal (Wormhole centers at 480, 320 with radius 65)
+        const trashes = document.querySelectorAll('.space-trash');
+        trashes.forEach(trash => {
+            if (trash.style.display === 'none') return;
+
+            const tx = parseFloat(trash.style.left) + 30;
+            const ty = parseFloat(trash.style.top) + 30;
+            const px = 480; // Wormhole CX
+            const py = 320; // Wormhole CY
+
+            const dist = Math.hypot(tx - px, ty - py);
+            if (dist < 60) {
+                // Garbage absorbed!
+                playSound('portalIn');
+                trash.style.display = 'none';
+                
+                // Score effect
+                spawnScorePop(tx, ty, "✨ Cleaned! +10");
+                
+                // If it was being dragged, release it
+                if (draggedTrash === trash) {
+                    draggedTrash = null;
+                    document.getElementById('beam-path').style.display = 'none';
+                }
+
+                tractorTrashCount++;
+                if (tractorTrashCount >= requiredTrash) {
+                    // Win Level 1
+                    stopGameLoops();
+                    const winBtn = document.querySelector('#screen-tractor-beam .next-btn');
+                    winBtn.style.display = 'block';
+                }
+            }
+        });
+    }
+
+
+    // -------------------------------------------------------------
+    // GAME LEVEL 2: CONSTELLATION CONNECT
+    // -------------------------------------------------------------
+    let currentConstellationIndex = 0;
+    let starsClicked = 0;
+    let totalConstellationStars = 0;
+    let selectedStarCoordinates = [];
+
+    // Predefined beautiful animal constellations coordinates (scaled for 960x700 center area)
+    const constellations = [
+        // 1. Magical Unicorn (Pegasus)
+        {
+            name: "天马守护座 (Unicorn)",
+            color: "var(--neon-blue)",
+            overlaySVG: `<svg viewBox="0 0 600 400" width="600" height="400" style="filter: drop-shadow(0 0 20px var(--neon-blue));"><path d="M150 180 Q140 100 200 120 Q240 130 300 200 L420 180 L350 220 L380 320 L300 240 L180 260 L140 330 L150 180 Z" fill="none" stroke="rgba(0, 240, 255, 0.4)" stroke-width="4" stroke-dasharray="6 6"/><circle cx="200" cy="120" r="8" fill="#fff"/><circle cx="300" cy="200" r="8" fill="#fff"/><path d="M200 120 L220 50 L250 100" fill="none" stroke="rgba(0,240,255,0.7)" stroke-width="4"/></svg>`,
+            stars: [
+                { x: 250, y: 220 }, // 1. Mouth
+                { x: 300, y: 160 }, // 2. Head
+                { x: 320, y: 80 },  // 3. Horn Tip
+                { x: 360, y: 130 }, // 4. Ear
+                { x: 400, y: 230 }, // 5. Back Neck
+                { x: 550, y: 200 }, // 6. Wing Tip
+                { x: 470, y: 260 }, // 7. Saddle
+                { x: 500, y: 380 }, // 8. Back Leg
+                { x: 400, y: 280 }, // 9. Rump
+                { x: 260, y: 310 }, // 10. Front Leg
+                { x: 320, y: 260 }  // 11. Chest
+            ]
+        },
+        // 2. Cute Cosmos Kitty (Cat)
+        {
+            name: "萌猫太空座 (Cosmic Kitty)",
+            color: "var(--neon-pink)",
+            overlaySVG: `<svg viewBox="0 0 600 400" width="600" height="400" style="filter: drop-shadow(0 0 20px var(--neon-pink));"><path d="M 220 180 Q 220 100 300 140 Q 380 100 380 180 Q 390 280 300 300 Q 210 280 220 180 Z" fill="none" stroke="rgba(255, 0, 127, 0.4)" stroke-width="4" /><path d="M 240 140 L 220 70 L 280 110" fill="none" stroke="rgba(255, 0, 127, 0.7)" stroke-width="4"/><path d="M 360 140 L 380 70 L 320 110" fill="none" stroke="rgba(255, 0, 127, 0.7)" stroke-width="4"/></svg>`,
+            stars: [
+                { x: 380, y: 180 }, // 1
+                { x: 320, y: 110 }, // 2
+                { x: 380, y: 70 },  // 3 (Ear Tip Right)
+                { x: 440, y: 140 }, // 4
+                { x: 480, y: 220 }, // 5
+                { x: 480, y: 350 }, // 6 (Tail tip)
+                { x: 390, y: 310 }, // 7
+                { x: 300, y: 350 }, // 8 (Leg Right)
+                { x: 210, y: 350 }, // 9 (Leg Left)
+                { x: 220, y: 220 }, // 10
+                { x: 260, y: 140 }, // 11
+                { x: 200, y: 70 }   // 12 (Ear Tip Left)
+            ]
+        }
+    ];
+
+    function setupConstellationLevel() {
+        starsClicked = 0;
+        
+        // Cycle constellations
+        const currentData = constellations[currentConstellationIndex];
+        selectedStarCoordinates = currentData.stars;
+        totalConstellationStars = selectedStarCoordinates.length;
+
+        // Clear SVGs & nodes
+        const svg = document.getElementById('constellation-svg');
+        const lineGroup = document.getElementById('line-group');
+        lineGroup.innerHTML = '';
+
+        const container = document.getElementById('star-container');
+        container.innerHTML = '';
+
+        const overlay = document.getElementById('constellation-overlay');
+        overlay.classList.remove('show');
+        overlay.innerHTML = currentData.overlaySVG;
+
+        // Banner update
+        const titleEl = document.querySelector('#screen-constellation .instruction-banner h2');
+        titleEl.innerText = `第 2 关：${currentData.name}`;
+
+        // Create Star Divs
+        selectedStarCoordinates.forEach((starPos, index) => {
+            const star = document.createElement('div');
+            star.className = 'constellation-star';
+            star.style.left = starPos.x + 'px';
+            star.style.top = starPos.y + 'px';
+            
+            // Neon glowing star SVG inside
+            star.innerHTML = `
+                <svg viewBox="0 0 100 100" width="28" height="28" style="filter: drop-shadow(0 0 8px ${currentData.color});">
+                    <polygon points="50,5 64,36 98,36 70,57 81,91 50,70 19,91 30,57 2,36 36,36" fill="#fff" />
+                </svg>
+                <span>${index + 1}</span>
+            `;
+
+            // Sequential clicking
+            star.onclick = (e) => handleStarClick(e, index);
+            container.appendChild(star);
+        });
+    }
+
+    function handleStarClick(e, starIndex) {
+        initAudio();
+        
+        // Enforce sequence clicking (0, 1, 2, ...)
+        if (starIndex === starsClicked) {
+            playSound('clickStar');
+            starsClicked++;
+
+            // Draw line to previous star
+            if (starIndex > 0) {
+                const lineGroup = document.getElementById('line-group');
+                const p1 = selectedStarCoordinates[starIndex - 1];
+                const p2 = selectedStarCoordinates[starIndex];
+
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', p1.x);
+                line.setAttribute('y1', p1.y);
+                line.setAttribute('x2', p2.x);
+                line.setAttribute('y2', p2.y);
+                line.setAttribute('stroke', constellations[currentConstellationIndex].color);
+                line.setAttribute('stroke-width', '4');
+                line.setAttribute('stroke-linecap', 'round');
+                line.style.filter = 'url(#starGlow)';
+                
+                // Dash animation build-up
+                line.style.strokeDasharray = '500';
+                line.style.strokeDashoffset = '500';
+                lineGroup.appendChild(line);
+
+                // Force layout reflow to trigger animation
+                line.getBoundingClientRect();
+                line.style.transition = 'stroke-dashoffset 0.4s ease-out';
+                line.style.strokeDashoffset = '0';
+            }
+
+            // Glow current star
+            const starNodes = document.querySelectorAll('.constellation-star');
+            const clickedNode = starNodes[starIndex];
+            clickedNode.style.pointerEvents = 'none'; // Disable clicking again
+            clickedNode.querySelector('svg').style.transform = 'scale(1.4)';
+            clickedNode.querySelector('polygon').setAttribute('fill', '#ffe082');
+
+            // Floating text
+            const rect = clickedNode.getBoundingClientRect();
+            const parentRect = document.getElementById('game-container').getBoundingClientRect();
+            spawnScorePop(rect.left - parentRect.left + 15, rect.top - parentRect.top - 10, `⭐ ${starsClicked}`);
+
+            // Completed!
+            if (starsClicked === totalConstellationStars) {
+                // Join the last node to the first to close the loop (if appropriate)
+                const lineGroup = document.getElementById('line-group');
+                const p1 = selectedStarCoordinates[totalConstellationStars - 1];
+                const p2 = selectedStarCoordinates[0];
+
+                const closingLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                closingLine.setAttribute('x1', p1.x);
+                closingLine.setAttribute('y1', p1.y);
+                closingLine.setAttribute('x2', p2.x);
+                closingLine.setAttribute('y2', p2.y);
+                closingLine.setAttribute('stroke', constellations[currentConstellationIndex].color);
+                closingLine.setAttribute('stroke-width', '4');
+                closingLine.style.filter = 'url(#starGlow)';
+                lineGroup.appendChild(closingLine);
+
+                // Trigger animal overlay fade in
+                const overlay = document.getElementById('constellation-overlay');
+                overlay.classList.add('show');
+
+                // Clear star node numbers, make them pulse
+                starNodes.forEach(node => {
+                    const number = node.querySelector('span');
+                    if (number) number.style.display = 'none';
+                    node.style.animation = 'pulse-glow 1.5s infinite';
+                });
+
+                // Cycle constellations for replayability, or show level next button
+                setTimeout(() => {
+                    playSound('tada');
+                    // Show next button
+                    const nextBtn = document.querySelector('#screen-constellation .next-btn');
+                    nextBtn.style.display = 'block';
+                    
+                    // Increment constellation counter index
+                    currentConstellationIndex = (currentConstellationIndex + 1) % constellations.length;
+                }, 1000);
+            }
+        } else {
+            playSound('error');
+            // Shake the target next star to guide the kid
+            const starNodes = document.querySelectorAll('.constellation-star');
+            const targetNode = starNodes[starsClicked];
+            if (targetNode) {
+                targetNode.style.transform = 'translate(-50%, -50%) scale(1.4)';
+                setTimeout(() => {
+                    targetNode.style.transform = 'translate(-50%, -50%) scale(1)';
+                }, 300);
+            }
+        }
+    }
+
+
+    // -------------------------------------------------------------
+    // GAME LEVEL 3: METEOR SHIELD DEFENSE
+    // -------------------------------------------------------------
+    let defenseHealth = 100;
+    let defenseMeteorsSpawning = null;
+    let slowMoActive = false;
+    let slowMoDuration = 0;
+    let meteorSpeedFactor = 1.0;
+
+    function setupMeteorDefenseLevel() {
+        defenseHealth = 100;
+        slowMoActive = false;
+        meteorSpeedFactor = 1.0;
+        document.getElementById('shield-fill').style.width = '100%';
+        document.getElementById('slowmo-indicator').style.display = 'none';
+
+        // Clear meteor area
+        const field = document.getElementById('meteor-field');
+        const shield = field.querySelector('.planet-shield');
+        field.innerHTML = '';
+        field.appendChild(shield);
+
+        // Start meteor spawning loop
+        const spawnInterval = setInterval(spawnMeteor, 1800); // Spawn every 1.8s
+        const animationLoop = requestAnimationFrame(updateMeteorsMovement);
+
+        gameIntervals.push(spawnInterval);
+        animationFrameIds.push(animationLoop);
+
+        // Capture canvas blaster shoot visual click anywhere on field
+        field.addEventListener('mousedown', fireBlasterLaser);
+    }
+
+    function fireBlasterLaser(e) {
+        if (currentScreen !== 'meteor-defense') return;
+        
+        // Avoid clicks on buttons or HUD elements
+        if (e.target.closest('.hud-btn') || e.target.closest('.next-btn')) return;
+
+        initAudio();
+        playSound('laser');
+
+        const field = document.getElementById('meteor-field');
+        const fieldRect = field.getBoundingClientRect();
+        
+        // Laser path lines (drawn dynamically as transient lines)
+        const laserSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        laserSvg.style.position = 'absolute';
+        laserSvg.style.top = '0';
+        laserSvg.style.left = '0';
+        laserSvg.style.width = '100%';
+        laserSvg.style.height = '100%';
+        laserSvg.style.pointerEvents = 'none';
+        laserSvg.style.zIndex = '37';
+
+        const clickX = e.clientX - fieldRect.left;
+        const clickY = e.clientY - fieldRect.top;
+        const startX = fieldRect.width / 2;
+        const startY = fieldRect.height - 20;
+
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', startX);
+        line.setAttribute('y1', startY);
+        line.setAttribute('x2', clickX);
+        line.setAttribute('y2', clickY);
+        line.setAttribute('stroke', slowMoActive ? '#ff007f' : '#00f0ff');
+        line.setAttribute('stroke-width', '4');
+        line.style.filter = 'drop-shadow(0 0 8px var(--neon-blue))';
+        laserSvg.appendChild(line);
+
+        // Flash ripple on hit
+        const ripple = document.getElementById('shield-ripple');
+        ripple.style.opacity = '0.5';
+        setTimeout(() => ripple.style.opacity = '0', 150);
+
+        field.appendChild(laserSvg);
+        setTimeout(() => laserSvg.remove(), 100);
+    }
+
+    function spawnMeteor() {
+        const field = document.getElementById('meteor-field');
+        const width = field.getBoundingClientRect().width;
+
+        const meteor = document.createElement('div');
+        meteor.className = 'falling-meteor';
+        
+        // Random horizontal entry position
+        const xPos = Math.random() * (width - 100) + 50;
+        meteor.style.left = xPos + 'px';
+        meteor.style.top = '-100px';
+
+        // Speed configurations
+        const baseSpeed = 1.8 + Math.random() * 2.2;
+        meteor.dataset.speed = baseSpeed;
+
+        // Meteor classification: 80% Normal, 20% Gold Time Slow
+        const isGolden = Math.random() < 0.22;
+        meteor.dataset.type = isGolden ? 'gold' : 'normal';
+
+        if (isGolden) {
+            meteor.innerHTML = `
+                <svg viewBox="0 0 100 120" style="filter: drop-shadow(0 0 12px var(--neon-yellow));">
+                    <!-- Fire trail -->
+                    <path d="M50 0 L25 50 L75 50 Z" fill="#ffeb3b" opacity="0.8"/>
+                    <!-- Gold meteor ball -->
+                    <circle cx="50" cy="70" r="25" fill="#fdd835" stroke="#fff" stroke-width="3"/>
+                    <circle cx="42" cy="62" r="6" fill="#fff" opacity="0.4" />
+                </svg>
+            `;
+        } else {
+            meteor.innerHTML = `
+                <svg viewBox="0 0 100 120" style="filter: drop-shadow(0 0 8px rgba(244, 67, 54, 0.5));">
+                    <!-- Red trail -->
+                    <path d="M50 0 L30 60 L70 60 Z" fill="#f44336" opacity="0.8"/>
+                    <!-- Craggy Meteor rock -->
+                    <polygon points="50,45 75,60 80,85 50,105 20,85 25,60" fill="#d84315" stroke="#ffeb3b" stroke-width="2" />
+                    <circle cx="45" cy="70" r="8" fill="#5d4037" />
+                    <circle cx="62" cy="85" r="5" fill="#5d4037" />
+                </svg>
+            `;
+        }
+
+        // Blast trigger click logic
+        meteor.addEventListener('mousedown', (e) => {
+            e.stopPropagation(); // Avoid double lasers
+            destroyMeteor(meteor);
+        });
+
+        field.appendChild(meteor);
+    }
+
+    function destroyMeteor(meteorEl) {
+        initAudio();
+        playSound('explosion');
+
+        const x = parseFloat(meteorEl.style.left) + 30;
+        const y = parseFloat(meteorEl.style.top) + 40;
+
+        // Is gold slow-mo meteor?
+        const type = meteorEl.dataset.type;
+        if (type === 'gold') {
+            triggerSlowMotion();
+            spawnScorePop(x, y, "⏳ SLOW-MOTION ACTIVE!");
+        } else {
+            spawnScorePop(x, y, "+10 DEFEND");
+        }
+
+        // Show particle splash
+        createMeteorExplosionEffect(x, y, type === 'gold' ? 'var(--neon-yellow)' : 'var(--neon-pink)');
+
+        meteorEl.remove();
+
+        // Check if any meteors are left and we reached enough defense score
+        // We will run this dynamically by checking timer or counts
+    }
+
+    function triggerSlowMotion() {
+        playSound('slowmo');
+        slowMoActive = true;
+        meteorSpeedFactor = 0.35; // Slow down meteors to 35% speed
+        document.getElementById('slowmo-indicator').style.display = 'block';
+
+        // Blur screen edges dynamically for sci-fi distortion
+        const container = document.getElementById('game-container');
+        container.style.boxShadow = '0 0 60px rgba(255, 235, 59, 0.4)';
+
+        setTimeout(() => {
+            slowMoActive = false;
+            meteorSpeedFactor = 1.0;
+            document.getElementById('slowmo-indicator').style.display = 'none';
+            container.style.boxShadow = '0 0 50px rgba(0, 240, 255, 0.15)';
+        }, 5000); // Slow-mo duration 5 seconds
+    }
+
+    function createMeteorExplosionEffect(x, y, color) {
+        const field = document.getElementById('meteor-field');
+        const particleSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        particleSvg.style.position = 'absolute';
+        particleSvg.style.top = '0';
+        particleSvg.style.left = '0';
+        particleSvg.style.width = '100%';
+        particleSvg.style.height = '100%';
+        particleSvg.style.pointerEvents = 'none';
+        particleSvg.style.zIndex = '36';
+
+        // Make 6 radiating sparks
+        for (let i = 0; i < 6; i++) {
+            const angle = (i * Math.PI) / 3;
+            const dist = 50 + Math.random() * 30;
+            const targetX = x + Math.cos(angle) * dist;
+            const targetY = y + Math.sin(angle) * dist;
+
+            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            circle.setAttribute('cx', x);
+            circle.setAttribute('cy', y);
+            circle.setAttribute('r', '8');
+            circle.setAttribute('fill', color);
+            circle.style.transition = 'all 0.4s cubic-bezier(0.1, 0.8, 0.2, 1)';
+            particleSvg.appendChild(circle);
+
+            // Animate expansion
+            requestAnimationFrame(() => {
+                circle.setAttribute('cx', targetX);
+                circle.setAttribute('cy', targetY);
+                circle.setAttribute('r', '0');
+            });
+        }
+
+        field.appendChild(particleSvg);
+        setTimeout(() => particleSvg.remove(), 500);
+    }
+
+    let winConditionTicks = 0;
+    const requiredGameTimeTicks = 20 * 60; // 20 seconds at 60 FPS = 1200 ticks
+
+    function updateMeteorsMovement() {
+        if (currentScreen !== 'meteor-defense') return;
+
+        const field = document.getElementById('meteor-field');
+        const rect = field.getBoundingClientRect();
+        const bottomLine = rect.height - 160; // Above planet shield top edge (80px HUD + 80px shield)
+
+        const meteors = document.querySelectorAll('.falling-meteor');
+        
+        meteors.forEach(meteor => {
+            let topPos = parseFloat(meteor.style.top);
+            const speed = parseFloat(meteor.dataset.speed) * meteorSpeedFactor;
+            
+            topPos += speed;
+            meteor.style.top = topPos + 'px';
+
+            // Shield collision hit check
+            if (topPos >= bottomLine - 50) {
+                // Explode on shield
+                playSound('explosion');
+                const x = parseFloat(meteor.style.left) + 30;
+                createMeteorExplosionEffect(x, bottomLine, '#f44336');
+                spawnScorePop(x, bottomLine - 30, "💥 SHIELD DAMAGED!");
+                meteor.remove();
+
+                // Deplete health bar
+                defenseHealth -= 15;
+                if (defenseHealth < 0) defenseHealth = 0;
+                document.getElementById('shield-fill').style.width = defenseHealth + '%';
+
+                // Health check failure
+                if (defenseHealth <= 0) {
+                    stopGameLoops();
+                    playSound('error');
+                    alert("行星防御网已崩溃！即将重置本关。");
+                    setupMeteorDefenseLevel();
+                }
+            }
+        });
+
+        // Time ticker for winning level
+        winConditionTicks++;
+        if (winConditionTicks >= requiredGameTimeTicks && defenseHealth > 0) {
+            // Level cleared!
+            stopGameLoops();
+            
+            // Clean up remaining meteors
+            document.querySelectorAll('.falling-meteor').forEach(m => m.remove());
+
+            const winBtn = document.querySelector('#screen-meteor-defense .next-btn');
+            winBtn.style.display = 'block';
+        } else {
+            const nextFrame = requestAnimationFrame(updateMeteorsMovement);
+            animationFrameIds.push(nextFrame);
+        }
+    }
+</script>
+</body>
+</html>

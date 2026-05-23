@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💎 皇家珠宝工坊与皇冠镶嵌 👑</title>
+    <!-- Google Fonts for Luxury Feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --velvet-bg: radial-gradient(circle at center, #15092b 0%, #06020f 100%);
+            --gold-glow: 0 0 15px rgba(212, 175, 55, 0.6);
+            --neon-diamond: #e0f7fa;
+            --neon-sapphire: #0288d1;
+            --neon-ruby: #d81b60;
+            --neon-emerald: #00e676;
+            --glass-bg: rgba(15, 10, 30, 0.7);
+            --glass-border: rgba(212, 175, 55, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-drag: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--velvet-bg);
+            font-family: 'Nunito', 'Microsoft YaHei', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            color: #fff;
+        }
+
+        /* Sparkle backdrop */
+        #jewelry-background {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-sparkle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            opacity: 0.15;
+            animation: pulse-twinkle linear infinite;
+        }
+
+        @keyframes pulse-twinkle {
+            0%, 100% { opacity: 0.1; transform: scale(0.6) rotate(0deg); }
+            50% { opacity: 0.7; transform: scale(1.3) rotate(180deg); }
+        }
+
+        /* Custom Diamond Stylus Cursor */
+        .jewelry-cursor {
+            width: 32px;
+            height: 32px;
+            position: absolute;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            display: none;
+            filter: drop-shadow(0 0 6px rgba(0, 240, 255, 0.7));
+        }
+
+        /* Main Game Box */
+        #game-container {
+            width: 960px;
+            height: 720px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 2px solid var(--glass-border);
+            border-radius: 35px;
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.15), inset 0 0 25px rgba(255, 255, 255, 0.02);
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Screen Manager */
+        .screen {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0; left: 0;
+            opacity: 0;
+            transform: scale(0.96);
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .screen.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+            z-index: 20;
+        }
+
+        /* Header Instruction Banner */
+        .instruction-banner {
+            position: absolute;
+            top: 25px;
+            width: 90%;
+            padding: 15px 30px;
+            background: rgba(10, 5, 25, 0.95);
+            border: 1.5px solid rgba(212, 175, 55, 0.5);
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+            text-align: center;
+            z-index: 30;
+        }
+
+        .instruction-banner h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 24px;
+            color: #d4af37;
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+            margin-bottom: 5px;
+        }
+
+        .instruction-banner p {
+            font-size: 15px;
+            color: #dfd2ff;
+        }
+
+        /* Welcome Screen Styling */
+        #welcome-screen h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 54px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #d4af37 0%, #fff 50%, #f39c12 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+
+        #welcome-screen .intro-subtitle {
+            font-size: 22px;
+            color: #cbb8ff;
+            margin-bottom: 45px;
+            font-weight: bold;
+        }
+
+        /* Buttons with Royal Theme */
+        .btn-royal {
+            padding: 18px 45px;
+            font-size: 22px;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.05) 100%);
+            border: 2px solid #d4af37;
+            border-radius: 35px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.05);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            outline: none;
+        }
+
+        .btn-royal:hover {
+            transform: scale(1.05) translateY(-2px);
+            border-color: #fff;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-royal:active {
+            transform: scale(0.98) translateY(1px);
+        }
+
+        .next-btn {
+            position: absolute;
+            bottom: 100px;
+            display: none;
+            animation: pulse-gold 2s infinite;
+            z-index: 50;
+        }
+
+        @keyframes pulse-gold {
+            0%, 100% { box-shadow: 0 0 15px #d4af37; }
+            50% { box-shadow: 0 0 35px #d4af37; }
+        }
+
+        /* Screen 1: Tiara Gem Placer */
+        #game-tiara {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tiara-base-box {
+            position: relative;
+            width: 350px;
+            height: 250px;
+            z-index: 25;
+            margin-top: 80px;
+        }
+
+        .socket-target {
+            position: absolute;
+            border: 2px dashed rgba(255, 255, 255, 0.35);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translate(-50%, -50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 28;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+            transition: all 0.3s;
+        }
+
+        .socket-target.filled {
+            border: none;
+            background: transparent;
+            box-shadow: none;
+            animation: bounce-scale 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes bounce-scale {
+            0% { transform: translate(-50%, -50%) scale(0.5); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        .gem-tray {
+            position: absolute;
+            bottom: 90px;
+            width: 70%;
+            height: 85px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 35;
+        }
+
+        .tiara-gem-drag {
+            width: 65px;
+            height: 65px;
+            cursor: grab;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+            transition: transform 0.2s;
+        }
+
+        .tiara-gem-drag:active {
+            cursor: grabbing;
+        }
+
+        /* Screen 2: Pearl Necklace */
+        #game-necklace {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        #necklace-svg {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 25;
+        }
+
+        .pearl-tray {
+            position: absolute;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 85px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 40;
+        }
+
+        .necklace-pearl-source {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2.5px solid #fff;
+            filter: drop-shadow(0 0 8px rgba(255,255,255,0.4));
+            box-shadow: inset -5px -5px 10px rgba(0,0,0,0.15);
+            transition: transform 0.2s;
+        }
+
+        .necklace-pearl-source:hover {
+            transform: scale(1.15);
+        }
+
+        /* Screen 3: Diamond Polishing */
+        #game-polish {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .rough-diamond-box {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            z-index: 25;
+            margin-top: 70px;
+            cursor: pointer;
+        }
+
+        .rough-crust-layer {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 30;
+            opacity: 0.95;
+            transition: opacity 0.1s, transform 0.2s;
+        }
+
+        .polishing-dust {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 32;
+            animation: pop-dust 0.8s ease-out forwards;
+        }
+
+        @keyframes pop-dust {
+            0% { transform: translateY(0) scale(0.6); opacity: 1; }
+            100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+        }
+
+        /* Tool Cursor attachments */
+        .polisher-tool-cursor {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            pointer-events: none;
+            z-index: 99;
+            transform: translate(-30%, -30%);
+            display: none;
+        }
+
+        /* Victory / Box Screen */
+        .victory-title {
+            font-family: 'Cinzel', serif;
+            font-size: 48px;
+            font-weight: bold;
+            color: #d4af37;
+            text-shadow: 0 0 25px rgba(212,175,55,0.5);
+            margin-bottom: 25px;
+        }
+
+        .jewelry-box-victory {
+            width: 250px;
+            height: 210px;
+            margin-bottom: 35px;
+            position: relative;
+            filter: drop-shadow(0 0 20px rgba(212,175,55,0.4));
+            animation: bob-box 3s ease-in-out infinite;
+        }
+
+        @keyframes bob-box {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        /* Global HUD Navigation */
+        #hud-nav {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            height: 80px;
+            background: rgba(8, 4, 15, 0.9);
+            border-top: 1.5px solid var(--glass-border);
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 100;
+        }
+
+        .hud-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .level-badge {
+            font-family: 'Cinzel', serif;
+            padding: 6px 15px;
+            background: rgba(212, 175, 55, 0.15);
+            border: 1.5px solid #d4af37;
+            color: #d4af37;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+        }
+
+        .hud-btn {
+            padding: 10px 22px;
+            font-size: 16px;
+            font-family: 'Cinzel', serif;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .hud-btn:hover:not(:disabled) {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: #d4af37;
+        }
+
+        .hud-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .hud-btn.home-btn {
+            background: rgba(212, 175, 55, 0.05);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .hud-btn.home-btn:hover {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: #d4af37;
+        }
+
+        /* Floating Score Bubbles */
+        .score-bubble {
+            position: absolute;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            color: #d4af37;
+            font-size: 22px;
+            text-shadow: 0 0 10px rgba(212,175,55,0.6);
+            pointer-events: none;
+            z-index: 99;
+            animation: float-fade 0.8s ease-out forwards;
+        }
+
+        @keyframes float-fade {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-50px) scale(1.3); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="jewelry-background"></div>
+
+<!-- Custom diamond tip cursor SVG -->
+<svg class="jewelry-cursor" id="custom-jewel-cursor" viewBox="0 0 100 100">
+    <polygon points="50,10 80,40 50,90 20,40" fill="none" stroke="#e0f7fa" stroke-width="6"/>
+    <!-- Center light core -->
+    <polygon points="50,25 70,42 50,80 30,42" fill="#00f0ff" opacity="0.6"/>
+    <!-- Sparkle dot -->
+    <circle cx="50" cy="42" r="5" fill="#fff" style="filter: drop-shadow(0 0 5px #fff);"/>
+</svg>
+
+<!-- Floating Polisher Tool attachment -->
+<svg class="polisher-tool-cursor" id="polisher-brush" viewBox="0 0 100 100">
+    <!-- Wooden handle -->
+    <rect x="15" y="10" width="20" height="70" fill="#a0522d" rx="4" transform="rotate(-45 30 40)"/>
+    <!-- Metal ring -->
+    <rect x="55" y="45" width="25" height="15" fill="#bdc3c7" transform="rotate(-45 60 50)"/>
+    <!-- Bristles / brush head -->
+    <rect x="70" y="60" width="30" height="25" fill="#f1c40f" rx="3" transform="rotate(-45 80 70)"/>
+</svg>
+
+
+<div id="game-container">
+    
+    <!-- Screen 0: Welcome -->
+    <div id="screen-welcome" class="screen active">
+        <!-- Giant sparkling SVG diamond book cover logo -->
+        <svg width="180" height="180" viewBox="0 0 120 120" style="margin-bottom: 25px; filter: drop-shadow(0 0 15px rgba(212,175,55,0.4));">
+            <defs>
+                <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#fff7c2"/>
+                    <stop offset="60%" stop-color="#d4af37"/>
+                    <stop offset="100%" stop-color="#aa7c11"/>
+                </linearGradient>
+            </defs>
+            <!-- Background base shield -->
+            <polygon points="60,5 110,40 110,95 60,115 10,95 10,40" fill="url(#goldGrad)" />
+            <!-- Starburst grid reflections -->
+            <polygon points="60,20 100,50 60,100 20,50" fill="#11052C"/>
+            <!-- Center diamond facets -->
+            <polygon points="60,30 90,50 60,85" fill="#3498db" opacity="0.8"/>
+            <polygon points="60,30 30,50 60,85" fill="#00e676" opacity="0.8"/>
+            <polygon points="60,30 90,50 30,50" fill="#d81b60" opacity="0.6"/>
+            <!-- Shiny highlight lines -->
+            <line x1="60" y1="30" x2="60" y2="85" stroke="#ffffff" stroke-width="2"/>
+        </svg>
+        <h1>皇家珠宝工坊</h1>
+        <p class="intro-subtitle">升级版：宝石贴合镶嵌与高频磨光挑战</p>
+        <button class="btn-royal" onclick="startGame()">💎 开启首饰定制</button>
+    </div>
+
+    <!-- Screen 1: Tiara Gem Placer -->
+    <div id="screen-tiara" class="screen">
+        <div class="instruction-banner">
+            <h2>第 1 关：皇家皇冠的宝石镶嵌</h2>
+            <p>皇冠上有 4 个不同形状的凹槽。按住【左键】拖动下方的七彩宝石，精确对齐凹槽放入！</p>
+        </div>
+
+        <div id="game-tiara">
+            <!-- Central Golden Tiara -->
+            <div class="tiara-base-box" id="tiara-base">
+                <svg viewBox="0 0 140 100" width="100%" height="100%" style="filter: drop-shadow(0 5px 15px rgba(212,175,55,0.3));">
+                    <!-- Tiara arch -->
+                    <path d="M 10 90 Q 70 40 130 90" fill="none" stroke="url(#goldGrad)" stroke-width="8" stroke-linecap="round"/>
+                    <path d="M 15 90 Q 70 20 125 90" fill="none" stroke="url(#goldGrad)" stroke-width="3" opacity="0.8"/>
+                    <!-- Ornate spirals -->
+                    <path d="M 40 76 Q 50 50 60 70" fill="none" stroke="url(#goldGrad)" stroke-width="4"/>
+                    <path d="M 100 76 Q 90 50 80 70" fill="none" stroke="url(#goldGrad)" stroke-width="4"/>
+                    <!-- Spikes spikes -->
+                    <polygon points="70,12 65,30 75,30" fill="url(#goldGrad)" />
+                    <polygon points="35,38 32,55 42,52" fill="url(#goldGrad)" />
+                    <polygon points="105,38 108,55 98,52" fill="url(#goldGrad)" />
+                </svg>
+
+                <!-- Embedded Sockets (Absolute markers inside tiara box) -->
+                <!-- 1. Center Ruby Heart: (x: 175, y: 80) -->
+                <div class="socket-target" style="left: 175px; top: 85px; width: 48px; height: 48px; clip-path: path('M24,9 Q33,-2 42,6 Q48,15 24,39 Q0,15 6,6 Q15,-2 24,9 Z');" data-shape="heart"></div>
+                <!-- 2. Top Yellow Star: (x: 175, y: 15) -->
+                <div class="socket-target" style="left: 175px; top: 15px; width: 44px; height: 44px; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);" data-shape="star"></div>
+                <!-- 3. Left Blue Oval: (x: 88, y: 92) -->
+                <div class="socket-target" style="left: 88px; top: 92px; width: 44px; height: 50px; border-radius: 50%;" data-shape="oval"></div>
+                <!-- 4. Right Green Emerald Square: (x: 262, y: 92) -->
+                <div class="socket-target" style="left: 262px; top: 92px; width: 44px; height: 44px; border-radius: 6px;" data-shape="emerald"></div>
+            </div>
+
+            <!-- Gems Tray at Bottom -->
+            <div class="gem-tray" id="tiara-gem-tray">
+                <!-- Red Heart Ruby -->
+                <div class="tiara-gem-drag" id="gem-heart" data-shape="heart">
+                    <svg viewBox="0 0 100 100" width="100%" height="100%">
+                        <path d="M50,18 Q70,-5 90,12 Q100,30 50,85 Q0,30 10,12 Q30,-5 50,18 Z" fill="var(--neon-ruby)" style="filter: drop-shadow(0 0 6px var(--neon-ruby));"/>
+                        <circle cx="70" cy="22" r="6" fill="#fff" opacity="0.6" />
+                    </svg>
+                </div>
+                <!-- Blue Oval Sapphire -->
+                <div class="tiara-gem-drag" id="gem-oval" data-shape="oval">
+                    <svg viewBox="0 0 100 100" width="100%" height="100%">
+                        <ellipse cx="50" cy="50" rx="35" ry="45" fill="var(--neon-sapphire)" style="filter: drop-shadow(0 0 8px var(--neon-sapphire));"/>
+                        <ellipse cx="38" cy="30" rx="10" ry="18" fill="#fff" opacity="0.4" transform="rotate(-30 38 30)"/>
+                    </svg>
+                </div>
+                <!-- Green Emerald cut -->
+                <div class="tiara-gem-drag" id="gem-emerald" data-shape="emerald">
+                    <svg viewBox="0 0 100 100" width="100%" height="100%">
+                        <rect x="20" y="20" width="60" height="60" rx="10" fill="var(--neon-emerald)" style="filter: drop-shadow(0 0 8px var(--neon-emerald));"/>
+                        <!-- Facet lines -->
+                        <polygon points="20,20 35,35 65,35 80,20" fill="#fff" opacity="0.2"/>
+                        <polygon points="20,80 35,65 65,65 80,80" fill="#000" opacity="0.2"/>
+                        <circle cx="35" cy="35" r="5" fill="#fff" opacity="0.6" />
+                    </svg>
+                </div>
+                <!-- Yellow Star Diamond -->
+                <div class="tiara-gem-drag" id="gem-star" data-shape="star">
+                    <svg viewBox="0 0 100 100" width="100%" height="100%">
+                        <polygon points="50,5 64,36 98,36 70,57 81,91 50,70 19,91 30,57 2,36 36,36" fill="#ffd166" style="filter: drop-shadow(0 0 8px #f1c40f);"/>
+                        <circle cx="50" cy="40" r="8" fill="#fff" opacity="0.5"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn-royal next-btn" onclick="nextLevel()">✨ 皇冠光芒绽放！去下一关</button>
+    </div>
+
+    <!-- Screen 2: Pearl Necklace -->
+    <div id="screen-necklace" class="screen">
+        <div class="instruction-banner">
+            <h2>第 2 关：七彩珍珠项链穿线</h2>
+            <p>1. 点击下方托盘的珍珠，珍珠将自动吸附至左端起点。 2. 按住【左键】拖动珍珠，沿着金线弧线轨迹运送到右侧！</p>
+        </div>
+
+        <div id="game-necklace">
+            <svg id="necklace-svg">
+                <defs>
+                    <filter id="necklaceGlow">
+                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+                <!-- Gold string path (Width: 960, Height: 700) -->
+                <!-- Necklace path curve: M 220 280 Q 480 500 740 280 -->
+                <path id="necklace-thread" d="M 220 280 Q 480 500 740 280" fill="none" stroke="#d4af37" stroke-width="4" stroke-linecap="round"/>
+                <path id="necklace-thread-dashed" d="M 220 280 Q 480 500 740 280" fill="none" stroke="#fff" stroke-dasharray="8 8" stroke-width="2" opacity="0.6"/>
+
+                <!-- Gold clasps -->
+                <circle cx="220" cy="280" r="10" fill="#d4af37" style="filter: drop-shadow(0 0 4px #d4af37);"/>
+                <circle cx="740" cy="280" r="10" fill="#d4af37" style="filter: drop-shadow(0 0 4px #d4af37);"/>
+
+                <!-- Render completed pearls inside SVG groups -->
+                <g id="placed-pearls-group"></g>
+                
+                <!-- Dynamic active pearl being dragged -->
+                <g id="active-pearl-group"></g>
+            </svg>
+
+            <!-- Pearls Selection Tray -->
+            <div class="pearl-tray">
+                <div class="necklace-pearl-source" style="background: radial-gradient(circle at 30% 30%, #fff 0%, #ff85a1 100%);" onclick="spawnNewPearl('#ff85a1')"></div>
+                <div class="necklace-pearl-source" style="background: radial-gradient(circle at 30% 30%, #fff 0%, #70d6ff 100%);" onclick="spawnNewPearl('#70d6ff')"></div>
+                <div class="necklace-pearl-source" style="background: radial-gradient(circle at 30% 30%, #fff 0%, #ffd166 100%);" onclick="spawnNewPearl('#ffd166')"></div>
+                <div class="necklace-pearl-source" style="background: radial-gradient(circle at 30% 30%, #fff 0%, #b5179e 100%);" onclick="spawnNewPearl('#b5179e')"></div>
+            </div>
+        </div>
+
+        <button class="btn-royal next-btn" onclick="nextLevel()">✨ 项链手工编织完成！去下一关</button>
+    </div>
+
+    <!-- Screen 3: Diamond Polishing -->
+    <div id="screen-polish" class="screen">
+        <div class="instruction-banner">
+            <h2>第 3 关：切割打磨传奇巨钻</h2>
+            <p>这块钻石蒙上了一层厚厚的炭黑外壳。按住【左键】在炭黑上【快速来回横扫擦拭】打磨钻石！</p>
+        </div>
+
+        <div id="game-polish">
+            <div class="rough-diamond-box" id="rough-diamond">
+                <!-- Faceted Gem SVG underneath -->
+                <svg viewBox="0 0 100 100" width="100%" height="100%">
+                    <defs>
+                        <linearGradient id="diamondGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#fff" />
+                            <stop offset="40%" stop-color="#b2ebf2" />
+                            <stop offset="100%" stop-color="#80deea" />
+                        </linearGradient>
+                    </defs>
+                    <!-- Diamond body -->
+                    <polygon points="50,15 80,35 70,75 50,90 30,75 20,35" fill="url(#diamondGrad)" />
+                    <!-- Facet lines -->
+                    <polygon points="50,15 35,35 65,35" fill="#ffffff" opacity="0.5"/>
+                    <polygon points="20,35 35,35 30,75" fill="#ffffff" opacity="0.3"/>
+                    <polygon points="80,35 65,35 70,75" fill="#000000" opacity="0.1"/>
+                    <polygon points="50,90 30,75 50,75" fill="#ffffff" opacity="0.4"/>
+                    <polygon points="50,90 70,75 50,75" fill="#000000" opacity="0.15"/>
+                    <polygon points="35,35 65,35 50,75" fill="#ffffff" opacity="0.6"/>
+                    <!-- Facet sparkles -->
+                    <g id="shine-sparkles" style="display:none;">
+                        <circle cx="45" cy="30" r="5" fill="#fff" style="filter: drop-shadow(0 0 6px #fff);"/>
+                        <circle cx="65" cy="55" r="4" fill="#fff" style="filter: drop-shadow(0 0 6px #fff);"/>
+                        <circle cx="35" cy="65" r="5" fill="#fff" style="filter: drop-shadow(0 0 6px #fff);"/>
+                    </g>
+                </svg>
+
+                <!-- Rough charcoal crust overlay -->
+                <svg class="rough-crust-layer" id="crust-layer" viewBox="0 0 100 100">
+                    <polygon points="48,12 82,34 72,77 50,92 28,77 18,34" fill="#3a302a" stroke="#1c1613" stroke-width="2"/>
+                    <circle cx="40" cy="40" r="10" fill="#2c221e"/>
+                    <circle cx="60" cy="55" r="8" fill="#2c221e"/>
+                    <circle cx="45" cy="70" r="12" fill="#2c221e"/>
+                </svg>
+            </div>
+        </div>
+
+        <button class="btn-royal next-btn" onclick="showVictory()">🏆 旷世巨钻完工！领取大魔导勋章</button>
+    </div>
+
+    <!-- Screen 4: Victory -->
+    <div id="screen-victory" class="screen">
+        <div class="victory-title">👑 皇家大珠宝设计宗师 👑</div>
+        <div class="jewelry-box-victory">
+            <!-- Open jewelry box SVG -->
+            <svg viewBox="0 0 100 100" width="100%" height="100%">
+                <defs>
+                    <linearGradient id="velCover" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#b01030"/>
+                        <stop offset="100%" stop-color="#500010"/>
+                    </linearGradient>
+                </defs>
+                <!-- Box base inside -->
+                <rect x="15" y="55" width="70" height="30" rx="5" fill="url(#velCover)" stroke="#d4af37" stroke-width="3"/>
+                <ellipse cx="50" cy="55" rx="35" ry="8" fill="#500010"/>
+                <!-- Lid opened upwards -->
+                <path d="M 15 55 L 10 15 Q 50 5 90 15 L 85 55 Z" fill="url(#velCover)" stroke="#d4af37" stroke-width="3"/>
+                <!-- Shiny sparkles inside the box -->
+                <circle cx="35" cy="55" r="8" fill="#00ffff" style="filter: drop-shadow(0 0 6px #00f0ff);"/>
+                <circle cx="65" cy="55" r="7" fill="#ff00ff" style="filter: drop-shadow(0 0 6px #ff00ff);"/>
+                <circle cx="50" cy="53" r="10" fill="#ffd166" style="filter: drop-shadow(0 0 10px #f1c40f);"/>
+            </svg>
+        </div>
+        <p style="font-size: 24px; color: #d4af37; font-weight: bold; margin-bottom: 35px; text-align: center;">您亲手镶嵌了皇冠、穿制了项链、打磨了钻石！首饰棒极了！</p>
+        <button class="btn-royal" onclick="goToScreen('welcome')">🔄 重新设计首饰</button>
+    </div>
+
+    <!-- HUD bottom bar -->
+    <div id="hud-nav">
+        <div class="hud-left">
+            <span class="level-badge" id="hud-badge">LEVEL 1</span>
+            <span style="font-size: 16px; color: #d4af37; font-family: 'Cinzel';">首饰院设计簿</span>
+        </div>
+        <div style="display:flex; gap: 15px;">
+            <button class="hud-btn" id="hud-btn-prev" onclick="prevLevel()">◀ 上一关</button>
+            <button class="hud-btn home-btn" onclick="resetToWelcome()">💎 离开工坊</button>
+            <button class="hud-btn" id="hud-btn-next" onclick="nextLevel()">下一关 ▶</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // ---------------- Advanced Audio Engine (Web Audio API) ----------------
+    let audioCtx = null;
+
+    function initAudio() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+    }
+
+    function playSound(type) {
+        if (!audioCtx) return;
+        const now = audioCtx.currentTime;
+
+        switch (type) {
+            case 'gemGrab':
+                // Glass chime high ping
+                const grabOsc = audioCtx.createOscillator();
+                const grabGain = audioCtx.createGain();
+                grabOsc.type = 'sine';
+                grabOsc.frequency.setValueAtTime(650, now);
+                grabOsc.frequency.exponentialRampToValueAtTime(1200, now + 0.08);
+                grabGain.gain.setValueAtTime(0.08, now);
+                grabGain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+                grabOsc.connect(grabGain);
+                grabGain.connect(audioCtx.destination);
+                grabOsc.start(now);
+                grabOsc.stop(now + 0.08);
+                break;
+
+            case 'gemPlace':
+                // Crystal ring major chord sound
+                const chord = [523.25, 659.25, 783.99, 1046.50]; // C Major
+                chord.forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, now + idx * 0.04);
+                    gain.gain.setValueAtTime(0, now);
+                    gain.gain.linearRampToValueAtTime(0.06, now + idx * 0.04 + 0.02);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.04 + 0.4);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now + idx * 0.04);
+                    osc.stop(now + idx * 0.04 + 0.4);
+                });
+                break;
+
+            case 'slidePearl':
+                // Continuous friction click
+                const slideOsc = audioCtx.createOscillator();
+                const slideGain = audioCtx.createGain();
+                slideOsc.type = 'sine';
+                slideOsc.frequency.setValueAtTime(450, now);
+                slideOsc.frequency.linearRampToValueAtTime(550, now + 0.05);
+                slideGain.gain.setValueAtTime(0.03, now);
+                slideGain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+                slideOsc.connect(slideGain);
+                slideGain.connect(audioCtx.destination);
+                slideOsc.start(now);
+                slideOsc.stop(now + 0.05);
+                break;
+
+            case 'polishScrub':
+                // Scrubbing friction noise sweep
+                const bufferSize = audioCtx.sampleRate * 0.08;
+                const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = Math.random() * 2 - 1;
+                }
+                const noise = audioCtx.createBufferSource();
+                noise.buffer = buffer;
+
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = 'bandpass';
+                filter.frequency.setValueAtTime(500, now);
+                filter.frequency.linearRampToValueAtTime(1400, now + 0.08);
+
+                const scrubGain = audioCtx.createGain();
+                scrubGain.gain.setValueAtTime(0.04, now);
+                scrubGain.gain.linearRampToValueAtTime(0.001, now + 0.08);
+
+                noise.connect(filter);
+                filter.connect(scrubGain);
+                scrubGain.connect(audioCtx.destination);
+                noise.start(now);
+                noise.stop(now + 0.08);
+                break;
+
+            case 'diamondShine':
+                // Fairy dust sweep up
+                const sweeps = [1000, 1500, 2000, 2500];
+                sweeps.forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, now + idx * 0.05);
+                    osc.frequency.exponentialRampToValueAtTime(freq * 1.5, now + idx * 0.05 + 0.3);
+                    gain.gain.setValueAtTime(0, now);
+                    gain.gain.linearRampToValueAtTime(0.04, now + idx * 0.05 + 0.02);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.05 + 0.3);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now + idx * 0.05);
+                    osc.stop(now + idx * 0.05 + 0.3);
+                });
+                break;
+
+            case 'tada':
+                // Major arpeggio fan-fare
+                const victoryScale = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99, 1046.50];
+                victoryScale.forEach((f, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(f, now + idx * 0.06);
+                    gain.gain.setValueAtTime(0, now);
+                    gain.gain.linearRampToValueAtTime(0.08, now + idx * 0.06 + 0.01);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.06 + 0.4);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now + idx * 0.06);
+                    osc.stop(now + idx * 0.06 + 0.4);
+                });
+                break;
+
+            case 'error':
+                const errOsc = audioCtx.createOscillator();
+                const errGain = audioCtx.createGain();
+                errOsc.type = 'triangle';
+                errOsc.frequency.setValueAtTime(260, now);
+                errOsc.frequency.linearRampToValueAtTime(120, now + 0.25);
+                errGain.gain.setValueAtTime(0.12, now);
+                errGain.gain.linearRampToValueAtTime(0.001, now + 0.25);
+                errOsc.connect(errGain);
+                errGain.connect(audioCtx.destination);
+                errOsc.start(now);
+                errOsc.stop(now + 0.25);
+                break;
+        }
+    }
+
+    // ---------------- Sparkle Background Generator ----------------
+    function buildSparkleField() {
+        const bg = document.getElementById('jewelry-background');
+        bg.innerHTML = '';
+
+        for (let i = 0; i < 30; i++) {
+            const spk = document.createElement('div');
+            spk.className = 'bg-sparkle';
+            const size = Math.random() * 15 + 8;
+            spk.style.width = size + 'px';
+            spk.style.height = size + 'px';
+            spk.style.left = (Math.random() * 100) + 'vw';
+            spk.style.top = (Math.random() * 100) + 'vh';
+            spk.style.animationDuration = (3 + Math.random() * 5) + 's';
+            spk.style.animationDelay = (Math.random() * -5) + 's';
+            bg.appendChild(spk);
+        }
+    }
+    window.addEventListener('DOMContentLoaded', buildSparkleField);
+
+    // ---------------- Screen / Level Management ----------------
+    let currentScreen = 'welcome';
+    let activeLevelIndex = 1;
+    const totalLevels = 3;
+
+    function goToScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(s => {
+            s.classList.remove('active');
+        });
+        
+        const nextScreen = document.getElementById('screen-' + screenId);
+        nextScreen.classList.add('active');
+        currentScreen = screenId;
+
+        const btn = nextScreen.querySelector('.next-btn');
+        if (btn) btn.style.display = 'none';
+
+        // HUD control
+        const hud = document.getElementById('hud-nav');
+        if (screenId === 'welcome' || screenId === 'victory') {
+            hud.style.display = 'none';
+            document.body.style.cursor = 'auto';
+            document.getElementById('custom-jewel-cursor').style.display = 'none';
+        } else {
+            hud.style.display = 'flex';
+            document.body.style.cursor = 'none'; // Hide real cursor
+            document.getElementById('custom-jewel-cursor').style.display = 'block';
+            document.getElementById('hud-badge').innerText = `LEVEL ${activeLevelIndex}`;
+            
+            document.getElementById('hud-btn-prev').disabled = (activeLevelIndex === 1);
+            document.getElementById('hud-btn-next').disabled = (activeLevelIndex === totalLevels);
+        }
+
+        // Reset previous loops
+        stopGameLoops();
+
+        if (screenId === 'tiara') setupTiaraLevel();
+        else if (screenId === 'necklace') setupNecklaceLevel();
+        else if (screenId === 'polish') setupPolishLevel();
+    }
+
+    function startGame() {
+        initAudio();
+        activeLevelIndex = 1;
+        goToScreen('tiara');
+    }
+
+    function nextLevel() {
+        playSound('gemPlace');
+        if (activeLevelIndex < totalLevels) {
+            activeLevelIndex++;
+            if (activeLevelIndex === 2) goToScreen('necklace');
+            else if (activeLevelIndex === 3) goToScreen('polish');
+        } else {
+            goToScreen('victory');
+        }
+    }
+
+    function prevLevel() {
+        if (activeLevelIndex > 1) {
+            activeLevelIndex--;
+            if (activeLevelIndex === 1) goToScreen('tiara');
+            else if (activeLevelIndex === 2) goToScreen('necklace');
+        }
+    }
+
+    function showVictory() {
+        playSound('tada');
+        goToScreen('victory');
+    }
+
+    function resetToWelcome() {
+        goToScreen('welcome');
+    }
+
+    // Custom cursor coordinate updating
+    document.addEventListener('mousemove', (e) => {
+        const cursor = document.getElementById('custom-jewel-cursor');
+        const container = document.getElementById('game-container');
+        const rect = container.getBoundingClientRect();
+        
+        if (e.clientX >= rect.left && e.clientX <= rect.right &&
+            e.clientY >= rect.top && e.clientY <= rect.bottom &&
+            currentScreen !== 'welcome' && currentScreen !== 'victory') {
+            cursor.style.display = 'block';
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        } else {
+            cursor.style.display = 'none';
+        }
+    });
+
+    // Score pop helper
+    function spawnScorePop(x, y, text) {
+        const bubble = document.createElement('div');
+        bubble.className = 'score-bubble';
+        bubble.innerText = text;
+        bubble.style.left = x + 'px';
+        bubble.style.top = y + 'px';
+        document.getElementById('game-container').appendChild(bubble);
+        setTimeout(() => bubble.remove(), 800);
+    }
+
+    let intervalIds = [];
+    function stopGameLoops() {
+        intervalIds.forEach(clearInterval);
+        intervalIds = [];
+    }
+
+
+    // -------------------------------------------------------------
+    // LEVEL 1: TIARA GEM PLACER
+    // -------------------------------------------------------------
+    let gemsPlacedCount = 0;
+    let draggedGem = null;
+    let gemOffset = { x: 0, y: 0 };
+
+    function setupTiaraLevel() {
+        gemsPlacedCount = 0;
+        draggedGem = null;
+
+        // Reset sockets
+        const sockets = document.querySelectorAll('.socket-target');
+        sockets.forEach(s => {
+            s.classList.remove('filled');
+            s.style.display = 'flex';
+            s.innerHTML = ''; // Empty socket
+        });
+
+        // Reset gem tray layout
+        const tray = document.getElementById('tiara-gem-tray');
+        const gems = document.querySelectorAll('.tiara-gem-drag');
+        gems.forEach(gem => {
+            gem.style.display = 'flex';
+            gem.style.position = 'static';
+            gem.style.transform = 'scale(1)';
+            gem.style.zIndex = '';
+            
+            gem.onmousedown = (e) => startDragGem(e, gem);
+        });
+    }
+
+    function startDragGem(e, gemEl) {
+        initAudio();
+        playSound('gemGrab');
+
+        draggedGem = gemEl;
+        const rect = gemEl.getBoundingClientRect();
+        const parentRect = document.getElementById('game-container').getBoundingClientRect();
+
+        // Turn static card into absolute coordinates
+        draggedGem.style.position = 'absolute';
+        draggedGem.style.left = (rect.left - parentRect.left) + 'px';
+        draggedGem.style.top = (rect.top - parentRect.top) + 'px';
+        draggedGem.style.zIndex = '40';
+
+        gemOffset.x = e.clientX - rect.left;
+        gemOffset.y = e.clientY - rect.top;
+    }
+
+    // Global drag listener for gem fitting
+    document.addEventListener('mousemove', (e) => {
+        if (!draggedGem || currentScreen !== 'tiara') return;
+        const container = document.getElementById('game-container');
+        const rect = container.getBoundingClientRect();
+        
+        const leftVal = e.clientX - rect.left - gemOffset.x;
+        const topVal = e.clientY - rect.top - gemOffset.y;
+
+        draggedGem.style.left = leftVal + 'px';
+        draggedGem.style.top = topVal + 'px';
+    });
+
+    document.addEventListener('mouseup', () => {
+        if (!draggedGem) return;
+        
+        const gem = draggedGem;
+        draggedGem = null;
+
+        const gShape = gem.dataset.shape;
+        const gRect = gem.getBoundingClientRect();
+        const gx = gRect.left + gRect.width/2;
+        const gy = gRect.top + gRect.height/2;
+
+        // Check distance to target socket with same shape
+        const sockets = document.querySelectorAll('.socket-target');
+        let matched = false;
+
+        for (let i = 0; i < sockets.length; i++) {
+            const soc = sockets[i];
+            const sShape = soc.dataset.shape;
+
+            if (gShape === sShape && !soc.classList.contains('filled')) {
+                const sRect = soc.getBoundingClientRect();
+                const sx = sRect.left + sRect.width/2;
+                const sy = sRect.top + sRect.height/2;
+
+                const dist = Math.hypot(gx - sx, gy - sy);
+                if (dist < 50) {
+                    // Lock gem into socket!
+                    gem.style.display = 'none';
+                    soc.classList.add('filled');
+                    
+                    // Render fitted colored gem inside the crown socket
+                    soc.innerHTML = gem.innerHTML;
+                    
+                    playSound('gemPlace');
+                    gemsPlacedCount++;
+
+                    const parentRect = document.getElementById('game-container').getBoundingClientRect();
+                    spawnScorePop(sRect.left - parentRect.left + 20, sRect.top - parentRect.top - 20, "✨ Fit!");
+
+                    matched = true;
+                    break;
+                }
+            }
+        }
+
+        if (!matched) {
+            // Drop back to tray
+            gem.style.position = 'static';
+            gem.style.zIndex = '';
+        }
+
+        if (gemsPlacedCount === 4) {
+            // Level cleared!
+            setTimeout(() => {
+                playSound('tada');
+                // Sparkle crown arch
+                const tiara = document.getElementById('tiara-base');
+                tiara.style.transform = 'scale(1.08)';
+                setTimeout(() => tiara.style.transform = 'scale(1)', 500);
+
+                const nextBtn = document.querySelector('#screen-tiara .next-btn');
+                nextBtn.style.display = 'block';
+            }, 500);
+        }
+    });
+
+
+    // -------------------------------------------------------------
+    // LEVEL 2: MAGIC PEARL NECKLACE
+    // -------------------------------------------------------------
+    let placedPearlsList = [];
+    const maxNecklacePearls = 8;
+    let draggedPearlEl = null;
+    let currentPearlColor = '';
+    let isPearlSnapping = false;
+
+    function setupNecklaceLevel() {
+        placedPearlsList = [];
+        draggedPearlEl = null;
+        isPearlSnapping = false;
+
+        // Clear pearls from SVG groups
+        document.getElementById('placed-pearls-group').innerHTML = '';
+        document.getElementById('active-pearl-group').innerHTML = '';
+    }
+
+    // Bezier path geometry logic: Q: 220 280 (P0) -> 480 500 (P1) -> 740 280 (P2)
+    function getBezierPoint(t) {
+        const p0 = { x: 220, y: 280 };
+        const p1 = { x: 480, y: 500 };
+        const p2 = { x: 740, y: 280 };
+
+        // Quadratic Bezier interpolation formula
+        const x = (1 - t) * (1 - t) * p0.x + 2 * (1 - t) * t * p1.x + t * t * p2.x;
+        const y = (1 - t) * (1 - t) * p0.y + 2 * (1 - t) * t * p1.y + t * t * p2.y;
+        return { x: x, y: y };
+    }
+
+    // Solve closest Bezier parametric "t" from mouse coordinate (mx, my)
+    function getClosestParam(mx, my) {
+        let minDistance = Infinity;
+        let bestT = 0;
+        
+        // Sample 100 intervals along curve
+        for (let i = 0; i <= 100; i++) {
+            const t = i / 100;
+            const pt = getBezierPoint(t);
+            const dist = Math.hypot(mx - pt.x, my - pt.y);
+            if (dist < minDistance) {
+                minDistance = dist;
+                bestT = t;
+            }
+        }
+        return { t: bestT, dist: minDistance };
+    }
+
+    function spawnNewPearl(color) {
+        if (placedPearlsList.length >= maxNecklacePearls) return;
+        initAudio();
+        
+        currentPearlColor = color;
+        isPearlSnapping = true;
+        playSound('gemGrab');
+
+        // Create temporary dragging pearl element in SVG
+        const activeGroup = document.getElementById('active-pearl-group');
+        activeGroup.innerHTML = '';
+
+        // Start snapped at t=0 position (220, 280)
+        const pStart = getBezierPoint(0);
+
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', pStart.x);
+        circle.setAttribute('cy', pStart.y);
+        circle.setAttribute('r', '14');
+        circle.setAttribute('fill', `url(#pearlGrad-${placedPearlsList.length})`);
+        circle.setAttribute('stroke', '#fff');
+        circle.setAttribute('stroke-width', '2');
+        circle.style.cursor = 'grabbing';
+        
+        // Define gradient dynamically inside group
+        const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+        defs.innerHTML = `
+            <radialGradient id="pearlGrad-${placedPearlsList.length}" cx="30%" cy="30%" r="70%">
+                <stop offset="0%" stop-color="#fff" />
+                <stop offset="100%" stop-color="${color}" />
+            </radialGradient>
+        `;
+        activeGroup.appendChild(defs);
+        activeGroup.appendChild(circle);
+
+        draggedPearlEl = circle;
+    }
+
+    // Global listener for pearl sliding along curve
+    document.addEventListener('mousemove', (e) => {
+        if (!draggedPearlEl || !isPearlSnapping || currentScreen !== 'necklace') return;
+
+        const container = document.getElementById('game-container');
+        const rect = container.getBoundingClientRect();
+        
+        const localX = e.clientX - rect.left;
+        const localY = e.clientY - rect.top;
+
+        // Solve closest point on curve
+        const solve = getClosestParam(localX, localY);
+        
+        // Limit pearl slider to ONLY progress forward along the curve
+        // Standard start classification limits: must stay after previous pearls
+        const minTAllowed = placedPearlsList.length / maxNecklacePearls;
+        const targetT = Math.max(minTAllowed, solve.t);
+
+        const pt = getBezierPoint(targetT);
+        draggedPearlEl.setAttribute('cx', pt.x);
+        draggedPearlEl.setAttribute('cy', pt.y);
+
+        if (Math.random() < 0.15) {
+            playSound('slidePearl');
+        }
+
+        // Completed slide endpoint check (t >= end of slot index)
+        const maxTAllowed = (placedPearlsList.length + 1) / maxNecklacePearls;
+        if (targetT >= maxTAllowed - 0.05) {
+            // Lock pearl!
+            lockPearlInNecklace(maxTAllowed - 0.05);
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        if (draggedPearlEl && isPearlSnapping) {
+            // Dropped midway: clean up dragging pearl
+            isPearlSnapping = false;
+            draggedPearlEl = null;
+            document.getElementById('active-pearl-group').innerHTML = '';
+        }
+    });
+
+    function lockPearlInNecklace(lockedT) {
+        isPearlSnapping = false;
+        draggedPearlEl = null;
+
+        const pt = getBezierPoint(lockedT);
+
+        // Move active pearl to completed group
+        const group = document.getElementById('placed-pearls-group');
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', pt.x);
+        circle.setAttribute('cy', pt.y);
+        circle.setAttribute('r', '14');
+        circle.setAttribute('fill', `url(#pearlGrad-${placedPearlsList.length})`);
+        circle.setAttribute('stroke', '#fff');
+        circle.setAttribute('stroke-width', '2');
+        circle.style.filter = 'url(#necklaceGlow)';
+        group.appendChild(circle);
+
+        placedPearlsList.push({
+            color: currentPearlColor,
+            t: lockedT
+        });
+
+        // Clear active
+        document.getElementById('active-pearl-group').innerHTML = '';
+
+        playSound('gemPlace');
+        spawnScorePop(pt.x, pt.y - 30, `✨ Pearl ${placedPearlsList.length}!`);
+
+        if (placedPearlsList.length === maxNecklacePearls) {
+            // Level Cleared!
+            setTimeout(() => {
+                playSound('tada');
+                // Sparkle animation
+                const line = document.getElementById('necklace-thread');
+                line.style.stroke = '#fff';
+                setTimeout(() => line.style.stroke = '#d4af37', 500);
+
+                const nextBtn = document.querySelector('#screen-necklace .next-btn');
+                nextBtn.style.display = 'block';
+            }, 600);
+        }
+    }
+
+
+    // -------------------------------------------------------------
+    // LEVEL 3: DIAMOND POLISHING
+    // -------------------------------------------------------------
+    let diamondCleanProgress = 0; // 0 to 100%
+    let isPolishing = false;
+    let lastPolX = null, lastPolY = null;
+
+    function setupPolishLevel() {
+        diamondCleanProgress = 0;
+        isPolishing = false;
+        lastPolX = null;
+        lastPolY = null;
+
+        // Reset overlays
+        document.getElementById('crust-layer').style.opacity = '0.95';
+        document.getElementById('crust-layer').style.transform = 'scale(1)';
+        document.getElementById('shine-sparkles').style.display = 'none';
+
+        // Attach brush tools
+        document.body.style.cursor = 'none';
+        document.getElementById('polisher-brush').style.display = 'block';
+
+        // Setup mouse listeners on rough diamond area
+        const box = document.getElementById('rough-diamond');
+        box.onmousedown = (e) => { isPolishing = true; initAudio(); };
+        
+        document.addEventListener('mouseup', () => {
+            isPolishing = false;
+            lastPolX = null;
+            lastPolY = null;
+        });
+    }
+
+    // Brush tracks cursor
+    document.addEventListener('mousemove', (e) => {
+        if (currentScreen !== 'polish') return;
+
+        const container = document.getElementById('game-container');
+        const rect = container.getBoundingClientRect();
+        const localX = e.clientX - rect.left;
+        const localY = e.clientY - rect.top;
+
+        const brush = document.getElementById('polisher-brush');
+        brush.style.left = e.clientX + 'px';
+        brush.style.top = e.clientY + 'px';
+
+        // If polishing, verify motion speed to rub off charcoal layers
+        if (isPolishing) {
+            const diamond = document.getElementById('rough-diamond');
+            const dRect = diamond.getBoundingClientRect();
+
+            // Rubbing must occur inside diamond coordinates
+            if (e.clientX >= dRect.left && e.clientX <= dRect.right &&
+                e.clientY >= dRect.top && e.clientY <= dRect.bottom) {
+
+                if (lastPolX !== null && lastPolY !== null) {
+                    const travelDist = Math.hypot(e.clientX - lastPolX, e.clientY - lastPolY);
+                    
+                    // High velocity sweep rubbing trigger
+                    if (travelDist > 12) {
+                        playSound('polishScrub');
+                        
+                        diamondCleanProgress += 1.2; // Add cleaning progress
+                        const opacity = 0.95 - (diamondCleanProgress / 100) * 0.95;
+                        const scale = 1.0 - (diamondCleanProgress / 100) * 0.2;
+
+                        const crust = document.getElementById('crust-layer');
+                        crust.style.opacity = Math.max(0, opacity);
+                        crust.style.transform = `scale(${scale})`;
+
+                        // Spawn dirt dust flying away
+                        spawnPolishingDust(localX, localY);
+
+                        if (diamondCleanProgress >= 100) {
+                            finishPolishing();
+                        }
+                    }
+                }
+                lastPolX = e.clientX;
+                lastPolY = e.clientY;
+            }
+        }
+    });
+
+    function spawnPolishingDust(x, y) {
+        const field = document.getElementById('game-polish');
+        const dust = document.createElement('div');
+        dust.className = 'polishing-dust';
+        dust.style.left = x + 'px';
+        dust.style.top = y + 'px';
+        
+        // Random spray displacement angles
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 40 + Math.random() * 40;
+        const dx = Math.cos(angle) * dist;
+        const dy = Math.sin(angle) * dist;
+        
+        dust.style.setProperty('--dx', dx + 'px');
+        dust.style.setProperty('--dy', dy + 'px');
+        
+        field.appendChild(dust);
+        setTimeout(() => dust.remove(), 800);
+    }
+
+    function finishPolishing() {
+        isPolishing = false;
+        diamondCleanProgress = 0;
+        
+        // Hide brush tool, return standard paw
+        document.getElementById('polisher-brush').style.display = 'none';
+        document.body.style.cursor = 'none';
+        document.getElementById('custom-jewel-cursor').style.display = 'block';
+
+        playSound('diamondShine');
+
+        // Reveal diamonds sparkles underneath
+        document.getElementById('shine-sparkles').style.display = 'block';
+
+        // Bounce diamond
+        const dia = document.getElementById('rough-diamond');
+        dia.style.transform = 'scale(1.2)';
+        
+        const parentRect = document.getElementById('game-container').getBoundingClientRect();
+        const dRect = dia.getBoundingClientRect();
+        spawnScorePop(dRect.left - parentRect.left + 140, dRect.top - parentRect.top + 20, "✨ FLAWLESS DESIGN! ✨");
+
+        setTimeout(() => {
+            dia.style.transform = 'scale(1)';
+            const nextBtn = document.querySelector('#screen-polish .next-btn');
+            nextBtn.style.display = 'block';
+        }, 1200);
+    }
+</script>
+</body>
+</html>

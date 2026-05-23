@@ -1,0 +1,1765 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌲 奇幻森林与魔法工坊 🌲</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest-bg: radial-gradient(circle at center, #0c2310 0%, #030a05 100%);
+            --magic-green: #2ecc71;
+            --magic-purple: #9b59b6;
+            --magic-gold: #f1c40f;
+            --magic-blue: #3498db;
+            --glass-bg: rgba(6, 20, 10, 0.7);
+            --glass-border: rgba(46, 204, 113, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-drag: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--forest-bg);
+            font-family: 'Nunito', 'Microsoft YaHei', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            color: #fff;
+        }
+
+        /* Ambient Glowing Magic Forest Sparkles */
+        #magic-background {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .forest-spore {
+            position: absolute;
+            background: radial-gradient(circle, rgba(241,196,15,0.8) 0%, rgba(241,196,15,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: rise-and-fade linear infinite;
+        }
+
+        @keyframes rise-and-fade {
+            0% { transform: translateY(100vh) translateX(0) scale(0.5); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) translateX(50px) scale(1.2); opacity: 0; }
+        }
+
+        /* Custom Magic Wand Cursor */
+        .wand-cursor {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-20%, -20%) rotate(-15deg);
+            display: none;
+            filter: drop-shadow(0 0 8px var(--magic-gold));
+        }
+
+        /* Main Game Box */
+        #game-container {
+            width: 960px;
+            height: 720px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 2px solid var(--glass-border);
+            border-radius: 35px;
+            box-shadow: 0 0 50px rgba(46, 204, 113, 0.15), inset 0 0 30px rgba(255, 255, 255, 0.02);
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Screen Manager */
+        .screen {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0; left: 0;
+            opacity: 0;
+            transform: scale(0.96);
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .screen.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+            z-index: 20;
+        }
+
+        /* Header Instruction Banner */
+        .instruction-banner {
+            position: absolute;
+            top: 25px;
+            width: 90%;
+            padding: 15px 30px;
+            background: rgba(4, 12, 6, 0.9);
+            border: 1px solid var(--magic-green);
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(46, 204, 113, 0.2);
+            text-align: center;
+            z-index: 30;
+        }
+
+        .instruction-banner h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 24px;
+            color: var(--magic-gold);
+            text-shadow: 0 0 8px rgba(241, 196, 15, 0.5);
+            margin-bottom: 5px;
+        }
+
+        .instruction-banner p {
+            font-size: 15px;
+            color: #c7eed4;
+        }
+
+        /* Welcome Screen */
+        #welcome-screen h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 54px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--magic-gold), var(--magic-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 25px rgba(46, 204, 113, 0.2);
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        #welcome-screen .intro-subtitle {
+            font-size: 20px;
+            color: #a2e8b8;
+            margin-bottom: 45px;
+            font-weight: bold;
+        }
+
+        /* Buttons with Magical Glow */
+        .btn-magic {
+            padding: 18px 45px;
+            font-size: 22px;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.2) 0%, rgba(241, 196, 15, 0.2) 100%);
+            border: 2px solid var(--magic-green);
+            border-radius: 40px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(46, 204, 113, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.05);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            outline: none;
+            position: relative;
+        }
+
+        .btn-magic:hover {
+            transform: scale(1.05) translateY(-2px);
+            border-color: var(--magic-gold);
+            box-shadow: 0 0 30px rgba(241, 196, 15, 0.5);
+        }
+
+        .btn-magic:active {
+            transform: scale(0.98) translateY(1px);
+        }
+
+        .next-btn {
+            position: absolute;
+            bottom: 100px;
+            display: none;
+            animation: pulse-green 2s infinite;
+            z-index: 50;
+        }
+
+        @keyframes pulse-green {
+            0%, 100% { box-shadow: 0 0 15px var(--magic-green); }
+            50% { box-shadow: 0 0 35px var(--magic-green); }
+        }
+
+        /* Screen 1: Firefly Lantern */
+        #game-firefly {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lantern-light {
+            position: absolute;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(241,196,15,0.18) 0%, rgba(241,196,15,0.03) 50%, rgba(0,0,0,0) 70%);
+            pointer-events: none;
+            z-index: 25;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        .firefly {
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            z-index: 35;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .thorn-bug {
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            z-index: 34;
+        }
+
+        .magic-jar {
+            position: absolute;
+            bottom: 90px;
+            right: 45px;
+            width: 120px;
+            height: 170px;
+            z-index: 40;
+            filter: drop-shadow(0 0 15px rgba(241,196,15,0.2));
+            transition: all 0.3s;
+        }
+
+        .magic-jar-light {
+            position: absolute;
+            bottom: 103px;
+            right: 65px;
+            width: 80px;
+            height: 0;
+            background: radial-gradient(circle, #f1c40f 0%, rgba(241,196,15,0.4) 60%, rgba(241,196,15,0) 100%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 39;
+            transition: height 0.5s ease-out, opacity 0.5s;
+            opacity: 0;
+        }
+
+        /* Screen 2: Magic Potion Brewing */
+        #game-potion {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding-top: 100px;
+        }
+
+        .potion-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            z-index: 35;
+        }
+
+        .potion-ingredient {
+            width: 85px;
+            height: 85px;
+            cursor: grab;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+            transition: transform 0.2s;
+        }
+
+        .potion-ingredient:active {
+            cursor: grabbing;
+        }
+
+        .cauldron-area {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            z-index: 30;
+            margin-top: 40px;
+        }
+
+        .cauldron-svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+        }
+
+        .cauldron-liquid {
+            position: absolute;
+            top: 52px;
+            left: 58px;
+            width: 204px;
+            height: 80px;
+            border-radius: 50%;
+            background: #2c3e50;
+            z-index: 29;
+            overflow: hidden;
+            transition: background 0.8s ease;
+        }
+
+        .bubble-spawner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .potion-bubble {
+            position: absolute;
+            background: rgba(255,255,255,0.4);
+            border-radius: 50%;
+            bottom: 0;
+            animation: float-potion-bubble 1.5s ease-in forwards;
+        }
+
+        @keyframes float-potion-bubble {
+            0% { transform: translateY(40px) scale(0.6); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(-50px) scale(1.2); opacity: 0; }
+        }
+
+        .spoon-tool {
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            pointer-events: none;
+            z-index: 33;
+            transform-origin: bottom right;
+            display: none;
+        }
+
+        .companion-bubble {
+            position: absolute;
+            top: -60px;
+            left: 85px;
+            width: 150px;
+            height: 150px;
+            z-index: 45;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            animation: bob-companion 3s ease-in-out infinite;
+        }
+
+        @keyframes bob-companion {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-12px) scale(1.05); }
+        }
+
+        /* Screen 3: Rune Tracing */
+        #game-rune {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #rune-canvas-container {
+            width: 600px;
+            height: 420px;
+            border: 2px dashed rgba(46, 204, 113, 0.3);
+            background: rgba(5, 12, 6, 0.6);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 100px;
+            box-shadow: inset 0 0 25px rgba(0,0,0,0.5);
+        }
+
+        #rune-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            cursor: pointer;
+        }
+
+        .trace-start-point, .trace-end-point {
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Cinzel', serif;
+            font-size: 13px;
+            font-weight: bold;
+            color: #fff;
+            transform: translate(-50%, -50%);
+            z-index: 40;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+            pointer-events: none;
+        }
+
+        .trace-start-point {
+            background: radial-gradient(circle, #3498db 0%, #2980b9 100%);
+            border: 2px solid #fff;
+            box-shadow: 0 0 15px #3498db;
+        }
+
+        .trace-end-point {
+            background: radial-gradient(circle, #2ecc71 0%, #27ae60 100%);
+            border: 2px solid #fff;
+            box-shadow: 0 0 15px #2ecc71;
+        }
+
+        .trace-alert-card {
+            position: absolute;
+            top: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 25px;
+            background: rgba(231, 76, 60, 0.2);
+            border: 2px solid #e74c3c;
+            color: #e74c3c;
+            font-family: 'Cinzel', serif;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(231, 76, 60, 0.4);
+            display: none;
+            z-index: 45;
+            animation: shake-card 0.3s ease-in-out;
+        }
+
+        @keyframes shake-card {
+            0%, 100% { transform: translateX(-50%); }
+            20%, 60% { transform: translateX(-54%); }
+            40%, 80% { transform: translateX(-46%); }
+        }
+
+        /* Victory / Diploma Screen */
+        .victory-title {
+            font-family: 'Cinzel', serif;
+            font-size: 46px;
+            font-weight: bold;
+            color: var(--magic-gold);
+            text-shadow: 0 0 25px rgba(241, 196, 15, 0.6);
+            margin-bottom: 25px;
+        }
+
+        .diploma-box {
+            width: 230px;
+            height: 230px;
+            margin-bottom: 35px;
+            position: relative;
+            filter: drop-shadow(0 0 15px rgba(241,196,15,0.4));
+            animation: bounce-diploma 3s ease-in-out infinite;
+        }
+
+        @keyframes bounce-diploma {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        /* Global HUD / Bottom nav */
+        #hud-nav {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            height: 80px;
+            background: rgba(4, 10, 5, 0.9);
+            border-top: 1px solid var(--glass-border);
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 100;
+        }
+
+        .hud-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .level-badge {
+            font-family: 'Cinzel', serif;
+            padding: 6px 15px;
+            background: rgba(46, 204, 113, 0.15);
+            border: 1px solid var(--magic-green);
+            color: var(--magic-green);
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(46, 204, 113, 0.5);
+        }
+
+        .hud-btn {
+            padding: 10px 22px;
+            font-size: 15px;
+            font-family: 'Cinzel', serif;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .hud-btn:hover:not(:disabled) {
+            background: rgba(46, 204, 113, 0.1);
+            border-color: var(--magic-green);
+        }
+
+        .hud-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .hud-btn.home-btn {
+            background: rgba(241, 196, 15, 0.05);
+            border-color: rgba(241, 196, 15, 0.3);
+        }
+
+        .hud-btn.home-btn:hover {
+            background: rgba(241, 196, 15, 0.15);
+            border-color: var(--magic-gold);
+        }
+
+        /* Floating Score Pop Text */
+        .score-bubble {
+            position: absolute;
+            font-family: 'Cinzel', serif;
+            font-weight: 900;
+            color: var(--magic-gold);
+            font-size: 22px;
+            text-shadow: 0 0 10px var(--magic-gold);
+            pointer-events: none;
+            z-index: 99;
+            animation: fly-up-fade 0.8s ease-out forwards;
+        }
+
+        @keyframes fly-up-fade {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-50px) scale(1.3); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="magic-background"></div>
+
+<!-- Magical wizard wand cursor SVG -->
+<svg class="wand-cursor" id="custom-wand-cursor" viewBox="0 0 100 100">
+    <!-- Handle -->
+    <rect x="15" y="80" width="70" height="8" rx="4" transform="rotate(-45 50 50)" fill="#5c4033"/>
+    <!-- Metal wrap -->
+    <rect x="55" y="40" width="15" height="8" transform="rotate(-45 50 50)" fill="#d4af37"/>
+    <!-- Tip crystal -->
+    <polygon points="75,25 90,10 80,30" fill="#3498db"/>
+    <circle cx="82" cy="18" r="6" fill="#fff" opacity="0.8" style="filter: drop-shadow(0 0 4px #fff);"/>
+</svg>
+
+<!-- Wooden Spoon (Stir tool tool) -->
+<svg class="spoon-tool" id="wooden-spoon" viewBox="0 0 100 100">
+    <rect x="70" y="5" width="10" height="70" rx="3" fill="#d2b48c" transform="rotate(-30 70 5)"/>
+    <ellipse cx="38" cy="80" rx="14" ry="20" fill="#c19a6b" transform="rotate(-30 38 80)"/>
+</svg>
+
+<div id="game-container">
+    
+    <!-- Screen 0: Welcome -->
+    <div id="screen-welcome" class="screen active">
+        <!-- SVG mystical spell book -->
+        <svg width="180" height="180" viewBox="0 0 100 100" style="margin-bottom: 25px; filter: drop-shadow(0 0 15px rgba(46,204,113,0.4));">
+            <defs>
+                <linearGradient id="bookCover" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#4a148c"/>
+                    <stop offset="100%" stop-color="#1a0033"/>
+                </linearGradient>
+                <linearGradient id="pageGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#f5f5dc"/>
+                    <stop offset="100%" stop-color="#ffffff"/>
+                </linearGradient>
+            </defs>
+            <!-- Open Book Base -->
+            <path d="M 50 85 Q 30 75 5 80 L 5 15 Q 30 10 50 20 Q 70 10 95 15 L 95 80 Q 70 75 50 85 Z" fill="url(#bookCover)" />
+            <!-- Pages left -->
+            <path d="M 48 81 Q 30 71 8 76 L 8 19 Q 30 14 48 24 Z" fill="url(#pageGrad)" />
+            <!-- Pages right -->
+            <path d="M 52 81 Q 70 71 92 76 L 92 19 Q 70 14 52 24 Z" fill="url(#pageGrad)" />
+            <!-- Gold Rune Emblem in Center -->
+            <path d="M 50 35 L 50 65 M 40 50 L 60 50 M 43 40 L 57 60 M 57 40 L 43 60" fill="none" stroke="#d4af37" stroke-width="3" stroke-linecap="round" />
+            <!-- Glowing sparks around -->
+            <circle cx="25" cy="35" r="3" fill="#ffd700" />
+            <circle cx="75" cy="45" r="2" fill="#ffd700" />
+            <circle cx="70" cy="30" r="4" fill="#ffd700" />
+        </svg>
+        <h1>奇幻森林与魔法工坊</h1>
+        <p class="intro-subtitle">升级版：圆周搅拌与稳手符文练习</p>
+        <button class="btn-magic" onclick="startGame()">🧙‍♂️ 开启魔法大冒险</button>
+    </div>
+
+    <!-- Screen 1: Firefly Lantern -->
+    <div id="screen-firefly" class="screen">
+        <div class="instruction-banner">
+            <h2>第 1 关：点亮流光萤火虫</h2>
+            <p>光标即是魔法提灯。移动提灯寻找隐形的【金色萤火虫】并【点击】捕捉，千万别点到【红色荆棘虫】！</p>
+        </div>
+
+        <div id="game-firefly">
+            <!-- Glass Jar to fill -->
+            <div class="magic-jar-light" id="jar-light"></div>
+            <svg class="magic-jar" viewBox="0 0 100 150">
+                <defs>
+                    <linearGradient id="cork" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stop-color="#8d6e63"/>
+                        <stop offset="100%" stop-color="#5d4037"/>
+                    </linearGradient>
+                </defs>
+                <!-- Cork lid -->
+                <rect x="35" y="10" width="30" height="15" rx="3" fill="url(#cork)"/>
+                <!-- Neck -->
+                <rect x="30" y="25" width="40" height="10" rx="2" fill="rgba(255,255,255,0.3)" stroke="#fff" stroke-width="1.5"/>
+                <!-- Jar Body -->
+                <path d="M 30 35 C 10 40 10 135 30 145 L 70 145 C 90 135 90 40 70 35 Z" fill="rgba(255,255,255,0.08)" stroke="#fff" stroke-width="3"/>
+                <path d="M 20 60 Q 50 55 80 60" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+            </svg>
+
+            <!-- Light Radius follow circle -->
+            <div class="lantern-light" id="lantern-radial"></div>
+        </div>
+
+        <button class="btn-magic next-btn" onclick="nextLevel()">✨ 装满光芒！去下一关</button>
+    </div>
+
+    <!-- Screen 2: Potion Brewing -->
+    <div id="screen-potion" class="screen">
+        <div class="instruction-banner">
+            <h2>第 2 关：炼金术士的秘药</h2>
+            <p>1. 拖动 3 种魔法原料放入坩埚。 2. 按住【左键】在坩埚内【顺时针画圈搅拌】炼制魔法宠物！</p>
+        </div>
+
+        <div id="game-potion">
+            <!-- Sidebar ingredients -->
+            <div class="potion-sidebar">
+                <!-- Glowing mushroom -->
+                <div class="potion-ingredient" id="ing-mushroom">
+                    <svg viewBox="0 0 100 100" width="100%" height="100%">
+                        <path d="M 15 55 C 15 20 85 20 85 55 Z" fill="#9b59b6" style="filter: drop-shadow(0 0 6px #8e44ad);"/>
+                        <rect x="42" y="55" width="16" height="30" rx="8" fill="#e0afe3"/>
+                        <!-- White spots -->
+                        <circle cx="35" cy="35" r="6" fill="#fff"/>
+                        <circle cx="65" cy="38" r="5" fill="#fff"/>
+                        <circle cx="50" cy="46" r="4" fill="#fff"/>
+                    </svg>
+                </div>
+                <!-- Magic flower -->
+                <div class="potion-ingredient" id="ing-flower">
+                    <svg viewBox="0 0 100 100" width="100%" height="100%">
+                        <circle cx="50" cy="50" r="14" fill="#f1c40f" style="filter: drop-shadow(0 0 8px #f1c40f);"/>
+                        <!-- Petals -->
+                        <ellipse cx="50" cy="22" rx="10" ry="18" fill="#e74c3c"/>
+                        <ellipse cx="50" cy="78" rx="10" ry="18" fill="#e74c3c"/>
+                        <ellipse cx="22" cy="50" rx="18" ry="10" fill="#e74c3c"/>
+                        <ellipse cx="78" cy="50" rx="18" ry="10" fill="#e74c3c"/>
+                    </svg>
+                </div>
+                <!-- Dragon tear potion -->
+                <div class="potion-ingredient" id="ing-tear">
+                    <svg viewBox="0 0 100 100" width="100%" height="100%">
+                        <path d="M 50 10 L 70 50 A 25 25 0 1 1 30 50 Z" fill="#3498db" style="filter: drop-shadow(0 0 8px #2980b9);"/>
+                        <rect x="45" y="5" width="10" height="8" fill="#d4af37"/>
+                        <path d="M 40 50 Q 50 48 60 50" fill="none" stroke="#fff" stroke-width="2" opacity="0.4"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Cauldron Center -->
+            <div class="cauldron-area">
+                <!-- Companion bubble emerges once complete -->
+                <div class="companion-bubble" id="companion">
+                    <svg viewBox="0 0 100 100" width="100%" height="100%">
+                        <!-- Bubble outer -->
+                        <circle cx="50" cy="50" r="45" fill="rgba(255,255,255,0.15)" stroke="#fff" stroke-width="2" style="filter: drop-shadow(0 0 8px rgba(255,255,255,0.5));"/>
+                        <path d="M 30 25 Q 50 20 60 30" fill="none" stroke="#fff" stroke-width="2" opacity="0.5"/>
+                        <!-- Slime creature inside -->
+                        <path d="M 25 65 Q 25 40 50 40 Q 75 40 75 65 Q 75 75 50 75 Q 25 75 25 65 Z" fill="#2ecc71"/>
+                        <circle cx="40" cy="55" r="5" fill="#000"/><circle cx="38" cy="53" r="2" fill="#fff"/>
+                        <circle cx="60" cy="55" r="5" fill="#000"/><circle cx="58" cy="53" r="2" fill="#fff"/>
+                        <path d="M 45 65 Q 50 70 55 65" fill="none" stroke="#000" stroke-width="2"/>
+                        <!-- Cheeks -->
+                        <circle cx="33" cy="61" r="3" fill="#ff7675"/>
+                        <circle cx="67" cy="61" r="3" fill="#ff7675"/>
+                    </svg>
+                </div>
+
+                <div class="cauldron-liquid" id="cauldron-fluid">
+                    <div class="bubble-spawner" id="cauldron-bubbles"></div>
+                </div>
+
+                <svg class="cauldron-svg" viewBox="0 0 120 120">
+                    <defs>
+                        <linearGradient id="iron" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#34495e"/>
+                            <stop offset="100%" stop-color="#1a252f"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Feet -->
+                    <rect x="25" y="95" width="15" height="15" rx="4" fill="#1a252f"/>
+                    <rect x="80" y="95" width="15" height="15" rx="4" fill="#1a252f"/>
+                    <!-- Pot Body -->
+                    <path d="M 15 50 C 15 110 105 110 105 50 C 105 45 15 45 15 50 Z" fill="url(#iron)"/>
+                    <!-- Cauldron Rim -->
+                    <ellipse cx="60" cy="48" rx="50" ry="12" fill="#2c3e50" stroke="#1a252f" stroke-width="2"/>
+                    <!-- Cauldron Handles -->
+                    <path d="M 10 50 A 12 12 0 0 1 10 70" fill="none" stroke="#1a252f" stroke-width="4"/>
+                    <path d="M 110 50 A 12 12 0 0 0 110 70" fill="none" stroke="#1a252f" stroke-width="4"/>
+                </svg>
+            </div>
+        </div>
+
+        <button class="btn-magic next-btn" onclick="nextLevel()">✨ 炼制成功！去下一关</button>
+    </div>
+
+    <!-- Screen 3: Rune Tracing -->
+    <div id="screen-rune" class="screen">
+        <div class="instruction-banner">
+            <h2>第 3 关：大魔导士的符文</h2>
+            <p>点击【起点】，按住【左键】沿着魔法能量通道移动至【终点】。千万别偏离跑道哟！</p>
+        </div>
+
+        <div class="trace-alert-card" id="rune-alert">⚠️ 符文能量消散！请从起点重新描摹</div>
+
+        <div id="game-rune">
+            <div id="rune-canvas-container">
+                <canvas id="rune-canvas" width="600" height="420"></canvas>
+                <!-- Nodes placed dynamically -->
+                <div class="trace-start-point" id="start-node">起</div>
+                <div class="trace-end-point" id="end-node">终</div>
+            </div>
+        </div>
+
+        <button class="btn-magic next-btn" onclick="showVictory()">🏆 完成全部试炼！点我戴冠</button>
+    </div>
+
+    <!-- Screen 4: Victory / Diploma -->
+    <div id="screen-victory" class="screen">
+        <div class="victory-title">👑 大魔导士毕业典礼 👑</div>
+        <div class="diploma-box">
+            <!-- Large SVG Diploma Scroll -->
+            <svg viewBox="0 0 100 100" width="100%" height="100%">
+                <!-- Ribbon Ribbon -->
+                <path d="M 40 45 L 30 90 L 50 78 L 70 90 L 60 45 Z" fill="#e74c3c"/>
+                <!-- Paper Scroll Rolled -->
+                <rect x="25" y="20" width="50" height="40" rx="5" fill="#f5f5dc" stroke="#d4af37" stroke-width="3"/>
+                <!-- Swirling detail -->
+                <path d="M 28 25 C 28 15 35 15 35 25" fill="none" stroke="#d4af37" stroke-width="2"/>
+                <path d="M 72 25 C 72 15 65 15 65 25" fill="none" stroke="#d4af37" stroke-width="2"/>
+                <!-- Ribbon Tie -->
+                <rect x="42" y="32" width="16" height="16" fill="#c0392b" rx="2"/>
+                <!-- Gold Star medal -->
+                <polygon points="50,34 53,40 60,40 55,44 57,50 50,47 43,50 45,44 40,40 47,40" fill="#ffd700"/>
+                <!-- Line markings -->
+                <line x1="33" y1="42" x2="42" y2="42" stroke="#7f8c8d" stroke-width="1.5"/>
+                <line x1="33" y1="48" x2="40" y2="48" stroke="#7f8c8d" stroke-width="1.5"/>
+                <line x1="58" y1="42" x2="67" y2="42" stroke="#7f8c8d" stroke-width="1.5"/>
+                <line x1="60" y1="48" x2="67" y2="48" stroke="#7f8c8d" stroke-width="1.5"/>
+            </svg>
+        </div>
+        <p style="font-size: 22px; color: #a2e8b8; font-weight: bold; margin-bottom: 35px; text-align: center;">你完成了魔法学徒的所有考验，现在你是一名大魔导士啦！</p>
+        <button class="btn-magic" onclick="goToScreen('welcome')">🔄 重新开始冒险</button>
+    </div>
+
+    <!-- HUD bottom bar -->
+    <div id="hud-nav">
+        <div class="hud-left">
+            <span class="level-badge" id="hud-badge">LEVEL 1</span>
+            <span style="font-size: 16px; color: #c7eed4; font-family: 'Cinzel'; font-weight: bold;">魔法冒险日志</span>
+        </div>
+        <div style="display:flex; gap: 15px;">
+            <button class="hud-btn" id="hud-btn-prev" onclick="prevLevel()">◀ 上一关</button>
+            <button class="hud-btn home-btn" onclick="resetToWelcome()">🧙‍♂️ 离开工坊</button>
+            <button class="hud-btn" id="hud-btn-next" onclick="nextLevel()">下一关 ▶</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // ---------------- Advanced Audio Engine (Web Audio API) ----------------
+    let audioCtx = null;
+
+    function initAudio() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+    }
+
+    function playSound(type) {
+        if (!audioCtx) return;
+        const now = audioCtx.currentTime;
+
+        switch (type) {
+            case 'magicCatch':
+                // Glassy high chime bells
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(880, now);
+                osc.frequency.exponentialRampToValueAtTime(1760, now + 0.25);
+                gain.gain.setValueAtTime(0.1, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now);
+                osc.stop(now + 0.25);
+                break;
+                
+            case 'thornHit':
+                // Low distortion zap
+                const zapOsc = audioCtx.createOscillator();
+                const zapGain = audioCtx.createGain();
+                zapOsc.type = 'sawtooth';
+                zapOsc.frequency.setValueAtTime(220, now);
+                zapOsc.frequency.linearRampToValueAtTime(60, now + 0.2);
+                zapGain.gain.setValueAtTime(0.15, now);
+                zapGain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+                zapOsc.connect(zapGain);
+                zapGain.connect(audioCtx.destination);
+                zapOsc.start(now);
+                zapOsc.stop(now + 0.2);
+                break;
+
+            case 'dropIngredient':
+                // Water splash plop
+                const plopOsc = audioCtx.createOscillator();
+                const plopGain = audioCtx.createGain();
+                plopOsc.type = 'triangle';
+                plopOsc.frequency.setValueAtTime(150, now);
+                plopOsc.frequency.exponentialRampToValueAtTime(450, now + 0.12);
+                plopGain.gain.setValueAtTime(0.12, now);
+                plopGain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+                plopOsc.connect(plopGain);
+                plopGain.connect(audioCtx.destination);
+                plopOsc.start(now);
+                plopOsc.stop(now + 0.12);
+                break;
+
+            case 'bubblePop':
+                // Short pop sound
+                const popOsc = audioCtx.createOscillator();
+                const popGain = audioCtx.createGain();
+                popOsc.type = 'sine';
+                popOsc.frequency.setValueAtTime(1200, now);
+                popGain.gain.setValueAtTime(0.04, now);
+                popGain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+                popOsc.connect(popGain);
+                popGain.connect(audioCtx.destination);
+                popOsc.start(now);
+                popOsc.stop(now + 0.05);
+                break;
+
+            case 'wandSparkle':
+                // Warm sweep
+                const spkOsc = audioCtx.createOscillator();
+                const spkGain = audioCtx.createGain();
+                spkOsc.type = 'sine';
+                spkOsc.frequency.setValueAtTime(660, now);
+                spkOsc.frequency.linearRampToValueAtTime(990, now + 0.08);
+                spkGain.gain.setValueAtTime(0.06, now);
+                spkGain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+                spkOsc.connect(spkGain);
+                spkGain.connect(audioCtx.destination);
+                spkOsc.start(now);
+                spkOsc.stop(now + 0.08);
+                break;
+
+            case 'success':
+                // Magic fairy harp arpeggio
+                const arpeggio = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+                arpeggio.forEach((f, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(f, now + idx * 0.08);
+                    gain.gain.setValueAtTime(0, now);
+                    gain.gain.linearRampToValueAtTime(0.08, now + idx * 0.08 + 0.02);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.5);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now + idx * 0.08);
+                    osc.stop(now + idx * 0.08 + 0.5);
+                });
+                break;
+
+            case 'tada':
+                // Final win fan-fare
+                const winScale = [523.25, 587.33, 659.25, 698.46, 783.99, 880.00, 987.77, 1046.50];
+                winScale.forEach((f, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(f, now + idx * 0.06);
+                    gain.gain.setValueAtTime(0, now);
+                    gain.gain.linearRampToValueAtTime(0.08, now + idx * 0.06 + 0.01);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.06 + 0.4);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now + idx * 0.06);
+                    osc.stop(now + idx * 0.06 + 0.4);
+                });
+                break;
+
+            case 'error':
+                // Buzz error tone
+                const errOsc = audioCtx.createOscillator();
+                const errGain = audioCtx.createGain();
+                errOsc.type = 'sawtooth';
+                errOsc.frequency.setValueAtTime(140, now);
+                errOsc.frequency.linearRampToValueAtTime(100, now + 0.3);
+                errGain.gain.setValueAtTime(0.12, now);
+                errGain.gain.linearRampToValueAtTime(0.001, now + 0.3);
+                errOsc.connect(errGain);
+                errGain.connect(audioCtx.destination);
+                errOsc.start(now);
+                errOsc.stop(now + 0.3);
+                break;
+        }
+    }
+
+    // ---------------- Parallax Background Spores ----------------
+    function buildForestParticles() {
+        const bg = document.getElementById('magic-background');
+        bg.innerHTML = '';
+        
+        // Spawn 40 magical glowing forest spores
+        for (let i = 0; i < 40; i++) {
+            const spore = document.createElement('div');
+            spore.className = 'forest-spore';
+            const size = Math.random() * 15 + 5;
+            spore.style.width = size + 'px';
+            spore.style.height = size + 'px';
+            spore.style.left = (Math.random() * 100) + 'vw';
+            spore.style.animationDuration = (8 + Math.random() * 10) + 's';
+            spore.style.animationDelay = (Math.random() * -15) + 's';
+            bg.appendChild(spore);
+        }
+    }
+    window.addEventListener('DOMContentLoaded', buildForestParticles);
+
+    // ---------------- Screen / Level Management ----------------
+    let currentScreen = 'welcome';
+    let activeLevelIndex = 1;
+    const totalLevels = 3;
+
+    function goToScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(s => {
+            s.classList.remove('active');
+        });
+        
+        const nextScreen = document.getElementById('screen-' + screenId);
+        nextScreen.classList.add('active');
+        currentScreen = screenId;
+
+        // Reset next buttons in screens
+        const btn = nextScreen.querySelector('.next-btn');
+        if (btn) btn.style.display = 'none';
+
+        // HUD control
+        const hud = document.getElementById('hud-nav');
+        if (screenId === 'welcome' || screenId === 'victory') {
+            hud.style.display = 'none';
+            document.body.style.cursor = 'auto';
+            document.getElementById('custom-wand-cursor').style.display = 'none';
+        } else {
+            hud.style.display = 'flex';
+            document.body.style.cursor = 'none'; // Hide real cursor
+            document.getElementById('custom-wand-cursor').style.display = 'block';
+            document.getElementById('hud-badge').innerText = `LEVEL ${activeLevelIndex}`;
+            
+            document.getElementById('hud-btn-prev').disabled = (activeLevelIndex === 1);
+            document.getElementById('hud-btn-next').disabled = (activeLevelIndex === totalLevels);
+        }
+
+        // Stop previous loops
+        stopLoops();
+
+        if (screenId === 'firefly') setupFireflyLevel();
+        else if (screenId === 'potion') setupPotionLevel();
+        else if (screenId === 'rune') setupRuneLevel();
+    }
+
+    function startGame() {
+        initAudio();
+        activeLevelIndex = 1;
+        goToScreen('firefly');
+    }
+
+    function nextLevel() {
+        playSound('success');
+        if (activeLevelIndex < totalLevels) {
+            activeLevelIndex++;
+            if (activeLevelIndex === 2) goToScreen('potion');
+            else if (activeLevelIndex === 3) goToScreen('rune');
+        } else {
+            goToScreen('victory');
+        }
+    }
+
+    function prevLevel() {
+        if (activeLevelIndex > 1) {
+            activeLevelIndex--;
+            if (activeLevelIndex === 1) goToScreen('firefly');
+            else if (activeLevelIndex === 2) goToScreen('potion');
+        }
+    }
+
+    function showVictory() {
+        playSound('tada');
+        goToScreen('victory');
+    }
+
+    function resetToWelcome() {
+        goToScreen('welcome');
+    }
+
+    // Custom wand cursor position tracking
+    document.addEventListener('mousemove', (e) => {
+        const cursor = document.getElementById('custom-wand-cursor');
+        const container = document.getElementById('game-container');
+        const rect = container.getBoundingClientRect();
+        
+        if (e.clientX >= rect.left && e.clientX <= rect.right &&
+            e.clientY >= rect.top && e.clientY <= rect.bottom &&
+            currentScreen !== 'welcome' && currentScreen !== 'victory') {
+            cursor.style.display = 'block';
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        } else {
+            cursor.style.display = 'none';
+        }
+
+        // Lantern cursor follow light spotlight
+        if (currentScreen === 'firefly') {
+            const rad = document.getElementById('lantern-radial');
+            if (rad) {
+                rad.style.display = 'block';
+                rad.style.left = (e.clientX - rect.left) + 'px';
+                rad.style.top = (e.clientY - rect.top) + 'px';
+            }
+        }
+    });
+
+    // Score pop helper
+    function spawnScorePop(x, y, text) {
+        const bubble = document.createElement('div');
+        bubble.className = 'score-bubble';
+        bubble.innerText = text;
+        bubble.style.left = x + 'px';
+        bubble.style.top = y + 'px';
+        document.getElementById('game-container').appendChild(bubble);
+        setTimeout(() => bubble.remove(), 800);
+    }
+
+    let intervalIds = [];
+    function stopLoops() {
+        intervalIds.forEach(clearInterval);
+        intervalIds = [];
+    }
+
+
+    // -------------------------------------------------------------
+    // LEVEL 1: FIREFLY LANTERN
+    // -------------------------------------------------------------
+    let firefliesCaught = 0;
+    const targetFireflies = 8;
+    let activeBugs = [];
+
+    function setupFireflyLevel() {
+        firefliesCaught = 0;
+        activeBugs = [];
+        document.getElementById('jar-light').style.height = '0px';
+        document.getElementById('jar-light').style.opacity = '0';
+
+        // Clear flies from screen
+        const field = document.getElementById('game-firefly');
+        field.querySelectorAll('.firefly, .thorn-bug').forEach(f => f.remove());
+
+        // Spawn 5 friendly fireflies
+        for (let i = 0; i < 5; i++) {
+            spawnBug('firefly');
+        }
+
+        // Spawn 3 red thorn bugs
+        for (let i = 0; i < 3; i++) {
+            spawnBug('thorn-bug');
+        }
+
+        // Bug movement simulation loop
+        const moveInterval = setInterval(moveBugs, 1000 / 60);
+        intervalIds.push(moveInterval);
+    }
+
+    function spawnBug(type) {
+        const field = document.getElementById('game-firefly');
+        const container = document.getElementById('game-container');
+        const rect = container.getBoundingClientRect();
+
+        const bug = document.createElement('div');
+        bug.className = type;
+        
+        const startX = Math.random() * (rect.width - 250) + 50;
+        const startY = 120 + Math.random() * (rect.height - 250);
+        
+        bug.style.left = startX + 'px';
+        bug.style.top = startY + 'px';
+
+        if (type === 'firefly') {
+            // Cute glowing fly SVG
+            bug.innerHTML = `
+                <svg viewBox="0 0 100 100" width="30" height="30" style="filter: drop-shadow(0 0 5px rgba(241,196,15,0.4));">
+                    <ellipse cx="50" cy="55" rx="14" ry="20" fill="#f1c40f" opacity="0.3" class="glow-orb"/>
+                    <circle cx="50" cy="50" r="10" fill="#f39c12"/>
+                    <!-- Flutter wings -->
+                    <ellipse cx="38" cy="40" rx="6" ry="12" fill="#fff" opacity="0.8" transform="rotate(-30 38 40)"/>
+                    <ellipse cx="62" cy="40" rx="6" ry="12" fill="#fff" opacity="0.8" transform="rotate(30 62 40)"/>
+                </svg>
+            `;
+
+            bug.addEventListener('mousedown', (e) => {
+                e.stopPropagation();
+                catchFirefly(bug);
+            });
+        } else {
+            // Red thorny bug SVG
+            bug.innerHTML = `
+                <svg viewBox="0 0 100 100" width="30" height="30" style="filter: drop-shadow(0 0 8px rgba(231,76,60,0.5));">
+                    <circle cx="50" cy="50" r="12" fill="#e74c3c"/>
+                    <!-- Thorns -->
+                    <polygon points="50,15 45,35 55,35" fill="#c0392b" />
+                    <polygon points="50,85 45,65 55,65" fill="#c0392b" />
+                    <polygon points="15,50 35,45 35,55" fill="#c0392b" />
+                    <polygon points="85,50 65,45 65,55" fill="#c0392b" />
+                </svg>
+            `;
+
+            bug.addEventListener('mousedown', (e) => {
+                e.stopPropagation();
+                triggerThornHit(bug);
+            });
+        }
+
+        field.appendChild(bug);
+
+        // Add physics details
+        activeBugs.push({
+            el: bug,
+            type: type,
+            x: startX,
+            y: startY,
+            vx: (Math.random() - 0.5) * 4,
+            vy: (Math.random() - 0.5) * 4
+        });
+    }
+
+    function moveBugs() {
+        const container = document.getElementById('game-container');
+        const rect = container.getBoundingClientRect();
+        
+        activeBugs.forEach(bug => {
+            bug.x += bug.vx;
+            bug.y += bug.vy;
+
+            // Bounce on walls
+            if (bug.x <= 30 || bug.x >= rect.width - 200) { // Keep away from right jar area
+                bug.vx *= -1;
+                bug.x = Math.max(30, Math.min(bug.x, rect.width - 200));
+            }
+            if (bug.y <= 120 || bug.y >= rect.height - 110) {
+                bug.vy *= -1;
+                bug.y = Math.max(120, Math.min(bug.y, rect.height - 110));
+            }
+
+            // Small direction changes
+            if (Math.random() < 0.02) {
+                bug.vx += (Math.random() - 0.5) * 1.5;
+                bug.vy += (Math.random() - 0.5) * 1.5;
+                // Clamp speed
+                bug.vx = Math.max(-3.5, Math.min(bug.vx, 3.5));
+                bug.vy = Math.max(-3.5, Math.min(bug.vy, 3.5));
+            }
+
+            bug.el.style.left = bug.x + 'px';
+            bug.el.style.top = bug.y + 'px';
+        });
+    }
+
+    function catchFirefly(bugEl) {
+        initAudio();
+        playSound('magicCatch');
+
+        const x = parseFloat(bugEl.style.left) + 15;
+        const y = parseFloat(bugEl.style.top) + 15;
+
+        // Fly to Jar animation
+        bugEl.style.transition = 'all 0.5s cubic-bezier(0.1, 0.8, 0.2, 1)';
+        bugEl.style.pointerEvents = 'none';
+        
+        const jar = document.querySelector('.magic-jar');
+        const jarRect = jar.getBoundingClientRect();
+        const parentRect = document.getElementById('game-container').getBoundingClientRect();
+        
+        const jarLocalX = jarRect.left - parentRect.left + 45;
+        const jarLocalY = jarRect.top - parentRect.top + 60;
+
+        bugEl.style.left = jarLocalX + 'px';
+        bugEl.style.top = jarLocalY + 'px';
+        bugEl.style.transform = 'scale(0.2)';
+        bugEl.style.opacity = '0';
+
+        // Remove from list
+        activeBugs = activeBugs.filter(b => b.el !== bugEl);
+
+        setTimeout(() => bugEl.remove(), 550);
+
+        firefliesCaught++;
+        
+        // Feed jar lights
+        const jarLight = document.getElementById('jar-light');
+        const fillHeight = (firefliesCaught / targetFireflies) * 95;
+        jarLight.style.opacity = '1';
+        jarLight.style.height = fillHeight + 'px';
+
+        spawnScorePop(x, y, "⭐ CATCH!");
+
+        if (firefliesCaught >= targetFireflies) {
+            stopLoops();
+            // Show next button
+            const nextBtn = document.querySelector('#screen-firefly .next-btn');
+            nextBtn.style.display = 'block';
+        } else {
+            // Keep spawning new fireflies
+            setTimeout(() => spawnBug('firefly'), 800);
+        }
+    }
+
+    function triggerThornHit(bugEl) {
+        initAudio();
+        playSound('thornHit');
+
+        const x = parseFloat(bugEl.style.left) + 15;
+        const y = parseFloat(bugEl.style.top) + 15;
+        spawnScorePop(x, y, "💥 ZAP!");
+
+        // Flash red shield glitch
+        const container = document.getElementById('game-container');
+        container.style.borderColor = '#e74c3c';
+        container.style.boxShadow = '0 0 40px rgba(231, 76, 96, 0.4)';
+        setTimeout(() => {
+            container.style.borderColor = '';
+            container.style.boxShadow = '';
+        }, 300);
+
+        // Repel bug
+        const idx = activeBugs.findIndex(b => b.el === bugEl);
+        if (idx !== -1) {
+            activeBugs[idx].vx *= -2;
+            activeBugs[idx].vy *= -2;
+        }
+    }
+
+
+    // -------------------------------------------------------------
+    // LEVEL 2: MAGIC POTION BREWING
+    // -------------------------------------------------------------
+    let potionPhase = 'ingredients'; // 'ingredients' or 'stir' or 'complete'
+    let ingredientsAdded = 0;
+    let draggedIng = null;
+    let ingOffset = { x: 0, y: 0 };
+    let stirAngleSum = 0;
+    let lastAngle = null;
+
+    function setupPotionLevel() {
+        potionPhase = 'ingredients';
+        ingredientsAdded = 0;
+        draggedIng = null;
+        stirAngleSum = 0;
+        lastAngle = null;
+
+        // Reset elements
+        document.getElementById('wooden-spoon').style.display = 'none';
+        document.getElementById('companion').style.display = 'none';
+        document.getElementById('cauldron-fluid').style.background = '#2c3e50';
+        document.getElementById('cauldron-bubbles').innerHTML = '';
+
+        // Position ingredients in sidebar
+        const sidebar = document.querySelector('.potion-sidebar');
+        const items = document.querySelectorAll('.potion-ingredient');
+        
+        items.forEach(item => {
+            item.style.display = 'flex';
+            item.style.transform = 'scale(1)';
+            item.style.transition = 'none';
+            item.style.position = 'static'; // Reset dragging properties
+            
+            item.onmousedown = (e) => startDragIngredient(e, item);
+        });
+
+        // Set cauldron dragover listeners
+        const cauldronFluid = document.getElementById('cauldron-fluid');
+        cauldronFluid.onmousedown = startStirring;
+    }
+
+    function startDragIngredient(e, itemEl) {
+        if (potionPhase !== 'ingredients') return;
+        initAudio();
+        
+        draggedIng = itemEl;
+        const rect = itemEl.getBoundingClientRect();
+        const parentRect = document.getElementById('game-container').getBoundingClientRect();
+
+        // Convert sidebar item to absolute position inside main container
+        draggedIng.style.position = 'absolute';
+        draggedIng.style.left = (rect.left - parentRect.left) + 'px';
+        draggedIng.style.top = (rect.top - parentRect.top) + 'px';
+        draggedIng.style.zIndex = '36';
+        
+        ingOffset.x = e.clientX - rect.left;
+        ingOffset.y = e.clientY - rect.top;
+        
+        playSound('magicCatch');
+    }
+
+    // Global drag moving
+    document.addEventListener('mousemove', (e) => {
+        if (currentScreen !== 'potion') return;
+
+        // Handling ingredient dragging
+        if (draggedIng) {
+            const container = document.getElementById('game-container');
+            const rect = container.getBoundingClientRect();
+            let leftVal = e.clientX - rect.left - ingOffset.x;
+            let topVal = e.clientY - rect.top - ingOffset.y;
+            
+            draggedIng.style.left = leftVal + 'px';
+            draggedIng.style.top = topVal + 'px';
+        }
+
+        // Handling spoon stirring tool follow
+        if (potionPhase === 'stir' && isStirring) {
+            const spoon = document.getElementById('wooden-spoon');
+            const cauldron = document.querySelector('.cauldron-area');
+            const cRect = cauldron.getBoundingClientRect();
+            const parentRect = document.getElementById('game-container').getBoundingClientRect();
+
+            // Spoon offsets relative to cursor
+            const spoonX = e.clientX - 130;
+            const spoonY = e.clientY - 80;
+
+            spoon.style.left = spoonX + 'px';
+            spoon.style.top = spoonY + 'px';
+
+            // Potion Stirring Mechanics: Angle accumulation
+            const centerCX = cRect.left + cRect.width / 2;
+            const centerCY = cRect.top + cRect.height / 2;
+            const currentAngle = Math.atan2(e.clientY - centerCY, e.clientX - centerCX);
+
+            if (lastAngle !== null) {
+                let diff = currentAngle - lastAngle;
+                
+                // Solve boundary wraps (-PI to +PI)
+                if (diff < -Math.PI) diff += Math.PI * 2;
+                if (diff > Math.PI) diff -= Math.PI * 2;
+
+                // Accumulate ONLY clockwise rotations for simplicity
+                if (diff > 0) {
+                    stirAngleSum += diff;
+                    // Spawn cauldron bubbles as we stir
+                    if (Math.random() < 0.35) {
+                        spawnPotionBubble();
+                    }
+                }
+            }
+            lastAngle = currentAngle;
+
+            // Stirring completed: 4 full revolutions (8 * PI)
+            if (stirAngleSum >= Math.PI * 8) {
+                finishStirring();
+            }
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        if (draggedIng) {
+            const item = draggedIng;
+            draggedIng = null;
+
+            // Check if dropped inside cauldron (Cauldron Center area CX: 620, CY: 380 approx)
+            const fluid = document.getElementById('cauldron-fluid');
+            const fRect = fluid.getBoundingClientRect();
+            const iRect = item.getBoundingClientRect();
+
+            const ix = iRect.left + iRect.width / 2;
+            const iy = iRect.top + iRect.height / 2;
+
+            if (ix >= fRect.left && ix <= fRect.right &&
+                iy >= fRect.top && iy <= fRect.bottom) {
+                // Ingredient absorbed successfully
+                item.style.display = 'none';
+                playSound('dropIngredient');
+                ingredientsAdded++;
+
+                // Colors list: Purple, Red, Blue -> mix colors
+                const colors = ['#8e44ad', '#e74c3c', '#3498db'];
+                const mixedColors = ['#5e336b', '#a53e54', '#7868ab'];
+                fluid.style.background = mixedColors[ingredientsAdded - 1];
+
+                spawnScorePop(ix - 30, iy - 50, "🔮 Dropped!");
+
+                // Check if all 3 added
+                if (ingredientsAdded === 3) {
+                    potionPhase = 'stir';
+                    document.getElementById('wooden-spoon').style.display = 'block';
+                }
+            } else {
+                // Drop back to sidebar
+                item.style.position = 'static';
+                item.style.zIndex = '';
+            }
+        }
+
+        if (isStirring) {
+            isStirring = false;
+            lastAngle = null;
+        }
+    });
+
+    let isStirring = false;
+    function startStirring(e) {
+        if (potionPhase !== 'stir') return;
+        isStirring = true;
+        
+        const cauldron = document.querySelector('.cauldron-area');
+        const cRect = cauldron.getBoundingClientRect();
+        lastAngle = Math.atan2(e.clientY - (cRect.top + cRect.height/2), e.clientX - (cRect.left + cRect.width/2));
+    }
+
+    function spawnPotionBubble() {
+        playSound('bubblePop');
+        const spawner = document.getElementById('cauldron-bubbles');
+        const size = Math.random() * 12 + 6;
+        const left = Math.random() * 180 + 10;
+        
+        const bubble = document.createElement('div');
+        bubble.className = 'potion-bubble';
+        bubble.style.width = size + 'px';
+        bubble.style.height = size + 'px';
+        bubble.style.left = left + 'px';
+        
+        // Random green/yellow slime tints
+        const colors = ['#2ecc71', '#f1c40f', '#27ae60', '#fff'];
+        bubble.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+        spawner.appendChild(bubble);
+        setTimeout(() => bubble.remove(), 1500);
+    }
+
+    function finishStirring() {
+        potionPhase = 'complete';
+        isStirring = false;
+
+        // Hide spoon tool
+        document.getElementById('wooden-spoon').style.display = 'none';
+
+        // Animate potion bubble explosion/sparks
+        playSound('success');
+
+        const fluid = document.getElementById('cauldron-fluid');
+        fluid.style.background = 'radial-gradient(circle, #f1c40f 0%, #2ecc71 100%)';
+
+        // Companion floats up out of pot
+        const companion = document.getElementById('companion');
+        companion.style.display = 'flex';
+
+        // Show level completion next button
+        setTimeout(() => {
+            const nextBtn = document.querySelector('#screen-potion .next-btn');
+            nextBtn.style.display = 'block';
+        }, 1200);
+    }
+
+
+    // -------------------------------------------------------------
+    // LEVEL 3: RUNE TRACING
+    // -------------------------------------------------------------
+    let runePoints = [];
+    let currentRuneIndex = 0;
+    let isTracing = false;
+    let traceProgress = 0; // Number of sequential nodes matched
+    const nodeMargin = 22; // Tracing error threshold pixels
+
+    // Define 2 magic runes shape paths (centered on 600x420 canvas box)
+    const runes = [
+        // 1. Infinity Symbol (8-shape)
+        {
+            name: "莫比乌斯环 (Infinity Loop)",
+            nodes: [
+                { x: 150, y: 210 }, // Start Center
+                { x: 200, y: 150 },
+                { x: 260, y: 150 },
+                { x: 300, y: 210 }, // Cross Center
+                { x: 340, y: 270 },
+                { x: 400, y: 270 },
+                { x: 450, y: 210 }, // End right loop
+                { x: 400, y: 150 },
+                { x: 340, y: 150 },
+                { x: 300, y: 210 }, // Cross Center
+                { x: 260, y: 270 },
+                { x: 200, y: 270 },
+                { x: 150, y: 210 }  // End Loop (Closed)
+            ]
+        },
+        // 2. Magic Star
+        {
+            name: "五角星芒 (Cosmic Star)",
+            nodes: [
+                { x: 300, y: 70 },  // 1. Top Point
+                { x: 360, y: 240 }, // 2
+                { x: 480, y: 240 }, // 3. Right Point
+                { x: 380, y: 310 }, // 4
+                { x: 420, y: 410 }, // 5. Bottom Right
+                { x: 300, y: 340 }, // 6
+                { x: 180, y: 410 }, // 7. Bottom Left
+                { x: 220, y: 310 }, // 8
+                { x: 120, y: 240 }, // 9. Left Point
+                { x: 240, y: 240 }, // 10
+                { x: 300, y: 70 }   // 11. Closed loop
+            ]
+        }
+    ];
+
+    function setupRuneLevel() {
+        isTracing = false;
+        traceProgress = 0;
+        
+        const data = runes[currentRuneIndex];
+        runePoints = data.nodes;
+
+        // Position labels
+        const startNode = document.getElementById('start-node');
+        const endNode = document.getElementById('end-node');
+        
+        startNode.style.left = runePoints[0].x + 'px';
+        startNode.style.top = runePoints[0].y + 'px';
+
+        const lastNode = runePoints[runePoints.length - 1];
+        endNode.style.left = lastNode.x + 'px';
+        endNode.style.top = lastNode.y + 'px';
+
+        // Title update
+        const titleEl = document.querySelector('#screen-rune .instruction-banner h2');
+        titleEl.innerText = `第 3 关：${data.name}`;
+
+        // Reset canvas
+        const canvas = document.getElementById('rune-canvas');
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw track base
+        drawRuneTrackBase();
+
+        // Bind Canvas drag handlers
+        canvas.onmousedown = handleCanvasMouseDown;
+        canvas.onmousemove = handleCanvasMouseMove;
+    }
+
+    function drawRuneTrackBase() {
+        const canvas = document.getElementById('rune-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Draw outer thick translucent track path
+        ctx.beginPath();
+        ctx.moveTo(runePoints[0].x, runePoints[0].y);
+        for (let i = 1; i < runePoints.length; i++) {
+            ctx.lineTo(runePoints[i].x, runePoints[i].y);
+        }
+        ctx.strokeStyle = 'rgba(46, 204, 113, 0.15)';
+        ctx.lineWidth = '36';
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.stroke();
+
+        // Draw thin inner guide line
+        ctx.beginPath();
+        ctx.moveTo(runePoints[0].x, runePoints[0].y);
+        for (let i = 1; i < runePoints.length; i++) {
+            ctx.lineTo(runePoints[i].x, runePoints[i].y);
+        }
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+        ctx.lineWidth = '3';
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.stroke();
+    }
+
+    function handleCanvasMouseDown(e) {
+        initAudio();
+        const canvas = document.getElementById('rune-canvas');
+        const rect = canvas.getBoundingClientRect();
+        
+        const localX = e.clientX - rect.left;
+        const localY = e.clientY - rect.top;
+
+        // Player must start at index 0 node
+        const dist = Math.hypot(localX - runePoints[0].x, localY - runePoints[0].y);
+        if (dist <= 25) {
+            isTracing = true;
+            traceProgress = 1;
+            playSound('magicCatch');
+        }
+    }
+
+    function handleCanvasMouseMove(e) {
+        if (!isTracing) return;
+
+        const canvas = document.getElementById('rune-canvas');
+        const rect = canvas.getBoundingClientRect();
+        
+        const localX = e.clientX - rect.left;
+        const localY = e.clientY - rect.top;
+
+        const ctx = canvas.getContext('2d');
+
+        // Draw tracing green line from start to current
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawRuneTrackBase();
+
+        // Redraw completed segments
+        ctx.beginPath();
+        ctx.moveTo(runePoints[0].x, runePoints[0].y);
+        for (let i = 1; i < traceProgress; i++) {
+            ctx.lineTo(runePoints[i].x, runePoints[i].y);
+        }
+        ctx.lineTo(localX, localY);
+        ctx.strokeStyle = '#2ecc71';
+        ctx.lineWidth = '12';
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = '#2ecc71';
+        ctx.stroke();
+        ctx.shadowBlur = 0; // reset glow
+
+        // Check if cursor is close to the next node in sequence
+        const nextNode = runePoints[traceProgress];
+        const distToNext = Math.hypot(localX - nextNode.x, localY - nextNode.y);
+
+        if (distToNext <= nodeMargin) {
+            traceProgress++;
+            playSound('wandSparkle');
+
+            // Completed final node
+            if (traceProgress === runePoints.length) {
+                finishRuneTracing();
+                return;
+            }
+        }
+
+        // Boundary breach check: Distance to the current active segment line
+        const p1 = runePoints[traceProgress - 1];
+        const p2 = runePoints[traceProgress];
+        const distToSegment = getDistanceToLineSegment(localX, localY, p1.x, p1.y, p2.x, p2.y);
+
+        if (distToSegment > 30) {
+            failRuneTracing();
+        }
+    }
+
+    function getDistanceToLineSegment(px, py, x1, y1, x2, y2) {
+        const A = px - x1;
+        const B = py - y1;
+        const C = x2 - x1;
+        const D = y2 - y1;
+
+        const dot = A * C + B * D;
+        const lenSq = C * C + D * D;
+        let param = -1;
+        if (lenSq !== 0) param = dot / lenSq;
+
+        let xx, yy;
+        if (param < 0) {
+            xx = x1;
+            yy = y1;
+        } else if (param > 1) {
+            xx = x2;
+            yy = y2;
+        } else {
+            xx = x1 + param * C;
+            yy = y1 + param * D;
+        }
+
+        const dx = px - xx;
+        const dy = py - yy;
+        return Math.hypot(dx, dy);
+    }
+
+    function failRuneTracing() {
+        isTracing = false;
+        playSound('error');
+
+        // Show alert banner
+        const alert = document.getElementById('rune-alert');
+        alert.style.display = 'block';
+        setTimeout(() => alert.style.display = 'none', 2500);
+
+        // Reset canvas
+        setupRuneLevel();
+    }
+
+    function finishRuneTracing() {
+        isTracing = false;
+        
+        // Spark effect on finish
+        playSound('success');
+
+        const canvas = document.getElementById('rune-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Full flash effect
+        ctx.fillStyle = 'rgba(46, 204, 113, 0.4)';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+
+        setTimeout(() => {
+            currentRuneIndex++;
+            if (currentRuneIndex < runes.length) {
+                setupRuneLevel();
+            } else {
+                // Done all runes
+                const nextBtn = document.querySelector('#screen-rune .next-btn');
+                nextBtn.style.display = 'block';
+            }
+        }, 600);
+    }
+</script>
+</body>
+</html>

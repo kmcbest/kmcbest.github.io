@@ -1058,6 +1058,9 @@
         const rect = gemEl.getBoundingClientRect();
         const parentRect = document.getElementById('game-container').getBoundingClientRect();
 
+        // Move to game-container to avoid nested offsetParent issue!
+        document.getElementById('game-container').appendChild(draggedGem);
+
         // Turn static card into absolute coordinates
         draggedGem.style.position = 'absolute';
         draggedGem.style.left = (rect.left - parentRect.left) + 'px';
@@ -1128,6 +1131,8 @@
 
         if (!matched) {
             // Drop back to tray
+            const tray = document.getElementById('tiara-gem-tray');
+            tray.appendChild(gem);
             gem.style.position = 'static';
             gem.style.zIndex = '';
         }
@@ -1202,15 +1207,16 @@
         initAudio();
         
         currentPearlColor = color;
-        isPearlSnapping = true;
-        playSound('gemGrab');
+        isPearlSnapping = false;
+        playSound('click');
 
         // Create temporary dragging pearl element in SVG
         const activeGroup = document.getElementById('active-pearl-group');
         activeGroup.innerHTML = '';
 
-        // Start snapped at t=0 position (220, 280)
-        const pStart = getBezierPoint(0);
+        // Start snapped at next available slot's start position
+        const minTAllowed = placedPearlsList.length / maxNecklacePearls;
+        const pStart = getBezierPoint(minTAllowed);
 
         const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
         circle.setAttribute('cx', pStart.x);
@@ -1219,7 +1225,7 @@
         circle.setAttribute('fill', `url(#pearlGrad-${placedPearlsList.length})`);
         circle.setAttribute('stroke', '#fff');
         circle.setAttribute('stroke-width', '2');
-        circle.style.cursor = 'grabbing';
+        circle.style.cursor = 'grab';
         
         // Define gradient dynamically inside group
         const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
@@ -1232,7 +1238,15 @@
         activeGroup.appendChild(defs);
         activeGroup.appendChild(circle);
 
-        draggedPearlEl = circle;
+        // Pearl only starts dragging when clicked on the curve
+        circle.onmousedown = (e) => {
+            e.stopPropagation();
+            initAudio();
+            playSound('gemGrab');
+            draggedPearlEl = circle;
+            isPearlSnapping = true;
+            circle.style.cursor = 'grabbing';
+        };
     }
 
     // Global listener for pearl sliding along curve
@@ -1271,10 +1285,16 @@
 
     document.addEventListener('mouseup', () => {
         if (draggedPearlEl && isPearlSnapping) {
-            // Dropped midway: clean up dragging pearl
+            // Dropped midway: snap back to start of this slot
             isPearlSnapping = false;
+            draggedPearlEl.style.cursor = 'grab';
+            
+            const minTAllowed = placedPearlsList.length / maxNecklacePearls;
+            const pStart = getBezierPoint(minTAllowed);
+            draggedPearlEl.setAttribute('cx', pStart.x);
+            draggedPearlEl.setAttribute('cy', pStart.y);
+            
             draggedPearlEl = null;
-            document.getElementById('active-pearl-group').innerHTML = '';
         }
     });
 

@@ -5,81 +5,228 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>成长记录 — 奖励记录墙</title>
 <style>
-:root{--accent:#ff5a5f;--muted:#9aa3ad;--bg:#f7f8fa}
+/* ========== 主题定义 ========== */
+[data-theme="light"] {
+  --accent:#ff5a5f; --accent-soft:#fff0f0; --accent-glow:rgba(255,90,95,0.15);
+  --bg:#f0f2f5; --surface:#fff; --surface-hover:#f8f9fb;
+  --text:#1a1a2e; --text-secondary:#6b7280; --text-muted:#9ca3af;
+  --border:#e5e7eb; --shadow:0 1px 3px rgba(0,0,0,0.04),0 1px 2px rgba(0,0,0,0.06);
+  --shadow-lg:0 4px 24px rgba(0,0,0,0.06);
+  --btn-bg:#f3f4f6; --btn-hover:#e5e7eb; --btn-text:#374151;
+  --input-bg:#f9fafb; --input-border:#e5e7eb;
+  --modal-overlay:rgba(0,0,0,0.4);
+  --toast-bg:#1f2937; --toast-text:#f9fafb;
+  --day-hover:#f3f4f6;
+  --check-exchanged:#d1d5db;
+}
+[data-theme="dark"] {
+  --accent:#ff6b6b; --accent-soft:#3d1a1a; --accent-glow:rgba(255,107,107,0.2);
+  --bg:#111827; --surface:#1f2937; --surface-hover:#263040;
+  --text:#f1f5f9; --text-secondary:#9ca3af; --text-muted:#6b7280;
+  --border:#374151; --shadow:0 1px 3px rgba(0,0,0,0.3);
+  --shadow-lg:0 4px 24px rgba(0,0,0,0.4);
+  --btn-bg:#374151; --btn-hover:#4b5563; --btn-text:#e5e7eb;
+  --input-bg:#1f2937; --input-border:#4b5563;
+  --modal-overlay:rgba(0,0,0,0.6);
+  --toast-bg:#374151; --toast-text:#f1f5f9;
+  --day-hover:#2a3344;
+  --check-exchanged:#4b5563;
+}
+[data-theme="mint"] {
+  --accent:#10b981; --accent-soft:#e6f7f0; --accent-glow:rgba(16,185,129,0.15);
+  --bg:#f5faf8; --surface:#fff; --surface-hover:#f8fdfb;
+  --text:#064e3b; --text-secondary:#6b7280; --text-muted:#9ca3af;
+  --border:#d1e8de; --shadow:0 1px 3px rgba(16,185,129,0.06);
+  --shadow-lg:0 4px 24px rgba(16,185,129,0.08);
+  --btn-bg:#ecfdf5; --btn-hover:#d1fae5; --btn-text:#065f46;
+  --input-bg:#f9fdfb; --input-border:#d1e8de;
+  --modal-overlay:rgba(0,0,0,0.35);
+  --toast-bg:#064e3b; --toast-text:#ecfdf5;
+  --day-hover:#ecfdf5;
+  --check-exchanged:#d1e8de;
+}
+[data-theme="sakura"] {
+  --accent:#ec4899; --accent-soft:#fdf2f8; --accent-glow:rgba(236,72,153,0.12);
+  --bg:#fdf6fa; --surface:#fff; --surface-hover:#fef9fc;
+  --text:#4a0e2e; --text-secondary:#8b5e7a; --text-muted:#b8a0ae;
+  --border:#f0d5e4; --shadow:0 1px 3px rgba(236,72,153,0.06);
+  --shadow-lg:0 4px 24px rgba(236,72,153,0.08);
+  --btn-bg:#fdf2f8; --btn-hover:#fce7f3; --btn-text:#9d174d;
+  --input-bg:#fef9fc; --input-border:#f0d5e4;
+  --modal-overlay:rgba(0,0,0,0.35);
+  --toast-bg:#831843; --toast-text:#fdf2f8;
+  --day-hover:#fdf2f8;
+  --check-exchanged:#f0d5e4;
+}
+[data-theme="ocean"] {
+  --accent:#3b82f6; --accent-soft:#eff6ff; --accent-glow:rgba(59,130,246,0.12);
+  --bg:#f4f7fb; --surface:#fff; --surface-hover:#f8fafe;
+  --text:#1e3a5f; --text-secondary:#6b7fa0; --text-muted:#94a3b8;
+  --border:#dce6f2; --shadow:0 1px 3px rgba(59,130,246,0.06);
+  --shadow-lg:0 4px 24px rgba(59,130,246,0.08);
+  --btn-bg:#eff6ff; --btn-hover:#dbeafe; --btn-text:#1e40af;
+  --input-bg:#f8fafe; --input-border:#dce6f2;
+  --modal-overlay:rgba(0,0,0,0.35);
+  --toast-bg:#1e3a5f; --toast-text:#eff6ff;
+  --day-hover:#eff6ff;
+  --check-exchanged:#dce6f2;
+}
+
+/* ========== 全局 ========== */
 *{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:Inter, "Helvetica Neue", Arial, sans-serif;background:var(--bg);color:#222}
-.app{max-width:980px;margin:18px auto;padding:18px}
-.header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap}
-.title{font-size:1.6rem;font-weight:700}
-.counters{display:flex;gap:12px;margin-top:8px}
-.counter{background:#fff;padding:10px 14px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.06);min-width:120px;text-align:center}
-.counter .num{font-size:1.25rem;font-weight:700;color:var(--accent)}
-.controls{display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap}
-.calendar-wrap{margin-top:14px;background:#fff;padding:12px;border-radius:12px;box-shadow:0 6px 18px rgba(16,24,40,0.06)}
-.calendar-header{display:flex;align-items:center;justify-content:space-between}
-.month-nav{display:flex;gap:8px;align-items:center}
-.btn{background:#f1f5f9;border:none;padding:8px 10px;border-radius:8px;cursor:pointer}
-.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:12px}
-.weekday{font-size:0.8rem;text-align:center;color:var(--muted)}
-.day{min-height:76px;background:transparent;padding:8px;border-radius:8px;position:relative;cursor:pointer}
-.day .date-num{position:absolute;left:8px;top:6px;font-size:0.9rem}
-.day.inactive{opacity:0.28}
-.day.selected{outline:2px solid rgba(0,0,0,0.06);background:linear-gradient(0deg, rgba(255,90,95,0.05), transparent)}
-.dots{position:absolute;right:6px;bottom:6px;display:flex;gap:6px;align-items:center}
-.check{font-weight:700;font-size:14px;line-height:14px;color:var(--accent);display:inline-flex;align-items:center;justify-content:center}
-.check.exchanged{color:#c0c6cc}
-.add-fab{position:fixed;right:18px;bottom:18px;background:var(--accent);color:#fff;border:none;width:56px;height:56px;border-radius:50%;font-size:28px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(255,90,95,0.18);cursor:pointer}
-.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;z-index:100}
-.modal{background:#fff;padding:18px;border-radius:12px;max-width:520px;width:94%;max-height:80%;overflow-y:auto}
-.field{margin-bottom:10px}
-select,input[type=text],input[type=password],input[type=number],textarea{width:100%;padding:8px;border-radius:8px;border:1px solid #e6e9ee}
-.small{font-size:0.9rem;color:#666}
-.footer-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:8px}
-.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 16px;border-radius:8px;opacity:0;transition:opacity 0.25s;z-index:300}
-.toast.show{opacity:1}
-@media (max-width:640px){.day{min-height:72px}.counter{min-width:96px}.title{font-size:1.2rem}}
+html,body{height:100%;margin:0;font-family:"Inter","SF Pro Display","Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);transition:background 0.3s,color 0.3s}
+.app{max-width:980px;margin:24px auto;padding:0 20px 20px}
+
+/* ========== 头部 ========== */
+.header{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:8px}
+.title-group .title{font-size:1.75rem;font-weight:800;letter-spacing:-0.02em;background:linear-gradient(135deg,var(--accent),var(--text));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.title-group .subtitle{font-size:0.9rem;color:var(--text-secondary);margin-top:2px}
+.header-right{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+
+/* ========== 计数器卡片 ========== */
+.counters{display:flex;gap:10px}
+.counter{background:var(--surface);padding:12px 18px;border-radius:14px;box-shadow:var(--shadow);min-width:110px;text-align:center;border:1px solid var(--border);transition:transform 0.15s}
+.counter:hover{transform:translateY(-1px)}
+.counter .label{font-size:0.8rem;color:var(--text-secondary);margin-bottom:4px}
+.counter .num{font-size:1.6rem;font-weight:800;color:var(--accent);line-height:1.2}
+
+/* ========== 皮肤切换器 ========== */
+.theme-switcher{display:flex;gap:6px;align-items:center}
+.theme-dot{width:22px;height:22px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all 0.2s;position:relative}
+.theme-dot:hover{transform:scale(1.15)}
+.theme-dot.active{border-color:var(--text);box-shadow:0 0 0 2px var(--accent-glow)}
+.theme-dot[data-t="light"]{background:linear-gradient(135deg,#fff,#f0f2f5);border:2px solid #d1d5db}
+.theme-dot[data-t="dark"]{background:linear-gradient(135deg,#374151,#111827)}
+.theme-dot[data-t="mint"]{background:linear-gradient(135deg,#ecfdf5,#10b981)}
+.theme-dot[data-t="sakura"]{background:linear-gradient(135deg,#fdf2f8,#ec4899)}
+.theme-dot[data-t="ocean"]{background:linear-gradient(135deg,#eff6ff,#3b82f6)}
+
+/* ========== 控件栏 ========== */
+.controls{display:flex;gap:10px;align-items:center;margin-top:16px;flex-wrap:wrap}
+.btn{background:var(--btn-bg);color:var(--btn-text);border:1px solid transparent;padding:8px 14px;border-radius:10px;cursor:pointer;font-size:0.9rem;font-weight:500;transition:all 0.2s;white-space:nowrap}
+.btn:hover{background:var(--btn-hover)}
+.btn.accent{background:var(--accent);color:#fff;border:none}
+.btn.accent:hover{opacity:0.9;box-shadow:0 2px 12px var(--accent-glow)}
+.month-nav-group{display:flex;align-items:center;gap:8px}
+select.btn{appearance:none;-webkit-appearance:none;padding-right:24px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'%3E%3C/path%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center}
+
+/* ========== 日历 ========== */
+.calendar-wrap{margin-top:16px;background:var(--surface);padding:16px;border-radius:16px;box-shadow:var(--shadow-lg);border:1px solid var(--border)}
+.calendar-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:8px}
+.weekday{font-size:0.78rem;text-align:center;color:var(--text-muted);font-weight:600;padding:6px 0;text-transform:uppercase;letter-spacing:0.03em}
+.day{min-height:78px;background:transparent;padding:6px 8px;border-radius:10px;position:relative;cursor:pointer;transition:background 0.15s;border:2px solid transparent}
+.day:hover{background:var(--day-hover)}
+.day .date-num{position:absolute;left:8px;top:6px;font-size:0.85rem;font-weight:600;color:var(--text-secondary)}
+.day.inactive{opacity:0.25;pointer-events:none}
+.day.inactive .date-num{color:var(--text-muted)}
+.day.today{border-color:var(--accent);background:var(--accent-soft)}
+.day.today .date-num{color:var(--accent);font-weight:700}
+.day.selected{outline:none;box-shadow:inset 0 0 0 2px var(--accent);background:var(--accent-soft)}
+.day.has-events{background:var(--accent-soft)}
+.dots{position:absolute;right:6px;bottom:6px;display:flex;gap:5px;align-items:center}
+.check{font-weight:700;font-size:13px;line-height:1;color:var(--accent);display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--accent-soft)}
+.check.exchanged{color:var(--check-exchanged);background:transparent}
+
+/* ========== FAB ========== */
+.add-fab{position:fixed;right:24px;bottom:24px;background:var(--accent);color:#fff;border:none;width:58px;height:58px;border-radius:50%;font-size:28px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px var(--accent-glow);cursor:pointer;transition:all 0.25s;z-index:50}
+.add-fab:hover{transform:scale(1.08);box-shadow:0 12px 32px var(--accent-glow)}
+
+/* ========== 弹窗 ========== */
+.modal-backdrop{position:fixed;inset:0;background:var(--modal-overlay);display:flex;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.modal{background:var(--surface);padding:22px;border-radius:16px;max-width:520px;width:94%;max-height:80%;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.15);animation:modalIn 0.2s ease-out}
+@keyframes modalIn{from{opacity:0;transform:translateY(12px) scale(0.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.modal-title{font-weight:700;font-size:1.1rem;margin-bottom:14px;color:var(--text)}
+
+/* ========== 表单 ========== */
+.field{margin-bottom:12px}
+.field label{display:block;font-size:0.85rem;color:var(--text-secondary);margin-bottom:4px;font-weight:500}
+select,input[type=text],input[type=password],input[type=number],textarea{width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid var(--input-border);background:var(--input-bg);color:var(--text);font-size:0.92rem;transition:border-color 0.2s;outline:none;font-family:inherit}
+select:focus,input:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+textarea{resize:vertical;font-family:"SF Mono","Fira Code",monospace;font-size:0.85rem;line-height:1.6}
+
+/* ========== 底部操作 ========== */
+.footer-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
+.footer-actions .btn.cancel{background:var(--btn-bg);color:var(--btn-text)}
+.footer-actions .btn.primary{background:var(--accent);color:#fff}
+.footer-actions .btn.danger{background:var(--accent);color:#fff;opacity:0.9}
+
+/* ========== Toast ========== */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--toast-bg);color:var(--toast-text);padding:10px 20px;border-radius:10px;opacity:0;transition:opacity 0.3s,transform 0.3s;z-index:300;font-size:0.9rem;pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,0.2)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
+
+/* ========== small 文本 ========== */
+.small{font-size:0.85rem;color:var(--text-secondary)}
+
+/* ========== 奖品区 ========== */
+.redeemed-section{margin-top:20px;background:var(--surface);border-radius:16px;padding:16px;border:1px solid var(--border);box-shadow:var(--shadow)}
+
+/* ========== 清空按钮 ========== */
+.danger-zone{text-align:right;margin-top:20px}
+
+/* ========== 响应式 ========== */
+@media (max-width:640px){
+  .app{padding:0 12px 12px}
+  .title{font-size:1.35rem}
+  .day{min-height:64px}
+  .counter{min-width:90px;padding:10px 14px}
+  .counter .num{font-size:1.3rem}
+  .controls{gap:6px}
+  .btn{padding:6px 10px;font-size:0.82rem}
+}
 </style>
 </head>
-<body>
+<body data-theme="light">
+
 <div class="app">
+  <!-- 头部 -->
   <div class="header">
-    <div>
+    <div class="title-group">
       <div class="title">成长记录</div>
-      <div class="small">记录你的每一个小进步 ✨</div>
+      <div class="subtitle">记录你的每一个小进步</div>
     </div>
-    <div class="counters">
-      <div class="counter">
-        <div class="small">累计勾数</div>
-        <div id="counter-total" class="num">0</div>
+    <div class="header-right">
+      <div class="counters">
+        <div class="counter">
+          <div class="label">累计勾数</div>
+          <div id="counter-total" class="num">0</div>
+        </div>
+        <div class="counter">
+          <div class="label">未兑奖勾数</div>
+          <div id="counter-unexchanged" class="num">0</div>
+        </div>
       </div>
-      <div class="counter">
-        <div class="small">未兑奖勾数</div>
-        <div id="counter-unexchanged" class="num">0</div>
+      <!-- 皮肤切换 -->
+      <div class="theme-switcher">
+        <div class="theme-dot active" data-t="light" title="浅色"></div>
+        <div class="theme-dot" data-t="dark" title="暗夜"></div>
+        <div class="theme-dot" data-t="mint" title="薄荷"></div>
+        <div class="theme-dot" data-t="sakura" title="樱花"></div>
+        <div class="theme-dot" data-t="ocean" title="海洋"></div>
       </div>
     </div>
   </div>
 
+  <!-- 控件栏 -->
   <div class="controls">
-    <div style="display:flex;align-items:center;gap:8px">
+    <div class="month-nav-group">
       <button id="prev-month" class="btn">◀</button>
-      <div style="display:flex;gap:6px;align-items:center">
-        <select id="month-select" class="btn"></select>
-        <select id="year-select" class="btn"></select>
-      </div>
+      <select id="month-select" class="btn"></select>
+      <select id="year-select" class="btn"></select>
       <button id="next-month" class="btn">▶</button>
     </div>
 
     <div style="margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-      <button id="exchange-btn" class="btn">兑奖</button>
-      <button id="sync-load" class="btn">GET</button>
-      <button id="sync-save" class="btn">PUT</button>
-      <button id="clear-all" class="btn" style="background:#ffb3b3;">清空所有</button>
+      <button id="exchange-btn" class="btn accent">兑奖</button>
+      <button id="sync-load" class="btn">刷新</button>
+      <button id="sync-save" class="btn">保存</button>
     </div>
   </div>
 
+  <!-- 日历 -->
   <div class="calendar-wrap">
     <div class="calendar-header">
-      <div class="small">点击日期后点右下角+号新增奖励</div>
+      <div class="small">点击日期查看详情，点右下角 ＋ 新增奖励</div>
     </div>
 
     <div class="grid" id="weekday-row">
@@ -89,17 +236,25 @@ select,input[type=text],input[type=password],input[type=number],textarea{width:1
 
     <div class="grid" id="calendar-grid"></div>
   </div>
-  <div style="margin-top:18px">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-    <div class="small">已兑奖品</div>
-    <div style="display:flex;gap:8px">
-      <button id="edit-btn" class="btn">手动编辑</button>
-      <button id="save-btn" class="btn" style="display:none">保存</button>
-      <button id="cancel-btn" class="btn" style="display:none">取消</button>
+
+  <!-- 已兑奖品 -->
+  <div class="redeemed-section">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <div class="small" style="font-weight:600">已兑奖品</div>
+      <div style="display:flex;gap:8px">
+        <button id="edit-btn" class="btn" style="font-size:0.82rem">手动编辑</button>
+        <button id="save-btn" class="btn accent" style="display:none;font-size:0.82rem">保存</button>
+        <button id="cancel-btn" class="btn" style="display:none;font-size:0.82rem">取消</button>
+      </div>
     </div>
+    <textarea id="redeemed-text" readonly
+      style="width:100%;height:120px;padding:12px;border-radius:10px;resize:vertical;font-size:0.85rem;line-height:1.6"></textarea>
   </div>
-  <textarea id="redeemed-text" readonly style="width:100%;height:120px;background:#fff;padding:12px;border-radius:12px;border:1px solid #e6e9ee;resize:vertical;font-family:monospace;font-size:14px;line-height:1.5"></textarea>
-</div>
+
+  <!-- 危险操作区（不显眼） -->
+  <div class="danger-zone">
+    <button id="clear-all" class="btn" style="font-size:0.75rem;color:var(--text-muted);background:transparent;padding:4px 8px;opacity:0.5">清空所有</button>
+  </div>
 </div>
 
 <button class="add-fab" id="add-btn" title="添加奖励">＋</button>
@@ -115,7 +270,8 @@ const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
 const CLEAR_PASSWORD_SHA256 = "b575e13270b4785f35ab667154d178d97dc4ecd1564e094dbb31043f84af2523";
 /* ---------------------------------------------------- */
 const STORE_KEY = 'reward_wall_data_v1';
-let events = {}; // { "YYYY-MM-DD": [ {id, reason, createdAt, exchanged} ] }
+const THEME_KEY = 'reward_wall_theme_v1';
+let events = {};
 let redeemedItems = '';
 let selectedDate = null;
 const commonReasons = ["好好吃饭","睡觉早","自己做家务","阅读打卡一次","完成作业","坚持运动","帮助他人"];
@@ -137,6 +293,20 @@ const redeemedText = document.getElementById('redeemed-text');
 const editBtn = document.getElementById('edit-btn');
 const saveBtn = document.getElementById('save-btn');
 const cancelBtn = document.getElementById('cancel-btn');
+
+/* ---------- 皮肤切换 ---------- */
+function setTheme(name) {
+  document.body.setAttribute('data-theme', name);
+  localStorage.setItem(THEME_KEY, name);
+  document.querySelectorAll('.theme-dot').forEach(d => d.classList.toggle('active', d.dataset.t === name));
+}
+document.querySelectorAll('.theme-dot').forEach(dot => {
+  dot.addEventListener('click', () => setTheme(dot.dataset.t));
+});
+// 恢复上次选择的皮肤
+const savedTheme = localStorage.getItem(THEME_KEY) || 'light';
+setTheme(savedTheme);
+
 function showToast(msg, duration=2000){
   toastEl.textContent = msg;
   toastEl.classList.add('show');
@@ -155,6 +325,7 @@ function initMonthYear(){
 }
 function renderCalendar(){
   grid.innerHTML = '';
+  const today = ymd(new Date());
   const first = new Date(viewYear, viewMonth, 1);
   const startDay = first.getDay();
   const daysInMonth = new Date(viewYear, viewMonth+1, 0).getDate();
@@ -167,20 +338,22 @@ function renderCalendar(){
     const iso = ymd(d);
     const num = document.createElement('div'); num.className='date-num'; num.textContent = d.getDate(); cell.appendChild(num);
     if(d.getMonth() !== viewMonth) cell.classList.add('inactive');
+    if(iso === today) cell.classList.add('today');
     if(selectedDate===iso) cell.classList.add('selected');
+    const arr = events[iso] || [];
+    if(arr.length > 0) cell.classList.add('has-events');
     cell.addEventListener('click', ()=>{ selectedDate=iso; renderCalendar(); if(events[iso] && events[iso].length>0){ openDayDetailModal(iso); } });
     const dotsWrap = document.createElement('div'); dotsWrap.className='dots';
-    const arr = events[iso] || [];
     const show = Math.min(3, arr.length);
     for(let k=0;k<show;k++){
       const ch = document.createElement('span');
       ch.className = 'check' + (arr[k].exchanged ? ' exchanged' : '');
       ch.textContent = '✓';
-      ch.title = arr[k].reason; // 加 tooltip
+      ch.title = arr[k].reason;
       dotsWrap.appendChild(ch);
     }
     if(arr.length > 3){
-      const more = document.createElement('div'); more.className='small'; more.style.fontSize='11px'; more.style.marginLeft='6px';
+      const more = document.createElement('div'); more.className='small'; more.style.fontSize='10px'; more.style.marginLeft='4px';
       more.textContent = '+' + (arr.length - 3);
       dotsWrap.appendChild(more);
     }
@@ -203,7 +376,7 @@ function createModal(title, build){
   modalRoot.innerHTML = '';
   const bd = document.createElement('div'); bd.className='modal-backdrop';
   const m = document.createElement('div'); m.className='modal';
-  m.innerHTML = `<div style="font-weight:700;margin-bottom:8px">${title}</div>`;
+  m.innerHTML = `<div class="modal-title">${title}</div>`;
   bd.appendChild(m); modalRoot.appendChild(bd);
   build(m);
   bd.addEventListener('click', (e)=>{ if(e.target===bd) closeModal(); });
@@ -213,10 +386,10 @@ function closeModal(){ modalRoot.style.display='none'; modalRoot.innerHTML=''; }
 function openAddModal(defaultDate){
   const date = defaultDate || selectedDate || ymd(new Date());
   createModal(`为 ${date} 添加奖励`, (root)=>{
-    root.innerHTML = `
-      <div class="field"><label class="small">奖励原因</label><input id="reason-input" type="text" placeholder="例如：自己做家务" /></div>
+    root.innerHTML += `
+      <div class="field"><label>奖励原因</label><input id="reason-input" type="text" placeholder="例如：自己做家务" /></div>
       <div class="field"><select id="preset-select"><option value="">— 选择常用原因 —</option>${commonReasons.map(r=>`<option>${r}</option>`).join('')}</select></div>
-      <div class="footer-actions"><button id="cancel" class="btn">取消</button><button id="save" class="btn">保存</button></div>
+      <div class="footer-actions"><button id="cancel" class="btn cancel">取消</button><button id="save" class="btn primary">保存</button></div>
     `;
     root.querySelector('#preset-select').addEventListener('change', e=>{ root.querySelector('#reason-input').value = e.target.value; });
     root.querySelector('#cancel').addEventListener('click', closeModal);
@@ -225,7 +398,7 @@ function openAddModal(defaultDate){
       if(!reason){ showToast('请输入奖励原因'); return; }
       const item = { id: uid(), reason, createdAt: toBeijingString(), exchanged: false };
       events[date] = events[date] || [];
-      events[date].unshift(item); // newest first in the day's array
+      events[date].unshift(item);
       saveLocal(); renderCalendar(); closeModal();
     });
   });
@@ -233,11 +406,11 @@ function openAddModal(defaultDate){
 function openExchangeModal(){
   const unCount = Object.values(events).flat().filter(e=>!e.exchanged).length;
   createModal('兑奖', (root)=>{
-    root.innerHTML = `
+    root.innerHTML += `
       <div class="field"><div class="small">当前可兑奖的勾数：<strong>${unCount}</strong></div></div>
       <div class="field"><input id="exchange-num" type="number" min="1" max="${unCount}" placeholder="兑换多少个勾" /></div>
       <div class="field"><input id="prize-input" type="text" placeholder="所兑奖品" /></div>
-      <div class="footer-actions"><button id="cancel" class="btn">取消</button><button id="do-exchange" class="btn">兑奖</button></div>
+      <div class="footer-actions"><button id="cancel" class="btn cancel">取消</button><button id="do-exchange" class="btn primary">兑奖</button></div>
     `;
     root.querySelector('#cancel').addEventListener('click', closeModal);
     root.querySelector('#do-exchange').addEventListener('click', ()=>{
@@ -245,19 +418,16 @@ function openExchangeModal(){
       if(!v || v<=0 || v>unCount){ showToast('请输入不超过当前未兑奖勾数的正整数'); return; }
       const prize = root.querySelector('#prize-input').value.trim();
       if(!prize){ showToast('请输入所兑奖品'); return; }
-      // 收集所有未兑换项，转换 createdAt 为时间戳，稳定排序（最早 -> 最晚）
       const all = [];
       Object.entries(events).forEach(([date, arr])=>{
         arr.forEach(item=>{
           if(!item.exchanged){
-            const ts = Date.parse(item.createdAt); // 毫秒时间戳
+            const ts = Date.parse(item.createdAt);
             all.push({ date, id: item.id, ts });
           }
         });
       });
-      // 按时间戳从小到大排序（最早的在前）
       all.sort((a,b)=> a.ts - b.ts);
-      // 取前 v 个（最早的 v 个），并标记为 exchanged
       const toMark = all.slice(0, v);
       toMark.forEach(t=>{
         const arr = events[t.date] || [];
@@ -265,7 +435,7 @@ function openExchangeModal(){
         if(it) it.exchanged = true;
       });
       const now = toBeijingString();
-      const line = `${now} - ${prize}\n`;
+      const line = `\n${now} - ${prize}\n`;
       redeemedItems += line;
       updateRedeemedDisplay();
       saveLocal(); renderCalendar(); closeModal();
@@ -277,23 +447,24 @@ function openDayDetailModal(date){
   createModal(`${date} 的奖励记录`, (root)=>{
     if(list.length === 0){ root.innerHTML += '<div class="small">没有记录</div>'; return; }
     const ul = document.createElement('ul');
+    ul.style.cssText = 'list-style:none;padding:0;margin:0';
     list.forEach(item=>{
       const li = document.createElement('li');
+      li.style.cssText = 'display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)';
       const mark = document.createElement('span'); mark.className = 'check' + (item.exchanged ? ' exchanged' : ''); mark.textContent = '✓';
       li.appendChild(mark);
-      li.appendChild(document.createTextNode(' ' + item.reason + ' '));
-      const tspan = document.createElement('span'); tspan.className='small'; tspan.style.marginLeft='8px'; tspan.textContent = item.createdAt;
+      li.appendChild(document.createTextNode(item.reason));
+      const tspan = document.createElement('span'); tspan.className='small'; tspan.style.marginLeft='auto'; tspan.textContent = item.createdAt;
       li.appendChild(tspan);
       ul.appendChild(li);
     });
     root.appendChild(ul);
     const footer = document.createElement('div'); footer.className='footer-actions';
-    const closeBtn = document.createElement('button'); closeBtn.className='btn'; closeBtn.textContent='关闭'; closeBtn.onclick = closeModal;
+    const closeBtn = document.createElement('button'); closeBtn.className='btn cancel'; closeBtn.textContent='关闭'; closeBtn.onclick = closeModal;
     footer.appendChild(closeBtn); root.appendChild(footer);
   });
 }
 function sha256text(text){
-  // 返回 Promise<string>，16 进制小写
   return crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)).then(buf => {
     return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
   });
@@ -307,7 +478,7 @@ function toBeijingString(date = new Date()){
   const ss = String(date.getSeconds()).padStart(2,'0');
   return `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
 }
- 
+
 async function remoteLoad(){
   if(!JSONBIN_BIN_ID || !JSONBIN_ACCESS_KEY){ showToast('未配置 JSONBin'); return; }
   try{
@@ -331,7 +502,6 @@ async function remoteLoad(){
 async function remoteSave(){
   if(!JSONBIN_BIN_ID || !JSONBIN_ACCESS_KEY){ showToast('未配置 JSONBin'); return; }
   try{
-    // 始终以 { events: events } 结构写入，保证远端有 events 字段（即使为空对象）
     const payload = { events, redeemed: redeemedItems };
     const r = await fetch(JSONBIN_URL, {
       method: 'PUT',
@@ -346,10 +516,10 @@ async function remoteSave(){
 }
 function clearAllData(){
   createModal('清空所有数据', (root)=>{
-    root.innerHTML = `
-      <div class="field"><label class="small">请输入密码以确认清空：</label><input id="pwd-input" type="password" /></div>
-      <div class="small" style="margin-bottom:8px;color:#666">**谨慎操作**：清空后本地记录将被清除，若随后点击“保存到JSONBin”会覆盖远端（建议先备份）。</div>
-      <div class="footer-actions"><button id="cancel" class="btn">取消</button><button id="confirm" class="btn" style="background:#ff5a5f;color:#fff">确认清空</button></div>
+    root.innerHTML += `
+      <div class="field"><label>请输入密码以确认清空：</label><input id="pwd-input" type="password" /></div>
+      <div class="small" style="margin-bottom:8px">**谨慎操作**：清空后本地记录将被清除，若随后点击"保存"会覆盖远端（建议先备份）。</div>
+      <div class="footer-actions"><button id="cancel" class="btn cancel">取消</button><button id="confirm" class="btn danger">确认清空</button></div>
     `;
     root.querySelector('#cancel').addEventListener('click', closeModal);
     root.querySelector('#confirm').addEventListener('click', async ()=>{
@@ -357,7 +527,6 @@ function clearAllData(){
       if(!pwd){ showToast('请输入密码'); return; }
       const h = await sha256text(pwd);
       if(h !== CLEAR_PASSWORD_SHA256){ showToast('密码错误'); return; }
-      // 清空内存和本地存储
       events = {};
       redeemedItems = '';
       saveLocal();
@@ -373,7 +542,7 @@ initMonthYear();
 loadLocal();
 renderCalendar();
 updateRedeemedDisplay();
-remoteLoad(); // 页面打开时自动尝试加载远端（若成功会覆盖本地）
+remoteLoad();
 monthSelect.addEventListener('change', ()=>{ viewMonth = parseInt(monthSelect.value,10); renderCalendar(); });
 yearSelect.addEventListener('change', ()=>{ viewYear = parseInt(yearSelect.value,10); renderCalendar(); });
 prevBtn.addEventListener('click', ()=>{ viewMonth--; if(viewMonth<0){ viewMonth=11; viewYear--; yearSelect.value = viewYear; } monthSelect.value = viewMonth; renderCalendar(); });
@@ -405,7 +574,6 @@ cancelBtn.addEventListener('click', () => {
   cancelBtn.style.display = 'none';
 });
 </script>
-
 
 </body>
 </html>

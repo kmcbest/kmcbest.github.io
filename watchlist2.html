@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Watchlist - Modern Edition</title>
+
+    <!-- Google Fonts for Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts-wordcloud@2.0.0/dist/echarts-wordcloud.min.js"></script>
+
+    <!-- Theme Variable Configurations -->
+    <style>
+        /* Theme variables mapping */
+        :root {
+            --font-sans: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body.theme-default {
+            --bg-primary: #f8fafc;
+            --bg-surface: #ffffff;
+            --bg-card-header: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --color-primary: #4f46e5;
+            --color-primary-hover: #4338ca;
+            --color-primary-light: #e0e7ff;
+            --color-primary-light-text: #3730a3;
+            --color-success: #059669;
+            --color-success-hover: #047857;
+            --color-success-light: #d1fae5;
+            --color-success-light-text: #065f46;
+            --color-danger: #e11d48;
+            --color-danger-hover: #be123c;
+            --color-danger-light: #ffe4e6;
+            --color-danger-light-text: #9f1239;
+            --color-border: #e2e8f0;
+            --shadow-color: rgba(15, 23, 42, 0.06);
+            --shadow-sm: 0 1px 3px 0 var(--shadow-color), 0 1px 2px -1px var(--shadow-color);
+            --shadow-md: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -2px var(--shadow-color);
+            --shadow-lg: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -4px var(--shadow-color);
+            --glass-blur: none;
+            --glass-bg: #ffffff;
+            --glass-border: #e2e8f0;
+        }
+
+        body.theme-skin1 {
+            --bg-primary: #0b0f19;
+            --bg-surface: rgba(22, 28, 45, 0.65);
+            --bg-card-header: rgba(30, 41, 59, 0.7);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --color-primary: #8b5cf6;
+            --color-primary-hover: #7c3aed;
+            --color-primary-light: rgba(139, 92, 246, 0.15);
+            --color-primary-light-text: #c084fc;
+            --color-success: #10b981;
+            --color-success-hover: #059669;
+            --color-success-light: rgba(16, 185, 129, 0.15);
+            --color-success-light-text: #34d399;
+            --color-danger: #f43f5e;
+            --color-danger-hover: #e11d48;
+            --color-danger-light: rgba(244, 63, 94, 0.15);
+            --color-danger-light-text: #fb7185;
+            --color-border: rgba(255, 255, 255, 0.08);
+            --shadow-color: rgba(139, 92, 246, 0.15);
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 4px 20px -2px var(--shadow-color);
+            --shadow-lg: 0 10px 30px -5px rgba(139, 92, 246, 0.25);
+            --glass-blur: blur(16px);
+            --glass-bg: rgba(17, 24, 39, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        body.theme-skin2 {
+            --bg-primary: #fffbf9;
+            --bg-surface: #ffffff;
+            --bg-card-header: #fff5f5;
+            --text-primary: #4a2c2c;
+            --text-secondary: #8c7373;
+            --color-primary: #db2777;
+            --color-primary-hover: #be185d;
+            --color-primary-light: #fce7f3;
+            --color-primary-light-text: #9d174d;
+            --color-success: #0d9488;
+            --color-success-hover: #0f766e;
+            --color-success-light: #ccfbf1;
+            --color-success-light-text: #115e59;
+            --color-danger: #e11d48;
+            --color-danger-hover: #be123c;
+            --color-danger-light: #ffe4e6;
+            --color-danger-light-text: #9f1239;
+            --color-border: #f3e8e8;
+            --shadow-color: rgba(219, 39, 119, 0.06);
+            --shadow-sm: 0 1px 3px 0 var(--shadow-color), 0 1px 2px -1px var(--shadow-color);
+            --shadow-md: 0 4px 15px -3px var(--shadow-color);
+            --shadow-lg: 0 10px 25px -5px rgba(219, 39, 119, 0.12);
+            --glass-blur: none;
+            --glass-bg: #ffffff;
+            --glass-border: #f3e8e8;
+        }
+
+        /* Prevent scroll chaining for independent sidebar scrolling */
+        .sidebar-scroll {
+            overscroll-behavior: contain;
+        }
+
+        /* Customize scrollbars for a premium look */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-primary);
+            opacity: 0.7;
+        }
+    </style>
+
+    <!-- Tailwind dynamic mapping -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['var(--font-sans)', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            bg: 'var(--bg-primary)',
+                            surface: 'var(--bg-surface)',
+                            cardHeader: 'var(--bg-card-header)',
+                            text: 'var(--text-primary)',
+                            textMuted: 'var(--text-secondary)',
+                            primary: 'var(--color-primary)',
+                            primaryHover: 'var(--color-primary-hover)',
+                            primaryLight: 'var(--color-primary-light)',
+                            primaryLightText: 'var(--color-primary-light-text)',
+                            success: 'var(--color-success)',
+                            successHover: 'var(--color-success-hover)',
+                            successLight: 'var(--color-success-light)',
+                            successLightText: 'var(--color-success-light-text)',
+                            danger: 'var(--color-danger)',
+                            dangerHover: 'var(--color-danger-hover)',
+                            dangerLight: 'var(--color-danger-light)',
+                            dangerLightText: 'var(--color-danger-light-text)',
+                            border: 'var(--color-border)',
+                            glassBg: 'var(--glass-bg)',
+                            glassBorder: 'var(--glass-border)',
+                        }
+                    },
+                    boxShadow: {
+                        'brand-sm': 'var(--shadow-sm)',
+                        'brand-md': 'var(--shadow-md)',
+                        'brand-lg': 'var(--shadow-lg)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-brand-bg text-brand-text min-h-screen transition-colors duration-300 font-sans pb-16">
+    <!-- Dynamic glowing backgrounds for modern skins -->
+    <div class="fixed top-0 left-1/4 w-[500px] h-[500px] bg-brand-primary/5 rounded-full blur-[120px] pointer-events-none mix-blend-screen transition-all duration-500"></div>
+    <div class="fixed bottom-0 right-1/4 w-[400px] h-[400px] bg-brand-success/5 rounded-full blur-[100px] pointer-events-none mix-blend-screen transition-all duration-500"></div>
+
+    <div class="max-w-6xl mx-auto p-4 md:p-8 relative z-10">
+        <!-- Header Section -->
+        <header class="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+                <h1 class="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-brand-primary to-brand-success bg-clip-text text-transparent transition-all">Watchlist</h1>
+                <p class="mt-1.5 text-sm text-brand-textMuted">管理关注女优与作品 — 支持编辑 / 排序 / 搜索站点</p>
+            </div>
+            
+            <!-- Theme Menu Selector (Modern Pill Design) -->
+            <div class="flex items-center gap-1.5 p-1 rounded-2xl bg-brand-border/40 border border-brand-border/40 backdrop-blur-md self-start sm:self-center shadow-brand-sm transition-all">
+                <button onclick="setTheme('default')" id="btn-theme-default" class="theme-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200">默认</button>
+                <button onclick="setTheme('skin1')" id="btn-theme-skin1" class="theme-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200">霓虹暗夜</button>
+                <button onclick="setTheme('skin2')" id="btn-theme-skin2" class="theme-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200">樱花粉黛</button>
+            </div>
+        </header>
+
+        <!-- Main Responsive Layout Grid -->
+        <div class="flex gap-6 items-start relative">
+            <!-- Left Sidebar Navigation (Desktop View) -->
+            <aside class="hidden md:flex flex-col w-56 shrink-0 h-[calc(100vh-6rem)] sticky top-8 bg-brand-surface border border-brand-border rounded-2xl p-4 shadow-brand-md transition-all duration-300">
+                <div class="flex items-center justify-between pb-3 border-b border-brand-border/60 mb-3">
+                    <span class="text-sm font-bold text-brand-text flex items-center gap-1.5 select-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                        女优导航
+                    </span>
+                    <button id="btn-sort-nav" class="p-1.5 rounded-lg border border-brand-border bg-brand-surface text-brand-textMuted hover:bg-brand-primaryLight hover:text-brand-primaryLightText active:scale-95 transition-all duration-150" title="切换排序：默认 / 拼音">
+                        <!-- Default icon: List order -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"/></svg>
+                    </button>
+                </div>
+                <!-- Scrollable list container -->
+                <div id="navActressList" class="sidebar-scroll flex-1 overflow-y-auto pr-1 space-y-1.5 text-sm scrollbar-thin"></div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="flex-1 min-w-0">
+                <!-- Top Control Bar -->
+                <div class="control-bar mb-6 p-4 rounded-2xl bg-brand-glassBg border border-brand-glassBorder shadow-brand-md backdrop-blur-[var(--glass-blur)] flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all duration-300">
+                    <div class="flex flex-wrap gap-2.5">
+                        <button class="btn-add-actress inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl bg-brand-primary text-white hover:bg-brand-primaryHover shadow-sm hover:shadow active:scale-95 transition-all duration-200 whitespace-nowrap">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                            添加女优
+                        </button>
+                        <button class="btn-save-all inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl bg-brand-success text-white hover:bg-brand-successHover shadow-sm hover:shadow active:scale-95 transition-all duration-200 whitespace-nowrap">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V8l-4-4H8z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 14a3 3 0 100-6 3 3 0 000 6z" /><path stroke-linecap="round" stroke-linejoin="round" d="M9 20V14h6v6" /></svg>
+                            保存所有改动
+                        </button>
+                        <button class="btn-toggle-sort inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl border border-brand-border bg-brand-surface text-brand-text hover:bg-brand-border/40 active:scale-95 transition-all duration-200 whitespace-nowrap shadow-brand-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>
+                            排序模式
+                        </button>
+                        <button class="btn-save-sort hidden inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl bg-brand-success text-white hover:bg-brand-successHover shadow-sm hover:shadow active:scale-95 transition-all duration-200 whitespace-nowrap">
+                            保存排序
+                        </button>
+                        <button class="btn-cancel-sort hidden inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl border border-brand-border bg-brand-surface text-brand-text hover:bg-brand-border/40 active:scale-95 transition-all duration-200 whitespace-nowrap shadow-brand-sm">
+                            取消排序
+                        </button>
+                    </div>
+                    <div class="text-xs text-brand-textMuted flex items-center gap-1.5 font-medium">
+                        <span class="inline-block w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                        改动暂存本地，请记得保存。
+                    </div>
+                </div>
+
+                <!-- Actress List Container -->
+                <section class="mb-6">
+                    <div id="actressList" class="space-y-4"></div>
+
+                    <!-- Bottom Control Bar (Duplicate) -->
+                    <div class="control-bar mt-6 p-4 rounded-2xl bg-brand-glassBg border border-brand-glassBorder shadow-brand-md backdrop-blur-[var(--glass-blur)] flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all duration-300">
+                        <div class="flex flex-wrap gap-2.5">
+                            <button class="btn-add-actress inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl bg-brand-primary text-white hover:bg-brand-primaryHover shadow-sm hover:shadow active:scale-95 transition-all duration-200 whitespace-nowrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                                添加女优
+                            </button>
+                            <button class="btn-save-all inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl bg-brand-success text-white hover:bg-brand-successHover shadow-sm hover:shadow active:scale-95 transition-all duration-200 whitespace-nowrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V8l-4-4H8z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 14a3 3 0 100-6 3 3 0 000 6z" /><path stroke-linecap="round" stroke-linejoin="round" d="M9 20V14h6v6" /></svg>
+                                保存所有改动
+                            </button>
+                            <button class="btn-toggle-sort inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl border border-brand-border bg-brand-surface text-brand-text hover:bg-brand-border/40 active:scale-95 transition-all duration-200 whitespace-nowrap shadow-brand-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>
+                                排序模式
+                            </button>
+                            <button class="btn-save-sort hidden inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl bg-brand-success text-white hover:bg-brand-successHover shadow-sm hover:shadow active:scale-95 transition-all duration-200 whitespace-nowrap">
+                                保存排序
+                            </button>
+                            <button class="btn-cancel-sort hidden inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl border border-brand-border bg-brand-surface text-brand-text hover:bg-brand-border/40 active:scale-95 transition-all duration-200 whitespace-nowrap shadow-brand-sm">
+                                取消排序
+                            </button>
+                        </div>
+                        <div class="text-xs text-brand-textMuted flex items-center gap-1.5 font-medium">
+                            <span class="inline-block w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                            改动暂存本地，请记得保存。
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Search Site Configuration -->
+                <section class="bg-brand-surface rounded-2xl border border-brand-border shadow-brand-md p-6 mb-8 transition-all">
+                    <h2 class="text-xl font-bold text-brand-text mb-2.5 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        搜索站点列表
+                    </h2>
+                    <p class="text-xs text-brand-textMuted mb-4">每行一个站点名，例如：<code class="bg-brand-border/40 text-brand-primaryLightText px-1.5 py-0.5 rounded font-mono text-[11px]">xasiat</code></p>
+                    <textarea id="siteListInput" class="w-full border border-brand-border rounded-xl p-3 min-h-[120px] text-sm bg-brand-surface text-brand-text focus:ring-2 focus:ring-brand-primary/30 focus:border-brand-primary transition-all duration-200 outline-none font-mono"></textarea>
+                    <div class="mt-4 flex gap-3">
+                        <button id="saveSiteList" class="px-4.5 py-2 text-sm font-bold rounded-xl bg-brand-primary text-white hover:bg-brand-primaryHover shadow-md shadow-brand-primary/10 hover:shadow-lg hover:shadow-brand-primary/20 active:scale-95 transition-all duration-200">保存站点列表</button>
+                        <button id="resetSiteList" class="px-4.5 py-2 text-sm font-bold rounded-xl border border-brand-border bg-brand-surface text-brand-textMuted hover:bg-brand-border/40 active:scale-95 transition-all duration-200">重置为当前数据</button>
+                    </div>
+                </section>
+
+                <!-- Word Cloud Section -->
+                <section class="bg-brand-surface rounded-2xl border border-brand-border shadow-brand-md p-6 transition-all">
+                    <h2 class="text-xl font-bold text-brand-text mb-1 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 12l3-3 3 3 4-4M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                        女优词云
+                    </h2>
+                    <p id="wordCloudStats" class="text-xs text-brand-textMuted mb-5">女优总数：0，作品总数：0</p>
+                    <div id="wordCloud" class="w-full h-[400px] bg-brand-surface rounded-xl border border-brand-border/40 transition-all duration-300"></div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Search Site Popup -->
+    <div id="sitePopup" class="site-popup hidden"></div>
+
+    <!-- Toast Notification Message -->
+    <div id="toast" class="toast opacity-0 pointer-events-none"></div>
+
+    <script>
+        // ========================
+        // JSONBin Cloud Storage API Settings
+        // ========================
+        const BIN_ID = '68d60a1643b1c97be9506422';
+        const ACCESS_KEY = '$2a$10$Hi5BNn/VXRh8AX9uTMxQMezW9baqQFhRNXmih/MWi.x0OJ.yKc9m.';
+        const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+
+        // Global Data Cache
+        let data = {
+            config: {
+                sitelist: []
+            },
+            actresses: []
+        };
+
+        let sortMode = false;
+        let stagingActresses = null; 
+        let navSortMode = 'default'; // 'default' or 'alphabetical'
+
+        // ========================
+        // Toast Manager
+        // ========================
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            
+            // Icon customization
+            const iconSvg = isError 
+                ? `<svg class="w-5 h-5 text-rose-500 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>`
+                : `<svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+            
+            toast.innerHTML = `${iconSvg}<span>${message}</span>`;
+            
+            // Set base styles
+            toast.className = 'toast fixed top-6 right-6 z-[2000] px-5 py-3.5 rounded-2xl shadow-brand-lg border backdrop-blur-md transition-all duration-300 flex items-center gap-2.5 font-bold text-sm';
+            
+            if (isError) {
+                toast.classList.add('bg-rose-500/10', 'text-rose-500', 'border-rose-500/20');
+            } else {
+                toast.classList.add('bg-brand-surface', 'text-brand-text', 'border-brand-border');
+            }
+            
+            // Trigger Animation
+            toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-[-10px]');
+            toast.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            
+            if (window.toastTimeout) clearTimeout(window.toastTimeout);
+            window.toastTimeout = setTimeout(() => {
+                toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-[-10px]');
+                toast.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            }, isError ? 4000 : 2500);
+        }
+
+        // ========================
+        // Theme Manager
+        // ========================
+        function setTheme(name) {
+            document.body.classList.remove('theme-default', 'theme-skin1', 'theme-skin2');
+            document.body.classList.add(`theme-${name}`);
+            
+            document.querySelectorAll('.theme-tab').forEach(tab => {
+                tab.className = 'theme-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 text-brand-textMuted hover:text-brand-text hover:bg-brand-border/20';
+            });
+            
+            const activeTab = document.getElementById(`btn-theme-${name}`);
+            if (activeTab) {
+                activeTab.className = 'theme-tab px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 bg-brand-primary text-white shadow-md shadow-brand-primary/20';
+            }
+            
+            localStorage.setItem('watchlist-theme', name);
+            
+            // Sync Word Cloud Colors to new palette
+            renderWordCloud();
+        }
+
+        // ========================
+        // Network Logic
+        // ========================
+        // ========================
+        // 升级后的 Vercel KV 免翻墙数据读取与本地双驱缓存逻辑
+        // ========================
+        const API_URL = '/api/watchlist';
+        
+        // 对应你在后端写好的访问暗号
+        const HEADERS = {
+            'Content-Type': 'application/json',
+            'X-Watchlist-Auth': 'my_private_secret_key_999'
+        };
+        async function fetchData() {
+            try {
+                // 请求 Vercel 的后端 Serverless 接口
+                const res = await fetch(API_URL, {
+                    method: 'GET',
+                    headers: HEADERS
+                });
+                if (!res.ok) throw new Error(`加载失败: ${res.status}`);
+                const json = await res.json();
+                
+                // 如果数据库里有内容，将其顺手在本地存一份影子备份，保障双保险
+                if (json) {
+                    localStorage.setItem('watchlist-data-backup', JSON.stringify(json));
+                    return json;
+                }
+                
+                // 如果数据库完全是空的，返回默认的空结构
+                return { config: { sitelist: [] }, actresses: [] };
+            } catch (err) {
+                console.error('Fetch failed, trying local storage...', err);
+                // 如果遇到极端情况网络连不上，尝试捞本地最后一次的备份先用着
+                const localBackup = localStorage.getItem('watchlist-data-backup');
+                if (localBackup) {
+                    showToast('云端连接失败，已自动载入本地历史缓存数据。', false);
+                    return JSON.parse(localBackup);
+                }
+                throw err;
+            }
+        }
+
+        async function updateData(payload) {
+            // 保存时先在本地存一份，确保本地永远是最新的
+            localStorage.setItem('watchlist-data-backup', JSON.stringify(payload));
+
+            // 发送 POST 请求将最新数据同步到 Vercel KV 数据库
+            const res = await fetch(API_URL, {
+                method: 'POST',
+                headers: HEADERS,
+                body: JSON.stringify(payload)
+            });
+            if (!res.ok) throw new Error(`保存失败: ${res.status}`);
+            return res.json();
+        }
+
+        async function saveToCloud() {
+            try {
+                await updateData(data);
+                showToast('所有改动已成功保存到云端！');
+            } catch (err) {
+                showToast(err.message || '云端保存失败', true);
+            }
+        }
+
+
+        // ========================
+        // Parsing Helpers
+        // ========================
+        function parseWorks(text) {
+            const lines = text.split('\n').filter(line => line.trim() !== '');
+            return lines.map(line => {
+                const matchDone = line.match(/^\s*-\s*\[x\]\s*(.+)$/i);
+                const matchNotDone = line.match(/^\s*-\s*\[\s\]\s*(.+)$/);
+
+                if (matchDone) {
+                    return { title: matchDone[1].trim(), done: true };
+                } else if (matchNotDone) {
+                    return { title: matchNotDone[1].trim(), done: false };
+                } else {
+                    return { title: line.trim(), done: false };
+                }
+            });
+        }
+
+        // Generate markdown output
+        function generateWorksText(works) {
+            return works.map(w => w.done ? `- [x] ${w.title}` : `- [ ] ${w.title}`).join('\n');
+        }
+
+        // ========================
+        // Navigation Sidebar Render
+        // ========================
+        function renderNavList() {
+            const container = document.getElementById('navActressList');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const list = sortMode ? (stagingActresses || []) : (data.actresses || []);
+            if (!list.length) {
+                container.innerHTML = `<div class="text-xs text-brand-textMuted italic p-2 select-none">暂无关注</div>`;
+                return;
+            }
+
+            // Copy list to sort
+            let sortedList = [...list];
+            if (navSortMode === 'alphabetical') {
+                sortedList.sort((a, b) => a.name.localeCompare(b.name, 'zh'));
+            }
+
+            sortedList.forEach(a => {
+                const item = document.createElement('button');
+                item.className = 'w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-brand-textMuted hover:bg-brand-primaryLight hover:text-brand-primaryLightText hover:translate-x-1.5 active:scale-98 transition-all duration-200 truncate flex items-center justify-between group';
+                
+                const nameSpan = document.createElement('span');
+                nameSpan.className = 'truncate';
+                nameSpan.textContent = a.name;
+
+                const countSpan = document.createElement('span');
+                countSpan.className = 'text-[10px] bg-brand-border/40 px-1.5 py-0.5 rounded-md text-brand-textMuted group-hover:bg-brand-primary/20 group-hover:text-brand-primaryLightText transition-colors font-mono';
+                countSpan.textContent = a.works ? a.works.length : 0;
+
+                item.appendChild(nameSpan);
+                item.appendChild(countSpan);
+                
+                item.onclick = (e) => {
+                    e.stopPropagation();
+                    scrollToActress(a.name);
+                };
+
+                container.appendChild(item);
+            });
+        }
+
+        function scrollToActress(name) {
+            const id = `actress-${encodeURIComponent(name)}`;
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Briefly flash card border
+                element.classList.add('ring-2', 'ring-brand-primary');
+                setTimeout(() => element.classList.remove('ring-2', 'ring-brand-primary'), 2000);
+            }
+        }
+
+        function toggleNavSort() {
+            navSortMode = navSortMode === 'default' ? 'alphabetical' : 'default';
+            
+            const btn = document.getElementById('btn-sort-nav');
+            if (navSortMode === 'alphabetical') {
+                // A-Z Sort Ascending Icon
+                btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-3-3m3 3l3-3"/></svg>`;
+                showToast('导航已按拼音首字母排序');
+            } else {
+                // Default List Order Icon
+                btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"/></svg>`;
+                showToast('导航已恢复默认排序');
+            }
+            
+            renderNavList();
+        }
+
+        // ========================
+        // UI Render Operations
+        // ========================
+        function renderSiteList() {
+            const el = document.getElementById('siteListInput');
+            el.value = (data.config && data.config.sitelist) ? data.config.sitelist.join('\n') : '';
+        }
+
+        function updateSortButtonsUI() {
+            const toggleBtns = document.querySelectorAll('.btn-toggle-sort');
+            const saveBtns = document.querySelectorAll('.btn-save-sort');
+            const cancelBtns = document.querySelectorAll('.btn-cancel-sort');
+
+            toggleBtns.forEach(btn => {
+                btn.innerHTML = sortMode 
+                    ? `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-brand-danger" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>退出排序`
+                    : `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>排序模式`;
+            });
+
+            saveBtns.forEach(btn => {
+                if (sortMode) {
+                    btn.classList.remove('hidden');
+                } else {
+                    btn.classList.add('hidden');
+                }
+            });
+
+            cancelBtns.forEach(btn => {
+                if (sortMode) {
+                    btn.classList.remove('hidden');
+                } else {
+                    btn.classList.add('hidden');
+                }
+            });
+        }
+
+        function renderActressList() {
+            const container = document.getElementById('actressList');
+            container.innerHTML = '';
+            const list = sortMode ? (stagingActresses || []) : (data.actresses || []);
+
+            // Also keep navigation sidebar refreshed with current runtime data
+            renderNavList();
+
+            if (!list.length) {
+                container.innerHTML = `<div class="bg-brand-surface border border-brand-border p-8 rounded-2xl shadow-brand-md text-brand-textMuted flex flex-col items-center justify-center text-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-brand-textMuted/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                    <span>暂无关注女优，点击上方或下方“添加女优”开始。</span>
+                </div>`;
+                return;
+            }
+
+            list.forEach((a, idx) => {
+                const item = document.createElement('div');
+                item.className = 'actress-item bg-brand-surface rounded-2xl p-5 shadow-brand-sm border border-brand-border/60 hover:shadow-brand-md transition-all duration-300 flex flex-col border-l-4 border-l-brand-primary';
+                item.id = `actress-${encodeURIComponent(a.name)}`;
+
+                const header = document.createElement('div');
+                header.className = 'flex items-center justify-between gap-4';
+
+                const leftBox = document.createElement('div');
+                leftBox.className = 'flex items-center gap-3 cursor-pointer select-none group';
+
+                const arrowSpan = document.createElement('span');
+                arrowSpan.className = 'arrow inline-block transition-transform duration-300 text-brand-primary';
+                arrowSpan.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>`;
+                arrowSpan.style.transform = a.expanded ? 'rotate(90deg)' : 'rotate(0deg)';
+
+                const nameSpan = document.createElement('span');
+                nameSpan.className = 'text-lg font-bold text-brand-text group-hover:text-brand-primary transition-colors';
+                nameSpan.textContent = a.name;
+
+                leftBox.appendChild(arrowSpan);
+                leftBox.appendChild(nameSpan);
+
+                leftBox.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const arr = sortMode ? stagingActresses : data.actresses;
+                    if (!arr || !arr[idx]) return;
+                    arr[idx].expanded = !arr[idx].expanded;
+                    if (!sortMode) showToast('已暂存折叠状态，请保存。');
+                    renderActressList();
+                });
+
+                const rightBox = document.createElement('div');
+                rightBox.className = 'flex items-center gap-1.5';
+
+                if (sortMode) {
+                    const mkBtn = (iconSvg, title, handler) => {
+                        const b = document.createElement('button');
+                        b.className = 'p-1.5 rounded-lg border border-brand-border bg-brand-surface text-brand-textMuted hover:bg-brand-primaryLight hover:text-brand-primaryLightText hover:border-brand-primary/20 active:scale-95 transition-all duration-150';
+                        b.title = title;
+                        b.innerHTML = iconSvg;
+                        b.onclick = (ev) => {
+                            ev.stopPropagation();
+                            handler();
+                        };
+                        return b;
+                    };
+                    
+                    rightBox.appendChild(mkBtn('<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 11l7-7 7 7M5 19l7-7 7 7"/></svg>', '置顶', () => moveActress(idx, 'top')));
+                    rightBox.appendChild(mkBtn('<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>', '上移', () => moveActress(idx, 'up')));
+                    rightBox.appendChild(mkBtn('<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>', '下移', () => moveActress(idx, 'down')));
+                    rightBox.appendChild(mkBtn('<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 13l-7 7-7-7M19 5l-7 7-7-7"/></svg>', '置底', () => moveActress(idx, 'bottom')));
+                }
+
+                const delBtn = document.createElement('button');
+                delBtn.className = 'p-2 rounded-xl text-brand-danger bg-brand-dangerLight/20 hover:bg-brand-danger hover:text-white active:scale-95 transition-all duration-200';
+                delBtn.title = '删除';
+                delBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>`;
+                delBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    if (!confirm(`确定要删除女优 "${a.name}" 吗？`)) return;
+                    if (sortMode) {
+                        stagingActresses.splice(idx, 1);
+                    } else {
+                        data.actresses.splice(idx, 1);
+                    }
+                    if (!sortMode) showToast('女优已删除，请记得保存改动。');
+                    renderActressList();
+                    renderWordCloud();
+                };
+                rightBox.appendChild(delBtn);
+
+                header.appendChild(leftBox);
+                header.appendChild(rightBox);
+                item.appendChild(header);
+
+                const content = document.createElement('div');
+                content.className = 'actress-content transition-all duration-300';
+
+                if (a.expanded) {
+                    content.className += ' mt-4 border-t border-brand-border/40 pt-4';
+                    
+                    const textarea = document.createElement('textarea');
+                    textarea.className = 'works-input w-full border border-brand-border rounded-xl p-3 text-sm bg-brand-surface text-brand-text focus:ring-2 focus:ring-brand-primary/30 focus:border-brand-primary transition-all duration-200 outline-none font-mono min-h-[100px] mb-3';
+                    textarea.value = generateWorksText(a.works || []);
+                    textarea.dataset.index = idx;
+                    textarea.style.display = 'none';
+
+                    const actionRow = document.createElement('div');
+                    actionRow.className = 'flex gap-2.5 mt-3';
+
+                    const saveBtn = document.createElement('button');
+                    saveBtn.className = 'px-4 py-2 text-xs font-bold rounded-xl bg-brand-primary text-white hover:bg-brand-primaryHover shadow-md shadow-brand-primary/10 transition-all duration-200 hidden';
+                    saveBtn.textContent = '保存作品';
+                    saveBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        const text = textarea.value;
+                        const arr = sortMode ? stagingActresses : data.actresses;
+                        if (!arr || !arr[idx]) return;
+                        arr[idx].works = parseWorks(text);
+                        if (!sortMode) showToast('作品列表已本地更新，请记得保存。');
+                        renderActressList();
+                        renderWordCloud();
+                    };
+
+                    const editBtn = document.createElement('button');
+                    editBtn.className = 'px-4 py-2 text-xs font-bold rounded-xl border border-brand-border bg-brand-surface text-brand-textMuted hover:bg-brand-border/40 active:scale-95 transition-all duration-200';
+                    editBtn.textContent = '编辑作品';
+                    editBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        const show = textarea.style.display === 'none';
+                        textarea.style.display = show ? 'block' : 'none';
+                        saveBtn.style.display = show ? 'inline-block' : 'none';
+                        editBtn.textContent = show ? '取消编辑' : '编辑作品';
+                        if (show) {
+                            editBtn.className = 'px-4 py-2 text-xs font-bold rounded-xl border border-brand-danger/30 bg-brand-surface text-brand-danger hover:bg-brand-danger/10 active:scale-95 transition-all duration-200';
+                        } else {
+                            editBtn.className = 'px-4 py-2 text-xs font-bold rounded-xl border border-brand-border bg-brand-surface text-brand-textMuted hover:bg-brand-border/40 active:scale-95 transition-all duration-200';
+                        }
+                        const arr = sortMode ? stagingActresses : data.actresses;
+                        textarea.value = generateWorksText((arr[idx] && arr[idx].works) ? arr[idx].works : []);
+                    };
+
+                    actionRow.appendChild(saveBtn);
+                    actionRow.appendChild(editBtn);
+
+                    const workList = document.createElement('ul');
+                    workList.className = 'work-list space-y-2 mb-1';
+
+                    content.appendChild(textarea);
+                    content.appendChild(workList);
+                    content.appendChild(actionRow);
+
+                    renderWorkList(workList, idx, sortMode);
+                }
+
+                item.appendChild(content);
+                container.appendChild(item);
+            });
+        }
+
+        function renderWorkList(container, actressIdx, isStaging = false) {
+            if (!container || !container.tagName) return;
+            container.innerHTML = '';
+            const arr = isStaging ? (stagingActresses || []) : (data.actresses || []);
+            const works = (arr[actressIdx] && arr[actressIdx].works) ? arr[actressIdx].works : [];
+
+            if (!works.length) {
+                container.innerHTML = `<li class="text-xs text-brand-textMuted italic p-1">暂无作品，请点击下方“编辑作品”添加。</li>`;
+                return;
+            }
+
+            works.forEach((work, workIdx) => {
+                const li = document.createElement('li');
+                li.className = `work-item flex items-center justify-between gap-3 p-3 rounded-xl border transition-all duration-200 group/item ${work.done ? 'line-through text-brand-textMuted bg-brand-border/10 border-brand-border/20 opacity-70' : 'bg-brand-surface text-brand-text border-brand-border/40 shadow-sm hover:shadow-brand-sm hover:border-brand-primary/30'}`;
+
+                const leftArea = document.createElement('div');
+                leftArea.className = 'flex items-center gap-3 flex-1 min-w-0';
+
+                const cb = document.createElement('input');
+                cb.type = 'checkbox';
+                cb.checked = work.done;
+                cb.className = 'w-4 h-4 rounded text-brand-primary border-brand-border bg-brand-surface focus:ring-brand-primary/30 focus:ring-2 transition-all cursor-pointer';
+                cb.onchange = (e) => {
+                    work.done = cb.checked;
+                    renderActressList();
+                    renderWordCloud();
+                    if (!sortMode) showToast('状态已更新，请记得保存所有改动。');
+                };
+
+                const titleSpan = document.createElement('span');
+                titleSpan.className = 'title flex-1 font-medium truncate cursor-pointer hover:text-brand-primary hover:underline transition-all';
+                titleSpan.textContent = work.title;
+                titleSpan.onclick = (e) => {
+                    e.stopPropagation();
+                    showSitePopup(e, work.title);
+                };
+
+                leftArea.appendChild(cb);
+                leftArea.appendChild(titleSpan);
+
+                // Inline search helper
+                const searchIndicator = document.createElement('div');
+                searchIndicator.className = 'opacity-0 group-hover/item:opacity-100 transition-opacity text-brand-primary text-xs flex items-center gap-1 cursor-pointer';
+                searchIndicator.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><span class="hidden sm:inline">搜索</span>`;
+                searchIndicator.onclick = (e) => {
+                    e.stopPropagation();
+                    showSitePopup(e, work.title);
+                };
+
+                li.appendChild(leftArea);
+                li.appendChild(searchIndicator);
+                container.appendChild(li);
+            });
+        }
+
+        // ========================
+        // Search Popup Menu
+        // ========================
+        function showSitePopup(e, title) {
+            const popup = document.getElementById('sitePopup');
+            popup.innerHTML = '';
+            popup.className = 'site-popup absolute bg-brand-surface border border-brand-border rounded-xl shadow-brand-lg z-[1000] min-w-[200px] overflow-hidden backdrop-blur-[var(--glass-blur)] transition-all duration-200';
+
+            const rect = e.target.getBoundingClientRect();
+            popup.style.left = `${rect.left + window.scrollX}px`;
+            popup.style.top = `${rect.bottom + window.scrollY + 8}px`;
+
+            const siteList = (data.config && data.config.sitelist) ? data.config.sitelist : [];
+            
+            if (!siteList.length) {
+                const empty = document.createElement('div');
+                empty.className = 'px-4 py-3 text-xs text-brand-textMuted italic';
+                empty.textContent = '暂无可用配置站点。';
+                popup.appendChild(empty);
+            } else {
+                siteList.forEach(site => {
+                    const a = document.createElement('a');
+                    a.href = `https://www.google.com/search?q=${encodeURIComponent(title + ' ' + site)}`;
+                    a.target = "_blank";
+                    a.className = 'block px-4 py-2.5 text-sm text-brand-text hover:bg-brand-primaryLight hover:text-brand-primaryLightText border-b border-brand-border/40 last:border-b-0 transition-colors duration-150 flex items-center gap-2';
+                    a.innerHTML = `<svg class="w-4 h-4 text-brand-primary/70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>搜索 ${site}`;
+                    popup.appendChild(a);
+                });
+            }
+
+            popup.classList.remove('hidden');
+
+            function close(event) {
+                if (!popup.contains(event.target) && !event.target.classList.contains('title') && !event.target.closest('.title')) {
+                    popup.classList.add('hidden');
+                    document.removeEventListener('click', close);
+                }
+            }
+            setTimeout(() => document.addEventListener('click', close), 100);
+        }
+
+        // ========================
+        // Sorting Controls
+        // ========================
+        function moveActress(i, action) {
+            if (!stagingActresses) return;
+            const arr = stagingActresses;
+            if (action === 'top' && i > 0) {
+                arr.unshift(arr.splice(i, 1)[0]);
+            } else if (action === 'up' && i > 0) {
+                [arr[i - 1], arr[i]] = [arr[i], arr[i - 1]];
+            } else if (action === 'down' && i < arr.length - 1) {
+                [arr[i + 1], arr[i]] = [arr[i], arr[i + 1]];
+            } else if (action === 'bottom' && i < arr.length - 1) {
+                arr.push(arr.splice(i, 1)[0]);
+            }
+            renderActressList();
+            renderWordCloud();
+        }
+
+        // ========================
+        // ECharts Word Cloud Rendering
+        // ========================
+        function renderWordCloud() {
+            const chartDom = document.getElementById('wordCloud');
+            if (!chartDom) return;
+
+            let chart = echarts.getInstanceByDom(chartDom);
+            if (chart) {
+                chart.dispose();
+            }
+
+            chart = echarts.init(chartDom, null, { renderer: 'svg' });
+
+            const list = sortMode ? (stagingActresses || []) : (data.actresses || []);
+            if (!list.length) {
+                chart.clear();
+                chartDom.innerHTML = `<div class="text-brand-textMuted text-center mt-20 italic">暂无词云展示数据</div>`;
+                document.getElementById('wordCloudStats').textContent = '女优总数：0，作品总数：0';
+                return;
+            }
+
+            const actressCount = list.length;
+            const workCount = list.reduce((sum, actress) => sum + (actress.works ? actress.works.length : 0), 0);
+            document.getElementById('wordCloudStats').textContent = `女优总数：${actressCount}，作品总数：${workCount}`;
+
+            const wordData = list.map(a => ({
+                name: a.name,
+                value: Math.max(10, (a.works ? a.works.length : 0) * 5)
+            }));
+
+            // Fetch Theme for customization
+            const activeTheme = Array.from(document.body.classList).find(cls => cls.startsWith('theme-'))?.replace('theme-', '') || 'default';
+            let wordColor;
+            let shadowColor;
+            let tooltipBg;
+            let tooltipText;
+
+            if (activeTheme === 'skin1') {
+                const neonColors = ['#a78bfa', '#f472b6', '#38bdf8', '#34d399', '#facc15', '#fb923c'];
+                wordColor = () => neonColors[Math.floor(Math.random() * neonColors.length)];
+                shadowColor = '#8b5cf6';
+                tooltipBg = '#1e293b';
+                tooltipText = '#f8fafc';
+            } else if (activeTheme === 'skin2') {
+                const sakuraColors = ['#db2777', '#ec4899', '#be185d', '#9d174d', '#0d9488', '#8c7373'];
+                wordColor = () => sakuraColors[Math.floor(Math.random() * sakuraColors.length)];
+                shadowColor = '#db2777';
+                tooltipBg = '#fff5f5';
+                tooltipText = '#4a2c2c';
+            } else {
+                const defaultColors = ['#312e81', '#1e3a8a', '#064e3b', '#4f46e5', '#4338ca', '#581c87'];
+                wordColor = () => defaultColors[Math.floor(Math.random() * defaultColors.length)];
+                shadowColor = '#4f46e5';
+                tooltipBg = '#ffffff';
+                tooltipText = '#0f172a';
+            }
+
+            const option = {
+                tooltip: {
+                    show: true,
+                    backgroundColor: tooltipBg,
+                    borderColor: 'rgba(0, 0, 0, 0.05)',
+                    borderWidth: 1,
+                    textStyle: {
+                        color: tooltipText,
+                        fontSize: 12,
+                        fontWeight: 'bold'
+                    },
+                    formatter: p => `${p.name}：${(p.value / 5).toFixed(0)} 个作品`
+                },
+                series: [{
+                    type: 'wordCloud',
+                    shape: 'circle',
+                    keepAspect: true,
+                    gridSize: 8,
+                    sizeRange: [14, 38],
+                    rotationRange: [-45, 45],
+                    rotationStep: 45,
+                    textStyle: {
+                        color: wordColor,
+                        fontWeight: 'bold'
+                    },
+                    shrinkToFit: true,
+                    emphasis: {
+                        textStyle: {
+                            shadowBlur: 15,
+                            shadowColor: shadowColor
+                        }
+                    },
+                    data: wordData
+                }]
+            };
+
+            chart.setOption(option);
+
+            chart.off('click');
+            chart.on('click', (params) => {
+                const name = params.name;
+                const id = `actress-${encodeURIComponent(name)}`;
+                const element = document.getElementById(id);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    element.classList.add('ring-2', 'ring-brand-primary');
+                    setTimeout(() => element.classList.remove('ring-2', 'ring-brand-primary'), 2000);
+                }
+            });
+
+            if (!window.chartResizeRegistered) {
+                window.addEventListener('resize', () => {
+                    const activeChart = echarts.getInstanceByDom(document.getElementById('wordCloud'));
+                    if (activeChart) activeChart.resize();
+                });
+                window.chartResizeRegistered = true;
+            }
+        }
+
+        // ========================
+        // Event Binding Initialization
+        // ========================
+        function setupEventListeners() {
+            document.querySelectorAll('.btn-add-actress').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const name = prompt('请输入女优姓名：');
+                    if (!name) return;
+                    data.actresses.push({
+                        name,
+                        expanded: true,
+                        works: []
+                    });
+                    renderActressList();
+                    renderWordCloud();
+                    showToast('新女优已添加，请记得保存。');
+                });
+            });
+
+            document.querySelectorAll('.btn-save-all').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    if (sortMode) {
+                        showToast('请先完成排序或取消排序操作。', true);
+                        return;
+                    }
+                    await saveToCloud();
+                });
+            });
+
+            document.querySelectorAll('.btn-toggle-sort').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    sortMode = !sortMode;
+                    if (sortMode) {
+                        stagingActresses = JSON.parse(JSON.stringify(data.actresses || []));
+                        showToast('进入排序模式（改动尚未保存）');
+                    } else {
+                        stagingActresses = null;
+                    }
+                    updateSortButtonsUI();
+                    renderActressList();
+                    renderWordCloud();
+                });
+            });
+
+            document.querySelectorAll('.btn-cancel-sort').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    sortMode = false;
+                    stagingActresses = null;
+                    updateSortButtonsUI();
+                    renderActressList();
+                    renderWordCloud();
+                    showToast('已取消排序操作');
+                });
+            });
+
+            document.querySelectorAll('.btn-save-sort').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (!stagingActresses) return;
+                    data.actresses = JSON.parse(JSON.stringify(stagingActresses));
+                    sortMode = false;
+                    stagingActresses = null;
+                    updateSortButtonsUI();
+                    renderActressList();
+                    renderWordCloud();
+                    showToast('排序已暂存本地，请记得保存改动。');
+                });
+            });
+
+            document.getElementById('saveSiteList').addEventListener('click', () => {
+                const text = document.getElementById('siteListInput').value;
+                data.config.sitelist = text.split('\n').map(s => s.trim()).filter(s => s !== '');
+                showToast('站点列表已更新到本地，请记得保存。');
+            });
+
+            document.getElementById('resetSiteList').addEventListener('click', () => {
+                renderSiteList();
+                showToast('站点配置已重置为当前数据。');
+            });
+
+            document.getElementById('btn-sort-nav').addEventListener('click', toggleNavSort);
+        }
+
+        // ========================
+        // Application Startup
+        // ========================
+        async function init() {
+            // Theme initialization
+            const savedTheme = localStorage.getItem('watchlist-theme') || 'default';
+            setTheme(savedTheme);
+
+            const container = document.getElementById('actressList');
+            container.innerHTML = `<div class="bg-brand-surface border border-brand-border p-8 rounded-2xl text-brand-textMuted italic flex items-center justify-center gap-2 shadow-brand-md">
+                <svg class="animate-spin h-5 w-5 text-brand-primary" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                <span>数据加载中...</span>
+            </div>`;
+
+            try {
+                const fetched = await fetchData();
+                if (fetched) data = fetched;
+            } catch (err) {
+                container.innerHTML = `<div class="bg-rose-500/10 border border-rose-500/20 p-6 rounded-2xl text-rose-500 flex flex-col gap-2 shadow-brand-md">
+                    <div class="font-bold flex items-center gap-1.5"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>加载失败</div>
+                    <div class="text-sm">错误原因：${err.message}。请检查网络配置或重新刷新。</div>
+                </div>`;
+                showToast('云端数据加载失败，请检查网络配置。', true);
+                console.error(err);
+            }
+
+            if (!data.config) data.config = { sitelist: [] };
+            if (!data.actresses) data.actresses = [];
+
+            renderSiteList();
+            renderActressList();
+            renderWordCloud();
+            setupEventListeners();
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+
+</html>

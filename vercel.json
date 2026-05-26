@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/api/watchlist/:path*",
-      "destination": "https://kmc-watchlist.vercel-storage.com/:path*"
-    }
-  ]
-}

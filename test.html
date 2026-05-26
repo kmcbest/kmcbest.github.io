@@ -35,13 +35,14 @@
     </div>
 
     <script>
-        // 基于你在 vercel.json 里配置的免翻墙中转路径
-        // 前端通过相对路径发出请求，由 Vercel 在后台通过内网请求 Vercel Storage 域名
+<script>
+        // 现在的请求路径直接指向 Vercel 的 Serverless 后端接口
         const API_URL = '/api/watchlist';
         
-        // 这一串 Token 是 Vercel 自动注入的，我们利用 Vercel 路由把它传过去
+        // 对应你在后端写好的访问暗号
         const HEADERS = {
-            'Authorization': 'Bearer ' + 'TOKEN_PLACEHOLDER' // 占位符，由 Vercel 代理处理或直接使用底层通信
+            'Content-Type': 'application/json',
+            'X-Watchlist-Auth': 'my_private_secret_key_999'
         };
 
         const logEl = document.getElementById('logOutput');
@@ -55,42 +56,40 @@
             logEl.scrollTop = logEl.scrollHeight;
         }
 
-        // ==========================================
-        // 测试写入 (SET)
-        // ==========================================
+        // 测试写入 (POST)
         document.getElementById('btnSet').addEventListener('click', async () => {
-            printLog('正在尝试写入测试数据...');
+            printLog('正在通过后端接口写入测试数据...');
             
-            // 测试用的键名叫 test_key，值是一个简单的 JSON 字符串
-            const testData = JSON.stringify({ test_status: "OK", timestamp: Date.now() });
+            // 模拟原网页的结构，带上配置和女优列表
+            const mockWatchlistData = {
+                config: { sitelist: ["xasiat", "google"] },
+                actresses: [{ name: "测试女优A", expanded: true, works: [] }]
+            };
             
             try {
-                // 根据 Vercel KV REST API 标准规范：POST /set/key
-                // Body 直接传要存进去的纯文本或字符串
-                const res = await fetch(`${API_URL}/set/test_key`, {
+                const res = await fetch(API_URL, {
                     method: 'POST',
-                    body: testData
+                    headers: HEADERS,
+                    body: JSON.stringify(mockWatchlistData) // 直接把对象当成 Body 发给后端
                 });
 
                 if (!res.ok) throw new Error(`HTTP状态码异常: ${res.status}`);
                 const result = await res.json();
                 
-                printLog(`写入成功！数据库响应: ${JSON.stringify(result)}`);
+                printLog(`写入成功！接口返回: ${JSON.stringify(result)}`);
             } catch (err) {
                 printLog(`写入失败，原因: ${err.message}`, true);
             }
         });
 
-        // ==========================================
         // 测试读取 (GET)
-        // ==========================================
         document.getElementById('btnGet').addEventListener('click', async () => {
-            printLog('正在尝试读取测试数据...');
+            printLog('正在通过后端接口读取测试数据...');
             
             try {
-                // 根据 Vercel KV REST API 标准规范：GET /get/key
-                const res = await fetch(`${API_URL}/get/test_key`, {
-                    method: 'GET'
+                const res = await fetch(API_URL, {
+                    method: 'GET',
+                    headers: HEADERS
                 });
 
                 if (!res.ok) throw new Error(`HTTP状态码异常: ${res.status}`);

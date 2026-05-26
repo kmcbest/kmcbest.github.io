@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Fanfic Architect V5.1 (Cloud)</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --panel-bg: #1e1e1e;
+            --card-bg: #262626;
+            --input-bg: #333;
+            --text-main: #e0e0e0;
+            --text-muted: #888;
+            --accent: #4caf50;
+            --highlight: #2196f3;
+            --border: #444;
+            --danger: #ff5252;
+            --warning: #ff9800;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
+
+        .container { display: flex; width: 100%; height: 100%; }
+        .panel { padding: 20px; display: flex; flex-direction: column; gap: 15px; overflow-y: auto; }
+        .left-panel { flex: 1.3; border-right: 1px solid var(--border); }
+        .right-panel { flex: 1; background-color: #181818; }
+
+        h3 { margin: 0 0 10px 0; font-size: 0.95rem; color: var(--highlight); text-transform: uppercase; letter-spacing: 1px; }
+
+        input[type="text"], textarea {
+            background-color: var(--input-bg);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            width: 100%;
+            box-sizing: border-box;
+            resize: vertical;
+            font-size: 0.9rem;
+        }
+        textarea:focus, input:focus { outline: 1px solid var(--highlight); border-color: var(--highlight); }
+
+        .btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: 0.2s;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        .btn:hover { background-color: #444; }
+        .btn-primary { background-color: var(--highlight); border-color: var(--highlight); color: white; }
+        .btn-primary:hover { background-color: #1976d2; }
+        
+        /* Cloud Sync Buttons */
+        .btn-cloud { background-color: #2c3e50; border-color: #34495e; color: #ecf0f1; }
+        .btn-cloud:hover { background-color: #34495e; color: #fff; }
+
+        .sync-area {
+            background: #252525;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #444;
+            margin-top: auto;
+        }
+        .sync-buttons { display: flex; gap: 10px; margin-top: 10px; }
+        .sync-status { font-size: 0.75rem; color: #aaa; margin-top: 5px; text-align: right; min-height: 1.2em;}
+        
+        /* Character Cards */
+        .char-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+        .char-card.inactive { opacity: 0.6; border-color: #333; }
+        .char-header {
+            display: flex; align-items: center; padding: 10px;
+            background-color: #2d2d2d; border-radius: 6px 6px 0 0; gap: 12px;
+        }
+        .char-toggle { transform: scale(1.2); cursor: pointer; accent-color: var(--accent); }
+        .char-name-display { flex: 1; font-weight: bold; font-size: 1rem; cursor: pointer; }
+        .char-body { padding: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; border-top: 1px solid var(--border); }
+        .char-body.hidden { display: none; }
+        
+        /* Field Blocks */
+        .field-block {
+            background-color: #1a1a1a; padding: 8px; border-radius: 4px; border: 1px solid #333;
+            display: flex; flex-direction: column; gap: 5px;
+        }
+        .field-block.full-width { grid-column: span 2; }
+        .field-header { display: flex; align-items: center; gap: 8px; }
+        .field-label { font-size: 0.75rem; color: var(--text-muted); font-weight: bold; cursor: pointer; flex:1; }
+        .field-check { cursor: pointer; accent-color: var(--highlight); }
+        .field-block.inactive textarea { opacity: 0.4; pointer-events: none; }
+        .field-block.inactive .field-label { text-decoration: line-through; opacity: 0.5; }
+
+        .preview-box {
+            flex: 1; background-color: #111; border: 1px solid var(--border); padding: 15px;
+            white-space: pre-wrap; font-family: 'Consolas', monospace; font-size: 0.9rem; color: #ddd; overflow-y: auto;
+        }
+        .status-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; color: #666; font-size: 0.8rem; }
+        
+        /* Loading Overlay */
+        #loading-overlay {
+            position: fixed; top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.7); z-index: 999; display: none;
+            align-items: center; justify-content: center; color: white; font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<div id="loading-overlay">☁️ Syncing with Cloud...</div>
+
+<div class="container">
+    <div class="panel left-panel">
+        
+        <div>
+            <h3>🛠️ Global Context</h3>
+            <div style="display:flex; gap:15px; margin-bottom:12px;">
+                <label style="cursor:pointer; display:flex; align-items:center; gap:5px; font-size:0.9rem;">
+                    <input type="checkbox" id="use-meta" checked> Internal Notes
+                </label>
+                <label style="cursor:pointer; display:flex; align-items:center; gap:5px; font-size:0.9rem;">
+                    <input type="checkbox" id="use-story" checked> Story So Far
+                </label>
+                <label style="cursor:pointer; display:flex; align-items:center; gap:5px; font-size:0.9rem;">
+                    <input type="checkbox" id="use-tone" checked> Tone & Rules
+                </label>
+            </div>
+            <textarea id="meta-goal" placeholder="Goal & Theme..." rows="2"></textarea>
+            <textarea id="story-so-far" placeholder="Story So Far..." rows="3" style="margin-top:8px;"></textarea>
+        </div>
+
+        <div>
+            <h3>👥 Character Roster</h3>
+            <div id="char-container"></div>
+            <button class="btn" onclick="addNewChar()" style="width:100%; border-style:dashed; color:#888;">+ Add New Character</button>
+        </div>
+
+        <div>
+            <h3>🎬 Scene Beats</h3>
+            <input type="text" id="task-overview" placeholder="Task Overview..." style="margin-bottom:8px;">
+            <textarea id="scene-beats" placeholder="- Beat 1&#10;- Beat 2..." rows="6"></textarea>
+        </div>
+        
+        <details>
+            <summary style="cursor:pointer; color:var(--highlight); font-weight:bold; font-size:0.9rem;">🎨 Tone & Config</summary>
+            <textarea id="tone-rules" rows="7" style="font-size:0.85rem; margin-top:5px;"></textarea>
+            <input type="text" id="end-instr" style="margin-top:2px;">
+        </details>
+
+        <div class="sync-area">
+            <h3 style="color:#aaa; font-size:0.85rem; border-bottom:1px solid #444; padding-bottom:5px;">☁️ CLOUD SYNC (VERCEL KV)</h3>
+            <div class="sync-buttons">
+                <button class="btn btn-cloud" onclick="remoteLoad(true)" title="Download from Cloud">⬇️ Load</button>
+                <button class="btn btn-cloud" onclick="remoteSave()" title="Upload to Cloud">⬆️ Save</button>
+                <button class="btn" onclick="copyDataString()" title="Backup to clipboard" style="margin-left:auto;">📋 Copy</button>
+            </div>
+            <div id="cloud-status" class="sync-status">Ready</div>
+        </div>
+    </div>
+
+    <div class="panel right-panel">
+        <div class="status-bar">
+            <strong>PROMPT PREVIEW</strong>
+            <span id="save-status">Ready</span>
+        </div>
+        <div class="preview-box" id="output"></div>
+        <div style="display:flex; gap:10px; margin-top:10px;">
+            <button class="btn btn-primary" onclick="copyPrompt()">📋 Copy Prompt</button>
+            <button class="btn" onclick="generatePrompt()">🔄 Refresh</button>
+            <button class="btn" onclick="clearBeats()" style="margin-left:auto; color:#ff5252;">🗑️ Clear Beats</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // =========================================================
+    // Vercel Serverless Function 代理路由设置
+    // =========================================================
+    const API_URL = '/api/watchlist';
+    const HEADERS = {
+        'Content-Type': 'application/json',
+        'X-Watchlist-Auth': 'my_private_secret_key_999',
+        'X-Watchlist-Key': 'fanfic_builder_data' // 本项目在独立 Redis 中的专属数据分区键名
+    };
+    // =========================================================
+
+    const PREFILL_TONE = `- Start IN MEDIAS RES with physical motion or dialogue.
+- NO scenic opening, NO mood painting, NO weather/time-of-day prose.
+- Focus on technique, tension, internal thought, relationship dynamics.
+- Elegant writing, martial precision, emotional subtlety.
+- Professional narrative prose, not pulp or melodrama.
+- NO lyrical wrap-ups. NO thematic coda. Cut mid-moment, not resolved.`;
+
+    const PREFILL_END = `End the passage as Lucia and Mika square up. Hard stop. No metaphor, no moral, no soft landing.`;
+
+    const FIELDS_CONFIG = [
+        { key: 'appearance', label: 'Appearance', rows: 2, full: false },
+        { key: 'moves', label: 'Combat Style & Moves', rows: 3, full: true }, 
+        { key: 'personality', label: 'Personality Traits', rows: 2, full: false },
+        { key: 'dialogue', label: 'Dialogue Patterns', rows: 2, full: false },
+        { key: 'bodyLang', label: 'Body Language & Subtleties', rows: 2, full: true },
+        { key: 'background', label: 'Background & Values', rows: 2, full: false },
+        { key: 'motivations', label: 'Key Motivations', rows: 2, full: false },
+        { key: 'relationships', label: 'Relationships', rows: 2, full: true },
+        { key: 'conflicts', label: 'Conflict & Contradiction', rows: 2, full: false },
+        { key: 'sexual', label: 'Sexual Indicator/Dynamics', rows: 2, full: false }
+    ];
+
+    let appData = {
+        metaGoal: "", storySoFar: "", taskOverview: "", sceneBeats: "",
+        toneRules: PREFILL_TONE, endInstr: PREFILL_END,
+        useMeta: true, useStory: true, useTone: true,
+        characters: [] 
+    };
+
+    const STORAGE_KEY = 'fanfic_builder_v5_1'; 
+
+    window.onload = async () => {
+        // 1. 先尝试加载本地缓存
+        loadLocal();
+        
+        // 2. 如果本地是空的，初始化一个角色
+        if(appData.characters.length === 0) addNewChar();
+        else renderCharList();
+
+        // 3. 渲染一次 Preview
+        generatePrompt();
+
+        // 4. 尝试从云端加载最新数据 (静默模式)
+        await remoteLoad(false); 
+        
+        // 5. 绑定输入监听
+        document.body.addEventListener('input', (e) => handleInput(e));
+        document.body.addEventListener('change', (e) => handleInput(e));
+    };
+
+    function handleInput(e) {
+        if(e.target.closest('.char-card')) updateCharData(e.target);
+        else if(appData.hasOwnProperty(e.target.id)) {
+            appData[e.target.id] = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+        }
+        saveLocal();
+        generatePrompt();
+    }
+
+    // --- Core Logic ---
+    function addNewChar() {
+        const newChar = { id: Date.now(), name: "", active: true, expanded: true, fields: {} };
+        FIELDS_CONFIG.forEach(f => newChar.fields[f.key] = { text: "", active: true });
+        appData.characters.push(newChar);
+        renderCharList();
+        saveLocal();
+        generatePrompt();
+    }
+
+    function deleteChar(id) {
+        if(confirm("Delete this character?")) {
+            appData.characters = appData.characters.filter(c => c.id !== id);
+            renderCharList();
+            saveLocal();
+            generatePrompt();
+        }
+    }
+
+    function toggleExpand(id) {
+        const char = appData.characters.find(c => c.id === id);
+        if(char) { char.expanded = !char.expanded; renderCharList(); }
+    }
+
+    function renderCharList() {
+        const container = document.getElementById('char-container');
+        container.innerHTML = "";
+        appData.characters.forEach(char => {
+            const card = document.createElement('div');
+            card.className = `char-card ${char.active ? '' : 'inactive'} ${char.expanded ? '' : 'collapsed'}`;
+            card.dataset.id = char.id;
+            
+            let html = `
+                <div class="char-header">
+                    <input type="checkbox" class="char-toggle" ${char.active ? 'checked' : ''} onchange="toggleCharActive(${char.id})">
+                    <div class="char-name-display" onclick="toggleExpand(${char.id})">${char.name || "New Character"}</div>
+                    <button class="btn" style="padding:2px 6px; background:transparent;" onclick="deleteChar(${char.id})">✖</button>
+                </div>
+                <div class="char-body ${char.expanded ? '' : 'hidden'}">
+                    <div class="field-block full-width">
+                        <div class="field-header"><span class="field-label" style="color:var(--highlight);">NAME</span></div>
+                        <input type="text" class="char-name-input" value="${char.name}" placeholder="e.g. Juri">
+                    </div>`;
+            
+            FIELDS_CONFIG.forEach(cfg => {
+                const fData = char.fields[cfg.key];
+                html += `
+                    <div class="field-block ${cfg.full ? 'full-width' : ''} ${fData.active ? '' : 'inactive'}">
+                        <div class="field-header">
+                            <input type="checkbox" class="field-toggle" data-key="${cfg.key}" ${fData.active ? 'checked' : ''}>
+                            <span class="field-label" onclick="toggleFieldCheck(this)">${cfg.label.toUpperCase()}</span>
+                        </div>
+                        <textarea data-key="${cfg.key}" class="field-text" rows="${cfg.rows}">${fData.text}</textarea>
+                    </div>`;
+            });
+            html += `</div>`;
+            card.innerHTML = html;
+            container.appendChild(card);
+        });
+    }
+
+    function toggleCharActive(id) {
+        const char = appData.characters.find(c => c.id === id);
+        if(char) { char.active = !char.active; renderCharList(); saveLocal(); generatePrompt(); }
+    }
+
+    window.toggleFieldCheck = function(el) { el.previousElementSibling.click(); }
+
+    function updateCharData(target) {
+        const char = appData.characters.find(c => c.id === parseInt(target.closest('.char-card').dataset.id));
+        if(!char) return;
+        if(target.classList.contains('char-name-input')) {
+            char.name = target.value;
+            target.closest('.char-card').querySelector('.char-name-display').textContent = char.name || "New Character";
+        } else if (target.classList.contains('field-text')) {
+            char.fields[target.dataset.key].text = target.value;
+        } else if (target.classList.contains('field-toggle')) {
+            char.fields[target.dataset.key].active = target.checked;
+            target.closest('.field-block').classList.toggle('inactive', !target.checked);
+        }
+    }
+
+    function generatePrompt() {
+        let p = "";
+        if(appData.useMeta) {
+            p += `[INTERNAL STORY NOTES — do NOT narrate directly]\n`;
+            if(appData.metaGoal) p += `Goal/Theme: ${appData.metaGoal}\n`;
+            p += `\n`;
+        }
+        const activeChars = appData.characters.filter(c => c.active);
+        if(activeChars.length > 0) {
+            p += `[CHARACTER SHEETS — Strict adherence to traits required]\n`;
+            activeChars.forEach(c => {
+                p += `=== ${(c.name||"Unknown").toUpperCase()} ===\n`;
+                FIELDS_CONFIG.forEach(cfg => {
+                    const fData = c.fields[cfg.key];
+                    if(fData.active && fData.text.trim()) p += `[${cfg.label}]: ${fData.text}\n`;
+                });
+                p += `\n`;
+            });
+        }
+        if(appData.useStory && appData.storySoFar) p += `[STORY SO FAR — Context only]\n${appData.storySoFar}\n\n`;
+        p += `[YOUR TASK]\n${appData.taskOverview || "Write the scene."}\n\n`;
+        p += `[SCENE BEATS]\n${appData.sceneBeats}\n\n`;
+        if(appData.useTone) p += `[TONE & RULES]\n${appData.toneRules}\n\n[ENDING INSTRUCTION]\n${appData.endInstr}`;
+        document.getElementById('output').textContent = p;
+    }
+
+    // --- State & Storage Management ---
+
+    // 1. 将 appData 里的内容填充到 UI 输入框
+    function updateUI() {
+        document.getElementById('meta-goal').value = appData.metaGoal || "";
+        document.getElementById('story-so-far').value = appData.storySoFar || "";
+        document.getElementById('task-overview').value = appData.taskOverview || "";
+        document.getElementById('scene-beats').value = appData.sceneBeats || "";
+        document.getElementById('tone-rules').value = appData.toneRules || PREFILL_TONE;
+        document.getElementById('end-instr').value = appData.endInstr || PREFILL_END;
+        document.getElementById('use-meta').checked = appData.useMeta !== false;
+        document.getElementById('use-story').checked = appData.useStory !== false;
+        document.getElementById('use-tone').checked = appData.useTone !== false;
+    }
+
+    // 2. 从本地缓存读取数据 -> 更新 appData -> 更新 UI
+    function loadLocal() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if(saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                appData = { ...appData, ...parsed }; // 合并数据
+                updateUI(); // 刷新 UI 文本框
+            } catch(e) { console.error(e); }
+        }
+    }
+
+    // 3. 从 UI 读取数据 -> 更新 appData -> 写入本地缓存
+    function saveLocal() {
+        // 读取非角色数据
+        appData.metaGoal = document.getElementById('meta-goal').value;
+        appData.storySoFar = document.getElementById('story-so-far').value;
+        appData.taskOverview = document.getElementById('task-overview').value;
+        appData.sceneBeats = document.getElementById('scene-beats').value;
+        appData.toneRules = document.getElementById('tone-rules').value;
+        appData.endInstr = document.getElementById('end-instr').value;
+        appData.useMeta = document.getElementById('use-meta').checked;
+        appData.useStory = document.getElementById('use-story').checked;
+        appData.useTone = document.getElementById('use-tone').checked;
+
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+        document.getElementById('save-status').textContent = "Local Saved " + new Date().toLocaleTimeString();
+    }
+
+    // --- Cloud Sync (Vercel KV Proxy) ---
+
+    function showCloudStatus(msg, isError=false) {
+        const el = document.getElementById('cloud-status');
+        el.textContent = msg;
+        el.style.color = isError ? '#ff5252' : '#aaa';
+    }
+
+    function toggleLoading(show) {
+        document.getElementById('loading-overlay').style.display = show ? 'flex' : 'none';
+    }
+
+    async function remoteLoad(isManual = true) {
+        if(isManual) toggleLoading(true);
+        showCloudStatus("Downloading...");
+
+        try {
+            const res = await fetch(API_URL, {
+                method: 'GET',
+                headers: HEADERS
+            });
+
+            if(!res.ok) throw new Error(`HTTP Error ${res.status}`);
+            
+            const remoteData = await res.json();
+
+            // 检查是否有合法的云端返回数据数据
+            if(remoteData) {
+                // 1. 更新内存数据 (合并，保留默认值)
+                appData = { ...appData, ...remoteData };
+                
+                // 2. 强制刷新 UI (把下载下来的 Tone, Story 等填入输入框)
+                updateUI(); 
+                
+                // 3. 重新渲染角色列表
+                renderCharList();
+                
+                // 4. 更新 Preview
+                generatePrompt();
+                
+                // 5. 最后再把这份正确的数据存入 LocalStorage
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+            }
+
+            showCloudStatus("☁️ Synced: " + new Date().toLocaleTimeString());
+
+        } catch(err) {
+            console.error(err);
+            showCloudStatus("Sync Failed: " + err.message, true);
+        } finally {
+            if(isManual) toggleLoading(false);
+        }
+    }
+
+    async function remoteSave() {
+        // 先从屏幕读取最新状态进行本地落盘
+        saveLocal(); 
+
+        toggleLoading(true);
+        showCloudStatus("Uploading...");
+
+        try {
+            const res = await fetch(API_URL, {
+                method: 'POST',
+                headers: HEADERS,
+                body: JSON.stringify(appData)
+            });
+
+            if(!res.ok) throw new Error(`HTTP Error ${res.status}`);
+            
+            showCloudStatus("☁️ Saved to Cloud: " + new Date().toLocaleTimeString());
+
+        } catch(err) {
+            console.error(err);
+            showCloudStatus("Upload Failed: " + err.message, true);
+        } finally {
+            toggleLoading(false);
+        }
+    }
+
+    // --- Misc ---
+    function clearBeats() {
+        document.getElementById('scene-beats').value = "";
+        saveLocal();
+        generatePrompt();
+    }
+
+    function copyPrompt() {
+        navigator.clipboard.writeText(document.getElementById('output').textContent)
+            .then(() => alert("Copied!"));
+    }
+    
+    function copyDataString() {
+        saveLocal();
+        const str = btoa(unescape(encodeURIComponent(JSON.stringify(appData))));
+        navigator.clipboard.writeText(str).then(() => {
+            alert("Backup string copied to clipboard (Manual backup).");
+        });
+    }
+
+</script>
+</body>
+</html>

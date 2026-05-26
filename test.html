@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vercel KV 连通性测试</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex items-center justify-center p-4">
+
+    <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-200 max-w-md w-full">
+        <h1 class="text-xl font-bold mb-4 text-indigo-600 flex items-center gap-2">
+            <span class="inline-block w-3 h-3 rounded-full bg-indigo-600 animate-pulse"></span>
+            数据库连通性联调面板
+        </h1>
+        
+        <div class="mb-6 p-4 bg-slate-100 rounded-xl">
+            <h2 class="text-sm font-bold mb-2">1. 写入测试 (写入一条临时数据)</h2>
+            <button id="btnSet" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-2 px-4 rounded-lg transition-colors">
+                向数据库存入 {"test_status": "OK"}
+            </button>
+        </div>
+
+        <div class="mb-4 p-4 bg-slate-100 rounded-xl">
+            <h2 class="text-sm font-bold mb-2">2. 读取测试 (获取最新数据)</h2>
+            <button id="btnGet" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold py-2 px-4 rounded-lg transition-colors">
+                从数据库读取数据
+            </button>
+        </div>
+
+        <div class="mt-4">
+            <h2 class="text-xs font-bold text-slate-400 mb-1 uppercase tracking-wider">执行日志反馈</h2>
+            <pre id="logOutput" class="bg-slate-900 text-emerald-400 p-3 rounded-lg text-xs font-mono min-h-[120px] overflow-auto whitespace-pre-wrap">等待操作...</pre>
+        </div>
+    </div>
+
+    <script>
+        // 基于你在 vercel.json 里配置的免翻墙中转路径
+        // 前端通过相对路径发出请求，由 Vercel 在后台通过内网请求 Vercel Storage 域名
+        const API_URL = '/api/watchlist';
+        
+        // 这一串 Token 是 Vercel 自动注入的，我们利用 Vercel 路由把它传过去
+        const HEADERS = {
+            'Authorization': 'Bearer ' + 'TOKEN_PLACEHOLDER' // 占位符，由 Vercel 代理处理或直接使用底层通信
+        };
+
+        const logEl = document.getElementById('logOutput');
+        function printLog(msg, isError = false) {
+            const time = new Date().toLocaleTimeString();
+            if (isError) {
+                logEl.innerHTML += `\n[${time}] ❌ ${msg}`;
+            } else {
+                logEl.innerHTML += `\n[${time}] ➔ ${msg}`;
+            }
+            logEl.scrollTop = logEl.scrollHeight;
+        }
+
+        // ==========================================
+        // 测试写入 (SET)
+        // ==========================================
+        document.getElementById('btnSet').addEventListener('click', async () => {
+            printLog('正在尝试写入测试数据...');
+            
+            // 测试用的键名叫 test_key，值是一个简单的 JSON 字符串
+            const testData = JSON.stringify({ test_status: "OK", timestamp: Date.now() });
+            
+            try {
+                // 根据 Vercel KV REST API 标准规范：POST /set/key
+                // Body 直接传要存进去的纯文本或字符串
+                const res = await fetch(`${API_URL}/set/test_key`, {
+                    method: 'POST',
+                    body: testData
+                });
+
+                if (!res.ok) throw new Error(`HTTP状态码异常: ${res.status}`);
+                const result = await res.json();
+                
+                printLog(`写入成功！数据库响应: ${JSON.stringify(result)}`);
+            } catch (err) {
+                printLog(`写入失败，原因: ${err.message}`, true);
+            }
+        });
+
+        // ==========================================
+        // 测试读取 (GET)
+        // ==========================================
+        document.getElementById('btnGet').addEventListener('click', async () => {
+            printLog('正在尝试读取测试数据...');
+            
+            try {
+                // 根据 Vercel KV REST API 标准规范：GET /get/key
+                const res = await fetch(`${API_URL}/get/test_key`, {
+                    method: 'GET'
+                });
+
+                if (!res.ok) throw new Error(`HTTP状态码异常: ${res.status}`);
+                const result = await res.json();
+                
+                printLog(`读取成功！拿到的完整内容为:\n${JSON.stringify(result, null, 2)}`);
+            } catch (err) {
+                printLog(`读取失败，原因: ${err.message}`, true);
+            }
+        });
+    </script>
+</body>
+</html>

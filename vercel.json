@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/*.js": {
-      "runtime": "vercel-nodejs@20"
-    }
-  },
   "routes": [
     {
       "src": "/api/watchlist",

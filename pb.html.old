@@ -104,7 +104,6 @@
         .char-body { padding: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; border-top: 1px solid var(--border); }
         .char-body.hidden { display: none; }
         
-        /* Field Blocks */
         .field-block {
             background-color: #1a1a1a; padding: 8px; border-radius: 4px; border: 1px solid #333;
             display: flex; flex-direction: column; gap: 5px;
@@ -135,8 +134,10 @@
 <div id="loading-overlay">☁️ Syncing with Cloud...</div>
 
 <div class="container">
+    <!-- 左侧：编辑区 -->
     <div class="panel left-panel">
         
+        <!-- 1. 全局配置 -->
         <div>
             <h3>🛠️ Global Context</h3>
             <div style="display:flex; gap:15px; margin-bottom:12px;">
@@ -154,26 +155,30 @@
             <textarea id="story-so-far" placeholder="Story So Far..." rows="3" style="margin-top:8px;"></textarea>
         </div>
 
+        <!-- 2. 角色管理 -->
         <div>
             <h3>👥 Character Roster</h3>
             <div id="char-container"></div>
             <button class="btn" onclick="addNewChar()" style="width:100%; border-style:dashed; color:#888;">+ Add New Character</button>
         </div>
 
+        <!-- 3. 当前场景 -->
         <div>
             <h3>🎬 Scene Beats</h3>
-            <textarea id="task-overview" placeholder="Task Overview..." rows="2" style="margin-bottom:8px;"></textarea>
+            <input type="text" id="task-overview" placeholder="Task Overview..." style="margin-bottom:8px;">
             <textarea id="scene-beats" placeholder="- Beat 1&#10;- Beat 2..." rows="6"></textarea>
         </div>
         
+        <!-- 4. Tone (收起) -->
         <details>
             <summary style="cursor:pointer; color:var(--highlight); font-weight:bold; font-size:0.9rem;">🎨 Tone & Config</summary>
             <textarea id="tone-rules" rows="7" style="font-size:0.85rem; margin-top:5px;"></textarea>
             <input type="text" id="end-instr" style="margin-top:2px;">
         </details>
 
+        <!-- 5. 云端同步区域 -->
         <div class="sync-area">
-            <h3 style="color:#aaa; font-size:0.85rem; border-bottom:1px solid #444; padding-bottom:5px;">☁️ CLOUD SYNC (VERCEL KV)</h3>
+            <h3 style="color:#aaa; font-size:0.85rem; border-bottom:1px solid #444; padding-bottom:5px;">☁️ CLOUD SYNC (JSONBIN)</h3>
             <div class="sync-buttons">
                 <button class="btn btn-cloud" onclick="remoteLoad(true)" title="Download from Cloud">⬇️ Load</button>
                 <button class="btn btn-cloud" onclick="remoteSave()" title="Upload to Cloud">⬆️ Save</button>
@@ -183,6 +188,7 @@
         </div>
     </div>
 
+    <!-- 右侧：预览区 -->
     <div class="panel right-panel">
         <div class="status-bar">
             <strong>PROMPT PREVIEW</strong>
@@ -199,15 +205,13 @@
 
 <script>
     // =========================================================
-    // Vercel Serverless Function 代理路由设置
+    // ⚠️ 配置区域：请在此处填入你的 JSONBIN 信息 ⚠️
     // =========================================================
-    const API_URL = '/api/watchlist';
-    const HEADERS = {
-        'Content-Type': 'application/json',
-        'X-Watchlist-Auth': 'my_private_secret_key_999',
-        'X-Watchlist-Key': 'fanfic_builder_data' // 本项目在独立 Redis 中的专属数据分区键名
-    };
+    const JSONBIN_BIN_ID = "695dd6d9ae596e708fca3334"; 
+    const JSONBIN_ACCESS_KEY = "$2a$10$mieisGzXJ1HWb2WWO/gwVuFS6mcBP2j7jqjCJtwV8HmUbz/b9X6G.";
     // =========================================================
+    
+    const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
 
     const PREFILL_TONE = `- Start IN MEDIAS RES with physical motion or dialogue.
 - NO scenic opening, NO mood painting, NO weather/time-of-day prose.
@@ -252,7 +256,11 @@
         generatePrompt();
 
         // 4. 尝试从云端加载最新数据 (静默模式)
-        await remoteLoad(false); 
+        if(JSONBIN_BIN_ID && JSONBIN_ACCESS_KEY) {
+            await remoteLoad(false); 
+        } else {
+            showCloudStatus("⚠️ API Key/Bin ID missing.");
+        }
         
         // 5. 绑定输入监听
         document.body.addEventListener('input', (e) => handleInput(e));
@@ -420,7 +428,7 @@
         document.getElementById('save-status').textContent = "Local Saved " + new Date().toLocaleTimeString();
     }
 
-    // --- Cloud Sync (Vercel KV Proxy) ---
+    // --- Cloud Sync (JSONBIN) ---
 
     function showCloudStatus(msg, isError=false) {
         const el = document.getElementById('cloud-status');
@@ -433,36 +441,45 @@
     }
 
     async function remoteLoad(isManual = true) {
+        if(!JSONBIN_BIN_ID || !JSONBIN_ACCESS_KEY) {
+            if(isManual) alert("Please configure JSONBIN_BIN_ID and JSONBIN_ACCESS_KEY in the code first.");
+            return;
+        }
+
         if(isManual) toggleLoading(true);
         showCloudStatus("Downloading...");
 
         try {
-            const res = await fetch(API_URL, {
+            const res = await fetch(`${JSONBIN_URL}/latest`, {
                 method: 'GET',
-                headers: HEADERS
+                headers: {
+                    'X-Access-Key': JSONBIN_ACCESS_KEY,
+                    'Content-Type': 'application/json'
+                }
             });
 
             if(!res.ok) throw new Error(`HTTP Error ${res.status}`);
             
-            const remoteData = await res.json();
+            const json = await res.json();
+            // JSONBin V3 结构处理
+            const remoteData = json.record || json;
 
-            // 检查是否有合法的云端返回数据数据
-            if(remoteData) {
-                // 1. 更新内存数据 (合并，保留默认值)
-                appData = { ...appData, ...remoteData };
-                
-                // 2. 强制刷新 UI (把下载下来的 Tone, Story 等填入输入框)
-                updateUI(); 
-                
-                // 3. 重新渲染角色列表
-                renderCharList();
-                
-                // 4. 更新 Preview
-                generatePrompt();
-                
-                // 5. 最后再把这份正确的数据存入 LocalStorage
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
-            }
+            // ⚠️ 关键修正：
+            // 1. 更新内存数据 (合并，保留默认值)
+            appData = { ...appData, ...remoteData };
+            
+            // 2. 强制刷新 UI (把下载下来的 Tone, Story 等填入输入框)
+            updateUI(); 
+            
+            // 3. 重新渲染角色列表
+            renderCharList();
+            
+            // 4. 更新 Preview
+            generatePrompt();
+            
+            // 5. 最后再把这份正确的数据存入 LocalStorage
+            // (千万不能在这里调用 saveLocal()，因为 saveLocal 会从 input 读取，如果 updateUI 没执行完就读会出问题)
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
 
             showCloudStatus("☁️ Synced: " + new Date().toLocaleTimeString());
 
@@ -475,16 +492,24 @@
     }
 
     async function remoteSave() {
-        // 先从屏幕读取最新状态进行本地落盘
+        if(!JSONBIN_BIN_ID || !JSONBIN_ACCESS_KEY) {
+            alert("Please configure JSONBIN_BIN_ID and JSONBIN_ACCESS_KEY in the code first.");
+            return;
+        }
+
+        // 先从屏幕读取最新状态
         saveLocal(); 
 
         toggleLoading(true);
         showCloudStatus("Uploading...");
 
         try {
-            const res = await fetch(API_URL, {
-                method: 'POST',
-                headers: HEADERS,
+            const res = await fetch(JSONBIN_URL, {
+                method: 'PUT',
+                headers: {
+                    'X-Access-Key': JSONBIN_ACCESS_KEY,
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify(appData)
             });
 

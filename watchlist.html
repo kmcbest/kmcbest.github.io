@@ -6,18 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Watchlist - Modern Edition</title>
 
-    <!-- Google Fonts for Modern Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts-wordcloud@2.0.0/dist/echarts-wordcloud.min.js"></script>
 
-    <!-- Theme Variable Configurations -->
     <style>
         /* Theme variables mapping */
         :root {
@@ -134,7 +131,6 @@
         }
     </style>
 
-    <!-- Tailwind dynamic mapping -->
     <script>
         tailwind.config = {
             theme: {
@@ -178,19 +174,16 @@
 </head>
 
 <body class="bg-brand-bg text-brand-text min-h-screen transition-colors duration-300 font-sans pb-16">
-    <!-- Dynamic glowing backgrounds for modern skins -->
     <div class="fixed top-0 left-1/4 w-[500px] h-[500px] bg-brand-primary/5 rounded-full blur-[120px] pointer-events-none mix-blend-screen transition-all duration-500"></div>
     <div class="fixed bottom-0 right-1/4 w-[400px] h-[400px] bg-brand-success/5 rounded-full blur-[100px] pointer-events-none mix-blend-screen transition-all duration-500"></div>
 
     <div class="max-w-6xl mx-auto p-4 md:p-8 relative z-10">
-        <!-- Header Section -->
         <header class="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
                 <h1 class="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-brand-primary to-brand-success bg-clip-text text-transparent transition-all">Watchlist</h1>
                 <p class="mt-1.5 text-sm text-brand-textMuted">管理关注女优与作品 — 支持编辑 / 排序 / 搜索站点</p>
             </div>
             
-            <!-- Theme Menu Selector (Modern Pill Design) -->
             <div class="flex items-center gap-1.5 p-1 rounded-2xl bg-brand-border/40 border border-brand-border/40 backdrop-blur-md self-start sm:self-center shadow-brand-sm transition-all">
                 <button onclick="setTheme('default')" id="btn-theme-default" class="theme-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200">默认</button>
                 <button onclick="setTheme('skin1')" id="btn-theme-skin1" class="theme-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200">霓虹暗夜</button>
@@ -198,9 +191,7 @@
             </div>
         </header>
 
-        <!-- Main Responsive Layout Grid -->
         <div class="flex gap-6 items-start relative">
-            <!-- Left Sidebar Navigation (Desktop View) -->
             <aside class="hidden md:flex flex-col w-56 shrink-0 h-[calc(100vh-6rem)] sticky top-8 bg-brand-surface border border-brand-border rounded-2xl p-4 shadow-brand-md transition-all duration-300">
                 <div class="flex items-center justify-between pb-3 border-b border-brand-border/60 mb-3">
                     <span class="text-sm font-bold text-brand-text flex items-center gap-1.5 select-none">
@@ -208,17 +199,13 @@
                         女优导航
                     </span>
                     <button id="btn-sort-nav" class="p-1.5 rounded-lg border border-brand-border bg-brand-surface text-brand-textMuted hover:bg-brand-primaryLight hover:text-brand-primaryLightText active:scale-95 transition-all duration-150" title="切换排序：默认 / 拼音">
-                        <!-- Default icon: List order -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"/></svg>
                     </button>
                 </div>
-                <!-- Scrollable list container -->
                 <div id="navActressList" class="sidebar-scroll flex-1 overflow-y-auto pr-1 space-y-1.5 text-sm scrollbar-thin"></div>
             </aside>
 
-            <!-- Main Content Area -->
             <main class="flex-1 min-w-0">
-                <!-- Top Control Bar -->
                 <div class="control-bar mb-6 p-4 rounded-2xl bg-brand-glassBg border border-brand-glassBorder shadow-brand-md backdrop-blur-[var(--glass-blur)] flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all duration-300">
                     <div class="flex flex-wrap gap-2.5">
                         <button class="btn-add-actress inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl bg-brand-primary text-white hover:bg-brand-primaryHover shadow-sm hover:shadow active:scale-95 transition-all duration-200 whitespace-nowrap">
@@ -246,11 +233,9 @@
                     </div>
                 </div>
 
-                <!-- Actress List Container -->
                 <section class="mb-6">
                     <div id="actressList" class="space-y-4"></div>
 
-                    <!-- Bottom Control Bar (Duplicate) -->
                     <div class="control-bar mt-6 p-4 rounded-2xl bg-brand-glassBg border border-brand-glassBorder shadow-brand-md backdrop-blur-[var(--glass-blur)] flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all duration-300">
                         <div class="flex flex-wrap gap-2.5">
                             <button class="btn-add-actress inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl bg-brand-primary text-white hover:bg-brand-primaryHover shadow-sm hover:shadow active:scale-95 transition-all duration-200 whitespace-nowrap">
@@ -279,7 +264,6 @@
                     </div>
                 </section>
 
-                <!-- Search Site Configuration -->
                 <section class="bg-brand-surface rounded-2xl border border-brand-border shadow-brand-md p-6 mb-8 transition-all">
                     <h2 class="text-xl font-bold text-brand-text mb-2.5 flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
@@ -293,7 +277,6 @@
                     </div>
                 </section>
 
-                <!-- Word Cloud Section -->
                 <section class="bg-brand-surface rounded-2xl border border-brand-border shadow-brand-md p-6 transition-all">
                     <h2 class="text-xl font-bold text-brand-text mb-1 flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 12l3-3 3 3 4-4M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
@@ -306,19 +289,19 @@
         </div>
     </div>
 
-    <!-- Search Site Popup -->
     <div id="sitePopup" class="site-popup hidden"></div>
 
-    <!-- Toast Notification Message -->
     <div id="toast" class="toast opacity-0 pointer-events-none"></div>
 
     <script>
         // ========================
-        // JSONBin Cloud Storage API Settings
+        // Vercel Serverless Function Proxy Settings
         // ========================
-        const BIN_ID = '68d60a1643b1c97be9506422';
-        const ACCESS_KEY = '$2a$10$Hi5BNn/VXRh8AX9uTMxQMezW9baqQFhRNXmih/MWi.x0OJ.yKc9m.';
-        const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+        const API_URL = '/api/watchlist';
+        const HEADERS = {
+            'Content-Type': 'application/json',
+            'X-Watchlist-Auth': 'my_private_secret_key_999'
+        };
 
         // Global Data Cache
         let data = {
@@ -388,33 +371,42 @@
         }
 
         // ========================
-        // Network Logic
+        // Network Logic & Hybrid Cache
         // ========================
         async function fetchData() {
             try {
                 const res = await fetch(API_URL, {
                     method: 'GET',
-                    headers: {
-                        'X-Access-Key': ACCESS_KEY,
-                        'Content-Type': 'application/json'
-                    }
+                    headers: HEADERS
                 });
                 if (!res.ok) throw new Error(`加载失败: ${res.status}`);
                 const json = await res.json();
-                return json.record;
+                
+                // 如果云端拉回了有效数据，立即在本地刷新保底快照
+                if (json) {
+                    localStorage.setItem('watchlist-data-backup', JSON.stringify(json));
+                    return json;
+                }
+                return { config: { sitelist: [] }, actresses: [] };
             } catch (err) {
-                console.error('Fetch failed:', err);
+                console.error('Fetch failed, trying local storage...', err);
+                // 极端环境、或者数据库初次联调异常时，捞起本地历史最后的缓存影子
+                const localBackup = localStorage.getItem('watchlist-data-backup');
+                if (localBackup) {
+                    showToast('云端连接失败，已自动载入本地历史缓存数据。', false);
+                    return JSON.parse(localBackup);
+                }
                 throw err;
             }
         }
 
         async function updateData(payload) {
+            // 保存时在本地最快响应链上存一份快照，防止极端断网数据丢失
+            localStorage.setItem('watchlist-data-backup', JSON.stringify(payload));
+
             const res = await fetch(API_URL, {
-                method: 'PUT',
-                headers: {
-                    'X-Access-Key': ACCESS_KEY,
-                    'Content-Type': 'application/json'
-                },
+                method: 'POST',
+                headers: HEADERS,
                 body: JSON.stringify(payload)
             });
             if (!res.ok) throw new Error(`保存失败: ${res.status}`);
@@ -726,7 +718,7 @@
             const works = (arr[actressIdx] && arr[actressIdx].works) ? arr[actressIdx].works : [];
 
             if (!works.length) {
-                container.innerHTML = `<li class="text-xs text-brand-textMuted italic p-1">暂无作品，请点击下方“编辑作品”添加。</li>`;
+                container.innerHTML = `<div class="text-xs text-brand-textMuted italic p-1">暂无作品，请点击下方“编辑作品”添加。</div>`;
                 return;
             }
 
@@ -1055,7 +1047,7 @@
                     <div class="font-bold flex items-center gap-1.5"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>加载失败</div>
                     <div class="text-sm">错误原因：${err.message}。请检查网络配置或重新刷新。</div>
                 </div>`;
-                showToast('云端数据加载失败，请检查网络配置。', true);
+                showToast('云端数据加载失败，已切换或降级检查。', true);
                 console.error(err);
             }
 

@@ -179,6 +179,7 @@ textarea{resize:vertical;font-family:"SF Mono","Fira Code",monospace;font-size:0
 <body data-theme="light">
 
 <div class="app">
+  <!-- 头部 -->
   <div class="header">
     <div class="title-group">
       <div class="title">成长记录</div>
@@ -195,6 +196,7 @@ textarea{resize:vertical;font-family:"SF Mono","Fira Code",monospace;font-size:0
           <div id="counter-unexchanged" class="num">0</div>
         </div>
       </div>
+      <!-- 皮肤切换 -->
       <div class="theme-switcher">
         <div class="theme-dot active" data-t="light" title="浅色"></div>
         <div class="theme-dot" data-t="dark" title="暗夜"></div>
@@ -205,6 +207,7 @@ textarea{resize:vertical;font-family:"SF Mono","Fira Code",monospace;font-size:0
     </div>
   </div>
 
+  <!-- 控件栏 -->
   <div class="controls">
     <div class="month-nav-group">
       <button id="prev-month" class="btn">◀</button>
@@ -220,6 +223,7 @@ textarea{resize:vertical;font-family:"SF Mono","Fira Code",monospace;font-size:0
     </div>
   </div>
 
+  <!-- 日历 -->
   <div class="calendar-wrap">
     <div class="calendar-header">
       <div class="small">点击日期查看详情，点右下角 ＋ 新增奖励</div>
@@ -233,6 +237,7 @@ textarea{resize:vertical;font-family:"SF Mono","Fira Code",monospace;font-size:0
     <div class="grid" id="calendar-grid"></div>
   </div>
 
+  <!-- 已兑奖品 -->
   <div class="redeemed-section">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
       <div class="small" style="font-weight:600">已兑奖品</div>
@@ -246,6 +251,7 @@ textarea{resize:vertical;font-family:"SF Mono","Fira Code",monospace;font-size:0
       style="width:100%;height:120px;padding:12px;border-radius:10px;resize:vertical;font-size:0.85rem;line-height:1.6"></textarea>
   </div>
 
+  <!-- 危险操作区（不显眼） -->
   <div class="danger-zone">
     <button id="clear-all" class="btn" style="font-size:0.75rem;color:var(--text-muted);background:transparent;padding:4px 8px;opacity:0.5">清空所有</button>
   </div>
@@ -257,13 +263,11 @@ textarea{resize:vertical;font-family:"SF Mono","Fira Code",monospace;font-size:0
 
 
 <script>
-/* ---------- Vercel Serverless Function 代理路由设置 ---------- */
-const API_URL = '/api/watchlist';
-const HEADERS = {
-  'Content-Type': 'application/json',
-  'X-Watchlist-Auth': 'my_private_secret_key_999',
-  'X-Watchlist-Key': 'reward_wall_data' // 本项目在独立 Redis 中的专属数据分区键名
-};
+/* ---------- 配置区域（请勿泄露 Access Key） ---------- */
+const JSONBIN_BIN_ID = "68c28604ae596e708feac025";
+const JSONBIN_ACCESS_KEY = "$2a$10$8cu0oI2pzg9N066DcsEE6Oje01xZmWlviF96CIAGe8P75hiJI3M/u";
+const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
+const CLEAR_PASSWORD_SHA256 = "b575e13270b4785f35ab667154d178d97dc4ecd1564e094dbb31043f84af2523";
 /* ---------------------------------------------------- */
 const STORE_KEY = 'reward_wall_data_v1';
 const THEME_KEY = 'reward_wall_theme_v1';
@@ -476,33 +480,32 @@ function toBeijingString(date = new Date()){
 }
 
 async function remoteLoad(){
+  if(!JSONBIN_BIN_ID || !JSONBIN_ACCESS_KEY){ showToast('未配置 JSONBin'); return; }
   try{
-    const r = await fetch(API_URL, { method: 'GET', headers: HEADERS });
+    const r = await fetch(`${JSONBIN_URL}/latest`, { headers: { 'X-Access-Key': JSONBIN_ACCESS_KEY } });
     if(!r.ok) throw new Error('HTTP '+r.status);
     const data = await r.json();
-    if(data && data.events && typeof data.events === 'object'){
-      events = data.events;
-      redeemedItems = data.redeemed || '';
+    if(data && data.record && data.record.events && typeof data.record.events === 'object'){
+      events = data.record.events;
+      redeemedItems = data.record.redeemed || '';
       saveLocal();
       renderCalendar();
       updateRedeemedDisplay();
       showToast('加载成功');
     } else {
-      // 如果云端是空的或者初次初始化
-      showToast('云端暂无初始化数据或格式为空');
+      showToast('返回的 JSON 中没有 events 字段');
     }
   } catch(e){
     showToast('加载失败: ' + e.message);
   }
 }
 async function remoteSave(){
-  try {
-    // 写入前本地先存一份影子备份，保障双保险
-    saveLocal();
+  if(!JSONBIN_BIN_ID || !JSONBIN_ACCESS_KEY){ showToast('未配置 JSONBin'); return; }
+  try{
     const payload = { events, redeemed: redeemedItems };
-    const r = await fetch(API_URL, {
-      method: 'POST',
-      headers: HEADERS,
+    const r = await fetch(JSONBIN_URL, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'X-Access-Key': JSONBIN_ACCESS_KEY },
       body: JSON.stringify(payload)
     });
     if(!r.ok) throw new Error('HTTP '+r.status);

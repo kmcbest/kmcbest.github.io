@@ -474,9 +474,11 @@
                 nameSpan.className = 'truncate';
                 nameSpan.textContent = a.name;
 
+                const total = a.works ? a.works.length : 0;
+                const undone = a.works ? a.works.filter(w => !w.done).length : 0;
                 const countSpan = document.createElement('span');
                 countSpan.className = 'text-[10px] bg-brand-border/40 px-1.5 py-0.5 rounded-md text-brand-textMuted group-hover:bg-brand-primary/20 group-hover:text-brand-primaryLightText transition-colors font-mono';
-                countSpan.textContent = a.works ? a.works.length : 0;
+                countSpan.textContent = `${undone}/${total}`;
 
                 item.appendChild(nameSpan);
                 item.appendChild(countSpan);

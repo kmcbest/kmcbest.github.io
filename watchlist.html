@@ -470,12 +470,16 @@
                 const item = document.createElement('button');
                 item.className = 'w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-brand-textMuted hover:bg-brand-primaryLight hover:text-brand-primaryLightText hover:translate-x-1.5 active:scale-98 transition-all duration-200 truncate flex items-center justify-between group';
                 
+                const total = a.works ? a.works.length : 0;
+                const undone = a.works ? a.works.filter(w => !w.done).length : 0;
+
                 const nameSpan = document.createElement('span');
                 nameSpan.className = 'truncate';
                 nameSpan.textContent = a.name;
+                if (undone === 0 && total > 0) {
+                    nameSpan.classList.add('line-through', 'opacity-50');
+                }
 
-                const total = a.works ? a.works.length : 0;
-                const undone = a.works ? a.works.filter(w => !w.done).length : 0;
                 const countSpan = document.createElement('span');
                 countSpan.className = 'text-[10px] bg-brand-border/40 px-1.5 py-0.5 rounded-md text-brand-textMuted group-hover:bg-brand-primary/20 group-hover:text-brand-primaryLightText transition-colors font-mono';
                 countSpan.textContent = `${undone}/${total}`;

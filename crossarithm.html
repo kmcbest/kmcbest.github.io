@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数学加减法交叉拼图生成器 (闭环解密版)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;700&display=swap');
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            --success-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --secondary-gradient: linear-gradient(135deg, #475569 0%, #334155 100%);
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --cell-size: 46px;
+        }
+
+        body {
+            font-family: 'Outfit', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 25% 10%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 75% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 45%);
+            background-attachment: fixed;
+            margin: 0;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #f1f5f9;
+            min-height: 100vh;
+        }
+
+        h1 {
+            margin: 0 0 10px 0;
+            color: #ffffff;
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #ffffff, #c7d2fe, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(99, 102, 241, 0.1);
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: #94a3b8;
+            margin-bottom: 30px;
+            text-align: center;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 12px 24px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(12px);
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #cbd5e1;
+        }
+
+        select {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background-color: #1e293b;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 500;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        select:hover {
+            border-color: #818cf8;
+            background-color: #273549;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .btn-primary:hover {
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-gradient);
+            color: #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #52637a 0%, #3e4e63 100%);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: var(--success-gradient);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .btn-success:hover {
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+            transform: translateY(-1px);
+        }
+
+        /* 拼图容器 */
+        .grid-wrapper {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            overflow-x: auto;
+            max-width: 100%;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: center;
+        }
+
+        #crossword-container {
+            display: grid;
+            gap: 5px;
+            padding: 8px;
+            background-color: rgba(15, 23, 42, 0.6);
+            border-radius: 12px;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+        }
+
+        /* 单元格及重叠边框处理 */
+        .cell {
+            width: var(--cell-size);
+            height: var(--cell-size);
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            user-select: none;
+            transition: all 0.2s ease;
+        }
+
+        .cell-empty {
+            background-color: transparent;
+            border: none;
+        }
+
+        .cell-active {
+            background-color: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #f8fafc;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.05);
+            position: relative;
+        }
+
+        .cell-op, .cell-eq {
+            background-color: #334155;
+            color: #94a3b8;
+            border-color: rgba(255, 255, 255, 0.04);
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        /* 输入框样式 */
+        .cell-number-input {
+            width: 100%;
+            height: 100%;
+            border: 1px dashed rgba(99, 102, 241, 0.4);
+            border-radius: 6px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 800;
+            color: #818cf8;
+            outline: none;
+            background-color: rgba(99, 102, 241, 0.06);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Outfit', sans-serif;
+            box-sizing: border-box;
+        }
+
+        .cell-number-input:focus {
+            background-color: rgba(99, 102, 241, 0.12);
+            border: 1.5px solid #818cf8;
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+            color: #a5b4fc;
+        }
+
+        /* 验证状态 */
+        .input-correct {
+            background-color: rgba(16, 185, 129, 0.15) !important;
+            border: 1.5px solid #10b981 !important;
+            color: #34d399 !important;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.4) !important;
+        }
+
+        .input-incorrect {
+            background-color: rgba(239, 68, 68, 0.15) !important;
+            border: 1.5px solid #f43f5e !important;
+            color: #fda4af !important;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.4) !important;
+        }
+
+        .message {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            min-height: 24px;
+            text-align: center;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .message:empty {
+            display: none;
+        }
+        .message.success { 
+            color: #34d399;
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);
+        }
+        .message.error { 
+            color: #f87171; 
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);
+        }
+        .message.info { 
+            color: #38bdf8; 
+            background-color: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        /* 洒花粒子样式 */
+        .confetti-particle {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            z-index: 9999;
+            pointer-events: none;
+            border-radius: 50%;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(105vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+                background-image: none !important;
+                color: black !important;
+                padding: 0;
+            }
+            .grid-wrapper {
+                box-shadow: none !important;
+                background: none !important;
+                border: none !important;
+                padding: 0;
+                margin: 0;
+            }
+            #crossword-container {
+                gap: 0 !important;
+                background: none !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+            }
+            .cell-active {
+                background-color: #ffffff !important;
+                border: 1.5px solid #000000 !important;
+                color: #000000 !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                margin: -0.75px !important;
+            }
+            .cell-op, .cell-eq {
+                background-color: #f1f5f9 !important;
+                color: #000000 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .cell-number-input {
+                background-color: transparent !important;
+                color: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="no-print">🧩 数学加减法交叉拼图</h1>
+    <div class="subtitle no-print">
+        在空白网格内填入数字使所有行列等式成立。每个隐藏单元格均可从其所在的等式中<b>100%唯一推导</b>，优化版已避开多重判定的交叉点，答题体验更丝滑！
+    </div>
+
+    <div class="controls no-print">
+        <label>
+            等式数量:
+            <select id="eq-count">
+                <option value="8">精简版 (8个等式)</option>
+                <option value="10" selected>标准版 (10个等式)</option>
+                <option value="12">挑战版 (12个等式)</option>
+                <option value="20">专家版 (20个等式)</option>
+                <option value="30">大师版 (30个等式)</option>
+            </select>
+        </label>
+        <button class="btn-primary" onclick="initNewGame()">🆕 生成新谜题</button>
+        <button class="btn-success" onclick="verifyAnswers()">📋 验证答案</button>
+        <button class="btn-secondary" onclick="showSolution()">💡 显示答案</button>
+        <button class="btn-secondary" onclick="printWorksheet()">🖨️ 打印空白卷</button>
+    </div>
+
+    <div id="status-message" class="message no-print"></div>
+
+    <div class="grid-wrapper">
+        <div id="crossword-container"></div>
+    </div>
+
+    <script>
+        let GRID_SIZE = 16; // 虚拟网格大小，随难度动态调整
+        let grid = [];
+        let equations = [];
+
+        function createEmptyCell() {
+            return {
+                type: 'empty', 
+                val: '',
+                eqs: [],
+                hidden: false
+            };
+        }
+
+        function clearGrid() {
+            grid = Array(GRID_SIZE).fill(null).map(() => 
+                Array(GRID_SIZE).fill(null).map(() => createEmptyCell())
+            );
+            equations = [];
+        }
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // 随机生成第一条核心等式
+        function generateRandomEquation() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            let A, B, C;
+            if (op === '+') {
+                A = Math.floor(Math.random() * 10) + 1;
+                B = Math.floor(Math.random() * 10) + 1;
+                C = A + B;
+            } else {
+                A = Math.floor(Math.random() * 12) + 4;
+                B = Math.floor(Math.random() * (A - 1)) + 1;
+                C = A - B;
+            }
+            return { A, op, B, C };
+        }
+
+        // 核心约束求解器：根据 1 或 2 个交叉已知数，计算符合条件的唯一/随机加减等式（优化版）
+        function solveEquation(constraints) {
+            let solutions = [];
+            const ops = ['+', '-'];
+            for (let op of ops) {
+                for (let A = 1; A <= 20; A++) {
+                    if (constraints[0] !== undefined && constraints[0] !== A) continue;
+                    
+                    if (constraints[2] !== undefined) {
+                        // B is fixed
+                        let B = constraints[2];
+                        let C = (op === '+') ? A + B : A - B;
+                        if (C <= 0 || C > 20) continue;
+                        if (constraints[4] !== undefined && constraints[4] !== C) continue;
+                        solutions.push({ A, op, B, C });
+                    } else if (constraints[4] !== undefined) {
+                        // C is fixed
+                        let C = constraints[4];
+                        let B = (op === '+') ? C - A : A - C;
+                        if (B <= 0 || B > 20) continue;
+                        solutions.push({ A, op, B, C });
+                    } else {
+                        // Neither B nor C is fixed, loop B
+                        for (let B = 1; B <= 20; B++) {
+                            let C = (op === '+') ? A + B : A - B;
+                            if (C <= 0 || C > 20) continue;
+                            solutions.push({ A, op, B, C });
+                        }
+                    }
+                }
+            }
+            if (solutions.length === 0) return null;
+            return solutions[Math.floor(Math.random() * solutions.length)];
+        }
+
+        class EquationInstance {
+            constructor(id, dir, startR, startC, values) {
+                this.id = id;
+                this.dir = dir; // 'H' or 'V'
+                this.startR = startR;
+                this.startC = startC;
+                this.values = values; // [A, op, B, '=', C]
+                this.cells = [];
+                for (let i = 0; i < 5; i++) {
+                    let r = startR + (dir === 'V' ? i : 0);
+                    let c = startC + (dir === 'H' ? i : 0);
+                    let type = (i === 1) ? 'op' : (i === 3) ? 'eq' : 'number';
+                    this.cells.push({ r, c, type, val: values[i] });
+                }
+            }
+        }
+
+        function placeEquation(eq) {
+            equations.push(eq);
+            for (let cell of eq.cells) {
+                let gridCell = grid[cell.r][cell.c];
+                gridCell.type = cell.type;
+                gridCell.val = cell.val.toString();
+                if (!gridCell.eqs.includes(eq.id)) {
+                    gridCell.eqs.push(eq.id);
+                }
+            }
+        }
+
+        // 放置规则：严格防止无关单元格紧贴（杜绝并行紧贴），允许并鼓励通过数字单元格多重交叉闭环
+        function canPlaceEquation(eq) {
+            let intersections = 0;
+            for (let i = 0; i < 5; i++) {
+                let { r, c, type, val } = eq.cells[i];
+
+                if (r < 0 || r >= GRID_SIZE || c < 0 || c >= GRID_SIZE) {
+                    return false;
+                }
+
+                let existing = grid[r][c];
+
+                if (existing.type !== 'empty') {
+                    // 只允许在数字格子相交
+                    if (type !== 'number' || existing.type !== 'number' || parseInt(existing.val) !== val) {
+                        return false;
+                    }
+                    intersections++;
+                } else {
+                    // Adjacency check：确保新铺设的格子不贴油别的已有等式（避免干扰）
+                    const dr = [-1, 1, 0, 0];
+                    const dc = [0, 0, -1, 1];
+                    for (let d = 0; d < 4; d++) {
+                        let nr = r + dr[d];
+                        let nc = c + dc[d];
+                        if (nr >= 0 && nr < GRID_SIZE && nc >= 0 && nc < GRID_SIZE) {
+                            let neighbor = grid[nr][nc];
+                            if (neighbor.type !== 'empty') {
+                                // 只有当邻格是当前正要放置的等式自身成员时才合法
+                                let isPartOfCandidate = eq.cells.some(cell => cell.r === nr && cell.c === nc);
+                                if (!isPartOfCandidate) {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (equations.length > 0 && intersections === 0) {
+                return false; // 除第一条外，后续生成必须与其他等式咬合连接
+            }
+            return true;
+        }
+
+        // 闭环自适应生长算法
+        function buildLayout(targetCount) {
+            clearGrid();
+
+            // 中心起始放置
+            let startR = Math.floor(GRID_SIZE / 2);
+            let startC = Math.floor(GRID_SIZE / 2) - 2;
+            let firstVals = generateRandomEquation();
+            let firstEq = new EquationInstance(0, 'H', startR, startC, [firstVals.A, firstVals.op, firstVals.B, '=', firstVals.C]);
+            placeEquation(firstEq);
+
+            let eqId = 1;
+            let noProgressCount = 0;
+
+            while (equations.length < targetCount && noProgressCount < 200) {
+                let validPlacements = [];
+
+                // 全图扫描最符合闭环咬合条件的放置坐标
+                for (let r = 0; r < GRID_SIZE; r++) {
+                    for (let c = 0; c < GRID_SIZE; c++) {
+                        for (let dir of ['H', 'V']) {
+                            if (dir === 'H' && c + 4 >= GRID_SIZE) continue;
+                            if (dir === 'V' && r + 4 >= GRID_SIZE) continue;
+
+                            let constraints = {};
+                            let intersections = 0;
+                            let possible = true;
+
+                            for (let i = 0; i < 5; i++) {
+                                let currR = r + (dir === 'V' ? i : 0);
+                                let currC = c + (dir === 'H' ? i : 0);
+                                let cellType = (i === 1) ? 'op' : (i === 3) ? 'eq' : 'number';
+                                let existing = grid[currR][currC];
+
+                                if (existing.type !== 'empty') {
+                                    if (cellType !== 'number' || existing.type !== 'number') {
+                                        possible = false;
+                                        break;
+                                    }
+                                    constraints[i] = parseInt(existing.val);
+                                    intersections++;
+                                }
+                            }
+
+                            if (!possible || intersections === 0) continue;
+                            if (intersections >= 3) continue; // 避免完全覆盖重叠
+
+                            let sol = solveEquation(constraints);
+                            if (!sol) continue;
+
+                            let candidate = new EquationInstance(eqId, dir, r, c, [sol.A, sol.op, sol.B, '=', sol.C]);
+
+                            if (canPlaceEquation(candidate)) {
+                                validPlacements.push({ candidate, intersections });
+                            }
+                        }
+                    }
+                }
+
+                if (validPlacements.length === 0) {
+                    noProgressCount++;
+                    continue;
+                }
+
+                // 核心闭环偏向选择：过滤出能产生 2 个（闭合环路）及以上交叉点的候选
+                let closedLoops = validPlacements.filter(p => p.intersections >= 2);
+                let chosen;
+
+                if (closedLoops.length > 0 && Math.random() < 0.85) {
+                    // 85% 几率强制选择闭环方案
+                    chosen = closedLoops[Math.floor(Math.random() * closedLoops.length)];
+                } else {
+                    chosen = validPlacements[Math.floor(Math.random() * validPlacements.length)];
+                }
+
+                placeEquation(chosen.candidate);
+                eqId++;
+                noProgressCount = 0;
+            }
+
+            return equations.length >= targetCount;
+        }
+
+        // 全局回溯寻找合法的挖空方案，保证每条等式有且只有 1 个空，绝对避免多解 (无解或多空情况)
+        function findHoleAssignment(eqIndex, hiddenSet) {
+            if (eqIndex === equations.length) {
+                // 双重检查确保每条等式都有且只有1个空格
+                for (let eq of equations) {
+                    let count = eq.cells.filter(c => c.type === 'number' && hiddenSet.has(`${c.r},${c.c}`)).length;
+                    if (count !== 1) return false;
+                }
+                return true;
+            }
+
+            let eq = equations[eqIndex];
+            
+            // 检查当前等式在当前部分分配下已有的空格数量
+            let existingHoles = eq.cells.filter(c => c.type === 'number' && hiddenSet.has(`${c.r},${c.c}`));
+            
+            if (existingHoles.length > 1) {
+                return false; // 不合法，回溯
+            }
+            
+            if (existingHoles.length === 1) {
+                // 已有 1 个空格，直接处理下一条等式
+                return findHoleAssignment(eqIndex + 1, hiddenSet);
+            }
+            
+            // 还没有空格，必须从候选数字单元格中选一个挖空
+            let candidates = eq.cells.filter(c => c.type === 'number');
+            // 优先排序共享（交叉）数量最小的，确保非交叉点被优先选择
+            candidates.sort((a, b) => {
+                const lenA = grid[a.r][a.c].eqs.length;
+                const lenB = grid[b.r][b.c].eqs.length;
+                return lenA - lenB;
+            });
+
+            for (let cand of candidates) {
+                let key = `${cand.r},${cand.c}`;
+                
+                // 检查隐藏该格子是否会导致其他交叉等式突破“1个空”的限制
+                let gridCell = grid[cand.r][cand.c];
+                let safe = true;
+                for (let otherId of gridCell.eqs) {
+                    let otherEq = equations.find(e => e.id === otherId);
+                    if (otherEq) {
+                        let otherCount = otherEq.cells.filter(c => c.type === 'number' && hiddenSet.has(`${c.r},${c.c}`)).length;
+                        if (otherCount >= 1) {
+                            safe = false;
+                            break;
+                        }
+                    }
+                }
+                
+                if (safe) {
+                    hiddenSet.add(key);
+                    if (findHoleAssignment(eqIndex + 1, hiddenSet)) {
+                        return true;
+                    }
+                    hiddenSet.delete(key); // 回溯
+                }
+            }
+            
+            return false; // 无合法选择，回溯
+        }
+
+        function createPuzzleHoles() {
+            // 1. 初始化全可见
+            for (let r = 0; r < GRID_SIZE; r++) {
+                for (let c = 0; c < GRID_SIZE; c++) {
+                    grid[r][c].hidden = false;
+                }
+            }
+
+            let hiddenSet = new Set();
+            let success = findHoleAssignment(0, hiddenSet);
+            if (!success) return false;
+
+            // 应用计算出的挖空方案
+            for (let key of hiddenSet) {
+                const [r, c] = key.split(',').map(Number);
+                grid[r][c].hidden = true;
+            }
+            return true;
+        }
+
+        function getCroppedBounds() {
+            let minR = GRID_SIZE, maxR = 0;
+            let minC = GRID_SIZE, maxC = 0;
+            let hasActive = false;
+
+            for (let r = 0; r < GRID_SIZE; r++) {
+                for (let c = 0; c < GRID_SIZE; c++) {
+                    if (grid[r][c].type !== 'empty') {
+                        if (r < minR) minR = r;
+                        if (r > maxR) maxR = r;
+                        if (c < minC) minC = c;
+                        if (c > maxC) maxC = c;
+                        hasActive = true;
+                    }
+                }
+            }
+
+            if (!hasActive) return null;
+
+            return {
+                minR: Math.max(0, minR - 1),
+                maxR: Math.min(GRID_SIZE - 1, maxR + 1),
+                minC: Math.max(0, minC - 1),
+                maxC: Math.min(GRID_SIZE - 1, maxC + 1)
+            };
+        }
+
+        function renderCrossword() {
+            const bounds = getCroppedBounds();
+            const container = document.getElementById('crossword-container');
+            container.innerHTML = '';
+
+            if (!bounds) {
+                container.innerHTML = '<p style="color:red">生成失败，请刷新重试</p>';
+                return;
+            }
+
+            const rowsCount = bounds.maxR - bounds.minR + 1;
+            const colsCount = bounds.maxC - bounds.minC + 1;
+
+            container.style.gridTemplateRows = `repeat(${rowsCount}, var(--cell-size))`;
+            container.style.gridTemplateColumns = `repeat(${colsCount}, var(--cell-size))`;
+
+            for (let r = bounds.minR; r <= bounds.maxR; r++) {
+                for (let c = bounds.minC; c <= bounds.maxC; c++) {
+                    const cellData = grid[r][c];
+                    const cellEl = document.createElement('div');
+                    cellEl.classList.add('cell');
+
+                    if (cellData.type === 'empty') {
+                        cellEl.classList.add('cell-empty');
+                    } else {
+                        cellEl.classList.add('cell-active');
+
+                        if (cellData.type === 'op' || cellData.type === 'eq') {
+                            cellEl.classList.add('cell-op');
+                            cellEl.textContent = cellData.val;
+                        } else if (cellData.type === 'number') {
+                            if (cellData.hidden) {
+                                const input = document.createElement('input');
+                                input.type = 'text';
+                                input.pattern = '[0-9]*';
+                                input.inputMode = 'numeric';
+                                input.classList.add('cell-number-input');
+                                input.dataset.row = r;
+                                input.dataset.col = c;
+                                input.dataset.correct = cellData.val;
+                                
+                                input.addEventListener('input', (e) => {
+                                    e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 2);
+                                    e.target.classList.remove('input-correct', 'input-incorrect');
+                                });
+                                cellEl.appendChild(input);
+                            } else {
+                                cellEl.textContent = cellData.val;
+                            }
+                        }
+                    }
+                    container.appendChild(cellEl);
+                }
+            }
+        }
+
+        function initNewGame() {
+            document.getElementById('status-message').textContent = '';
+            document.getElementById('status-message').className = 'message';
+            
+            const countSelector = document.getElementById('eq-count');
+            const target = parseInt(countSelector.value);
+
+            // 动态设置虚拟网格大小，适配不同难度的等式数量
+            if (target >= 30) {
+                GRID_SIZE = 32;
+            } else if (target >= 20) {
+                GRID_SIZE = 24;
+            } else {
+                GRID_SIZE = 16;
+            }
+
+            let success = false;
+            // 采用快速多次迭代，根据等式数量动态调整最大尝试次数，确保 100% 吐出高密度咬合关卡并找到完全合法的挖空方案
+            const maxRuns = target >= 30 ? 150 : (target >= 20 ? 90 : 45);
+            for (let run = 0; run < maxRuns; run++) {
+                if (buildLayout(target)) {
+                    if (createPuzzleHoles()) {
+                        success = true;
+                        break;
+                    }
+                }
+            }
+
+            if (success) {
+                renderCrossword();
+            } else {
+                alert("生成超时，请再次点击重试！");
+            }
+        }
+
+        function triggerConfetti() {
+            const colors = ['#f43f5e', '#ec4899', '#d946ef', '#a855f7', '#8b5cf6', '#6366f1', '#3b82f6', '#0ea5e9', '#06b6d4', '#14b8a6', '#10b981', '#22c55e', '#84cc16', '#eab308', '#f97316'];
+            const container = document.body;
+            
+            for (let i = 0; i < 120; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'confetti-particle';
+                
+                const size = Math.random() * 8 + 6;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const left = Math.random() * 100;
+                const delay = Math.random() * 1.5;
+                const duration = Math.random() * 3 + 2;
+                const shape = Math.random() > 0.5 ? '50%' : '0%';
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.backgroundColor = color;
+                particle.style.left = `${left}vw`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.borderRadius = shape;
+                
+                container.appendChild(particle);
+                
+                setTimeout(() => {
+                    particle.remove();
+                }, (delay + duration) * 1000);
+            }
+        }
+
+        function verifyAnswers() {
+            const inputs = document.querySelectorAll('.cell-number-input');
+            let allCorrect = true;
+            let hasEmpty = false;
+
+            inputs.forEach(input => {
+                const userVal = input.value.trim();
+                const correctVal = input.dataset.correct;
+
+                if (userVal === '') {
+                    hasEmpty = true;
+                    allCorrect = false;
+                    input.classList.add('input-incorrect');
+                } else if (parseInt(userVal) === parseInt(correctVal)) {
+                    input.classList.add('input-correct');
+                    input.classList.remove('input-incorrect');
+                } else {
+                    allCorrect = false;
+                    input.classList.add('input-incorrect');
+                    input.classList.remove('input-correct');
+                }
+            });
+
+            const statusEl = document.getElementById('status-message');
+            if (hasEmpty) {
+                statusEl.textContent = "⚠️ 还有空格没有填满哦！";
+                statusEl.className = "message error";
+            } else if (allCorrect) {
+                statusEl.textContent = "🎉 恭喜你！所有交叉等式已100%完美解开！";
+                statusEl.className = "message success";
+                triggerConfetti(); // 成功时触发洒花庆祝
+            } else {
+                statusEl.textContent = "❌ 有一部分数字推导不正确，再仔细观察一下吧。";
+                statusEl.className = "message error";
+            }
+        }
+
+        function showSolution() {
+            const inputs = document.querySelectorAll('.cell-number-input');
+            inputs.forEach(input => {
+                input.value = input.dataset.correct;
+                input.classList.add('input-correct');
+                input.classList.remove('input-incorrect');
+            });
+            const statusEl = document.getElementById('status-message');
+            statusEl.textContent = "💡 答案已显示。";
+            statusEl.className = "message info";
+        }
+
+        function printWorksheet() {
+            const inputs = document.querySelectorAll('.cell-number-input');
+            const backups = [];
+            
+            inputs.forEach(input => {
+                backups.push(input.value);
+                input.value = '';
+                input.classList.remove('input-correct', 'input-incorrect');
+            });
+
+            window.print();
+
+            inputs.forEach((input, index) => {
+                input.value = backups[index];
+            });
+        }
+
+        window.onload = initNewGame;
+    </script>
+</body>
+</html>

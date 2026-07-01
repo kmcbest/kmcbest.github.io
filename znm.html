@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>找你妹/Dobble卡牌生成器 (支持所有合法的N)</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        p.subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+        .control-panel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        label {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        input[type="number"] {
+            width: 70px;
+            padding: 8px 12px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            outline: none;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .quick-links {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        .quick-links span {
+            margin: 0 5px;
+            color: #3498db;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .info-board {
+            text-align: center;
+            font-size: 15px;
+            margin-bottom: 20px;
+            color: #27ae60;
+            font-weight: 500;
+        }
+        .error-message {
+            color: #e74c3c;
+            font-weight: bold;
+            background-color: #fde8e7;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+            line-height: 1.6;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .card {
+            background: #fdfdfd;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+        .card-header {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #e2e8f0;
+            padding-bottom: 5px;
+        }
+        .symbols-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+        .symbol {
+            background-color: #edf2f7;
+            color: #4a5568;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+        /* 悬停高亮逻辑 */
+        .card.active-hover {
+            border-color: #f59e0b;
+            background-color: #fffbeb;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(245, 158, 11, 0.15);
+        }
+        .card.active-hover .symbol {
+            background-color: #fef3c7;
+            color: #b45309;
+        }
+        .cards-grid.has-active .card:not(.active-hover) {
+            opacity: 0.4;
+            border-color: #cbd5e1;
+        }
+        .cards-grid.has-active .card:not(.active-hover) .symbol.intersection {
+            background-color: #ef4444 !important;
+            color: white !important;
+            transform: scale(1.15);
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+            opacity: 1 !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>找你妹 / Dobble 牌组通用生成器</h1>
+    <p class="subtitle">升级版：全面支持素数及素数幂阶数。体验高维代数的奇妙设计！</p>
+
+    <div class="control-panel">
+        <label for="inputN">每张牌符号数 N：</label>
+        <input type="number" id="inputN" value="9" min="3" max="28">
+        <button onclick="handleGenerate()">生成牌组</button>
+    </div>
+
+    <div class="quick-links">
+        快速选择合法 N（N-1 为素数或素数幂）：
+        <span onclick="quickSelect(3)">3 (q=2)</span> | 
+        <span onclick="quickSelect(4)">4 (q=3)</span> | 
+        <span onclick="quickSelect(5)">5 (q=4=2²)</span> | 
+        <span onclick="quickSelect(6)">6 (q=5)</span> | 
+        <span onclick="quickSelect(8)">8 (q=7)</span> | 
+        <span onclick="quickSelect(9)">9 (q=8=2³)</span> | 
+        <span onclick="quickSelect(10)">10 (q=9=3²)</span> | 
+        <span onclick="quickSelect(14)">14 (q=13)</span> | 
+        <span onclick="quickSelect(17)">17 (q=16=2⁴)</span>
+    </div>
+
+    <div id="errorBox" class="error-message"></div>
+    <div id="infoBoard" class="info-board"></div>
+
+    <div id="cardsGrid" class="cards-grid"></div>
+</div>
+
+<script>
+    // 1. 本地硬编码的小型不可约多项式表，用以构造 GF(p^k) 扩展域
+    // 数组 [c0, c1, ..., c_k] 代表 c0 + c1*x + ... + c_k*x^k
+    const IRREDUCIBLE_POLYS = {
+        "2^2": [1, 1, 1],       // x^2 + x + 1
+        "2^3": [1, 1, 0, 1],    // x^3 + x + 1
+        "2^4": [1, 1, 0, 0, 1], // x^4 + x + 1
+        "3^2": [1, 0, 1],       // x^2 + 1
+        "3^3": [1, 2, 0, 1],    // x^3 + 2x + 1
+        "5^2": [2, 0, 1]        // x^2 + 2
+    };
+
+    // 2. 素数判断
+    function isPrime(n) {
+        if (n < 2) return false;
+        for (let i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i === 0) return false;
+        }
+        return true;
+    }
+
+    // 3. 解析 q 的素因子分解（判断 q 是否为素数或素数幂：p^k）
+    function getPrimePower(q) {
+        if (q < 2) return null;
+        let p = 2;
+        while (p <= q) {
+            if (q % p === 0) {
+                let temp = q;
+                let k = 0;
+                while (temp % p === 0) {
+                    temp /= p;
+                    k++;
+                }
+                if (temp === 1) {
+                    return { p, k };
+                }
+                return null; // 含有多个不同的素因子
+            }
+            p++;
+        }
+        return null;
+    }
+
+    // 4. 有限域多项式转换辅助函数
+    function toPoly(n, p, k) {
+        let poly = [];
+        let temp = n;
+        for (let i = 0; i < k; i++) {
+            poly.push(temp % p);
+            temp = Math.floor(temp / p);
+        }
+        return poly; // 从低次幂到高次幂 [a0, a1, ..., a_{k-1}]
+    }
+
+    function fromPoly(poly, p) {
+        let n = 0;
+        for (let i = poly.length - 1; i >= 0; i--) {
+            n = n * p + poly[i];
+        }
+        return n;
+    }
+
+    // 5. 有限域加法 (GF Add)
+    function gfAdd(u, v, p, k) {
+        let polyU = toPoly(u, p, k);
+        let polyV = toPoly(v, p, k);
+        let polyRes = [];
+        for (let i = 0; i < k; i++) {
+            polyRes.push((polyU[i] + polyV[i]) % p);
+        }
+        return fromPoly(polyRes, p);
+    }
+
+    // 6. 有限域乘法 (GF Mul)
+    function gfMul(u, v, p, k, irr) {
+        let polyU = toPoly(u, p, k);
+        let polyV = toPoly(v, p, k);
+        let polyRes = Array(2 * k - 1).fill(0);
+        // 先进行标准的多项式乘法
+        for (let i = 0; i < k; i++) {
+            for (let j = 0; j < k; j++) {
+                polyRes[i + j] = (polyRes[i + j] + polyU[i] * polyV[j]) % p;
+            }
+        }
+        // 若 k > 1，则需要对不可约多项式取模
+        if (k > 1 && irr) {
+            for (let deg = polyRes.length - 1; deg >= k; deg--) {
+                let coeff = polyRes[deg];
+                if (coeff !== 0) {
+                    let shift = deg - k;
+                    for (let j = 0; j <= k; j++) {
+                        let termIdx = j + shift;
+                        polyRes[termIdx] = (polyRes[termIdx] - coeff * irr[j]) % p;
+                        if (polyRes[termIdx] < 0) {
+                            polyRes[termIdx] = (polyRes[termIdx] + p) % p;
+                        }
+                    }
+                }
+            }
+        }
+        return fromPoly(polyRes.slice(0, k), p);
+    }
+
+    // 7. 索引转字母符号 (0->A, 25->Z, 26->AA...)
+    function indexToSymbol(index) {
+        let res = [];
+        let temp = index;
+        while (true) {
+            res.push(String.fromCharCode(65 + (temp % 26)));
+            temp = Math.floor(temp / 26) - 1;
+            if (temp < 0) break;
+        }
+        return res.reverse().join('');
+    }
+
+    // 全局存储变量
+    let currentDeck = [];
+
+    // 8. 核心牌组生成算法 (采用真正的 Galois Field 进行点线计算)
+    function generateDobbleDeck(N) {
+        const q = N - 1;
+        const pp = getPrimePower(q);
+        if (!pp) return null;
+
+        const { p, k } = pp;
+        let irr = null;
+        if (k > 1) {
+            const key = `${p}^${k}`;
+            irr = IRREDUCIBLE_POLYS[key];
+            if (!irr) {
+                console.error("未找到对应有限域的不可约多项式:", key);
+                return null;
+            }
+        }
+
+        // 符号映射转换
+        function getSymbolName(type, ...args) {
+            let idx;
+            if (type === "grid") {
+                const [x, y] = args;
+                idx = x * q + y;
+            } else if (type === "slope_inf") {
+                const m = args[0];
+                idx = q * q + m;
+            } else if (type === "vert_inf") {
+                idx = q * q + q;
+            }
+            return indexToSymbol(idx);
+        }
+
+        const deck = [];
+
+        // 第一组卡牌: y = mx + c (GF 运算)
+        for (let m = 0; m < q; m++) {
+            for (let c = 0; c < q; c++) {
+                const card = [];
+                for (let x = 0; x < q; x++) {
+                    const mx = gfMul(m, x, p, k, irr);
+                    const y = gfAdd(mx, c, p, k);
+                    card.push(getSymbolName("grid", x, y));
+                }
+                card.push(getSymbolName("slope_inf", m));
+                deck.push(card);
+            }
+        }
+
+        // 第二组卡牌: x = k
+        for (let k_line = 0; k_line < q; k_line++) {
+            const card = [];
+            for (let y = 0; y < q; y++) {
+                card.push(getSymbolName("grid", k_line, y));
+            }
+            card.push(getSymbolName("vert_inf"));
+            deck.push(card);
+        }
+
+        // 第三组卡牌: 无穷远线
+        const infCard = [];
+        for (let m = 0; m < q; m++) {
+            infCard.push(getSymbolName("slope_inf", m));
+        }
+        infCard.push(getSymbolName("vert_inf"));
+        deck.push(infCard);
+
+        return deck;
+    }
+
+    function quickSelect(n) {
+        document.getElementById('inputN').value = n;
+        handleGenerate();
+    }
+
+    function handleGenerate() {
+        const inputN = parseInt(document.getElementById('inputN').value, 10);
+        const errorBox = document.getElementById('errorBox');
+        const infoBoard = document.getElementById('infoBoard');
+        const cardsGrid = document.getElementById('cardsGrid');
+
+        errorBox.style.display = 'none';
+        infoBoard.innerHTML = '';
+        cardsGrid.innerHTML = '';
+
+        if (isNaN(inputN) || inputN < 3) {
+            errorBox.innerText = "请输入大于或等于 3 的有效数字！";
+            errorBox.style.display = 'block';
+            return;
+        }
+
+        const q = inputN - 1;
+        const pp = getPrimePower(q);
+
+        if (!pp) {
+            errorBox.innerHTML = `数学限制：每张牌有 <b>${inputN}</b> 个符号，对应的阶数 q = N-1 = <b>${q}</b>。<br>` +
+                                `根据数学定理，有限射影平面的阶数必须是<b>素数或素数的幂</b>。<br>` +
+                                `由于 ${q} 既不是素数，也不是单素数的幂（如 6 含有 2 和 3 两个素因子），因此该版本<b>在数学上不存在完美的卡牌设计</b>！请在下方推荐值中选择。`;
+            errorBox.style.display = 'block';
+            return;
+        }
+
+        const { p, k } = pp;
+        if (k > 1 && !IRREDUCIBLE_POLYS[`${p}^${k}`]) {
+            errorBox.innerHTML = `本计算引擎目前暂未录入有限域 GF(${p}^${k}) 的不可约多项式（目前支持至 N=28 范围内的所有合法阶）。请选择小于 28 的合法 N 值！`;
+            errorBox.style.display = 'block';
+            return;
+        }
+
+        // 核心算法直出生成
+        const deck = generateDobbleDeck(inputN);
+        if (!deck) return;
+        currentDeck = deck;
+
+        const totalSymbols = q * q + q + 1;
+        const typeStr = k === 1 ? `素数` : `素数幂 (${p}^${k})`;
+        infoBoard.innerHTML = `🎉 生成成功！ 阶数 q = ${q} 为 <b>${typeStr}</b> | 牌组包含 <b>${deck.length}</b> 张卡牌 | 共有 <b>${totalSymbols}</b> 种不同符号`;
+
+        // 渲染 HTML DOM
+        deck.forEach((cardSymbols, cardIdx) => {
+            const cardDiv = document.createElement('div');
+            cardDiv.className = 'card';
+            cardDiv.setAttribute('data-card-index', cardIdx);
+
+            const headerDiv = document.createElement('div');
+            headerDiv.className = 'card-header';
+            headerDiv.innerText = `卡牌 ${cardIdx + 1}`;
+            cardDiv.appendChild(headerDiv);
+
+            const symbolsDiv = document.createElement('div');
+            symbolsDiv.className = 'symbols-container';
+
+            cardSymbols.forEach(symbol => {
+                const symSpan = document.createElement('span');
+                symSpan.className = 'symbol';
+                symSpan.setAttribute('data-symbol-name', symbol);
+                symSpan.innerText = symbol;
+                symbolsDiv.appendChild(symSpan);
+            });
+
+            cardDiv.appendChild(symbolsDiv);
+
+            cardDiv.addEventListener('mouseenter', () => handleHover(cardIdx));
+            cardDiv.addEventListener('mouseleave', handleLeave);
+
+            cardsGrid.appendChild(cardDiv);
+        });
+    }
+
+    function handleHover(hoveredCardIdx) {
+        const grid = document.getElementById('cardsGrid');
+        grid.classList.add('has-active');
+
+        const hoveredSymbols = currentDeck[hoveredCardIdx];
+        const cardElements = document.querySelectorAll('.card');
+
+        cardElements.forEach((cardEl, idx) => {
+            if (idx === hoveredCardIdx) {
+                cardEl.classList.add('active-hover');
+            } else {
+                cardEl.classList.remove('active-hover');
+                const otherCardSymbols = currentDeck[idx];
+                const intersectionSymbol = otherCardSymbols.find(s => hoveredSymbols.includes(s));
+                if (intersectionSymbol) {
+                    const symEl = cardEl.querySelector(`[data-symbol-name="${intersectionSymbol}"]`);
+                    if (symEl) {
+                        symEl.classList.add('intersection');
+                    }
+                }
+            }
+        });
+    }
+
+    function handleLeave() {
+        const grid = document.getElementById('cardsGrid');
+        grid.classList.remove('has-active');
+
+        const cardElements = document.querySelectorAll('.card');
+        cardElements.forEach(cardEl => {
+            cardEl.classList.remove('active-hover');
+            const symbols = cardEl.querySelectorAll('.symbol');
+            symbols.forEach(sym => sym.classList.remove('intersection'));
+        });
+    }
+
+    window.onload = function() {
+        handleGenerate();
+    };
+</script>
+
+</body>
+</html>

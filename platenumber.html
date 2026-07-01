@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>广州油车自编选号辅助工具 (粤语意头优化)</title>
+    <style>
+        :root {
+            --bg-color: #f5f7fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --title-color: #1a1a1a;
+            --card-title-color: #2c3e50;
+            --border-color: #eef2f7;
+            --input-border: #cccccc;
+            --input-bg: #ffffff;
+            --input-text: #333333;
+            --label-color: #555555;
+            --help-text-color: #7f8c8d;
+            --th-bg: #f8f9fa;
+            --th-text: #666666;
+            --notice-bg: #fef9e7;
+            --notice-border: #f1c40f;
+            --notice-text: #7d6608;
+            --shadow-color: rgba(0,0,0,0.05);
+            --primary-color: #3498db;
+            --primary-hover: #2980b9;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121214;
+            --card-bg: #1e1e24;
+            --text-color: #e0e0e6;
+            --title-color: #ffffff;
+            --card-title-color: #ecf0f1;
+            --border-color: #2c2c35;
+            --input-border: #444450;
+            --input-bg: #2a2a32;
+            --input-text: #e0e0e6;
+            --label-color: #b0b0b8;
+            --help-text-color: #95a5a6;
+            --th-bg: #25252c;
+            --th-text: #aaaaaa;
+            --notice-bg: #2c2512;
+            --notice-border: #d4ac0d;
+            --notice-text: #f1c40f;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --primary-color: #2980b9;
+            --primary-hover: #3498db;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--bg-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .header h1 {
+            margin: 0;
+            color: var(--title-color);
+            font-size: 1.8rem;
+        }
+        .theme-btn {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--input-border);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px var(--shadow-color);
+        }
+        .theme-btn:hover {
+            background-color: var(--border-color);
+            transform: translateY(-1px);
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+        .card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px var(--shadow-color);
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border-color);
+            color: var(--card-title-color);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--label-color);
+        }
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--input-text);
+            border-radius: 4px;
+            box-sizing: border-box;
+            resize: vertical;
+            font-family: monospace;
+            font-size: 14px;
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+        }
+        .help-text {
+            font-size: 0.85rem;
+            color: var(--help-text-color);
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .range-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .range-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .plate-input-wrapper {
+            display: flex;
+            align-items: stretch;
+            flex: 1;
+        }
+        .plate-prefix {
+            background-color: #0033aa;
+            color: #ffffff;
+            font-weight: bold;
+            padding: 10px 14px;
+            border-radius: 4px 0 0 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            border: 1px solid #0033aa;
+            border-right: none;
+            user-select: none;
+        }
+        .plate-input-wrapper input[type="text"] {
+            border-radius: 0 4px 4px 0;
+            border-left: none;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--input-text);
+            font-size: 16px;
+            text-transform: uppercase;
+            box-sizing: border-box;
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+        }
+        .range-separator {
+            font-weight: bold;
+            color: var(--label-color);
+            padding: 0 5px;
+        }
+        
+        button.action-btn {
+            padding: 10px 25px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        button.action-btn:hover {
+            background-color: var(--primary-hover);
+        }
+        button.action-btn:active {
+            transform: scale(0.98);
+        }
+
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .result-table th, .result-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .result-table th {
+            background-color: var(--th-bg);
+            color: var(--th-text);
+        }
+        .tag {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        .tag-good { background-color: #eafaf1; color: #2ecc71; }
+        .tag-bad { background-color: #fdedec; color: #e74c3c; }
+        
+        [data-theme="dark"] .tag-good { background-color: rgba(46, 204, 113, 0.15); color: #2ecc71; }
+        [data-theme="dark"] .tag-bad { background-color: rgba(231, 76, 60, 0.15); color: #e74c3c; }
+
+        .score-a { color: #e74c3c; font-weight: bold; }
+        .score-b { color: #e67e22; font-weight: bold; }
+        .score-c { color: var(--primary-color); }
+        
+        [data-theme="dark"] .score-b { color: #f39c12; }
+        [data-theme="dark"] .score-c { color: #5dade2; }
+
+        .notice {
+            background-color: var(--notice-bg);
+            border-left: 4px solid var(--notice-border);
+            color: var(--notice-text);
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--input-border);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--help-text-color);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>广州油车自编选号辅助工具</h1>
+        <button id="themeToggle" class="theme-btn">🌙 夜间模式</button>
+    </div>
+
+    <div class="notice">
+        <strong>💡 选号核心逻辑提醒：</strong> 自编前请先去12123 APP“网办大厅”查看最新的“号牌号段公布”。自编只能在<strong>发布满7天以上</strong>的号段中选择。如果系统匹配到未被占用的自编号码，会自动直接确认，无法反悔，请务必谨慎提交！
+    </div>
+
+    <div class="container">
+        <!-- 左侧配置区域 -->
+        <div class="left-panel">
+            <div class="card">
+                <div class="card-title">🌟 吉祥心愿组合 (用逗号分隔)</div>
+                <label for="goodList">高分核心字/组合：</label>
+                <textarea id="goodList">8, 9, 6, 2, 3, 28, 38, 98, 138, 168, 22, 66, 88, 99</textarea>
+                <div class="help-text">包含这些数字或组合的号码会获得额外加分（如：2代表易，8代表发，3代表生/发）。</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🚫 避坑黑名单组合 (用逗号分隔)</div>
+                <label for="badList">一键过滤字/组合：</label>
+                <textarea id="badList">4, 14, 24, 54, 74, 58, 958, 53, 167, 169, SB, JB, WC, X4</textarea>
+                <div class="help-text">包含这些组合的号码会被自动降级或直接剔除（例如粤语：58唔发、24易死、167粗口谐音）。</div>
+            </div>
+        </div>
+
+        <!-- 右侧操作与结果区域 -->
+        <div class="right-panel">
+            <div class="card">
+                <div class="card-title">🔍 号码段穷举与推荐</div>
+                <label>请输入要查询的号牌范围段（起始号牌 ~ 结束号牌，共5位）：</label>
+                <div class="range-container">
+                    <div class="range-row">
+                        <div class="plate-input-wrapper">
+                            <span class="plate-prefix">粤A</span>
+                            <input type="text" id="startPlate" value="0A000" placeholder="如 0A000" maxlength="5" oninput="this.value = this.value.toUpperCase().replace(/[^0-9A-Z]/g, '').replace(/[IO]/g, '')">
+                        </div>
+                        <span class="range-separator">至</span>
+                        <div class="plate-input-wrapper">
+                            <span class="plate-prefix">粤A</span>
+                            <input type="text" id="endPlate" value="1A999" placeholder="如 1A999" maxlength="5" oninput="this.value = this.value.toUpperCase().replace(/[^0-9A-Z]/g, '').replace(/[IO]/g, '')">
+                        </div>
+                    </div>
+                    <button class="action-btn" onclick="generateAndFilterFromRange()">智能推荐</button>
+                </div>
+                <div class="help-text">提示：自编号牌格式为5位（数字或字母，排除易混淆的 I 和 O），起始与结束号牌对应的位置必须同为数字或同为字母。最大组合数请控制在 15,000 以内。</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📊 推荐结果 (按意头综合评分排序)</div>
+                <div style="max-height: 400px; overflow-y: auto;">
+                    <table class="result-table">
+                        <thead>
+                            <tr>
+                                <th>车牌号码</th>
+                                <th>意头评级</th>
+                                <th>特征解析</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultBody">
+                            <tr>
+                                <td colspan="3" style="text-align: center; color: #999;">暂无数据，请输入号段并点击“智能推荐”</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 主题切换与持久化逻辑
+        const themeToggle = document.getElementById('themeToggle');
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        updateThemeButton(currentTheme);
+
+        themeToggle.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme');
+            if (theme === 'dark') {
+                theme = 'light';
+            } else {
+                theme = 'dark';
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            updateThemeButton(theme);
+        });
+
+        function updateThemeButton(theme) {
+            if (theme === 'dark') {
+                themeToggle.innerHTML = '☀️ 日间模式';
+            } else {
+                themeToggle.innerHTML = '🌙 夜间模式';
+            }
+        }
+
+        // 解析输入框中的逗号分隔字符串
+        function parseInput(id) {
+            return document.getElementById(id).value
+                .split(',')
+                .map(item => item.trim().toUpperCase())
+                .filter(item => item.length > 0);
+        }
+
+        // 辅助函数：判断字符是否为数字
+        function isDigit(char) {
+            return char >= '0' && char <= '9';
+        }
+
+        // 核心推荐生成逻辑（基于区间号段）
+        function generateAndFilterFromRange() {
+            let startVal = document.getElementById('startPlate').value.trim().toUpperCase();
+            let endVal = document.getElementById('endPlate').value.trim().toUpperCase();
+
+            // 1. 基本长度和格式验证
+            if (startVal.length !== 5 || endVal.length !== 5) {
+                alert('起始与结束号牌必须为 5 位字符！');
+                return;
+            }
+
+            const platePattern = /^[0-9A-HJ-NP-Z]{5}$/;
+            if (!platePattern.test(startVal) || !platePattern.test(endVal)) {
+                alert('号牌仅能包含数字与大写字母（且已自动为您排除字母 I 与 O）！');
+                return;
+            }
+
+            // 2. 验证每一位字符的类型是否一致
+            const LETTERS = "ABCDEFGHJKLMNPQRSTUVWXYZ";
+            let charsAtPos = [];
+            let totalCombinations = 1;
+
+            for (let i = 0; i < 5; i++) {
+                let sChar = startVal[i];
+                let eChar = endVal[i];
+                let sIsDigit = isDigit(sChar);
+                let eIsDigit = isDigit(eChar);
+
+                if (sIsDigit !== eIsDigit) {
+                    alert(`输入格式错误：第 ${i + 1} 位字符类型不匹配。起始位为“${sChar}”（${sIsDigit ? '数字' : '字母'}），结束位为“${eChar}”（${eIsDigit ? '数字' : '字母'}）。请确保两者的每一位排布完全相同（例如都是“数字-字母-数字-数字-数字”）。`);
+                    return;
+                }
+
+                let posChars = [];
+                if (sIsDigit) {
+                    let startNum = parseInt(sChar);
+                    let endNum = parseInt(eChar);
+                    let low = Math.min(startNum, endNum);
+                    let high = Math.max(startNum, endNum);
+                    for (let d = low; d <= high; d++) {
+                        posChars.push(d.toString());
+                    }
+                } else {
+                    let idx1 = LETTERS.indexOf(sChar);
+                    let idx2 = LETTERS.indexOf(eChar);
+                    let low = Math.min(idx1, idx2);
+                    let high = Math.max(idx1, idx2);
+                    for (let l = low; l <= high; l++) {
+                        posChars.push(LETTERS[l]);
+                    }
+                }
+                charsAtPos.push(posChars);
+                totalCombinations *= posChars.length;
+            }
+
+            // 3. 安全阀值限制，避免浏览器卡顿
+            if (totalCombinations > 15000) {
+                alert(`该区间号段所产生的组合数量过大（共 ${totalCombinations.toLocaleString()} 个），可能会导致浏览器卡顿。为了保证流畅运行，请将组合数控制在 15,000 以内（例如固定某些位数，仅变动 1-3 位）。`);
+                return;
+            }
+
+            const goodCombos = parseInput('goodList');
+            const badCombos = parseInput('badList');
+            let results = [];
+
+            // 4. 递归组合生成器
+            function combine(current, posIndex) {
+                if (posIndex === 5) {
+                    analyzePlate('粤A' + current, goodCombos, badCombos, results);
+                    return;
+                }
+                let choices = charsAtPos[posIndex];
+                for (let c of choices) {
+                    combine(current + c, posIndex + 1);
+                }
+            }
+
+            // 启动生成
+            combine("", 0);
+
+            // 5. 排序：评级得分高的排前面
+            results.sort((a, b) => b.score - a.score);
+
+            // 6. 渲染表格
+            renderTable(results);
+        }
+
+        // 分析单个车牌的意头和得分 (粤A 开头)
+        function analyzePlate(plate, goodCombos, badCombos, resultsList) {
+            // 只取粤A后五位进行核心内容分析
+            const core = plate.substring(2); 
+            
+            let score = 50; // 基础分
+            let hitGood = [];
+            let hitBad = [];
+
+            // 记录哪些索引被吉利组合覆盖（受保护）
+            let protectedIndices = new Set();
+
+            // 1. 先检查吉祥心愿组合，并标记受保护的索引
+            for (let good of goodCombos) {
+                let startIdx = 0;
+                while (true) {
+                    let idx = core.indexOf(good, startIdx);
+                    if (idx === -1) break;
+                    
+                    // 记录命中的吉祥组合
+                    if (!hitGood.includes(good)) {
+                        hitGood.push(good);
+                    }
+                    
+                    // 标记该范围内的所有索引为受保护
+                    for (let i = 0; i < good.length; i++) {
+                        protectedIndices.add(idx + i);
+                    }
+                    startIdx = idx + 1; // 继续寻找下一个可能重叠的相同组合
+                }
+            }
+
+            // 2. 检查避坑黑名单，避开受保护的索引
+            for (let bad of badCombos) {
+                let startIdx = 0;
+                while (true) {
+                    let idx = core.indexOf(bad, startIdx);
+                    if (idx === -1) break;
+                    
+                    // 检查该命中的 bad 组合是否包含任何受保护的字符
+                    let isProtected = false;
+                    for (let i = 0; i < bad.length; i++) {
+                        if (protectedIndices.has(idx + i)) {
+                            isProtected = true;
+                            break;
+                        }
+                    }
+                    
+                    if (!isProtected) {
+                        if (!hitBad.includes(bad)) {
+                            hitBad.push(bad);
+                        }
+                    }
+                    startIdx = idx + 1;
+                }
+            }
+
+            // 3. 根据最终的命中情况计算得分
+            // 扣分逻辑
+            for (let bad of hitBad) {
+                if (bad === '4' || bad === '14' || bad === '24') {
+                    score -= 30; // 极度不吉利重罚
+                } else {
+                    score -= 15;
+                }
+            }
+
+            // 加分逻辑
+            for (let good of hitGood) {
+                // 组合越长，加分越多
+                score += good.length * 10;
+            }
+
+            // 4. 特殊结构加分（如豹子号、连号、对称号，需注意不能是4）
+            const numPart = core.replace(/[^0-9]/g, ''); // 纯数字部分
+            if (numPart.length >= 2) {
+                // 检查是否有连续相同数字（如66, 88）
+                for (let i = 0; i < numPart.length - 1; i++) {
+                    if (numPart[i] === numPart[i+1] && numPart[i] !== '4') {
+                        score += 5;
+                    }
+                }
+            }
+
+            // 评级划分
+            let grade = 'C 普普通通';
+            let gradeClass = 'score-c';
+            if (hitBad.length > 0 && score < 40) {
+                grade = 'D 建议避坑';
+                gradeClass = 'score-bad';
+            } else if (score >= 80) {
+                grade = 'A 极具意头';
+                gradeClass = 'score-a';
+            } else if (score >= 60) {
+                grade = 'B 良好可选';
+                gradeClass = 'score-b';
+            }
+
+            resultsList.push({
+                plate: plate,
+                score: score,
+                grade: grade,
+                gradeClass: gradeClass,
+                hitGood: hitGood,
+                hitBad: hitBad
+            });
+        }
+
+        // 渲染结果到前端
+        function renderTable(results) {
+            const tbody = document.getElementById('resultBody');
+            tbody.innerHTML = '';
+
+            if (results.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="3" style="text-align: center; color: var(--text-color);">未找到符合规则的号码</td></tr>';
+                return;
+            }
+
+            // 最多展示前200个优秀推荐，避免前端渲染过多卡顿
+            const maxDisplay = Math.min(results.length, 200);
+
+            for (let i = 0; i < maxDisplay; i++) {
+                const res = results[i];
+                let info = '';
+                
+                if (res.hitBad.length > 0) {
+                    info += `<span class="tag tag-bad">踩坑: ${res.hitBad.join(',')}</span>`;
+                }
+                if (res.hitGood.length > 0) {
+                    info += `<span class="tag tag-good">迎吉: ${res.hitGood.join(',')}</span>`;
+                }
+                if (info === '') {
+                    info = '<span style="color: var(--help-text-color);">干净规整，无特殊谐音</span>';
+                }
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${res.plate}</strong></td>
+                    <td class="${res.gradeClass}">${res.grade}</td>
+                    <td>${info}</td>
+                `;
+                tbody.appendChild(tr);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -129,6 +129,24 @@
             background: var(--color-primary);
             opacity: 0.7;
         }
+
+        /* Custom transitions and animations */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            16.66%, 50%, 83.33% { transform: translateX(-4px); }
+            33.33%, 66.66% { transform: translateX(4px); }
+        }
+        .animate-shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes scale-up {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-scale-up {
+            animation: scale-up 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
     </style>
 
     <script>
@@ -314,6 +332,7 @@
         let sortMode = false;
         let stagingActresses = null; 
         let navSortMode = 'default'; // 'default' or 'alphabetical'
+        let lastSavedDataJson = '';
 
         // ========================
         // Toast Manager
@@ -413,12 +432,70 @@
             return res.json();
         }
 
-        async function saveToCloud() {
+        function checkHasChanges() {
+            return JSON.stringify(data) !== lastSavedDataJson;
+        }
+
+        async function saveToCloud(clickedBtn = null) {
+            if (!checkHasChanges()) {
+                if (clickedBtn) {
+                    clickedBtn.classList.add('animate-shake');
+                    clickedBtn.addEventListener('animationend', () => {
+                        clickedBtn.classList.remove('animate-shake');
+                    }, { once: true });
+                }
+                showToast('没有需要保存的改动。');
+                return;
+            }
+
+            const floppyIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V8l-4-4H8z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 14a3 3 0 100-6 3 3 0 000 6z" /><path stroke-linecap="round" stroke-linejoin="round" d="M9 20V14h6v6" /></svg>`;
+            const throbberIcon = `<svg class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>`;
+            const successIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white animate-scale-up" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>`;
+            const errorIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white animate-scale-up" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>`;
+
+            const saveButtons = document.querySelectorAll('.btn-save-all');
+            saveButtons.forEach(button => {
+                button.disabled = true;
+                button.classList.add('opacity-80', 'cursor-not-allowed');
+                const svg = button.querySelector('svg');
+                if (svg) {
+                    svg.outerHTML = throbberIcon;
+                }
+            });
+
             try {
                 await updateData(data);
+                lastSavedDataJson = JSON.stringify(data);
                 showToast('所有改动已成功保存到云端！');
+                
+                saveButtons.forEach(button => {
+                    const svg = button.querySelector('svg');
+                    if (svg) {
+                        svg.outerHTML = successIcon;
+                    }
+                });
+                
+                await new Promise(resolve => setTimeout(resolve, 3000));
             } catch (err) {
                 showToast(err.message || '云端保存失败', true);
+                
+                saveButtons.forEach(button => {
+                    const svg = button.querySelector('svg');
+                    if (svg) {
+                        svg.outerHTML = errorIcon;
+                    }
+                });
+                
+                await new Promise(resolve => setTimeout(resolve, 3000));
+            } finally {
+                saveButtons.forEach(button => {
+                    button.disabled = false;
+                    button.classList.remove('opacity-80', 'cursor-not-allowed');
+                    const svg = button.querySelector('svg');
+                    if (svg) {
+                        svg.outerHTML = floppyIcon;
+                    }
+                });
             }
         }
 
@@ -969,12 +1046,12 @@
             });
 
             document.querySelectorAll('.btn-save-all').forEach(btn => {
-                btn.addEventListener('click', async () => {
+                btn.addEventListener('click', async (e) => {
                     if (sortMode) {
                         showToast('请先完成排序或取消排序操作。', true);
                         return;
                     }
-                    await saveToCloud();
+                    await saveToCloud(e.currentTarget);
                 });
             });
 
@@ -1059,6 +1136,8 @@
 
             if (!data.config) data.config = { sitelist: [] };
             if (!data.actresses) data.actresses = [];
+
+            lastSavedDataJson = JSON.stringify(data);
 
             renderSiteList();
             renderActressList();

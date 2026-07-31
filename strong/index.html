@@ -134,6 +134,48 @@
       margin-top: -4px;
     }
 
+    /* Sub-pages Navigation Bar */
+    .nav-bar {
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border-color);
+      padding: 10px 0;
+      margin-bottom: 20px;
+    }
+
+    .nav-bar-content {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .nav-link-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 8px 20px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      transition: var(--transition);
+    }
+
+    .nav-link-btn:hover {
+      color: var(--text-main);
+      background: rgba(229, 184, 66, 0.05);
+    }
+
+    .nav-link-btn.active {
+      color: var(--primary-gold);
+      border-color: var(--primary-gold);
+      background: rgba(229, 184, 66, 0.08);
+      box-shadow: 0 0 10px rgba(229, 184, 66, 0.1);
+    }
+
     .btn {
       background: var(--bg-card);
       border: 1px solid var(--primary-gold);
@@ -740,6 +782,164 @@
       font-size: 0.95rem;
     }
 
+    /* Timeline View Styles */
+    .timeline-view {
+      display: none;
+    }
+
+    .timeline-container {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: dashed var(--border-color);
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+      width: 50%;
+      padding: 0 30px;
+    }
+
+    .timeline-item.left {
+      left: 0;
+      text-align: right;
+    }
+
+    .timeline-item.right {
+      left: 50%;
+      text-align: left;
+    }
+
+    .timeline-item::after {
+      content: '★';
+      font-size: 0.65rem;
+      color: var(--primary-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 5px;
+      width: 24px;
+      height: 24px;
+      background: var(--bg-panel);
+      border: 2px solid var(--primary-gold);
+      border-radius: 50%;
+      z-index: 1;
+      box-shadow: 0 0 10px var(--primary-gold);
+    }
+
+    .timeline-item.left::after {
+      right: -12px;
+    }
+
+    .timeline-item.right::after {
+      left: -12px;
+    }
+
+    .timeline-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      position: relative;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .timeline-card:hover {
+      border-color: var(--primary-gold);
+      box-shadow: 0 8px 25px rgba(229, 184, 66, 0.15);
+      transform: translateY(-3px);
+    }
+
+    .timeline-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .timeline-item.left .timeline-card-header {
+      justify-content: flex-end;
+    }
+
+    .timeline-year {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--primary-gold);
+    }
+
+    .timeline-tag {
+      background: rgba(229, 184, 66, 0.1);
+      border: 1px solid var(--primary-gold);
+      color: var(--primary-gold);
+      padding: 2px 8px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      border-radius: 4px;
+    }
+
+    .timeline-tag.history {
+      background: rgba(211, 78, 54, 0.1);
+      border-color: var(--accent-red);
+      color: var(--accent-red);
+    }
+
+    .timeline-tag.milestone {
+      background: rgba(63, 176, 115, 0.1);
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+    }
+
+    .timeline-card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .timeline-card-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .timeline-card-source.clickable {
+      font-size: 0.75rem;
+      color: var(--primary-gold);
+      margin-top: 12px;
+      display: inline-flex;
+      align-items: center;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid rgba(229, 184, 66, 0.3);
+      padding: 3px 10px;
+      border-radius: 4px;
+      background: rgba(229, 184, 66, 0.03);
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .timeline-card-source.clickable:hover {
+      background: var(--primary-gold);
+      color: var(--bg-darker);
+      border-color: var(--primary-gold);
+      box-shadow: 0 0 10px rgba(229, 184, 66, 0.25);
+    }
+
     /* Footer styling */
     footer {
       margin-top: 60px;
@@ -766,6 +966,31 @@
       .detail-header-img {
         width: 100%;
         height: 180px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .timeline-container::before {
+        left: 20px;
+      }
+      .timeline-item {
+        width: 100%;
+        padding-left: 45px;
+        padding-right: 0;
+        text-align: left !important;
+      }
+      .timeline-item.left {
+        left: 0;
+      }
+      .timeline-item.right {
+        left: 0;
+      }
+      .timeline-item::after {
+        left: 8px !important;
+        right: auto !important;
+      }
+      .timeline-card-header {
+        justify-content: flex-start !important;
       }
     }
 
@@ -818,6 +1043,22 @@
     </div>
   </header>
 
+  <!-- Subpages Navigation Bar -->
+  <div class="nav-bar">
+    <div class="container">
+      <div class="nav-bar-content">
+        <button class="nav-link-btn active" id="nav-btn-directory" onclick="switchMainView('directory')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:-1px;"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+          章节目录
+        </button>
+        <button class="nav-link-btn" id="nav-btn-timeline" onclick="switchMainView('timeline')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:-1px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          国防历史时间轴
+        </button>
+      </div>
+    </div>
+  </div>
+
   <div class="container">
     <!-- HOMEPAGE CONTAINER -->
     <div id="home-view">
@@ -832,6 +1073,18 @@
       <!-- Grid of Cards -->
       <div id="episodes-grid" class="episodes-grid">
         <!-- Dynaimcally Rendered Cards -->
+      </div>
+    </div>
+
+    <!-- TIMELINE VIEW CONTAINER -->
+    <div id="timeline-view" class="timeline-view" style="animation: fadeIn 0.4s ease forwards;">
+      <div class="timeline-intro" style="text-align: center; margin: 20px 0 40px 0;">
+        <h2 style="font-size: 1.8rem; font-weight: 900; color: var(--primary-gold); margin-bottom: 10px; font-family: var(--font-display);">国防与强军历史时间轴</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 600px; margin: 0 auto;">纵观历史，横看当今。本时间轴整理了纪录片中提及的古代历史教训、近代屈辱警示、人民军队建军里程碑及新时代强军变革大事记。</p>
+      </div>
+      
+      <div class="timeline-container" id="timeline-container">
+        <!-- Dynamically rendered timeline events -->
       </div>
     </div>
 
@@ -944,6 +1197,7 @@
     // DOM Nodes
     const homeView = document.getElementById('home-view');
     const detailView = document.getElementById('detail-view');
+    const timelineView = document.getElementById('timeline-view');
     const episodesGrid = document.getElementById('episodes-grid');
     const searchBox = document.getElementById('search-box');
     const objectivesList = document.getElementById('objectives-list');
@@ -954,11 +1208,37 @@
     const detailHeaderPanel = document.getElementById('detail-header-panel');
     const prevEpBtn = document.getElementById('prev-ep-btn');
     const nextEpBtn = document.getElementById('next-ep-btn');
+    
+    // Sub-nav Buttons
+    const navBtnDir = document.getElementById('nav-btn-directory');
+    const navBtnTime = document.getElementById('nav-btn-timeline');
 
     // Initialize the App
     window.addEventListener('DOMContentLoaded', () => {
       renderHome(EPISODES_DATA);
     });
+
+    // Main view controller (Directory vs Timeline vs Detail)
+    function switchMainView(view) {
+      if (view === 'directory') {
+        navBtnDir.classList.add('active');
+        navBtnTime.classList.remove('active');
+        
+        homeView.style.display = 'block';
+        timelineView.style.display = 'none';
+        detailView.style.display = 'none';
+      } else if (view === 'timeline') {
+        navBtnDir.classList.remove('active');
+        navBtnTime.classList.add('active');
+        
+        homeView.style.display = 'none';
+        timelineView.style.display = 'block';
+        detailView.style.display = 'none';
+        
+        renderTimeline();
+      }
+      window.scrollTo(0, 0);
+    }
 
     // Render Home Cards
     function renderHome(episodes) {
@@ -1074,8 +1354,12 @@
       // Update Bottom Navigation buttons
       updateBottomNav(id);
 
-      // Switch display
+      // Switch display and hide main sub-navigation tab visual states
+      navBtnDir.classList.remove('active');
+      navBtnTime.classList.remove('active');
+      
       homeView.style.display = 'none';
+      timelineView.style.display = 'none';
       detailView.style.display = 'block';
       
       // Auto scroll to top of view
@@ -1098,6 +1382,40 @@
         nextEpBtn.style.visibility = 'visible';
         nextEpBtn.onclick = () => showEpisode(id + 1);
       }
+    }
+
+    // Render Timeline Events
+    function renderTimeline() {
+      const container = document.getElementById('timeline-container');
+      container.innerHTML = '';
+      
+      TIMELINE_DATA.forEach((ev, idx) => {
+        const item = document.createElement('div');
+        const side = idx % 2 === 0 ? 'left' : 'right';
+        item.className = `timeline-item ${side}`;
+        
+        let tagClass = 'modern';
+        if (ev.category === 'history') {
+          tagClass = 'history';
+        } else if (ev.category === 'milestone') {
+          tagClass = 'milestone';
+        }
+        
+        item.innerHTML = `
+          <div class="timeline-card">
+            <div class="timeline-card-header">
+              <span class="timeline-year">${ev.year}</span>
+              <span class="timeline-tag ${tagClass}">${ev.categoryText}</span>
+            </div>
+            <h4 class="timeline-card-title">${ev.title}</h4>
+            <p class="timeline-card-desc">${ev.description}</p>
+            <span class="timeline-card-source clickable" onclick="showEpisode(${ev.episodeId})">
+              关联学习：${ev.episode} &rarr;
+            </span>
+          </div>
+        `;
+        container.appendChild(item);
+      });
     }
 
     // Toggle Reference Answer block
@@ -1138,10 +1456,7 @@
 
     // Back to Home
     function backToHome() {
-      detailView.style.display = 'none';
-      homeView.style.display = 'block';
-      currentEpisodeId = null;
-      window.scrollTo(0, 0);
+      switchMainView('directory');
     }
 
     // Global Search

@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>《强军》大型纪录片专题学习平台 - 暑假国防教育作业</title>
+  <!-- Import Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* CSS Custom Properties for Military Theme */
+    :root {
+      --bg-darker: #080f0b;
+      --bg-dark: #0f1a14;
+      --bg-panel: #17281f;
+      --bg-card: #1f3329;
+      --bg-hover: #294437;
+      --primary-gold: #e5b842;
+      --primary-gold-rgb: 229, 184, 66;
+      --accent-red: #d34e36;
+      --accent-red-rgb: 211, 78, 54;
+      --accent-green: #3fb073;
+      --text-main: #f0f4f2;
+      --text-muted: #91a89c;
+      --border-color: rgba(229, 184, 66, 0.15);
+      --border-glow: rgba(229, 184, 66, 0.4);
+      --shadow-gold: rgba(229, 184, 66, 0.1);
+      --font-display: 'Outfit', 'Noto Sans SC', sans-serif;
+      --font-body: 'Noto Sans SC', sans-serif;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* Reset & Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-darker);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-bottom: 40px;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-darker);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--bg-panel);
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary-gold);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      width: 100%;
+    }
+
+    /* Header & Navigation */
+    header {
+      background: linear-gradient(180deg, var(--bg-dark) 0%, rgba(8, 15, 11, 0.9) 100%);
+      border-bottom: 2px solid var(--primary-gold);
+      padding: 25px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .badge {
+      background: rgba(229, 184, 66, 0.1);
+      border: 1px solid var(--primary-gold);
+      color: var(--primary-gold);
+      padding: 4px 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .badge::before {
+      content: '★';
+      font-size: 0.9rem;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      color: var(--text-main);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    h1 span {
+      color: var(--primary-gold);
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+      font-weight: 400;
+      max-width: 600px;
+      margin-top: -4px;
+    }
+
+    .btn {
+      background: var(--bg-card);
+      border: 1px solid var(--primary-gold);
+      color: var(--text-main);
+      padding: 10px 20px;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: var(--primary-gold);
+      color: var(--bg-darker);
+      box-shadow: 0 0 15px rgba(229, 184, 66, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .btn-sm {
+      padding: 6px 14px;
+      font-size: 0.85rem;
+    }
+
+    .btn-gold {
+      background: var(--primary-gold);
+      color: var(--bg-darker);
+    }
+    .btn-gold:hover {
+      background: #f0c95d;
+    }
+
+    /* Search bar */
+    .search-section {
+      margin: 30px 0;
+      position: relative;
+    }
+
+    .search-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 15px 20px 15px 45px;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: var(--font-body);
+      transition: var(--transition);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary-gold);
+      box-shadow: 0 0 10px rgba(229, 184, 66, 0.2);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 18px;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      pointer-events: none;
+    }
+
+    /* Grid of Episodes */
+    .episodes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    .episode-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .episode-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary-gold);
+      box-shadow: 0 8px 25px rgba(229, 184, 66, 0.15);
+    }
+
+    .card-img-wrapper {
+      position: relative;
+      padding-top: 56.25%; /* 16:9 Aspect Ratio */
+      overflow: hidden;
+      background: #000;
+    }
+
+    .card-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .episode-card:hover .card-img {
+      transform: scale(1.08);
+    }
+
+    .card-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      gap: 10px;
+    }
+
+    .card-title-number {
+      color: var(--primary-gold);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-top: -4px;
+      color: var(--text-main);
+    }
+
+    .card-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      flex-grow: 1;
+      line-height: 1.5;
+    }
+
+    .card-footer {
+      padding: 0 20px 20px 20px;
+    }
+
+    .card-btn {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 8px 0;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+      text-align: center;
+      display: block;
+      font-size: 0.9rem;
+    }
+
+    .episode-card:hover .card-btn {
+      border-color: var(--primary-gold);
+      background: rgba(229, 184, 66, 0.05);
+      color: var(--primary-gold);
+    }
+
+    /* Detail View Styles */
+    .detail-view {
+      display: none;
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .back-nav {
+      margin: 20px 0;
+    }
+
+    .detail-header {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 25px;
+      display: flex;
+      flex-direction: row;
+      gap: 25px;
+      margin-bottom: 25px;
+      align-items: center;
+      position: relative;
+    }
+
+    .detail-header-img {
+      width: 180px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+      flex-shrink: 0;
+    }
+
+    .detail-header-info {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .detail-header-number {
+      color: var(--primary-gold);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+    }
+
+    .detail-header-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+    }
+
+    .detail-header-sub {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-style: italic;
+    }
+
+    /* Tabs Layout */
+    .tabs {
+      display: flex;
+      border-bottom: 2px solid var(--bg-panel);
+      margin-bottom: 25px;
+      gap: 10px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 12px 24px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      position: relative;
+      font-family: var(--font-body);
+      transition: var(--transition);
+      border-radius: 4px 4px 0 0;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-main);
+      background: rgba(229, 184, 66, 0.03);
+    }
+
+    .tab-btn.active {
+      color: var(--primary-gold);
+      background: var(--bg-panel);
+    }
+
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--primary-gold);
+      box-shadow: 0 0 8px var(--primary-gold);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    /* Learning View Content styling (Tab 1) */
+    .learning-view {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    /* Card Panels */
+    .card-panel {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .panel-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-left: 4px solid var(--primary-gold);
+      padding-left: 12px;
+      color: var(--text-main);
+    }
+
+    /* Goals List */
+    .goals-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .goals-list li {
+      position: relative;
+      padding-left: 28px;
+      font-size: 0.95rem;
+    }
+
+    .goals-list li::before {
+      content: '✔';
+      position: absolute;
+      left: 6px;
+      top: 1px;
+      color: var(--accent-green);
+      font-weight: bold;
+    }
+
+    /* Key points Accordion */
+    .points-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .point-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 18px;
+      transition: var(--transition);
+    }
+
+    .point-item:hover {
+      border-color: rgba(229, 184, 66, 0.4);
+      background: var(--bg-hover);
+    }
+
+    .point-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--primary-gold);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .point-title::before {
+      content: '✦';
+      font-size: 0.9rem;
+    }
+
+    .point-desc {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text-main);
+    }
+
+    .point-desc strong {
+      color: #fff;
+      font-weight: 700;
+      background: rgba(229, 184, 66, 0.12);
+      padding: 1px 4px;
+      border-radius: 2px;
+      border-bottom: 1px dashed var(--primary-gold);
+    }
+
+    /* Curriculum Connection Blocks */
+    .subject-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .subject-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .subject-tag {
+      align-self: flex-start;
+      background: rgba(229, 184, 66, 0.1);
+      border: 1px solid var(--primary-gold);
+      color: var(--primary-gold);
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 4px;
+    }
+
+    .subject-tag.politics {
+      background: rgba(211, 78, 54, 0.1);
+      border-color: var(--accent-red);
+      color: var(--accent-red);
+    }
+
+    .subject-desc {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    /* Reflection worksheet */
+    .worksheet {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .question-block {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .question-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text-main);
+      display: flex;
+      gap: 8px;
+      line-height: 1.4;
+    }
+    
+    .question-number {
+      background: var(--primary-gold);
+      color: var(--bg-darker);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .answer-wrapper {
+      margin-top: 5px;
+    }
+
+    .reference-answer {
+      background: rgba(229, 184, 66, 0.05);
+      border-left: 3px solid var(--primary-gold);
+      padding: 15px 20px;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #e0e6e2;
+      display: none;
+      animation: slideDown 0.3s ease forwards;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Original Text Transcript styling (Tab 2) */
+    .transcript-view {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 30px;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      letter-spacing: 0.5px;
+      color: #e0e6e2;
+      max-height: 800px;
+      overflow-y: auto;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);
+      position: relative;
+    }
+
+    .transcript-view p {
+      margin-bottom: 20px;
+      text-indent: 2em;
+    }
+
+    .transcript-view h2, .transcript-view h3, .transcript-view h4 {
+      text-indent: 0;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      color: var(--primary-gold);
+      font-family: var(--font-display);
+    }
+
+    .transcript-view h2 {
+      font-size: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+    }
+
+    .transcript-view h3 {
+      font-size: 1.25rem;
+      border-left: 3px solid var(--primary-gold);
+      padding-left: 10px;
+      margin-top: 35px;
+    }
+
+    .transcript-view blockquote {
+      text-indent: 0;
+      background: rgba(229, 184, 66, 0.05);
+      border-left: 4px solid var(--primary-gold);
+      padding: 15px 20px;
+      margin: 25px 0;
+      border-radius: 0 4px 4px 0;
+      font-style: italic;
+    }
+
+    .transcript-view blockquote p {
+      margin-bottom: 0;
+      text-indent: 0;
+    }
+
+    .transcript-view ul {
+      margin: 20px 0;
+      padding-left: 20px;
+      list-style-type: square;
+    }
+
+    .transcript-view li {
+      margin-bottom: 8px;
+      text-indent: 0;
+    }
+
+    .transcript-view strong {
+      color: #fff;
+      font-weight: 700;
+      background: rgba(229, 184, 66, 0.15);
+      padding: 0 2px;
+    }
+
+    /* Floating utilities inside transcript */
+    .transcript-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .t-btn {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .t-btn:hover {
+      color: var(--primary-gold);
+      border-color: var(--primary-gold);
+    }
+
+    /* Footer styling */
+    footer {
+      margin-top: 60px;
+      border-top: 1px solid var(--bg-panel);
+      padding-top: 30px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    
+    footer p {
+      margin-bottom: 6px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .subject-links {
+        grid-template-columns: 1fr;
+      }
+      .detail-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .detail-header-img {
+        width: 100%;
+        height: 180px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.6rem;
+      }
+      .subtitle {
+        font-size: 0.85rem;
+      }
+      .badge {
+        font-size: 0.7rem;
+      }
+      .tab-btn {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+        flex-grow: 1;
+        text-align: center;
+      }
+      .card-panel {
+        padding: 15px;
+      }
+      .transcript-view {
+        padding: 15px;
+        font-size: 0.95rem;
+      }
+      .subject-card {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Banner -->
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <span class="badge">暑假爱国主义国防教育</span>
+        <h1>大型纪录片《强军》专题学习</h1>
+        <div class="subtitle">强军梦，青春行。系统梳理纪录片核心考点与原文，帮助高中生深入开展国防安全与历史政治专题研学。</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- HOMEPAGE CONTAINER -->
+    <div id="home-view">
+      <!-- Search Section -->
+      <div class="search-section">
+        <div class="search-input-wrapper">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-box" class="search-input" placeholder="输入关键字搜索集目、知识要点或原文..." oninput="handleSearch()">
+        </div>
+      </div>
+
+      <!-- Grid of Cards -->
+      <div id="episodes-grid" class="episodes-grid">
+        <!-- Dynaimcally Rendered Cards -->
+      </div>
+    </div>
+
+    <!-- DETAIL VIEW CONTAINER -->
+    <div id="detail-view" class="detail-view">
+      <!-- Back Button navigation -->
+      <div class="back-nav">
+        <button class="btn" onclick="backToHome()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          返回目录首页
+        </button>
+      </div>
+
+      <!-- Episode Header -->
+      <div class="detail-header" id="detail-header-panel">
+        <!-- Rendered Dynamically -->
+      </div>
+
+      <!-- Tabs Switcher -->
+      <div class="tabs">
+        <button class="tab-btn active" id="tab-btn-learning" onclick="switchTab('learning')">学习导读与核心要点</button>
+        <button class="tab-btn" id="tab-btn-transcript" onclick="switchTab('transcript')">纪录片原文</button>
+      </div>
+
+      <!-- Tab 1: Learning view -->
+      <div id="tab-content-learning" class="tab-content active">
+        <div class="learning-view">
+          
+          <!-- Learning Objectives -->
+          <div class="card-panel">
+            <div class="panel-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--primary-gold);"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+              高中生学习目标
+            </div>
+            <ul id="objectives-list" class="goals-list">
+              <!-- Dynamically rendered goals -->
+            </ul>
+          </div>
+
+          <!-- Key Points -->
+          <div class="card-panel">
+            <div class="panel-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--primary-gold);"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              核心考点与要点提炼
+            </div>
+            <div id="points-list" class="points-list">
+              <!-- Dynamically rendered points -->
+            </div>
+          </div>
+
+          <!-- Curriculum Connection -->
+          <div class="card-panel">
+            <div class="panel-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--primary-gold);"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+              高中历史与政治学科链接
+            </div>
+            <div id="subject-links" class="subject-links">
+              <!-- Dynamically rendered links -->
+            </div>
+          </div>
+
+          <!-- Worksheet / Reflection questions -->
+          <div class="card-panel">
+            <div class="panel-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--primary-gold);"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4z"></path></svg>
+              课后思考与研学测试
+            </div>
+            <div id="worksheet" class="worksheet">
+              <!-- Dynamically rendered inputs -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Tab 2: Transcript view -->
+      <div id="tab-content-transcript" class="tab-content">
+        <div class="transcript-actions">
+          <button class="t-btn" onclick="scrollToTop()">回到顶部</button>
+        </div>
+        <div id="transcript-body" class="transcript-view">
+          <!-- Dynamically rendered transcript text -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Page Footer -->
+    <footer>
+      <p>© 2026 暑假国防教育《强军》大型纪录片专题学习平台</p>
+      <p>为高中生历史政治课外拓展及爱国主义研学定制</p>
+    </footer>
+  </div>
+
+  <!-- Load Data File -->
+  <script src="data.js"></script>
+  
+  <!-- Interactive App Logic -->
+  <script>
+    // App State Variables
+    let currentEpisodeId = null;
+
+    // DOM Nodes
+    const homeView = document.getElementById('home-view');
+    const detailView = document.getElementById('detail-view');
+    const episodesGrid = document.getElementById('episodes-grid');
+    const searchBox = document.getElementById('search-box');
+    const objectivesList = document.getElementById('objectives-list');
+    const pointsList = document.getElementById('points-list');
+    const subjectLinks = document.getElementById('subject-links');
+    const worksheet = document.getElementById('worksheet');
+    const transcriptBody = document.getElementById('transcript-body');
+    const detailHeaderPanel = document.getElementById('detail-header-panel');
+
+    // Initialize the App
+    window.addEventListener('DOMContentLoaded', () => {
+      renderHome(EPISODES_DATA);
+    });
+
+    // Render Home Cards
+    function renderHome(episodes) {
+      episodesGrid.innerHTML = '';
+      
+      const epKeys = Object.keys(episodes).sort((a, b) => parseInt(a) - parseInt(b));
+      
+      if (epKeys.length === 0) {
+        episodesGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px 0;">未检索到相关内容...</div>';
+        return;
+      }
+
+      epKeys.forEach(key => {
+        const ep = episodes[key];
+
+        const card = document.createElement('div');
+        card.className = 'episode-card';
+        card.setAttribute('data-id', ep.index);
+        card.onclick = () => showEpisode(ep.index);
+
+        card.innerHTML = `
+          <div class="card-img-wrapper">
+            <img class="card-img" src="${ep.index}.jpg" alt="${ep.title}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22180%22 viewBox=%220 0 320 180%22><rect width=%22320%22 height=%22180%22 fill=%22%2317281f%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23e5b842%22 font-family=%22sans-serif%22 font-size=%2218%22 font-weight=%22bold%22>第${ep.index}集 ${ep.title}</text></svg>'">
+          </div>
+          <div class="card-body">
+            <span class="card-title-number">EPISODE 0${ep.index}</span>
+            <h3 class="card-title">第${ep.index}集 ${ep.title}</h3>
+            <p class="card-text">${ep.subtitle}</p>
+          </div>
+          <div class="card-footer">
+            <button class="card-btn">进入学习</button>
+          </div>
+        `;
+        episodesGrid.appendChild(card);
+      });
+    }
+
+    // Toggle details view and load episode data
+    function showEpisode(id) {
+      currentEpisodeId = id;
+      const ep = EPISODES_DATA[id];
+      const transcript = TRANSCRIPTS_DATA[id];
+
+      // Render Header Details
+      detailHeaderPanel.innerHTML = `
+        <img class="detail-header-img" src="${ep.index}.jpg" alt="${ep.title}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22180%22 viewBox=%220 0 320 180%22><rect width=%22320%22 height=%22180%22 fill=%22%2317281f%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23e5b842%22 font-family=%22sans-serif%22 font-size=%2218%22 font-weight=%22bold%22>第${ep.index}集 ${ep.title}</text></svg>'">
+        <div class="detail-header-info">
+          <span class="detail-header-number">第${ep.index}集 · 国防教育研学</span>
+          <h2 class="detail-header-title">${ep.title}</h2>
+          <p class="detail-header-sub">“${ep.subtitle}”</p>
+        </div>
+      `;
+
+      // Render Objectives (Tab 1)
+      objectivesList.innerHTML = '';
+      ep.objectives.forEach(obj => {
+        const li = document.createElement('li');
+        li.textContent = obj;
+        objectivesList.appendChild(li);
+      });
+
+      // Render Key Points (Tab 1)
+      pointsList.innerHTML = '';
+      ep.keyPoints.forEach(pt => {
+        const item = document.createElement('div');
+        item.className = 'point-item';
+        item.innerHTML = `
+          <h4 class="point-title">${pt.title}</h4>
+          <p class="point-desc">${pt.desc}</p>
+        `;
+        pointsList.appendChild(item);
+      });
+
+      // Render Curriculum Links (Tab 1)
+      subjectLinks.innerHTML = '';
+      ep.curriculumLinks.forEach(lnk => {
+        const card = document.createElement('div');
+        card.className = 'subject-card';
+        
+        let isPolitics = lnk.subject.includes('政治');
+        
+        card.innerHTML = `
+          <span class="subject-tag ${isPolitics ? 'politics' : ''}">${lnk.subject}</span>
+          <p class="subject-desc">${lnk.connection}</p>
+        `;
+        subjectLinks.appendChild(card);
+      });
+
+      // Render Worksheet / Thinking questions with Show suggested answer feature (Tab 1)
+      worksheet.innerHTML = '';
+      ep.thinkingQuestions.forEach((qObj, idx) => {
+        const qBlock = document.createElement('div');
+        qBlock.className = 'question-block';
+
+        qBlock.innerHTML = `
+          <div class="question-title">
+            <span class="question-number">${idx + 1}</span>
+            <span>${qObj.question}</span>
+          </div>
+          <div class="answer-wrapper">
+            <button class="btn btn-gold btn-sm" onclick="toggleAnswer(this)" style="margin-top: 8px;">显示参考答案</button>
+            <div class="reference-answer" style="display: none; margin-top: 12px;">
+              ${qObj.answer.replace(/\n/g, '<br>')}
+            </div>
+          </div>
+        `;
+        worksheet.appendChild(qBlock);
+      });
+
+      // Render Transcript (Tab 2)
+      transcriptBody.innerHTML = transcript;
+
+      // Switch display
+      homeView.style.display = 'none';
+      detailView.style.display = 'block';
+      
+      // Auto scroll to top of view
+      window.scrollTo(0, 0);
+      switchTab('learning'); // default tab
+    }
+
+    // Toggle Reference Answer block
+    function toggleAnswer(btn) {
+      const answerDiv = btn.nextElementSibling;
+      if (answerDiv.style.display === 'none') {
+        answerDiv.style.display = 'block';
+        btn.textContent = '隐藏参考答案';
+        btn.style.background = 'transparent';
+        btn.style.color = 'var(--primary-gold)';
+      } else {
+        answerDiv.style.display = 'none';
+        btn.textContent = '显示参考答案';
+        btn.style.background = 'var(--primary-gold)';
+        btn.style.color = 'var(--bg-darker)';
+      }
+    }
+
+    // Switch Tabs inside details
+    function switchTab(tabType) {
+      const btnLearning = document.getElementById('tab-btn-learning');
+      const btnTranscript = document.getElementById('tab-btn-transcript');
+      const contentLearning = document.getElementById('tab-content-learning');
+      const contentTranscript = document.getElementById('tab-content-transcript');
+
+      if (tabType === 'learning') {
+        btnLearning.classList.add('active');
+        btnTranscript.classList.remove('active');
+        contentLearning.classList.add('active');
+        contentTranscript.classList.remove('active');
+      } else {
+        btnLearning.classList.remove('active');
+        btnTranscript.classList.add('active');
+        contentLearning.classList.remove('active');
+        contentTranscript.classList.add('active');
+      }
+    }
+
+    // Back to Home
+    function backToHome() {
+      detailView.style.display = 'none';
+      homeView.style.display = 'block';
+      currentEpisodeId = null;
+      window.scrollTo(0, 0);
+    }
+
+    // Global Search
+    function handleSearch() {
+      const q = searchBox.value.trim().toLowerCase();
+      if (!q) {
+        renderHome(EPISODES_DATA);
+        return;
+      }
+
+      const filtered = {};
+      Object.keys(EPISODES_DATA).forEach(key => {
+        const ep = EPISODES_DATA[key];
+        const trans = TRANSCRIPTS_DATA[key] || '';
+        
+        // Search in title, subtitle, targets, keypoints, and original text
+        const inTitle = ep.title.toLowerCase().includes(q);
+        const inSubtitle = ep.subtitle.toLowerCase().includes(q);
+        const inTrans = trans.toLowerCase().includes(q);
+        
+        let inObjectives = ep.objectives.some(o => o.toLowerCase().includes(q));
+        let inKeyPoints = ep.keyPoints.some(pt => pt.title.toLowerCase().includes(q) || pt.desc.toLowerCase().includes(q));
+        
+        if (inTitle || inSubtitle || inTrans || inObjectives || inKeyPoints) {
+          filtered[key] = ep;
+        }
+      });
+
+      renderHome(filtered);
+    }
+
+    // Scroll transcript back to top
+    function scrollToTop() {
+      transcriptBody.scrollTop = 0;
+    }
+  </script>
+</body>
+</html>

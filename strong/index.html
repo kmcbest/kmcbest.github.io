@@ -723,6 +723,23 @@
       border-color: var(--primary-gold);
     }
 
+    /* Bottom Navigation Bar for detail view */
+    .bottom-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-color);
+      gap: 20px;
+    }
+
+    .bottom-nav .btn {
+      flex: 1;
+      max-width: 180px;
+      font-size: 0.95rem;
+    }
+
     /* Footer styling */
     footer {
       margin-top: 60px;
@@ -777,6 +794,13 @@
       }
       .subject-card {
         padding: 15px;
+      }
+      .bottom-nav {
+        gap: 8px;
+      }
+      .bottom-nav .btn {
+        padding: 8px 10px;
+        font-size: 0.8rem;
       }
     }
   </style>
@@ -892,6 +916,14 @@
           <!-- Dynamically rendered transcript text -->
         </div>
       </div>
+
+      <!-- Bottom Navigation bar for detail view -->
+      <div class="bottom-nav">
+        <button class="btn" id="prev-ep-btn">← 上一章</button>
+        <button class="btn" onclick="backToHome()">返回目录</button>
+        <button class="btn" id="next-ep-btn">下一章 →</button>
+      </div>
+
     </div>
 
     <!-- Page Footer -->
@@ -920,6 +952,8 @@
     const worksheet = document.getElementById('worksheet');
     const transcriptBody = document.getElementById('transcript-body');
     const detailHeaderPanel = document.getElementById('detail-header-panel');
+    const prevEpBtn = document.getElementById('prev-ep-btn');
+    const nextEpBtn = document.getElementById('next-ep-btn');
 
     // Initialize the App
     window.addEventListener('DOMContentLoaded', () => {
@@ -1037,6 +1071,9 @@
       // Render Transcript (Tab 2)
       transcriptBody.innerHTML = transcript;
 
+      // Update Bottom Navigation buttons
+      updateBottomNav(id);
+
       // Switch display
       homeView.style.display = 'none';
       detailView.style.display = 'block';
@@ -1044,6 +1081,23 @@
       // Auto scroll to top of view
       window.scrollTo(0, 0);
       switchTab('learning'); // default tab
+    }
+
+    // Update Bottom Navigation visibility and actions
+    function updateBottomNav(id) {
+      if (id <= 1) {
+        prevEpBtn.style.visibility = 'hidden';
+      } else {
+        prevEpBtn.style.visibility = 'visible';
+        prevEpBtn.onclick = () => showEpisode(id - 1);
+      }
+
+      if (id >= 8) {
+        nextEpBtn.style.visibility = 'hidden';
+      } else {
+        nextEpBtn.style.visibility = 'visible';
+        nextEpBtn.onclick = () => showEpisode(id + 1);
+      }
     }
 
     // Toggle Reference Answer block

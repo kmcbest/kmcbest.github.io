@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>《强军》大型纪录片专题学习平台 - 暑假国防教育作业</title>
+  <title>国防军事纪录片专题学习研学平台 - 暑假爱国主义作业</title>
   <!-- Import Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -144,15 +144,16 @@
 
     .nav-bar-content {
       display: flex;
-      gap: 15px;
+      gap: 12px;
       justify-content: center;
+      align-items: center;
     }
 
     .nav-link-btn {
       background: transparent;
       border: 1px solid transparent;
       color: var(--text-muted);
-      padding: 8px 20px;
+      padding: 8px 18px;
       font-weight: 700;
       font-size: 0.95rem;
       border-radius: 4px;
@@ -213,9 +214,152 @@
       background: #f0c95d;
     }
 
+    /* Gateway view style */
+    .gateway-view {
+      padding: 40px 0;
+      animation: fadeIn 0.5s ease forwards;
+    }
+    
+    .gateway-title-wrapper {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .gateway-title-wrapper h2 {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--primary-gold);
+      margin-bottom: 15px;
+      font-family: var(--font-display);
+      letter-spacing: 2px;
+      text-shadow: 0 0 15px rgba(229, 184, 66, 0.2);
+    }
+    
+    .gateway-title-wrapper p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 650px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .series-selector-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .series-select-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 45px 30px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    
+    .series-select-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--primary-gold);
+      opacity: 0.8;
+      transition: var(--transition);
+    }
+    
+    .series-select-card.zhisheng::before {
+      background: var(--accent-green);
+    }
+
+    .series-select-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary-gold);
+      box-shadow: 0 15px 40px rgba(229, 184, 66, 0.25);
+      background: var(--bg-card);
+    }
+    
+    .series-select-card.zhisheng:hover {
+      border-color: var(--accent-green);
+      box-shadow: 0 15px 40px rgba(63, 176, 115, 0.25);
+    }
+
+    .series-card-icon {
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      background: rgba(229, 184, 66, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--primary-gold);
+      font-size: 2rem;
+      color: var(--primary-gold);
+      transition: var(--transition);
+    }
+    
+    .series-select-card:hover .series-card-icon {
+      transform: scale(1.08);
+      background: var(--primary-gold);
+      color: var(--bg-darker);
+      box-shadow: 0 0 20px rgba(229, 184, 66, 0.3);
+    }
+
+    .series-select-card.zhisheng .series-card-icon {
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+      background: rgba(63, 176, 115, 0.08);
+    }
+    
+    .series-select-card.zhisheng:hover .series-card-icon {
+      background: var(--accent-green);
+      color: var(--bg-darker);
+      box-shadow: 0 0 20px rgba(63, 176, 115, 0.3);
+    }
+
+    .series-card-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    
+    .series-card-subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    
+    .series-card-meta {
+      font-size: 0.82rem;
+      color: var(--primary-gold);
+      font-weight: 700;
+      background: rgba(229, 184, 66, 0.08);
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(229, 184, 66, 0.15);
+    }
+
+    .series-select-card.zhisheng .series-card-meta {
+      color: var(--accent-green);
+      background: rgba(63, 176, 115, 0.08);
+      border-color: rgba(63, 176, 115, 0.15);
+    }
+
     /* Search bar */
     .search-section {
-      margin: 30px 0;
+      margin: 25px 0;
       position: relative;
     }
 
@@ -1037,16 +1181,21 @@
     <div class="container">
       <div class="header-content">
         <span class="badge">暑假爱国主义国防教育</span>
-        <h1>大型纪录片《强军》专题学习</h1>
-        <div class="subtitle">强军梦，青春行。系统梳理纪录片核心考点与原文，帮助高中生深入开展国防安全与历史政治专题研学。</div>
+        <h1>国防军事纪录片专题研学平台</h1>
+        <div class="subtitle">强国必须强军，军强才能国安。系统梳理两部央视重磅军事片的核心考点，面向高中生深度研学。</div>
       </div>
     </div>
   </header>
 
-  <!-- Subpages Navigation Bar -->
-  <div class="nav-bar">
+  <!-- Subpages Navigation Bar (Visible only when in catalog/details/timeline) -->
+  <div class="nav-bar" id="nav-bar" style="display: none;">
     <div class="container">
       <div class="nav-bar-content">
+        <button class="nav-link-btn" onclick="backToGateway()" style="color: var(--primary-gold);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:-1px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          选择系列
+        </button>
+        <div style="width: 1px; height: 18px; background: rgba(229, 184, 66, 0.2); margin: 0 4px;"></div>
         <button class="nav-link-btn active" id="nav-btn-directory" onclick="switchMainView('directory')">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:-1px;"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
           章节目录
@@ -1060,8 +1209,44 @@
   </div>
 
   <div class="container">
-    <!-- HOMEPAGE CONTAINER -->
-    <div id="home-view">
+    
+    <!-- 1. GATEWAY WELCOME PAGE -->
+    <div id="gateway-view" class="gateway-view">
+      <div class="gateway-title-wrapper">
+        <h2>请选择研学专题系列</h2>
+        <p>国防安全是国家主权和发展利益的坚实保证。点击下方卡片，选择《强军》或全新篇章《制胜》开启您的专题研学与暑假作业任务。</p>
+      </div>
+      <div class="series-selector-grid">
+        <!-- Series Card: Qiangjun -->
+        <div class="series-select-card" onclick="selectSeries('qiangjun')">
+          <div class="series-card-icon">🎖</div>
+          <h3 class="series-card-title">《强军》专题</h3>
+          <p class="series-card-subtitle">系统总结我军深化国防改革、体制重塑与军史传承的宏伟道路。</p>
+          <span class="series-card-meta">8集全 • 附带历史时间轴</span>
+          <button class="btn btn-gold series-card-btn">开始研学</button>
+        </div>
+        <!-- Series Card: Zhisheng -->
+        <div class="series-select-card zhisheng" onclick="selectSeries('zhisheng')">
+          <div class="series-card-icon">⚡</div>
+          <h3 class="series-card-title">《制胜》专题</h3>
+          <p class="series-card-subtitle">紧扣最新无人化、体系对抗、远海攻防等新质战斗力跃升前沿。</p>
+          <span class="series-card-meta">3集已更新 • CCTV2026巨献</span>
+          <button class="btn series-card-btn" style="border-color: var(--accent-green);">开始研学</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. DIRECTORY CATALOG VIEW -->
+    <div id="directory-view" style="display: none; animation: fadeIn 0.4s ease forwards;">
+      <!-- Series Header Status -->
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 10px; padding: 15px 20px; background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 8px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: bold;">当前专题：</span>
+          <span class="badge" id="series-title-badge" style="margin: 0; font-size: 0.85rem;">大型纪录片《强军》</span>
+        </div>
+        <button class="btn btn-sm" onclick="backToGateway()">切换专题系列</button>
+      </div>
+
       <!-- Search Section -->
       <div class="search-section">
         <div class="search-input-wrapper">
@@ -1076,7 +1261,7 @@
       </div>
     </div>
 
-    <!-- TIMELINE VIEW CONTAINER -->
+    <!-- 3. TIMELINE VIEW CONTAINER -->
     <div id="timeline-view" class="timeline-view" style="animation: fadeIn 0.4s ease forwards;">
       <div class="timeline-intro" style="text-align: center; margin: 20px 0 40px 0;">
         <h2 style="font-size: 1.8rem; font-weight: 900; color: var(--primary-gold); margin-bottom: 10px; font-family: var(--font-display);">国防与强军历史时间轴</h2>
@@ -1088,7 +1273,7 @@
       </div>
     </div>
 
-    <!-- DETAIL VIEW CONTAINER -->
+    <!-- 4. DETAIL VIEW CONTAINER -->
     <div id="detail-view" class="detail-view">
       <!-- Back Button navigation -->
       <div class="back-nav">
@@ -1181,7 +1366,7 @@
 
     <!-- Page Footer -->
     <footer>
-      <p>© 2026 暑假国防教育《强军》大型纪录片专题学习平台</p>
+      <p>© 2026 暑假国防教育《强军》与《制胜》双专题研学平台</p>
       <p>为高中生历史政治课外拓展及爱国主义研学定制</p>
     </footer>
   </div>
@@ -1192,10 +1377,12 @@
   <!-- Interactive App Logic -->
   <script>
     // App State Variables
+    let activeSeries = null; // 'qiangjun' or 'zhisheng'
     let currentEpisodeId = null;
 
     // DOM Nodes
-    const homeView = document.getElementById('home-view');
+    const gatewayView = document.getElementById('gateway-view');
+    const directoryView = document.getElementById('directory-view');
     const detailView = document.getElementById('detail-view');
     const timelineView = document.getElementById('timeline-view');
     const episodesGrid = document.getElementById('episodes-grid');
@@ -1209,29 +1396,71 @@
     const prevEpBtn = document.getElementById('prev-ep-btn');
     const nextEpBtn = document.getElementById('next-ep-btn');
     
-    // Sub-nav Buttons
+    // Navigation Nodes
+    const navBar = document.getElementById('nav-bar');
     const navBtnDir = document.getElementById('nav-btn-directory');
     const navBtnTime = document.getElementById('nav-btn-timeline');
 
-    // Initialize the App
+    // On Load: Show Gateway Select View
     window.addEventListener('DOMContentLoaded', () => {
-      renderHome(EPISODES_DATA);
+      // Gateway is displayed by default in HTML structure
     });
 
-    // Main view controller (Directory vs Timeline vs Detail)
+    // Select Series Gate
+    function selectSeries(series) {
+      activeSeries = series;
+      
+      // Setup display states
+      gatewayView.style.display = 'none';
+      directoryView.style.display = 'block';
+      detailView.style.display = 'none';
+      timelineView.style.display = 'none';
+      navBar.style.display = 'flex';
+      
+      // Clean search box
+      searchBox.value = '';
+
+      if (series === 'qiangjun') {
+        document.getElementById('series-title-badge').textContent = '大型纪录片《强军》';
+        navBtnTime.style.display = 'inline-flex';
+        renderHome(EPISODES_DATA);
+      } else {
+        document.getElementById('series-title-badge').textContent = '大型纪录片《制胜》（连载中）';
+        navBtnTime.style.display = 'none';
+        renderHome(ZHISHENG_DATA);
+      }
+      
+      switchMainView('directory');
+    }
+
+    // Go back to Series selection gateway
+    function backToGateway() {
+      activeSeries = null;
+      currentEpisodeId = null;
+      
+      gatewayView.style.display = 'block';
+      directoryView.style.display = 'none';
+      detailView.style.display = 'none';
+      timelineView.style.display = 'none';
+      navBar.style.display = 'none';
+      
+      window.scrollTo(0, 0);
+    }
+
+    // Sub-view Controller (Catalog directories vs Timeline vs Episode Details)
     function switchMainView(view) {
       if (view === 'directory') {
         navBtnDir.classList.add('active');
         navBtnTime.classList.remove('active');
         
-        homeView.style.display = 'block';
+        directoryView.style.display = 'block';
         timelineView.style.display = 'none';
         detailView.style.display = 'none';
       } else if (view === 'timeline') {
         navBtnDir.classList.remove('active');
         navBtnTime.classList.add('active');
         
-        homeView.style.display = 'none';
+        directoryView.style.display = 'none';
         timelineView.style.display = 'block';
         detailView.style.display = 'none';
         
@@ -1253,6 +1482,9 @@
 
       epKeys.forEach(key => {
         const ep = episodes[key];
+        
+        // Dynamic images base selection
+        let imgName = activeSeries === 'qiangjun' ? `${ep.index}.jpg` : `制胜${ep.index}.jpg`;
 
         const card = document.createElement('div');
         card.className = 'episode-card';
@@ -1261,7 +1493,7 @@
 
         card.innerHTML = `
           <div class="card-img-wrapper">
-            <img class="card-img" src="${ep.index}.jpg" alt="${ep.title}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22180%22 viewBox=%220 0 320 180%22><rect width=%22320%22 height=%22180%22 fill=%22%2317281f%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23e5b842%22 font-family=%22sans-serif%22 font-size=%2218%22 font-weight=%22bold%22>第${ep.index}集 ${ep.title}</text></svg>'">
+            <img class="card-img" src="${imgName}" alt="${ep.title}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22180%22 viewBox=%220 0 320 180%22><rect width=%22320%22 height=%22180%22 fill=%22%2317281f%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23e5b842%22 font-family=%22sans-serif%22 font-size=%2218%22 font-weight=%22bold%22>第${ep.index}集 ${ep.title}</text></svg>'">
           </div>
           <div class="card-body">
             <span class="card-title-number">EPISODE 0${ep.index}</span>
@@ -1279,12 +1511,21 @@
     // Toggle details view and load episode data
     function showEpisode(id) {
       currentEpisodeId = id;
-      const ep = EPISODES_DATA[id];
-      const transcript = TRANSCRIPTS_DATA[id];
+      
+      let ep, transcript;
+      if (activeSeries === 'qiangjun') {
+        ep = EPISODES_DATA[id];
+        transcript = TRANSCRIPTS_DATA[id];
+      } else {
+        ep = ZHISHENG_DATA[id];
+        transcript = ZHISHENG_TRANSCRIPTS[id];
+      }
+
+      let imgName = activeSeries === 'qiangjun' ? `${ep.index}.jpg` : `制胜${ep.index}.jpg`;
 
       // Render Header Details
       detailHeaderPanel.innerHTML = `
-        <img class="detail-header-img" src="${ep.index}.jpg" alt="${ep.title}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22180%22 viewBox=%220 0 320 180%22><rect width=%22320%22 height=%22180%22 fill=%22%2317281f%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23e5b842%22 font-family=%22sans-serif%22 font-size=%2218%22 font-weight=%22bold%22>第${ep.index}集 ${ep.title}</text></svg>'">
+        <img class="detail-header-img" src="${imgName}" alt="${ep.title}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22180%22 viewBox=%220 0 320 180%22><rect width=%22320%22 height=%22180%22 fill=%22%2317281f%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23e5b842%22 font-family=%22sans-serif%22 font-size=%2218%22 font-weight=%22bold%22>第${ep.index}集 ${ep.title}</text></svg>'">
         <div class="detail-header-info">
           <span class="detail-header-number">第${ep.index}集 · 国防教育研学</span>
           <h2 class="detail-header-title">${ep.title}</h2>
@@ -1354,11 +1595,11 @@
       // Update Bottom Navigation buttons
       updateBottomNav(id);
 
-      // Switch display and hide main sub-navigation tab visual states
+      // Hide main tabs visual states
       navBtnDir.classList.remove('active');
       navBtnTime.classList.remove('active');
       
-      homeView.style.display = 'none';
+      directoryView.style.display = 'none';
       timelineView.style.display = 'none';
       detailView.style.display = 'block';
       
@@ -1367,8 +1608,10 @@
       switchTab('learning'); // default tab
     }
 
-    // Update Bottom Navigation visibility and actions
+    // Update Bottom Navigation visibility and actions based on active series
     function updateBottomNav(id) {
+      const maxEpisodes = activeSeries === 'qiangjun' ? 8 : 3;
+
       if (id <= 1) {
         prevEpBtn.style.visibility = 'hidden';
       } else {
@@ -1376,7 +1619,7 @@
         prevEpBtn.onclick = () => showEpisode(id - 1);
       }
 
-      if (id >= 8) {
+      if (id >= maxEpisodes) {
         nextEpBtn.style.visibility = 'hidden';
       } else {
         nextEpBtn.style.visibility = 'visible';
@@ -1409,13 +1652,29 @@
             </div>
             <h4 class="timeline-card-title">${ev.title}</h4>
             <p class="timeline-card-desc">${ev.description}</p>
-            <span class="timeline-card-source clickable" onclick="showEpisode(${ev.episodeId})">
+            <span class="timeline-card-source clickable" onclick="navigateToEpisodeFromTimeline(${ev.episodeId})">
               关联学习：${ev.episode} &rarr;
             </span>
           </div>
         `;
         container.appendChild(item);
       });
+    }
+
+    // Force navigate to episode from timeline (sets active series to Qiangjun first)
+    function navigateToEpisodeFromTimeline(id) {
+      activeSeries = 'qiangjun';
+      
+      // Update nav states
+      gatewayView.style.display = 'none';
+      directoryView.style.display = 'none';
+      timelineView.style.display = 'none';
+      navBar.style.display = 'flex';
+      
+      document.getElementById('series-title-badge').textContent = '大型纪录片《强军》';
+      navBtnTime.style.display = 'inline-flex';
+      
+      showEpisode(id);
     }
 
     // Toggle Reference Answer block
@@ -1454,23 +1713,26 @@
       }
     }
 
-    // Back to Home
+    // Back to Home directory
     function backToHome() {
       switchMainView('directory');
     }
 
-    // Global Search
+    // Global Search within active series
     function handleSearch() {
       const q = searchBox.value.trim().toLowerCase();
+      const dataset = activeSeries === 'qiangjun' ? EPISODES_DATA : ZHISHENG_DATA;
+      const transDataset = activeSeries === 'qiangjun' ? TRANSCRIPTS_DATA : ZHISHENG_TRANSCRIPTS;
+
       if (!q) {
-        renderHome(EPISODES_DATA);
+        renderHome(dataset);
         return;
       }
 
       const filtered = {};
-      Object.keys(EPISODES_DATA).forEach(key => {
-        const ep = EPISODES_DATA[key];
-        const trans = TRANSCRIPTS_DATA[key] || '';
+      Object.keys(dataset).forEach(key => {
+        const ep = dataset[key];
+        const trans = transDataset[key] || '';
         
         // Search in title, subtitle, targets, keypoints, and original text
         const inTitle = ep.title.toLowerCase().includes(q);

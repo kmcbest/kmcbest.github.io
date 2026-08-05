@@ -1230,7 +1230,7 @@
           <div class="series-card-icon">⚡</div>
           <h3 class="series-card-title">《制胜》专题</h3>
           <p class="series-card-subtitle">紧扣最新无人化、体系对抗、远海攻防等新质战斗力跃升前沿。</p>
-          <span class="series-card-meta">3集已更新 • CCTV2026巨献</span>
+          <span class="series-card-meta">6集全 • CCTV2026巨献</span>
           <button class="btn series-card-btn" style="border-color: var(--accent-green);">开始研学</button>
         </div>
       </div>
@@ -1425,7 +1425,7 @@
         navBtnTime.style.display = 'inline-flex';
         renderHome(EPISODES_DATA);
       } else {
-        document.getElementById('series-title-badge').textContent = '大型纪录片《制胜》（连载中）';
+        document.getElementById('series-title-badge').textContent = '大型纪录片《制胜》';
         navBtnTime.style.display = 'none';
         renderHome(ZHISHENG_DATA);
       }
@@ -1610,7 +1610,7 @@
 
     // Update Bottom Navigation visibility and actions based on active series
     function updateBottomNav(id) {
-      const maxEpisodes = activeSeries === 'qiangjun' ? 8 : 3;
+      const maxEpisodes = activeSeries === 'qiangjun' ? 8 : 6;
 
       if (id <= 1) {
         prevEpBtn.style.visibility = 'hidden';

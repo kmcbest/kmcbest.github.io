@@ -1,69 +1,715 @@
-<!doctype html>
-<html>
-
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-
-
     <title>百炼为战纪念小站</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        p {
-            padding: 0px 20px 0px 20px;
+        :root {
+            --bg-dark: #0a0c14;
+            --bg-card: rgba(18, 24, 38, 0.85);
+            --bg-card-hover: rgba(26, 36, 58, 0.95);
+            --energon-cyan: #00f2ff;
+            --energon-blue: #0077ff;
+            --matrix-red: #ff2a5f;
+            --matrix-gold: #ffb700;
+            --decepticon-purple: #a855f7;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border-glow: rgba(0, 242, 255, 0.3);
+            --font-tech: 'Orbitron', 'Noto Sans SC', sans-serif;
         }
 
-        .title {
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(0, 242, 255, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(168, 85, 247, 0.08) 0%, transparent 40%),
+                linear-gradient(rgba(10, 12, 20, 0.94), rgba(10, 12, 20, 0.94)),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 242, 255, 0.02) 3px, rgba(0, 242, 255, 0.02) 3px);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 100% 4px;
+            color: var(--text-main);
+            font-family: 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Header */
+        .hero {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            margin: 20px 0 30px 0;
+            border: 1px solid rgba(0, 242, 255, 0.25);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.15);
+            background: #111;
+        }
+
+        .hero-img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            filter: brightness(0.65) contrast(1.1);
+            display: block;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(10,12,20,0.2) 0%, rgba(10,12,20,0.95) 90%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
             text-align: center;
+        }
+
+        .hero-title {
+            font-family: var(--font-tech);
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--energon-cyan) 50%, var(--energon-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+            margin-bottom: 10px;
+        }
+
+        .hero-tags {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .badge-cyan {
+            background: rgba(0, 242, 255, 0.15);
+            color: var(--energon-cyan);
+            border: 1px solid rgba(0, 242, 255, 0.4);
+        }
+
+        .badge-red {
+            background: rgba(255, 42, 95, 0.15);
+            color: var(--matrix-red);
+            border: 1px solid rgba(255, 42, 95, 0.4);
+        }
+
+        .badge-purple {
+            background: rgba(168, 85, 247, 0.15);
+            color: var(--decepticon-purple);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+        }
+
+        /* Notice / Mirrors Bar */
+        .mirrors-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 242, 255, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        .mirrors-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            color: var(--energon-cyan);
+            margin-bottom: 14px;
+            font-size: 1.05rem;
+        }
+
+        .mirrors-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        .mirror-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+        }
+
+        .mirror-item:hover {
+            border-color: var(--energon-cyan);
+            background: rgba(0, 242, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .mirror-item.primary {
+            border-color: rgba(255, 42, 95, 0.5);
+            background: rgba(255, 42, 95, 0.08);
+        }
+
+        .mirror-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .mirror-link:hover {
+            color: var(--energon-cyan);
+        }
+
+        .mirror-tag {
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.1);
+            color: var(--text-muted);
+        }
+
+        .copy-btn {
+            background: rgba(0, 242, 255, 0.15);
+            border: 1px solid rgba(0, 242, 255, 0.3);
+            color: var(--energon-cyan);
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--energon-cyan);
+            color: #000;
+        }
+
+        /* Main Section Cards */
+        .section-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(12px);
+            transition: border-color 0.3s ease;
+        }
+
+        .section-card.highlight {
+            border-color: rgba(0, 242, 255, 0.4);
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.08);
+        }
+
+        .section-card.warning {
+            border-color: rgba(255, 42, 95, 0.4);
+            box-shadow: 0 0 25px rgba(255, 42, 95, 0.08);
+        }
+
+        .section-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+        }
+
+        .section-title span.glow-cyan {
+            color: var(--energon-cyan);
+            text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+        }
+
+        .section-title span.glow-red {
+            color: var(--matrix-red);
+            text-shadow: 0 0 10px rgba(255, 42, 95, 0.5);
+        }
+
+        /* News Section Details */
+        .revival-subcard {
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 3px solid var(--energon-cyan);
+            padding: 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 16px 0;
+        }
+
+        .progress-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .progress-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .progress-item strong {
+            color: var(--energon-cyan);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .github-box {
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px dashed rgba(168, 85, 247, 0.4);
+            padding: 14px;
+            border-radius: 8px;
+            margin: 16px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .github-code {
+            font-family: monospace;
+            background: rgba(0,0,0,0.5);
+            color: #e2e8f0;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            user-select: all;
+        }
+
+        .quote-banner {
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--matrix-gold);
+            padding: 12px;
+            background: linear-gradient(90deg, transparent, rgba(255, 183, 0, 0.1), transparent);
+            margin-top: 16px;
+            letter-spacing: 1px;
+        }
+
+        /* Timeline / History list */
+        .timeline-list {
+            position: relative;
+            padding-left: 20px;
+            border-left: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--energon-cyan);
+            box-shadow: 0 0 10px var(--energon-cyan);
+        }
+
+        .timeline-item.important::before {
+            background: var(--matrix-red);
+            box-shadow: 0 0 10px var(--matrix-red);
+        }
+
+        .timeline-date {
+            font-family: var(--font-tech);
+            font-size: 0.85rem;
+            color: var(--energon-cyan);
+            margin-bottom: 4px;
+        }
+
+        .timeline-item.important .timeline-date {
+            color: var(--matrix-red);
+        }
+
+        /* Links Grid */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 14px;
+            margin-top: 16px;
+        }
+
+        .resource-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: all 0.25s ease;
+        }
+
+        .resource-card:hover {
+            background: rgba(0, 242, 255, 0.08);
+            border-color: var(--energon-cyan);
+            transform: translateX(4px);
+            box-shadow: -4px 0 15px rgba(0, 242, 255, 0.2);
+        }
+
+        .resource-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background: rgba(0, 242, 255, 0.12);
+            color: var(--energon-cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .resource-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 0 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: var(--energon-cyan);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--energon-cyan);
+            color: #000;
+            font-weight: 700;
+            padding: 10px 24px;
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(0, 242, 255, 0.4);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            .hero-img {
+                height: 180px;
+            }
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
-<!-- <div style="text-align: center;"> -->
+<body>
 
-<h1 class="title">百炼为战纪念小站</h1>
-    <!-- </div> -->
-    <p>本站所有地址，请收藏，以保证随时能顺利访问：<FONT COLOR="FF0000"><a href=https://kmcbest.qzz.io>kmcbest.qzz.io</a></FONT>，<a href=https://kmcbest.github.io>kmcbest.github.io</a>（墙外），<a href=https://kmcbest.vercel.app/>kmcbest.vercel.app</a>（墙外）</p>
-	<p>因人气低迷，甚至让财大气粗的Netflix也断了念想，<b>2026年5月7日，Netflix版的百炼为战将再一次停服。</b>可能这一次是真正的告别了。</p>
-        <hr>
-        <p>2023年5月11日，百炼为战由Kabam卖给了Netflix（奈飞/网飞），以另一种方式重新上线（<a href="https://play.google.com/store/apps/details?id=com.netflix.NGP.TransformersForgedToFight">谷歌商店</a>，<a href="https://apps.apple.com/us/app/transformers-forged-to-fight/id6444320431">苹果商店</a>）</p>
-        <ul>
-            <li>需要Netflix付费会员，国内需要科学上网方可注册</li>
-            <li>全新服务器从零开始，旧账号数据<b>不会</b>带过来</li>
-            <li>电影系人物全部删除，但加入了之前遗憾未问世的克劳莉娅和封锁</li>
-            <li>游戏没有内购和广告功能，完全依赖于Netflix的订阅</li>
-        </ul>
-        <p>翻译官已无精力继续，本站仅保留对此游戏的纪念。</p>
+    <div class="container">
+        <!-- Header Banner -->
+        <header class="hero">
+            <img src="cybertron_hero.jpg" alt="百炼为战纪念" class="hero-img">
+            <div class="hero-overlay">
+                <h1 class="hero-title">百炼为战纪念小站</h1>
+                <div class="hero-tags">
+                    <span class="badge badge-cyan">⚡ 3D 变形格斗神作</span>
+                    <span class="badge badge-purple">🌌 Transformers FTF</span>
+                    <span class="badge badge-red">🔥 Revival 离线复活中</span>
+                </div>
+            </div>
+        </header>
 
-        <ul>
-            <li> <a href="tftf_netflix/upandrunning.html">新百炼为战安装教程（供参考）</a></li>
-        </ul>
-        
-        <hr>
-        <p><b>Kabam公司的百炼为战游戏已于北京时间2023年1月14日凌晨2点11分正式关服</b>，衷心感谢各位在游戏中投入的热情与精力，感谢大家共同在新昆塔莎战斗过的日子和对本人和本站的关注。</p>
-    <ul>
-        以下内容属于Kabam的百炼为战，可能不完全适用于新版Netflix百炼为战游戏，仅供参考。
+        <!-- Access Mirror Bar -->
+        <div class="mirrors-card">
+            <div class="mirrors-header">
+                <span>🌐 永久备用镜像地址（建议收藏，随时顺利访问）</span>
+            </div>
+            <div class="mirrors-list">
+                <div class="mirror-item primary">
+                    <a href="https://kmcbest.qzz.io" target="_blank" class="mirror-link">
+                        <span>kmcbest.qzz.io</span>
+                        <span class="mirror-tag" style="background: var(--matrix-red); color: #fff;">国内首选</span>
+                    </a>
+                    <button class="copy-btn" onclick="copyText('https://kmcbest.qzz.io')">复制</button>
+                </div>
+                <div class="mirror-item">
+                    <a href="https://kmcbest.github.io" target="_blank" class="mirror-link">
+                        <span>kmcbest.github.io</span>
+                        <span class="mirror-tag">墙外镜像</span>
+                    </a>
+                    <button class="copy-btn" onclick="copyText('https://kmcbest.github.io')">复制</button>
+                </div>
+                <div class="mirror-item">
+                    <a href="https://kmcbest.vercel.app/" target="_blank" class="mirror-link">
+                        <span>kmcbest.vercel.app</span>
+                        <span class="mirror-tag">墙外镜像</span>
+                    </a>
+                    <button class="copy-btn" onclick="copyText('https://kmcbest.vercel.app/')">复制</button>
+                </div>
+            </div>
+        </div>
 
+        <!-- Highlight News: Forged to Fight Revival -->
+        <section class="section-card highlight">
+            <h2 class="section-title">
+                <span class="glow-cyan">⚡ 照亮我们最黑暗的时刻！</span>
+            </h2>
 
-        <li><a href="chronicle.html">百炼为战大事记</a></li>
-        <li><a href="protoform_book/index.html">《百炼为战：原生体成长记》——新手教程</a></li>
-        <li><a href="chars_book/index.html">《百炼为战全人物解析》</a></li>
-        <!-- <li><a href="tftf-radar-chart.html">全人物能力图谱</a></li> -->
-        <li><a href="mastery_book/index.html">《百炼为战全精通》——精通解析</a></li>
-        <li><a href="forge_book/index.html">《百炼为战全锻造》——锻造解析</a></li>
-         <li><a href="5star.html">五星人物动态</a></li>
-       <li><a href="rok3.html">塞伯坦传奇3（无震天尊）攻略</a></li>
-        <li><a href="FOC.html">盟战新图（腐朽的堡垒/灭火）地图+解析</a></li>
-        <li><a href="in_store_tomorrow.html">突袭商店明日商品</a></li>
-        <li><a href="calculator_cn.html">锻造计算器</a></li>
-        <li><a href="pop_crystal.html">开水晶模拟器</a></li>
-        <!-- <li><a href="https://docs.qq.com/sheet/DVEJHT29KZ1d6WmZ6">填写邮箱，及时收到安卓更新包</a></li> -->
-<!--        <li><a href="https://pan.baidu.com/s/1j5uF86XEF8QLgKv4TWM4Tg">安卓乱码补丁（提取码：k08s）</a></li>-->
-        <li><a href="longxin.html">《塞伯坦之魂》</a></li>
-    </ul>
+            <p style="color: #cbd5e1; margin-bottom: 16px;">
+                从最初 Kabam 运营，到后来停服；再到被 Netflix 接盘做成无氪金会员版，结果还是难逃再次停服的命运……这款拥有极其精美的 3D 变形动画和顶尖格斗手感的神作，两次关服让无数迷友直呼可惜，哪怕能留个“离线单机版”当模型鉴赏器也好啊。
+            </p>
 
-    制作分享：翻译官<a href="mailto:kmc.best@qq.com">（联系邮箱）</a>
+            <div class="revival-subcard">
+                <h3 style="color: var(--energon-cyan); font-size: 1.1rem; margin-bottom: 8px;">
+                    【民间大神出手：Forged to Fight Revival 项目】
+                </h3>
+                <p style="font-size: 0.95rem; color: #94a3b8; margin-bottom: 8px;">
+                    在 Netflix 版关服后，海外技术大佬 <strong>Strawberry</strong> 发起了百炼为战离线复活项目！
+                </p>
+                <p style="font-size: 0.9rem; color: #cbd5e1; line-height: 1.5;">
+                    很多人可能会想：“解包个游戏做单机有那么难吗？” 还真难！因为这类商业网游把战斗计算、角色抽卡、背包数据、基地防御全放在了官方云端服务器上。我们下载的客户端其实只是个“皮肉外壳”。官方一拔网线，客户端连不上服务器就直接卡死报错，连看角色的资格都没有。<br><br>
+                    大佬团队要做的，是通过逆向工程把客户端发出的网络请求全部破解，并在手机本地写一个“假服务器”来欺骗客户端，同时还要把缺失的格斗判定、AI 和数值逻辑重写一遍！
+                </p>
+            </div>
 
+            <h3 style="color: #fff; font-size: 1.05rem; margin: 18px 0 10px 0;">
+                【最新进展：进展比想象中快得多！】
+            </h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">
+                原以为这个庞大的工程要啃好几年，但团队近期发布的几个预览视频显示进展神速：
+            </p>
 
+            <div class="progress-grid">
+                <div class="progress-item">
+                    <strong>✅ 客户端脱机启动</strong>
+                    不需要连接官方服务器，游戏已能在本地顺利初始化！
+                </div>
+                <div class="progress-item">
+                    <strong>✅ UI 与主界面通畅</strong>
+                    菜单、仓库等界面已可正常点开，无断网弹窗。
+                </div>
+                <div class="progress-item">
+                    <strong>✅ 角色与变形展示调通</strong>
+                    本地模拟数据成功喂给客户端，3D模型及变形展示正逐步恢复！
+                </div>
+                <div class="progress-item">
+                    <strong>⚡ 核心战斗系统搭建中</strong>
+                    攻克最硬核的战斗数据对接与打击判定，朝着“真正可打”迈进。
+                </div>
+            </div>
 
+            <p style="font-size: 0.92rem; color: #cbd5e1; margin-top: 14px;">
+                对于一款停服的商业网游来说，能做到这种程度的“民间死者复苏”简直是奇迹！虽然离完全成熟的单机版发布还需要时间，但至少“在手机里留一个能打能变薪火相传的 FTF”已经不再是奢望了！
+            </p>
+
+            <div class="github-box">
+                <span style="font-size: 0.9rem; color: #d8b4fe;">
+                    🔍 GitHub 搜索项目关注后续进展：
+                </span>
+                <code class="github-code">Transformers-Forged-To-Fight-Offline-Version</code>
+                <button class="copy-btn" onclick="copyText('Transformers-Forged-To-Fight-Offline-Version')">复制名称</button>
+            </div>
+
+            <div class="quote-banner">
+                ❖ 霸天虎/汽车人，变形出发！期待离线版早日面世！ ❖
+            </div>
+        </section>
+
+        <!-- Closure History & Netflix Info -->
+        <section class="section-card warning">
+            <h2 class="section-title">
+                <span class="glow-red">⌛ 运营历史与关服纪念</span>
+            </h2>
+
+            <div class="timeline-list">
+                <!-- Netflix Shutdown -->
+                <div class="timeline-item important">
+                    <div class="timeline-date">2026 年 5 月 7 日</div>
+                    <div style="font-weight: 700; color: #fff; margin-bottom: 6px;">
+                        Netflix 版百炼为战第二次停服
+                    </div>
+                    <p style="font-size: 0.9rem; color: #cbd5e1;">
+                        因人气低迷，甚至让财大气粗的 Netflix 也断了念想，<strong>2026年5月7日，Netflix版的百炼为战将再一次停服。</strong>可能这一次是真正的告别了。
+                    </p>
+                </div>
+
+                <!-- Netflix Era -->
+                <div class="timeline-item">
+                    <div class="timeline-date">2023 年 5 月 11 日</div>
+                    <div style="font-weight: 700; color: #fff; margin-bottom: 6px;">
+                        Netflix 接盘上线
+                    </div>
+                    <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 8px;">
+                        百炼为战由 Kabam 卖给了 Netflix（奈飞/网飞），以另一种方式重新上线（
+                        <a href="https://play.google.com/store/apps/details?id=com.netflix.NGP.TransformersForgedToFight" target="_blank" style="color: var(--energon-cyan);">谷歌商店</a>，
+                        <a href="https://apps.apple.com/us/app/transformers-forged-to-fight/id6444320431" target="_blank" style="color: var(--energon-cyan);">苹果商店</a>）
+                    </p>
+                    <ul style="font-size: 0.88rem; color: var(--text-muted); padding-left: 18px; line-height: 1.5; margin-bottom: 10px;">
+                        <li>需要 Netflix 付费会员，国内需要科学上网方可注册</li>
+                        <li>全新服务器从零开始，旧账号数据<b>不会</b>带过来</li>
+                        <li>电影系人物全部删除，但加入了之前遗憾未问世的克劳莉娅和封锁</li>
+                        <li>游戏没有内购和广告功能，完全依赖于 Netflix 的订阅</li>
+                    </ul>
+                    <p style="font-size: 0.88rem; color: #cbd5e1;">
+                        翻译官已无精力继续，本站仅保留对此游戏的纪念。
+                    </p>
+                    <div style="margin-top: 8px;">
+                        <a href="tftf_netflix/upandrunning.html" style="display: inline-flex; align-items: center; gap: 6px; background: rgba(0,242,255,0.1); border: 1px solid rgba(0,242,255,0.3); color: var(--energon-cyan); padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 600;">
+                            📜 Netflix 版百炼为战安装与运行回顾（历史存档）
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Kabam Era -->
+                <div class="timeline-item important">
+                    <div class="timeline-date">2023 年 1 月 14 日</div>
+                    <div style="font-weight: 700; color: #fff; margin-bottom: 6px;">
+                        Kabam 原版正式关服
+                    </div>
+                    <p style="font-size: 0.9rem; color: #cbd5e1;">
+                        Kabam 公司的百炼为战游戏已于北京时间 2023 年 1 月 14 日凌晨 2 点 11 分正式关服，衷心感谢各位在游戏中投入的热情与精力，感谢大家共同在新昆塔莎战斗过的日子和对本人和本站的关注。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guides & Tools Resource Archive -->
+        <section class="section-card">
+            <h2 class="section-title">
+                <span>📚 游戏全攻略与实用工具归档</span>
+            </h2>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px;">
+                以下内容属于 Kabam 原版百炼为战，可能不完全适用于新版 Netflix 百炼为战游戏，仅供参考纪念：
+            </p>
+
+            <div class="resources-grid">
+                <a href="chronicle.html" class="resource-card">
+                    <div class="resource-icon">📜</div>
+                    <div class="resource-title">百炼为战大事记</div>
+                </a>
+                <a href="protoform_book/index.html" class="resource-card">
+                    <div class="resource-icon">🌱</div>
+                    <div class="resource-title">《原生体成长记》新手教程</div>
+                </a>
+                <a href="chars_book/index.html" class="resource-card">
+                    <div class="resource-icon">⚔️</div>
+                    <div class="resource-title">《百炼为战全人物解析》</div>
+                </a>
+                <a href="mastery_book/index.html" class="resource-card">
+                    <div class="resource-icon">🧠</div>
+                    <div class="resource-title">《百炼为战全精通》解析</div>
+                </a>
+                <a href="forge_book/index.html" class="resource-card">
+                    <div class="resource-icon">🔨</div>
+                    <div class="resource-title">《百炼为战全锻造》解析</div>
+                </a>
+                <a href="5star.html" class="resource-card">
+                    <div class="resource-icon">⭐</div>
+                    <div class="resource-title">五星人物动态</div>
+                </a>
+                <a href="rok3.html" class="resource-card">
+                    <div class="resource-icon">🌌</div>
+                    <div class="resource-title">塞伯坦传奇3（无震天尊）攻略</div>
+                </a>
+                <a href="FOC.html" class="resource-card">
+                    <div class="resource-icon">🗺️</div>
+                    <div class="resource-title">盟战新图（腐朽的堡垒/灭火）</div>
+                </a>
+                <a href="in_store_tomorrow.html" class="resource-card">
+                    <div class="resource-icon">🛒</div>
+                    <div class="resource-title">突袭商店明日商品</div>
+                </a>
+                <a href="calculator_cn.html" class="resource-card">
+                    <div class="resource-icon">🧮</div>
+                    <div class="resource-title">锻造计算器</div>
+                </a>
+                <a href="pop_crystal.html" class="resource-card">
+                    <div class="resource-icon">💎</div>
+                    <div class="resource-title">开水晶模拟器</div>
+                </a>
+                <a href="longxin.html" class="resource-card">
+                    <div class="resource-icon">🔥</div>
+                    <div class="resource-title">《塞伯坦之魂》</div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>制作分享：翻译官 | 联系邮箱：<a href="mailto:kmc.best@qq.com">kmc.best@qq.com</a></p>
+            <p style="font-size: 0.8rem; margin-top: 6px; color: #64748b;">百炼为战（Transformers: Forged to Fight）纪念与资源整理小站</p>
+        </footer>
+    </div>
+
+    <div class="toast" id="toast">已复制到剪贴板</div>
+
+    <script>
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2000);
+            }).catch(err => {
+                console.error('Failed to copy', err);
+            });
+        }
+    </script>
+</body>
 </html>

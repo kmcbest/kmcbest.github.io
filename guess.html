@@ -15,11 +15,12 @@
     button { padding: 10px; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; transition: background 0.3s; }
     .btn-primary { background-color: #4CAF50; color: white; }
     .btn-primary:hover { background-color: #45a049; }
+    .btn-secondary { background-color: #2196F3; color: white; margin-top: 5px; }
+    .btn-secondary:hover { background-color: #0b7dda; }
     .btn-danger { background-color: #f44336; color: white; margin-top: 5px; }
     .btn-danger:hover { background-color: #d32f2f; }
     .history-box { margin-top: 20px; max-height: 200px; overflow-y: auto; text-align: left; border-top: 1px solid #eee; padding-top: 10px; }
     
-    /* 🎯 修改点：历史记录项左对齐 */
     .history-item { 
         font-size: 14px; 
         padding: 5px 0; 
@@ -29,7 +30,6 @@
         gap: 15px; 
     }
     
-    /* 🎯 修改点：结果部分稍微增加一点左边距 */
     .result-a, .result-b {
         margin-left: 10px;
     }
@@ -57,6 +57,7 @@
         <label for="guessInput">请输入你猜的数字</label>
         <input type="text" id="guessInput" maxlength="9" autofocus>
         <button class="btn-primary" onclick="submitGuess()">确认猜测</button>
+        <button class="btn-secondary" onclick="resetGame()">重新开始</button>
         <button class="btn-danger" onclick="giveUp()">放弃并显示答案</button>
         <div id="message" class="message"></div>
         <div id="history" class="history-box"></div>
@@ -71,7 +72,6 @@
     // 生成不重复的随机数字数组
     function generateSecret(length) {
         let digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-        // 洗牌算法
         for (let i = digits.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [digits[i], digits[j]] = [digits[j], digits[i]];
@@ -98,12 +98,20 @@
         document.getElementById('guessInput').focus();
     }
 
+    // 重新开始（返回设置界面）
+    function resetGame() {
+        document.getElementById('playArea').classList.add('hidden');
+        document.getElementById('setupArea').classList.remove('hidden');
+        document.getElementById('history').innerHTML = '';
+        document.getElementById('message').innerText = '';
+        document.getElementById('guessInput').value = '';
+    }
+
     // 提交猜测
     function submitGuess() {
         if (isGameOver) return;
         const guessStr = document.getElementById('guessInput').value.trim();
         
-        // 输入校验
         if (!/^\d+$/.test(guessStr) || guessStr.length !== gameLength) {
             document.getElementById('message').innerText = `❌ 请输入正好 ${gameLength} 位纯数字！`;
             return;
@@ -116,7 +124,6 @@
         const guess = guessStr.split('').map(Number);
         let a = 0, b = 0;
 
-        // 计算 A 和 B
         for (let i = 0; i < gameLength; i++) {
             if (guess[i] === secretNumber[i]) {
                 a++;
@@ -125,14 +132,12 @@
             }
         }
 
-        // 显示历史记录
         const historyBox = document.getElementById('history');
         const item = document.createElement('div');
         item.className = 'history-item';
         item.innerHTML = `<span>猜测: ${guessStr}</span> <span><span class="result-a">${a}A</span> <span class="result-b">${b}B</span></span>`;
-        historyBox.prepend(item); // 最新的在上面
+        historyBox.prepend(item);
 
-        // 判断胜负
         if (a === gameLength) {
             document.getElementById('message').innerText = "🎉 恭喜你，猜对了！";
             isGameOver = true;
@@ -152,10 +157,31 @@
         document.getElementById('message').innerHTML = `💀 游戏结束！<br>正确答案是: <strong>${secretStr}</strong>`;
     }
 
-    // 支持回车键提交
     document.getElementById('guessInput').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') submitGuess();
     });
+
+    // 离线可用支持 (Service Worker 自动缓存当前页面)
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            const swCode = `
+                const CACHE_NAME = 'guess-game-v1';
+                self.addEventListener('install', e => {
+                    e.waitUntil(
+                        caches.open(CACHE_NAME).then(cache => cache.addAll(['./']))
+                    );
+                });
+                self.addEventListener('fetch', e => {
+                    e.respondWith(
+                        caches.match(e.request).then(response => response || fetch(e.request))
+                    );
+                });
+            `;
+            const blob = new Blob([swCode], { type: 'application/javascript' });
+            const swUrl = URL.createObjectURL(blob);
+            navigator.serviceWorker.register(swUrl).catch(() => {});
+        });
+    }
 </script>
 
 </body>

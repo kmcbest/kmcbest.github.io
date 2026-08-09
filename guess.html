@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猜数字游戏 (几A几B)</title>
+<style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+    .game-container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 360px; text-align: center; }
+    h2 { color: #333; margin-bottom: 20px; }
+    .setup-area, .play-area { display: flex; flex-direction: column; gap: 12px; }
+    label { font-size: 14px; color: #666; text-align: left; }
+    input { padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; outline: none; transition: border 0.3s; }
+    input:focus { border-color: #4CAF50; }
+    button { padding: 10px; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; transition: background 0.3s; }
+    .btn-primary { background-color: #4CAF50; color: white; }
+    .btn-primary:hover { background-color: #45a049; }
+    .btn-danger { background-color: #f44336; color: white; margin-top: 5px; }
+    .btn-danger:hover { background-color: #d32f2f; }
+    .history-box { margin-top: 20px; max-height: 200px; overflow-y: auto; text-align: left; border-top: 1px solid #eee; padding-top: 10px; }
+    
+    /* 🎯 修改点：历史记录项左对齐 */
+    .history-item { 
+        font-size: 14px; 
+        padding: 5px 0; 
+        border-bottom: 1px dashed #eee; 
+        display: flex; 
+        justify-content: flex-start; 
+        gap: 15px; 
+    }
+    
+    /* 🎯 修改点：结果部分稍微增加一点左边距 */
+    .result-a, .result-b {
+        margin-left: 10px;
+    }
+
+    .result-a { color: #4CAF50; font-weight: bold; }
+    .result-b { color: #FF9800; font-weight: bold; }
+    .message { margin-top: 15px; font-weight: bold; min-height: 20px; }
+    .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="game-container">
+    <h2>🎯 猜数字游戏</h2>
+    
+    <!-- 设置阶段 -->
+    <div id="setupArea" class="setup-area">
+        <label for="lengthInput">设置数字长度 (1-9)</label>
+        <input type="number" id="lengthInput" min="1" max="9" value="4">
+        <button class="btn-primary" onclick="startGame()">开始游戏</button>
+    </div>
+
+    <!-- 游戏阶段 -->
+    <div id="playArea" class="play-area hidden">
+        <label for="guessInput">请输入你猜的数字</label>
+        <input type="text" id="guessInput" maxlength="9" autofocus>
+        <button class="btn-primary" onclick="submitGuess()">确认猜测</button>
+        <button class="btn-danger" onclick="giveUp()">放弃并显示答案</button>
+        <div id="message" class="message"></div>
+        <div id="history" class="history-box"></div>
+    </div>
+</div>
+
+<script>
+    let secretNumber = [];
+    let gameLength = 4;
+    let isGameOver = false;
+
+    // 生成不重复的随机数字数组
+    function generateSecret(length) {
+        let digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+        // 洗牌算法
+        for (let i = digits.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [digits[i], digits[j]] = [digits[j], digits[i]];
+        }
+        return digits.slice(0, length);
+    }
+
+    // 开始游戏
+    function startGame() {
+        const len = parseInt(document.getElementById('lengthInput').value);
+        if (isNaN(len) || len < 1 || len > 9) {
+            alert("请输入 1 到 9 之间的数字长度！");
+            return;
+        }
+        gameLength = len;
+        secretNumber = generateSecret(gameLength);
+        isGameOver = false;
+        
+        document.getElementById('setupArea').classList.add('hidden');
+        document.getElementById('playArea').classList.remove('hidden');
+        document.getElementById('history').innerHTML = '';
+        document.getElementById('message').innerText = `游戏开始！请猜 ${gameLength} 位不重复的数字。`;
+        document.getElementById('guessInput').value = '';
+        document.getElementById('guessInput').focus();
+    }
+
+    // 提交猜测
+    function submitGuess() {
+        if (isGameOver) return;
+        const guessStr = document.getElementById('guessInput').value.trim();
+        
+        // 输入校验
+        if (!/^\d+$/.test(guessStr) || guessStr.length !== gameLength) {
+            document.getElementById('message').innerText = `❌ 请输入正好 ${gameLength} 位纯数字！`;
+            return;
+        }
+        if (new Set(guessStr).size !== gameLength) {
+            document.getElementById('message').innerText = "❌ 数字不能重复哦！";
+            return;
+        }
+
+        const guess = guessStr.split('').map(Number);
+        let a = 0, b = 0;
+
+        // 计算 A 和 B
+        for (let i = 0; i < gameLength; i++) {
+            if (guess[i] === secretNumber[i]) {
+                a++;
+            } else if (secretNumber.includes(guess[i])) {
+                b++;
+            }
+        }
+
+        // 显示历史记录
+        const historyBox = document.getElementById('history');
+        const item = document.createElement('div');
+        item.className = 'history-item';
+        item.innerHTML = `<span>猜测: ${guessStr}</span> <span><span class="result-a">${a}A</span> <span class="result-b">${b}B</span></span>`;
+        historyBox.prepend(item); // 最新的在上面
+
+        // 判断胜负
+        if (a === gameLength) {
+            document.getElementById('message').innerText = "🎉 恭喜你，猜对了！";
+            isGameOver = true;
+        } else {
+            document.getElementById('message').innerText = `继续加油！`;
+        }
+        
+        document.getElementById('guessInput').value = '';
+        document.getElementById('guessInput').focus();
+    }
+
+    // 放弃游戏
+    function giveUp() {
+        if (isGameOver) return;
+        isGameOver = true;
+        const secretStr = secretNumber.join('');
+        document.getElementById('message').innerHTML = `💀 游戏结束！<br>正确答案是: <strong>${secretStr}</strong>`;
+    }
+
+    // 支持回车键提交
+    document.getElementById('guessInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') submitGuess();
+    });
+</script>
+
+</body>
+</html>

@@ -22,17 +22,65 @@
     }
     .game-container { 
         background: white; 
-        padding: 24px; 
+        padding: 20px; 
         border-radius: 16px; 
         box-shadow: 0 8px 24px rgba(0,0,0,0.08); 
         width: 100%;
         max-width: 380px; 
         text-align: center; 
     }
-    h2 { color: #333; margin-top: 0; margin-bottom: 20px; font-size: 1.4rem; }
-    .setup-area, .play-area { display: flex; flex-direction: column; gap: 14px; }
+
+    /* 顶部标题栏 */
+    .header-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+    }
+    .header-bar h2 {
+        color: #333;
+        margin: 0;
+        font-size: 1.25rem;
+        flex: 1;
+        text-align: center;
+    }
+    .header-btn {
+        padding: 6px 10px;
+        font-size: 13px;
+        font-weight: 600;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s;
+        white-space: nowrap;
+    }
+    .header-btn:active {
+        transform: scale(0.95);
+    }
+    /* 向左的重新开始按钮 */
+    .btn-header-reset {
+        background-color: #e2e8f0;
+        color: #334155;
+    }
+    .btn-header-reset:hover {
+        background-color: #cbd5e1;
+    }
+    /* 向右的放弃按钮 */
+    .btn-header-giveup {
+        background-color: #fee2e2;
+        color: #dc2626;
+    }
+    .btn-header-giveup:hover {
+        background-color: #fca5a5;
+    }
+    .invisible {
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .setup-area, .play-area { display: flex; flex-direction: column; gap: 12px; }
     
-    /* 滑竿样式优化 */
+    /* 滑竿样式 */
     .slider-group {
         background-color: #f8fafc;
         padding: 12px;
@@ -76,7 +124,7 @@
         transform: scale(1.2);
     }
 
-    /* 替代 Input 输入框的数字显示槽 */
+    /* 数字显示槽 */
     .digit-display {
         display: flex;
         justify-content: center;
@@ -111,15 +159,14 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 8px;
-        touch-action: manipulation; /* 禁用双击缩放 */
-        margin-top: 4px;
+        touch-action: manipulation;
     }
     .key-btn {
         background-color: #ffffff;
         border: 1px solid #e2e8f0;
         border-radius: 10px;
-        height: 48px;
-        font-size: 1.25rem;
+        height: 46px;
+        font-size: 1.2rem;
         font-weight: 600;
         color: #1e293b;
         display: flex;
@@ -146,36 +193,61 @@
         font-size: 0.95rem;
     }
 
-    /* 按钮组样式 */
-    button { padding: 12px; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.1s; }
-    button:active { transform: scale(0.98); }
-    .btn-primary { background-color: #4CAF50; color: white; }
-    .btn-primary:hover { background-color: #45a049; }
-    .btn-secondary { background-color: #2196F3; color: white; flex: 1; }
-    .btn-secondary:hover { background-color: #0b7dda; }
-    .btn-danger { background-color: #f44336; color: white; flex: 1; }
-    .btn-danger:hover { background-color: #d32f2f; }
-    .action-group { display: flex; gap: 8px; }
+    /* 主按钮 */
+    button.btn-primary { 
+        padding: 12px; 
+        border: none; 
+        border-radius: 8px; 
+        font-size: 15px; 
+        font-weight: 600; 
+        cursor: pointer; 
+        background-color: #4CAF50; 
+        color: white; 
+        transition: background 0.2s, transform 0.1s; 
+    }
+    button.btn-primary:active { transform: scale(0.98); }
+    button.btn-primary:hover { background-color: #45a049; }
 
-    /* 历史记录 */
-    .history-box { margin-top: 10px; max-height: 160px; overflow-y: auto; text-align: left; border-top: 1px solid #eee; padding-top: 10px; }
+    /* 历史记录：两列显示，填满第一列再第二列 */
+    .history-box { 
+        margin-top: 8px; 
+        height: 150px;           /* 固定高度控制每列容量 */
+        column-count: 2;        /* 分两列 */
+        column-gap: 12px;        /* 列间距 */
+        column-fill: auto;      /* 优先填满第一列再第二列 */
+        overflow-y: auto;       /* 超出两列容量后出现垂直滚动条 */
+        text-align: left; 
+        border-top: 1px solid #eee; 
+        padding-top: 8px; 
+    }
     .history-item { 
-        font-size: 14px; 
-        padding: 6px 0; 
-        border-bottom: 1px dashed #eee; 
+        font-size: 13px; 
+        padding: 4px 8px; 
+        margin-bottom: 6px;
+        background-color: #f8fafc;
+        border-radius: 6px;
         display: flex; 
         justify-content: space-between; 
+        break-inside: avoid;     /* 保证每个卡片不会跨列截断 */
+        border: 1px solid #f1f5f9;
     }
-    .result-a { color: #4CAF50; font-weight: bold; margin-left: 8px; }
-    .result-b { color: #FF9800; font-weight: bold; margin-left: 8px; }
-    .message { margin-top: 4px; font-weight: bold; min-height: 22px; font-size: 14px; }
+    .result-a { color: #4CAF50; font-weight: bold; margin-left: 6px; }
+    .result-b { color: #FF9800; font-weight: bold; margin-left: 6px; }
+    .message { margin-top: 2px; font-weight: bold; min-height: 20px; font-size: 14px; }
     .hidden { display: none !important; }
 </style>
 </head>
 <body>
 
 <div class="game-container">
-    <h2>🎯 猜数字游戏</h2>
+    <!-- 顶部标题栏 -->
+    <div class="header-bar">
+        <!-- 重新开始（左侧） -->
+        <button id="btnReset" class="header-btn btn-header-reset invisible" onclick="resetGame()">↺ 重来</button>
+        <h2>🎯 猜数字游戏</h2>
+        <!-- 放弃并显示答案（右侧） -->
+        <button id="btnGiveUp" class="header-btn btn-header-giveup invisible" onclick="giveUp()">放弃 ✕</button>
+    </div>
     
     <!-- 设置阶段（使用滑竿选择位数） -->
     <div id="setupArea" class="setup-area">
@@ -210,14 +282,11 @@
             <button class="key-btn btn-clear" onclick="clearKey()">清空</button>
         </div>
 
-        <button class="btn-primary" onclick="submitGuess()">确认猜测</button>
-
-        <div class="action-group">
-            <button class="btn-secondary" onclick="resetGame()">重新开始</button>
-            <button class="btn-danger" onclick="giveUp()">放弃答案</button>
-        </div>
+        <button class="btn-primary" style="margin-top: 2px;" onclick="submitGuess()">确认猜测</button>
 
         <div id="message" class="message"></div>
+
+        <!-- 两列猜测历史 -->
         <div id="history" class="history-box"></div>
     </div>
 </div>
@@ -255,17 +324,25 @@
         isGameOver = false;
         currentInput = [];
         
+        // 显示顶部左右按钮
+        document.getElementById('btnReset').classList.remove('invisible');
+        document.getElementById('btnGiveUp').classList.remove('invisible');
+
         document.getElementById('setupArea').classList.add('hidden');
         document.getElementById('playArea').classList.remove('hidden');
         document.getElementById('history').innerHTML = '';
         document.getElementById('message').style.color = "#333";
-        document.getElementById('message').innerText = `游戏开始！请猜 ${gameLength} 位不重复的数字。`;
+        document.getElementById('message').innerText = `游戏开始！请猜 ${gameLength} 位不重复数字。`;
         
         renderSlots();
     }
 
     // 重新开始（返回设置界面）
     function resetGame() {
+        // 隐藏顶部左右按钮
+        document.getElementById('btnReset').classList.add('invisible');
+        document.getElementById('btnGiveUp').classList.add('invisible');
+
         document.getElementById('playArea').classList.add('hidden');
         document.getElementById('setupArea').classList.remove('hidden');
         document.getElementById('history').innerHTML = '';
@@ -326,7 +403,7 @@
         msgEl.style.color = "#f44336";
 
         if (guessStr.length !== gameLength) {
-            msgEl.innerText = `❌ 请使用键盘填满 ${gameLength} 位数字！`;
+            msgEl.innerText = `❌ 请填满 ${gameLength} 位数字！`;
             return;
         }
         if (new Set(guessStr).size !== gameLength) {
@@ -345,11 +422,15 @@
             }
         }
 
+        // 顺序添加记录（配合 column-fill: auto，先从上至下填满第1列，再填第2列）
         const historyBox = document.getElementById('history');
         const item = document.createElement('div');
         item.className = 'history-item';
-        item.innerHTML = `<span>猜测: <strong>${guessStr}</strong></span> <span><span class="result-a">${a}A</span> <span class="result-b">${b}B</span></span>`;
-        historyBox.prepend(item);
+        item.innerHTML = `<span><strong>${guessStr}</strong></span> <span><span class="result-a">${a}A</span><span class="result-b">${b}B</span></span>`;
+        historyBox.appendChild(item);
+        
+        // 自动将视口拉至底部
+        historyBox.scrollTop = historyBox.scrollHeight;
 
         if (a === gameLength) {
             msgEl.style.color = "#4CAF50";
@@ -370,14 +451,14 @@
         const secretStr = secretNumber.join('');
         const msgEl = document.getElementById('message');
         msgEl.style.color = "#f44336";
-        msgEl.innerHTML = `💀 游戏结束！正确答案是: <strong>${secretStr}</strong>`;
+        msgEl.innerHTML = `💀 答案是: <strong>${secretStr}</strong>`;
     }
 
     // 离线可用支持 (Service Worker 自动缓存当前页面)
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             const swCode = `
-                const CACHE_NAME = 'guess-game-v2';
+                const CACHE_NAME = 'guess-game-v3';
                 self.addEventListener('install', e => {
                     e.waitUntil(
                         caches.open(CACHE_NAME).then(cache => cache.addAll(['./']))

@@ -116,10 +116,87 @@ body {
     flex-shrink: 0;
 }
 
+/* Settings & Controls Styling */
+.settings-row-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.setting-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0; /* Prevents grid blowout */
+}
+
+.setting-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.setting-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.setting-current-val {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent-color);
+    font-family: monospace;
+}
+
+.segmented-group {
+    display: flex;
+    background: rgba(0, 0, 0, 0.35);
+    padding: 2.5px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    gap: 2px;
+}
+
+.segment-btn {
+    flex: 1;
+    padding: 7px 3px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    text-align: center;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+.segment-btn:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.segment-btn.active {
+    background: var(--accent-color);
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: 0 2px 8px var(--accent-glow);
+}
+
 .controls-card {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
     flex-shrink: 0;
 }
 
@@ -395,25 +472,19 @@ body {
 }
 
 /* Control card elements */
-.controls-card {
+.action-buttons-row {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.action-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    gap: 10px;
 }
 
 .btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     width: 100%;
-    padding: 12px 20px;
+    padding: 11px 18px;
     border-radius: 12px;
     border: none;
     font-size: 14px;
@@ -426,6 +497,37 @@ body {
 .btn-icon {
     width: 18px;
     height: 18px;
+}
+
+.btn-confirm-main {
+    flex: 1;
+    height: 44px;
+}
+
+.btn-clear-compact {
+    flex: 0 0 auto;
+    width: auto;
+    height: 44px;
+    padding: 0 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    gap: 5px;
+}
+
+.btn-clear-compact .btn-icon {
+    width: 15px;
+    height: 15px;
+}
+
+.btn-clear-compact:hover {
+    color: var(--danger-color);
+    border-color: rgba(239, 68, 68, 0.35);
+    background: rgba(239, 68, 68, 0.08);
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.15);
 }
 
 .btn-primary {
@@ -534,13 +636,14 @@ body {
     width: 21cm;
     height: 29.7cm;
     background-color: #ffffff;
-    padding: 2.35cm 0.5cm; /* Centered perfectly: 2.35cm top/bottom, 0.5cm left/right */
+    padding: var(--page-pad-y, 2.35cm) var(--page-pad-x, 0.5cm);
     display: grid;
     grid-template-columns: repeat(4, 5cm);
     grid-template-rows: repeat(5, 5cm);
-    gap: 0;
+    gap: var(--badge-gap, 0mm);
     box-sizing: border-box;
     position: relative;
+    transition: padding 0.2s ease, gap 0.2s ease;
 }
 
 /* Badge Circle Output Frame */
@@ -548,8 +651,8 @@ body {
     width: 5cm;
     height: 5cm;
     border-radius: 50%;
-    border: 0.25mm dashed #cbd5e1; /* slate-300 - very thin dashed */
-    background-color: #f8fafc; /* slate-50 */
+    border: var(--circle-empty-border, 0.25mm dashed #cbd5e1);
+    background-color: #f8fafc;
     box-sizing: border-box;
     position: relative;
     display: flex;
@@ -600,7 +703,7 @@ body {
 
 /* Occupied locked state */
 .circle-box.occupied {
-    border: 0.15mm solid #cbd5e1; /* Very light thin solid line for cutting guide */
+    border: var(--circle-border, 0.15mm solid #cbd5e1);
     background-color: #ffffff;
     cursor: context-menu;
 }
@@ -762,20 +865,22 @@ body {
         page-break-before: avoid;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
+        padding: var(--page-pad-y, 2.35cm) var(--page-pad-x, 0.5cm) !important;
+        gap: var(--badge-gap, 0mm) !important;
     }
     
     .circle-box {
-        border: 0.15mm solid #a1a1aa !important; /* Force printing outline cutting guide */
+        border: var(--circle-print-border, 0.15mm solid #a1a1aa) !important; /* Force printing outline cutting guide */
         background-color: transparent !important;
     }
     
     .circle-box.active {
         box-shadow: none !important;
-        border: 0.15mm solid #a1a1aa !important;
+        border: var(--circle-print-border, 0.15mm solid #a1a1aa) !important;
     }
     
     .circle-box:not(.occupied) {
-        border: 0.15mm dashed #d4d4d8 !important; /* Light guide for empty slots */
+        border: var(--circle-print-empty-border, 0.15mm dashed #d4d4d8) !important; /* Light guide for empty slots */
     }
     
     .placeholder-num {

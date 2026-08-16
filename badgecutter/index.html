@@ -95,21 +95,50 @@
                 </div>
             </section>
 
-            <!-- Card 2: Interactive control actions -->
+            <!-- Card 2: Interactive Controls & Layout Settings -->
             <section class="card controls-card" id="controls-card" style="display: none;">
-                <div class="action-buttons">
-                    <button id="btn-confirm" class="btn btn-primary">
+                <!-- Row 1: Action Buttons (Confirm Crop + Mini Clear Button on right) -->
+                <div class="action-buttons-row">
+                    <button id="btn-confirm" class="btn btn-primary btn-confirm-main">
                         <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        确认裁剪 (Enter)
+                        <span>确认裁剪 (Enter)</span>
                     </button>
-                    <button id="btn-clear-all" class="btn btn-secondary">
+                    <button id="btn-clear-all" class="btn btn-secondary btn-clear-compact" title="清空排版区所有图片">
                         <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M19 7L18.1327 19.1425C18.0579 20.1891 17.187 21 16.1378 21H7.86224C6.81296 21 5.94208 20.1891 5.86725 19.1425L5 7M10 11V17M14 11V17M15 4H9M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        清空排版区
+                        <span>清空</span>
                     </button>
+                </div>
+
+                <!-- Row 2: Layout & Border Settings side-by-side (2 columns) -->
+                <div class="settings-row-grid">
+                    <!-- Column 1: Spacing -->
+                    <div class="setting-item">
+                        <div class="setting-label-row">
+                            <span class="setting-label">圆与圆间距</span>
+                            <span class="setting-current-val" id="gap-val-display">0 mm</span>
+                        </div>
+                        <div class="segmented-group" id="gap-segmented">
+                            <button type="button" class="segment-btn active" data-gap="0">0mm</button>
+                            <button type="button" class="segment-btn" data-gap="1">1mm</button>
+                            <button type="button" class="segment-btn" data-gap="2">2mm</button>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Border Style -->
+                    <div class="setting-item">
+                        <div class="setting-label-row">
+                            <span class="setting-label">裁切外框线</span>
+                            <span class="setting-current-val" id="border-val-display">淡灰细线</span>
+                        </div>
+                        <div class="segmented-group" id="border-segmented">
+                            <button type="button" class="segment-btn active" data-border="light">淡灰(0.15mm)</button>
+                            <button type="button" class="segment-btn" data-border="dark">加深(1mm)</button>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="instruction-list">

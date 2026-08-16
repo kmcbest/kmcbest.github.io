@@ -19,6 +19,10 @@ let isCtrlPressed = false;         // Is Photoshop Ctrl panning activated
 let startScrollLeft = 0;           // Starting scrollLeft coordinate for panning
 let startScrollTop = 0;            // Starting scrollTop coordinate for panning
 
+// Layout and Cut-guide Options State
+let currentGap = 0;                // 0 | 1 | 2 (mm)
+let currentBorderStyle = 'light';  // 'light' | 'dark'
+
 // DOM Elements
 const fileInput = document.getElementById('file-input');
 const dropZone = document.getElementById('drop-zone');
@@ -46,6 +50,7 @@ window.addEventListener('DOMContentLoaded', () => {
     initUploadListeners();
     initCropListeners();
     initControlListeners();
+    initSettingsListeners();
     initResizeObserver();
     
     // Initial scaling adjust
@@ -661,6 +666,75 @@ function initControlListeners() {
     });
 }
 
+// Layout Settings Listeners and Dynamic Style Updates
+function initSettingsListeners() {
+    const gapButtons = document.querySelectorAll('#gap-segmented .segment-btn');
+    gapButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            gapButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentGap = parseInt(btn.dataset.gap, 10) || 0;
+            updateLayoutSettings();
+        });
+    });
+
+    const borderButtons = document.querySelectorAll('#border-segmented .segment-btn');
+    borderButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            borderButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentBorderStyle = btn.dataset.border || 'light';
+            updateLayoutSettings();
+        });
+    });
+
+    updateLayoutSettings();
+}
+
+function updateLayoutSettings() {
+    const a4Page = document.getElementById('a4-page');
+    const gapValDisplay = document.getElementById('gap-val-display');
+    const borderValDisplay = document.getElementById('border-val-display');
+
+    if (gapValDisplay) {
+        gapValDisplay.innerText = `${currentGap} mm`;
+    }
+    if (borderValDisplay) {
+        borderValDisplay.innerText = currentBorderStyle === 'dark' ? '加深粗线 (1mm)' : '淡灰细线 (0.15mm)';
+    }
+
+    if (!a4Page) return;
+
+    // Calculate margins for A4 (210mm x 297mm) with 50mm circles and currentGap
+    // 4 columns: 4 * 50mm + 3 * gap
+    // 5 rows: 5 * 50mm + 4 * gap
+    let padX = '0.5cm';
+    let padY = '2.35cm';
+    if (currentGap === 1) {
+        padX = '0.35cm';
+        padY = '2.15cm';
+    } else if (currentGap === 2) {
+        padX = '0.20cm';
+        padY = '1.95cm';
+    }
+
+    a4Page.style.setProperty('--badge-gap', `${currentGap}mm`);
+    a4Page.style.setProperty('--page-pad-x', padX);
+    a4Page.style.setProperty('--page-pad-y', padY);
+
+    if (currentBorderStyle === 'dark') {
+        a4Page.style.setProperty('--circle-border', '1mm solid #000000');
+        a4Page.style.setProperty('--circle-empty-border', '1mm dashed #000000');
+        a4Page.style.setProperty('--circle-print-border', '1mm solid #000000');
+        a4Page.style.setProperty('--circle-print-empty-border', '1mm dashed #000000');
+    } else {
+        a4Page.style.setProperty('--circle-border', '0.15mm solid #cbd5e1');
+        a4Page.style.setProperty('--circle-empty-border', '0.25mm dashed #cbd5e1');
+        a4Page.style.setProperty('--circle-print-border', '0.15mm solid #a1a1aa');
+        a4Page.style.setProperty('--circle-print-empty-border', '0.15mm dashed #d4d4d8');
+    }
+}
+
 // ==========================================
 // Export Helper Functions
 // ==========================================
@@ -696,9 +770,17 @@ async function generateHighDpiCanvas() {
     // 300 DPI A4 size: 2480px x 3508px
     const PAGE_W = 2480;
     const PAGE_H = 3508;
-    const DIAMETER = 590.5; // 50mm in 300 DPI
-    const MARGIN_X = 59;    // 5mm in 300 DPI
-    const MARGIN_Y = 278;   // 23.5mm in 300 DPI
+    // Scale factor from mm to px: 2480px / 210mm
+    const PX_PER_MM = PAGE_W / 210;
+    const DIAMETER = 50 * PX_PER_MM; // ~590.476px (50mm)
+    const GAP_PX = currentGap * PX_PER_MM;
+    const MARGIN_X = (PAGE_W - (4 * DIAMETER + 3 * GAP_PX)) / 2;
+    const MARGIN_Y = (PAGE_H - (5 * DIAMETER + 4 * GAP_PX)) / 2;
+
+    const isDark = currentBorderStyle === 'dark';
+    const lineWidth = isDark ? (1.0 * PX_PER_MM) : 1.5; // 1mm (~11.8px) vs ~0.13mm
+    const strokeColor = isDark ? '#000000' : '#a1a1aa';
+    const emptyColor = isDark ? '#000000' : '#d4d4d8';
     
     const exportCanvas = document.createElement('canvas');
     exportCanvas.width = PAGE_W;
@@ -715,8 +797,8 @@ async function generateHighDpiCanvas() {
     for (let idx = 0; idx < 20; idx++) {
         const r = Math.floor(idx / 4);
         const c = idx % 4;
-        const x = MARGIN_X + c * DIAMETER;
-        const y = MARGIN_Y + r * DIAMETER;
+        const x = MARGIN_X + c * (DIAMETER + GAP_PX);
+        const y = MARGIN_Y + r * (DIAMETER + GAP_PX);
         const cx = x + DIAMETER / 2;
         const cy = y + DIAMETER / 2;
         const radius = DIAMETER / 2;
@@ -732,17 +814,17 @@ async function generateHighDpiCanvas() {
             ctx.drawImage(img, x, y, DIAMETER, DIAMETER);
             ctx.restore();
             
-            // Draw solid cutting guide line (light grey, thin)
-            ctx.strokeStyle = '#a1a1aa'; // slate-400
-            ctx.lineWidth = 1.5;
+            // Draw cutting guide line
+            ctx.strokeStyle = strokeColor;
+            ctx.lineWidth = lineWidth;
             ctx.beginPath();
             ctx.arc(cx, cy, radius, 0, Math.PI * 2);
             ctx.stroke();
         } else {
             // Draw dashed cutting guide line for empty space
-            ctx.strokeStyle = '#d4d4d8'; // zinc-300
-            ctx.lineWidth = 1.5;
-            ctx.setLineDash([8, 8]);
+            ctx.strokeStyle = emptyColor;
+            ctx.lineWidth = lineWidth;
+            ctx.setLineDash(isDark ? [24, 24] : [8, 8]);
             ctx.beginPath();
             ctx.arc(cx, cy, radius, 0, Math.PI * 2);
             ctx.stroke();
@@ -826,14 +908,23 @@ async function exportToPdf() {
         
         // Physical MM dimensions on A4
         const diameter = 50;
-        const marginX = 5;
-        const marginY = 23.5;
+        const gap = currentGap;
+        const marginX = (210 - (4 * diameter + 3 * gap)) / 2;
+        const marginY = (297 - (5 * diameter + 4 * gap)) / 2;
+        
+        const isDark = currentBorderStyle === 'dark';
+        const lineWidth = isDark ? 1.0 : 0.15; // 1mm vs 0.15mm
+        const drawColor = isDark ? [0, 0, 0] : [161, 161, 170];
+        const emptyDrawColor = isDark ? [0, 0, 0] : [212, 212, 216];
         
         for (let idx = 0; idx < 20; idx++) {
             const r = Math.floor(idx / 4);
             const c = idx % 4;
-            const x = marginX + c * diameter;
-            const y = marginY + r * diameter;
+            const x = marginX + c * (diameter + gap);
+            const y = marginY + r * (diameter + gap);
+            const cx = x + diameter / 2;
+            const cy = y + diameter / 2;
+            const radius = diameter / 2;
             
             const img = loadedImages[idx];
             
@@ -843,16 +934,16 @@ async function exportToPdf() {
                 doc.addImage(circularDataUrl, 'PNG', x, y, diameter, diameter);
                 
                 // Solid border
-                doc.setDrawColor(161, 161, 170); // slate-400
-                doc.setLineWidth(0.15); // thin cutting line
+                doc.setDrawColor(drawColor[0], drawColor[1], drawColor[2]);
+                doc.setLineWidth(lineWidth);
                 doc.setLineDashPattern([], 0);
-                doc.circle(x + 25, y + 25, 25, 'S');
+                doc.circle(cx, cy, radius, 'S');
             } else {
                 // Dashed border for empty slots
-                doc.setDrawColor(212, 212, 216); // zinc-300
-                doc.setLineWidth(0.15);
-                doc.setLineDashPattern([1.5, 1.5], 0);
-                doc.circle(x + 25, y + 25, 25, 'S');
+                doc.setDrawColor(emptyDrawColor[0], emptyDrawColor[1], emptyDrawColor[2]);
+                doc.setLineWidth(lineWidth);
+                doc.setLineDashPattern(isDark ? [3, 3] : [1.5, 1.5], 0);
+                doc.circle(cx, cy, radius, 'S');
             }
         }
         

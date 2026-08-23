@@ -229,11 +229,20 @@
 
         <!-- 选项配置 -->
         <div class="panel-section">
-            <span class="section-label">笔顺与字帖引导配置：</span>
+            <span class="section-label">笔顺与字帖排版配置：</span>
             <div class="options-bar">
                 <label>
                     <input type="checkbox" id="optShowStrokeNumber" checked onchange="generate()">
                     <strong>首格标出笔顺数字</strong>
+                </label>
+                <label>
+                    <strong>排版模式：</strong>
+                    <select id="optLayoutMode" onchange="generate()">
+                        <option value="semi" selected>半引导 (1范字 + 1描红 + 3空白 + 1描红 + 3空白)</option>
+                        <option value="full">全描红 (1范字 + 8描红)</option>
+                        <option value="half">半红半空 (1范字 + 4描红 + 4空白)</option>
+                        <option value="blank">自写模式 (1范字 + 8空白)</option>
+                    </select>
                 </label>
                 <label>
                     数字展示样式：
@@ -466,11 +475,10 @@
             const charTone = document.getElementById('optCharTone').value;   
             const sizeOption = document.getElementById('optNumberSize').value; 
 
-            // 尺寸计算
             let radius = 80;
             let fontSize = 100;
             let strokeWidth = 8;
-            let haloWidth = 14; // 无底圈纯数字时的防粘连白色光晕边框
+            let haloWidth = 14; 
 
             if (sizeOption === 'small') {
                 radius = 60;
@@ -549,7 +557,6 @@
                 x = Math.max(padding, Math.min(1024 - padding, x));
                 y = Math.max(padding, Math.min(1024 - padding, y));
 
-                // 检查与已有数字圆的距离，如果过近微调偏移
                 for (let prev of points) {
                     const dx = x - prev.x;
                     const dy = y - prev.y;
@@ -566,12 +573,10 @@
                 points.push({ x, y, num: idx + 1 });
             });
 
-            // 渲染所有标号
             points.forEach((p) => {
                 const numGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
                 numGroup.setAttribute('transform', `translate(${p.x}, ${p.y})`);
 
-                // A. 如果是带圆圈风格
                 if (!isPlainNumber) {
                     const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
                     circle.setAttribute('r', radius);
@@ -581,7 +586,6 @@
                     numGroup.appendChild(circle);
                 }
 
-                // B. 绘制数字文本
                 const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                 text.textContent = p.num.toString();
                 text.setAttribute('text-anchor', 'middle');
@@ -591,12 +595,11 @@
                 text.setAttribute('font-weight', '900');
                 text.setAttribute('font-family', '-apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif');
 
-                // 如果是纯数字模式（无底圈），给数字增加一层粗白边 (White Halo)，既保留数字本色又防止和笔画粘连
                 if (isPlainNumber) {
                     text.setAttribute('stroke', '#ffffff');
                     text.setAttribute('stroke-width', haloWidth);
                     text.setAttribute('stroke-linejoin', 'round');
-                    text.setAttribute('paint-order', 'stroke fill'); // 先描边后填充，保证字形核心饱满
+                    text.setAttribute('paint-order', 'stroke fill');
                 }
 
                 numGroup.appendChild(text);
@@ -689,6 +692,8 @@
             let rows = 0;
             
             const currentGridSize = document.getElementById('optGridSize').value;
+            const layoutMode = document.getElementById('optLayoutMode').value;
+
             let limit = 13;
             if (currentGridSize === '17mm') limit = 11;
             else if (currentGridSize === '20mm') limit = 10;
@@ -713,8 +718,21 @@
                 div.className = 'row';
                 
                 div.appendChild(createBox(strokeChar, 'black', { isStrokeGuide: true }));
-                for (let i = 0; i < 5; i++) div.appendChild(createBox(strokeChar, 'trace'));
-                for (let i = 0; i < 3; i++) div.appendChild(createBox(exampleWord, 'trace'));
+                
+                if (layoutMode === 'semi') {
+                    // 半引导：1笔画描红 + 2空白 + 1范字描红 + 1范字空白 + 1范字描红 + 2空白
+                    div.appendChild(createBox(strokeChar, 'trace'));
+                    div.appendChild(createBox('', ''));
+                    div.appendChild(createBox('', ''));
+                    div.appendChild(createBox(exampleWord, 'trace'));
+                    div.appendChild(createBox('', ''));
+                    div.appendChild(createBox(exampleWord, 'trace'));
+                    div.appendChild(createBox('', ''));
+                    div.appendChild(createBox('', ''));
+                } else {
+                    for (let i = 0; i < 5; i++) div.appendChild(createBox(strokeChar, 'trace'));
+                    for (let i = 0; i < 3; i++) div.appendChild(createBox(exampleWord, 'trace'));
+                }
                 
                 currentPage.appendChild(div);
                 rows++;
@@ -732,9 +750,30 @@
                 const div = document.createElement('div');
                 div.className = 'row';
                 
+                // 1. 首字引导格（示范字 + 笔画顺序数字）
                 div.appendChild(createBox(c, 'black', { isGuide: true }));
-                for (let i = 0; i < 8; i++) {
+                
+                // 2. 后续练习格排版
+                if (layoutMode === 'semi') {
+                    // 【半引导】：1个描红 + 3个空白 + 1个描红 + 3个空白 (刚好8格)
                     div.appendChild(createBox(c, 'trace'));
+                    div.appendChild(createBox('', ''));
+                    div.appendChild(createBox('', ''));
+                    div.appendChild(createBox('', ''));
+                    div.appendChild(createBox(c, 'trace'));
+                    div.appendChild(createBox('', ''));
+                    div.appendChild(createBox('', ''));
+                    div.appendChild(createBox('', ''));
+                } else if (layoutMode === 'half') {
+                    // 半红半空：4描红 + 4空白
+                    for (let i = 0; i < 4; i++) div.appendChild(createBox(c, 'trace'));
+                    for (let i = 0; i < 4; i++) div.appendChild(createBox('', ''));
+                } else if (layoutMode === 'blank') {
+                    // 自写模式：8个纯空白格
+                    for (let i = 0; i < 8; i++) div.appendChild(createBox('', ''));
+                } else {
+                    // 全描红模式：8个描红格
+                    for (let i = 0; i < 8; i++) div.appendChild(createBox(c, 'trace'));
                 }
 
                 currentPage.appendChild(div);

@@ -7,39 +7,140 @@
     <style>
         :root {
             --grid-color: #d81e06;
-            --grid-size: 15mm;     /* 80%大小 */
-            --font-family: "KaiTi", "STKaiti", "楷体", "DFKaiShu-GB5", "AR PL UKai CN", "AR PL UKai",  serif;
+            --grid-size: 15mm;     /* 默认格子大小 */
+            --font-family: "KaiTi", "STKaiti", "楷体", "DFKaiShu-GB5", "AR PL UKai CN", "AR PL UKai", serif;
         }
 
-        body { margin: 0; padding: 0; background-color: #f5f5f5; font-family: sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f5f5f5; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+            -webkit-print-color-adjust: exact; 
+            print-color-adjust: exact; 
+        }
 
         /* --- 控制面板 --- */
         .controls {
-            background: white; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            max-width: 900px; margin: 20px auto; border-radius: 8px;
+            background: white; 
+            padding: 20px 24px; 
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            max-width: 940px; 
+            margin: 20px auto; 
+            border-radius: 10px;
         }
-        .controls h2 { margin-top: 0; color: #333; }
+        .controls h2 { 
+            margin-top: 0; 
+            color: #2c3e50; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
+            font-size: 22px;
+        }
+        .badge {
+            background: #e74c3c;
+            color: white;
+            font-size: 12px;
+            padding: 3px 9px;
+            border-radius: 12px;
+            font-weight: normal;
+        }
         
-        .panel-section { margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
-        .category-title { font-size: 14px; color: #d81e06; font-weight: bold; margin: 10px 0 5px 0; }
+        .panel-section { 
+            margin-bottom: 18px; 
+            border-bottom: 1px solid #eee; 
+            padding-bottom: 15px; 
+        }
+        .panel-section:last-of-type {
+            border-bottom: none;
+        }
+        .section-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .category-title { font-size: 13px; color: #d81e06; font-weight: bold; margin: 10px 0 6px 0; }
         
-        .stroke-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 6px; }
+        .stroke-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(62px, 1fr)); gap: 6px; }
         .stroke-btn {
-            background: #fff; border: 1px solid #ddd; border-radius: 4px;
-            padding: 4px; cursor: pointer; text-align: center; transition: all 0.2s;
+            background: #fff; border: 1px solid #e0e0e0; border-radius: 6px;
+            padding: 5px 2px; cursor: pointer; text-align: center; transition: all 0.2s;
+            user-select: none;
         }
-        .stroke-btn:hover { background: #eef; border-color: #aaf; transform: scale(1.05); }
-        .stroke-btn span.s-char { display: block; font-family: var(--font-family); font-size: 22px; color: #333; height: 30px; line-height: 30px;}
-        .stroke-btn span.s-name { display: block; font-size: 11px; color: #888; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+        .stroke-btn:hover { background: #f0f4ff; border-color: #3498db; transform: translateY(-2px); }
+        .stroke-btn span.s-char { display: block; font-family: var(--font-family); font-size: 22px; color: #333; height: 28px; line-height: 28px;}
+        .stroke-btn span.s-name { display: block; font-size: 11px; color: #777; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 
-        textarea { width: 100%; height: 80px; padding: 8px; border: 1px solid #ccc; font-family: var(--font-family); font-size: 18px; }
+        textarea { 
+            width: 100%; 
+            height: 70px; 
+            padding: 10px; 
+            border: 1px solid #ccc; 
+            border-radius: 6px;
+            font-family: var(--font-family); 
+            font-size: 18px; 
+            box-sizing: border-box;
+            resize: vertical;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52,152,219,0.2);
+        }
+
+        /* 笔顺设置选项条 */
+        .options-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px 20px;
+            align-items: center;
+            background: #fdfaf6;
+            border: 1px solid #faecd8;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #555;
+        }
+        .options-bar label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+        .options-bar select {
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid #dcdfe6;
+            background: #fff;
+            font-size: 13px;
+        }
         
-        .action-bar { text-align: right; margin-top: 20px; position: sticky; bottom: 0; background: white; padding: 10px 0; border-top: 2px solid #eee; }
-        button { padding: 10px 20px; font-size: 16px; border-radius: 4px; cursor: pointer; border: none; margin-left: 10px; }
+        .action-bar { 
+            text-align: right; 
+            margin-top: 20px; 
+            position: sticky; 
+            bottom: 0; 
+            background: white; 
+            padding: 12px 0; 
+            border-top: 2px solid #f0f0f0; 
+            z-index: 100;
+        }
+        button { 
+            padding: 9px 18px; 
+            font-size: 15px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            border: none; 
+            margin-left: 8px; 
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+        button:hover { opacity: 0.9; }
         button.main { background-color: #2c3e50; color: white; }
         button.config { background-color: #e67e22; color: white; }
-        button.print { background-color: #d81e06; color: white; }
-        button.clear { background-color: white; border: 1px solid #ccc; color: #666; padding: 5px 10px; font-size: 12px;}
+        button.print { background-color: #d81e06; color: white; font-weight: bold; }
+        button.clear { background-color: #fff; border: 1px solid #dcdfe6; color: #606266; padding: 4px 10px; font-size: 12px;}
 
         /* --- 模态框 (配置用) --- */
         .modal {
@@ -47,54 +148,65 @@
             background-color: rgba(0,0,0,0.5); align-items: center; justify-content: center;
         }
         .modal-content {
-            background-color: #fff; padding: 20px; border-radius: 8px; width: 80%; max-width: 600px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            background-color: #fff; padding: 24px; border-radius: 10px; width: 85%; max-width: 620px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
-        .modal textarea { height: 200px; font-family: monospace; font-size: 12px; }
+        .modal textarea { height: 180px; font-family: monospace; font-size: 12px; }
 
         /* --- A4 纸张 --- */
         .page {
             width: 210mm; min-height: 297mm; padding: 15mm 10mm; margin: 20px auto;
-            background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background: white; box-shadow: 0 0 14px rgba(0,0,0,0.08);
             position: relative; display: flex; flex-direction: column; box-sizing: border-box;
         }
         .header {
             display: flex; justify-content: space-between; margin-bottom: 8mm;
             font-family: var(--font-family); border-bottom: 2px solid var(--grid-color);
+            padding-bottom: 2mm; font-size: 14px;
         }
         .row { display: flex; margin-bottom: 3mm; gap: 2mm; justify-content: center; }
         
         .tianzige {
             width: var(--grid-size); height: var(--grid-size); border: 1px solid var(--grid-color);
             position: relative; display: flex; align-items: center; justify-content: center;
+            box-sizing: border-box;
         }
         /* 田字格虚线 */
         .tianzige::before {
             content: ''; position: absolute; top: 50%; left: 0; right: 0; border-top: 1px dashed var(--grid-color); transform: translateY(-50%);
+            pointer-events: none;
         }
         .tianzige::after {
             content: ''; position: absolute; left: 50%; top: 0; bottom: 0; border-left: 1px dashed var(--grid-color); transform: translateX(-50%);
+            pointer-events: none;
         }
 
-        /* 特殊类：隐藏内部虚线（用于第一个笔顺格） */
+        /* 笔画引导格专用（可选择隐藏内部虚线） */
         .tianzige.no-grid::before, .tianzige.no-grid::after { display: none; }
 
-        .char { font-family: var(--font-family); font-size: calc(var(--grid-size) * 0.75); z-index: 1; position: relative; }
+        .char { 
+            font-family: var(--font-family); 
+            font-size: calc(var(--grid-size) * 0.78); 
+            z-index: 1; 
+            position: relative; 
+            line-height: 1;
+            user-select: none;
+        }
         .black { color: #000; }
         .trace { 
              color: #000000; 
-             opacity: 0.35; /* 描红淡化 */
+             opacity: 0.32; /* 描红淡化 */
         }
 
-        /* 笔顺 Canvas */
-        .stroke-canvas {
+        /* 笔顺 Canvas / SVG 覆盖层 */
+        .stroke-canvas, .stroke-svg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 2; pointer-events: none;
         }
 
         @media print {
             body { background: white; margin: 0; }
-            .controls, .modal { display: none; }
+            .controls, .modal { display: none !important; }
             .page { margin: 0; box-shadow: none; page-break-after: always; height: 297mm; }
         }
     </style>
@@ -102,11 +214,11 @@
 <body>
 
     <div class="controls">
-        <h2>全能硬笔书法字帖 (带笔顺引导)</h2>
+        <h2>全能硬笔书法字帖 <span class="badge">带笔顺引导升级版</span></h2>
 
         <!-- 笔画选择面板 -->
         <div class="panel-section">
-            <label>笔画库（点击添加到下方）：</label>
+            <span class="section-label">常用笔画库（点击快速追加到模式1）：</span>
             <div class="category-title">一、基础笔画</div>
             <div class="stroke-grid" id="group-basic"></div>
             <div class="category-title">二、折笔与钩法</div>
@@ -115,10 +227,56 @@
             <div class="stroke-grid" id="group-complex"></div>
         </div>
 
+        <!-- 选项配置 -->
+        <div class="panel-section">
+            <span class="section-label">笔顺与字帖引导配置：</span>
+            <div class="options-bar">
+                <label>
+                    <input type="checkbox" id="optShowStrokeNumber" checked onchange="generate()">
+                    <strong>首格标出笔顺数字</strong>
+                </label>
+                <label>
+                    数字展示样式：
+                    <select id="optNumberStyle" onchange="generate()">
+                        <option value="plain-black" selected>纯黑数字 (无底圈·清爽极简)</option>
+                        <option value="plain-red">纯红数字 (无底圈·鲜明)</option>
+                        <option value="black-circle">白底黑字黑圈 (经典印刷风)</option>
+                        <option value="red">红底白字 (醒目徽标)</option>
+                        <option value="blue">蓝底白字</option>
+                    </select>
+                </label>
+                <label>
+                    数字大小：
+                    <select id="optNumberSize" onchange="generate()">
+                        <option value="large" selected>大号清晰 (推荐)</option>
+                        <option value="xlarge">特大粗体</option>
+                        <option value="medium">标准适中</option>
+                        <option value="small">精巧小号</option>
+                    </select>
+                </label>
+                <label>
+                    首字底色：
+                    <select id="optCharTone" onchange="generate()">
+                        <option value="gray" selected>浅灰底字 (推荐，数字最清晰)</option>
+                        <option value="light">极浅灰 (水印描红)</option>
+                        <option value="black">纯黑标准字</option>
+                    </select>
+                </label>
+                <label>
+                    田字格尺寸：
+                    <select id="optGridSize" onchange="updateGridSize()">
+                        <option value="15mm" selected>15mm (标准练字格)</option>
+                        <option value="17mm">17mm (中小学字帖)</option>
+                        <option value="20mm">20mm (大格/启蒙)</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+
         <!-- 输入区 -->
         <div class="panel-section">
-            <div style="display:flex; justify-content:space-between;">
-                <label>模式1：笔画 + 范字</label>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                <span class="section-label" style="margin-bottom:0;">模式 1：笔画 + 范字</span>
                 <button class="clear" onclick="document.getElementById('mode1Input').value=''">清空</button>
             </div>
             <textarea id="mode1Input">丶,主
@@ -126,14 +284,17 @@
         </div>
 
         <div class="panel-section">
-            <label>模式2：整字练习</label>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                <span class="section-label" style="margin-bottom:0;">模式 2：整字练习 (首字自动标注笔画顺序)</span>
+                <button class="clear" onclick="document.getElementById('mode2Input').value=''">清空</button>
+            </div>
             <textarea id="mode2Input" placeholder="输入汉字...">永和九年</textarea>
         </div>
 
         <div class="action-bar">
-            <button class="config" onclick="openConfig()">🛠 导入笔顺配置</button>
-            <button class="main" onclick="generate()">生成预览</button>
-            <button class="print" onclick="window.print()">打印 / 保存PDF</button>
+            <button class="config" onclick="openConfig()">🛠 自定义笔画轨迹</button>
+            <button class="main" onclick="generate()">⚡ 生成预览</button>
+            <button class="print" onclick="window.print()">🖨 打印 / 导出PDF</button>
         </div>
     </div>
 
@@ -143,10 +304,10 @@
     <!-- 配置模态框 -->
     <div id="configModal" class="modal">
         <div class="modal-content">
-            <h3>导入笔顺数据</h3>
-            <p style="font-size:12px; color:#666">请将“笔画轨迹录入工具”生成的代码完整粘贴到下方（const strokePaths = ...）：</p>
+            <h3>导入/自定义单笔画轨迹</h3>
+            <p style="font-size:12px; color:#666">如需手动覆盖单笔画的红线轨迹，请在此粘贴 JSON 配置：</p>
             <textarea id="configInput" placeholder="在此粘贴 const strokePaths = { ... };"></textarea>
-            <div style="text-align:right; margin-top:10px;">
+            <div style="text-align:right; margin-top:12px;">
                 <button class="clear" onclick="closeConfig()">取消</button>
                 <button class="main" onclick="saveConfig()">保存并应用</button>
             </div>
@@ -154,7 +315,7 @@
     </div>
 
     <script>
-        // 完整的 Unicode CJK Strokes 数据
+        // 完整的 Unicode CJK Strokes 笔画列表
         const strokeData = {
             basic: [
                 { name: "点", char: "丶", ex: "主" }, { name: "横", char: "一", ex: "王" },
@@ -180,20 +341,26 @@
             ]
         };
 
-        // 全局变量：存储加载的笔顺数据
+        // 全局缓存：存储汉字笔顺数据（来自 Hanzi Writer 数据库）
+        const hanziDataCache = new Map();
+        // 存储用户手动导入的笔画轨迹
         let loadedPaths = {};
+
+        function updateGridSize() {
+            const size = document.getElementById('optGridSize').value;
+            document.documentElement.style.setProperty('--grid-size', size);
+            generate();
+        }
 
         function initControls() {
             renderGroup('group-basic', strokeData.basic);
             renderGroup('group-hook', strokeData.hook);
             renderGroup('group-complex', strokeData.complex);
             
-            // 从 LocalStorage 加载配置
             const saved = localStorage.getItem('strokePathsConfig');
             if (saved) {
                 try {
                     loadedPaths = JSON.parse(saved);
-                    console.log("笔顺配置已加载");
                 } catch(e) { console.error("配置加载失败", e); }
             }
         }
@@ -214,35 +381,234 @@
             const val = input.value;
             const prefix = (val === '' || val.endsWith('\n')) ? '' : '\n';
             input.value += `${prefix}${char},${ex}`;
+            generate();
         }
 
-        // --- 核心修改：创建格子 ---
-        function createBox(text, type, isGuideMode = false) {
-            const box = document.createElement('div');
-            box.className = 'tianzige';
-            
-            // 如果是笔顺引导格（Mode1的第一个），加上 no-grid 类以隐藏虚线
-            if (isGuideMode) {
-                box.classList.add('no-grid');
+        // --- 异步获取汉字笔顺数据 (支持 CDN + 本地缓存) ---
+        async function fetchHanziData(char) {
+            if (!char || char.trim() === '') return null;
+            if (hanziDataCache.has(char)) {
+                return hanziDataCache.get(char);
             }
 
-            // 1. 放入文字
-            if (text && text.trim()) {
-                const span = document.createElement('span');
-                span.className = `char ${type}`;
-                span.textContent = text;
-                box.appendChild(span);
+            const localKey = `hanzi_data_${char}`;
+            const localData = localStorage.getItem(localKey);
+            if (localData) {
+                try {
+                    const parsed = JSON.parse(localData);
+                    hanziDataCache.set(char, parsed);
+                    return parsed;
+                } catch(e){}
+            }
 
-                // 2. 如果有笔顺数据，且是引导模式，绘制Canvas
-                if (isGuideMode && loadedPaths[text]) {
-                    renderStrokeGuide(box, loadedPaths[text]);
+            try {
+                const url = `https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/${encodeURIComponent(char)}.json`;
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                const data = await response.json();
+                hanziDataCache.set(char, data);
+                try {
+                    localStorage.setItem(localKey, JSON.stringify(data));
+                } catch(e){}
+                return data;
+            } catch (err) {
+                console.warn(`无法加载汉字 [${char}] 的笔顺数据:`, err);
+                return null;
+            }
+        }
+
+        // --- 核心：创建格子 ---
+        function createBox(text, type, options = {}) {
+            const box = document.createElement('div');
+            box.className = 'tianzige';
+
+            const { isGuide = false, isStrokeGuide = false } = options;
+
+            if (text && text.trim()) {
+                if (isGuide && document.getElementById('optShowStrokeNumber').checked) {
+                    box.setAttribute('data-hanzi-guide', text);
+                    renderAsyncHanziGuide(box, text);
+                } 
+                else if (isStrokeGuide && loadedPaths[text]) {
+                    renderStrokeGuideCanvas(box, loadedPaths[text]);
+                    const span = document.createElement('span');
+                    span.className = `char ${type}`;
+                    span.textContent = text;
+                    box.appendChild(span);
+                } 
+                else {
+                    const span = document.createElement('span');
+                    span.className = `char ${type}`;
+                    span.textContent = text;
+                    box.appendChild(span);
                 }
             }
             return box;
         }
 
-// --- 修改后的绘制函数：去箭头，加起笔圆点 ---
-        function renderStrokeGuide(container, points) {
+        // --- 渲染汉字笔画及超清晰笔顺数字 (矢量 SVG) ---
+        async function renderAsyncHanziGuide(container, char) {
+            const data = await fetchHanziData(char);
+            
+            if (!data || !data.strokes || !data.medians) {
+                if (!container.querySelector('.char')) {
+                    const span = document.createElement('span');
+                    span.className = 'char black';
+                    span.textContent = char;
+                    container.appendChild(span);
+                }
+                return;
+            }
+
+            container.innerHTML = '';
+
+            const numStyle = document.getElementById('optNumberStyle').value; 
+            const charTone = document.getElementById('optCharTone').value;   
+            const sizeOption = document.getElementById('optNumberSize').value; 
+
+            // 尺寸计算
+            let radius = 80;
+            let fontSize = 100;
+            let strokeWidth = 8;
+            let haloWidth = 14; // 无底圈纯数字时的防粘连白色光晕边框
+
+            if (sizeOption === 'small') {
+                radius = 60;
+                fontSize = 76;
+                strokeWidth = 6;
+                haloWidth = 10;
+            } else if (sizeOption === 'medium') {
+                radius = 75;
+                fontSize = 92;
+                strokeWidth = 7;
+                haloWidth = 12;
+            } else if (sizeOption === 'large') {
+                radius = 90;
+                fontSize = 112;
+                strokeWidth = 9;
+                haloWidth = 16;
+            } else if (sizeOption === 'xlarge') {
+                radius = 105;
+                fontSize = 130;
+                strokeWidth = 11;
+                haloWidth = 20;
+            }
+
+            const isPlainNumber = (numStyle === 'plain-black' || numStyle === 'plain-red');
+
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('class', 'stroke-svg');
+            svg.setAttribute('viewBox', '0 0 1024 1024');
+
+            // 1. 绘制汉字所有笔画矢量底字
+            let strokeColor = '#888888';
+            if (charTone === 'light') strokeColor = '#cccccc';
+            else if (charTone === 'black') strokeColor = '#1a1a1a';
+
+            const gStrokes = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            gStrokes.setAttribute('transform', 'translate(0, 900) scale(1, -1)');
+            
+            data.strokes.forEach((pathStr) => {
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('d', pathStr);
+                path.setAttribute('fill', strokeColor);
+                gStrokes.appendChild(path);
+            });
+            svg.appendChild(gStrokes);
+
+            // 2. 绘制各笔画起笔处的数字序号标号
+            const gNumbers = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+
+            let circleFill = '#e74c3c';
+            let circleBorder = '#ffffff';
+            let textColor = '#ffffff';
+
+            if (numStyle === 'blue') {
+                circleFill = '#2471a3';
+                circleBorder = '#ffffff';
+                textColor = '#ffffff';
+            } else if (numStyle === 'black-circle') {
+                circleFill = '#ffffff';
+                circleBorder = '#111111';
+                textColor = '#111111';
+            } else if (numStyle === 'plain-black') {
+                textColor = '#000000';
+            } else if (numStyle === 'plain-red') {
+                textColor = '#d81e06';
+            }
+
+            // 计算所有点并进行智能轻微防重叠（Collision Avoidance）
+            const points = [];
+            data.medians.forEach((median, idx) => {
+                if (!median || median.length === 0) return;
+                const startPoint = median[0];
+                let x = startPoint[0];
+                let y = 900 - startPoint[1];
+
+                const padding = radius + strokeWidth + 15;
+                x = Math.max(padding, Math.min(1024 - padding, x));
+                y = Math.max(padding, Math.min(1024 - padding, y));
+
+                // 检查与已有数字圆的距离，如果过近微调偏移
+                for (let prev of points) {
+                    const dx = x - prev.x;
+                    const dy = y - prev.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    const minDist = isPlainNumber ? (fontSize * 0.9) : (radius * 1.5);
+                    if (dist < minDist && dist > 0) {
+                        const angle = Math.atan2(dy, dx);
+                        const push = (minDist - dist) / 2;
+                        x += Math.cos(angle) * push;
+                        y += Math.sin(angle) * push;
+                    }
+                }
+
+                points.push({ x, y, num: idx + 1 });
+            });
+
+            // 渲染所有标号
+            points.forEach((p) => {
+                const numGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                numGroup.setAttribute('transform', `translate(${p.x}, ${p.y})`);
+
+                // A. 如果是带圆圈风格
+                if (!isPlainNumber) {
+                    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    circle.setAttribute('r', radius);
+                    circle.setAttribute('fill', circleFill);
+                    circle.setAttribute('stroke', circleBorder);
+                    circle.setAttribute('stroke-width', strokeWidth);
+                    numGroup.appendChild(circle);
+                }
+
+                // B. 绘制数字文本
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.textContent = p.num.toString();
+                text.setAttribute('text-anchor', 'middle');
+                text.setAttribute('dominant-baseline', 'central');
+                text.setAttribute('fill', textColor);
+                text.setAttribute('font-size', (p.num >= 10) ? Math.round(fontSize * 0.82) : fontSize);
+                text.setAttribute('font-weight', '900');
+                text.setAttribute('font-family', '-apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif');
+
+                // 如果是纯数字模式（无底圈），给数字增加一层粗白边 (White Halo)，既保留数字本色又防止和笔画粘连
+                if (isPlainNumber) {
+                    text.setAttribute('stroke', '#ffffff');
+                    text.setAttribute('stroke-width', haloWidth);
+                    text.setAttribute('stroke-linejoin', 'round');
+                    text.setAttribute('paint-order', 'stroke fill'); // 先描边后填充，保证字形核心饱满
+                }
+
+                numGroup.appendChild(text);
+                gNumbers.appendChild(numGroup);
+            });
+
+            svg.appendChild(gNumbers);
+            container.appendChild(svg);
+        }
+
+        // --- 单笔画红线轨迹与起笔圆点 ---
+        function renderStrokeGuideCanvas(container, points) {
             const canvas = document.createElement('canvas');
             canvas.className = 'stroke-canvas';
             const size = 150; 
@@ -251,11 +617,10 @@
             container.appendChild(canvas);
 
             const ctx = canvas.getContext('2d');
-            const lw = 4; // 定义线宽
+            const lw = 4;
 
-            // 1. 绘制红线轨迹
             ctx.beginPath();
-            ctx.strokeStyle = 'red';
+            ctx.strokeStyle = '#e74c3c';
             ctx.lineWidth = lw;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
@@ -268,20 +633,19 @@
             });
             ctx.stroke();
 
-            // 2. 绘制起笔实心圆点
             if (points.length > 0) {
                 const start = points[0];
                 const sx = start[0] * size;
                 const sy = start[1] * size;
 
                 ctx.beginPath();
-                // 半径设为 lw (线宽)，那么直径就是 2 * lw (两倍线宽)
-                ctx.arc(sx, sy, 2*lw, 0, Math.PI * 2);
-                ctx.fillStyle = 'red';
+                ctx.arc(sx, sy, 2 * lw, 0, Math.PI * 2);
+                ctx.fillStyle = '#e74c3c';
                 ctx.fill();
             }
         }
-        // --- 配置相关 ---
+
+        // --- 配置模态框控制 ---
         function openConfig() { document.getElementById('configModal').style.display = 'flex'; }
         function closeConfig() { document.getElementById('configModal').style.display = 'none'; }
         
@@ -289,10 +653,7 @@
             let input = document.getElementById('configInput').value.trim();
             if (!input) return;
 
-            // 简单的清理：去掉 const strokePaths = 和最后的 ;
-            // 这样用户直接全选粘贴也没事
-            input = input.replace(/const\s+\w+\s*=\s*/, '');
-            input = input.replace(/;$/, '');
+            input = input.replace(/const\s+\w+\s*=\s*/, '').replace(/;$/, '');
 
             try {
                 const json = JSON.parse(input);
@@ -300,12 +661,13 @@
                 localStorage.setItem('strokePathsConfig', JSON.stringify(json));
                 alert('配置保存成功！');
                 closeConfig();
-                generate(); // 重新生成预览
+                generate();
             } catch (e) {
                 alert('数据格式错误，请确保粘贴的是正确的 JSON 内容。\n' + e.message);
             }
         }
 
+        // --- 核心：排版生成字帖 ---
         function generate() {
             const printArea = document.getElementById('print-area');
             printArea.innerHTML = '';
@@ -325,54 +687,56 @@
             let currentPage = createNewPage();
             printArea.appendChild(currentPage);
             let rows = 0;
-            const limit = 13; 
+            
+            const currentGridSize = document.getElementById('optGridSize').value;
+            let limit = 13;
+            if (currentGridSize === '17mm') limit = 11;
+            else if (currentGridSize === '20mm') limit = 10;
 
-            // --- 模式 1 ---
+            // --- 模式 1：笔画 + 范字 ---
             const m1Text = document.getElementById('mode1Input').value;
             m1Text.split('\n').forEach(line => {
-                if(!line.trim()) return;
+                if (!line.trim()) return;
                 const parts = line.replace('，', ',').split(',');
-                if(parts.length < 2) return;
+                if (parts.length < 2) return;
 
-                if(rows >= limit) {
+                if (rows >= limit) {
                     currentPage = createNewPage();
                     printArea.appendChild(currentPage);
                     rows = 0;
                 }
 
-                const s = parts[0].trim();
-                const w = parts[1].trim()[0] || '';
+                const strokeChar = parts[0].trim();
+                const exampleWord = parts[1].trim()[0] || '';
                 
                 const div = document.createElement('div');
                 div.className = 'row';
                 
-                // 1. 引导格 (黑色范字 + 隐藏虚线 + 红色箭头)
-                // 传入第三个参数 true 表示这是引导格
-                div.appendChild(createBox(s, 'black', true));
-                
-                // 2. 5个灰色描红 (笔画)
-                for(let i=0; i<5; i++) div.appendChild(createBox(s, 'trace'));
-                
-                // 3. 3个灰色描红 (汉字)
-                for(let i=0; i<3; i++) div.appendChild(createBox(w, 'trace'));
+                div.appendChild(createBox(strokeChar, 'black', { isStrokeGuide: true }));
+                for (let i = 0; i < 5; i++) div.appendChild(createBox(strokeChar, 'trace'));
+                for (let i = 0; i < 3; i++) div.appendChild(createBox(exampleWord, 'trace'));
                 
                 currentPage.appendChild(div);
                 rows++;
             });
 
-            // --- 模式 2 (保持不变) ---
+            // --- 模式 2：整字练习 (首字自动标注笔画顺序) ---
             const m2Text = document.getElementById('mode2Input').value;
-            const chars = m2Text.split('').filter(c=>c.trim());
+            const chars = m2Text.split('').filter(c => c.trim());
             chars.forEach(c => {
-                if(rows >= limit) {
+                if (rows >= limit) {
                     currentPage = createNewPage();
                     printArea.appendChild(currentPage);
                     rows = 0;
                 }
                 const div = document.createElement('div');
                 div.className = 'row';
-                div.appendChild(createBox(c, 'black'));
-                for(let i=0; i<8; i++) div.appendChild(createBox(c, 'trace'));
+                
+                div.appendChild(createBox(c, 'black', { isGuide: true }));
+                for (let i = 0; i < 8; i++) {
+                    div.appendChild(createBox(c, 'trace'));
+                }
+
                 currentPage.appendChild(div);
                 rows++;
             });

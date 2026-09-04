@@ -210,15 +210,30 @@
         </header>
 
         <div class="flex gap-6 items-start relative">
-            <aside class="hidden md:flex flex-col w-56 shrink-0 h-[calc(100vh-6rem)] sticky top-8 bg-brand-surface border border-brand-border rounded-2xl p-4 shadow-brand-md transition-all duration-300">
+            <!-- Mobile Sidebar Backdrop Overlay -->
+            <div id="sidebarBackdrop" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 hidden md:hidden transition-opacity duration-300 opacity-0"></div>
+
+            <!-- Mobile Floating Slide Button to open Nav -->
+            <button id="btn-open-sidebar" aria-label="打开姓名栏导航" class="md:hidden fixed left-0 top-1/3 z-30 flex items-center gap-1 px-2 py-3 rounded-r-2xl bg-brand-primary text-white shadow-brand-lg hover:bg-brand-primaryHover active:scale-95 transition-all text-xs font-bold [writing-mode:vertical-lr] tracking-widest select-none border-t border-r border-b border-white/20" title="打开姓名栏">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <span>姓名栏</span>
+            </button>
+
+            <aside id="sidebarNav" class="fixed top-0 left-0 h-full w-72 max-w-[85vw] z-50 bg-brand-surface border-r border-brand-border shadow-2xl p-4 flex flex-col transition-transform duration-300 -translate-x-full md:sticky md:top-8 md:left-auto md:w-56 md:max-w-none md:shrink-0 md:h-[calc(100vh-6rem)] md:rounded-2xl md:border md:shadow-brand-md md:translate-x-0 md:z-10">
                 <div class="flex items-center justify-between pb-3 border-b border-brand-border/60 mb-3">
                     <span class="text-sm font-bold text-brand-text flex items-center gap-1.5 select-none">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
                         女优导航
                     </span>
-                    <button id="btn-sort-nav" class="p-1.5 rounded-lg border border-brand-border bg-brand-surface text-brand-textMuted hover:bg-brand-primaryLight hover:text-brand-primaryLightText active:scale-95 transition-all duration-150" title="切换排序：默认 / 拼音">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"/></svg>
-                    </button>
+                    <div class="flex items-center gap-1">
+                        <button id="btn-sort-nav" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-semibold border border-brand-border bg-brand-surface text-brand-textMuted hover:text-brand-text hover:bg-brand-primaryLight hover:text-brand-primaryLightText active:scale-95 transition-all duration-150" title="点击切换：网页顺序 / 首字拼音序">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"/></svg>
+                            <span id="navSortLabel">网页序</span>
+                        </button>
+                        <button id="btn-close-sidebar" class="md:hidden p-1.5 rounded-lg text-brand-textMuted hover:text-brand-text hover:bg-brand-border/40 active:scale-95 transition-all" title="关闭导航">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                        </button>
+                    </div>
                 </div>
                 <div id="navActressList" class="sidebar-scroll flex-1 overflow-y-auto pr-1 space-y-1.5 text-sm scrollbar-thin"></div>
             </aside>
@@ -540,7 +555,7 @@
             // Copy list to sort
             let sortedList = [...list];
             if (navSortMode === 'alphabetical') {
-                sortedList.sort((a, b) => a.name.localeCompare(b.name, 'zh'));
+                sortedList.sort((a, b) => a.name.localeCompare(b.name, 'zh-Hans-CN', { numeric: true, sensitivity: 'accent' }));
             }
 
             sortedList.forEach(a => {
@@ -574,6 +589,9 @@
         }
 
         function scrollToActress(name) {
+            if (window.innerWidth < 768) {
+                closeMobileSidebar();
+            }
             const id = `actress-${encodeURIComponent(name)}`;
             const element = document.getElementById(id);
             if (element) {
@@ -584,20 +602,65 @@
             }
         }
 
+        function openMobileSidebar() {
+            const sidebar = document.getElementById('sidebarNav');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            if (!sidebar || !backdrop) return;
+            
+            backdrop.classList.remove('hidden');
+            void backdrop.offsetWidth;
+            backdrop.classList.remove('opacity-0');
+            backdrop.classList.add('opacity-100');
+
+            sidebar.classList.remove('-translate-x-full');
+            sidebar.classList.add('translate-x-0');
+        }
+
+        function closeMobileSidebar() {
+            const sidebar = document.getElementById('sidebarNav');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            if (!sidebar || !backdrop) return;
+
+            sidebar.classList.remove('translate-x-0');
+            sidebar.classList.add('-translate-x-full');
+
+            backdrop.classList.remove('opacity-100');
+            backdrop.classList.add('opacity-0');
+            setTimeout(() => {
+                if (backdrop.classList.contains('opacity-0')) {
+                    backdrop.classList.add('hidden');
+                }
+            }, 300);
+        }
+
+        function updateNavSortBtnUI() {
+            const btn = document.getElementById('btn-sort-nav');
+            const label = document.getElementById('navSortLabel');
+            if (!btn || !label) return;
+
+            if (navSortMode === 'alphabetical') {
+                label.textContent = '拼音序';
+                btn.title = '当前为首字拼音序，点击恢复按网页顺序';
+                btn.className = 'inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-bold border border-brand-primary/40 bg-brand-primaryLight text-brand-primaryLightText active:scale-95 transition-all duration-150 shadow-sm';
+                const svg = btn.querySelector('svg');
+                if (svg) svg.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-3-3m3 3l3-3"/>`;
+            } else {
+                label.textContent = '网页序';
+                btn.title = '当前为按网页顺序，点击切换为首字拼音序';
+                btn.className = 'inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-semibold border border-brand-border bg-brand-surface text-brand-textMuted hover:text-brand-text hover:bg-brand-primaryLight hover:text-brand-primaryLightText active:scale-95 transition-all duration-150';
+                const svg = btn.querySelector('svg');
+                if (svg) svg.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"/>`;
+            }
+        }
+
         function toggleNavSort() {
             navSortMode = navSortMode === 'default' ? 'alphabetical' : 'default';
-            
-            const btn = document.getElementById('btn-sort-nav');
+            updateNavSortBtnUI();
             if (navSortMode === 'alphabetical') {
-                // A-Z Sort Ascending Icon
-                btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-3-3m3 3l3-3"/></svg>`;
-                showToast('导航已按拼音首字母排序');
+                showToast('姓名栏已切换为首字拼音序');
             } else {
-                // Default List Order Icon
-                btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"/></svg>`;
-                showToast('导航已恢复默认排序');
+                showToast('姓名栏已恢复按网页顺序');
             }
-            
             renderNavList();
         }
 
@@ -758,6 +821,9 @@
                         renderWordCloud();
                     };
 
+                    const workList = document.createElement('ul');
+                    workList.className = 'work-list space-y-2 mb-1';
+
                     const editBtn = document.createElement('button');
                     editBtn.className = 'px-4 py-2 text-xs font-bold rounded-xl border border-brand-border bg-brand-surface text-brand-textMuted hover:bg-brand-border/40 active:scale-95 transition-all duration-200';
                     editBtn.textContent = '编辑作品';
@@ -768,8 +834,10 @@
                         saveBtn.style.display = show ? 'inline-block' : 'none';
                         editBtn.textContent = show ? '取消编辑' : '编辑作品';
                         if (show) {
+                            workList.style.display = 'none';
                             editBtn.className = 'px-4 py-2 text-xs font-bold rounded-xl border border-brand-danger/30 bg-brand-surface text-brand-danger hover:bg-brand-danger/10 active:scale-95 transition-all duration-200';
                         } else {
+                            workList.style.display = '';
                             editBtn.className = 'px-4 py-2 text-xs font-bold rounded-xl border border-brand-border bg-brand-surface text-brand-textMuted hover:bg-brand-border/40 active:scale-95 transition-all duration-200';
                         }
                         const arr = sortMode ? stagingActresses : data.actresses;
@@ -778,9 +846,6 @@
 
                     actionRow.appendChild(saveBtn);
                     actionRow.appendChild(editBtn);
-
-                    const workList = document.createElement('ul');
-                    workList.className = 'work-list space-y-2 mb-1';
 
                     content.appendChild(textarea);
                     content.appendChild(workList);
@@ -1106,6 +1171,43 @@
             });
 
             document.getElementById('btn-sort-nav').addEventListener('click', toggleNavSort);
+
+            // Mobile sidebar drawer controls
+            const btnOpenSidebar = document.getElementById('btn-open-sidebar');
+            if (btnOpenSidebar) btnOpenSidebar.addEventListener('click', openMobileSidebar);
+
+            const btnCloseSidebar = document.getElementById('btn-close-sidebar');
+            if (btnCloseSidebar) btnCloseSidebar.addEventListener('click', closeMobileSidebar);
+
+            const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+            if (sidebarBackdrop) sidebarBackdrop.addEventListener('click', closeMobileSidebar);
+
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeMobileSidebar();
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) {
+                    closeMobileSidebar();
+                }
+            });
+
+            const sidebar = document.getElementById('sidebarNav');
+            if (sidebar) {
+                let touchStartX = 0;
+                let touchStartY = 0;
+                sidebar.addEventListener('touchstart', (e) => {
+                    touchStartX = e.touches[0].clientX;
+                    touchStartY = e.touches[0].clientY;
+                }, { passive: true });
+                sidebar.addEventListener('touchend', (e) => {
+                    const deltaX = e.changedTouches[0].clientX - touchStartX;
+                    const deltaY = e.changedTouches[0].clientY - touchStartY;
+                    if (deltaX < -50 && Math.abs(deltaX) > Math.abs(deltaY)) {
+                        closeMobileSidebar();
+                    }
+                }, { passive: true });
+            }
         }
 
         // ========================
@@ -1139,6 +1241,7 @@
 
             lastSavedDataJson = JSON.stringify(data);
 
+            updateNavSortBtnUI();
             renderSiteList();
             renderActressList();
             renderWordCloud();

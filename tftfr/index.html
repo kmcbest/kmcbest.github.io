@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building Transformers: Forged to Fight Offline - Engineering Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --bg-tertiary: #21262d;
+      --border-color: #30363d;
+      --text-main: #c9d1d9;
+      --text-muted: #8b949e;
+      --text-bright: #f0f6fc;
+      --accent: #58a6ff;
+      --accent-glow: rgba(88, 166, 255, 0.15);
+      --accent-green: #3fb950;
+      --accent-yellow: #d29922;
+      --accent-red: #f85149;
+      --accent-purple: #bc8cff;
+      --code-bg: #090d13;
+      --sidebar-width: 280px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.65;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar Navigation */
+    aside.sidebar {
+      width: var(--sidebar-width);
+      background-color: var(--bg-secondary);
+      border-right: 1px solid var(--border-color);
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      overflow-y: auto;
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .brand-badge {
+      background: linear-gradient(135deg, #1f6feb, #8957e5);
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .nav-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .nav-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      padding: 0 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+    .nav-item {
+      display: block;
+      padding: 0.45rem 0.65rem;
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.875rem;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+    }
+    .nav-item:hover {
+      background-color: var(--bg-tertiary);
+      color: var(--accent);
+      transform: translateX(2px);
+    }
+
+    /* Main Container */
+    main.content {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      padding: 3rem 4rem 6rem;
+      max-width: 1040px;
+    }
+
+    /* Typography */
+    h1 {
+      font-size: 2.35rem;
+      font-weight: 800;
+      color: var(--text-bright);
+      letter-spacing: -0.03em;
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+    }
+    .subtitle {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1.5rem;
+    }
+    h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      letter-spacing: -0.02em;
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 1.8rem;
+      margin-bottom: 0.75rem;
+    }
+    p, li {
+      font-size: 0.96rem;
+      color: var(--text-main);
+      margin-bottom: 1rem;
+    }
+    ul, ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    li { margin-bottom: 0.4rem; }
+
+    /* Callouts / Alerts */
+    .alert {
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+      border-left: 4px solid;
+      background-color: var(--bg-secondary);
+      font-size: 0.92rem;
+    }
+    .alert-warning {
+      border-color: var(--accent-yellow);
+      background-color: rgba(210, 153, 34, 0.1);
+    }
+    .alert-tip {
+      border-color: var(--accent-green);
+      background-color: rgba(63, 185, 80, 0.1);
+    }
+    .alert-info {
+      border-color: var(--accent);
+      background-color: var(--accent-glow);
+    }
+    .alert-title {
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .alert-warning .alert-title { color: var(--accent-yellow); }
+    .alert-tip .alert-title { color: var(--accent-green); }
+    .alert-info .alert-title { color: var(--accent); }
+
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+    thead {
+      background-color: var(--bg-secondary);
+    }
+    th, td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    th {
+      font-weight: 600;
+      color: var(--text-bright);
+    }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background-color: rgba(255, 255, 255, 0.02); }
+
+    /* Code Blocks */
+    pre {
+      background-color: var(--code-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      overflow-x: auto;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      margin: 1rem 0 1.5rem;
+      position: relative;
+    }
+    code {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.875em;
+      background-color: var(--bg-tertiary);
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+      color: #79c0ff;
+    }
+    pre code {
+      background-color: transparent;
+      padding: 0;
+      border-radius: 0;
+      color: var(--text-main);
+    }
+    .badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+    }
+    .badge-arm64 { border-color: #238636; color: #3fb950; }
+    .badge-py { border-color: #388bfd; color: #58a6ff; }
+
+    /* Pipeline Step Cards */
+    .pipeline-step {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #000;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .step-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-bright);
+    }
+
+    footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      body { flex-direction: column; }
+      aside.sidebar {
+        width: 100%;
+        position: relative;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+      }
+      main.content {
+        margin-left: 0;
+        padding: 2rem 1.5rem 4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-badge">Guide</span>
+      <span>TFTF Offline Build</span>
+    </div>
+    <div class="nav-group">
+      <div class="nav-title">Architecture</div>
+      <a href="#overview" class="nav-item">1. Overview</a>
+      <a href="#the-legible-trap" class="nav-item">2. The "Legible" Trap</a>
+      <a href="#how-offline-works" class="nav-item">3. How Offline Boot Works</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-title">Prerequisites</div>
+      <a href="#toolchain-setup" class="nav-item">4. Toolchain Setup (0 to 1)</a>
+      <a href="#base-apk" class="nav-item">5. Original Game APK</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-title">Build Pipeline</div>
+      <a href="#stage1" class="nav-item">Stage 1: Native Hook (Clang)</a>
+      <a href="#stage2" class="nav-item">Stage 2: Patch libil2cpp (16 Sites)</a>
+      <a href="#stage3" class="nav-item">Stage 3: Offline Server Payload</a>
+      <a href="#stage4" class="nav-item">Stage 4: Repackage Phone APK</a>
+      <a href="#stage5" class="nav-item">Stage 5: Zipalign & Apksigner</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-title">Automation</div>
+      <a href="#automated-script" class="nav-item">6. One-Click build_apk.py</a>
+      <a href="#verification" class="nav-item">7. Verification & Results</a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="content">
+    <h1>Building Transformers: Forged to Fight Offline</h1>
+    <div class="subtitle">A complete technical onboarding manual & build guide for the upstream <code>development</code> branch without custom DSL dependencies.</div>
+
+    <!-- Section 1: Overview -->
+    <section id="overview">
+      <h2>1. Overview</h2>
+      <p>
+        <em>Transformers: Forged to Fight</em> (v9.2.0, build 123129100) was an online-only, server-authoritative mobile fighter powered by Unity IL2CPP. When official servers shut down, the game became unplayable.
+      </p>
+      <p>
+        The open-source revival repository (canonical upstream: <code>Gummygamer/Transformers-Forged-To-Fight-Offline-Version</code>, branch <code>development</code>) allows the unmodified game client to run 100% locally on Android devices without external servers or internet connection.
+      </p>
+    </section>
+
+    <!-- Section 2: The Legible Trap -->
+    <section id="the-legible-trap">
+      <h2>2. The "Legible" Trap: Why People Say It's Hard to Build</h2>
+      <div class="alert alert-warning">
+        <div class="alert-title">⚠️ The Toolchain Bottleneck</div>
+        Upstream author Darabat migrated all Python build scripts and mock servers into a custom, in-house programming language named <strong>Legible</strong> (<code>.lbl</code>).
+      </div>
+      <p>When newcomers run the upstream Windows launcher (<code>launch_windows.bat</code>), the script attempts to:</p>
+      <ul>
+        <li>Download and install <strong>Visual Studio 2022 C++ Build Tools</strong> via <code>winget</code> (&gt;2 GB, requires admin permissions).</li>
+        <li>Download and install the <strong>Rust/Cargo</strong> toolchain via <code>rustup</code>.</li>
+        <li>Fetch the <code>legible-lang</code> repository and compile the <code>legible</code> interpreter from source code.</li>
+      </ul>
+      <p>In containerized environments, cloud agents, or standard developer setups, this process frequently fails due to missing MSVC build tools, PATH synchronization issues, or compiler version mismatches.</p>
+
+      <div class="alert alert-tip">
+        <div class="alert-title">💡 The Agent / Python Alternative</div>
+        The underlying APK modification has zero runtime reliance on <code>legible</code>! The game engine is standard ARM64 Unity IL2CPP, and the in-app server is compiled from pure C. By substituting the <code>.lbl</code> build drivers with clean <strong>Python 3</strong> scripts, the entire project builds in <strong>under 30 seconds</strong> without Visual Studio or Rust.
+      </div>
+    </section>
+
+    <!-- Section 3: How Offline Boot Works -->
+    <section id="how-offline-works">
+      <h2>3. How the Standalone Offline Architecture Works</h2>
+      <p>To run completely self-contained without a PC server running in the background, three synchronized components work together:</p>
+      <ol>
+        <li><strong>In-APK Loopback HTTP Server (<code>inapk_server.c</code>)</strong>: A lightweight micro-server compiled into <code>libdothook.so</code>. It starts as a background thread on constructor launch, binds to <code>127.0.0.1:8080</code>, and answers Sparx API requests.</li>
+        <li><strong>Baked Binary Payload (<code>assets/payload.bin</code>)</strong>: Contains ~19,300 pre-serialized JSON routes (roster definitions, 5-star upgrades, 5-member squads, campaign quest maps, dynamic dialogues) mapped directly by the micro-server.</li>
+        <li><strong>Binary Patches in <code>libil2cpp.so</code></strong>: Patches 16 critical functions to bypass TLS certificate pinning, certificate validation, null alliance pointers, profile level locks, and redirect DNS requests to loopback.</li>
+      </ol>
+    </section>
+
+    <!-- Section 4: Toolchain Setup -->
+    <section id="toolchain-setup">
+      <h2>4. Toolchain Setup (Clean Machine)</h2>
+      <p>Assume starting on a machine with nothing installed. Install only these four lightweight components:</p>
+
+      <h3>1. Python 3.10+ & Capstone</h3>
+      <pre><code>pip install capstone</code></pre>
+
+      <h3>2. Java OpenJDK 17 (or 21)</h3>
+      <p>Required for running Android <code>apksigner</code> and <code>keytool</code>:</p>
+      <pre><code># Set JAVA_HOME in your environment
+$env:JAVA_HOME = "C:\Program Files\Java\jdk-17"
+$env:PATH = "$env:JAVA_HOME\bin;$env:PATH"</code></pre>
+
+      <h3>3. Android NDK (r26b or r26d)</h3>
+      <p>Provides the LLVM Clang cross-compiler targeting <code>aarch64-linux-android28</code>:</p>
+      <p>Download from <a href="https://github.com/android/ndk/wiki/Unsupported-Downloads#r26b" target="_blank" style="color:var(--accent);">Google NDK Archive</a> and extract to <code>toolchain/android-ndk-r26b</code>.</p>
+
+      <h3>4. Android SDK Build-Tools</h3>
+      <p>Provides <code>zipalign.exe</code> and <code>apksigner.bat</code> (from build-tools 34.0.0 or 35.0.0). Extract to <code>toolchain/android-sdk</code>.</p>
+    </section>
+
+    <!-- Section 5: Base APK -->
+    <section id="base-apk">
+      <h2>5. Original Game APK</h2>
+      <p>You need the official unmodified APK release:</p>
+      <pre><code>com.kabam.bigrobot_9.2.0-123129100_minAPI23(arm64-v8a,armeabi-v7a)(nodpi)_apkmirror.com.apk</code></pre>
+      <p>Size: ~834 MB &bull; SHA256: <code>0a996f2648fbbe9be80a6b7d15904ce204128549603f021f153a0f7893116f1f</code></p>
+    </section>
+
+    <!-- Section 6: Build Pipeline -->
+    <section id="pipeline">
+      <h2>6. The 5-Stage Build Pipeline</h2>
+
+      <!-- Stage 1 -->
+      <div class="pipeline-step" id="stage1">
+        <div class="step-header">
+          <div class="step-num">1</div>
+          <div class="step-title">Compile Native Hook (<code>libdothook.so</code>)</div>
+          <span class="badge badge-arm64">ARM64</span>
+        </div>
+        <p>Compiles the hook library containing the in-APK loopback server and 60 FPS unlock. Uses NDK Clang directly:</p>
+        <pre><code>$CLANG = "toolchain/android-ndk-r26b/toolchains/llvm/prebuilt/windows-x86_64/bin/aarch64-linux-android28-clang.cmd"
+
+& $CLANG -shared -O2 -fPIC -Wl,-soname,libdothook.so `
+    -o "tools/nativehook/libdothook.so" `
+    "tools/nativehook/hook.c" `
+    "tools/nativehook/inapk_server.c" `
+    -llog</code></pre>
+        <div class="alert alert-info">
+          <div class="alert-title">Upstream Feature Highlights in hook.c</div>
+          Includes <strong>60 FPS target framerate</strong> patch on Application/QualitySettings, Android 15+ <strong>16 KiB memory page alignment</strong>, and removed runtime FIXSYN poke (migrated to static IL2CPP patch).
+        </div>
+      </div>
+
+      <!-- Stage 2 -->
+      <div class="pipeline-step" id="stage2">
+        <div class="step-header">
+          <div class="step-num">2</div>
+          <div class="step-title">Extract & Statically Patch <code>libil2cpp.so</code></div>
+          <span class="badge badge-py">Python + Capstone</span>
+        </div>
+        <p>Extract pristine <code>lib/arm64-v8a/libil2cpp.so</code> from the base APK. Apply all 16 static disassembly patches:</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>File Offset (ARM64)</th>
+                <th>Replacement Instruction</th>
+                <th>Target Function & Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td><code>0x123A73C</code></td><td><code>mov w0, #1; ret</code></td><td><code>TcpClientSSL.CertificateValidation</code> &rarr; accept fake certificate</td></tr>
+              <tr><td>2</td><td><code>0x14EC940</code></td><td><code>ret</code></td><td><code>TcpClientBouncy.NotifyServerCertificate</code> &rarr; bypass pinning</td></tr>
+              <tr><td>3</td><td><code>0x0FC21B4</code></td><td><code>b #0xfc21d8</code></td><td><code>Hub.InitializeComponents</code> &rarr; register managers past OTAConfig gate</td></tr>
+              <tr><td>4</td><td><code>0x162B690</code></td><td><code>nop</code></td><td><code>LoginManager._PostInit</code> &rarr; skip 'no valid authenticators' gate</td></tr>
+              <tr><td>5</td><td><code>0x0FC3718</code></td><td><code>nop</code></td><td><code>Hub.SubSystemConnecting</code> &rarr; ignore state 3 fatal errors</td></tr>
+              <tr><td>6</td><td><code>0x122C680</code></td><td><code>ret</code></td><td><code>SubSystem.FatalError</code> &rarr; silence popup dialogs</td></tr>
+              <tr><td>7</td><td><code>0x1B462F4</code></td><td><code>mov w0, #2; ret</code></td><td><code>Application.internetReachability</code> &rarr; ReachableViaLAN (no Wi-Fi needed)</td></tr>
+              <tr><td>8</td><td><code>0x1333E48</code></td><td><code>mov w0, #1; ret</code></td><td><code>EndPoint.HasInternetConnectivity</code> &rarr; force true</td></tr>
+              <tr><td>9</td><td><code>0x0F0C820</code></td><td><code>mov w0, #0; ret</code></td><td><code>LevelLockWidget.get_Locked</code> &rarr; unlock all mode tiles</td></tr>
+              <tr><td>10</td><td><code>0x0F0D3D0</code></td><td><code>mov w0, #0; ret</code></td><td><code>LevelLockManager.IsLocked</code> &rarr; unlock all lock IDs</td></tr>
+              <tr><td>11</td><td><code>0x0F0D488</code></td><td><code>mov w0, #0; ret</code></td><td><code>LevelLockManager.GetMinLevel</code> &rarr; return level 0</td></tr>
+              <tr><td>12</td><td><code>0x0F22284</code></td><td><code>mov w0, #0; ret</code></td><td><code>PVPRaidFlow.IsLevelLocked</code> &rarr; bypass raid level gate</td></tr>
+              <tr><td>13</td><td><code>0x0FCD644</code></td><td><code>mov w0, #1; ret</code></td><td><code>AvXModeButtonData.IsInAlliance</code> &rarr; allow AvE without alliance</td></tr>
+              <tr><td>14</td><td><code>0x0EA94F8</code></td><td><code>nop</code></td><td><code>FightLandingModel.ProcessAvxModeClick</code> &rarr; bypass null-alliance crash</td></tr>
+              <tr><td>15</td><td><code>0x0FCCAE4</code></td><td><code>mov w0, #1; ret</code></td><td><code>AvEEvent.IsAvailable</code> &rarr; keep offline AvE accessible</td></tr>
+              <tr><td>16</td><td><code>0x0C17278</code></td><td><code>cbz x0, 0xC17340</code></td><td><code>BCGBlueprintBase.get_SynergyBonuses</code> &rarr; return empty list if null (FIXSYN)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p><strong>Strict In-Place DT_NEEDED Injection:</strong></p>
+        <p>Instead of <code>patchelf</code> (which shifts ELF segments and can crash Android Bionic's linker on modern devices), reuse an identical duplicate symbol inside <code>.dynstr</code> (<code>_ZNSt6__ndk17codecvtIDsc9mbstate_tED1Ev</code>) for string <code>libdothook.so\0</code>, and point the spare <code>DT_NULL</code> in <code>.dynamic</code> to it.</p>
+      </div>
+
+      <!-- Stage 3 -->
+      <div class="pipeline-step" id="stage3">
+        <div class="step-header">
+          <div class="step-num">3</div>
+          <div class="step-title">Export Offline Server Payload (<code>payload_test.bin</code>)</div>
+          <span class="badge badge-py">Python</span>
+        </div>
+        <p>Bakes all static endpoints in <code>Server/responses/</code> along with procedural 5-star characters, stats, and 11-tile mission maps into an aligned binary table:</p>
+        <pre><code>python Server/export_payload.py --out build/payload_test.bin
+# Output: wrote build\payload_test.bin: 10993844 bytes, 19389 entries, port 8080</code></pre>
+      </div>
+
+      <!-- Stage 4 -->
+      <div class="pipeline-step" id="stage4">
+        <div class="step-header">
+          <div class="step-num">4</div>
+          <div class="step-title">Repackage Phone APK</div>
+          <span class="badge badge-py">Python</span>
+        </div>
+        <p>Run <code>Server/build_phone_apk.py</code> to assemble the unsigned APK:</p>
+        <pre><code>python Server/build_phone_apk.py &lt;base_apk&gt; build/phone-unsigned.apk `
+    --scheme http `
+    --server-host 127.0.0.1 `
+    --server-port 8080 `
+    --bundle-server `
+    --patched-il2cpp build/libil2cpp-arm64-patched.so</code></pre>
+        <ul>
+          <li>Injects <code>lib/arm64-v8a/libil2cpp.so</code> and <code>lib/arm64-v8a/libdothook.so</code>.</li>
+          <li>Embeds <code>assets/payload.bin</code> (stored uncompressed for <code>mmap</code>).</li>
+          <li>Binary-patches <code>global-metadata.dat</code> and <code>globalgamemanagers</code> (QualitySettings).</li>
+          <li>Strips unused 32-bit binaries to keep APK slim.</li>
+        </ul>
+      </div>
+
+      <!-- Stage 5 -->
+      <div class="pipeline-step" id="stage5">
+        <div class="step-header">
+          <div class="step-num">5</div>
+          <div class="step-title">Zipalign & Apksigner</div>
+          <span class="badge badge-arm64">Android SDK</span>
+        </div>
+        <p>4-byte memory alignment and v1/v2/v3 signing:</p>
+        <pre><code># 1. 4-byte memory alignment
+& "toolchain/android-sdk/build-tools/34.0.0/zipalign.exe" -f -p 4 `
+    build/phone-unsigned.apk build/phone-aligned.apk
+
+# 2. Sign with debug keystore
+& "toolchain/android-sdk/build-tools/34.0.0/apksigner.bat" sign `
+    --ks build/debug.keystore `
+    --ks-pass pass:android `
+    --out build/Transformers-9.2-offline-development.apk `
+    build/phone-aligned.apk</code></pre>
+      </div>
+    </section>
+
+    <!-- Section 7: Automated Script -->
+    <section id="automated-script">
+      <h2>7. Automated One-Click Build Script (<code>build_apk.py</code>)</h2>
+      <p>All 5 stages above can be triggered with a single command:</p>
+      <pre><code>python build_apk.py</code></pre>
+      <p>The complete orchestrator source is provided below for immediate drop-in use:</p>
+      <pre><code>#!/usr/bin/env python3
+import os, subprocess, sys, zipfile
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+BUILD_DIR = ROOT / "build"
+BUILD_DIR.mkdir(exist_ok=True)
+BASE_APK = Path(r"e:\Agent\TFTF\com.kabam.bigrobot_9.2.0-123129100_minAPI23(arm64-v8a,armeabi-v7a)(nodpi)_apkmirror.com.apk")
+
+def main():
+    target_apk = BUILD_DIR / "Transformers-9.2-offline-development.apk"
+    print("=== Building Offline APK for Upstream development ===")
+
+    # 1. Compile native hook
+    clang = ROOT / "toolchain/android-ndk-r26b/toolchains/llvm/prebuilt/windows-x86_64/bin/aarch64-linux-android28-clang.cmd"
+    subprocess.run([
+        str(clang), "-shared", "-O2", "-fPIC", "-Wl,-soname,libdothook.so",
+        "-o", str(ROOT / "tools/nativehook/libdothook.so"),
+        str(ROOT / "tools/nativehook/hook.c"),
+        str(ROOT / "tools/nativehook/inapk_server.c"), "-llog"
+    ], check=True)
+
+    # 2. Extract & Patch libil2cpp.so (16 sites + DT_NEEDED)
+    patched_so = BUILD_DIR / "libil2cpp-arm64-patched.so"
+    if not patched_so.exists():
+        fresh_so = BUILD_DIR / "libil2cpp-arm64-fresh.so"
+        with zipfile.ZipFile(BASE_APK) as z:
+            with z.open("lib/arm64-v8a/libil2cpp.so") as src, open(fresh_so, "wb") as dst:
+                dst.write(src.read())
+        subprocess.run([
+            sys.executable, "patches/patch_il2cpp.py", str(fresh_so),
+            "--abi", "arm64-v8a", "--apply", "--needed", "inplace", "-o", str(patched_so)
+        ], check=True)
+
+    # 3. Export offline payload
+    subprocess.run([sys.executable, "Server/export_payload.py", "--out", str(BUILD_DIR / "payload_test.bin")], check=True)
+
+    # 4. Package phone APK
+    unsigned_apk = BUILD_DIR / "phone-unsigned.apk"
+    subprocess.run([
+        sys.executable, "Server/build_phone_apk.py", str(BASE_APK), str(unsigned_apk),
+        "--scheme", "http", "--server-host", "127.0.0.1", "--server-port", "8080",
+        "--bundle-server", "--patched-il2cpp", str(patched_so)
+    ], check=True)
+
+    # 5. Zipalign & Apksigner
+    aligned_apk = BUILD_DIR / "phone-aligned.apk"
+    zipalign = next((ROOT / "toolchain").glob("**/zipalign.exe"))
+    apksigner = next((ROOT / "toolchain").glob("**/apksigner.bat"))
+    subprocess.run([str(zipalign), "-f", "-p", "4", str(unsigned_apk), str(aligned_apk)], check=True)
+    subprocess.run([
+        str(apksigner), "sign", "--ks", str(BUILD_DIR / "debug.keystore"),
+        "--ks-pass", "pass:android", "--out", str(target_apk), str(aligned_apk)
+    ], check=True)
+
+    unsigned_apk.unlink(missing_ok=True)
+    aligned_apk.unlink(missing_ok=True)
+    print(f"[OK] Build Complete: {target_apk} ({target_apk.stat().st_size / (1024*1024):.2f} MB)")
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+    </section>
+
+    <!-- Section 8: Verification -->
+    <section id="verification">
+      <h2>8. Build Verification & Deliverables</h2>
+      <div class="alert alert-tip">
+        <div class="alert-title">Verified Build Output</div>
+        <ul>
+          <li><strong>Target File</strong>: <code>Transformers-9.2-offline-development.apk</code></li>
+          <li><strong>File Size</strong>: <strong>803.95 MB</strong> (842,999,517 bytes)</li>
+          <li><strong>Runtime Modes Tested</strong>: Standalone boot (no Wi-Fi, no local server command prompt), First Time Experience (FTE), Base navigation, Story 1.1.1 campaign loop, Special Attack 3 animations, 60 FPS gameplay.</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      Transformers: Forged to Fight Preservation Project &bull; Engineering Manual &bull; Generated for Upstream Git Branch <code>development</code>
+    </footer>
+  </main>
+
+</body>
+</html>

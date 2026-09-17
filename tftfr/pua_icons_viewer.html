@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -392,22 +392,22 @@
 <body>
     <header>
         <div class="title-box">
-            <h1 id="header-title">🎮 TFTF 技能图标 PUA 私有区字符对照标注工具</h1>
-            <p id="header-subtitle">对照游戏原版录屏，众创标注 523 个 PUA 图标，云端实时同步 (Powered by Upstash)</p>
+            <h1 id="header-title">🎮 TFTF PUA Skill Icons & Glyphs Annotation Tool</h1>
+            <p id="header-subtitle">Visual PUA glyph mapping for TFTF with community cloud sync (Powered by Upstash)</p>
         </div>
         <div class="actions">
             <div class="cloud-badge cloud-syncing" id="cloud-badge">
                 <span class="sync-spinner" id="cloud-spinner"></span>
-                <span id="cloud-text">正在拉取云端众创标注...</span>
+                <span id="cloud-text">Syncing with cloud database...</span>
             </div>
-            <input type="text" class="nickname-input" id="nickname-input" placeholder="昵称 / Nickname" title="你的标注贡献者昵称 / Contributor name">
-            <input type="text" class="search-input" id="search-input" placeholder="搜索 hex (如 e401) / 字符 / 技能...">
-            <button class="btn btn-outline" id="filter-filled-btn">仅看已标注</button>
-            <button class="btn btn-primary" id="cloud-refresh-btn" title="强制刷新云端 / Refresh Cloud">☁️ 刷新</button>
-            <button class="btn btn-outline" id="export-btn">导出 JSON</button>
-            <button class="btn btn-outline" id="import-btn">导入 JSON</button>
-            <button class="btn btn-outline" id="lang-toggle-btn" style="border-color: var(--accent); color: var(--accent);">🌐 EN</button>
-            <div class="status-badge" id="stats-badge">已标注: 0 / 523</div>
+            <input type="text" class="nickname-input" id="nickname-input" placeholder="Nickname / 昵称" title="Your contributor name / 标注贡献者昵称">
+            <input type="text" class="search-input" id="search-input" placeholder="Search hex (e.g. e401) / glyph / skill...">
+            <button class="btn btn-outline" id="filter-filled-btn">Only Annotated</button>
+            <button class="btn btn-primary" id="cloud-refresh-btn" title="Refresh Cloud / 强制刷新云端">☁️ Refresh</button>
+            <button class="btn btn-outline" id="export-btn">Export JSON</button>
+            <button class="btn btn-outline" id="import-btn">Import JSON</button>
+            <button class="btn btn-outline" id="lang-toggle-btn" style="border-color: var(--accent); color: var(--accent);">🌐 中文</button>
+            <div class="status-badge" id="stats-badge">Annotated: 0 / 523</div>
         </div>
     </header>
 
@@ -477,7 +477,7 @@
             }
         };
 
-        let currentLang = localStorage.getItem('tftf_pua_lang') || 'zh';
+        let currentLang = localStorage.getItem('tftf_pua_lang') || 'en';
         let storageData = JSON.parse(localStorage.getItem('tftf_pua_skills_data') || '{}');
         if (!storageData['\\ue401']) {
             storageData['\\ue401'] = {

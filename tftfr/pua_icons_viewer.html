@@ -478,6 +478,7 @@
         };
 
         let currentLang = localStorage.getItem('tftf_pua_lang') || 'en';
+        let storageData = JSON.parse(localStorage.getItem('tftf_pua_skills_data') || '{}');
         const BLEED_KEY = String.fromCharCode(92) + 'ue401';
         if (!storageData[BLEED_KEY]) {
             storageData[BLEED_KEY] = {

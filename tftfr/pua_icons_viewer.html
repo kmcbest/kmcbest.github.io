@@ -478,9 +478,9 @@
         };
 
         let currentLang = localStorage.getItem('tftf_pua_lang') || 'en';
-        let storageData = JSON.parse(localStorage.getItem('tftf_pua_skills_data') || '{}');
-        if (!storageData['\\ue401']) {
-            storageData['\\ue401'] = {
+        const BLEED_KEY = String.fromCharCode(92) + 'ue401';
+        if (!storageData[BLEED_KEY]) {
+            storageData[BLEED_KEY] = {
                 name_en: "Bleed",
                 name_zh: "流血",
                 author: "kmcbest",
@@ -828,12 +828,15 @@
                 try {
                     const imported = JSON.parse(event.target.result);
                     let importedCount = 0;
+                    const BS_U = String.fromCharCode(92) + 'u';
                     for (const [key, val] of Object.entries(imported)) {
-                        let k = key;
-                        if (!k.startsWith('\\u') && !k.startsWith('\u')) {
-                            if (k.startsWith('U+') || k.startsWith('u+')) {
-                                k = '\\u' + k.slice(2).toLowerCase();
-                            }
+                        let k = String(key).trim();
+                        if (k.startsWith('U+') || k.startsWith('u+')) {
+                            k = BS_U + k.slice(2).toLowerCase();
+                        } else if (k.startsWith('0x') || k.startsWith('0X')) {
+                            k = BS_U + k.slice(2).toLowerCase();
+                        } else if (!k.startsWith(BS_U)) {
+                            k = BS_U + k.replace(/^u/i, '').toLowerCase();
                         }
                         const rec = {
                             name_en: val.name_en || val.en || "",

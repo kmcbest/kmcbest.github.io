@@ -479,6 +479,15 @@
 
         let currentLang = localStorage.getItem('tftf_pua_lang') || 'zh';
         let storageData = JSON.parse(localStorage.getItem('tftf_pua_skills_data') || '{}');
+        if (!storageData['\\ue401']) {
+            storageData['\\ue401'] = {
+                name_en: "Bleed",
+                name_zh: "流血",
+                author: "kmcbest",
+                glyph_name: "uniE401",
+                hex: "E401"
+            };
+        }
         let onlyFilled = false;
         let saveTimeoutMap = {};
 
@@ -551,12 +560,17 @@
         // ==================== UPSTASH CLOUD SYNC ====================
         async function fetchFromCloud() {
             setCloudStatus('syncing', I18N[currentLang].cloudSyncing);
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 4500);
+
             try {
                 const resp = await fetch(`${UPSTASH_CONFIG.url}/hgetall/${UPSTASH_CONFIG.hashKey}`, {
                     headers: {
                         "Authorization": `Bearer ${UPSTASH_CONFIG.token}`
-                    }
+                    },
+                    signal: controller.signal
                 });
+                clearTimeout(timeoutId);
                 if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
                 const data = await resp.json();
                 if (data && Array.isArray(data.result)) {
@@ -582,15 +596,18 @@
                         };
                     }
                     saveToStorage();
-                    renderCards();
                     const count = Object.keys(cloudMap).length;
                     setCloudStatus('online', `${I18N[currentLang].cloudOnline} (${count})`);
                 } else {
                     setCloudStatus('online', `${I18N[currentLang].cloudOnline} (0)`);
                 }
             } catch (err) {
-                console.error("Upstash fetch error:", err);
+                clearTimeout(timeoutId);
+                console.warn("Upstash fetch notice (using local cache):", err.message || err);
                 setCloudStatus('offline', I18N[currentLang].cloudOffline);
+            } finally {
+                renderCards();
+                updateStats();
             }
         }
 
@@ -843,6 +860,7 @@
 
         // Initialize
         applyI18n();
+        renderCards();
         fetchFromCloud();
     </script>
 </body>

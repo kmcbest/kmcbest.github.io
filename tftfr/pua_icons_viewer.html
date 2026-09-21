@@ -371,6 +371,188 @@
             transform: translateY(0);
         }
 
+        .btn-active {
+            background: #1f6feb !important;
+            border-color: #388bfd !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 0 2px var(--accent-glow);
+        }
+
+        .filter-select {
+            background-color: #21262d;
+            color: var(--text-main);
+            border: 1px solid var(--card-border);
+            padding: 7px 28px 7px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238b949e'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 14px;
+            transition: border-color 0.2s, color 0.2s, background-color 0.2s;
+        }
+        .filter-select:hover {
+            background-color: #30363d;
+            border-color: var(--text-muted);
+        }
+        .filter-select.is-filtered {
+            border-color: var(--accent);
+            color: var(--accent);
+            background-color: rgba(88, 166, 255, 0.1);
+        }
+        .filter-select option {
+            background: #161b22;
+            color: var(--text-main);
+        }
+
+        /* Compact Mode */
+        .grid-container.compact-mode {
+            grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+            gap: 10px;
+        }
+
+        .compact-tile {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.15s ease;
+            padding: 6px;
+            user-select: none;
+        }
+        .compact-tile:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px) scale(1.06);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+            z-index: 2;
+            background: var(--card-hover);
+        }
+        .compact-tile.is-filled {
+            background: var(--card-filled);
+            border-color: var(--card-filled-border);
+        }
+        .compact-tile .game-icon {
+            font-family: 'TFTFIconFont', sans-serif;
+            font-size: 38px;
+            color: var(--gold);
+            line-height: 1;
+            transition: transform 0.15s;
+        }
+        .compact-tile:hover .game-icon {
+            transform: scale(1.15);
+        }
+        .compact-tile .tile-hex {
+            font-size: 10px;
+            font-family: monospace;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+        .compact-tile.is-filled .tile-hex {
+            color: #3fb950;
+            font-weight: 600;
+        }
+        .compact-tile.is-filled::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 6px;
+            height: 6px;
+            background: #2ea043;
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(46, 160, 67, 0.8);
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+        .modal-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-container {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 520px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: translateY(12px) scale(0.97);
+            transition: transform 0.2s ease;
+        }
+        .modal-overlay.show .modal-container {
+            transform: translateY(0) scale(1);
+        }
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--card-border);
+            background: #11151c;
+        }
+        .modal-header-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .modal-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .modal-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-height: calc(85vh - 120px);
+            overflow-y: auto;
+        }
+        .modal-output-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding-top: 10px;
+            border-top: 1px dashed var(--card-border);
+        }
+        .modal-output-actions .btn {
+            font-size: 12px;
+            padding: 5px 10px;
+        }
+
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
@@ -402,7 +584,15 @@
             </div>
             <input type="text" class="nickname-input" id="nickname-input" placeholder="Nickname / 昵称" title="Your contributor name / 标注贡献者昵称">
             <input type="text" class="search-input" id="search-input" placeholder="Search hex (e.g. e401) / glyph / skill...">
-            <button class="btn btn-outline" id="filter-filled-btn">Only Annotated</button>
+            <button class="btn btn-outline" id="compact-btn" title="Toggle Compact Mode / 聚焦模式 (仅显示图标)">
+                <span id="compact-icon">🔍</span>
+                <span id="compact-text">聚焦模式</span>
+            </button>
+            <select class="filter-select" id="filter-select" title="Filter Annotation Status / 标注过滤">
+                <option value="all">Show All</option>
+                <option value="annotated">Only Annotated</option>
+                <option value="unannotated">Only Unannotated</option>
+            </select>
             <button class="btn btn-primary" id="cloud-refresh-btn" title="Refresh Cloud / 强制刷新云端">☁️ Refresh</button>
             <button class="btn btn-outline" id="export-btn">Export JSON</button>
             <button class="btn btn-outline" id="import-btn">Import JSON</button>
@@ -414,6 +604,24 @@
     <div class="grid-container" id="grid-container"></div>
     <input type="file" id="file-input" accept=".json" style="display: none;">
     <div class="toast" id="toast"></div>
+
+    <!-- Compact Mode Modal for Glyph Details & Quick Output -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal-container" id="modal-container">
+            <div class="modal-header">
+                <div class="modal-header-title">
+                    <span id="modal-title-text">PUA Glyph Card</span>
+                    <span class="code-pill" id="modal-code-pill" style="cursor: pointer;" title="点击复制 / Click to copy">\ue401</span>
+                </div>
+                <div class="modal-header-actions">
+                    <button class="btn btn-outline" id="modal-prev-btn" title="Previous / 上一个 (←)">◀</button>
+                    <button class="btn btn-outline" id="modal-next-btn" title="Next / 下一个 (→)">▶</button>
+                    <button class="btn btn-outline" id="modal-close-btn" title="Close / 关闭 (Esc)" style="font-weight: bold;">✕</button>
+                </div>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
+    </div>
 
     <script>
         const PUA_LIST = [{"code": 57689, "hex": "E159", "unicode_escape": "\\ue159", "char": "", "glyph_name": "uniE159"}, {"code": 57690, "hex": "E15A", "unicode_escape": "\\ue15a", "char": "", "glyph_name": "uniE15A"}, {"code": 57691, "hex": "E15B", "unicode_escape": "\\ue15b", "char": "", "glyph_name": "uniE15B"}, {"code": 57692, "hex": "E15C", "unicode_escape": "\\ue15c", "char": "", "glyph_name": "uniE15C"}, {"code": 57693, "hex": "E15D", "unicode_escape": "\\ue15d", "char": "", "glyph_name": "uniE15D"}, {"code": 57694, "hex": "E15E", "unicode_escape": "\\ue15e", "char": "", "glyph_name": "uni2423.004"}, {"code": 57695, "hex": "E15F", "unicode_escape": "\\ue15f", "char": "", "glyph_name": "uniE15F"}, {"code": 57696, "hex": "E160", "unicode_escape": "\\ue160", "char": "", "glyph_name": "uni2423.011"}, {"code": 57697, "hex": "E161", "unicode_escape": "\\ue161", "char": "", "glyph_name": "uniE161"}, {"code": 57698, "hex": "E162", "unicode_escape": "\\ue162", "char": "", "glyph_name": "uni2423.013"}, {"code": 57699, "hex": "E163", "unicode_escape": "\\ue163", "char": "", "glyph_name": "uniE163"}, {"code": 57700, "hex": "E164", "unicode_escape": "\\ue164", "char": "", "glyph_name": "uni2423.015"}, {"code": 57701, "hex": "E165", "unicode_escape": "\\ue165", "char": "", "glyph_name": "uni2423.016"}, {"code": 57702, "hex": "E166", "unicode_escape": "\\ue166", "char": "", "glyph_name": "uniE166"}, {"code": 57703, "hex": "E167", "unicode_escape": "\\ue167", "char": "", "glyph_name": "uniE167"}, {"code": 57704, "hex": "E168", "unicode_escape": "\\ue168", "char": "", "glyph_name": "uniE168"}, {"code": 57705, "hex": "E169", "unicode_escape": "\\ue169", "char": "", "glyph_name": "uniE169"}, {"code": 57728, "hex": "E180", "unicode_escape": "\\ue180", "char": "", "glyph_name": "uniE180"}, {"code": 57729, "hex": "E181", "unicode_escape": "\\ue181", "char": "", "glyph_name": "uniE181"}, {"code": 57730, "hex": "E182", "unicode_escape": "\\ue182", "char": "", "glyph_name": "uniE182"}, {"code": 57731, "hex": "E183", "unicode_escape": "\\ue183", "char": "", "glyph_name": "uniE183"}, {"code": 57732, "hex": "E184", "unicode_escape": "\\ue184", "char": "", "glyph_name": "uniE184"}, {"code": 57733, "hex": "E185", "unicode_escape": "\\ue185", "char": "", "glyph_name": "uniE185"}, {"code": 57734, "hex": "E186", "unicode_escape": "\\ue186", "char": "", "glyph_name": "uniE186"}, {"code": 57735, "hex": "E187", "unicode_escape": "\\ue187", "char": "", "glyph_name": "uni2423.008"}, {"code": 57736, "hex": "E188", "unicode_escape": "\\ue188", "char": "", "glyph_name": "uni2423.009"}, {"code": 57737, "hex": "E189", "unicode_escape": "\\ue189", "char": "", "glyph_name": "uni2423.010"}, {"code": 57744, "hex": "E190", "unicode_escape": "\\ue190", "char": "", "glyph_name": "uniE190"}, {"code": 57857, "hex": "E201", "unicode_escape": "\\ue201", "char": "", "glyph_name": "uniE201"}, {"code": 57858, "hex": "E202", "unicode_escape": "\\ue202", "char": "", "glyph_name": "uniE202"}, {"code": 57859, "hex": "E203", "unicode_escape": "\\ue203", "char": "", "glyph_name": "uniE203"}, {"code": 57860, "hex": "E204", "unicode_escape": "\\ue204", "char": "", "glyph_name": "uniE204"}, {"code": 57861, "hex": "E205", "unicode_escape": "\\ue205", "char": "", "glyph_name": "uniE205"}, {"code": 57862, "hex": "E206", "unicode_escape": "\\ue206", "char": "", "glyph_name": "uniE206"}, {"code": 57863, "hex": "E207", "unicode_escape": "\\ue207", "char": "", "glyph_name": "uniE207"}, {"code": 57864, "hex": "E208", "unicode_escape": "\\ue208", "char": "", "glyph_name": "uniE208"}, {"code": 57865, "hex": "E209", "unicode_escape": "\\ue209", "char": "", "glyph_name": "uniE209"}, {"code": 57866, "hex": "E20A", "unicode_escape": "\\ue20a", "char": "", "glyph_name": "uniE20A"}, {"code": 57867, "hex": "E20B", "unicode_escape": "\\ue20b", "char": "", "glyph_name": "uniE20B"}, {"code": 57868, "hex": "E20C", "unicode_escape": "\\ue20c", "char": "", "glyph_name": "uniE20C"}, {"code": 57872, "hex": "E210", "unicode_escape": "\\ue210", "char": "", "glyph_name": "uniE210"}, {"code": 57873, "hex": "E211", "unicode_escape": "\\ue211", "char": "", "glyph_name": "uniE211"}, {"code": 57874, "hex": "E212", "unicode_escape": "\\ue212", "char": "", "glyph_name": "uniE212"}, {"code": 57875, "hex": "E213", "unicode_escape": "\\ue213", "char": "", "glyph_name": "uniE213"}, {"code": 57876, "hex": "E214", "unicode_escape": "\\ue214", "char": "", "glyph_name": "uniE214"}, {"code": 57877, "hex": "E215", "unicode_escape": "\\ue215", "char": "", "glyph_name": "uniE215"}, {"code": 57878, "hex": "E216", "unicode_escape": "\\ue216", "char": "", "glyph_name": "uniE216"}, {"code": 57879, "hex": "E217", "unicode_escape": "\\ue217", "char": "", "glyph_name": "uniE217"}, {"code": 57880, "hex": "E218", "unicode_escape": "\\ue218", "char": "", "glyph_name": "uniE218"}, {"code": 57881, "hex": "E219", "unicode_escape": "\\ue219", "char": "", "glyph_name": "uniE219"}, {"code": 57882, "hex": "E21A", "unicode_escape": "\\ue21a", "char": "", "glyph_name": "uniE21A"}, {"code": 57883, "hex": "E21B", "unicode_escape": "\\ue21b", "char": "", "glyph_name": "uniE21B"}, {"code": 57884, "hex": "E21C", "unicode_escape": "\\ue21c", "char": "", "glyph_name": "uniE21C"}, {"code": 57885, "hex": "E21D", "unicode_escape": "\\ue21d", "char": "", "glyph_name": "uniE21D"}, {"code": 57886, "hex": "E21E", "unicode_escape": "\\ue21e", "char": "", "glyph_name": "uniE21E"}, {"code": 57887, "hex": "E21F", "unicode_escape": "\\ue21f", "char": "", "glyph_name": "uniE21F"}, {"code": 57888, "hex": "E220", "unicode_escape": "\\ue220", "char": "", "glyph_name": "uniE220"}, {"code": 57889, "hex": "E221", "unicode_escape": "\\ue221", "char": "", "glyph_name": "uniE221"}, {"code": 57890, "hex": "E222", "unicode_escape": "\\ue222", "char": "", "glyph_name": "uniE222"}, {"code": 57891, "hex": "E223", "unicode_escape": "\\ue223", "char": "", "glyph_name": "uniE223"}, {"code": 57892, "hex": "E224", "unicode_escape": "\\ue224", "char": "", "glyph_name": "uniE224"}, {"code": 57893, "hex": "E225", "unicode_escape": "\\ue225", "char": "", "glyph_name": "uniE225"}, {"code": 57894, "hex": "E226", "unicode_escape": "\\ue226", "char": "", "glyph_name": "uniE226"}, {"code": 57895, "hex": "E227", "unicode_escape": "\\ue227", "char": "", "glyph_name": "uniE227"}, {"code": 57896, "hex": "E228", "unicode_escape": "\\ue228", "char": "", "glyph_name": "uniE228"}, {"code": 57897, "hex": "E229", "unicode_escape": "\\ue229", "char": "", "glyph_name": "uniE229"}, {"code": 57898, "hex": "E22A", "unicode_escape": "\\ue22a", "char": "", "glyph_name": "uniE22A"}, {"code": 57899, "hex": "E22B", "unicode_escape": "\\ue22b", "char": "", "glyph_name": "uniE22B"}, {"code": 57900, "hex": "E22C", "unicode_escape": "\\ue22c", "char": "", "glyph_name": "uniE22C"}, {"code": 57901, "hex": "E22D", "unicode_escape": "\\ue22d", "char": "", "glyph_name": "uniE22D"}, {"code": 57902, "hex": "E22E", "unicode_escape": "\\ue22e", "char": "", "glyph_name": "uniE22E"}, {"code": 57903, "hex": "E22F", "unicode_escape": "\\ue22f", "char": "", "glyph_name": "uniE22F"}, {"code": 57904, "hex": "E230", "unicode_escape": "\\ue230", "char": "", "glyph_name": "uniE230"}, {"code": 57905, "hex": "E231", "unicode_escape": "\\ue231", "char": "", "glyph_name": "uniE231"}, {"code": 57906, "hex": "E232", "unicode_escape": "\\ue232", "char": "", "glyph_name": "uniE232"}, {"code": 58002, "hex": "E292", "unicode_escape": "\\ue292", "char": "", "glyph_name": "uniE292"}, {"code": 58003, "hex": "E293", "unicode_escape": "\\ue293", "char": "", "glyph_name": "uniE293"}, {"code": 58113, "hex": "E301", "unicode_escape": "\\ue301", "char": "", "glyph_name": "uniE301"}, {"code": 58114, "hex": "E302", "unicode_escape": "\\ue302", "char": "", "glyph_name": "uniE302"}, {"code": 58115, "hex": "E303", "unicode_escape": "\\ue303", "char": "", "glyph_name": "uniE303"}, {"code": 58116, "hex": "E304", "unicode_escape": "\\ue304", "char": "", "glyph_name": "uniE304"}, {"code": 58117, "hex": "E305", "unicode_escape": "\\ue305", "char": "", "glyph_name": "uniE305"}, {"code": 58118, "hex": "E306", "unicode_escape": "\\ue306", "char": "", "glyph_name": "uniE306"}, {"code": 58128, "hex": "E310", "unicode_escape": "\\ue310", "char": "", "glyph_name": "uniE310"}, {"code": 58129, "hex": "E311", "unicode_escape": "\\ue311", "char": "", "glyph_name": "uniE311"}, {"code": 58192, "hex": "E350", "unicode_escape": "\\ue350", "char": "", "glyph_name": "uniE350"}, {"code": 58193, "hex": "E351", "unicode_escape": "\\ue351", "char": "", "glyph_name": "uniE351"}, {"code": 58194, "hex": "E352", "unicode_escape": "\\ue352", "char": "", "glyph_name": "uniE352"}, {"code": 58369, "hex": "E401", "unicode_escape": "\\ue401", "char": "", "glyph_name": "uniE401"}, {"code": 58370, "hex": "E402", "unicode_escape": "\\ue402", "char": "", "glyph_name": "uniE402"}, {"code": 58371, "hex": "E403", "unicode_escape": "\\ue403", "char": "", "glyph_name": "uniE403"}, {"code": 58372, "hex": "E404", "unicode_escape": "\\ue404", "char": "", "glyph_name": "uniE404"}, {"code": 58373, "hex": "E405", "unicode_escape": "\\ue405", "char": "", "glyph_name": "uniE405"}, {"code": 58374, "hex": "E406", "unicode_escape": "\\ue406", "char": "", "glyph_name": "uniE406"}, {"code": 58375, "hex": "E407", "unicode_escape": "\\ue407", "char": "", "glyph_name": "uniE407"}, {"code": 58376, "hex": "E408", "unicode_escape": "\\ue408", "char": "", "glyph_name": "uniE408"}, {"code": 58377, "hex": "E409", "unicode_escape": "\\ue409", "char": "", "glyph_name": "uniE409"}, {"code": 58378, "hex": "E40A", "unicode_escape": "\\ue40a", "char": "", "glyph_name": "uniE40A"}, {"code": 58379, "hex": "E40B", "unicode_escape": "\\ue40b", "char": "", "glyph_name": "uniE40B"}, {"code": 58380, "hex": "E40C", "unicode_escape": "\\ue40c", "char": "", "glyph_name": "uniE40C"}, {"code": 58381, "hex": "E40D", "unicode_escape": "\\ue40d", "char": "", "glyph_name": "uniE40D"}, {"code": 58382, "hex": "E40E", "unicode_escape": "\\ue40e", "char": "", "glyph_name": "uniE40E"}, {"code": 58383, "hex": "E40F", "unicode_escape": "\\ue40f", "char": "", "glyph_name": "uniE40F"}, {"code": 58384, "hex": "E410", "unicode_escape": "\\ue410", "char": "", "glyph_name": "uniE410"}, {"code": 58385, "hex": "E411", "unicode_escape": "\\ue411", "char": "", "glyph_name": "uniE411"}, {"code": 58386, "hex": "E412", "unicode_escape": "\\ue412", "char": "", "glyph_name": "uniE412"}, {"code": 58387, "hex": "E413", "unicode_escape": "\\ue413", "char": "", "glyph_name": "uniE413"}, {"code": 58388, "hex": "E414", "unicode_escape": "\\ue414", "char": "", "glyph_name": "uniE414"}, {"code": 58389, "hex": "E415", "unicode_escape": "\\ue415", "char": "", "glyph_name": "uniE415"}, {"code": 58390, "hex": "E416", "unicode_escape": "\\ue416", "char": "", "glyph_name": "uniE416"}, {"code": 58391, "hex": "E417", "unicode_escape": "\\ue417", "char": "", "glyph_name": "uniE417"}, {"code": 58392, "hex": "E418", "unicode_escape": "\\ue418", "char": "", "glyph_name": "uniE418"}, {"code": 58393, "hex": "E419", "unicode_escape": "\\ue419", "char": "", "glyph_name": "uniE419"}, {"code": 58394, "hex": "E41A", "unicode_escape": "\\ue41a", "char": "", "glyph_name": "uniE41A"}, {"code": 58395, "hex": "E41B", "unicode_escape": "\\ue41b", "char": "", "glyph_name": "uniE41B"}, {"code": 58396, "hex": "E41C", "unicode_escape": "\\ue41c", "char": "", "glyph_name": "uniE41C"}, {"code": 58397, "hex": "E41D", "unicode_escape": "\\ue41d", "char": "", "glyph_name": "uniE41D"}, {"code": 58398, "hex": "E41E", "unicode_escape": "\\ue41e", "char": "", "glyph_name": "uniE41E"}, {"code": 58399, "hex": "E41F", "unicode_escape": "\\ue41f", "char": "", "glyph_name": "uniE41F"}, {"code": 58625, "hex": "E501", "unicode_escape": "\\ue501", "char": "", "glyph_name": "shield_up"}, {"code": 58626, "hex": "E502", "unicode_escape": "\\ue502", "char": "", "glyph_name": "u1F6E1_block"}, {"code": 58627, "hex": "E503", "unicode_escape": "\\ue503", "char": "", "glyph_name": "uniE503"}, {"code": 58628, "hex": "E504", "unicode_escape": "\\ue504", "char": "", "glyph_name": "heart"}, {"code": 58629, "hex": "E505", "unicode_escape": "\\ue505", "char": "", "glyph_name": "uniE505"}, {"code": 58630, "hex": "E506", "unicode_escape": "\\ue506", "char": "", "glyph_name": "uniE506"}, {"code": 58631, "hex": "E507", "unicode_escape": "\\ue507", "char": "", "glyph_name": "uniE507"}, {"code": 58632, "hex": "E508", "unicode_escape": "\\ue508", "char": "", "glyph_name": "uniE508"}, {"code": 58633, "hex": "E509", "unicode_escape": "\\ue509", "char": "", "glyph_name": "uniE509"}, {"code": 58634, "hex": "E50A", "unicode_escape": "\\ue50a", "char": "", "glyph_name": "uniE50A"}, {"code": 58635, "hex": "E50B", "unicode_escape": "\\ue50b", "char": "", "glyph_name": "shield_timer"}, {"code": 58636, "hex": "E50C", "unicode_escape": "\\ue50c", "char": "", "glyph_name": "uniE50C"}, {"code": 58637, "hex": "E50D", "unicode_escape": "\\ue50d", "char": "", "glyph_name": "uniE50D"}, {"code": 58638, "hex": "E50E", "unicode_escape": "\\ue50e", "char": "", "glyph_name": "shield_bleed"}, {"code": 58639, "hex": "E50F", "unicode_escape": "\\ue50f", "char": "", "glyph_name": "uniE50F"}, {"code": 58640, "hex": "E510", "unicode_escape": "\\ue510", "char": "", "glyph_name": "shield_mana"}, {"code": 58641, "hex": "E511", "unicode_escape": "\\ue511", "char": "", "glyph_name": "uniE511"}, {"code": 58642, "hex": "E512", "unicode_escape": "\\ue512", "char": "", "glyph_name": "shield_new"}, {"code": 58643, "hex": "E513", "unicode_escape": "\\ue513", "char": "", "glyph_name": "shield_poison"}, {"code": 58644, "hex": "E514", "unicode_escape": "\\ue514", "char": "", "glyph_name": "uniE514"}, {"code": 58645, "hex": "E515", "unicode_escape": "\\ue515", "char": "", "glyph_name": "u1F6E1"}, {"code": 58646, "hex": "E516", "unicode_escape": "\\ue516", "char": "", "glyph_name": "uniE516"}, {"code": 58647, "hex": "E517", "unicode_escape": "\\ue517", "char": "", "glyph_name": "uniE517"}, {"code": 58648, "hex": "E518", "unicode_escape": "\\ue518", "char": "", "glyph_name": "uniE518"}, {"code": 58649, "hex": "E519", "unicode_escape": "\\ue519", "char": "", "glyph_name": "uniE519"}, {"code": 58656, "hex": "E520", "unicode_escape": "\\ue520", "char": "", "glyph_name": "uniE520"}, {"code": 58657, "hex": "E521", "unicode_escape": "\\ue521", "char": "", "glyph_name": "uniE521"}, {"code": 58658, "hex": "E522", "unicode_escape": "\\ue522", "char": "", "glyph_name": "uniE522"}, {"code": 58659, "hex": "E523", "unicode_escape": "\\ue523", "char": "", "glyph_name": "uniE523"}, {"code": 58660, "hex": "E524", "unicode_escape": "\\ue524", "char": "", "glyph_name": "uniE524"}, {"code": 58881, "hex": "E601", "unicode_escape": "\\ue601", "char": "", "glyph_name": "uniE601"}, {"code": 58882, "hex": "E602", "unicode_escape": "\\ue602", "char": "", "glyph_name": "uniE602"}, {"code": 58883, "hex": "E603", "unicode_escape": "\\ue603", "char": "", "glyph_name": "uniE603"}, {"code": 58884, "hex": "E604", "unicode_escape": "\\ue604", "char": "", "glyph_name": "shield_stun"}, {"code": 58885, "hex": "E605", "unicode_escape": "\\ue605", "char": "", "glyph_name": "uniE605"}, {"code": 58886, "hex": "E606", "unicode_escape": "\\ue606", "char": "", "glyph_name": "uniE606"}, {"code": 58887, "hex": "E607", "unicode_escape": "\\ue607", "char": "", "glyph_name": "uniE607"}, {"code": 58888, "hex": "E608", "unicode_escape": "\\ue608", "char": "", "glyph_name": "uniE608"}, {"code": 58889, "hex": "E609", "unicode_escape": "\\ue609", "char": "", "glyph_name": "uniE609"}, {"code": 58890, "hex": "E60A", "unicode_escape": "\\ue60a", "char": "", "glyph_name": "uniE60A"}, {"code": 58891, "hex": "E60B", "unicode_escape": "\\ue60b", "char": "", "glyph_name": "uniE60B"}, {"code": 58892, "hex": "E60C", "unicode_escape": "\\ue60c", "char": "", "glyph_name": "uniE60C"}, {"code": 58893, "hex": "E60D", "unicode_escape": "\\ue60d", "char": "", "glyph_name": "uniE60D"}, {"code": 58894, "hex": "E60E", "unicode_escape": "\\ue60e", "char": "", "glyph_name": "uniE60E"}, {"code": 58895, "hex": "E60F", "unicode_escape": "\\ue60f", "char": "", "glyph_name": "uniE60F"}, {"code": 59137, "hex": "E701", "unicode_escape": "\\ue701", "char": "", "glyph_name": "uniE701"}, {"code": 59138, "hex": "E702", "unicode_escape": "\\ue702", "char": "", "glyph_name": "uniE702"}, {"code": 59139, "hex": "E703", "unicode_escape": "\\ue703", "char": "", "glyph_name": "uniE703"}, {"code": 59140, "hex": "E704", "unicode_escape": "\\ue704", "char": "", "glyph_name": "uniE704"}, {"code": 59141, "hex": "E705", "unicode_escape": "\\ue705", "char": "", "glyph_name": "uniE705"}, {"code": 59142, "hex": "E706", "unicode_escape": "\\ue706", "char": "", "glyph_name": "uniE706"}, {"code": 59143, "hex": "E707", "unicode_escape": "\\ue707", "char": "", "glyph_name": "uniE707"}, {"code": 59144, "hex": "E708", "unicode_escape": "\\ue708", "char": "", "glyph_name": "uniE708"}, {"code": 59393, "hex": "E801", "unicode_escape": "\\ue801", "char": "", "glyph_name": "uniE801"}, {"code": 59394, "hex": "E802", "unicode_escape": "\\ue802", "char": "", "glyph_name": "uniE802"}, {"code": 59395, "hex": "E803", "unicode_escape": "\\ue803", "char": "", "glyph_name": "uniE803"}, {"code": 59396, "hex": "E804", "unicode_escape": "\\ue804", "char": "", "glyph_name": "uniE804"}, {"code": 59397, "hex": "E805", "unicode_escape": "\\ue805", "char": "", "glyph_name": "uniE805"}, {"code": 59398, "hex": "E806", "unicode_escape": "\\ue806", "char": "", "glyph_name": "uniE806"}, {"code": 59399, "hex": "E807", "unicode_escape": "\\ue807", "char": "", "glyph_name": "uniE807"}, {"code": 59400, "hex": "E808", "unicode_escape": "\\ue808", "char": "", "glyph_name": "uniE808"}, {"code": 59401, "hex": "E809", "unicode_escape": "\\ue809", "char": "", "glyph_name": "uniE809"}, {"code": 59402, "hex": "E80A", "unicode_escape": "\\ue80a", "char": "", "glyph_name": "uniE80A"}, {"code": 59403, "hex": "E80B", "unicode_escape": "\\ue80b", "char": "", "glyph_name": "uniE80B"}, {"code": 59404, "hex": "E80C", "unicode_escape": "\\ue80c", "char": "", "glyph_name": "uniE80C"}, {"code": 59405, "hex": "E80D", "unicode_escape": "\\ue80d", "char": "", "glyph_name": "uniE80D"}, {"code": 59406, "hex": "E80E", "unicode_escape": "\\ue80e", "char": "", "glyph_name": "uni2423.026"}, {"code": 59407, "hex": "E80F", "unicode_escape": "\\ue80f", "char": "", "glyph_name": "uni2423.027"}, {"code": 59408, "hex": "E810", "unicode_escape": "\\ue810", "char": "", "glyph_name": "uniE810"}, {"code": 59409, "hex": "E811", "unicode_escape": "\\ue811", "char": "", "glyph_name": "uniE811"}, {"code": 59410, "hex": "E812", "unicode_escape": "\\ue812", "char": "", "glyph_name": "uniE812"}, {"code": 59411, "hex": "E813", "unicode_escape": "\\ue813", "char": "", "glyph_name": "uniE813"}, {"code": 59412, "hex": "E814", "unicode_escape": "\\ue814", "char": "", "glyph_name": "uniE814"}, {"code": 59413, "hex": "E815", "unicode_escape": "\\ue815", "char": "", "glyph_name": "uniE815"}, {"code": 59414, "hex": "E816", "unicode_escape": "\\ue816", "char": "", "glyph_name": "uniE816"}, {"code": 59415, "hex": "E817", "unicode_escape": "\\ue817", "char": "", "glyph_name": "uniE817"}, {"code": 59416, "hex": "E818", "unicode_escape": "\\ue818", "char": "", "glyph_name": "uniE818"}, {"code": 59417, "hex": "E819", "unicode_escape": "\\ue819", "char": "", "glyph_name": "uniE819"}, {"code": 59418, "hex": "E81A", "unicode_escape": "\\ue81a", "char": "", "glyph_name": "uniE81A"}, {"code": 59419, "hex": "E81B", "unicode_escape": "\\ue81b", "char": "", "glyph_name": "uniE81B"}, {"code": 59420, "hex": "E81C", "unicode_escape": "\\ue81c", "char": "", "glyph_name": "uni2423.021"}, {"code": 59421, "hex": "E81D", "unicode_escape": "\\ue81d", "char": "", "glyph_name": "uni2423.022"}, {"code": 59422, "hex": "E81E", "unicode_escape": "\\ue81e", "char": "", "glyph_name": "uni2423.023"}, {"code": 59423, "hex": "E81F", "unicode_escape": "\\ue81f", "char": "", "glyph_name": "uni2423.024"}, {"code": 59648, "hex": "E900", "unicode_escape": "\\ue900", "char": "", "glyph_name": "uni2423.025"}, {"code": 59649, "hex": "E901", "unicode_escape": "\\ue901", "char": "", "glyph_name": "uniE901"}, {"code": 59650, "hex": "E902", "unicode_escape": "\\ue902", "char": "", "glyph_name": "baseball_bat"}, {"code": 59651, "hex": "E903", "unicode_escape": "\\ue903", "char": "", "glyph_name": "uniE903"}, {"code": 59652, "hex": "E904", "unicode_escape": "\\ue904", "char": "", "glyph_name": "u1F4C5"}, {"code": 59653, "hex": "E905", "unicode_escape": "\\ue905", "char": "", "glyph_name": "uniE905"}, {"code": 59654, "hex": "E906", "unicode_escape": "\\ue906", "char": "", "glyph_name": "uniE906"}, {"code": 59655, "hex": "E907", "unicode_escape": "\\ue907", "char": "", "glyph_name": "uniE907"}, {"code": 59656, "hex": "E908", "unicode_escape": "\\ue908", "char": "", "glyph_name": "uniE908"}, {"code": 59657, "hex": "E909", "unicode_escape": "\\ue909", "char": "", "glyph_name": "uniE909"}, {"code": 59658, "hex": "E90A", "unicode_escape": "\\ue90a", "char": "", "glyph_name": "uniE90A"}, {"code": 59659, "hex": "E90B", "unicode_escape": "\\ue90b", "char": "", "glyph_name": "uniE90B"}, {"code": 59660, "hex": "E90C", "unicode_escape": "\\ue90c", "char": "", "glyph_name": "uniE90C"}, {"code": 59661, "hex": "E90D", "unicode_escape": "\\ue90d", "char": "", "glyph_name": "uniE90D"}, {"code": 59662, "hex": "E90E", "unicode_escape": "\\ue90e", "char": "", "glyph_name": "uniE90E"}, {"code": 59663, "hex": "E90F", "unicode_escape": "\\ue90f", "char": "", "glyph_name": "uniE90F"}, {"code": 59664, "hex": "E910", "unicode_escape": "\\ue910", "char": "", "glyph_name": "uniE910"}, {"code": 59665, "hex": "E911", "unicode_escape": "\\ue911", "char": "", "glyph_name": "uniE911"}, {"code": 59666, "hex": "E912", "unicode_escape": "\\ue912", "char": "", "glyph_name": "uniE912"}, {"code": 59667, "hex": "E913", "unicode_escape": "\\ue913", "char": "", "glyph_name": "uniE913"}, {"code": 59668, "hex": "E914", "unicode_escape": "\\ue914", "char": "", "glyph_name": "uniE914"}, {"code": 59669, "hex": "E915", "unicode_escape": "\\ue915", "char": "", "glyph_name": "uniE915"}, {"code": 59670, "hex": "E916", "unicode_escape": "\\ue916", "char": "", "glyph_name": "uniE916"}, {"code": 59671, "hex": "E917", "unicode_escape": "\\ue917", "char": "", "glyph_name": "uniE917"}, {"code": 59672, "hex": "E918", "unicode_escape": "\\ue918", "char": "", "glyph_name": "uniE918"}, {"code": 59673, "hex": "E919", "unicode_escape": "\\ue919", "char": "", "glyph_name": "uniE919"}, {"code": 59674, "hex": "E91A", "unicode_escape": "\\ue91a", "char": "", "glyph_name": "uniE91A"}, {"code": 59675, "hex": "E91B", "unicode_escape": "\\ue91b", "char": "", "glyph_name": "uniE91B"}, {"code": 59676, "hex": "E91C", "unicode_escape": "\\ue91c", "char": "", "glyph_name": "spade"}, {"code": 59677, "hex": "E91D", "unicode_escape": "\\ue91d", "char": "", "glyph_name": "club"}, {"code": 59678, "hex": "E91E", "unicode_escape": "\\ue91e", "char": "", "glyph_name": "diamond"}, {"code": 59679, "hex": "E91F", "unicode_escape": "\\ue91f", "char": "", "glyph_name": "uniE91F"}, {"code": 59680, "hex": "E920", "unicode_escape": "\\ue920", "char": "", "glyph_name": "spider_mode_hunter"}, {"code": 59681, "hex": "E921", "unicode_escape": "\\ue921", "char": "", "glyph_name": "spider_mode_trap"}, {"code": 59682, "hex": "E922", "unicode_escape": "\\ue922", "char": "", "glyph_name": "uniE922"}, {"code": 59683, "hex": "E923", "unicode_escape": "\\ue923", "char": "", "glyph_name": "uniE923"}, {"code": 59684, "hex": "E924", "unicode_escape": "\\ue924", "char": "", "glyph_name": "uniE924"}, {"code": 59685, "hex": "E925", "unicode_escape": "\\ue925", "char": "", "glyph_name": "uniE925"}, {"code": 59686, "hex": "E926", "unicode_escape": "\\ue926", "char": "", "glyph_name": "uniE926"}, {"code": 59687, "hex": "E927", "unicode_escape": "\\ue927", "char": "", "glyph_name": "uniE927"}, {"code": 59688, "hex": "E928", "unicode_escape": "\\ue928", "char": "", "glyph_name": "uniE928"}, {"code": 59689, "hex": "E929", "unicode_escape": "\\ue929", "char": "", "glyph_name": "uniE929"}, {"code": 59690, "hex": "E92A", "unicode_escape": "\\ue92a", "char": "", "glyph_name": "uniE92A"}, {"code": 59691, "hex": "E92B", "unicode_escape": "\\ue92b", "char": "", "glyph_name": "uniE92B"}, {"code": 59692, "hex": "E92C", "unicode_escape": "\\ue92c", "char": "", "glyph_name": "uniE92C"}, {"code": 59693, "hex": "E92D", "unicode_escape": "\\ue92d", "char": "", "glyph_name": "uniE92D"}, {"code": 59694, "hex": "E92E", "unicode_escape": "\\ue92e", "char": "", "glyph_name": "uniE92E"}, {"code": 59695, "hex": "E92F", "unicode_escape": "\\ue92f", "char": "", "glyph_name": "uniE92F"}, {"code": 59696, "hex": "E930", "unicode_escape": "\\ue930", "char": "", "glyph_name": "uniE930"}, {"code": 59697, "hex": "E931", "unicode_escape": "\\ue931", "char": "", "glyph_name": "uniE931"}, {"code": 59698, "hex": "E932", "unicode_escape": "\\ue932", "char": "", "glyph_name": "uniE932"}, {"code": 59699, "hex": "E933", "unicode_escape": "\\ue933", "char": "", "glyph_name": "uniE933"}, {"code": 59700, "hex": "E934", "unicode_escape": "\\ue934", "char": "", "glyph_name": "uniE934"}, {"code": 59701, "hex": "E935", "unicode_escape": "\\ue935", "char": "", "glyph_name": "uniE935"}, {"code": 59702, "hex": "E936", "unicode_escape": "\\ue936", "char": "", "glyph_name": "uniE936"}, {"code": 59703, "hex": "E937", "unicode_escape": "\\ue937", "char": "", "glyph_name": "uniE937"}, {"code": 59704, "hex": "E938", "unicode_escape": "\\ue938", "char": "", "glyph_name": "uniE938"}, {"code": 59705, "hex": "E939", "unicode_escape": "\\ue939", "char": "", "glyph_name": "u1F489"}, {"code": 59706, "hex": "E93A", "unicode_escape": "\\ue93a", "char": "", "glyph_name": "uniE93A"}, {"code": 59707, "hex": "E93B", "unicode_escape": "\\ue93b", "char": "", "glyph_name": "uniE93B"}, {"code": 59708, "hex": "E93C", "unicode_escape": "\\ue93c", "char": "", "glyph_name": "shield_sparkles"}, {"code": 59709, "hex": "E93D", "unicode_escape": "\\ue93d", "char": "", "glyph_name": "u1F514"}, {"code": 59710, "hex": "E93E", "unicode_escape": "\\ue93e", "char": "", "glyph_name": "two_pointers"}, {"code": 59711, "hex": "E93F", "unicode_escape": "\\ue93f", "char": "", "glyph_name": "u1F480_u1F525"}, {"code": 59712, "hex": "E940", "unicode_escape": "\\ue940", "char": "", "glyph_name": "uniE940"}, {"code": 59713, "hex": "E941", "unicode_escape": "\\ue941", "char": "", "glyph_name": "uniE941"}, {"code": 59714, "hex": "E942", "unicode_escape": "\\ue942", "char": "", "glyph_name": "uniE942"}, {"code": 59715, "hex": "E943", "unicode_escape": "\\ue943", "char": "", "glyph_name": "uniE943"}, {"code": 59716, "hex": "E944", "unicode_escape": "\\ue944", "char": "", "glyph_name": "uniE944"}, {"code": 59717, "hex": "E945", "unicode_escape": "\\ue945", "char": "", "glyph_name": "uniE945"}, {"code": 59718, "hex": "E946", "unicode_escape": "\\ue946", "char": "", "glyph_name": "uniE946"}, {"code": 59719, "hex": "E947", "unicode_escape": "\\ue947", "char": "", "glyph_name": "uniE947"}, {"code": 59720, "hex": "E948", "unicode_escape": "\\ue948", "char": "", "glyph_name": "uniE948"}, {"code": 59721, "hex": "E949", "unicode_escape": "\\ue949", "char": "", "glyph_name": "uniE949"}, {"code": 59728, "hex": "E950", "unicode_escape": "\\ue950", "char": "", "glyph_name": "uniE950"}, {"code": 59729, "hex": "E951", "unicode_escape": "\\ue951", "char": "", "glyph_name": "uniE951"}, {"code": 59730, "hex": "E952", "unicode_escape": "\\ue952", "char": "", "glyph_name": "uniE952"}, {"code": 59731, "hex": "E953", "unicode_escape": "\\ue953", "char": "", "glyph_name": "uniE953"}, {"code": 59744, "hex": "E960", "unicode_escape": "\\ue960", "char": "", "glyph_name": "uniE960"}, {"code": 59745, "hex": "E961", "unicode_escape": "\\ue961", "char": "", "glyph_name": "uniE961"}, {"code": 59746, "hex": "E962", "unicode_escape": "\\ue962", "char": "", "glyph_name": "uniE962"}, {"code": 59776, "hex": "E980", "unicode_escape": "\\ue980", "char": "", "glyph_name": "uniE980"}, {"code": 59777, "hex": "E981", "unicode_escape": "\\ue981", "char": "", "glyph_name": "uniE981"}, {"code": 59778, "hex": "E982", "unicode_escape": "\\ue982", "char": "", "glyph_name": "uniE982"}, {"code": 59779, "hex": "E983", "unicode_escape": "\\ue983", "char": "", "glyph_name": "uniE983"}, {"code": 59780, "hex": "E984", "unicode_escape": "\\ue984", "char": "", "glyph_name": "uniE984"}, {"code": 59781, "hex": "E985", "unicode_escape": "\\ue985", "char": "", "glyph_name": "uniE985"}, {"code": 59782, "hex": "E986", "unicode_escape": "\\ue986", "char": "", "glyph_name": "uniE986"}, {"code": 59783, "hex": "E987", "unicode_escape": "\\ue987", "char": "", "glyph_name": "uniE987"}, {"code": 59784, "hex": "E988", "unicode_escape": "\\ue988", "char": "", "glyph_name": "uniE988"}, {"code": 59785, "hex": "E989", "unicode_escape": "\\ue989", "char": "", "glyph_name": "uniE989"}, {"code": 59786, "hex": "E98A", "unicode_escape": "\\ue98a", "char": "", "glyph_name": "uniE98A"}, {"code": 59787, "hex": "E98B", "unicode_escape": "\\ue98b", "char": "", "glyph_name": "uniE98B"}, {"code": 59788, "hex": "E98C", "unicode_escape": "\\ue98c", "char": "", "glyph_name": "uniE98C"}, {"code": 59789, "hex": "E98D", "unicode_escape": "\\ue98d", "char": "", "glyph_name": "uniE98D"}, {"code": 59790, "hex": "E98E", "unicode_escape": "\\ue98e", "char": "", "glyph_name": "uniE98E"}, {"code": 59791, "hex": "E98F", "unicode_escape": "\\ue98f", "char": "", "glyph_name": "uniE98F"}, {"code": 59802, "hex": "E99A", "unicode_escape": "\\ue99a", "char": "", "glyph_name": "uniE99A"}, {"code": 59803, "hex": "E99B", "unicode_escape": "\\ue99b", "char": "", "glyph_name": "uniE99B"}, {"code": 59804, "hex": "E99C", "unicode_escape": "\\ue99c", "char": "", "glyph_name": "uniE99C"}, {"code": 59805, "hex": "E99D", "unicode_escape": "\\ue99d", "char": "", "glyph_name": "uniE99D"}, {"code": 59806, "hex": "E99E", "unicode_escape": "\\ue99e", "char": "", "glyph_name": "uniE99E"}];
@@ -428,9 +636,13 @@
             zh: {
                 title: "🎮 TFTF 技能图标 PUA 私有区字符对照标注工具",
                 subtitle: "对照游戏原版录屏，众创标注 523 个 PUA 图标，云端实时同步 (Powered by Upstash)",
-                searchPlaceholder: "搜索 hex (如 e401) / 字符 / 技能...",
-                filterFilled: "仅看已标注",
+                searchPlaceholder: "搜索 hex (如 e401) / 字符 / 技能 / 备注...",
+                compactBtn: "聚焦模式",
+                compactBtnActive: "聚焦模式 (开)",
+                compactTitle: "聚焦模式：仅显示图标，点击弹出完整卡片",
                 filterAll: "显示全部",
+                filterAnnotated: "仅看已标注",
+                filterUnannotated: "仅看未标注",
                 refreshCloud: "☁️ 刷新",
                 exportJson: "导出 JSON",
                 importJson: "导入 JSON",
@@ -441,9 +653,18 @@
                 labeledCount: "已标注",
                 labelEn: "EN",
                 labelZh: "中文",
+                labelNotes: "说明",
                 placeholderEn: "英文名 / Skill Name...",
                 placeholderZh: "中文名 / 技能说明...",
+                placeholderNotes: "备注说明 (如机制/触发/增减益)...",
                 copied: "已复制到剪贴板！",
+                copyEscape: "复制 \\u 代码",
+                copyChar: "复制字符",
+                copyHex: "复制 Hex",
+                copyJson: "复制 JSON",
+                charCopied: "已复制图标字符！",
+                hexCopied: "已复制 Hex 编码！",
+                jsonCopied: "已复制 JSON 片段！",
                 exportSuccess: "已成功导出 JSON 文件！",
                 importSuccess: "成功导入并合并数据！",
                 importFail: "导入失败，请检查 JSON 格式：",
@@ -453,9 +674,13 @@
             en: {
                 title: "🎮 TFTF PUA Skill Icons & Glyphs Annotation Tool",
                 subtitle: "Visual PUA glyph mapping for TFTF with community cloud sync (Powered by Upstash)",
-                searchPlaceholder: "Search hex (e.g. e401) / glyph / skill...",
-                filterFilled: "Only Annotated",
+                searchPlaceholder: "Search hex (e.g. e401) / glyph / skill / notes...",
+                compactBtn: "Compact",
+                compactBtnActive: "Compact (ON)",
+                compactTitle: "Compact mode: Show icons only, click to view full card",
                 filterAll: "Show All",
+                filterAnnotated: "Only Annotated",
+                filterUnannotated: "Only Unannotated",
                 refreshCloud: "☁️ Refresh",
                 exportJson: "Export JSON",
                 importJson: "Import JSON",
@@ -466,9 +691,18 @@
                 labeledCount: "Annotated",
                 labelEn: "EN",
                 labelZh: "ZH",
+                labelNotes: "Notes",
                 placeholderEn: "English skill name...",
                 placeholderZh: "Chinese description...",
+                placeholderNotes: "Notes / mechanism / buff type...",
                 copied: "Copied to clipboard!",
+                copyEscape: "Copy \\u code",
+                copyChar: "Copy Glyph",
+                copyHex: "Copy Hex",
+                copyJson: "Copy JSON",
+                charCopied: "Copied character to clipboard!",
+                hexCopied: "Copied Hex to clipboard!",
+                jsonCopied: "Copied JSON snippet to clipboard!",
                 exportSuccess: "Successfully exported JSON!",
                 importSuccess: "Data imported and merged!",
                 importFail: "Import failed, invalid JSON: ",
@@ -484,18 +718,24 @@
             storageData[BLEED_KEY] = {
                 name_en: "Bleed",
                 name_zh: "流血",
+                notes: "",
                 author: "kmcbest",
                 glyph_name: "uniE401",
                 hex: "E401"
             };
         }
-        let onlyFilled = false;
+        let filterMode = 'all'; // 'all' | 'annotated' | 'unannotated'
+        let isCompactMode = localStorage.getItem('tftf_pua_compact') === 'true';
         let saveTimeoutMap = {};
+        let currentModalItem = null;
+        let visibleItems = [];
 
         const headerTitle = document.getElementById('header-title');
         const headerSubtitle = document.getElementById('header-subtitle');
         const searchInput = document.getElementById('search-input');
-        const filterFilledBtn = document.getElementById('filter-filled-btn');
+        const compactBtn = document.getElementById('compact-btn');
+        const compactText = document.getElementById('compact-text');
+        const filterSelect = document.getElementById('filter-select');
         const cloudRefreshBtn = document.getElementById('cloud-refresh-btn');
         const exportBtn = document.getElementById('export-btn');
         const importBtn = document.getElementById('import-btn');
@@ -508,6 +748,16 @@
         const gridContainer = document.getElementById('grid-container');
         const fileInput = document.getElementById('file-input');
         const toastEl = document.getElementById('toast');
+
+        // Modal elements
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalContainer = document.getElementById('modal-container');
+        const modalTitleText = document.getElementById('modal-title-text');
+        const modalCodePill = document.getElementById('modal-code-pill');
+        const modalPrevBtn = document.getElementById('modal-prev-btn');
+        const modalNextBtn = document.getElementById('modal-next-btn');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+        const modalBody = document.getElementById('modal-body');
 
         // Load nickname
         nicknameInput.value = localStorage.getItem('tftf_pua_nickname') || '';
@@ -527,17 +777,37 @@
             }, 2500);
         }
 
+        function updateCompactUI() {
+            const t = I18N[currentLang];
+            compactBtn.title = t.compactTitle;
+            if (isCompactMode) {
+                compactBtn.classList.add('btn-active');
+                compactText.textContent = t.compactBtnActive;
+            } else {
+                compactBtn.classList.remove('btn-active');
+                compactText.textContent = t.compactBtn;
+            }
+        }
+
         function applyI18n() {
             const t = I18N[currentLang];
             headerTitle.textContent = t.title;
             headerSubtitle.textContent = t.subtitle;
             searchInput.placeholder = t.searchPlaceholder;
-            filterFilledBtn.textContent = onlyFilled ? t.filterAll : t.filterFilled;
+            updateCompactUI();
+
+            filterSelect.options[0].textContent = t.filterAll;
+            filterSelect.options[1].textContent = t.filterAnnotated;
+            filterSelect.options[2].textContent = t.filterUnannotated;
+
             cloudRefreshBtn.innerHTML = t.refreshCloud;
             exportBtn.textContent = t.exportJson;
             importBtn.textContent = t.importJson;
             langToggleBtn.textContent = t.langToggle;
             updateStats();
+            if (currentModalItem) {
+                renderModalBody(currentModalItem);
+            }
         }
 
         langToggleBtn.addEventListener('click', () => {
@@ -549,7 +819,7 @@
 
         function updateStats() {
             const t = I18N[currentLang];
-            const filledCount = Object.keys(storageData).length;
+            const filledCount = Object.values(storageData).filter(r => !!(r.name_en || r.name_zh || r.notes)).length;
             statsBadge.textContent = `${t.labeledCount}: ${filledCount} / ${PUA_LIST.length}`;
         }
 
@@ -557,6 +827,188 @@
             localStorage.setItem('tftf_pua_skills_data', JSON.stringify(storageData));
             updateStats();
         }
+
+        // ==================== DETAIL MODAL ====================
+        function openModal(item) {
+            currentModalItem = item;
+            renderModalBody(item);
+            modalOverlay.classList.add('show');
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('show');
+            currentModalItem = null;
+        }
+
+        function navigateModal(direction) {
+            if (!currentModalItem || visibleItems.length === 0) return;
+            const currentIndex = visibleItems.findIndex(x => x.unicode_escape === currentModalItem.unicode_escape);
+            let nextIndex = currentIndex + direction;
+            if (nextIndex < 0) nextIndex = visibleItems.length - 1;
+            if (nextIndex >= visibleItems.length) nextIndex = 0;
+            openModal(visibleItems[nextIndex]);
+        }
+
+        function renderModalBody(item) {
+            const t = I18N[currentLang];
+            const rec = storageData[item.unicode_escape] || {};
+
+            modalTitleText.textContent = `${item.char} 0x${item.hex} (${item.glyph_name})`;
+            modalCodePill.textContent = item.unicode_escape;
+
+            modalBody.innerHTML = `
+                <div class="icon-row" style="background: #090d13; padding: 12px; border-radius: 8px; border: 1px solid var(--card-border);">
+                    <div class="icon-preview-box" style="width: 72px; height: 72px; min-width: 72px;">
+                        <span class="game-icon" style="font-size: 46px;">${item.char}</span>
+                    </div>
+                    <div class="icon-meta" style="gap: 6px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <span class="code-pill modal-copy-esc" title="点击复制 / Click to copy">${item.unicode_escape}</span>
+                            ${rec.author ? `<span class="contributor-tag">👤 ${escapeHtml(rec.author)}</span>` : ''}
+                        </div>
+                        <span class="glyph-name">Glyph: <strong>${item.glyph_name}</strong></span>
+                        <span class="glyph-name">Hex: 0x${item.hex} · Decimal: ${item.code}</span>
+                    </div>
+                </div>
+
+                <div class="inputs-row">
+                    <div class="field-group">
+                        <label>${t.labelEn}</label>
+                        <input type="text" class="text-input modal-input-en" placeholder="${t.placeholderEn}" value="${rec.name_en ? escapeHtml(rec.name_en) : ''}">
+                    </div>
+                    <div class="field-group">
+                        <label>${t.labelZh}</label>
+                        <input type="text" class="text-input modal-input-zh" placeholder="${t.placeholderZh}" value="${rec.name_zh ? escapeHtml(rec.name_zh) : ''}">
+                    </div>
+                    <div class="field-group">
+                        <label>${t.labelNotes}</label>
+                        <input type="text" class="text-input modal-input-notes" placeholder="${t.placeholderNotes}" value="${rec.notes ? escapeHtml(rec.notes) : ''}">
+                    </div>
+                </div>
+
+                <div class="modal-output-actions">
+                    <button class="btn btn-outline modal-btn-copy-esc">📋 ${t.copyEscape}</button>
+                    <button class="btn btn-outline modal-btn-copy-char">🔤 ${t.copyChar}</button>
+                    <button class="btn btn-outline modal-btn-copy-hex">🔢 ${t.copyHex}</button>
+                    <button class="btn btn-outline modal-btn-copy-json">📄 ${t.copyJson}</button>
+                </div>
+            `;
+
+            const inputEn = modalBody.querySelector('.modal-input-en');
+            const inputZh = modalBody.querySelector('.modal-input-zh');
+            const inputNotes = modalBody.querySelector('.modal-input-notes');
+
+            const handleModalChange = () => {
+                const valEn = inputEn.value.trim();
+                const valZh = inputZh.value.trim();
+                const valNotes = inputNotes.value.trim();
+                const esc = item.unicode_escape;
+
+                if (valEn || valZh || valNotes) {
+                    const recData = {
+                        hex: item.hex,
+                        glyph_name: item.glyph_name,
+                        name_en: valEn,
+                        name_zh: valZh,
+                        notes: valNotes,
+                        author: getNickname(),
+                        updated_at: new Date().toISOString()
+                    };
+                    storageData[esc] = recData;
+
+                    // Update corresponding card/tile in background grid
+                    const tile = gridContainer.querySelector(`[data-escape="${esc}"]`);
+                    if (tile) {
+                        tile.classList.add('is-filled');
+                        const inpE = tile.querySelector('.input-en');
+                        const inpZ = tile.querySelector('.input-zh');
+                        const inpN = tile.querySelector('.input-notes');
+                        if (inpE) inpE.value = valEn;
+                        if (inpZ) inpZ.value = valZh;
+                        if (inpN) inpN.value = valNotes;
+                    }
+
+                    clearTimeout(saveTimeoutMap[esc]);
+                    saveTimeoutMap[esc] = setTimeout(() => {
+                        syncKeyToCloud(esc, recData);
+                    }, 700);
+                } else {
+                    delete storageData[esc];
+                    const tile = gridContainer.querySelector(`[data-escape="${esc}"]`);
+                    if (tile) {
+                        tile.classList.remove('is-filled');
+                        const inpE = tile.querySelector('.input-en');
+                        const inpZ = tile.querySelector('.input-zh');
+                        const inpN = tile.querySelector('.input-notes');
+                        if (inpE) inpE.value = '';
+                        if (inpZ) inpZ.value = '';
+                        if (inpN) inpN.value = '';
+                    }
+
+                    clearTimeout(saveTimeoutMap[esc]);
+                    saveTimeoutMap[esc] = setTimeout(() => {
+                        syncKeyToCloud(esc, null);
+                    }, 700);
+                }
+                saveToStorage();
+            };
+
+            inputEn.addEventListener('input', handleModalChange);
+            inputZh.addEventListener('input', handleModalChange);
+            inputNotes.addEventListener('input', handleModalChange);
+
+            // Copy actions
+            const copyEsc = () => {
+                navigator.clipboard.writeText(item.unicode_escape);
+                showToast(`${item.unicode_escape} ${t.copied}`);
+            };
+            modalBody.querySelector('.modal-copy-esc').addEventListener('click', copyEsc);
+            modalCodePill.onclick = copyEsc;
+            modalBody.querySelector('.modal-btn-copy-esc').addEventListener('click', copyEsc);
+
+            modalBody.querySelector('.modal-btn-copy-char').addEventListener('click', () => {
+                navigator.clipboard.writeText(item.char);
+                showToast(t.charCopied);
+            });
+
+            modalBody.querySelector('.modal-btn-copy-hex').addEventListener('click', () => {
+                navigator.clipboard.writeText(`0x${item.hex}`);
+                showToast(t.hexCopied);
+            });
+
+            modalBody.querySelector('.modal-btn-copy-json').addEventListener('click', () => {
+                const currentRec = storageData[item.unicode_escape] || {};
+                const snippet = JSON.stringify({
+                    [item.unicode_escape]: {
+                        glyph_name: item.glyph_name,
+                        hex: item.hex,
+                        char: item.char,
+                        name_en: currentRec.name_en || "",
+                        name_zh: currentRec.name_zh || "",
+                        notes: currentRec.notes || ""
+                    }
+                }, null, 2);
+                navigator.clipboard.writeText(snippet);
+                showToast(t.jsonCopied);
+            });
+        }
+
+        modalCloseBtn.addEventListener('click', closeModal);
+        modalPrevBtn.addEventListener('click', () => navigateModal(-1));
+        modalNextBtn.addEventListener('click', () => navigateModal(1));
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (!modalOverlay.classList.contains('show')) return;
+            if (e.key === 'Escape') {
+                closeModal();
+            } else if (e.key === 'ArrowLeft' && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) {
+                navigateModal(-1);
+            } else if (e.key === 'ArrowRight' && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) {
+                navigateModal(1);
+            }
+        });
 
         // ==================== UPSTASH CLOUD SYNC ====================
         async function fetchFromCloud() {
@@ -581,7 +1033,7 @@
                         try {
                             cloudMap[key] = JSON.parse(data.result[i + 1]);
                         } catch (e) {
-                            cloudMap[key] = { name_en: data.result[i + 1], name_zh: "" };
+                            cloudMap[key] = { name_en: data.result[i + 1], name_zh: "", notes: "" };
                         }
                     }
 
@@ -592,12 +1044,13 @@
                             glyph_name: v.glyph_name || storageData[k]?.glyph_name || "",
                             name_en: v.name_en || "",
                             name_zh: v.name_zh || "",
+                            notes: v.notes || storageData[k]?.notes || "",
                             author: v.author || "Community",
                             updated_at: v.updated_at || ""
                         };
                     }
                     saveToStorage();
-                    const count = Object.keys(cloudMap).length;
+                    const count = Object.values(storageData).filter(r => !!(r.name_en || r.name_zh || r.notes)).length;
                     setCloudStatus('online', `${I18N[currentLang].cloudOnline} (${count})`);
                 } else {
                     setCloudStatus('online', `${I18N[currentLang].cloudOnline} (0)`);
@@ -614,7 +1067,7 @@
 
         async function syncKeyToCloud(escapeKey, record) {
             try {
-                if (record && (record.name_en || record.name_zh)) {
+                if (record && (record.name_en || record.name_zh || record.notes)) {
                     await fetch(UPSTASH_CONFIG.url, {
                         method: "POST",
                         headers: {
@@ -635,7 +1088,7 @@
                 }
                 setCloudStatus('online', I18N[currentLang].cloudSaved);
                 setTimeout(() => {
-                    const count = Object.keys(storageData).length;
+                    const count = Object.values(storageData).filter(r => !!(r.name_en || r.name_zh || r.notes)).length;
                     setCloudStatus('online', `${I18N[currentLang].cloudOnline} (${count})`);
                 }, 2000);
             } catch (err) {
@@ -660,12 +1113,22 @@
             gridContainer.innerHTML = '';
             const filterText = searchInput.value.trim().toLowerCase();
             const t = I18N[currentLang];
+            visibleItems = [];
+
+            if (isCompactMode) {
+                gridContainer.classList.add('compact-mode');
+            } else {
+                gridContainer.classList.remove('compact-mode');
+            }
 
             for (const item of PUA_LIST) {
                 const rec = storageData[item.unicode_escape] || {};
-                const hasFilled = !!(rec.name_en || rec.name_zh);
+                const hasFilled = !!(rec.name_en || rec.name_zh || rec.notes);
 
-                if (onlyFilled && !hasFilled) {
+                if (filterMode === 'annotated' && !hasFilled) {
+                    continue;
+                }
+                if (filterMode === 'unannotated' && hasFilled) {
                     continue;
                 }
 
@@ -675,90 +1138,120 @@
                     const matchGlyph = item.glyph_name.toLowerCase().includes(filterText);
                     const matchEn = (rec.name_en || '').toLowerCase().includes(filterText);
                     const matchZh = (rec.name_zh || '').toLowerCase().includes(filterText);
-                    if (!matchHex && !matchEscape && !matchGlyph && !matchEn && !matchZh) {
+                    const matchNotes = (rec.notes || '').toLowerCase().includes(filterText);
+                    if (!matchHex && !matchEscape && !matchGlyph && !matchEn && !matchZh && !matchNotes) {
                         continue;
                     }
                 }
 
-                const card = document.createElement('div');
-                card.className = `card ${hasFilled ? 'is-filled' : ''}`;
-                card.dataset.escape = item.unicode_escape;
+                visibleItems.push(item);
 
-                const authorBadge = rec.author ? `<span class="contributor-tag">👤 ${rec.author}</span>` : '';
+                if (isCompactMode) {
+                    const tile = document.createElement('div');
+                    tile.className = `compact-tile ${hasFilled ? 'is-filled' : ''}`;
+                    tile.dataset.escape = item.unicode_escape;
+                    const tooltip = `${item.unicode_escape} (0x${item.hex})${rec.name_zh ? ' - ' + rec.name_zh : ''}${rec.name_en ? ' - ' + rec.name_en : ''}${rec.notes ? ' [' + rec.notes + ']' : ''}`;
+                    tile.title = tooltip;
 
-                card.innerHTML = `
-                    <div class="icon-row">
-                        <div class="icon-preview-box">
-                            <span class="game-icon">${item.char}</span>
-                        </div>
-                        <div class="icon-meta">
-                            <div style="display: flex; align-items: center; justify-content: space-between;">
-                                <span class="code-pill" title="点击复制 / Click to copy">${item.unicode_escape}</span>
-                                ${authorBadge}
+                    tile.innerHTML = `
+                        <span class="game-icon">${item.char}</span>
+                        <span class="tile-hex">${item.hex}</span>
+                    `;
+
+                    tile.addEventListener('click', () => {
+                        openModal(item);
+                    });
+
+                    gridContainer.appendChild(tile);
+                } else {
+                    const card = document.createElement('div');
+                    card.className = `card ${hasFilled ? 'is-filled' : ''}`;
+                    card.dataset.escape = item.unicode_escape;
+
+                    const authorBadge = rec.author ? `<span class="contributor-tag">👤 ${escapeHtml(rec.author)}</span>` : '';
+
+                    card.innerHTML = `
+                        <div class="icon-row">
+                            <div class="icon-preview-box">
+                                <span class="game-icon">${item.char}</span>
                             </div>
-                            <span class="glyph-name">Glyph: ${item.glyph_name}</span>
-                            <span class="glyph-name">Hex: 0x${item.hex} (Dec: ${item.code})</span>
+                            <div class="icon-meta">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span class="code-pill" title="点击复制 / Click to copy">${item.unicode_escape}</span>
+                                    ${authorBadge}
+                                </div>
+                                <span class="glyph-name">Glyph: ${item.glyph_name}</span>
+                                <span class="glyph-name">Hex: 0x${item.hex} (Dec: ${item.code})</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="inputs-row">
-                        <div class="field-group">
-                            <label>${t.labelEn}</label>
-                            <input type="text" class="text-input input-en" placeholder="${t.placeholderEn}" value="${rec.name_en ? escapeHtml(rec.name_en) : ''}">
+                        <div class="inputs-row">
+                            <div class="field-group">
+                                <label>${t.labelEn}</label>
+                                <input type="text" class="text-input input-en" placeholder="${t.placeholderEn}" value="${rec.name_en ? escapeHtml(rec.name_en) : ''}">
+                            </div>
+                            <div class="field-group">
+                                <label>${t.labelZh}</label>
+                                <input type="text" class="text-input input-zh" placeholder="${t.placeholderZh}" value="${rec.name_zh ? escapeHtml(rec.name_zh) : ''}">
+                            </div>
+                            <div class="field-group">
+                                <label>${t.labelNotes}</label>
+                                <input type="text" class="text-input input-notes" placeholder="${t.placeholderNotes}" value="${rec.notes ? escapeHtml(rec.notes) : ''}">
+                            </div>
                         </div>
-                        <div class="field-group">
-                            <label>${t.labelZh}</label>
-                            <input type="text" class="text-input input-zh" placeholder="${t.placeholderZh}" value="${rec.name_zh ? escapeHtml(rec.name_zh) : ''}">
-                        </div>
-                    </div>
-                `;
+                    `;
 
-                const inputEn = card.querySelector('.input-en');
-                const inputZh = card.querySelector('.input-zh');
-                const codePill = card.querySelector('.code-pill');
+                    const inputEn = card.querySelector('.input-en');
+                    const inputZh = card.querySelector('.input-zh');
+                    const inputNotes = card.querySelector('.input-notes');
+                    const codePill = card.querySelector('.code-pill');
 
-                codePill.addEventListener('click', () => {
-                    navigator.clipboard.writeText(item.unicode_escape);
-                    showToast(`${item.unicode_escape} ${t.copied}`);
-                });
+                    codePill.addEventListener('click', () => {
+                        navigator.clipboard.writeText(item.unicode_escape);
+                        showToast(`${item.unicode_escape} ${t.copied}`);
+                    });
 
-                const handleInputChange = () => {
-                    const valEn = inputEn.value.trim();
-                    const valZh = inputZh.value.trim();
-                    const esc = item.unicode_escape;
+                    const handleInputChange = () => {
+                        const valEn = inputEn.value.trim();
+                        const valZh = inputZh.value.trim();
+                        const valNotes = inputNotes.value.trim();
+                        const esc = item.unicode_escape;
 
-                    if (valEn || valZh) {
-                        const recData = {
-                            hex: item.hex,
-                            glyph_name: item.glyph_name,
-                            name_en: valEn,
-                            name_zh: valZh,
-                            author: getNickname(),
-                            updated_at: new Date().toISOString()
-                        };
-                        storageData[esc] = recData;
-                        card.classList.add('is-filled');
+                        if (valEn || valZh || valNotes) {
+                            const recData = {
+                                hex: item.hex,
+                                glyph_name: item.glyph_name,
+                                name_en: valEn,
+                                name_zh: valZh,
+                                notes: valNotes,
+                                author: getNickname(),
+                                updated_at: new Date().toISOString()
+                            };
+                            storageData[esc] = recData;
+                            card.classList.add('is-filled');
 
-                        // Debounce sync to Upstash
-                        clearTimeout(saveTimeoutMap[esc]);
-                        saveTimeoutMap[esc] = setTimeout(() => {
-                            syncKeyToCloud(esc, recData);
-                        }, 700);
-                    } else {
-                        delete storageData[esc];
-                        card.classList.remove('is-filled');
+                            // Debounce sync to Upstash
+                            clearTimeout(saveTimeoutMap[esc]);
+                            saveTimeoutMap[esc] = setTimeout(() => {
+                                syncKeyToCloud(esc, recData);
+                            }, 700);
+                        } else {
+                            delete storageData[esc];
+                            card.classList.remove('is-filled');
 
-                        clearTimeout(saveTimeoutMap[esc]);
-                        saveTimeoutMap[esc] = setTimeout(() => {
-                            syncKeyToCloud(esc, null);
-                        }, 700);
-                    }
-                    saveToStorage();
-                };
+                            clearTimeout(saveTimeoutMap[esc]);
+                            saveTimeoutMap[esc] = setTimeout(() => {
+                                syncKeyToCloud(esc, null);
+                            }, 700);
+                        }
+                        saveToStorage();
+                    };
 
-                inputEn.addEventListener('input', handleInputChange);
-                inputZh.addEventListener('input', handleInputChange);
+                    inputEn.addEventListener('input', handleInputChange);
+                    inputZh.addEventListener('input', handleInputChange);
+                    inputNotes.addEventListener('input', handleInputChange);
 
-                gridContainer.appendChild(card);
+                    gridContainer.appendChild(card);
+                }
             }
         }
 
@@ -774,16 +1267,16 @@
             renderCards();
         });
 
-        filterFilledBtn.addEventListener('click', () => {
-            onlyFilled = !onlyFilled;
-            filterFilledBtn.textContent = onlyFilled ? I18N[currentLang].filterAll : I18N[currentLang].filterFilled;
-            if (onlyFilled) {
-                filterFilledBtn.style.background = '#21262d';
-                filterFilledBtn.style.borderColor = 'var(--accent)';
-            } else {
-                filterFilledBtn.style.background = 'transparent';
-                filterFilledBtn.style.borderColor = 'var(--card-border)';
-            }
+        compactBtn.addEventListener('click', () => {
+            isCompactMode = !isCompactMode;
+            localStorage.setItem('tftf_pua_compact', isCompactMode ? 'true' : 'false');
+            updateCompactUI();
+            renderCards();
+        });
+
+        filterSelect.addEventListener('change', () => {
+            filterMode = filterSelect.value;
+            filterSelect.classList.toggle('is-filtered', filterMode !== 'all');
             renderCards();
         });
 
@@ -792,10 +1285,11 @@
             const exportResult = {};
             for (const item of PUA_LIST) {
                 const rec = storageData[item.unicode_escape];
-                if (rec && (rec.name_en || rec.name_zh)) {
+                if (rec && (rec.name_en || rec.name_zh || rec.notes)) {
                     exportResult[item.unicode_escape] = {
                         name_en: rec.name_en || "",
                         name_zh: rec.name_zh || "",
+                        notes: rec.notes || "",
                         glyph_name: item.glyph_name,
                         hex: item.hex,
                         author: rec.author || ""
@@ -842,6 +1336,7 @@
                         const rec = {
                             name_en: val.name_en || val.en || "",
                             name_zh: val.name_zh || val.zh || "",
+                            notes: val.notes || val.desc || val.note || "",
                             glyph_name: val.glyph_name || "",
                             hex: val.hex || "",
                             author: val.author || getNickname(),

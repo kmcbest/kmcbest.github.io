@@ -829,15 +829,29 @@
         }
 
         // ==================== DETAIL MODAL ====================
-        function openModal(item) {
+        let currentModalEl = null;
+
+        function openModal(item, sourceEl = null) {
             currentModalItem = item;
+            currentModalEl = sourceEl || gridContainer.querySelector(`[data-code="${item.code}"]`);
             renderModalBody(item);
             modalOverlay.classList.add('show');
         }
 
         function closeModal() {
             modalOverlay.classList.remove('show');
+            if (currentModalItem) {
+                const rec = storageData[currentModalItem.unicode_escape] || {};
+                const hasFilled = !!(rec.name_en || rec.name_zh || rec.notes);
+                const targetEl = currentModalEl || gridContainer.querySelector(`[data-code="${currentModalItem.code}"]`);
+                if (targetEl) {
+                    targetEl.classList.toggle('is-filled', hasFilled);
+                    targetEl.title = `${currentModalItem.unicode_escape} (0x${currentModalItem.hex})${rec.name_zh ? ' - ' + rec.name_zh : ''}${rec.name_en ? ' - ' + rec.name_en : ''}${rec.notes ? ' [' + rec.notes + ']' : ''}`;
+                }
+            }
             currentModalItem = null;
+            currentModalEl = null;
+            updateStats();
         }
 
         function navigateModal(direction) {
@@ -846,7 +860,9 @@
             let nextIndex = currentIndex + direction;
             if (nextIndex < 0) nextIndex = visibleItems.length - 1;
             if (nextIndex >= visibleItems.length) nextIndex = 0;
-            openModal(visibleItems[nextIndex]);
+            const nextItem = visibleItems[nextIndex];
+            const nextEl = gridContainer.querySelector(`[data-code="${nextItem.code}"]`);
+            openModal(nextItem, nextEl);
         }
 
         function renderModalBody(item) {
@@ -916,13 +932,14 @@
                     };
                     storageData[esc] = recData;
 
-                    // Update corresponding card/tile in background grid
-                    const tile = gridContainer.querySelector(`[data-escape="${esc}"]`);
-                    if (tile) {
-                        tile.classList.add('is-filled');
-                        const inpE = tile.querySelector('.input-en');
-                        const inpZ = tile.querySelector('.input-zh');
-                        const inpN = tile.querySelector('.input-notes');
+                    // Update corresponding card/tile in background grid immediately
+                    const targetEl = currentModalEl || gridContainer.querySelector(`[data-code="${item.code}"]`);
+                    if (targetEl) {
+                        targetEl.classList.add('is-filled');
+                        targetEl.title = `${item.unicode_escape} (0x${item.hex})${valZh ? ' - ' + valZh : ''}${valEn ? ' - ' + valEn : ''}${valNotes ? ' [' + valNotes + ']' : ''}`;
+                        const inpE = targetEl.querySelector('.input-en');
+                        const inpZ = targetEl.querySelector('.input-zh');
+                        const inpN = targetEl.querySelector('.input-notes');
                         if (inpE) inpE.value = valEn;
                         if (inpZ) inpZ.value = valZh;
                         if (inpN) inpN.value = valNotes;
@@ -934,12 +951,13 @@
                     }, 700);
                 } else {
                     delete storageData[esc];
-                    const tile = gridContainer.querySelector(`[data-escape="${esc}"]`);
-                    if (tile) {
-                        tile.classList.remove('is-filled');
-                        const inpE = tile.querySelector('.input-en');
-                        const inpZ = tile.querySelector('.input-zh');
-                        const inpN = tile.querySelector('.input-notes');
+                    const targetEl = currentModalEl || gridContainer.querySelector(`[data-code="${item.code}"]`);
+                    if (targetEl) {
+                        targetEl.classList.remove('is-filled');
+                        targetEl.title = `${item.unicode_escape} (0x${item.hex})`;
+                        const inpE = targetEl.querySelector('.input-en');
+                        const inpZ = targetEl.querySelector('.input-zh');
+                        const inpN = targetEl.querySelector('.input-notes');
                         if (inpE) inpE.value = '';
                         if (inpZ) inpZ.value = '';
                         if (inpN) inpN.value = '';
@@ -1149,6 +1167,7 @@
                 if (isCompactMode) {
                     const tile = document.createElement('div');
                     tile.className = `compact-tile ${hasFilled ? 'is-filled' : ''}`;
+                    tile.dataset.code = item.code;
                     tile.dataset.escape = item.unicode_escape;
                     const tooltip = `${item.unicode_escape} (0x${item.hex})${rec.name_zh ? ' - ' + rec.name_zh : ''}${rec.name_en ? ' - ' + rec.name_en : ''}${rec.notes ? ' [' + rec.notes + ']' : ''}`;
                     tile.title = tooltip;
@@ -1159,13 +1178,14 @@
                     `;
 
                     tile.addEventListener('click', () => {
-                        openModal(item);
+                        openModal(item, tile);
                     });
 
                     gridContainer.appendChild(tile);
                 } else {
                     const card = document.createElement('div');
                     card.className = `card ${hasFilled ? 'is-filled' : ''}`;
+                    card.dataset.code = item.code;
                     card.dataset.escape = item.unicode_escape;
 
                     const authorBadge = rec.author ? `<span class="contributor-tag">👤 ${escapeHtml(rec.author)}</span>` : '';

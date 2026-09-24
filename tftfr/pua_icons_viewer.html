@@ -713,16 +713,13 @@
 
         let currentLang = localStorage.getItem('tftf_pua_lang') || 'en';
         let storageData = JSON.parse(localStorage.getItem('tftf_pua_skills_data') || '{}');
-        const BLEED_KEY = String.fromCharCode(92) + 'ue401';
-        if (!storageData[BLEED_KEY]) {
-            storageData[BLEED_KEY] = {
-                name_en: "Bleed",
-                name_zh: "流血",
-                notes: "",
-                author: "kmcbest",
-                glyph_name: "uniE401",
-                hex: "E401"
-            };
+        
+        // Built-in seed community annotations (offline fallback cache, 84 items)
+        const SEED_TAGS = {"\\ue401": {"name_en": "Bleed", "name_zh": "流血", "author": "kmcbest"}, "\\ue402": {"hex": "E402", "glyph_name": "uniE402", "name_en": "Double Edge", "name_zh": "双刃剑", "author": "KMC", "updated_at": "2026-09-17T03:39:33.482Z"}, "\\ue404": {"hex": "E404", "glyph_name": "uniE404", "name_en": "Crit Damage", "name_zh": "暴击伤害", "notes": "", "author": "KMC", "updated_at": "2026-09-22T16:10:40.857Z"}, "\\ue40d": {"hex": "E40D", "glyph_name": "uniE40D", "name_en": "Crit Rate/Precision Ammo", "name_zh": "暴击几率/精准弹药", "notes": "", "author": "KMC", "updated_at": "2026-09-22T15:19:36.856Z"}, "\\ue41e": {"hex": "E41E", "glyph_name": "uniE41E", "name_en": "Melee Crit Rate/Backstab/Shield Break", "name_zh": "近战暴击率/背刺/护盾崩解", "notes": "", "author": "KMC", "updated_at": "2026-09-21T16:32:41.681Z"}, "\\ue501": {"hex": "E501", "glyph_name": "shield_up", "name_en": "Block Proficiency", "name_zh": "格挡精通", "notes": "", "author": "KMC", "updated_at": "2026-09-22T13:31:39.491Z"}, "\\ue515": {"hex": "E515", "glyph_name": "u1F6E1", "name_en": "Shielding (Rhinox)", "name_zh": "防护（犀牛的）", "author": "Community", "updated_at": "2026-09-21T15:12:23.873Z"}, "\\ue516": {"hex": "E516", "glyph_name": "uniE516", "name_en": "Armor Break/Armor Buff/Crit Armor", "name_zh": "破甲/护甲增益/暴击护甲", "notes": "", "author": "KMC", "updated_at": "2026-09-22T15:30:26.079Z"}, "\\ue185": {"hex": "E185", "glyph_name": "uniE185", "name_en": "Weapon Specialist", "name_zh": "武器专家", "notes": "Synergy", "author": "Community", "updated_at": "2026-09-21T15:39:25.212Z"}, "\\ue507": {"hex": "E507", "glyph_name": "uniE507", "name_en": "Resistance Shift", "name_zh": "抗性转换", "notes": "", "author": "KMC", "updated_at": "2026-09-22T13:58:52.433Z"}, "\\ue60f": {"hex": "E60F", "glyph_name": "uniE60F", "name_en": "Debuff Fusion", "name_zh": "减益融合", "notes": "", "author": "KMC", "updated_at": "2026-09-22T13:43:09.223Z"}, "\\ue703": {"hex": "E703", "glyph_name": "uniE703", "name_en": "Signature Buff", "name_zh": "招牌强化", "notes": "", "author": "KMC", "updated_at": "2026-09-22T14:22:43.836Z"}, "\\ue907": {"hex": "E907", "glyph_name": "uniE907", "name_en": "Fear", "name_zh": "恐惧", "notes": "", "author": "KMC", "updated_at": "2026-09-22T15:24:18.788Z"}, "\\ue911": {"hex": "E911", "glyph_name": "uniE911", "name_en": "Parry Shield/Melee Reflect", "name_zh": "招架护盾/近战反射", "notes": "Jetfire/G1 Ironhide", "author": "KMC", "updated_at": "2026-09-22T15:35:08.274Z"}, "\\ue915": {"hex": "E915", "glyph_name": "uniE915", "name_en": "Unstoppable", "name_zh": "不可阻挡", "notes": "俗称霸体", "author": "Community", "updated_at": "2026-09-21T15:53:00.688Z"}, "\\ue937": {"hex": "E937", "glyph_name": "uniE937", "name_en": "Inferno Ammo", "name_zh": "地狱弹药", "notes": "", "author": "KMC", "updated_at": "2026-09-22T15:17:42.731Z"}, "\\ue303": {"hex": "E303", "glyph_name": "uniE303", "name_en": "Demolition Class", "name_zh": "", "author": "Shwance", "updated_at": "2026-09-17T07:47:40.442Z"}, "\\ue409": {"hex": "E409", "glyph_name": "uniE409", "name_en": "Crit Rate Resistance/Armor Piercing", "name_zh": "暴击抗性/护甲穿透", "notes": "", "author": "KMC", "updated_at": "2026-09-21T16:41:27.651Z"}, "\\ue912": {"hex": "E912", "glyph_name": "uniE912", "name_en": "Crit Rate Debuff", "name_zh": "暴击率减益", "notes": "", "author": "KMC", "updated_at": "2026-09-22T16:04:24.420Z"}, "\\ue952": {"hex": "E952", "glyph_name": "uniE952", "name_en": "Decelerate", "name_zh": "减速", "notes": "", "author": "KMC", "updated_at": "2026-09-22T13:35:58.584Z"}, "\\ue519": {"hex": "E519", "glyph_name": "uniE519", "name_en": "Interference/Dazed", "name_zh": "干扰/目眩", "notes": "Blaster", "author": "KMC", "updated_at": "2026-09-22T15:22:28.543Z"}, "\\ue606": {"hex": "E606", "glyph_name": "uniE606", "name_en": "Power Rate/Power Gain", "name_zh": "能量功率/能量获取", "notes": "", "author": "Community", "updated_at": "2026-09-21T16:07:05.429Z"}, "\\ue160": {"hex": "E160", "glyph_name": "uni2423.011", "name_en": "Maximals/Feral Strike", "name_zh": "巨无霸/野生突击", "notes": "Cheetor's signature", "author": "KMC", "updated_at": "2026-09-21T16:18:01.143Z"}, "\\ue40c": {"hex": "E40C", "glyph_name": "uniE40C", "name_en": "", "name_zh": "爵士的混乱？", "author": "Community", "updated_at": "2026-09-21T15:10:08.302Z"}, "\\ue509": {"hex": "E509", "glyph_name": "uniE509", "name_en": "Melee Evade", "name_zh": "近战规避", "author": "KMC", "updated_at": "2026-09-17T03:55:30.044Z"}, "\\ue50f": {"hex": "E50F", "glyph_name": "uniE50F", "name_en": "Block Damage", "name_zh": "格挡反伤", "notes": "Dinobot's block", "author": "KMC", "updated_at": "2026-09-22T13:31:16.431Z"}, "\\ue901": {"hex": "E901", "glyph_name": "uniE901", "name_en": "Backfire/Venom Backfire", "name_zh": "逆火/毒液逆火", "notes": "", "author": "KMC", "updated_at": "2026-09-22T15:23:00.646Z"}, "\\ue905": {"hex": "E905", "glyph_name": "uniE905", "name_en": "Crit Damage Debuff", "name_zh": "暴击伤害减益", "notes": "", "author": "KMC", "updated_at": "2026-09-22T16:07:59.361Z"}, "\\ue524": {"hex": "E524", "glyph_name": "uniE524", "name_en": "Acid/Glass Gas Gun", "name_zh": "酸液/玻璃瓦斯枪", "notes": "", "author": "KMC", "updated_at": "2026-09-22T14:22:05.509Z"}, "\\ue419": {"hex": "E419", "glyph_name": "uniE419", "name_en": "Special 3", "name_zh": "特殊攻击 3", "author": "KMC", "updated_at": "2026-09-17T03:40:33.077Z"}, "\\ue41b": {"hex": "E41B", "glyph_name": "uniE41B", "name_en": "Ranged Buff", "name_zh": "远程增益", "notes": "", "author": "KMC", "updated_at": "2026-09-21T16:13:37.629Z"}, "\\ue405": {"hex": "E405", "glyph_name": "uniE405", "name_en": "Swordmaster", "name_zh": "剑圣", "notes": "", "author": "KMC", "updated_at": "2026-09-21T16:24:40.801Z"}, "\\ue91b": {"hex": "E91B", "glyph_name": "uniE91B", "name_en": "Confusion", "name_zh": "混乱", "notes": "Jazz", "author": "KMC", "updated_at": "2026-09-21T16:35:06.192Z"}, "\\ue950": {"hex": "E950", "glyph_name": "uniE950", "name_en": "Nullify", "name_zh": "驱散", "notes": "", "author": "Community", "updated_at": "2026-09-21T15:44:41.480Z"}, "\\ue214": {"hex": "E214", "glyph_name": "uniE214", "name_en": "Starscream's Seekers", "name_zh": "红蜘蛛的游击军", "notes": "", "author": "Community", "updated_at": "2026-09-21T15:50:40.163Z"}, "\\ue412": {"hex": "E412", "glyph_name": "uniE412", "name_en": "Melee Buff/Suppression", "name_zh": "近战增益/镇压", "notes": "Rhinox against bleeding opponents/Prowl", "author": "KMC", "updated_at": "2026-09-22T15:35:44.612Z"}, "\\ue416": {"hex": "E416", "glyph_name": "uniE416", "name_en": "Enforcer", "name_zh": "执行者", "notes": "Kickback/Motormaster/Ramjet", "author": "KMC", "updated_at": "2026-09-21T16:37:59.716Z"}, "\\ue951": {"hex": "E951", "glyph_name": "uniE951", "name_en": "Role Models", "name_zh": "偶像", "notes": "Synergy Bumblebee GS", "author": "KMC", "updated_at": "2026-09-21T16:28:20.863Z"}, "\\ue520": {"hex": "E520", "glyph_name": "uniE520", "name_en": "Special Damage Down", "name_zh": "特殊攻击下降", "notes": "", "author": "Community", "updated_at": "2026-09-21T15:51:52.368Z"}, "\\ue60a": {"hex": "E60A", "glyph_name": "uniE60A", "name_en": "Resistance Debuff", "name_zh": "抗性减益", "notes": "", "author": "KMC", "updated_at": "2026-09-22T14:17:38.402Z"}, "\\ue914": {"hex": "E914", "glyph_name": "uniE914", "name_en": "Shock/Stormfall Blast", "name_zh": "震击/风暴喷发", "notes": "Windblade", "author": "KMC", "updated_at": "2026-09-21T16:23:53.942Z"}, "\\ue916": {"hex": "E916", "glyph_name": "uniE916", "name_en": "Attack Debuff/Ramming", "name_zh": "攻击减益/冲压", "notes": "", "author": "KMC", "updated_at": "2026-09-22T15:32:24.194Z"}, "\\ue942": {"hex": "E942", "glyph_name": "uniE942", "name_en": "Will Power", "name_zh": "意志力", "notes": "", "author": "KMC", "updated_at": "2026-09-22T15:31:13.609Z"}, "\\ue22b": {"hex": "E22B", "glyph_name": "uniE22B", "name_en": "Leadership", "name_zh": "领导力", "notes": "Synergy", "author": "Community", "updated_at": "2026-09-21T15:40:00.291Z"}, "\\ue518": {"hex": "E518", "glyph_name": "uniE518", "name_en": "Ranged Evade", "name_zh": "远程规避", "author": "KMC", "updated_at": "2026-09-17T03:55:54.182Z"}, "\\ue90c": {"hex": "E90C", "glyph_name": "uniE90C", "name_en": "Repair Block", "name_zh": "修复阻止", "notes": "Shockwave", "author": "Community", "updated_at": "2026-09-21T15:54:21.744Z"}, "\\ue92b": {"hex": "E92B", "glyph_name": "uniE92B", "name_en": "Outlaws", "name_zh": "法外狂徒", "notes": "", "author": "KMC", "updated_at": "2026-09-21T16:23:04.703Z"}, "\\ue933": {"hex": "E933", "glyph_name": "uniE933", "name_en": "Consume", "name_zh": "消耗", "notes": "Kickback", "author": "KMC", "updated_at": "2026-09-21T16:36:31.437Z"}, "\\ue408": {"hex": "E408", "glyph_name": "uniE408", "name_en": "Forged to Serve", "name_zh": "千炼为侍", "notes": "", "author": "KMC", "updated_at": "2026-09-21T16:22:38.619Z"}, "\\ue523": {"hex": "E523", "glyph_name": "uniE523", "name_en": "Power Lock", "name_zh": "能量锁定", "notes": "", "author": "Community", "updated_at": "2026-09-21T15:45:55.574Z"}, "\\ue605": {"hex": "E605", "glyph_name": "uniE605", "name_en": "Stun", "name_zh": "眩晕", "author": "Community", "updated_at": "2026-09-21T15:10:37.125Z"}, "\\ue608": {"hex": "E608", "glyph_name": "uniE608", "name_en": "Power Flow", "name_zh": "能量涌动", "author": "Community", "updated_at": "2026-09-21T15:00:13.834Z"}, "\\ue705": {"hex": "E705", "glyph_name": "uniE705", "name_en": "Class Wheel", "name_zh": "类别环", "notes": "", "author": "KMC", "updated_at": "2026-09-22T15:27:04.346Z"}, "\\ue810": {"hex": "E810", "glyph_name": "uniE810", "name_en": "Dark Burn", "name_zh": "黑暗燃烧", "notes": "", "author": "KMC", "updated_at": "2026-09-22T14:18:23.448Z"}, "\\ue92a": {"hex": "E92A", "glyph_name": "uniE92A", "name_en": "Sky Assault", "name_zh": "空袭", "notes": "Anti-evade synergy", "author": "KMC", "updated_at": "2026-09-21T16:25:26.325Z"}, "\\ue302": {"hex": "E302", "glyph_name": "uniE302", "name_en": "Tactician Class", "name_zh": "", "author": "Shwance", "updated_at": "2026-09-17T07:47:45.938Z"}, "\\ue406": {"hex": "E406", "glyph_name": "uniE406", "name_en": "Attack Rating", "name_zh": "攻击评分", "notes": "Synergy Bonus", "author": "Community", "updated_at": "2026-09-21T15:35:09.860Z"}, "\\ue41d": {"hex": "E41D", "glyph_name": "uniE41D", "name_en": "Burn", "name_zh": "燃烧", "author": "KMC", "updated_at": "2026-09-17T03:40:53.561Z"}, "\\ue602": {"hex": "E602", "glyph_name": "uniE602", "name_en": "Pristine State", "name_zh": "整洁状态", "notes": "", "author": "KMC", "updated_at": "2026-09-22T15:40:21.112Z"}, "\\ue607": {"hex": "E607", "glyph_name": "uniE607", "name_en": "Power Leak/Power Burn/Power Steal", "name_zh": "能量流失/能量燃烧/能量窃取", "notes": "", "author": "KMC", "updated_at": "2026-09-21T16:21:34.764Z"}, "\\ue980": {"hex": "E980", "glyph_name": "uniE980", "name_en": "Liteunant", "name_zh": "中尉", "notes": "synergy", "author": "Community", "updated_at": "2026-09-21T15:59:00.020Z"}, "\\ue701": {"hex": "E701", "glyph_name": "uniE701", "name_en": "Dark Field", "name_zh": "黑暗场", "notes": "", "author": "KMC", "updated_at": "2026-09-22T13:49:18.874Z"}, "\\ue301": {"hex": "E301", "glyph_name": "uniE301", "name_en": "Brawler Class", "name_zh": "", "author": "Shwance", "updated_at": "2026-09-17T07:47:50.817Z"}, "\\ue304": {"hex": "E304", "glyph_name": "uniE304", "name_en": "Scout Class", "name_zh": "", "author": "Shwance", "updated_at": "2026-09-17T07:47:06.940Z"}, "\\ue407": {"hex": "E407", "glyph_name": "uniE407", "name_en": "timer", "name_zh": "计时器", "notes": "countdown for certain buff/debuff like Rhinox's power lock", "author": "Community", "updated_at": "2026-09-21T15:43:52.377Z"}, "\\ue41f": {"hex": "E41F", "glyph_name": "uniE41F", "name_en": "Unblockable", "name_zh": "无法格挡", "notes": "", "author": "Community", "updated_at": "2026-09-21T15:52:29.723Z"}, "\\ue506": {"hex": "E506", "glyph_name": "uniE506", "name_en": "Resistance", "name_zh": "抗性", "notes": "燃烧和震击抗性", "author": "Community", "updated_at": "2026-09-21T15:41:46.566Z"}, "\\ue514": {"hex": "E514", "glyph_name": "uniE514", "name_en": "Blemished State", "name_zh": "污损状态", "notes": "Sunstreaker", "author": "KMC", "updated_at": "2026-09-22T15:41:39.526Z"}, "\\ue91a": {"hex": "E91A", "glyph_name": "uniE91A", "name_en": "Relic of Fury/Relic of Preservation/Overwhelming Power", "name_zh": "狂怒遗迹/保存遗迹/势不可挡的力量", "notes": "", "author": "KMC", "updated_at": "2026-09-22T15:29:16.031Z"}, "\\ue168": {"hex": "E168", "glyph_name": "uniE168", "name_en": "Discipline", "name_zh": "训诫", "notes": "", "author": "KMC", "updated_at": "2026-09-22T13:52:48.736Z"}, "\\ue418": {"hex": "E418", "glyph_name": "uniE418", "name_en": "Special 2", "name_zh": "特殊攻击2", "author": "KMC", "updated_at": "2026-09-17T03:40:30.014Z"}, "\\ue511": {"hex": "E511", "glyph_name": "uniE511", "name_en": "Repair", "name_zh": "修复", "author": "Community", "updated_at": "2026-09-21T15:00:28.811Z"}, "\\ue903": {"hex": "E903", "glyph_name": "uniE903", "name_en": "Debuff down", "name_zh": "减益减弱", "notes": "", "author": "KMC", "updated_at": "2026-09-22T15:38:51.131Z"}, "\\ue906": {"hex": "E906", "glyph_name": "uniE906", "name_en": "Crit Damage", "name_zh": "暴击伤害", "notes": "", "author": "KMC", "updated_at": "2026-09-21T16:20:28.465Z"}, "\\ue41c": {"hex": "E41C", "glyph_name": "uniE41C", "name_en": "Special Damage", "name_zh": "特殊伤害", "author": "KMC", "updated_at": "2026-09-17T03:40:47.113Z"}, "\\ue306": {"hex": "E306", "glyph_name": "uniE306", "name_en": "Tech Class/Brain Gain/Upgrade", "name_zh": "科技系/脑力增加/升级", "notes": "", "author": "KMC", "updated_at": "2026-09-22T16:05:59.549Z"}, "\\ue411": {"hex": "E411", "glyph_name": "uniE411", "name_en": "Espionage Specialists", "name_zh": "间谍专家", "notes": "", "author": "Community", "updated_at": "2026-09-21T16:10:00.422Z"}, "\\ue417": {"hex": "E417", "glyph_name": "uniE417", "name_en": "Special 1", "name_zh": "特殊攻击 1", "author": "KMC", "updated_at": "2026-09-17T03:40:15.297Z"}, "\\ue60e": {"hex": "E60E", "glyph_name": "uniE60E", "name_en": "Self-Diagnosis", "name_zh": "自我诊断", "author": "Community", "updated_at": "2026-09-21T15:04:07.495Z"}, "\\ue90f": {"hex": "E90F", "glyph_name": "uniE90F", "name_en": "Gain Armor", "name_zh": "获得护甲", "notes": "", "author": "KMC", "updated_at": "2026-09-22T15:19:00.781Z"}, "\\ue910": {"hex": "E910", "glyph_name": "uniE910", "name_en": "Fusion Cannon", "name_zh": "聚合炮", "notes": "", "author": "KMC", "updated_at": "2026-09-22T13:41:19.383Z"}, "\\ue305": {"hex": "E305", "glyph_name": "uniE305", "name_en": "Warrior Class", "name_zh": "", "author": "Shwance", "updated_at": "2026-09-17T07:46:35.957Z"}, "\\ue508": {"hex": "E508", "glyph_name": "uniE508", "name_en": "Armor (synergy)", "name_zh": "护甲（协同奖励）", "author": "Community", "updated_at": "2026-09-21T15:13:32.477Z"}, "\\ue90a": {"hex": "E90A", "glyph_name": "uniE90A", "name_en": "Dark Power/Subspace Impulse Cloner", "name_zh": "黑暗能量/子空间脉冲克隆体", "notes": "", "author": "KMC", "updated_at": "2026-09-22T13:34:08.898Z"}};
+        for (const [k, v] of Object.entries(SEED_TAGS)) {
+            if (!storageData[k]) {
+                storageData[k] = v;
+            }
         }
         let filterMode = 'all'; // 'all' | 'annotated' | 'unannotated'
         let isCompactMode = localStorage.getItem('tftf_pua_compact') === 'true';
@@ -1029,10 +1026,12 @@
         });
 
         // ==================== UPSTASH CLOUD SYNC ====================
-        async function fetchFromCloud() {
+        async function fetchFromCloud(retryCount = 1) {
             setCloudStatus('syncing', I18N[currentLang].cloudSyncing);
+            // Relax timeout to 15s to comfortably accommodate cross-border TLS handshakes and payload transfers
+            const timeoutMs = 15000;
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 4500);
+            const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
 
             try {
                 const resp = await fetch(`${UPSTASH_CONFIG.url}/hgetall/${UPSTASH_CONFIG.hashKey}`, {
@@ -1075,7 +1074,12 @@
                 }
             } catch (err) {
                 clearTimeout(timeoutId);
-                console.warn("Upstash fetch notice (using local cache):", err.message || err);
+                if (retryCount > 0) {
+                    console.warn(`Upstash fetch failed (${err.name || err.message}), retrying in 1s...`, err);
+                    await new Promise(r => setTimeout(r, 1000));
+                    return fetchFromCloud(retryCount - 1);
+                }
+                console.warn("Upstash fetch notice (using local/seed cache):", err.message || err);
                 setCloudStatus('offline', I18N[currentLang].cloudOffline);
             } finally {
                 renderCards();
@@ -1084,32 +1088,31 @@
         }
 
         async function syncKeyToCloud(escapeKey, record) {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 12000);
             try {
-                if (record && (record.name_en || record.name_zh || record.notes)) {
-                    await fetch(UPSTASH_CONFIG.url, {
-                        method: "POST",
-                        headers: {
-                            "Authorization": `Bearer ${UPSTASH_CONFIG.token}`,
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(["HSET", UPSTASH_CONFIG.hashKey, escapeKey, JSON.stringify(record)])
-                    });
-                } else {
-                    await fetch(UPSTASH_CONFIG.url, {
-                        method: "POST",
-                        headers: {
-                            "Authorization": `Bearer ${UPSTASH_CONFIG.token}`,
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(["HDEL", UPSTASH_CONFIG.hashKey, escapeKey])
-                    });
-                }
+                const body = record && (record.name_en || record.name_zh || record.notes)
+                    ? ["HSET", UPSTASH_CONFIG.hashKey, escapeKey, JSON.stringify(record)]
+                    : ["HDEL", UPSTASH_CONFIG.hashKey, escapeKey];
+
+                const resp = await fetch(UPSTASH_CONFIG.url, {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${UPSTASH_CONFIG.token}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(body),
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
                 setCloudStatus('online', I18N[currentLang].cloudSaved);
                 setTimeout(() => {
                     const count = Object.values(storageData).filter(r => !!(r.name_en || r.name_zh || r.notes)).length;
                     setCloudStatus('online', `${I18N[currentLang].cloudOnline} (${count})`);
                 }, 2000);
             } catch (err) {
+                clearTimeout(timeoutId);
                 console.error("Upstash save error:", err);
                 setCloudStatus('offline', "云端保存失败 / Sync Error");
             }

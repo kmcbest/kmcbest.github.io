@@ -92,16 +92,19 @@ KNOWN_NAME_FIXES = {
 
 # 常见平台与番号正则表达式
 _FC2_PAT   = re.compile(r'\bFC2(?:[-_\s]?PPV)?[-_\s]?(\d{5,8})\b', re.I)
-_1PON_PAT  = re.compile(r'\b(?:1Pondo[-_\s]+(\d{6}[-_]\d{3})|(\d{6}[-_]\d{3})[-_]1pon)\b', re.I)
-_CARIB_PAT = re.compile(r'\b(?:Caribbeancom[-_\s]+(\d{6}[-_]\d{3})|(\d{6}[-_]\d{3})[-_]carib)\b', re.I)
-_HEYZO_PAT = re.compile(r'\bHEYZO[-_\s]+(\d{3,5})\b', re.I)
+_1PON_PAT  = re.compile(r'\b(?:1Pondo|1pon)[-_\s]+(\d{6}[-_]\d{2,4})\b', re.I)
+_CARIB_PAT = re.compile(r'\b(?:Caribbeancom|Carib)[-_\s]+(\d{6}[-_]\d{2,4})\b', re.I)
+_PACO_PAT  = re.compile(r'\b(?:Pacopacomama|paco)[-_\s]+(\d{6}[-_]\d{2,4})\b', re.I)
+_10MU_PAT  = re.compile(r'\b(?:10musume|10mu)[-_\s]+(\d{6}[-_]\d{2,4})\b', re.I)
+_HEYZO_PAT = re.compile(r'\bHEYZO(?:_hd|_lt)?[-_\s]+(\d{3,5})\b', re.I)
 _HEYD_PAT  = re.compile(r'\bHeydouga[-_\s]+(\d{4}[-_\s]\d{2,4})\b', re.I)
+_SUFFIX_BRAND_PAT = re.compile(r'\b(\d{6}[-_]\d{2,4})[-_]?(carib|1pon|10mu|paco)\b', re.I)
 
 # 增强的标准与变体 JAV 番号正则：
 # 匹配各种带连字符、下划线、空格、或紧密连接的番号，例如：
 # SPRD-1233C, SPRD1233C, SPRD 1233C, SPRD-1233-RM-C, nacr-282, xrw-642, ABP-001, MD0190, PM086 等
 _JAV_ENHANCED = re.compile(
-    r'(?<![A-Za-z0-9])([A-Za-z]{2,7})[-_\s]?(\d{2,5})([A-Za-z]?)(?:[-_](?:c|ch|rm|uc|sub|cd\d|part\d|uncensored|4k|fhd))*\b',
+    r'(?<![A-Za-z0-9])([A-Za-z]{2,7})[-_\s]?(\d{2,5})([A-Za-z]?)(?:[-_](?:c|ch|rm|uc|sub|cd\d|part\d|uncensored|4k|fhd))?',
     re.I
 )
 
@@ -113,7 +116,7 @@ _IGNORE_PREFIXES = {
     'DISC', 'PART', 'VOL', 'EP', 'SET', 'FILE', 'CLIP', 'SAMPLE', 'PREVIEW',
     'FLASH', 'PHOTO', 'BOOK', 'CHAT', 'LIVE', 'DATE', 'EXTRA', 'BONUS',
     'GIRL', 'MISS', 'ASIA', 'TOKYO', 'GOOD', 'LOVE', 'BABY', 'HOT',
-    'DOC', 'TXT', 'ZIP', 'RAR'
+    'DOC', 'TXT', 'ZIP', 'RAR', 'VID', 'HTTP', 'WWW', 'COM', 'NET', 'ORG'
 }
 
 def extract_primary_code(text: str):
@@ -123,40 +126,63 @@ def extract_primary_code(text: str):
     if not text:
         return None, None, 'misc', False, False
 
-    # 1. FC2 (如 FC2PPV 4753808, FC2-PPV-4753808, FC2 4753808)
+    # 1. FC2
     m = _FC2_PAT.search(text)
     if m:
         code_str = f'FC2PPV-{m.group(1)}'
         return code_str, code_str, 'fc2', False, False
 
-    # 2. 1Pondo (如 1Pondo 050325_001, 050325_001-1pon)
+    # 2. 1Pondo
     m = _1PON_PAT.search(text)
     if m:
-        num = (m.group(1) or m.group(2)).replace('_', '-')
+        num = m.group(1).replace('_', '-')
         code_str = f'1PON-{num}'
         return code_str, code_str, 'jav', False, False
 
-    # 3. Caribbeancom (如 Caribbeancom 012426-001, 012426-001-carib)
+    # 3. Caribbeancom
     m = _CARIB_PAT.search(text)
     if m:
-        num = (m.group(1) or m.group(2)).replace('_', '-')
+        num = m.group(1).replace('_', '-')
         code_str = f'CARIB-{num}'
         return code_str, code_str, 'jav', False, False
 
-    # 4. HEYZO
+    # 4. Pacopacomama
+    m = _PACO_PAT.search(text)
+    if m:
+        num = m.group(1).replace('_', '-')
+        code_str = f'PACO-{num}'
+        return code_str, code_str, 'jav', False, False
+
+    # 5. 10musume
+    m = _10MU_PAT.search(text)
+    if m:
+        num = m.group(1).replace('_', '-')
+        code_str = f'10MU-{num}'
+        return code_str, code_str, 'jav', False, False
+
+    # 6. 后缀平台形式，如 013120-001-carib
+    m = _SUFFIX_BRAND_PAT.search(text)
+    if m:
+        num = m.group(1).replace('_', '-')
+        brand_map = {'carib': 'CARIB', '1pon': '1PON', '10mu': '10MU', 'paco': 'PACO'}
+        brand = brand_map.get(m.group(2).lower(), 'CARIB')
+        code_str = f'{brand}-{num}'
+        return code_str, code_str, 'jav', False, False
+
+    # 7. HEYZO
     m = _HEYZO_PAT.search(text)
     if m:
         code_str = f'HEYZO-{m.group(1)}'
         return code_str, code_str, 'jav', False, False
 
-    # 5. Heydouga
+    # 8. Heydouga
     m = _HEYD_PAT.search(text)
     if m:
         num_clean = re.sub(r'[-_\s]+', '-', m.group(1))
         code_str = f'HEYDOUGA-{num_clean}'
         return code_str, code_str, 'jav', False, False
 
-    # 6. 增强型 JAV 匹配 (支持大小写、带C字幕尾缀、空格分隔等)
+    # 9. 增强型 JAV 匹配 (支持大小写、带C字幕尾缀、空格分隔等)
     for m in _JAV_ENHANCED.finditer(text):
         pre = m.group(1).upper()
         if pre in _IGNORE_PREFIXES:

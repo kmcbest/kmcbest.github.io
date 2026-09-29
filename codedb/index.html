@@ -422,6 +422,124 @@
       opacity: 0.4;
       cursor: not-allowed;
     }
+
+    /* Mobile Responsive Optimizations */
+    .drawer-btn {
+      display: none;
+      background: #21262d;
+      border: 1px solid var(--panel-border);
+      color: #58a6ff;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      align-items: center;
+      gap: 6px;
+    }
+    .drawer-btn:active { background: #30363d; }
+
+    #sidebar-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(2px);
+      z-index: 998;
+    }
+
+    @media (max-width: 768px) {
+      .drawer-btn { display: inline-flex; }
+
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      sidebar {
+        position: fixed;
+        left: -300px;
+        top: 0;
+        bottom: 0;
+        width: 285px;
+        height: 100vh;
+        z-index: 999;
+        box-shadow: 6px 0 24px rgba(0,0,0,0.7);
+        transition: left 0.24s cubic-bezier(0.4, 0, 0.2, 1);
+        padding: 16px 14px;
+      }
+      sidebar.open {
+        left: 0;
+      }
+      #sidebar-backdrop.active {
+        display: block;
+      }
+
+      header {
+        padding: 8px 12px;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .logo-title {
+        font-size: 13px;
+      }
+      #disk-info {
+        display: none;
+      }
+
+      main {
+        padding: 12px 10px;
+      }
+
+      .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+      .search-input {
+        width: 100%;
+        padding: 9px 12px;
+        font-size: 13px;
+      }
+      .filter-tabs {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        width: 100%;
+      }
+      .filter-btn {
+        text-align: center;
+        padding: 6px 2px;
+        font-size: 11px;
+      }
+
+      .stats-bar {
+        font-size: 11px;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .entry-card {
+        padding: 10px 12px;
+      }
+      .card-id {
+        font-size: 13px;
+      }
+      .file-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        padding: 5px 0;
+      }
+      .file-name {
+        max-width: 100%;
+        white-space: normal;
+        word-break: break-all;
+      }
+
+      .page-btn {
+        padding: 8px 16px;
+        font-size: 13px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -446,8 +564,10 @@
 
   <!-- Main System Explorer -->
   <div id="app">
+    <div id="sidebar-backdrop" onclick="toggleSidebar(false)"></div>
     <header>
       <div class="logo-area">
+        <button class="drawer-btn" onclick="toggleSidebar(true)">&#9776; Categories</button>
         <span class="logo-icon"></span>
         <span class="logo-title">DevArtifact Registry</span>
         <span class="logo-badge">v1.2-build</span>
@@ -463,10 +583,13 @@
     </header>
 
     <div class="container">
-      <sidebar>
+      <sidebar id="main-sidebar">
         <div class="sidebar-title">
           <span>Categories (Actresses)</span>
-          <span id="actress-total-count" style="font-weight:normal;">0</span>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span id="actress-total-count" style="font-weight:normal;">0</span>
+            <button onclick="toggleSidebar(false)" class="drawer-btn" style="padding:1px 6px;font-size:11px;color:#8b949e;">✕</button>
+          </div>
         </div>
         <input type="text" id="actress-filter" class="actress-search" placeholder="Filter category..." oninput="renderActressList()">
         <ul id="actress-list" class="actress-list"></ul>
@@ -483,8 +606,11 @@
         </div>
 
         <div class="stats-bar">
-          <span id="result-stats">Showing 0 entries</span>
-          <span id="filter-tag-hint" style="color:#58a6ff;"></span>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+            <span id="result-stats">Showing 0 entries</span>
+            <span id="filter-tag-hint" style="color:#58a6ff;"></span>
+            <button id="btn-clear-filter" onclick="selectActress(null)" style="display:none;background:#21262d;border:1px solid #30363d;color:#f85149;padding:1px 6px;border-radius:3px;font-size:10px;cursor:pointer;">Clear ✕</button>
+          </div>
         </div>
 
         <div id="item-list" class="item-list"></div>
@@ -637,11 +763,29 @@
       document.getElementById('actress-total-count').innerText = `${visibleCount} / ${sortedNames.length}`;
     }
 
+    function toggleSidebar(open) {
+      const sb = document.getElementById('main-sidebar');
+      const bd = document.getElementById('sidebar-backdrop');
+      if (open === undefined) {
+        const isOpen = sb.classList.contains('open');
+        toggleSidebar(!isOpen);
+      } else if (open) {
+        sb.classList.add('open');
+        bd.classList.add('active');
+      } else {
+        sb.classList.remove('open');
+        bd.classList.remove('active');
+      }
+    }
+
     function selectActress(name) {
       selectedActress = name;
       currentPage = 1;
       renderActressList();
       applyFilters();
+      if (window.innerWidth <= 768) {
+        toggleSidebar(false);
+      }
     }
 
     function setTab(tab) {
@@ -686,9 +830,10 @@
         return true;
       });
 
-      // 更新状态文字
-      const hint = selectedActress ? `[Filtered by Category: ${selectedActress}]` : '';
+      // 更新状态文字与快速清除按钮
+      const hint = selectedActress ? `[Category: ${selectedActress}]` : '';
       document.getElementById('filter-tag-hint').innerText = hint;
+      document.getElementById('btn-clear-filter').style.display = selectedActress ? 'inline-block' : 'none';
       document.getElementById('result-stats').innerText = `Matched ${filteredEntries.length} records`;
 
       renderPage();

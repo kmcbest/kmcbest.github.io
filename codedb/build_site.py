@@ -930,6 +930,9 @@ def build_html():
         const fileCount = item.files ? item.files.length : 0;
         const fileCountPill = fileCount > 1 ? `<span class="file-pill">${{fileCount}} parts</span>` : '';
 
+        let subBadge = item.is_sub ? '<span class="badge" style="background:#23863622;color:#3fb950;border-color:#23863644;font-size:10px;">SUB</span>' : '';
+        let rmBadge = item.is_rm ? '<span class="badge" style="background:#a371f722;color:#d2a8ff;border-color:#a371f744;font-size:10px;">RM</span>' : '';
+
         card.innerHTML = `
           <div class="card-top">
             <span class="${{idClass}}">
@@ -937,6 +940,8 @@ def build_html():
               ${{fileCountPill}}
             </span>
             <div class="badges">
+              ${{subBadge}}
+              ${{rmBadge}}
               ${{volBadgesHtml}}
               <span class="card-toggle-icon">&#9662;</span>
             </div>

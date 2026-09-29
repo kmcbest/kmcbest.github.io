@@ -90,7 +90,7 @@ def update_from_new_tree(vol_label, new_tree_file, auto_build=True):
         return
 
     # 对新增文件进行归类与追加
-    coded_dict = {item['id']: item for item in db.get('coded', [])}
+    coded_dict = {item.get('base_code', item['id']): item for item in db.get('coded', [])}
     new_codes_added = 0
     merged_into_existing = 0
     added_to_misc = 0
@@ -98,11 +98,11 @@ def update_from_new_tree(vol_label, new_tree_file, auto_build=True):
     for e in added_entries:
         fname = e['filename']
         dpath = e['dir_path']
-        code, ctype = extract_primary_code(fname)
-        if not code:
-            code, ctype = extract_primary_code(dpath)
+        disp_code, base_code, ctype, is_sub, is_rm = extract_primary_code(fname)
+        if not base_code:
+            disp_code, base_code, ctype, is_sub, is_rm = extract_primary_code(dpath)
 
-        title = clean_title(fname, code)
+        title = clean_title(fname, disp_code, base_code)
         actresses = list(e.get('actress_hints', []))
         file_rec = {
             'name': fname,
@@ -110,34 +110,53 @@ def update_from_new_tree(vol_label, new_tree_file, auto_build=True):
             'vol': vol_label
         }
 
-        if code:
-            if code in coded_dict:
-                item = coded_dict[code]
+        if base_code:
+            if base_code in coded_dict:
+                item = coded_dict[base_code]
                 item['files'].append(file_rec)
                 if vol_label not in item['vols']:
                     item['vols'].append(vol_label)
                 for a in actresses:
                     if a not in item['actresses']:
                         item['actresses'].append(a)
+                if is_sub:
+                    item['is_sub'] = True
+                    if not item['id'].endswith('C'):
+                        item['id'] = f"{base_code}C"
+                if is_rm:
+                    item['is_rm'] = True
                 if len(title) > len(item.get('title', '')):
                     item['title'] = title
                 merged_into_existing += 1
             else:
                 new_item = {
-                    'id': code,
+                    'id': disp_code,
+                    'base_code': base_code,
                     'type': ctype,
+                    'is_sub': is_sub,
+                    'is_rm': is_rm,
                     'actresses': actresses,
                     'title': title,
                     'files': [file_rec],
                     'vols': [vol_label]
                 }
-                coded_dict[code] = new_item
+                coded_dict[base_code] = new_item
                 db['coded'].append(new_item)
                 new_codes_added += 1
         else:
             misc_item = {
                 'id': None,
+                'base_code': None,
                 'type': 'misc',
+                'is_sub': False,
+                'is_rm': False,
+                'actresses': actresses,
+                'title': title or fname,
+                'files': [file_rec],
+                'vols': [vol_label]
+            }
+            db['misc'].append(misc_item)
+            added_to_misc += 1
                 'actresses': actresses,
                 'title': title or fname,
                 'files': [file_rec],

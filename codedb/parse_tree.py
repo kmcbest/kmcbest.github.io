@@ -90,59 +90,100 @@ KNOWN_NAME_FIXES = {
     '吉野千q（ちとせよしの）': '吉野千尋 (ちとせよしの)',
 }
 
-_JAV_PAT   = re.compile(r'\b([A-Z]{2,7}-\d{3,5})\b')
-_JAV2_PAT  = re.compile(r'\b([A-Z]{2,7}\d{3,5})\b')
-_FC2_PAT   = re.compile(r'\bFC2[-\s]?PPV[-\s]?(\d{5,8})\b', re.I)
-_CARIB_PAT = re.compile(r'\b(\d{6}[-_]\d{3})[-_](1pon|carib|mura|10mu|kin8)\b', re.I)
-_HEYD_PAT  = re.compile(r'\bHeydouga[-\s]+(\d{4}[-\s]\d{2,4})\b', re.I)
-_HEYZO_PAT = re.compile(r'\bHEYZO[-\s]+(\d{3,5})\b', re.I)
-_1PON_PAT  = re.compile(r'\b1Pondo\s+(\d{6}[-_]\d{3})\b', re.I)
-_CARIB2_PAT= re.compile(r'\bCaribbeancom\s+(\d{6}-\d{3})\b', re.I)
+# 常见平台与番号正则表达式
+_FC2_PAT   = re.compile(r'\bFC2(?:[-_\s]?PPV)?[-_\s]?(\d{5,8})\b', re.I)
+_1PON_PAT  = re.compile(r'\b(?:1Pondo[-_\s]+(\d{6}[-_]\d{3})|(\d{6}[-_]\d{3})[-_]1pon)\b', re.I)
+_CARIB_PAT = re.compile(r'\b(?:Caribbeancom[-_\s]+(\d{6}[-_]\d{3})|(\d{6}[-_]\d{3})[-_]carib)\b', re.I)
+_HEYZO_PAT = re.compile(r'\bHEYZO[-_\s]+(\d{3,5})\b', re.I)
+_HEYD_PAT  = re.compile(r'\bHeydouga[-_\s]+(\d{4}[-_\s]\d{2,4})\b', re.I)
 
-_IGNORE_CODES = {
-    'EP1', 'EP2', 'EP3', 'EP4', 'EP5', 'EP6', 'EP7', 'EP8', 'EP9',
-    'VOL1', 'VOL2', 'MP4', 'AVI', 'MKV', 'XXX', 'JAV', 'BTS',
-    'SET1', 'SET2', 'UHD', 'FHD', 'HD', 'DOC', 'TXT', 'ZIP', 'RAR'
+# 增强的标准与变体 JAV 番号正则：
+# 匹配各种带连字符、下划线、空格、或紧密连接的番号，例如：
+# SPRD-1233C, SPRD1233C, SPRD 1233C, SPRD-1233-RM-C, nacr-282, xrw-642, ABP-001, MD0190, PM086 等
+_JAV_ENHANCED = re.compile(
+    r'(?<![A-Za-z0-9])([A-Za-z]{2,7})[-_\s]?(\d{2,5})([A-Za-z]?)(?:[-_](?:c|ch|rm|uc|sub|cd\d|part\d|uncensored|4k|fhd))*\b',
+    re.I
+)
+
+# 排除常见误判的前缀
+_IGNORE_PREFIXES = {
+    'MP4', 'MKV', 'AVI', 'WMV', 'MOV', 'TS', 'FLV', 'ISO',
+    'UHD', 'FHD', '1080P', '720P', 'H264', 'H265', 'X264', 'HEVC',
+    'AAC', 'AC3', 'DTS', 'FLAC', 'HDR', 'SDR',
+    'DISC', 'PART', 'VOL', 'EP', 'SET', 'FILE', 'CLIP', 'SAMPLE', 'PREVIEW',
+    'FLASH', 'PHOTO', 'BOOK', 'CHAT', 'LIVE', 'DATE', 'EXTRA', 'BONUS',
+    'GIRL', 'MISS', 'ASIA', 'TOKYO', 'GOOD', 'LOVE', 'BABY', 'HOT',
+    'DOC', 'TXT', 'ZIP', 'RAR'
 }
 
 def extract_primary_code(text: str):
+    """
+    返回: (disp_code, base_code, ctype, is_sub, is_rm) 或 (None, None, 'misc', False, False)
+    """
+    if not text:
+        return None, None, 'misc', False, False
+
+    # 1. FC2 (如 FC2PPV 4753808, FC2-PPV-4753808, FC2 4753808)
     m = _FC2_PAT.search(text)
     if m:
-        return f'FC2PPV-{m.group(1)}', 'fc2'
+        code_str = f'FC2PPV-{m.group(1)}'
+        return code_str, code_str, 'fc2', False, False
 
-    m = _CARIB2_PAT.search(text)
-    if m:
-        return 'CARIB-' + m.group(1).replace('-', ''), 'jav'
-
+    # 2. 1Pondo (如 1Pondo 050325_001, 050325_001-1pon)
     m = _1PON_PAT.search(text)
     if m:
-        return '1PON-' + m.group(1).replace('_', '-'), 'jav'
+        num = (m.group(1) or m.group(2)).replace('_', '-')
+        code_str = f'1PON-{num}'
+        return code_str, code_str, 'jav', False, False
 
-    m = _HEYZO_PAT.search(text)
-    if m:
-        return 'HEYZO-' + m.group(1), 'jav'
-
+    # 3. Caribbeancom (如 Caribbeancom 012426-001, 012426-001-carib)
     m = _CARIB_PAT.search(text)
     if m:
-        return m.group(1).upper().replace('_', '-'), 'jav'
+        num = (m.group(1) or m.group(2)).replace('_', '-')
+        code_str = f'CARIB-{num}'
+        return code_str, code_str, 'jav', False, False
 
+    # 4. HEYZO
+    m = _HEYZO_PAT.search(text)
+    if m:
+        code_str = f'HEYZO-{m.group(1)}'
+        return code_str, code_str, 'jav', False, False
+
+    # 5. Heydouga
     m = _HEYD_PAT.search(text)
     if m:
-        return 'HEYDOUGA-' + m.group(1).replace(' ', '-'), 'jav'
+        num_clean = re.sub(r'[-_\s]+', '-', m.group(1))
+        code_str = f'HEYDOUGA-{num_clean}'
+        return code_str, code_str, 'jav', False, False
 
-    for m in _JAV_PAT.finditer(text):
-        c = m.group(1).upper()
-        if c not in _IGNORE_CODES:
-            return c, 'jav'
+    # 6. 增强型 JAV 匹配 (支持大小写、带C字幕尾缀、空格分隔等)
+    for m in _JAV_ENHANCED.finditer(text):
+        pre = m.group(1).upper()
+        if pre in _IGNORE_PREFIXES:
+            continue
 
-    for m in _JAV2_PAT.finditer(text):
-        c = m.group(1).upper()
-        if c not in _IGNORE_CODES and len(c) >= 5:
-            inner = re.match(r'^([A-Z]+)(\d+)$', c)
-            if inner:
-                return inner.group(1) + '-' + inner.group(2), 'jav'
+        num = m.group(2)
+        tail = m.group(3).upper() if m.group(3) else ''
 
-    return None, 'misc'
+        # 核心基准番号（用于去重主键，如 SPRD-1233）
+        base_code = f'{pre}-{num}'
+
+        # 判断是否中文字幕/破解
+        matched_str = m.group(0)
+        is_sub = (tail == 'C') or bool(re.search(r'[-_](?:c|ch|sub)\b', matched_str, re.I)) or ('中文字幕' in text) or ('中文' in text)
+        is_rm = bool(re.search(r'[-_](?:rm|uc|uncensored)\b', matched_str, re.I)) or ('破解' in text) or ('无码' in text) or ('流出' in text)
+
+        # 展示番号：若检测为中文字幕，优先展示带 C 后缀，如 SPRD-1233C
+        if is_sub and not tail:
+            disp_code = f'{pre}-{num}C'
+        elif tail:
+            disp_code = f'{pre}-{num}{tail}'
+        else:
+            disp_code = base_code
+
+        return disp_code, base_code, 'jav', is_sub, is_rm
+
+    return None, None, 'misc', False, False
 
 _CJK_RE = re.compile(r'[\u4e00-\u9fff\u3040-\u30ff\uff00-\uffef]')
 
@@ -264,19 +305,24 @@ def parse_tree_txt(filepath: str, source_label: str) -> list:
 
     return entries
 
-def clean_title(raw: str, code: str) -> str:
+def clean_title(raw: str, disp_code: str, base_code: str = None) -> str:
     t = raw
     t = re.sub(r'\.[a-z0-9]{2,5}$', '', t, flags=re.I)
     t = SITE_SUFFIXES.sub('', t)
-    if code:
-        safe = re.escape(code).replace(r'\-', '[-]?')
-        t = re.sub(r'(?i)' + safe, '', t)
-        nodash = re.sub(r'-', '', code)
-        t = re.sub(r'(?i)\b' + re.escape(nodash) + r'\b', '', t)
+
+    # 移除番号代码与常见前缀
+    for c in [disp_code, base_code]:
+        if c:
+            safe = re.escape(c).replace(r'\-', r'[-_\s]?')
+            t = re.sub(r'(?i)' + safe, '', t)
+            nodash = re.sub(r'[-_]', '', c)
+            t = re.sub(r'(?i)\b' + re.escape(nodash) + r'\b', '', t)
+
+    # 移除常见的修饰后缀
+    t = re.sub(r'(?i)[-_]?(?:Tagged_by_[A-Za-z0-9]+|RM|UC|uncensored|4k|fhd|cd\d|part\d)', '', t)
     t = re.sub(r'^FC2[-\s]?PPV[-\s]?\d+\s*', '', t, flags=re.I)
     t = re.sub(r'^\s*[\[\(][^\]\)]{0,40}[\]\)]\s*', '', t).strip()
     t = re.sub(r'\b\d{8,}\b', '', t)
-    # 清除乱码问号符号
     t = t.replace('\ufffd', '').replace('', '')
     t = re.sub(r'\s+', ' ', t).strip(' -–_.')
     return t
@@ -289,11 +335,11 @@ def build_db(all_entries: list) -> dict:
         fname = e['filename']
         dpath = e['dir_path']
 
-        code, ctype = extract_primary_code(fname)
-        if not code:
-            code, ctype = extract_primary_code(dpath)
+        disp_code, base_code, ctype, is_sub, is_rm = extract_primary_code(fname)
+        if not base_code:
+            disp_code, base_code, ctype, is_sub, is_rm = extract_primary_code(dpath)
 
-        title = clean_title(fname, code)
+        title = clean_title(fname, disp_code, base_code)
         actresses = list(e['actress_hints'])
 
         file_rec = {
@@ -302,38 +348,52 @@ def build_db(all_entries: list) -> dict:
             'vol':  e['source'],
         }
 
-        if code:
-            if code not in coded:
-                coded[code] = {
-                    'id':       code,
-                    'type':     ctype,
+        if base_code:
+            if base_code not in coded:
+                coded[base_code] = {
+                    'id':        disp_code,
+                    'base_code': base_code,
+                    'type':      ctype,
+                    'is_sub':    is_sub,
+                    'is_rm':     is_rm,
                     'actresses': actresses,
-                    'title':    title,
-                    'files':    [file_rec],
-                    'vols':     [e['source']],
+                    'title':     title,
+                    'files':     [file_rec],
+                    'vols':      [e['source']],
                 }
             else:
-                ex = coded[code]
+                ex = coded[base_code]
                 ex['files'].append(file_rec)
                 for a in actresses:
                     if a not in ex['actresses']:
                         ex['actresses'].append(a)
                 if e['source'] not in ex['vols']:
                     ex['vols'].append(e['source'])
+                # 如果新切片带有中文字幕标记，提升主卡片显示番号为带 C 版本
+                if is_sub:
+                    ex['is_sub'] = True
+                    if not ex['id'].endswith('C'):
+                        ex['id'] = f"{base_code}C"
+                if is_rm:
+                    ex['is_rm'] = True
+                # 保留更详实丰富的标题
                 if len(title) > len(ex['title']):
                     ex['title'] = title
         else:
             misc.append({
-                'id':       None,
-                'type':     'misc',
+                'id':        None,
+                'base_code': None,
+                'type':      'misc',
+                'is_sub':    False,
+                'is_rm':     False,
                 'actresses': actresses,
-                'title':    title or fname,
-                'files':    [file_rec],
-                'vols':     [e['source']],
+                'title':     title or fname,
+                'files':     [file_rec],
+                'vols':      [e['source']],
             })
 
     return {
-        'version': 1,
+        'version': 2,
         'vol_labels': {'haa': '16Tdata3', 'qaa': '4000WD'},
         'coded':  list(coded.values()),
         'misc':   misc,

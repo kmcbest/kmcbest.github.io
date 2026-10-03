@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TFTF Agent API & Source of Truth - 智能体真理源查询接口</title>
+    <style>
+        :root {
+            --bg-main: #0B0F19;
+            --bg-card: #111827;
+            --bg-card-hover: #1F2937;
+            --border-color: rgba(56, 189, 248, 0.2);
+            --primary: #38BDF8;
+            --primary-glow: rgba(56, 189, 248, 0.4);
+            --accent-green: #34D399;
+            --accent-amber: #FBBF24;
+            --accent-red: #F87171;
+            --text-main: #F3F4F6;
+            --text-sub: #9CA3AF;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .api-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 24px;
+        }
+
+        .api-title-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .api-badge {
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--primary);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.15);
+            color: #34D399;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10B981;
+            box-shadow: 0 0 6px #10B981;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+
+        /* Controls & Search */
+        .search-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .search-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .input-group {
+            flex: 1;
+            min-width: 240px;
+            position: relative;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: #FFF;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        select {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: #FFF;
+            font-size: 13px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .btn {
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid var(--primary);
+            color: #FFF;
+            padding: 9px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 12px var(--primary-glow);
+        }
+
+        .btn-green {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+        .btn-green:hover {
+            background: var(--accent-green);
+            color: #000;
+        }
+
+        /* Result Area */
+        .result-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 18px;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-sub);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: rgba(56, 189, 248, 0.2);
+            color: var(--primary);
+        }
+
+        pre {
+            padding: 18px;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: 12.5px;
+            line-height: 1.6;
+            color: #E2E8F0;
+            max-height: 600px;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        /* Quick Endpoints Card */
+        .endpoints-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .endpoint-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+
+        .endpoint-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .endpoint-url {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: #94A3B8;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            word-break: break-all;
+            display: block;
+            margin-top: 4px;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid #10B981;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            color: #FFF;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            z-index: 9999;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <div class="api-header">
+        <div class="api-title-box">
+            <span class="api-badge">SOURCE OF TRUTH</span>
+            <h1 style="font-size: 20px; font-weight: 800;">TFTF 智能体能力代码真理源 (Agent Query API)</h1>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="status-pill">
+                <span class="status-dot"></span>
+                <span id="storageStatusText">Upstash KV 在线连接就绪</span>
+            </div>
+            <a href="bots.html" class="btn">返回可视化画廊 &rarr;</a>
+        </div>
+    </div>
+
+    <!-- Direct Endpoints Cards for Agents -->
+    <div class="endpoints-grid">
+        <div class="endpoint-card">
+            <div class="endpoint-title">1. 全角色技能总库 (All Abilities Index)</div>
+            <div style="font-size: 11px; color: var(--text-sub);">78位角色、1324项技能的完整真理源字典</div>
+            <a class="endpoint-url" href="./data/all_abilities.json" target="_blank">./data/all_abilities.json</a>
+        </div>
+        <div class="endpoint-card">
+            <div class="endpoint-title">2. 全角色概览与 6/60 属性 (Overview)</div>
+            <div style="font-size: 11px; color: var(--text-sub);">阵营、职业、生命值、攻击力、战力Rating</div>
+            <a class="endpoint-url" href="./data/overview.json" target="_blank">./data/overview.json</a>
+        </div>
+        <div class="endpoint-card">
+            <div class="endpoint-title">3. 单机体档案 REST 接口 (Bot Dossier)</div>
+            <div style="font-size: 11px; color: var(--text-sub);">替换 {bid} 为角色 bot_id 即可获取完整技能</div>
+            <span class="endpoint-url">./data/characters/{bid}.json</span>
+        </div>
+        <div class="endpoint-card">
+            <div class="endpoint-title">4. Upstash KV 实时云查询 (Live Cloud API)</div>
+            <div style="font-size: 11px; color: var(--text-sub);">支持 Bearer Token 全球高速只读直连</div>
+            <span class="endpoint-url">https://deciding-bulldog-136761.upstash.io/get/tftf:char:{bid}</span>
+        </div>
+    </div>
+
+    <!-- Search / Filter Panel -->
+    <div class="search-panel">
+        <div style="font-size: 14px; font-weight: 700; color: var(--primary);">🤖 智能体交互查询与 Prompt 提取器</div>
+        <div class="search-row">
+            <div class="input-group">
+                <input type="text" id="searchInput" placeholder="输入角色名 (如: 钢锁, Grimlock, 眩晕, 威震天) 或 bot_id..." oninput="handleSearchInput()">
+            </div>
+            <select id="botSelect" onchange="onBotSelected()">
+                <option value="">-- 选择机体 --</option>
+            </select>
+            <select id="categorySelect" onchange="renderCurrentView()">
+                <option value="all">所有技能分类 (All Categories)</option>
+                <option value="passive">被动能力 (Passive)</option>
+                <option value="sp1">特殊技 1 (Special 1)</option>
+                <option value="sp2">特殊技 2 (Special 2)</option>
+                <option value="sp3">特殊技 3 (Special 3)</option>
+                <option value="signature">觉醒超能 (Signature)</option>
+                <option value="synergy">协同加成 (Synergy)</option>
+            </select>
+            <button class="btn btn-green" onclick="copyCurrentOutput()">📋 复制输出 (Copy)</button>
+        </div>
+    </div>
+
+    <!-- Result / Output Box -->
+    <div class="result-box">
+        <div class="result-header">
+            <div class="tabs">
+                <button class="tab-btn active" id="tabMarkdown" onclick="setFormat('markdown')">LLM Prompt (Markdown)</button>
+                <button class="tab-btn" id="tabJson" onclick="setFormat('json')">结构化 JSON (API Format)</button>
+                <button class="tab-btn" id="tabHooks" onclick="setFormat('hooks')">代码实现模板 (C / Python Hook)</button>
+            </div>
+            <div id="resultInfo" style="font-size: 12px; color: var(--text-sub);">正在加载数据...</div>
+        </div>
+        <pre id="outputPre">正在初始化智能体数据库连接...</pre>
+    </div>
+</div>
+
+<div class="toast" id="toast">已成功复制到剪贴板！</div>
+
+<script>
+    // ==========================================
+    // Upstash KV Online Storage Client
+    // ==========================================
+    const UPSTASH = {
+        url: "https://deciding-bulldog-136761.upstash.io",
+        readToken: "ggAAAAAAAhY5AAIgcDG7a511dMnvUap5JjML7kdCMH0hQAG95-3BtwD6YEaFeQ"
+    };
+
+    let gAllBotsData = null;
+    let gCurrentBotId = '';
+    let gCurrentFormat = 'markdown'; // 'markdown' | 'json' | 'hooks'
+
+    async function kvGet(key, fallbackPath) {
+        try {
+            const res = await fetch(`${UPSTASH.url}/get/${encodeURIComponent(key)}`, {
+                headers: { 'Authorization': `Bearer ${UPSTASH.readToken}` }
+            });
+            if (res.ok) {
+                const json = await res.json();
+                if (json && json.result) {
+                    return typeof json.result === 'string' ? JSON.parse(json.result) : json.result;
+                }
+            }
+        } catch (err) {
+            console.warn(`Upstash KV read failed for [${key}], falling back:`, err);
+        }
+        if (fallbackPath) {
+            const fbRes = await fetch(fallbackPath);
+            if (fbRes.ok) return await fbRes.json();
+        }
+        return null;
+    }
+
+    async function init() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const queryBid = urlParams.get('bid') || urlParams.get('bot') || urlParams.get('q') || '';
+        const queryFmt = urlParams.get('format') || 'markdown';
+        if (['markdown', 'json', 'hooks'].includes(queryFmt)) {
+            gCurrentFormat = queryFmt;
+        }
+
+        try {
+            // Load all abilities source of truth
+            let fullData = await kvGet('tftf:all_abilities', './data/all_abilities.json');
+            if (!fullData || !fullData.bots) {
+                fullData = await fetch('./data/all_abilities.json').then(r => r.json());
+            }
+            gAllBotsData = fullData.bots;
+
+            // Populate select dropdown
+            const selectEl = document.getElementById('botSelect');
+            const sortedBids = Object.keys(gAllBotsData).sort((a, b) => {
+                const nameA = gAllBotsData[a].name_zh || a;
+                const nameB = gAllBotsData[b].name_zh || b;
+                return nameA.localeCompare(nameB, 'zh');
+            });
+
+            sortedBids.forEach(bid => {
+                const b = gAllBotsData[bid];
+                const opt = document.createElement('option');
+                opt.value = bid;
+                opt.textContent = `${b.name_zh} (${b.name_en || bid}) - [${b.class_name_zh || b.class}]`;
+                selectEl.appendChild(opt);
+            });
+
+            // If URL parameter specified, select it
+            if (queryBid) {
+                const matchedBid = findBotMatch(queryBid);
+                if (matchedBid) {
+                    gCurrentBotId = matchedBid;
+                    selectEl.value = matchedBid;
+                }
+            }
+
+            if (!gCurrentBotId && sortedBids.length > 0) {
+                // Default to grimlock or first
+                gCurrentBotId = gAllBotsData['grimlock_gs_mp08'] ? 'grimlock_gs_mp08' : sortedBids[0];
+                selectEl.value = gCurrentBotId;
+            }
+
+            setFormat(gCurrentFormat);
+        } catch (err) {
+            console.error("Failed to initialize:", err);
+            document.getElementById('outputPre').innerText = `加载真理源数据库失败: ${err.message}`;
+        }
+    }
+
+    function findBotMatch(query) {
+        const q = query.trim().toLowerCase();
+        if (gAllBotsData[q]) return q;
+        for (const [bid, b] of Object.entries(gAllBotsData)) {
+            if (bid.toLowerCase().includes(q)) return bid;
+            if (b.name_zh && b.name_zh.includes(q)) return bid;
+            if (b.name_en && b.name_en.toLowerCase().includes(q)) return bid;
+        }
+        return null;
+    }
+
+    function handleSearchInput() {
+        const query = document.getElementById('searchInput').value.trim();
+        if (!query) return;
+        const matched = findBotMatch(query);
+        if (matched) {
+            gCurrentBotId = matched;
+            document.getElementById('botSelect').value = matched;
+            renderCurrentView();
+        }
+    }
+
+    function onBotSelected() {
+        const val = document.getElementById('botSelect').value;
+        if (val) {
+            gCurrentBotId = val;
+            renderCurrentView();
+        }
+    }
+
+    function setFormat(fmt) {
+        gCurrentFormat = fmt;
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        if (fmt === 'markdown') document.getElementById('tabMarkdown').classList.add('active');
+        if (fmt === 'json') document.getElementById('tabJson').classList.add('active');
+        if (fmt === 'hooks') document.getElementById('tabHooks').classList.add('active');
+        renderCurrentView();
+    }
+
+    function renderCurrentView() {
+        if (!gAllBotsData || !gCurrentBotId) return;
+        const bot = gAllBotsData[gCurrentBotId];
+        if (!bot) return;
+
+        const categoryFilter = document.getElementById('categorySelect').value;
+        let filteredAbilities = bot.abilities || [];
+        if (categoryFilter !== 'all') {
+            filteredAbilities = filteredAbilities.filter(a => a.category === categoryFilter);
+        }
+
+        const infoEl = document.getElementById('resultInfo');
+        infoEl.innerText = `${bot.name_zh} (${bot.bot_id}) · 筛选出 ${filteredAbilities.length} 项能力 · 5星 6/60 PI: ${(bot.stats_6_60 && bot.stats_6_60.rating) || '-'}`;
+
+        const pre = document.getElementById('outputPre');
+        if (gCurrentFormat === 'markdown') {
+            pre.textContent = generateMarkdownPrompt(bot, filteredAbilities);
+        } else if (gCurrentFormat === 'json') {
+            const outObj = Object.assign({}, bot, { abilities: filteredAbilities });
+            pre.textContent = JSON.stringify(outObj, null, 2);
+        } else if (gCurrentFormat === 'hooks') {
+            pre.textContent = generateHookCodeTemplate(bot, filteredAbilities);
+        }
+    }
+
+    function generateMarkdownPrompt(bot, abilities) {
+        const stats = bot.stats_6_60 || {};
+        let md = `# [真理源] TFTF 机体档案与技能机制规范: ${bot.name_zh} (${bot.name_en})\n\n`;
+        md += `## 1. 机体基础属性 (Base Entity Data)\n`;
+        md += `- **bot_id**: \`${bot.bot_id}\`\n`;
+        md += `- **阵营 (Faction)**: ${bot.faction_name_zh} (\`${bot.faction}\`)\n`;
+        md += `- **职业 (Class)**: ${bot.class_name_zh} (\`${bot.class}\`)\n`;
+        md += `- **纪元 (Origin)**: ${bot.origin || 'Generation 1'}\n`;
+        md += `- **数据源 (Source)**: ${bot.source || 'Kabam'}\n`;
+        md += `- **官方 5★ 6/60 属性**: HP: **${(stats.hp || 0).toLocaleString()}** | ATK: **${(stats.attack || 0).toLocaleString()}** | Rating: **${(stats.rating || 0).toLocaleString()}**\n`;
+        md += `- **倍率与暴击**: 生命倍率: ${stats.health_mult || 1.0}x | 攻击倍率: ${stats.attack_mult || 1.0}x | 暴击率: ${Math.round((stats.crit_chance || 0.15) * 100)}% | 爆伤: ${(stats.crit_damage || 1.5).toFixed(2)}x\n`;
+        if (bot.desc_zh) {
+            md += `\n### 机体专属档案背景 (Lore)\n> ${bot.desc_zh}\n`;
+        }
+        md += `\n## 2. 战技与核心机制列表 (Abilities & Combat Specs)\n\n`;
+
+        abilities.forEach((ab, idx) => {
+            md += `### ${idx + 1}. [${ab.category.toUpperCase()}] ${ab.title_zh || '未命名技能'} (${ab.title_en || ab.category})\n`;
+            md += `- **分类**: \`${ab.category}\`\n`;
+            if (ab.pua_icon) md += `- **PUA 图标代码**: \`${ab.pua_icon}\`\n`;
+            if (ab.synergy_bots && ab.synergy_bots.length > 0) {
+                md += `- **协同角色关联**: ${ab.synergy_bots.map(b => '`' + b + '`').join(', ')}\n`;
+            }
+            md += `- **机制与数值描述**:\n  ${(ab.desc_zh || '暂无描述').replace(/\n/g, '\n  ')}\n\n`;
+        });
+
+        md += `---\n*本真理源供智能体编写技能机制 Hook、Buff 状态机以及战斗数值脚本使用，任何修改须严格对齐上述规范。*`;
+        return md;
+    }
+
+    function generateHookCodeTemplate(bot, abilities) {
+        let code = `/* =========================================================================\n`;
+        code += ` * TFTF Ability Hook Implementation for ${bot.name_zh} (${bot.bot_id})\n`;
+        code += ` * Class: ${bot.class} | Faction: ${bot.faction} | HP: ${bot.stats_6_60.hp} | ATK: ${bot.stats_6_60.attack}\n`;
+        code += ` * ========================================================================= */\n\n`;
+        code += `#include <stdint.h>\n#include <stdbool.h>\n\n`;
+        code += `// Target Bot Identity\n#define BOT_ID "${bot.bot_id}"\n#define BOT_HP_6_60 ${bot.stats_6_60.hp || 0}\n#define BOT_ATK_6_60 ${bot.stats_6_60.attack || 0}\n\n`;
+
+        abilities.forEach(ab => {
+            const safeName = (ab.category + '_' + (ab.title_en || ab.title_zh || 'skill')).replace(/[^a-zA-Z0-9_]/g, '_').toLowerCase();
+            code += `// [${ab.category}] ${ab.title_zh}\n`;
+            code += `// 描述: ${(ab.desc_zh || '').substring(0, 60)}...\n`;
+            code += `void hook_ability_${safeName}(void* fighter_ctx, void* hit_data) {\n`;
+            code += `    // TODO: 实现 ${ab.title_zh} 机制逻辑\n`;
+            code += `}\n\n`;
+        });
+
+        return code;
+    }
+
+    function copyCurrentOutput() {
+        const text = document.getElementById('outputPre').textContent;
+        navigator.clipboard.writeText(text).then(() => {
+            showToast("✓ 真理源数据已成功复制到剪贴板！");
+        }).catch(err => {
+            alert("复制失败，请手动选择复制");
+        });
+    }
+
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.innerText = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    window.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>

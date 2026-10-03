@@ -1,0 +1,3606 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TFTF 角色数值与技能中枢 (Transformers Forged to Fight)</title>
+    <style>
+        @font-face {
+            font-family: 'TecnicaBold';
+            src: url('./fonts/Tecnica_Bold_116.ttf'), url('./Tecnica_Bold_116.ttf') format('truetype');
+        }
+
+        :root {
+            --bg-main: #0B0E14;
+            --bg-card: #151A23;
+            --bg-card-hover: #1E2532;
+            --bg-darker: #080A0F;
+            --border-color: #262F40;
+            --text-main: #F1F5F9;
+            --text-muted: #94A3B8;
+            --text-sub: #64748B;
+            --primary: #3B82F6;
+            --primary-glow: rgba(59, 130, 246, 0.25);
+            --tact-color: #0543EF;
+            --braw-color: #7D34BC;
+            --warr-color: #E9312D;
+            --scou-color: #1D9F06;
+            --tech-color: #09BCDD;
+            --demo-color: #F5BD0D;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.5;
+            padding-bottom: 80px;
+        }
+
+        .tecnica-icon {
+            font-family: 'TecnicaBold', sans-serif !important;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-style: normal;
+            line-height: 1;
+            vertical-align: middle;
+        }
+
+        /* Top Navigation Header */
+        header {
+            background: linear-gradient(180deg, #131822 0%, #0B0E14 100%);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 32px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-title {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(90deg, #60A5FA, #A78BFA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-badge {
+            background: rgba(59, 130, 246, 0.15);
+            color: #60A5FA;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-weight: 600;
+        }
+
+        /* Search & Filters */
+        .controls-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            background: var(--bg-darker);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            width: 240px;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .search-box:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+
+        .filter-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover {
+            color: var(--text-main);
+            background: var(--bg-card-hover);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: #FFF;
+            border-color: var(--primary);
+        }
+
+        /* Main Container */
+        main {
+            max-width: 1440px;
+            margin: 24px auto;
+            padding: 0 32px;
+        }
+
+        /* Stats Overview Cards */
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .overview-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .overview-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .overview-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* Class Section */
+        .class-section {
+            margin-bottom: 40px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .class-header {
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(90deg, rgba(255,255,255,0.02) 0%, transparent 100%);
+        }
+
+        .class-title-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .pua-icon-badge {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: var(--bg-darker);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .pua-icon-badge:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 12px var(--primary-glow);
+            transform: scale(1.05);
+        }
+
+        .pua-icon-badge .pua-tooltip {
+            position: absolute;
+            bottom: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            color: #FFF;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            z-index: 10;
+        }
+
+        .pua-icon-badge:hover .pua-tooltip {
+            opacity: 1;
+        }
+
+        .class-name {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .class-en-name {
+            font-size: 13px;
+            color: var(--text-sub);
+            margin-left: 6px;
+            font-weight: 500;
+        }
+
+        .class-stats-pill {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-darker);
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .pill-stat {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .pill-stat span.val {
+            font-weight: 700;
+            color: #38BDF8;
+        }
+
+        .class-trait {
+            padding: 8px 24px;
+            background: rgba(0, 0, 0, 0.2);
+            font-size: 12px;
+            color: var(--text-muted);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Character Grid */
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 16px;
+            padding: 20px 24px;
+        }
+
+        .character-card {
+            background: var(--bg-darker);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .character-card:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .card-faction-badge {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            opacity: 0.85;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border-radius: 8px;
+            border: 1px solid transparent;
+        }
+
+        .card-faction-badge:hover {
+            opacity: 1;
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .faction-emblem-glyph {
+            font-size: 26px;
+            line-height: 1;
+            color: #94A3B8; /* 游戏中派系标志专用的浅灰色 */
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.6));
+            transition: all 0.2s;
+        }
+
+        .character-card:hover .faction-emblem-glyph {
+            color: #E2E8F0;
+        }
+
+        .badge-edit-hint {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            font-size: 11px;
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(56, 189, 248, 0.6);
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.6);
+            transition: all 0.2s;
+            color: #38BDF8;
+            pointer-events: none;
+        }
+
+        .card-faction-badge:hover .badge-edit-hint {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .character-card.card-editing {
+            border-color: #38BDF8 !important;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.35) !important;
+            background: rgba(15, 23, 42, 0.98);
+        }
+
+        .card-faction-badge.editing-active {
+            opacity: 1 !important;
+            background: rgba(16, 185, 129, 0.25) !important;
+            border: 1.5px solid #10B981 !important;
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.5) !important;
+            animation: pulse-edit-badge 1.8s infinite;
+        }
+
+        .badge-save-glyph {
+            font-size: 20px;
+            line-height: 1;
+            filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.8));
+        }
+
+        @keyframes pulse-edit-badge {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
+            70% { box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .card-stat-input {
+            width: 100%;
+            box-sizing: border-box;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            border-radius: 4px;
+            padding: 3px 2px;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: center;
+            color: #F8FAFC;
+            outline: none;
+            transition: all 0.2s;
+            margin-top: 1px;
+        }
+
+        .card-stat-input:focus {
+            border-color: #38BDF8;
+            background: rgba(15, 23, 42, 1);
+            box-shadow: 0 0 6px rgba(56, 189, 248, 0.6);
+        }
+
+        .card-stat-input::-webkit-outer-spin-button,
+        .card-stat-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .card-stat-input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        .card-edit-tip {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 10px;
+            color: #38BDF8;
+            background: rgba(56, 189, 248, 0.08);
+            border-radius: 4px;
+            padding: 4px 6px;
+            margin-top: 6px;
+            letter-spacing: 0.2px;
+            animation: fadeIn 0.2s ease-in;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .edit-pulse-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #10B981;
+            box-shadow: 0 0 6px #10B981;
+            animation: blink-dot 1s infinite alternate;
+            flex-shrink: 0;
+        }
+
+        @keyframes blink-dot {
+            from { opacity: 0.3; }
+            to { opacity: 1; }
+        }
+
+        .card-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar-frame {
+            width: 58px;
+            height: 58px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+            background: #000;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-info {
+            flex: 1;
+            min-width: 0;
+            padding-right: 36px;
+        }
+
+        .char-names {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .name-zh {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .name-en {
+            font-size: 12px;
+            color: var(--text-sub);
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .char-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .faction-tag {
+            font-size: 11px;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .source-tag {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 4px;
+            letter-spacing: 0.3px;
+            line-height: 1.4;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .source-kabam {
+            background: rgba(245, 158, 11, 0.15);
+            color: #FBBF24;
+            border: 1px solid rgba(245, 158, 11, 0.35);
+        }
+
+        .source-netflix {
+            background: rgba(229, 9, 20, 0.2);
+            color: #FF4D61;
+            border: 1px solid rgba(229, 9, 20, 0.5);
+            font-weight: 800;
+        }
+
+        .source-revival {
+            background: rgba(6, 182, 212, 0.16);
+            color: #22D3EE;
+            border: 1px solid rgba(34, 211, 238, 0.4);
+            box-shadow: 0 0 6px rgba(34, 211, 238, 0.15);
+        }
+
+        .origin-tag {
+            font-size: 11px;
+            color: var(--text-sub);
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 2px 4px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Stats Container & Rows */
+        .card-stats-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 8px;
+            padding: 8px 6px;
+            font-size: 12px;
+        }
+
+        .card-stats-row-top {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+        }
+
+        .card-stats-row-bottom {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+            padding-top: 6px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-item .lbl {
+            font-size: 10px;
+            color: var(--text-sub);
+            text-transform: uppercase;
+        }
+
+        .stat-item .num {
+            font-weight: 700;
+            color: var(--text-main);
+            margin-top: 1px;
+        }
+
+        .stat-item .num.highlight {
+            color: #38BDF8;
+        }
+
+        .stat-item .num.custom-override {
+            color: #F59E0B;
+        }
+
+        /* Card Actions */
+        .card-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .btn-view-skills {
+            flex: 1;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #60A5FA;
+            padding: 7px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .btn-view-skills:hover {
+            background: var(--primary);
+            color: #FFF;
+        }
+
+        .btn-view-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 31px;
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            color: #38BDF8;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .btn-view-card:hover {
+            background: rgba(56, 189, 248, 0.25);
+            border-color: #38BDF8;
+            color: #FFF;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .tecnica {
+            font-family: 'TecnicaBold', sans-serif !important;
+            letter-spacing: 0.04em;
+        }
+
+        /* Card Dossier Modal */
+        .card-dossier-modal-content {
+            max-width: 900px;
+            width: 95%;
+            max-height: 94vh;
+            display: flex;
+            flex-direction: column;
+            background: #060b14;
+            border: 1px solid rgba(0, 240, 255, 0.35);
+            box-shadow: 0 0 60px rgba(0, 240, 255, 0.2), 0 25px 60px rgba(0,0,0,0.9);
+            border-radius: 20px;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .card-dossier-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            background: rgba(10, 19, 34, 0.95);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+            flex-shrink: 0;
+        }
+
+        .card-view-mode-toggle {
+            display: flex;
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid rgba(0, 240, 255, 0.25);
+            border-radius: 8px;
+            padding: 2px;
+            gap: 2px;
+        }
+
+        .mode-toggle-btn {
+            display: flex;
+            align-items: center;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .mode-toggle-btn:hover {
+            color: #FFF;
+        }
+
+        .mode-toggle-btn.active {
+            background: rgba(0, 240, 255, 0.2);
+            color: #00F0FF;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
+        }
+
+        .card-dossier-scroll-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: radial-gradient(circle at 50% 10%, #0a1424 0%, #03060c 100%);
+        }
+
+        .dossier-poster {
+            position: relative;
+            background: linear-gradient(180deg, #091220 0%, #050a14 50%, #03060c 100%);
+            border: 1px solid rgba(0, 240, 255, 0.25);
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: inset 0 0 30px rgba(0, 240, 255, 0.04);
+        }
+
+        .dossier-grid-bg {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.04) 1px, transparent 1px);
+            background-size: 28px 28px;
+            pointer-events: none;
+            border-radius: 18px;
+        }
+
+        .dossier-sec-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 14px;
+            background: linear-gradient(90deg, rgba(0, 240, 255, 0.15) 0%, rgba(0, 114, 255, 0.04) 75%, transparent 100%);
+            border-left: 4px solid #00F0FF;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0 12px 0;
+        }
+
+        .dossier-var-pill {
+            background: rgba(0, 240, 255, 0.12);
+            border: 1px solid rgba(0, 240, 255, 0.35);
+            color: #38bdf8;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-family: 'TecnicaBold', monospace;
+            font-size: 11px;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 2px;
+        }
+
+        .dossier-tab-btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .dossier-tab-btn:hover {
+            color: #FFF;
+            border-color: rgba(0, 240, 255, 0.4);
+        }
+
+        .dossier-tab-btn.active {
+            background: linear-gradient(180deg, rgba(0, 240, 255, 0.25) 0%, rgba(0, 114, 255, 0.1) 100%);
+            border-color: #00F0FF;
+            color: #FFF;
+            box-shadow: 0 0 14px rgba(0, 240, 255, 0.3);
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 960px;
+            max-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            transform: scale(0.96);
+            transition: transform 0.25s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 20px 28px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-darker);
+        }
+
+        .modal-body {
+            padding: 24px 28px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .modal-close-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 24px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .modal-close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #FFF;
+        }
+
+        /* Ability Category Sections */
+        .ability-category-block {
+            margin-bottom: 24px;
+            background: var(--bg-darker);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .category-header-bar {
+            padding: 12px 18px;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .cat-title-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cat-title-text {
+            font-size: 15px;
+            font-weight: 700;
+            color: #F8FAFC;
+            letter-spacing: 0.2px;
+        }
+
+        .cat-count-badge {
+            font-size: 11px;
+            color: var(--text-sub);
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px 7px;
+            border-radius: 999px;
+            font-weight: 500;
+        }
+
+        .btn-add-ability {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            color: #34D399;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-add-ability:hover {
+            background: #10B981;
+            color: #FFF;
+        }
+
+        .category-content-area {
+            padding: 14px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .empty-category-placeholder {
+            padding: 16px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-sub);
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        /* Special Attacks Subgroups */
+        .sp-subgroup {
+            background: rgba(0, 0, 0, 0.22);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sp-subgroup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .sp-subgroup-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sp-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sp-badge-1 {
+            background: rgba(56, 189, 248, 0.15);
+            color: #38BDF8;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .sp-badge-2 {
+            background: rgba(245, 158, 11, 0.15);
+            color: #F59E0B;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .sp-badge-3 {
+            background: rgba(236, 72, 153, 0.15);
+            color: #EC4899;
+            border: 1px solid rgba(236, 72, 153, 0.3);
+        }
+
+        .sp-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .sp-subgroup-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Synergy Partners styling */
+        .synergy-partners-section {
+            background: rgba(0, 0, 0, 0.28);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 8px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .synergy-partners-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .synergy-partners-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #94A3B8;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-select-synergy-partners {
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.35);
+            color: #60A5FA;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-select-synergy-partners:hover {
+            background: #3B82F6;
+            color: #FFF;
+        }
+
+        .synergy-partners-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
+            min-height: 26px;
+        }
+
+        .synergy-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(30, 41, 59, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 2px 8px 2px 4px;
+            font-size: 12px;
+            color: #F1F5F9;
+        }
+
+        .synergy-chip-avatar {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .synergy-chip-remove {
+            color: #94A3B8;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 2px;
+            line-height: 1;
+            font-weight: 700;
+        }
+
+        .synergy-chip-remove:hover {
+            color: #EF4444;
+        }
+
+        .synergy-empty-hint {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Synergy Partner Picker Modal */
+        .synergy-picker-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 10px;
+            max-height: 52vh;
+            overflow-y: auto;
+            padding: 10px 4px;
+        }
+
+        .synergy-picker-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 6px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.15s ease;
+        }
+
+        .synergy-picker-item:hover {
+            border-color: var(--primary);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .synergy-picker-item.selected {
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.12);
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.25);
+        }
+
+        .synergy-picker-item .check-mark {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #10B981;
+            color: #FFF;
+            font-size: 11px;
+            font-weight: 700;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .synergy-picker-item.selected .check-mark {
+            display: flex;
+        }
+
+        .synergy-picker-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .synergy-picker-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-main);
+            line-height: 1.2;
+            word-break: break-all;
+        }
+
+        .synergy-picker-sub {
+            font-size: 10px;
+            color: var(--text-sub);
+        }
+
+        /* Ability Card */
+        .ability-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+        }
+
+        .ability-header-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .ability-pua-picker-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px dashed rgba(255, 255, 255, 0.25);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+            color: #38BDF8;
+        }
+
+        .ability-pua-picker-btn:hover {
+            background: rgba(56, 189, 248, 0.15);
+            border-color: #38BDF8;
+            border-style: solid;
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+        }
+
+        .ability-pua-icon-glyph {
+            font-size: 22px;
+        }
+
+        .ability-pua-hex-sub {
+            font-size: 8px;
+            color: var(--text-sub);
+            margin-top: 1px;
+            font-family: monospace;
+        }
+
+        .ability-title-edit-input {
+            flex: 1;
+            background: var(--bg-darker);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-size: 14px;
+            font-weight: 700;
+            padding: 6px 10px;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .ability-title-edit-input:focus {
+            border-color: var(--primary);
+        }
+
+        .ability-card-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-card-action {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-card-action:hover {
+            background: var(--bg-card-hover);
+            color: #FFF;
+        }
+
+        .btn-card-action.save:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #FFF;
+        }
+
+        .btn-card-action.del:hover {
+            background: #EF4444;
+            border-color: #EF4444;
+            color: #FFF;
+        }
+
+        .ability-desc-textarea {
+            width: 100%;
+            background: var(--bg-darker);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-size: 13px;
+            line-height: 1.6;
+            padding: 10px 12px;
+            border-radius: 8px;
+            outline: none;
+            resize: vertical;
+            min-height: 54px;
+            font-family: inherit;
+        }
+
+        .ability-desc-textarea:focus {
+            border-color: var(--primary);
+        }
+
+        /* PUA Picker Grid Modal */
+        .pua-modal-content {
+            max-width: 800px;
+        }
+
+        .pua-search-input {
+            width: 100%;
+            background: var(--bg-darker);
+            border: 1px solid var(--border-color);
+            padding: 10px 16px;
+            border-radius: 8px;
+            color: #FFF;
+            font-size: 14px;
+            margin-bottom: 16px;
+            outline: none;
+        }
+
+        .pua-search-input:focus {
+            border-color: var(--primary);
+        }
+
+        .pua-filter-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .pua-tab-btn {
+            background: var(--bg-darker);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .pua-tab-btn.active {
+            background: var(--primary);
+            color: #FFF;
+            border-color: var(--primary);
+        }
+
+        .pua-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+            gap: 10px;
+            max-height: 480px;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+
+        .pua-cell {
+            background: var(--bg-darker);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .pua-cell:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: #38BDF8;
+            transform: scale(1.08);
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+        }
+
+        .pua-cell .pua-glyph {
+            font-size: 28px;
+            margin-bottom: 4px;
+            color: #38BDF8;
+        }
+
+        .pua-cell .pua-hex {
+            font-size: 10px;
+            font-family: monospace;
+            color: var(--text-sub);
+        }
+
+        .pua-cell .pua-name {
+            font-size: 9px;
+            color: var(--text-muted);
+            max-width: 80px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        /* Stats Edit Section in Character Modal */
+        .char-edit-stats-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            background: var(--bg-darker);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .edit-stat-col {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .edit-stat-col label {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .edit-stat-col input {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            outline: none;
+        }
+
+        .edit-stat-col input:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-save-stats {
+            grid-column: 1 / -1;
+            background: var(--primary);
+            color: #FFF;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 8px;
+        }
+
+        .btn-save-stats:hover {
+            background: #2563EB;
+        }
+
+        /* Add Ability Modal */
+        .add-ability-modal-content {
+            max-width: 520px;
+        }
+
+        .form-row {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+
+        .form-row label {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .form-row input, .form-row select, .form-row textarea {
+            background: var(--bg-darker);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-submit-new-ability {
+            background: #10B981;
+            color: #FFF;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+        }
+
+        .btn-submit-new-ability:hover {
+            background: #059669;
+        }
+
+        /* Toast notifications */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #10B981;
+            color: #FFF;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 9999;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-group">
+                <span class="logo-title">TFTF 数值与技能中枢</span>
+                <span class="logo-badge">SQLite Database Live</span>
+            </div>
+            <div class="controls-bar">
+                <input type="text" id="searchInput" class="search-box" placeholder="搜索机器人中英文名 / ID..." oninput="handleSearch()">
+                <div class="filter-group">
+                    <button class="filter-btn faction-filter-btn active" onclick="filterFaction('all', this)">全部阵营</button>
+                    <button class="filter-btn faction-filter-btn" id="btnFilter_autobot" onclick="filterFaction('autobot', this)">汽车人</button>
+                    <button class="filter-btn faction-filter-btn" id="btnFilter_decepticon" onclick="filterFaction('decepticon', this)">霸天虎</button>
+                    <button class="filter-btn faction-filter-btn" id="btnFilter_sharkticon" onclick="filterFaction('sharkticon', this)"><span class="tecnica-icon" style="margin-right: 4px;">&#xE99E;</span>饿鲨</button>
+                    <button class="filter-btn faction-filter-btn" id="btnFilter_predacon" onclick="filterFaction('predacon', this)">原始兽</button>
+                    <button class="filter-btn faction-filter-btn" id="btnFilter_maximal" onclick="filterFaction('maximal', this)">巨无霸</button>
+                </div>
+                <div class="filter-group">
+                    <button class="filter-btn source-filter-btn active" onclick="filterSource('all', this)">全部来源</button>
+                    <button class="filter-btn source-filter-btn" id="btnSource_Kabam" onclick="filterSource('Kabam', this)">Kabam (61)</button>
+                    <button class="filter-btn source-filter-btn" id="btnSource_Netflix" onclick="filterSource('Netflix', this)">Netflix (2)</button>
+                    <button class="filter-btn source-filter-btn" id="btnSource_Revival" onclick="filterSource('Revival', this)">Revival (15)</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Top Stats Overview -->
+        <div class="stats-overview">
+            <div class="overview-card">
+                <span class="overview-label">收录角色总数</span>
+                <span class="overview-value" id="statTotalBots">78</span>
+            </div>
+            <div class="overview-card">
+                <span class="overview-label">职业流派</span>
+                <span class="overview-value" id="statTotalClasses">6 系</span>
+            </div>
+            <div class="overview-card">
+                <span class="overview-label">官方收录战技</span>
+                <span class="overview-value" id="statTotalAbilities">1,163 条</span>
+            </div>
+            <div class="overview-card">
+                <span class="overview-label">PUA 矢量字形库</span>
+                <span class="overview-value" id="statTotalPua">523 个</span>
+            </div>
+        </div>
+
+        <!-- Class Sections Container -->
+        <div id="classSectionsContainer">
+            <!-- Dynamically populated -->
+        </div>
+    </main>
+
+    <!-- Character Details & Ability Modal -->
+    <div class="modal-overlay" id="charModal" onclick="closeModalOnBackdrop(event, 'charModal')">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div style="display: flex; align-items: center; gap: 14px;">
+                    <div class="avatar-frame" style="width: 52px; height: 52px;">
+                        <img id="mAvatar" class="avatar-img" src="" alt="avatar">
+                    </div>
+                    <div>
+                        <div style="display: flex; align-items: baseline; gap: 8px;">
+                            <span id="mNameZh" style="font-size: 18px; font-weight: 700;"></span>
+                            <span id="mNameEn" style="font-size: 13px; color: var(--text-sub);"></span>
+                            <span id="mOriginalTag" style="font-size: 11px; background: rgba(245, 158, 11, 0.2); color: #F59E0B; padding: 1px 6px; border-radius: 4px; display: none;">专属原创角色</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px; margin-top: 2px;">
+                            <span id="mSourceBadge" class="source-tag"></span>
+                            <span id="mFactionBadge" class="faction-tag"></span>
+                            <span id="mClassBadge" class="faction-tag"></span>
+                            <span id="mOriginBadge" class="origin-tag"></span>
+                        </div>
+                    </div>
+                </div>
+                <button class="modal-close-btn" onclick="closeCharModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Editable Stats Box -->
+                <div class="char-edit-stats-box">
+                    <div class="edit-stat-col">
+                        <label>生命值 (HP 6/60)</label>
+                        <input type="number" id="inpHp" placeholder="如 35484">
+                    </div>
+                    <div class="edit-stat-col">
+                        <label>攻击力 (ATK 6/60)</label>
+                        <input type="number" id="inpAttack" placeholder="如 2519">
+                    </div>
+                    <div class="edit-stat-col">
+                        <label>角色评分 (Rating 6/60)</label>
+                        <input type="number" id="inpRating" placeholder="如 11670">
+                    </div>
+                    <div class="edit-stat-col">
+                        <label>生命倍率 (HP Mult)</label>
+                        <input type="number" id="inpHealthMult" step="0.05">
+                    </div>
+                    <div class="edit-stat-col">
+                        <label>攻击倍率 (ATK Mult)</label>
+                        <input type="number" id="inpAttackMult" step="0.05">
+                    </div>
+                    <div class="edit-stat-col">
+                        <label>基础暴击率 (Crit %)</label>
+                        <input type="number" id="inpCritChance" step="0.01" placeholder="默认跟随职业">
+                    </div>
+                    <div class="edit-stat-col">
+                        <label>暴击伤害倍率 (Dmg)</label>
+                        <input type="number" id="inpCritDamage" step="0.05" placeholder="默认跟随职业">
+                    </div>
+                    <div class="edit-stat-col">
+                        <label>远程暴击率 (Ranged)</label>
+                        <input type="number" id="inpCritRanged" step="0.01" placeholder="留空默认">
+                    </div>
+                    <div class="edit-stat-col">
+                        <label>近战暴击率 (Melee)</label>
+                        <input type="number" id="inpCritMelee" step="0.01" placeholder="如惊天雷设0">
+                    </div>
+                    <div class="edit-stat-col">
+                        <label>格挡减伤率 (Block)</label>
+                        <input type="number" id="inpBlockProf" step="0.05" value="0.5">
+                    </div>
+                    <button class="btn-save-stats" onclick="saveCharacterStats()">保存角色数值设定</button>
+                </div>
+
+                <!-- Ability Sections Container -->
+                <div id="mAbilitySectionsContainer">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add New Ability Modal -->
+    <div class="modal-overlay" id="addAbilityModal" onclick="closeModalOnBackdrop(event, 'addAbilityModal')">
+        <div class="modal-content add-ability-modal-content">
+            <div class="modal-header">
+                <div>
+                    <div style="font-size: 16px; font-weight: 700;">新增战技 / 能力</div>
+                    <div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;" id="addAbilityCategoryLabel">所属分类: 基础能力（Abilities）</div>
+                </div>
+                <button class="modal-close-btn" onclick="closeAddAbilityModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="newAbCategory" value="basic">
+                <div class="form-row">
+                    <label>能力标题 (Title)</label>
+                    <input type="text" id="newAbTitle" placeholder="如：能量过载 / 幽影潜行 / 破甲斩击...">
+                </div>
+                <div class="form-row">
+                    <label>效果详细描述 (Description)</label>
+                    <textarea id="newAbDesc" rows="4" placeholder="详细描述该技能触发机制、持续时间、数值百分比等..."></textarea>
+                </div>
+                <div class="form-row" id="newAbSynergyRow" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <label style="margin-bottom: 0;">协同人物 (Partners)</label>
+                        <button type="button" class="btn-select-synergy-partners" onclick="openSynergyPartnerPicker('new_ability')">
+                            <span>+</span> 选择角色
+                        </button>
+                    </div>
+                    <div class="synergy-partners-chips" id="newAbSynergyChips" style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); padding: 6px 10px; border-radius: 6px;">
+                        <span class="synergy-empty-hint">暂未关联协同人物</span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label>专属 PUA 矢量图标 (可选)</label>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div class="ability-pua-picker-btn" id="newAbPuaBtn" onclick="openPuaPicker('new_ability', 'temp', '')">
+                            <span class="tecnica-icon ability-pua-icon-glyph" id="newAbPuaGlyph">+</span>
+                            <span class="ability-pua-hex-sub" id="newAbPuaHex">PUA</span>
+                        </div>
+                        <span style="font-size: 12px; color: var(--text-sub);">点击左侧方框挑选图标</span>
+                    </div>
+                    <input type="hidden" id="newAbPuaIconVal" value="">
+                </div>
+                <button class="btn-submit-new-ability" onclick="submitNewAbility()">确认添加至角色能力库</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PUA Icon Picker Modal -->
+    <div class="modal-overlay" id="puaModal" onclick="closeModalOnBackdrop(event, 'puaModal')">
+        <div class="modal-content pua-modal-content">
+            <div class="modal-header">
+                <div>
+                    <div style="font-size: 16px; font-weight: 700;">选择 Tecnica Bold PUA 矢量图标</div>
+                    <div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;" id="puaTargetDesc">用于当前技能图标设置</div>
+                </div>
+                <button class="modal-close-btn" onclick="closePuaModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="puaSearchInput" class="pua-search-input" placeholder="输入名称或 Hex 搜索 (如 shield, bleed, stun, e50)..." oninput="filterPuaIcons()">
+                <div class="pua-filter-tabs">
+                    <button class="pua-tab-btn active" onclick="filterPuaCategory('all', this)">全部 (All)</button>
+                    <button class="pua-tab-btn" onclick="filterPuaCategory('buff_shield', this)">护盾与格挡 (Shield)</button>
+                    <button class="pua-tab-btn" onclick="filterPuaCategory('buff_effect', this)">增益与减益 (Buffs)</button>
+                    <button class="pua-tab-btn" onclick="filterPuaCategory('ui_control', this)">UI控制与标记 (UI)</button>
+                    <button class="pua-tab-btn" onclick="filterPuaCategory('misc', this)">其他符号 (Misc)</button>
+                </div>
+                <div class="pua-grid" id="puaGrid">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Synergy Partner Picker Modal -->
+    <div class="modal-overlay" id="synergyPickerModal" onclick="closeModalOnBackdrop(event, 'synergyPickerModal')">
+        <div class="modal-content" style="max-width: 680px;">
+            <div class="modal-header">
+                <div>
+                    <div style="font-size: 16px; font-weight: 700;">选择协同人物 (Select Synergy Partners)</div>
+                    <div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">勾选参与此协同羁绊加成的角色</div>
+                </div>
+                <button class="modal-close-btn" onclick="closeSynergyPickerModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="synergySearchInput" class="pua-search-input" placeholder="输入名称搜索 (如 大黄蜂, Bumblebee, Ironhide)..." oninput="filterSynergyPicker(this.value)">
+                <div class="pua-filter-tabs">
+                    <button class="pua-tab-btn active" onclick="filterSynergyFaction('all', this)">全部 (All)</button>
+                    <button class="pua-tab-btn" onclick="filterSynergyFaction('autobot', this)">汽车人</button>
+                    <button class="pua-tab-btn" onclick="filterSynergyFaction('decepticon', this)">霸天虎</button>
+                    <button class="pua-tab-btn" onclick="filterSynergyFaction('maximal', this)">巨无霸</button>
+                    <button class="pua-tab-btn" onclick="filterSynergyFaction('predacon', this)">原始兽</button>
+                </div>
+                <div class="synergy-picker-grid" id="synergyPickerGrid">
+                    <!-- Populated dynamically -->
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border-color);">
+                    <span id="synergySelectedCountText" style="font-size: 13px; color: var(--text-sub);">已选择 0 位角色</span>
+                    <div style="display: flex; gap: 8px;">
+                        <button type="button" class="btn-card-action del" onclick="clearSynergySelection()" style="padding: 6px 12px;">清空</button>
+                        <button type="button" class="btn-card-action save" onclick="confirmSynergyPartnerSelection()" style="padding: 6px 16px; font-size: 13px;">确认选择</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Character Dossier Card Modal -->
+    <div class="modal-overlay" id="cardDossierModal" onclick="closeModalOnBackdrop(event, 'cardDossierModal')">
+        <div class="modal-content card-dossier-modal-content">
+            <div class="card-dossier-header">
+                <div style="display: flex; align-items: center; gap: 14px;">
+                    <span class="tecnica" style="font-size: 15px; font-weight: 700; color: #00F0FF; letter-spacing: 0.5px;">
+                        CYBERTRONIAN DOSSIER // 机体档案卡
+                    </span>
+                    <div class="card-view-mode-toggle">
+                        <button id="btnModeLong" class="mode-toggle-btn active" onclick="setCardViewMode('long')">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 4px;"><rect x="6" y="2" width="12" height="20" rx="2"/><line x1="9" y1="6" x2="15" y2="6"/><line x1="9" y1="10" x2="15" y2="10"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
+                            长图模式
+                        </button>
+                        <button id="btnModeTab" class="mode-toggle-btn" onclick="setCardViewMode('tab')">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 4px;"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                            分栏模式
+                        </button>
+                    </div>
+                </div>
+                <button class="modal-close-btn" onclick="closeCardDossierModal()">&times;</button>
+            </div>
+            <div class="card-dossier-scroll-body" id="cardDossierBody">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toastMsg">已保存更新</div>
+
+    <script>
+
+        // ==========================================
+        // Upstash KV Online Storage Client & Fallback
+        // ==========================================
+        const UPSTASH = {
+            url: "https://deciding-bulldog-136761.upstash.io",
+            token: "gQAAAAAAAhY5AAIgcDEyZGMwZDRhNzRlZGQ0MDI2YWM2YmI3ZDExNTc3ZjZmNA",
+            readToken: "ggAAAAAAAhY5AAIgcDG7a511dMnvUap5JjML7kdCMH0hQAG95-3BtwD6YEaFeQ"
+        };
+
+        async function kvGet(key, fallbackPath) {
+            try {
+                const res = await fetch(`${UPSTASH.url}/get/${encodeURIComponent(key)}`, {
+                    headers: { 'Authorization': `Bearer ${UPSTASH.readToken}` }
+                });
+                if (res.ok) {
+                    const json = await res.json();
+                    if (json && json.result) {
+                        return typeof json.result === 'string' ? JSON.parse(json.result) : json.result;
+                    }
+                }
+            } catch (err) {
+                console.warn(`Upstash KV read failed for [${key}], falling back:`, err);
+            }
+            if (fallbackPath) {
+                try {
+                    const fbRes = await fetch(fallbackPath);
+                    if (fbRes.ok) return await fbRes.json();
+                } catch (fbErr) {
+                    console.error(`Fallback fetch failed for [${fallbackPath}]:`, fbErr);
+                }
+            }
+            return null;
+        }
+
+        async function kvSet(key, value) {
+            try {
+                const res = await fetch(`${UPSTASH.url}/set/${encodeURIComponent(key)}`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${UPSTASH.token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(value)
+                });
+                const json = await res.json();
+                return json && json.result === 'OK';
+            } catch (err) {
+                console.error(`Upstash KV write failed for [${key}]:`, err);
+                return false;
+            }
+        }
+
+        let gOverviewData = null;
+        let gPuaIcons = [];
+        let gCurBotId = null;
+        let gCurrentPuaTarget = null;
+        let gActiveFactionFilter = 'all';
+
+        // 5 Top-level Ability Sections (with 3 Special Attacks grouped into 1 section)
+        const SECTION_DEFS = [
+            { type: 'single',        key: 'basic',     name: '基础能力（Abilities）', desc: '常驻基础属性与特性' },
+            { type: 'single',        key: 'passive',   name: '被动（Passive）', desc: '战斗中特定条件触发' },
+            { type: 'single',        key: 'signature', name: '招牌能力（Signature Ability）', desc: '核心招牌能力' },
+            {
+                type: 'special_group',
+                key: 'special',
+                name: '特殊技（Special Attacks）',
+                desc: '特殊技能招式',
+                subgroups: [
+                    { key: 'sp1', name: '特殊技 1 (SP1)', badge: 'SP1', badgeClass: 'sp-badge-1' },
+                    { key: 'sp2', name: '特殊技 2 (SP2)', badge: 'SP2', badgeClass: 'sp-badge-2' },
+                    { key: 'sp3', name: '特殊技 3 (SP3)', badge: 'SP3', badgeClass: 'sp-badge-3' }
+                ]
+            },
+            { type: 'single',        key: 'synergy',   name: '协同奖励 (Synergy Bonuses)', desc: '同队伍羁绊加成' }
+        ];
+
+        // Initialize dashboard
+        async function init() {
+            try {
+                gOverviewData = await kvGet('tftf:overview', './data/overview.json');
+                if (gOverviewData && gOverviewData.characters) {
+                    gOverviewData.characters.forEach(c => {
+                        c.portrait_url = `portraits/${c.bot_id}.png`;
+                        c.portrait_large_url = `portraits/${c.bot_id}_large.png`;
+                    });
+                }
+
+                const puaData = await kvGet('tftf:pua_icons', './data/pua_icons.json');
+                gPuaIcons = (puaData && puaData.icons) ? puaData.icons : [];
+                document.getElementById('statTotalPua').innerText = `${gPuaIcons.length} 个`;
+
+                renderDashboard();
+            } catch (err) {
+                console.error("Failed to load dashboard data:", err);
+            }
+        }
+
+        // Render main summary page grouped by class
+        function renderDashboard() {
+            if (!gOverviewData) return;
+
+            const container = document.getElementById('classSectionsContainer');
+            container.innerHTML = '';
+
+            const classes = gOverviewData.classes;
+            const characters = gOverviewData.characters;
+
+            document.getElementById('statTotalBots').innerText = characters.length;
+            document.getElementById('statTotalClasses').innerText = `${classes.length} 系`;
+            if (gOverviewData.total_abilities) {
+                document.getElementById('statTotalAbilities').innerText = `${gOverviewData.total_abilities.toLocaleString()} 条`;
+            }
+
+            // Update source filter buttons count
+            const kabamCount = characters.filter(b => b.source === 'Kabam').length;
+            const netflixCount = characters.filter(b => b.source === 'Netflix').length;
+            const revivalCount = characters.filter(b => b.source === 'Revival').length;
+            const btnK = document.getElementById('btnSource_Kabam');
+            if (btnK) btnK.innerText = `Kabam (${kabamCount})`;
+            const btnN = document.getElementById('btnSource_Netflix');
+            if (btnN) btnN.innerText = `Netflix (${netflixCount})`;
+            const btnR = document.getElementById('btnSource_Revival');
+            if (btnR) btnR.innerText = `Revival (${revivalCount})`;
+
+            // Update faction filter buttons with PUA icons and counts
+            const sharkCount = characters.filter(b => b.bot_id && b.bot_id.includes('sharkticon')).length;
+            const autoCount = characters.filter(b => b.faction === 'autobot').length;
+            const decCount = characters.filter(b => b.faction === 'decepticon' && !(b.bot_id && b.bot_id.includes('sharkticon'))).length;
+            const predCount = characters.filter(b => b.faction === 'predacon').length;
+            const maxCount = characters.filter(b => b.faction === 'maximal').length;
+
+            const factionCounts = {
+                autobot: autoCount,
+                decepticon: decCount,
+                predacon: predCount,
+                maximal: maxCount,
+            };
+
+            if (gOverviewData.factions) {
+                gOverviewData.factions.forEach(f => {
+                    const btn = document.getElementById(`btnFilter_${f.faction_id}`);
+                    if (btn) {
+                        const count = factionCounts[f.faction_id] !== undefined ? ` (${factionCounts[f.faction_id]})` : '';
+                        const fPua = f.pua_icon ? `<span class="tecnica-icon" style="margin-right: 4px;">${String.fromCharCode(parseInt(f.pua_icon, 16))}</span>` : '';
+                        btn.innerHTML = `${fPua}${f.name_zh}${count}`;
+                    }
+                });
+            }
+            const btnShark = document.getElementById('btnFilter_sharkticon');
+            if (btnShark) {
+                btnShark.innerHTML = `<span class="tecnica-icon" style="margin-right: 4px;">${String.fromCharCode(0xE99E)}</span>饿鲨 (${sharkCount})`;
+            }
+
+            classes.forEach(cls => {
+                const q = document.getElementById('searchInput').value.trim().toLowerCase();
+                const botsInClass = characters.filter(bot => {
+                    if (bot.class !== cls.class_id) return false;
+                    const isShark = bot.bot_id && bot.bot_id.includes('sharkticon');
+                    if (gActiveFactionFilter === 'sharkticon') {
+                        if (!isShark) return false;
+                    } else if (gActiveFactionFilter === 'decepticon') {
+                        if (bot.faction !== 'decepticon' || isShark) return false;
+                    } else if (gActiveFactionFilter !== 'all') {
+                        if (bot.faction !== gActiveFactionFilter) return false;
+                    }
+                    if (gActiveSourceFilter !== 'all' && bot.source !== gActiveSourceFilter) return false;
+                    if (q) {
+                        const matchNameZh = bot.name_zh && bot.name_zh.toLowerCase().includes(q);
+                        const matchNameEn = bot.name_en && bot.name_en.toLowerCase().includes(q);
+                        const matchBid = bot.bot_id && bot.bot_id.toLowerCase().includes(q);
+                        return matchNameZh || matchNameEn || matchBid;
+                    }
+                    return true;
+                });
+
+                // Sort: Kabam regular -> Kabam Sharkticons -> Netflix -> Revival
+                botsInClass.sort((a, b) => {
+                    const getOrder = (bot) => {
+                        const isShark = bot.bot_id && bot.bot_id.includes('shark');
+                        if (bot.source === 'Kabam') return isShark ? 1 : 0;
+                        if (bot.source === 'Netflix') return 2;
+                        if (bot.source === 'Revival') return 3;
+                        return 4;
+                    };
+                    const ordA = getOrder(a);
+                    const ordB = getOrder(b);
+                    if (ordA !== ordB) return ordA - ordB;
+                    return (a.name_zh || a.bot_id).localeCompare(b.name_zh || b.bot_id, 'zh-Hans-CN');
+                });
+
+                if (botsInClass.length === 0 && (q || gActiveFactionFilter !== 'all' || gActiveSourceFilter !== 'all')) {
+                    return;
+                }
+
+                const sec = document.createElement('div');
+                sec.className = 'class-section';
+
+                const puaDisplay = cls.pua_icon ? String.fromCharCode(parseInt(cls.pua_icon, 16)) : '⯁';
+                const puaTooltipText = cls.pua_icon ? `PUA: ${cls.pua_icon}` : '点击选择PUA职业图标';
+
+                sec.innerHTML = `
+                    <div class="class-header" style="border-left: 4px solid ${cls.color_hex};">
+                        <div class="class-title-group">
+                            <div class="pua-icon-badge" onclick="openPuaPicker('class', '${cls.class_id}', '${cls.pua_icon || ''}')" style="color: ${cls.color_hex};">
+                                <span class="tecnica-icon">${puaDisplay}</span>
+                                <div class="pua-tooltip">${puaTooltipText}</div>
+                            </div>
+                            <div>
+                                <span class="class-name" style="color: ${cls.color_hex};">${cls.name_zh}</span>
+                                <span class="class-en-name">${cls.name_en}</span>
+                                <span style="font-size: 12px; color: var(--text-sub); margin-left: 8px;">(${botsInClass.length} 名战士)</span>
+                            </div>
+                        </div>
+                        <div class="class-stats-pill">
+                            <div class="pill-stat">基准暴击: <span class="val">${Math.round(cls.crit_chance * 100)}%</span></div>
+                            <div class="pill-stat">爆伤: <span class="val">${cls.crit_damage.toFixed(2)}x</span></div>
+                            ${cls.ranged_crit_bonus > 0 ? `<div class="pill-stat">远程加成: <span class="val" style="color: #F59E0B;">+${Math.round(cls.ranged_crit_bonus * 100)}%</span></div>` : ''}
+                        </div>
+                    </div>
+                    <div class="class-trait">${cls.trait_zh || '暂无流派描述'}</div>
+                    <div class="character-grid" id="grid_${cls.class_id}"></div>
+                `;
+
+                container.appendChild(sec);
+                const grid = sec.querySelector(`#grid_${cls.class_id}`);
+
+                botsInClass.forEach(bot => {
+                    const card = createCharacterCard(bot, cls);
+                    grid.appendChild(card);
+                });
+            });
+        }
+
+        const gEditingCardBots = new Set();
+
+        // Create individual character card
+        function createCharacterCard(bot, cls) {
+            const card = document.createElement('div');
+            card.className = 'character-card';
+            card.id = `card_${bot.bot_id}`;
+
+            if (!cls && gOverviewData && gOverviewData.classes) {
+                cls = gOverviewData.classes.find(c => c.class_id === bot.class) || {};
+            }
+
+            const isEditing = gEditingCardBots.has(bot.bot_id);
+            if (isEditing) {
+                card.classList.add('card-editing');
+            }
+
+            const factionObj = (gOverviewData && gOverviewData.factions) ? (gOverviewData.factions.find(f => f.faction_id === bot.faction) || { name_zh: bot.faction, color_hex: '#888' }) : { name_zh: bot.faction, color_hex: '#888' };
+            let facPua = bot.pua_faction_icon || factionObj.pua_icon || '';
+            if (!facPua) {
+                const isMovie = (bot.bot_id && (bot.bot_id.includes('_cin_') || bot.bot_id.includes('_mv_')));
+                if (bot.bot_id && bot.bot_id.includes('sharkticon')) facPua = 'E99E';
+                else if (bot.faction === 'autobot') facPua = isMovie ? 'E134' : 'E132';
+                else if (bot.faction === 'decepticon') facPua = isMovie ? 'E135' : 'E133';
+                else if (bot.faction === 'maximal') facPua = 'E160';
+                else if (bot.faction === 'predacon') facPua = 'E161';
+            }
+            const isCritOverridden = bot.crit_chance !== null && bot.crit_chance !== undefined;
+            const critDisplay = Math.round((bot.effective_crit_chance !== undefined ? bot.effective_crit_chance : 0.15) * 100);
+            const isCritDmgOverridden = bot.crit_damage !== null && bot.crit_damage !== undefined;
+            const critDmgDisplay = (bot.effective_crit_damage !== undefined ? bot.effective_crit_damage : 1.5).toFixed(2);
+
+            let rangedDisplay = Math.round((bot.effective_crit_ranged !== undefined ? bot.effective_crit_ranged : 0.15) * 100);
+            let meleeDisplay = Math.round((bot.effective_crit_melee !== undefined ? bot.effective_crit_melee : 0.15) * 100);
+
+            const hpFormatted = (bot.hp !== null && bot.hp !== undefined) ? Number(bot.hp).toLocaleString() : '-';
+            const atkFormatted = (bot.attack !== null && bot.attack !== undefined) ? Number(bot.attack).toLocaleString() : '-';
+            const ratFormatted = (bot.rating !== null && bot.rating !== undefined) ? Number(bot.rating).toLocaleString() : '-';
+
+            let statsContentHtml = '';
+            if (!isEditing) {
+                statsContentHtml = `
+                    <div class="card-stats-row-top">
+                        <div class="stat-item">
+                            <span class="lbl">生命值</span>
+                            <span class="num" style="color: #34D399;">${hpFormatted}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="lbl">攻击力</span>
+                            <span class="num" style="color: #F87171;">${atkFormatted}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="lbl">角色评分</span>
+                            <span class="num" style="color: #FBBF24;">${ratFormatted}</span>
+                        </div>
+                    </div>
+                    <div class="card-stats-row-bottom">
+                        <div class="stat-item">
+                            <span class="lbl">暴击率</span>
+                            <span class="num highlight ${isCritOverridden ? 'custom-override' : ''}">${critDisplay}%${isCritOverridden ? '*' : ''}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="lbl">暴击伤害</span>
+                            <span class="num ${isCritDmgOverridden ? 'custom-override' : ''}">${critDmgDisplay}x</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="lbl">远程暴击</span>
+                            <span class="num" style="color: #F59E0B;">${rangedDisplay}%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="lbl">近战暴击</span>
+                            <span class="num" style="${bot.crit_chance_melee === 0.0 ? 'color: #EF4444; font-weight:800;' : ''}">${meleeDisplay}%</span>
+                        </div>
+                    </div>
+                `;
+            } else {
+                const bid = bot.bot_id;
+                statsContentHtml = `
+                    <div class="card-stats-row-top edit-mode">
+                        <div class="stat-item">
+                            <span class="lbl" style="color: #34D399;">生命值 HP</span>
+                            <input type="number" class="card-stat-input" id="cinput_hp_${bid}" value="${bot.hp !== null && bot.hp !== undefined ? bot.hp : ''}" placeholder="如 35484" style="color: #34D399;" title="5星 6/60 生命值 (HP)">
+                        </div>
+                        <div class="stat-item">
+                            <span class="lbl" style="color: #F87171;">攻击力 ATK</span>
+                            <input type="number" class="card-stat-input" id="cinput_atk_${bid}" value="${bot.attack !== null && bot.attack !== undefined ? bot.attack : ''}" placeholder="如 2519" style="color: #F87171;" title="5星 6/60 基础攻击力 (ATK)">
+                        </div>
+                        <div class="stat-item">
+                            <span class="lbl" style="color: #FBBF24;">角色评分 PI</span>
+                            <input type="number" class="card-stat-input" id="cinput_rat_${bid}" value="${bot.rating !== null && bot.rating !== undefined ? bot.rating : ''}" placeholder="如 11670" style="color: #FBBF24;" title="5星 6/60 角色评分 (Rating)">
+                        </div>
+                    </div>
+                    <div class="card-stats-row-bottom edit-mode">
+                        <div class="stat-item">
+                            <span class="lbl">暴击率 %</span>
+                            <input type="number" step="0.5" class="card-stat-input" id="cinput_crit_${bid}" value="${bot.crit_chance !== null && bot.crit_chance !== undefined ? Math.round(bot.crit_chance * 100) : ''}" placeholder="${critDisplay}%" title="基础暴击率 (留空遵循职业)">
+                        </div>
+                        <div class="stat-item">
+                            <span class="lbl">暴伤 x</span>
+                            <input type="number" step="0.05" class="card-stat-input" id="cinput_cdmg_${bid}" value="${bot.crit_damage !== null && bot.crit_damage !== undefined ? bot.crit_damage : ''}" placeholder="${critDmgDisplay}x" title="暴击伤害倍率 (留空遵循职业)">
+                        </div>
+                        <div class="stat-item">
+                            <span class="lbl">远程 %</span>
+                            <input type="number" step="0.5" class="card-stat-input" id="cinput_crange_${bid}" value="${bot.crit_chance_ranged !== null && bot.crit_chance_ranged !== undefined ? Math.round(bot.crit_chance_ranged * 100) : ''}" placeholder="${rangedDisplay}%" title="远程暴击率">
+                        </div>
+                        <div class="stat-item">
+                            <span class="lbl">近战 %</span>
+                            <input type="number" step="0.5" class="card-stat-input" id="cinput_cmelee_${bid}" value="${bot.crit_chance_melee !== null && bot.crit_chance_melee !== undefined ? Math.round(bot.crit_chance_melee * 100) : ''}" placeholder="${meleeDisplay}%" title="近战暴击率">
+                        </div>
+                    </div>
+                    <div class="card-edit-tip">
+                        <span class="edit-pulse-dot"></span>
+                        <span>编辑中 · 再点右上角标志退出并保存 (Enter保存 / Esc取消)</span>
+                    </div>
+                `;
+            }
+
+            card.innerHTML = `
+                <div class="card-faction-badge ${isEditing ? 'editing-active' : ''}" 
+                     id="badge_${bot.bot_id}" 
+                     onclick="toggleCardEditMode('${bot.bot_id}', event)" 
+                     title="${isEditing ? '正在编辑 · 再点此标志退出并保存 (或按回车)' : '阵营: ' + (factionObj.name_zh || bot.faction) + ' · 点击进入数值编辑模式'}">
+                    ${isEditing 
+                        ? `<span class="badge-save-glyph">💾</span>` 
+                        : (facPua ? `<span class="tecnica-icon faction-emblem-glyph">${String.fromCharCode(parseInt(facPua, 16))}</span>` : '')
+                    }
+                    ${!isEditing ? `<span class="badge-edit-hint" title="编辑数值">✎</span>` : ''}
+                </div>
+                <div class="card-top">
+                    <div class="avatar-frame">
+                        <img class="avatar-img" src="${bot.portrait_url}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'58\\' height=\\'58\\'><rect width=\\'100%\\' height=\\'100%\\' fill=\\'%23222\\'/><text x=\\'50%\\' y=\\'50%\\' fill=\\'%23666\\' font-size=\\'10\\' text-anchor=\\'middle\\' dy=\\'.3em\\'>TF</text></svg>'">
+                    </div>
+                    <div class="card-info">
+                        <div class="char-names" title="${bot.name_zh} (${bot.name_en})">
+                            <span class="name-zh">${bot.name_zh}</span>
+                            <span class="name-en">${bot.name_en}</span>
+                        </div>
+                        <div class="char-meta">
+                            <span class="source-tag source-${(bot.source || 'Kabam').toLowerCase()}">${bot.source || 'Kabam'}</span>
+                            <span class="faction-tag" style="background: ${factionObj.color_hex}22; color: ${factionObj.color_hex}; border-color: ${factionObj.color_hex}44;" onclick="openPuaPicker('faction', '${bot.faction}', '${facPua}')" title="点击选择 [${factionObj.name_zh}] 阵营通用图标并保存入库">
+                                ${facPua ? `<span class="tecnica-icon" style="margin-right: 3px;">${String.fromCharCode(parseInt(facPua, 16))}</span>` : ''}
+                                ${factionObj.name_zh}
+                            </span>
+                            <span class="origin-tag">${bot.origin || 'G1'}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-stats-container">
+                    ${statsContentHtml}
+                </div>
+
+                <div class="card-actions">
+                    <button class="btn-view-skills" onclick="openCharacterModal('${bot.bot_id}')">查看技能与招式</button>
+                    <button class="btn-view-card" onclick="openCharacterCardModal('${bot.bot_id}')" title="查看机体全息档案卡 (Card Dossier)">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                            <line x1="7" y1="8" x2="12" y2="8"></line>
+                            <line x1="7" y1="12" x2="12" y2="12"></line>
+                            <circle cx="16.5" cy="10.5" r="2.5"></circle>
+                        </svg>
+                    </button>
+                </div>
+            `;
+
+            if (isEditing) {
+                setTimeout(() => {
+                    const inputs = card.querySelectorAll('.card-stat-input');
+                    inputs.forEach(inp => {
+                        inp.addEventListener('keydown', (e) => {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                                toggleCardEditMode(bot.bot_id);
+                            } else if (e.key === 'Escape') {
+                                e.preventDefault();
+                                cancelCardEditMode(bot.bot_id);
+                            }
+                        });
+                    });
+                }, 0);
+            }
+
+            return card;
+        }
+
+        // Toggle card edit mode on clicking the top-right faction badge
+        async function toggleCardEditMode(botId, event) {
+            if (event && event.stopPropagation) {
+                event.stopPropagation();
+            }
+            if (gEditingCardBots.has(botId)) {
+                await saveAndExitCardEditMode(botId);
+            } else {
+                gEditingCardBots.add(botId);
+                refreshSingleCard(botId);
+            }
+        }
+
+        // Cancel card edit mode without saving
+        function cancelCardEditMode(botId) {
+            gEditingCardBots.delete(botId);
+            refreshSingleCard(botId);
+            showToast("已取消编辑");
+        }
+
+        // Save inline card edit and exit edit mode
+        async function saveAndExitCardEditMode(botId) {
+            const bot = (gOverviewData && gOverviewData.characters) ? gOverviewData.characters.find(c => c.bot_id === botId) : null;
+            if (!bot) return;
+
+            const hpEl = document.getElementById(`cinput_hp_${botId}`);
+            const atkEl = document.getElementById(`cinput_atk_${botId}`);
+            const ratEl = document.getElementById(`cinput_rat_${botId}`);
+            const critEl = document.getElementById(`cinput_crit_${botId}`);
+            const cdmgEl = document.getElementById(`cinput_cdmg_${botId}`);
+            const crangeEl = document.getElementById(`cinput_crange_${botId}`);
+            const cmeleeEl = document.getElementById(`cinput_cmelee_${botId}`);
+
+            if (!hpEl) {
+                gEditingCardBots.delete(botId);
+                refreshSingleCard(botId);
+                return;
+            }
+
+            const hpVal = hpEl.value.trim();
+            const atkVal = atkEl.value.trim();
+            const ratVal = ratEl.value.trim();
+
+            const hp = hpVal !== '' ? parseInt(hpVal, 10) : null;
+            const attack = atkVal !== '' ? parseInt(atkVal, 10) : null;
+            const rating = ratVal !== '' ? parseInt(ratVal, 10) : null;
+
+            const payload = { hp, attack, rating };
+
+            if (critEl && critEl.value.trim() !== '') {
+                payload.crit_chance = parseFloat(critEl.value.trim()) / 100.0;
+            }
+            if (cdmgEl && cdmgEl.value.trim() !== '') {
+                payload.crit_damage = parseFloat(cdmgEl.value.trim());
+            }
+            if (crangeEl && crangeEl.value.trim() !== '') {
+                payload.crit_chance_ranged = parseFloat(crangeEl.value.trim()) / 100.0;
+            }
+            if (cmeleeEl && cmeleeEl.value.trim() !== '') {
+                payload.crit_chance_melee = parseFloat(cmeleeEl.value.trim()) / 100.0;
+            }
+
+            try {
+                // Update local memory
+                bot.hp = hp;
+                bot.attack = attack;
+                bot.rating = rating;
+                if (payload.crit_chance !== undefined) bot.crit_chance = payload.crit_chance;
+                if (payload.crit_damage !== undefined) bot.crit_damage = payload.crit_damage;
+                if (payload.crit_chance_ranged !== undefined) bot.crit_chance_ranged = payload.crit_chance_ranged;
+                if (payload.crit_chance_melee !== undefined) bot.crit_chance_melee = payload.crit_chance_melee;
+
+                const cDef = (gOverviewData && gOverviewData.classes) ? (gOverviewData.classes.find(c => c.class_id === bot.class) || {}) : {};
+                bot.effective_crit_chance = bot.crit_chance !== null ? bot.crit_chance : (cDef.crit_chance || 0.15);
+                bot.effective_crit_damage = bot.crit_damage !== null ? bot.crit_damage : (cDef.crit_damage || 1.5);
+                bot.effective_crit_ranged = bot.crit_chance_ranged !== null ? bot.crit_chance_ranged : (bot.effective_crit_chance + (cDef.ranged_crit_bonus || 0.0));
+                bot.effective_crit_melee = bot.crit_chance_melee !== null ? bot.crit_chance_melee : bot.effective_crit_chance;
+
+                // Sync to Upstash KV: character detail and overview
+                let charDetail = await kvGet('tftf:char:' + botId, `./data/characters/${botId}.json`) || {};
+                Object.assign(charDetail, payload, {
+                    effective_crit_chance: bot.effective_crit_chance,
+                    effective_crit_damage: bot.effective_crit_damage,
+                    effective_crit_ranged: bot.effective_crit_ranged,
+                    effective_crit_melee: bot.effective_crit_melee
+                });
+
+                await Promise.all([
+                    kvSet('tftf:char:' + botId, charDetail),
+                    kvSet('tftf:overview', gOverviewData)
+                ]);
+
+                gEditingCardBots.delete(botId);
+                refreshSingleCard(botId);
+                showToast(`✓ [${bot.name_zh || bot.name_en}] 属性已在线保存到 Upstash KV！`);
+            } catch (err) {
+                console.error("Save character stats error:", err);
+                alert("保存失败，请检查网络连接");
+            }
+        }
+
+        // Re-render a single character card in the DOM
+        function refreshSingleCard(botId) {
+            const oldCard = document.getElementById(`card_${botId}`);
+            if (!oldCard) return;
+            const bot = (gOverviewData && gOverviewData.characters) ? gOverviewData.characters.find(c => c.bot_id === botId) : null;
+            if (!bot) return;
+
+            const newCard = createCharacterCard(bot);
+            oldCard.replaceWith(newCard);
+
+            if (gEditingCardBots.has(botId)) {
+                setTimeout(() => {
+                    const firstInp = document.getElementById(`cinput_hp_${botId}`);
+                    if (firstInp) {
+                        firstInp.focus();
+                        firstInp.select();
+                    }
+                }, 20);
+            }
+        }
+
+        // Open Character Modal
+        async function openCharacterModal(bid) {
+            gCurBotId = bid;
+            try {
+                const data = await kvGet('tftf:char:' + bid, `./data/characters/${bid}.json`);
+                if (!data) throw new Error("无法读取角色详情");
+                data.portrait_url = `portraits/${bid}.png`;
+                data.portrait_large_url = `portraits/${bid}_large.png`;
+
+                document.getElementById('mAvatar').src = data.portrait_url;
+                document.getElementById('mNameZh').innerText = data.name_zh;
+                document.getElementById('mNameEn').innerText = data.name_en;
+
+                const fObj = gOverviewData.factions.find(f => f.faction_id === data.faction) || {};
+                const cObj = gOverviewData.classes.find(c => c.class_id === data.class) || {};
+
+                const facPua = data.pua_faction_icon || fObj.pua_icon || '';
+                const classPua = data.pua_class_icon || cObj.pua_icon || '';
+
+                const mFac = document.getElementById('mFactionBadge');
+                mFac.innerHTML = `${facPua ? `<span class="tecnica-icon" style="margin-right: 3px;">${String.fromCharCode(parseInt(facPua, 16))}</span>` : ''}${fObj.name_zh || data.faction}`;
+                mFac.style.color = fObj.color_hex || '#FFF';
+                mFac.style.cursor = 'pointer';
+                mFac.title = `点击选择 [${fObj.name_zh || data.faction}] 阵营通用图标并保存入库`;
+                mFac.onclick = () => openPuaPicker('faction', data.faction, facPua);
+
+                const mCls = document.getElementById('mClassBadge');
+                mCls.innerHTML = `${classPua ? `<span class="tecnica-icon" style="margin-right: 3px;">${String.fromCharCode(parseInt(classPua, 16))}</span>` : ''}${cObj.name_zh || data.class}`;
+                mCls.style.color = cObj.color_hex || '#FFF';
+                mCls.style.cursor = 'pointer';
+                mCls.title = `点击选择 [${cObj.name_zh || data.class}] 职业通用图标并保存入库`;
+                mCls.onclick = () => openPuaPicker('class', data.class, classPua);
+
+                document.getElementById('mOriginBadge').innerText = data.origin || 'Generation 1';
+
+                const src = data.source || 'Kabam';
+                const mSrc = document.getElementById('mSourceBadge');
+                mSrc.innerText = src;
+                mSrc.className = `source-tag source-${src.toLowerCase()}`;
+
+                const isOriginal = (!data.abilities || data.abilities.length === 0);
+                document.getElementById('mOriginalTag').style.display = (src === 'Revival') ? 'inline-block' : 'none';
+
+                // Input values
+                document.getElementById('inpHp').value = (data.hp !== null && data.hp !== undefined) ? data.hp : '';
+                document.getElementById('inpAttack').value = (data.attack !== null && data.attack !== undefined) ? data.attack : '';
+                document.getElementById('inpRating').value = (data.rating !== null && data.rating !== undefined) ? data.rating : '';
+                document.getElementById('inpHealthMult').value = data.health_mult;
+                document.getElementById('inpAttackMult').value = data.attack_mult;
+                document.getElementById('inpCritChance').value = data.crit_chance !== null ? data.crit_chance : '';
+                document.getElementById('inpCritDamage').value = data.crit_damage !== null ? data.crit_damage : '';
+                document.getElementById('inpCritRanged').value = data.crit_chance_ranged !== null ? data.crit_chance_ranged : '';
+                document.getElementById('inpCritMelee').value = data.crit_chance_melee !== null ? data.crit_chance_melee : '';
+                document.getElementById('inpBlockProf').value = data.block_proficiency;
+
+                const descEl = document.getElementById('mDescZh');
+                if (descEl) descEl.innerText = data.desc_zh || data.note || '';
+
+                // Render Categorized Abilities
+                renderCategorizedAbilities(data.abilities || []);
+
+                document.getElementById('charModal').classList.add('active');
+            } catch (err) {
+                console.error("Failed to load character detail:", err);
+            }
+        }
+
+        let gSynergyPartnersMap = {};
+        let gActiveSynergyTargetId = null;
+        let gTempSelectedSynergyBots = [];
+        let gSynergyFilterFaction = 'all';
+        let gSynergySearchQuery = '';
+        let gNewAbSynergyBots = [];
+        let gNewSpecialPuaIcons = {};
+
+        // Helper: Create single Ability Card element
+        function createAbilityCardElement(ab) {
+            const abCard = document.createElement('div');
+            abCard.className = 'ability-card';
+
+            const puaChar = ab.pua_icon ? String.fromCharCode(parseInt(ab.pua_icon, 16)) : '+';
+            const puaSub = ab.pua_icon ? ab.pua_icon : 'PUA';
+
+            let synergySectionHtml = '';
+            if (ab.category === 'synergy') {
+                gSynergyPartnersMap[ab.id] = Array.isArray(ab.synergy_bots) ? [...ab.synergy_bots] : [];
+                synergySectionHtml = `
+                    <div class="synergy-partners-section">
+                        <div class="synergy-partners-header">
+                            <span class="synergy-partners-label">🤝 协同人物:</span>
+                            <button type="button" class="btn-select-synergy-partners" onclick="openSynergyPartnerPicker(${ab.id})">
+                                <span>+</span> 选择协同角色
+                            </button>
+                        </div>
+                        <div class="synergy-partners-chips" id="synergy_chips_${ab.id}"></div>
+                    </div>
+                `;
+            }
+
+            abCard.innerHTML = `
+                <div class="ability-header-row">
+                    <div class="ability-pua-picker-btn" onclick="openPuaPicker('ability', '${ab.id}', '${ab.pua_icon || ''}')" title="点击选择PUA图标">
+                        <span class="tecnica-icon ability-pua-icon-glyph">${puaChar}</span>
+                        <span class="ability-pua-hex-sub">${puaSub}</span>
+                    </div>
+                    <input type="text" class="ability-title-edit-input" id="title_${ab.id}" value="${escapeHtml(ab.title_zh || ab.title_en || '')}" placeholder="技能标题...">
+                    <div class="ability-card-actions">
+                        <button class="btn-card-action save" onclick="saveAbilityItem(${ab.id})">保存</button>
+                        <button class="btn-card-action del" onclick="deleteAbilityItem(${ab.id})">删除</button>
+                    </div>
+                </div>
+                ${synergySectionHtml}
+                <textarea class="ability-desc-textarea" id="desc_${ab.id}" placeholder="技能描述...">${escapeHtml(ab.desc_zh || ab.desc_en || '')}</textarea>
+            `;
+
+            if (ab.category === 'synergy') {
+                setTimeout(() => renderSynergyChips(ab.id), 0);
+            }
+
+            return abCard;
+        }
+
+        // Render Special Attacks (Fixed 3 slots: SP1, SP2, SP3; no add/delete buttons)
+        function createSpecialAttackSlotElement(existingAb, spKey, spBadge, spName) {
+            const abCard = document.createElement('div');
+            abCard.className = 'ability-card';
+
+            if (existingAb) {
+                const puaChar = existingAb.pua_icon ? String.fromCharCode(parseInt(existingAb.pua_icon, 16)) : '+';
+                const puaSub = existingAb.pua_icon ? existingAb.pua_icon : 'PUA';
+
+                abCard.innerHTML = `
+                    <div class="ability-header-row">
+                        <div class="ability-pua-picker-btn" onclick="openPuaPicker('ability', '${existingAb.id}', '${existingAb.pua_icon || ''}')" title="点击选择PUA图标">
+                            <span class="tecnica-icon ability-pua-icon-glyph">${puaChar}</span>
+                            <span class="ability-pua-hex-sub">${puaSub}</span>
+                        </div>
+                        <input type="text" class="ability-title-edit-input" id="title_${existingAb.id}" value="${escapeHtml(existingAb.title_zh || existingAb.title_en || '')}" placeholder="特殊技 ${spBadge} 标题...">
+                        <div class="ability-card-actions">
+                            <button class="btn-card-action save" onclick="saveAbilityItem(${existingAb.id})">保存</button>
+                        </div>
+                    </div>
+                    <textarea class="ability-desc-textarea" id="desc_${existingAb.id}" placeholder="特殊技 ${spBadge} 详细机制与效果描述...">${escapeHtml(existingAb.desc_zh || existingAb.desc_en || '')}</textarea>
+                `;
+            } else {
+                const curHex = gNewSpecialPuaIcons[spKey] || '';
+                const puaChar = curHex ? String.fromCharCode(parseInt(curHex, 16)) : '+';
+                const puaSub = curHex || 'PUA';
+
+                abCard.innerHTML = `
+                    <div class="ability-header-row">
+                        <div class="ability-pua-picker-btn" onclick="openPuaPicker('new_sp', '${spKey}', '${curHex}')" title="点击选择PUA图标">
+                            <span class="tecnica-icon ability-pua-icon-glyph" id="pua_glyph_new_${spKey}">${puaChar}</span>
+                            <span class="ability-pua-hex-sub" id="pua_hex_new_${spKey}">${puaSub}</span>
+                        </div>
+                        <input type="text" class="ability-title-edit-input" id="title_new_${spKey}" value="" placeholder="特殊技 ${spBadge} 标题 (留空待填写)...">
+                        <div class="ability-card-actions">
+                            <button class="btn-card-action save" onclick="saveNewSpecialSlot('${spKey}', '${spBadge}')">保存</button>
+                        </div>
+                    </div>
+                    <textarea class="ability-desc-textarea" id="desc_new_${spKey}" placeholder="特殊技 ${spBadge} 详细机制与效果描述 (留空待填写)..."></textarea>
+                `;
+            }
+
+            return abCard;
+        }
+
+        async function saveNewSpecialSlot(spKey, spBadge) {
+            if (!gCurBotId) return;
+            const titleInput = document.getElementById(`title_new_${spKey}`);
+            const descInput = document.getElementById(`desc_new_${spKey}`);
+            const title_zh = titleInput ? titleInput.value.trim() : '';
+            const desc_zh = descInput ? descInput.value.trim() : '';
+            const pua_icon = gNewSpecialPuaIcons[spKey] || '';
+
+            if (!title_zh && !desc_zh) {
+                alert(`请先填写特殊技 ${spBadge} 的标题或描述后再保存！`);
+                return;
+            }
+
+            try {
+                let charDetail = await kvGet('tftf:char:' + gCurBotId, `./data/characters/${gCurBotId}.json`) || {};
+                if (!charDetail.abilities) charDetail.abilities = [];
+                const newId = Date.now();
+                charDetail.abilities.push({
+                    id: newId,
+                    bot_id: gCurBotId,
+                    category: spKey,
+                    title_zh: title_zh || `特殊技 ${spBadge}`,
+                    desc_zh,
+                    pua_icon,
+                    synergy_bots: []
+                });
+                if (gOverviewData) {
+                    gOverviewData.total_abilities = (gOverviewData.total_abilities || 0) + 1;
+                }
+                await Promise.all([
+                    kvSet('tftf:char:' + gCurBotId, charDetail),
+                    kvSet('tftf:overview', gOverviewData)
+                ]);
+                showToast(`特殊技 ${spBadge} 已保存入库！`);
+                gNewSpecialPuaIcons[spKey] = '';
+                openCharacterModal(gCurBotId);
+            } catch (err) {
+                console.error("Save failed:", err);
+                alert("保存失败");
+            }
+        }
+
+        // Render Categorized Abilities into 5 Sections (SP1, SP2, SP3 fixed under Special Attacks)
+        function renderCategorizedAbilities(abilities) {
+            const container = document.getElementById('mAbilitySectionsContainer');
+            container.innerHTML = '';
+            gSynergyPartnersMap = {};
+
+            SECTION_DEFS.forEach(secDef => {
+                const block = document.createElement('div');
+                block.className = 'ability-category-block';
+
+                if (secDef.type === 'single') {
+                    const absInCat = abilities.filter(a => a.category === secDef.key);
+                    block.innerHTML = `
+                        <div class="category-header-bar">
+                            <div class="cat-title-left">
+                                <span class="cat-title-text">${secDef.name}</span>
+                                <span class="cat-count-badge">${absInCat.length} 条</span>
+                            </div>
+                            <button class="btn-add-ability" onclick="openAddAbilityModal('${secDef.key}', '${secDef.name}')">
+                                <span>+</span> 新增能力
+                            </button>
+                        </div>
+                        <div class="category-content-area" id="cat_content_${secDef.key}"></div>
+                    `;
+                    container.appendChild(block);
+                    const contentArea = block.querySelector(`#cat_content_${secDef.key}`);
+
+                    if (absInCat.length > 0) {
+                        absInCat.forEach(ab => {
+                            contentArea.appendChild(createAbilityCardElement(ab));
+                        });
+                    } else {
+                        contentArea.innerHTML = `<div class="empty-category-placeholder">暂无该分类技能，点击右上角 <b>[+ 新增能力]</b> 进行创作</div>`;
+                    }
+                } else if (secDef.type === 'special_group') {
+                    // Exactly 3 fixed SP slots: SP1, SP2, SP3 (no add buttons)
+                    block.innerHTML = `
+                        <div class="category-header-bar">
+                            <div class="cat-title-left">
+                                <span class="cat-title-text">${secDef.name}</span>
+                                <span class="cat-count-badge">固定 3 招式槽位</span>
+                            </div>
+                        </div>
+                        <div class="category-content-area" id="cat_content_special" style="gap: 16px;"></div>
+                    `;
+                    container.appendChild(block);
+                    const contentArea = block.querySelector('#cat_content_special');
+
+                    secDef.subgroups.forEach(sub => {
+                        const existingAb = abilities.find(a => a.category === sub.key);
+                        const subBlock = document.createElement('div');
+                        subBlock.className = 'sp-subgroup';
+                        subBlock.innerHTML = `
+                            <div class="sp-subgroup-header">
+                                <div class="sp-subgroup-title">
+                                    <span class="sp-badge ${sub.badgeClass}">${sub.badge}</span>
+                                    <span class="sp-name">${sub.name}</span>
+                                </div>
+                            </div>
+                            <div class="sp-subgroup-cards" id="sp_cards_${sub.key}"></div>
+                        `;
+                        contentArea.appendChild(subBlock);
+                        const subCardsArea = subBlock.querySelector(`#sp_cards_${sub.key}`);
+                        subCardsArea.appendChild(createSpecialAttackSlotElement(existingAb, sub.key, sub.badge, sub.name));
+                    });
+                }
+            });
+        }
+
+        function escapeHtml(str) {
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function closeCharModal() {
+            document.getElementById('charModal').classList.remove('active');
+        }
+
+        // Save Character Stats
+        async function saveCharacterStats() {
+            if (!gCurBotId) return;
+
+            const hp_val = document.getElementById('inpHp').value.trim();
+            const hp = hp_val !== '' ? parseInt(hp_val, 10) : null;
+            const attack_val = document.getElementById('inpAttack').value.trim();
+            const attack = attack_val !== '' ? parseInt(attack_val, 10) : null;
+            const rating_val = document.getElementById('inpRating').value.trim();
+            const rating = rating_val !== '' ? parseInt(rating_val, 10) : null;
+
+            const health_mult = parseFloat(document.getElementById('inpHealthMult').value) || 1.0;
+            const attack_mult = parseFloat(document.getElementById('inpAttackMult').value) || 1.0;
+            const crit_chance_val = document.getElementById('inpCritChance').value;
+            const crit_chance = crit_chance_val !== '' ? parseFloat(crit_chance_val) : null;
+            const crit_damage_val = document.getElementById('inpCritDamage').value;
+            const crit_damage = crit_damage_val !== '' ? parseFloat(crit_damage_val) : null;
+            const crit_ranged_val = document.getElementById('inpCritRanged').value;
+            const crit_chance_ranged = crit_ranged_val !== '' ? parseFloat(crit_ranged_val) : null;
+            const crit_melee_val = document.getElementById('inpCritMelee').value;
+            const crit_chance_melee = crit_melee_val !== '' ? parseFloat(crit_melee_val) : null;
+            const block_proficiency = parseFloat(document.getElementById('inpBlockProf').value) || 0.5;
+
+            const payload = {
+                hp,
+                attack,
+                rating,
+                health_mult,
+                attack_mult,
+                crit_chance,
+                crit_damage,
+                crit_chance_ranged,
+                crit_chance_melee,
+                block_proficiency
+            };
+
+            try {
+                let charDetail = await kvGet('tftf:char:' + gCurBotId, `./data/characters/${gCurBotId}.json`) || {};
+                Object.assign(charDetail, payload);
+
+                // Update gOverviewData
+                const botObj = (gOverviewData && gOverviewData.characters) ? gOverviewData.characters.find(c => c.bot_id === gCurBotId) : null;
+                if (botObj) {
+                    Object.assign(botObj, payload);
+                    const cDef = (gOverviewData.classes || []).find(c => c.class_id === botObj.class) || {};
+                    botObj.effective_crit_chance = botObj.crit_chance !== null ? botObj.crit_chance : (cDef.crit_chance || 0.15);
+                    botObj.effective_crit_damage = botObj.crit_damage !== null ? botObj.crit_damage : (cDef.crit_damage || 1.5);
+                    botObj.effective_crit_ranged = botObj.crit_chance_ranged !== null ? botObj.crit_chance_ranged : (botObj.effective_crit_chance + (cDef.ranged_crit_bonus || 0.0));
+                    botObj.effective_crit_melee = botObj.crit_chance_melee !== null ? botObj.crit_chance_melee : botObj.effective_crit_chance;
+                }
+
+                await Promise.all([
+                    kvSet('tftf:char:' + gCurBotId, charDetail),
+                    kvSet('tftf:overview', gOverviewData)
+                ]);
+
+                showToast("角色数值设定已在线保存到 Upstash KV！");
+                renderDashboard();
+            } catch (err) {
+                console.error("Save failed:", err);
+                alert("保存失败，请检查网络连接");
+            }
+        }
+
+        // Save individual ability
+        async function saveAbilityItem(aid) {
+            const titleInput = document.getElementById(`title_${aid}`);
+            const descInput = document.getElementById(`desc_${aid}`);
+            const title_zh = titleInput ? titleInput.value.trim() : '';
+            const desc_zh = descInput ? descInput.value.trim() : '';
+
+            const payload = { title_zh, desc_zh };
+            if (gSynergyPartnersMap[aid] !== undefined) {
+                payload.synergy_bots = gSynergyPartnersMap[aid];
+            }
+
+            try {
+                let charDetail = await kvGet('tftf:char:' + gCurBotId, `./data/characters/${gCurBotId}.json`) || {};
+                if (!charDetail.abilities) charDetail.abilities = [];
+                const ab = charDetail.abilities.find(a => String(a.id) === String(aid));
+                if (ab) {
+                    Object.assign(ab, payload);
+                }
+                await kvSet('tftf:char:' + gCurBotId, charDetail);
+                showToast("技能已在线保存到 Upstash KV！");
+            } catch (err) {
+                console.error("Failed to save ability:", err);
+                alert("保存失败");
+            }
+        }
+
+        // Delete ability
+        async function deleteAbilityItem(aid) {
+            if (!confirm("确认删除此项能力？")) return;
+
+            try {
+                let charDetail = await kvGet('tftf:char:' + gCurBotId, `./data/characters/${gCurBotId}.json`) || {};
+                if (charDetail.abilities) {
+                    charDetail.abilities = charDetail.abilities.filter(a => String(a.id) !== String(aid));
+                }
+                if (gOverviewData && gOverviewData.total_abilities > 0) {
+                    gOverviewData.total_abilities--;
+                }
+                await Promise.all([
+                    kvSet('tftf:char:' + gCurBotId, charDetail),
+                    kvSet('tftf:overview', gOverviewData)
+                ]);
+                showToast("能力已删除");
+                if (gCurBotId) openCharacterModal(gCurBotId);
+            } catch (err) {
+                console.error("Failed to delete ability:", err);
+                alert("删除失败");
+            }
+        }
+
+        // Synergy Chips Render & Removal
+        function renderSynergyChips(aid) {
+            const container = document.getElementById(`synergy_chips_${aid}`);
+            if (!container) return;
+            const partnerIds = gSynergyPartnersMap[aid] || [];
+            if (partnerIds.length === 0) {
+                container.innerHTML = `<span class="synergy-empty-hint">暂未关联协同人物，点击右上方 [+ 选择协同角色] 进行配置</span>`;
+                return;
+            }
+
+            container.innerHTML = partnerIds.map(bid => {
+                const bObj = (gOverviewData && gOverviewData.characters) ? gOverviewData.characters.find(c => c.bot_id === bid) : null;
+                const name = bObj ? (bObj.name_zh || bObj.name_en) : bid;
+                const portrait = bObj ? bObj.portrait_url : `portraits/${bid}.png`;
+                return `
+                    <div class="synergy-chip" title="${escapeHtml(name)} (${bid})">
+                        <img src="${portrait}" class="synergy-chip-avatar" alt="${escapeHtml(name)}" onerror="this.src='portraits/${bid}.png'">
+                        <span>${escapeHtml(name)}</span>
+                        <span class="synergy-chip-remove" onclick="removeSynergyPartner(${aid}, '${bid}')" title="移除此协同角色">&times;</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function removeSynergyPartner(aid, bid) {
+            if (!gSynergyPartnersMap[aid]) return;
+            gSynergyPartnersMap[aid] = gSynergyPartnersMap[aid].filter(id => id !== bid);
+            renderSynergyChips(aid);
+            saveAbilityItem(aid);
+        }
+
+        function renderNewAbSynergyChips() {
+            const container = document.getElementById('newAbSynergyChips');
+            if (!container) return;
+            if (gNewAbSynergyBots.length === 0) {
+                container.innerHTML = `<span class="synergy-empty-hint">暂未关联协同人物</span>`;
+                return;
+            }
+            container.innerHTML = gNewAbSynergyBots.map(bid => {
+                const bObj = (gOverviewData && gOverviewData.characters) ? gOverviewData.characters.find(c => c.bot_id === bid) : null;
+                const name = bObj ? (bObj.name_zh || bObj.name_en) : bid;
+                const portrait = bObj ? bObj.portrait_url : `portraits/${bid}.png`;
+                return `
+                    <div class="synergy-chip" title="${escapeHtml(name)}">
+                        <img src="${portrait}" class="synergy-chip-avatar" alt="${escapeHtml(name)}">
+                        <span>${escapeHtml(name)}</span>
+                        <span class="synergy-chip-remove" onclick="removeNewAbSynergyPartner('${bid}')">&times;</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function removeNewAbSynergyPartner(bid) {
+            gNewAbSynergyBots = gNewAbSynergyBots.filter(id => id !== bid);
+            renderNewAbSynergyChips();
+        }
+
+        // Synergy Partner Picker Modal
+        function openSynergyPartnerPicker(targetId) {
+            gActiveSynergyTargetId = targetId;
+            if (targetId === 'new_ability') {
+                gTempSelectedSynergyBots = [...gNewAbSynergyBots];
+            } else {
+                gTempSelectedSynergyBots = gSynergyPartnersMap[targetId] ? [...gSynergyPartnersMap[targetId]] : [];
+            }
+            gSynergyFilterFaction = 'all';
+            gSynergySearchQuery = '';
+            document.getElementById('synergySearchInput').value = '';
+            document.querySelectorAll('#synergyPickerModal .pua-tab-btn').forEach(btn => btn.classList.remove('active'));
+            const firstTab = document.querySelector('#synergyPickerModal .pua-tab-btn');
+            if (firstTab) firstTab.classList.add('active');
+
+            renderSynergyPickerGrid();
+            document.getElementById('synergyPickerModal').classList.add('active');
+        }
+
+        function closeSynergyPickerModal() {
+            document.getElementById('synergyPickerModal').classList.remove('active');
+            gActiveSynergyTargetId = null;
+        }
+
+        function filterSynergyPicker(query) {
+            gSynergySearchQuery = (query || '').trim().toLowerCase();
+            renderSynergyPickerGrid();
+        }
+
+        function filterSynergyFaction(faction, btn) {
+            gSynergyFilterFaction = faction;
+            document.querySelectorAll('#synergyPickerModal .pua-tab-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            renderSynergyPickerGrid();
+        }
+
+        function renderSynergyPickerGrid() {
+            const grid = document.getElementById('synergyPickerGrid');
+            if (!grid || !gOverviewData) return;
+            grid.innerHTML = '';
+
+            let chars = gOverviewData.characters || [];
+            if (gCurBotId) {
+                chars = chars.filter(c => c.bot_id !== gCurBotId);
+            }
+
+            if (gSynergyFilterFaction !== 'all') {
+                chars = chars.filter(c => c.faction === gSynergyFilterFaction);
+            }
+
+            if (gSynergySearchQuery) {
+                chars = chars.filter(c => {
+                    const zh = (c.name_zh || '').toLowerCase();
+                    const en = (c.name_en || '').toLowerCase();
+                    const bid = (c.bot_id || '').toLowerCase();
+                    return zh.includes(gSynergySearchQuery) || en.includes(gSynergySearchQuery) || bid.includes(gSynergySearchQuery);
+                });
+            }
+
+            chars.forEach(c => {
+                const isSelected = gTempSelectedSynergyBots.includes(c.bot_id);
+                const item = document.createElement('div');
+                item.className = `synergy-picker-item ${isSelected ? 'selected' : ''}`;
+                item.onclick = () => toggleSynergyBotSelection(c.bot_id);
+
+                item.innerHTML = `
+                    <div class="check-mark">✓</div>
+                    <img src="${c.portrait_url}" class="synergy-picker-avatar" alt="${c.name_zh || c.bot_id}" onerror="this.src='portraits/${c.bot_id}.png'">
+                    <div class="synergy-picker-name">${escapeHtml(c.name_zh || c.name_en)}</div>
+                    <div class="synergy-picker-sub">${escapeHtml(c.name_en || '')}</div>
+                `;
+                grid.appendChild(item);
+            });
+
+            const countText = document.getElementById('synergySelectedCountText');
+            if (countText) {
+                countText.innerText = `已选择 ${gTempSelectedSynergyBots.length} 位角色`;
+            }
+        }
+
+        function toggleSynergyBotSelection(bid) {
+            if (gTempSelectedSynergyBots.includes(bid)) {
+                gTempSelectedSynergyBots = gTempSelectedSynergyBots.filter(id => id !== bid);
+            } else {
+                gTempSelectedSynergyBots.push(bid);
+            }
+            renderSynergyPickerGrid();
+        }
+
+        function clearSynergySelection() {
+            gTempSelectedSynergyBots = [];
+            renderSynergyPickerGrid();
+        }
+
+        function confirmSynergyPartnerSelection() {
+            if (gActiveSynergyTargetId === 'new_ability') {
+                gNewAbSynergyBots = [...gTempSelectedSynergyBots];
+                renderNewAbSynergyChips();
+            } else if (gActiveSynergyTargetId) {
+                gSynergyPartnersMap[gActiveSynergyTargetId] = [...gTempSelectedSynergyBots];
+                renderSynergyChips(gActiveSynergyTargetId);
+                saveAbilityItem(gActiveSynergyTargetId);
+            }
+            closeSynergyPickerModal();
+        }
+
+        // Open Add Ability Modal
+        function openAddAbilityModal(categoryKey, categoryName) {
+            document.getElementById('newAbCategory').value = categoryKey;
+            document.getElementById('addAbilityCategoryLabel').innerText = `所属分类: ${categoryName}`;
+            document.getElementById('newAbTitle').value = '';
+            document.getElementById('newAbDesc').value = '';
+            document.getElementById('newAbPuaIconVal').value = '';
+            document.getElementById('newAbPuaGlyph').innerText = '+';
+            document.getElementById('newAbPuaHex').innerText = 'PUA';
+
+            const synRow = document.getElementById('newAbSynergyRow');
+            if (synRow) {
+                synRow.style.display = (categoryKey === 'synergy') ? 'block' : 'none';
+                gNewAbSynergyBots = [];
+                renderNewAbSynergyChips();
+            }
+
+            document.getElementById('addAbilityModal').classList.add('active');
+        }
+
+        function closeAddAbilityModal() {
+            document.getElementById('addAbilityModal').classList.remove('active');
+        }
+
+        // Submit New Ability
+        async function submitNewAbility() {
+            if (!gCurBotId) return;
+
+            const category = document.getElementById('newAbCategory').value;
+            const title_zh = document.getElementById('newAbTitle').value.trim();
+            const desc_zh = document.getElementById('newAbDesc').value.trim();
+            const pua_icon = document.getElementById('newAbPuaIconVal').value;
+
+            if (!title_zh) {
+                alert("请输入能力标题！");
+                return;
+            }
+
+            const payload = {
+                bot_id: gCurBotId,
+                category,
+                title_zh,
+                desc_zh,
+                pua_icon
+            };
+
+            if (category === 'synergy') {
+                payload.synergy_bots = gNewAbSynergyBots;
+            }
+
+            try {
+                let charDetail = await kvGet('tftf:char:' + gCurBotId, `./data/characters/${gCurBotId}.json`) || {};
+                if (!charDetail.abilities) charDetail.abilities = [];
+                const newId = Date.now();
+                payload.id = newId;
+                payload.bot_id = gCurBotId;
+                payload.sort_order = 0;
+                charDetail.abilities.push(payload);
+                if (gOverviewData) {
+                    gOverviewData.total_abilities = (gOverviewData.total_abilities || 0) + 1;
+                }
+                await Promise.all([
+                    kvSet('tftf:char:' + gCurBotId, charDetail),
+                    kvSet('tftf:overview', gOverviewData)
+                ]);
+                showToast("新能力创建成功并已保存到 Upstash KV！");
+                closeAddAbilityModal();
+                openCharacterModal(gCurBotId);
+            } catch (err) {
+                console.error("Failed to create ability:", err);
+                alert("创建失败，请检查网络连接");
+            }
+        }
+
+        // PUA Picker Modal
+        function openPuaPicker(type, targetId, currentHex) {
+            gCurrentPuaTarget = { type, targetId, currentHex };
+            const desc = document.getElementById('puaTargetDesc');
+            if (type === 'ability') {
+                desc.innerText = `为能力 ID #${targetId} 选择并保存 PUA 图标至数据库`;
+            } else if (type === 'new_ability') {
+                desc.innerText = `为新创作能力选择 PUA 图标`;
+            } else if (type === 'new_sp') {
+                desc.innerText = `为新特殊技 [${targetId.toUpperCase()}] 选择 PUA 图标`;
+            } else if (type === 'class') {
+                desc.innerText = `为职业 [${targetId}] 选择并保存 PUA 图标至 class_defaults 表`;
+            } else if (type === 'faction') {
+                desc.innerText = `为阵营 [${targetId}] 选择并保存 PUA 通用图标至 factions 表`;
+            } else if (type === 'char_faction') {
+                desc.innerText = `为角色 [${targetId}] 专属阵营选择 PUA 图标`;
+            }
+
+            renderPuaGrid(gPuaIcons);
+            document.getElementById('puaModal').classList.add('active');
+        }
+
+        function closePuaModal() {
+            document.getElementById('puaModal').classList.remove('active');
+            gCurrentPuaTarget = null;
+        }
+
+        function renderPuaGrid(icons) {
+            const grid = document.getElementById('puaGrid');
+            grid.innerHTML = '';
+
+            icons.forEach(icon => {
+                const cell = document.createElement('div');
+                cell.className = 'pua-cell';
+                const char = String.fromCharCode(icon.codepoint_dec);
+
+                cell.innerHTML = `
+                    <span class="tecnica-icon pua-glyph">${char}</span>
+                    <span class="pua-hex">${icon.codepoint_hex}</span>
+                    <span class="pua-name" title="${icon.glyph_name}">${icon.glyph_name}</span>
+                `;
+                cell.onclick = () => selectPuaIcon(icon);
+                grid.appendChild(cell);
+            });
+        }
+
+        async function selectPuaIcon(icon) {
+            if (!gCurrentPuaTarget) return;
+
+            const hex = icon.codepoint_hex;
+            const { type, targetId } = gCurrentPuaTarget;
+
+            try {
+                if (type === 'ability') {
+                    let charDetail = await kvGet('tftf:char:' + gCurBotId, `./data/characters/${gCurBotId}.json`) || {};
+                    if (charDetail.abilities) {
+                        const ab = charDetail.abilities.find(a => String(a.id) === String(targetId));
+                        if (ab) ab.pua_icon = hex;
+                        await kvSet('tftf:char:' + gCurBotId, charDetail);
+                    }
+                    showToast(`技能图标已更新: ${icon.glyph_name} (${hex})`);
+                    const btn = document.querySelector(`.ability-pua-picker-btn[onclick*="'${targetId}'"]`);
+                    if (btn) {
+                        const glyphSpan = btn.querySelector('.ability-pua-icon-glyph');
+                        const hexSpan = btn.querySelector('.ability-pua-hex-sub');
+                        if (glyphSpan) glyphSpan.innerText = String.fromCharCode(icon.codepoint_dec);
+                        if (hexSpan) hexSpan.innerText = hex;
+                    }
+                } else if (type === 'new_ability') {
+                    document.getElementById('newAbPuaIconVal').value = hex;
+                    document.getElementById('newAbPuaGlyph').innerText = String.fromCharCode(icon.codepoint_dec);
+                    document.getElementById('newAbPuaHex').innerText = hex;
+                    showToast(`新技能图标已选用: ${icon.glyph_name} (${hex})`);
+                } else if (type === 'new_sp') {
+                    gNewSpecialPuaIcons[targetId] = hex;
+                    const glyphEl = document.getElementById(`pua_glyph_new_${targetId}`);
+                    const hexEl = document.getElementById(`pua_hex_new_${targetId}`);
+                    if (glyphEl) glyphEl.innerText = String.fromCharCode(icon.codepoint_dec);
+                    if (hexEl) hexEl.innerText = hex;
+                    showToast(`特殊技图标已选用: ${icon.glyph_name} (${hex})`);
+                } else if (type === 'class') {
+                    if (gOverviewData && gOverviewData.classes) {
+                        const cl = gOverviewData.classes.find(c => c.class_id === targetId);
+                        if (cl) cl.pua_icon = hex;
+                        await kvSet('tftf:overview', gOverviewData);
+                    }
+                    showToast(`职业 [${targetId}] 图标已更新: ${icon.glyph_name} (${hex})`);
+                    renderDashboard();
+                    if (gCurBotId) openCharacterModal(gCurBotId);
+                } else if (type === 'faction') {
+                    if (gOverviewData && gOverviewData.factions) {
+                        const f = gOverviewData.factions.find(fc => fc.faction_id === targetId);
+                        if (f) f.pua_icon = hex;
+                        await kvSet('tftf:overview', gOverviewData);
+                    }
+                    showToast(`阵营 [${targetId}] 图标已更新: ${icon.glyph_name} (${hex})`);
+                    renderDashboard();
+                    if (gCurBotId) openCharacterModal(gCurBotId);
+                } else if (type === 'char_faction') {
+                    if (gOverviewData && gOverviewData.characters) {
+                        const b = gOverviewData.characters.find(c => c.bot_id === targetId);
+                        if (b) b.pua_faction_icon = hex;
+                        await kvSet('tftf:overview', gOverviewData);
+                    }
+                    let charDetail = await kvGet('tftf:char:' + targetId, `./data/characters/${targetId}.json`) || {};
+                    charDetail.pua_faction_icon = hex;
+                    await kvSet('tftf:char:' + targetId, charDetail);
+                    showToast(`角色阵营图标已更新: ${icon.glyph_name} (${hex})`);
+                    renderDashboard();
+                    if (gCurBotId) openCharacterModal(gCurBotId);
+                }
+
+                closePuaModal();
+            } catch (err) {
+                console.error("Failed to save PUA icon:", err);
+                alert("保存失败，请检查网络连接");
+            }
+        }
+
+        // PUA Search & Filter
+        let gCurPuaCat = 'all';
+        function filterPuaCategory(cat, btn) {
+            gCurPuaCat = cat;
+            document.querySelectorAll('.pua-tab-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            filterPuaIcons();
+        }
+
+        function filterPuaIcons() {
+            const q = document.getElementById('puaSearchInput').value.trim().toLowerCase();
+            const filtered = gPuaIcons.filter(ic => {
+                if (gCurPuaCat !== 'all' && ic.category !== gCurPuaCat) return false;
+                if (q) {
+                    return ic.glyph_name.toLowerCase().includes(q) || ic.codepoint_hex.toLowerCase().includes(q);
+                }
+                return true;
+            });
+            renderPuaGrid(filtered);
+        }
+
+        // Filter Faction
+        function filterFaction(faction, btn) {
+            gActiveFactionFilter = faction;
+            document.querySelectorAll('.faction-filter-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            renderDashboard();
+        }
+
+        // Filter Source (Kabam / Netflix / Revival)
+        let gActiveSourceFilter = 'all';
+        function filterSource(source, btn) {
+            gActiveSourceFilter = source;
+            document.querySelectorAll('.source-filter-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            renderDashboard();
+        }
+
+        // Search Bot
+        function handleSearch() {
+            renderDashboard();
+        }
+
+        // Modal backdrop click
+        function closeModalOnBackdrop(e, modalId) {
+            if (e.target.id === modalId) {
+                if (modalId === 'charModal') closeCharModal();
+                if (modalId === 'puaModal') closePuaModal();
+                if (modalId === 'addAbilityModal') closeAddAbilityModal();
+                if (modalId === 'cardDossierModal') closeCardDossierModal();
+            }
+        }
+
+        // ==================== CARD DOSSIER MODAL LOGIC ====================
+        let gCurCardBotId = null;
+        let gCurCardData = null;
+        let gCardViewMode = 'long'; // 'long' or 'tab'
+        let gDossierActiveTab = 'abilities';
+
+        async function openCharacterCardModal(bid) {
+            gCurCardBotId = bid;
+            const modal = document.getElementById('cardDossierModal');
+            const body = document.getElementById('cardDossierBody');
+            body.innerHTML = `
+                <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 0;gap:14px;">
+                    <div style="width:36px;height:36px;border:3px solid rgba(0,240,255,0.2);border-top-color:#00F0FF;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+                    <span class="tecnica" style="font-size:13px;color:#38bdf8;letter-spacing:1px;">ACCESSING CYBERTRONIAN MAINFRAME...</span>
+                </div>
+            `;
+            modal.classList.add('active');
+
+            try {
+                gCurCardData = await kvGet('tftf:char:' + bid, `./data/characters/${bid}.json`);
+                if (!gCurCardData) throw new Error("无法读取机体档案");
+                gCurCardData.portrait_url = `portraits/${bid}.png`;
+                gCurCardData.portrait_large_url = `portraits/${bid}_large.png`;
+                renderCardDossier();
+            } catch (err) {
+                console.error("Failed to load character dossier:", err);
+                body.innerHTML = `<div style="text-align:center;padding:40px;color:#ef4444;">机体档案数据加载失败</div>`;
+            }
+        }
+
+        function closeCardDossierModal() {
+            const modal = document.getElementById('cardDossierModal');
+            if (modal) modal.classList.remove('active');
+        }
+
+        function setCardViewMode(mode) {
+            gCardViewMode = mode;
+            const btnLong = document.getElementById('btnModeLong');
+            const btnTab = document.getElementById('btnModeTab');
+            if (btnLong && btnTab) {
+                if (mode === 'long') {
+                    btnLong.classList.add('active');
+                    btnTab.classList.remove('active');
+                } else {
+                    btnTab.classList.add('active');
+                    btnLong.classList.remove('active');
+                }
+            }
+            renderCardDossier();
+        }
+
+        function switchDossierTab(tabId) {
+            gDossierActiveTab = tabId;
+            const tabs = ['abilities', 'specials', 'synergies', 'lore'];
+            tabs.forEach(t => {
+                const el = document.getElementById('dossierTab_' + t);
+                const btn = document.getElementById('btnDossierTab_' + t);
+                if (el && btn) {
+                    if (t === tabId) {
+                        el.style.display = 'block';
+                        btn.classList.add('active');
+                    } else {
+                        el.style.display = 'none';
+                        btn.classList.remove('active');
+                    }
+                }
+            });
+        }
+
+        function fmtDossierDesc(text) {
+            if (!text) return '暂无描述';
+            return text.replace(/\{\{var[_\s]?\w*\}\}/g, '<span class="dossier-var-pill">$&</span>');
+        }
+
+        function renderDossierPartnerChips(bids) {
+            if (!bids || !bids.length) return '';
+            return bids.map(pid => {
+                const pBot = gOverviewData && gOverviewData.characters.find(c => c.bot_id === pid);
+                const pName = pBot ? pBot.name_zh : pid;
+                return `
+                    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(5,10,20,0.85);border:1px solid rgba(255,255,255,0.1);padding:3px 8px;border-radius:6px;margin:2px 4px 2px 0;">
+                        <img src="portraits/${pid}.png" onerror="this.style.display='none'" style="width:20px;height:20px;border-radius:50%;object-fit:cover;flex-shrink:0;">
+                        <span style="font-size:11px;font-weight:600;color:#cbd5e1;">${pName}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderCardDossier() {
+            const body = document.getElementById('cardDossierBody');
+            if (!gCurCardData || !body) return;
+
+            const bot = gCurCardData;
+            const factionObj = (gOverviewData && gOverviewData.factions.find(f => f.faction_id === bot.faction)) || { name_zh: bot.faction, color_hex: '#888' };
+            const classObj = (gOverviewData && gOverviewData.classes.find(c => c.class_id === bot.class)) || { name_zh: bot.class, color_hex: '#38BDF8', pua_icon: '' };
+
+            let facPua = bot.pua_faction_icon || factionObj.pua_icon || '';
+            if (!facPua) {
+                const isMovie = (bot.bot_id && (bot.bot_id.includes('_cin_') || bot.bot_id.includes('_mv_')));
+                if (bot.bot_id && bot.bot_id.includes('sharkticon')) facPua = 'E99E';
+                else if (bot.faction === 'autobot') facPua = isMovie ? 'E134' : 'E132';
+                else if (bot.faction === 'decepticon') facPua = isMovie ? 'E135' : 'E133';
+                else if (bot.faction === 'maximal') facPua = 'E160';
+                else if (bot.faction === 'predacon') facPua = 'E161';
+            }
+
+            const facGlyph = facPua ? String.fromCharCode(parseInt(facPua, 16)) : '⯁';
+            const clsGlyph = classObj.pua_icon ? String.fromCharCode(parseInt(classObj.pua_icon, 16)) : '⯁';
+            const piVal = bot.rating || Math.round(((bot.health_mult || 1.0) * 1750 + (bot.attack_mult || 1.0) * 1550 + (bot.effective_crit_chance || 0.15) * 4200) * 1.12);
+
+            const abilities = bot.abilities || [];
+            const basicAbs = abilities.filter(a => a.category === 'basic');
+            const passiveAbs = abilities.filter(a => a.category === 'passive');
+            const sigAbs = abilities.filter(a => a.category === 'signature');
+            const spAbs = abilities.filter(a => ['sp1', 'sp2', 'sp3'].includes(a.category));
+            const synAbs = abilities.filter(a => a.category === 'synergy');
+
+            // Header bar
+            const headerHtml = `
+                <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-bottom:16px;border-bottom:1px solid rgba(0,240,255,0.2);margin-bottom:20px;">
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <div style="display:flex;align-items:center;gap:5px;background:${factionObj.color_hex}22;border:1px solid ${factionObj.color_hex}55;color:${factionObj.color_hex};padding:3px 10px;border-radius:6px;">
+                            <span class="tecnica-icon" style="font-size:15px;">${facGlyph}</span>
+                            <span class="tecnica" style="font-size:11px;font-weight:700;">${(factionObj.name_zh || bot.faction).toUpperCase()}</span>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:5px;background:${classObj.color_hex}22;border:1px solid ${classObj.color_hex}55;color:${classObj.color_hex};padding:3px 10px;border-radius:6px;">
+                            <span class="tecnica-icon" style="font-size:15px;">${clsGlyph}</span>
+                            <span class="tecnica" style="font-size:11px;font-weight:700;">${(classObj.name_zh || bot.class).toUpperCase()} CLASS</span>
+                        </div>
+                        <span class="tecnica" style="font-size:11px;color:#64748b;letter-spacing:1px;border-left:1px solid #1e293b;padding-left:10px;">
+                            ${bot.origin || 'GENERATION 1'}
+                        </span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:12px;">
+                        <div style="color:#FFD700;letter-spacing:2px;font-size:13px;filter:drop-shadow(0 0 6px rgba(255,215,0,0.8));">★★★★★</div>
+                        <div style="background:rgba(0,240,255,0.1);border:1px solid rgba(0,240,255,0.3);padding:2px 10px;border-radius:6px;text-align:right;">
+                            <div class="tecnica" style="font-size:9px;color:rgba(0,240,255,0.7);">POWER INDEX (PI)</div>
+                            <div class="tecnica" style="font-size:16px;font-weight:900;color:#00F0FF;">${piVal.toLocaleString()}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Hero section (Portrait + Vitals)
+            const heroHtml = `
+                <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:24px;align-items:center;margin-bottom:24px;">
+                    <div style="display:flex;justify-content:center;background:radial-gradient(circle at 50% 50%, rgba(0,240,255,0.2) 0%, rgba(0,114,255,0.06) 50%, transparent 72%);border-radius:20px;padding:16px;border:1px solid rgba(0,240,255,0.18);">
+                        <div style="position:relative;width:100%;max-width:260px;aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;">
+                            <img src="${bot.portrait_large_url || bot.portrait_url}" onerror="this.onerror=null; this.src='${bot.portrait_url}';" style="width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 24px ${classObj.color_hex}66);position:relative;z-index:2;">
+                            <div style="position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(to top, #060b14, transparent);z-index:3;"></div>
+                        </div>
+                    </div>
+
+                    <div style="display:flex;flex-direction:column;gap:12px;">
+                        <div>
+                            <div class="tecnica" style="font-size:11px;color:#38bdf8;letter-spacing:1px;margin-bottom:2px;">CYBERTRONIAN COMBATANT</div>
+                            <div style="display:flex;align-items:baseline;gap:10px;">
+                                <h1 style="font-size:32px;font-weight:900;color:#FFF;margin:0;">${bot.name_zh}</h1>
+                                <span class="tecnica" style="font-size:20px;font-weight:900;color:#00F0FF;">${bot.name_en}</span>
+                            </div>
+                            <div style="font-size:12px;color:#94a3b8;margin-top:4px;">${bot.note || (bot.origin + ' · ' + (factionObj.name_zh || bot.faction) + ' ' + (classObj.name_zh || bot.class))}</div>
+                        </div>
+
+                        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                            <span style="font-size:11px;font-weight:600;background:rgba(34,197,94,0.15);color:#4ade80;border:1px solid rgba(34,197,94,0.3);padding:2px 8px;border-radius:4px;">
+                                ${classObj.name_zh}核心
+                            </span>
+                            <span style="font-size:11px;font-weight:600;background:rgba(0,240,255,0.15);color:#67e8f9;border:1px solid rgba(0,240,255,0.3);padding:2px 8px;border-radius:4px;">
+                                ${bot.source || 'Kabam'}收录
+                            </span>
+                            ${bot.star_default ? `<span style="font-size:11px;font-weight:600;background:rgba(234,179,8,0.15);color:#fde047;border:1px solid rgba(234,179,8,0.3);padding:2px 8px;border-radius:4px;">初始 ${bot.star_default} 星</span>` : ''}
+                        </div>
+
+                        <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:8px;padding-top:12px;border-top:1px solid #1e293b;">
+                            <div style="background:rgba(15,23,42,0.8);border:1px solid #1e293b;border-radius:8px;padding:8px;text-align:center;">
+                                <div class="tecnica" style="font-size:9px;color:#94a3b8;">HEALTH</div>
+                                <div class="tecnica" style="font-size:14px;font-weight:700;color:#38bdf8;">${(bot.health_mult || 1.0).toFixed(2)}x</div>
+                                <div style="font-size:9px;color:#64748b;">生命倍率</div>
+                            </div>
+                            <div style="background:rgba(15,23,42,0.8);border:1px solid #1e293b;border-radius:8px;padding:8px;text-align:center;">
+                                <div class="tecnica" style="font-size:9px;color:#94a3b8;">ATTACK</div>
+                                <div class="tecnica" style="font-size:14px;font-weight:700;color:#38bdf8;">${(bot.attack_mult || 1.0).toFixed(2)}x</div>
+                                <div style="font-size:9px;color:#64748b;">攻击倍率</div>
+                            </div>
+                            <div style="background:rgba(15,23,42,0.8);border:1px solid #1e293b;border-radius:8px;padding:8px;text-align:center;">
+                                <div class="tecnica" style="font-size:9px;color:#94a3b8;">CRIT RATE</div>
+                                <div class="tecnica" style="font-size:14px;font-weight:700;color:#4ade80;">${Math.round((bot.effective_crit_chance || 0.15) * 100)}%</div>
+                                <div style="font-size:9px;color:#64748b;">基准暴击</div>
+                            </div>
+                            <div style="background:rgba(15,23,42,0.8);border:1px solid #1e293b;border-radius:8px;padding:8px;text-align:center;">
+                                <div class="tecnica" style="font-size:9px;color:#94a3b8;">CRIT DMG</div>
+                                <div class="tecnica" style="font-size:14px;font-weight:700;color:#f59e0b;">${(bot.effective_crit_damage || 1.5).toFixed(2)}x</div>
+                                <div style="font-size:9px;color:#64748b;">暴击伤害</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Section 1: Dossier / Lore
+            const loreContentHtml = bot.desc_zh ? `
+                <div style="background:rgba(15,23,42,0.4);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;font-size:13px;line-height:1.7;color:#cbd5e1;">
+                    <p style="margin:0;">${bot.desc_zh}</p>
+                </div>
+            ` : '<div style="font-size:12px;color:#64748b;font-style:italic;">暂无机体专属档案文本</div>';
+
+            // Section 2: Signature
+            const sigContentHtml = sigAbs.length ? sigAbs.map(s => `
+                <div style="background:linear-gradient(90deg, rgba(245,158,11,0.15) 0%, rgba(15,23,42,0.6) 100%);border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:14px 16px;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);margin-bottom:10px;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                        <div style="display:flex;align-items:center;gap:8px;">
+                            <span style="font-size:14px;font-weight:700;color:#FFF;">${s.title_zh || '觉醒能力'}</span>
+                            <span class="tecnica" style="font-size:11px;color:#f59e0b;">${s.title_en || ''}</span>
+                        </div>
+                        <span class="tecnica" style="font-size:10px;font-weight:700;background:rgba(245,158,11,0.2);color:#fde047;padding:1px 6px;border-radius:4px;border:1px solid rgba(245,158,11,0.4);">SIGNATURE</span>
+                    </div>
+                    <div style="font-size:12px;color:#e2e8f0;line-height:1.6;">${fmtDossierDesc(s.desc_zh)}</div>
+                </div>
+            `).join('') : '<div style="font-size:12px;color:#64748b;font-style:italic;">暂无招牌能力配置</div>';
+
+            // Section 3: Basic & Passives
+            const basicPassHtml = `
+                <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:14px;">
+                    <div style="background:rgba(15,23,42,0.5);border:1px solid rgba(0,240,255,0.2);border-radius:12px;padding:14px;">
+                        <div class="tecnica" style="font-size:11px;font-weight:700;color:#00F0FF;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #1e293b;padding-bottom:6px;">
+                            <span style="width:6px;height:6px;border-radius:50%;background:#00F0FF;"></span> 基础能力 (BASIC ABILITIES)
+                        </div>
+                        ${basicAbs.length ? basicAbs.map((b, idx) => `
+                            <div style="${idx > 0 ? 'padding-top:10px;margin-top:10px;border-top:1px solid rgba(255,255,255,0.06);' : ''}">
+                                <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                                    <span style="font-size:13px;font-weight:700;color:#FFF;">${b.title_zh || '基础能力'}</span>
+                                    <span class="tecnica" style="font-size:10px;color:#38bdf8;">${b.title_en || ''}</span>
+                                </div>
+                                <div style="font-size:12px;color:#94a3b8;margin-top:4px;line-height:1.5;">${fmtDossierDesc(b.desc_zh)}</div>
+                            </div>
+                        `).join('') : '<div style="font-size:12px;color:#64748b;">暂无基础能力</div>'}
+                    </div>
+
+                    <div style="background:rgba(15,23,42,0.5);border:1px solid rgba(34,197,94,0.25);border-radius:12px;padding:14px;">
+                        <div class="tecnica" style="font-size:11px;font-weight:700;color:#4ade80;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #1e293b;padding-bottom:6px;">
+                            <span style="width:6px;height:6px;border-radius:50%;background:#4ade80;"></span> 被动战技 (PASSIVE ABILITIES)
+                        </div>
+                        ${passiveAbs.length ? passiveAbs.map((p, idx) => `
+                            <div style="${idx > 0 ? 'padding-top:10px;margin-top:10px;border-top:1px solid rgba(255,255,255,0.06);' : ''}">
+                                <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                                    <span style="font-size:13px;font-weight:700;color:#FFF;">${p.title_zh || '被动战技'}</span>
+                                    <span class="tecnica" style="font-size:10px;color:#4ade80;">${p.title_en || ''}</span>
+                                </div>
+                                <div style="font-size:12px;color:#94a3b8;margin-top:4px;line-height:1.5;">${fmtDossierDesc(p.desc_zh)}</div>
+                            </div>
+                        `).join('') : '<div style="font-size:12px;color:#64748b;">暂无被动战技</div>'}
+                    </div>
+                </div>
+            `;
+
+            // Section 4: Specials (SP1, SP2, SP3)
+            const spContentHtml = spAbs.length ? spAbs.map((sp, idx) => {
+                const spTag = sp.category.toUpperCase();
+                const cost = sp.category === 'sp1' ? '1 BAR POWER' : (sp.category === 'sp2' ? '2 BARS POWER' : 'MAX 3 BARS');
+                const badgeColor = sp.category === 'sp3' ? '#a855f7' : (sp.category === 'sp2' ? '#3b82f6' : '#00F0FF');
+                return `
+                    <div style="background:rgba(15,23,42,0.6);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px 16px;margin-bottom:8px;">
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <span class="tecnica" style="font-size:11px;font-weight:900;background:${badgeColor}22;color:${badgeColor};border:1px solid ${badgeColor}55;padding:1px 6px;border-radius:4px;">${spTag}</span>
+                                <span style="font-size:13px;font-weight:700;color:#FFF;">${sp.title_zh || '特殊技'}</span>
+                                <span class="tecnica" style="font-size:11px;color:#94a3b8;">${sp.title_en || ''}</span>
+                            </div>
+                            <span class="tecnica" style="font-size:10px;color:${badgeColor};letter-spacing:0.5px;">${cost}</span>
+                        </div>
+                        <div style="font-size:12px;color:#cbd5e1;line-height:1.5;margin-top:4px;">${fmtDossierDesc(sp.desc_zh)}</div>
+                    </div>
+                `;
+            }).join('') : '<div style="font-size:12px;color:#64748b;font-style:italic;">暂无特殊技配置</div>';
+
+            // Section 5: Synergies
+            const synContentHtml = synAbs.length ? `
+                <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:12px;">
+                    ${synAbs.map(s => `
+                        <div style="background:rgba(15,23,42,0.6);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;justify-content:space-between;">
+                            <div>
+                                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                                    <span style="font-size:13px;font-weight:700;color:#FFF;">${s.title_zh || '协同奖励'}</span>
+                                    <span class="tecnica" style="font-size:10px;color:#38bdf8;">${s.title_en || ''}</span>
+                                </div>
+                                <div style="font-size:12px;color:#94a3b8;line-height:1.5;margin-bottom:8px;">${fmtDossierDesc(s.desc_zh)}</div>
+                            </div>
+                            ${s.synergy_bots && s.synergy_bots.length ? `
+                                <div style="padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);">
+                                    ${renderDossierPartnerChips(s.synergy_bots)}
+                                </div>
+                            ` : ''}
+                        </div>
+                    `).join('')}
+                </div>
+            ` : '<div style="font-size:12px;color:#64748b;font-style:italic;">暂无协同加成</div>';
+
+            // Footer
+            const footerHtml = `
+                <div style="display:flex;justify-content:space-between;align-items:center;padding-top:20px;margin-top:20px;border-top:1px solid #1e293b;font-size:11px;color:#64748b;">
+                    <span class="tecnica">TRANSFORMERS: FORGED TO FIGHT // REVIVAL MAINFRAME</span>
+                    <span class="tecnica">BOT_ID: ${bot.bot_id}</span>
+                </div>
+            `;
+
+            // Check Mode: 'long' (Continuous Poster) vs 'tab' (Tabbing View)
+            if (gCardViewMode === 'long') {
+                body.innerHTML = `
+                    <div class="dossier-poster">
+                        <div class="dossier-grid-bg"></div>
+                        ${headerHtml}
+                        ${heroHtml}
+
+                        <!-- 01 DOSSIER -->
+                        <div class="dossier-sec-bar">
+                            <span class="tecnica" style="font-size:12px;font-weight:700;color:#00F0FF;letter-spacing:1px;">01 // DOSSIER & PROFILE · 机体档案与背景</span>
+                            <span class="tecnica" style="font-size:10px;color:#64748b;">DATA SPEC</span>
+                        </div>
+                        ${loreContentHtml}
+
+                        <!-- 02 SIGNATURE -->
+                        <div class="dossier-sec-bar" style="border-left-color:#f59e0b;background:linear-gradient(90deg, rgba(245,158,11,0.18) 0%, rgba(15,23,42,0.04) 75%, transparent 100%);">
+                            <span class="tecnica" style="font-size:12px;font-weight:700;color:#f59e0b;letter-spacing:1px;">02 // SIGNATURE ABILITY · 觉醒招牌能力</span>
+                            <span class="tecnica" style="font-size:10px;color:#fde047;">AWAKENED</span>
+                        </div>
+                        ${sigContentHtml}
+
+                        <!-- 03 BASIC & PASSIVE -->
+                        <div class="dossier-sec-bar">
+                            <span class="tecnica" style="font-size:12px;font-weight:700;color:#00F0FF;letter-spacing:1px;">03 // ABILITIES & PASSIVES · 基础能力与被动特长</span>
+                            <span class="tecnica" style="font-size:10px;color:#64748b;">COMBAT SUITE</span>
+                        </div>
+                        ${basicPassHtml}
+
+                        <!-- 04 SPECIALS -->
+                        <div class="dossier-sec-bar">
+                            <span class="tecnica" style="font-size:12px;font-weight:700;color:#00F0FF;letter-spacing:1px;">04 // SPECIAL ATTACKS SEQUENCE · 特殊技序列 (SP1~SP3)</span>
+                            <span class="tecnica" style="font-size:10px;color:#64748b;">3 STAGES</span>
+                        </div>
+                        ${spContentHtml}
+
+                        <!-- 05 SYNERGIES -->
+                        <div class="dossier-sec-bar">
+                            <span class="tecnica" style="font-size:12px;font-weight:700;color:#00F0FF;letter-spacing:1px;">05 // SPARK SYNERGY MATRIX · 战友火种协同</span>
+                            <span class="tecnica" style="font-size:10px;color:#64748b;">TEAM BONDS</span>
+                        </div>
+                        ${synContentHtml}
+
+                        ${footerHtml}
+                    </div>
+                `;
+            } else {
+                // 'tab' Mode
+                body.innerHTML = `
+                    <div class="dossier-poster">
+                        <div class="dossier-grid-bg"></div>
+                        ${headerHtml}
+                        ${heroHtml}
+
+                        <!-- Tabbing Buttons -->
+                        <div style="display:flex;gap:8px;border-bottom:1px solid #1e293b;padding-bottom:12px;margin-bottom:16px;flex-wrap:wrap;">
+                            <button id="btnDossierTab_abilities" class="dossier-tab-btn ${gDossierActiveTab === 'abilities' ? 'active' : ''}" onclick="switchDossierTab('abilities')">
+                                ⚡ 技能矩阵 (Abilities)
+                            </button>
+                            <button id="btnDossierTab_specials" class="dossier-tab-btn ${gDossierActiveTab === 'specials' ? 'active' : ''}" onclick="switchDossierTab('specials')">
+                                💥 特殊战技 (Specials)
+                            </button>
+                            <button id="btnDossierTab_synergies" class="dossier-tab-btn ${gDossierActiveTab === 'synergies' ? 'active' : ''}" onclick="switchDossierTab('synergies')">
+                                🔗 战友协同 (Synergies)
+                            </button>
+                            <button id="btnDossierTab_lore" class="dossier-tab-btn ${gDossierActiveTab === 'lore' ? 'active' : ''}" onclick="switchDossierTab('lore')">
+                                📜 档案设定 (Lore)
+                            </button>
+                        </div>
+
+                        <!-- Tab 1: Abilities -->
+                        <div id="dossierTab_abilities" style="${gDossierActiveTab === 'abilities' ? 'display:block;' : 'display:none;'}">
+                            <div style="margin-bottom:14px;">${sigContentHtml}</div>
+                            ${basicPassHtml}
+                        </div>
+
+                        <!-- Tab 2: Specials -->
+                        <div id="dossierTab_specials" style="${gDossierActiveTab === 'specials' ? 'display:block;' : 'display:none;'}">
+                            ${spContentHtml}
+                        </div>
+
+                        <!-- Tab 3: Synergies -->
+                        <div id="dossierTab_synergies" style="${gDossierActiveTab === 'synergies' ? 'display:block;' : 'display:none;'}">
+                            ${synContentHtml}
+                        </div>
+
+                        <!-- Tab 4: Lore -->
+                        <div id="dossierTab_lore" style="${gDossierActiveTab === 'lore' ? 'display:block;' : 'display:none;'}">
+                            ${loreContentHtml}
+                        </div>
+
+                        ${footerHtml}
+                    </div>
+                `;
+            }
+        }
+        // ==================== END CARD DOSSIER MODAL LOGIC ====================
+
+        // Toast
+        function showToast(msg) {
+            const t = document.getElementById('toastMsg');
+            t.innerText = msg;
+            t.classList.add('show');
+            setTimeout(() => {
+                t.classList.remove('show');
+            }, 3000);
+        }
+
+        // Start
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

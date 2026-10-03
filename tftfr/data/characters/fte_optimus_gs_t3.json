@@ -1,0 +1,426 @@
+{
+  "bot_id": "fte_optimus_gs_t3",
+  "name_zh": "G1擎天柱",
+  "name_en": "Optimus Prime",
+  "faction": "autobot",
+  "class": "tact",
+  "star_default": 5,
+  "source": "Kabam",
+  "health_mult": 1.0,
+  "attack_mult": 1.0,
+  "crit_chance": null,
+  "crit_damage": null,
+  "crit_chance_ranged": null,
+  "crit_chance_melee": null,
+  "block_proficiency": 0.5,
+  "mana_gain_mult": 1.0,
+  "origin": "Generation 1",
+  "desc_zh": "",
+  "desc_en": "",
+  "note": "G1 经典战术系",
+  "pua_faction_icon": "E132",
+  "pua_class_icon": "",
+  "updated_at": "2026-10-03 14:30:50",
+  "hp": 32402,
+  "attack": 2306,
+  "rating": 10140,
+  "effective_crit_chance": 0.14,
+  "effective_crit_damage": 1.5,
+  "effective_crit_ranged": 0.14,
+  "effective_crit_melee": 0.14,
+  "portrait_url": "portraits/fte_optimus_gs_t3.png",
+  "portrait_large_url": "portraits/fte_optimus_gs_t3_large.png",
+  "abilities": [
+    {
+      "id": 2327,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "basic",
+      "title_zh": "[https://transformers",
+      "title_en": "[https://transformers",
+      "desc_zh": "forged-to-fight.fandom.com/wiki/File:Buff_Armor.png Armor Buff]",
+      "desc_en": "*  [https://transformers-forged-to-fight.fandom.com/wiki/File:Buff_Armor.png Armor Buff]",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 0,
+      "synergy_bots": []
+    },
+    {
+      "id": 2328,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "basic",
+      "title_zh": "[https://transformers",
+      "title_en": "[https://transformers",
+      "desc_zh": "forged-to-fight.fandom.com/wiki/File:Buff_Attack_Rate_Up.png Roll Out]",
+      "desc_en": "*  [https://transformers-forged-to-fight.fandom.com/wiki/File:Buff_Attack_Rate_Up.png Roll Out]",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 1,
+      "synergy_bots": []
+    },
+    {
+      "id": 2329,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "basic",
+      "title_zh": "[https://transformers",
+      "title_en": "[https://transformers",
+      "desc_zh": "forged-to-fight.fandom.com/wiki/File:Debuff_Armor_Break.png Armor Break]",
+      "desc_en": "*  [https://transformers-forged-to-fight.fandom.com/wiki/File:Debuff_Armor_Break.png Armor Break]",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 2,
+      "synergy_bots": []
+    },
+    {
+      "id": 2330,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "passive",
+      "title_zh": "Blocking:",
+      "title_en": "Blocking:",
+      "desc_zh": "* Blocking:",
+      "desc_en": "* Blocking:",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 3,
+      "synergy_bots": []
+    },
+    {
+      "id": 2331,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "passive",
+      "title_zh": "When entering the Block stance, Optimus equips an Armor Buff, reducing damage from attacks by {{var_1}} for {{var_2}}.",
+      "title_en": "When entering the Block stance, Optimus equips an Armor Buff, reducing damage from attacks by {{var_1}} for {{var_2}}.",
+      "desc_zh": "** When entering the Block stance, Optimus equips an Armor Buff, reducing damage from attacks by {{var_1}} for {{var_2}}.",
+      "desc_en": "** When entering the Block stance, Optimus equips an Armor Buff, reducing damage from attacks by {{var_1}} for {{var_2}}.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 4,
+      "synergy_bots": []
+    },
+    {
+      "id": 2332,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "passive",
+      "title_zh": "Prime's determination to protect teammates provides +{{var_3}} Armor per team member against Melee Attacks.",
+      "title_en": "Prime's determination to protect teammates provides +{{var_3}} Armor per team member against Melee Attacks.",
+      "desc_zh": "** Prime's determination to protect teammates provides +{{var_3}} Armor per team member against Melee Attacks.",
+      "desc_en": "** Prime's determination to protect teammates provides +{{var_3}} Armor per team member against Melee Attacks.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 5,
+      "synergy_bots": []
+    },
+    {
+      "id": 2333,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "passive",
+      "title_zh": "Passive: Armor Break effects last {{var_4}} longer for every hit in the Combo Meter.",
+      "title_en": "Passive: Armor Break effects last {{var_4}} longer for every hit in the Combo Meter.",
+      "desc_zh": "* Passive: Armor Break effects last {{var_4}} longer for every hit in the Combo Meter.",
+      "desc_en": "* Passive: Armor Break effects last {{var_4}} longer for every hit in the Combo Meter.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 6,
+      "synergy_bots": []
+    },
+    {
+      "id": 2334,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "passive",
+      "title_zh": "Heavy Attacks: Rolling Out grants +{{var_5}} Attack per team member for {{var_6}}.",
+      "title_en": "Heavy Attacks: Rolling Out grants +{{var_5}} Attack per team member for {{var_6}}.",
+      "desc_zh": "* Heavy Attacks: Rolling Out grants +{{var_5}} Attack per team member for {{var_6}}.",
+      "desc_en": "* Heavy Attacks: Rolling Out grants +{{var_5}} Attack per team member for {{var_6}}.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 7,
+      "synergy_bots": []
+    },
+    {
+      "id": 2335,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "signature",
+      "title_zh": "Breach",
+      "title_en": "Breach",
+      "desc_zh": "Optimus Prime's Critical Hits inflict Bleed when the opponent's Armor is broken.\n\nWhen opponent's Armor is broken, Optimus Prime's Critical Hits inflict Bleed for {{var_7}} Attack over {{var_8}}.",
+      "desc_en": "Breach\nOptimus Prime's Critical Hits inflict Bleed when the opponent's Armor is broken.\nWhen opponent's Armor is broken, Optimus Prime's Critical Hits inflict Bleed for {{var_7}} Attack over {{var_8}}.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 8,
+      "synergy_bots": []
+    },
+    {
+      "id": 2336,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "sp1",
+      "title_zh": "Energon Chop",
+      "title_en": "Energon Chop",
+      "desc_zh": "Optimus delivers a whirling slash with his Energon Axe to subdue his opponent.",
+      "desc_en": "# Energon Chop - Optimus delivers a whirling slash with his Energon Axe to subdue his opponent.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 9,
+      "synergy_bots": []
+    },
+    {
+      "id": 2337,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "sp2",
+      "title_zh": "特殊技 2",
+      "title_en": "特殊技 2",
+      "desc_zh": "#*{{var_9}} chance to Armor Break, removing enemy armor and applying {{var_10}} armor reduction for {{var_11}}.",
+      "desc_en": "#*{{var_9}} chance to Armor Break, removing enemy armor and applying {{var_10}} armor reduction for {{var_11}}.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 10,
+      "synergy_bots": []
+    },
+    {
+      "id": 2338,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "sp3",
+      "title_zh": "特殊技 3",
+      "title_en": "特殊技 3",
+      "desc_zh": "#*+{{var_12}} Attack for {{var_13}}. Additionally, Optimus Prime's Attack is increased by +{{var_14}} Attack per fallen ally in his squad.",
+      "desc_en": "#*+{{var_12}} Attack for {{var_13}}. Additionally, Optimus Prime's Attack is increased by +{{var_14}} Attack per fallen ally in his squad.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 11,
+      "synergy_bots": []
+    },
+    {
+      "id": 2339,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "synergy",
+      "title_zh": "Allies",
+      "title_en": "Allies",
+      "desc_zh": "+{{var_19}}~{{var_20}} Armor.",
+      "desc_en": "+{{var_19}}~{{var_20}} Armor.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 12,
+      "synergy_bots": [
+        "grimlock_gs_mp08",
+        "wheeljack_gs_mp20"
+      ]
+    },
+    {
+      "id": 2340,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "synergy",
+      "title_zh": "Enemies",
+      "title_en": "Enemies",
+      "desc_zh": "+{{var_21}}~{{var_22}} Attack Rating.",
+      "desc_en": "+{{var_21}}~{{var_22}} Attack Rating.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 13,
+      "synergy_bots": [
+        "bludgeon_gs_rd20",
+        "motormaster_gs_voyager2015",
+        "megatron_gs_leader2015",
+        "megatronus_gs_kabam"
+      ]
+    },
+    {
+      "id": 2341,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "synergy",
+      "title_zh": "Enemies",
+      "title_en": "Enemies",
+      "desc_zh": "+{{var_23}}~{{var_24}} Attack Rating.",
+      "desc_en": "+{{var_23}}~{{var_24}} Attack Rating.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 14,
+      "synergy_bots": [
+        "soundwave_gs",
+        "motormaster_gs_voyager2015",
+        "megatron_gs_leader2015",
+        "megatronus_gs_kabam"
+      ]
+    },
+    {
+      "id": 2342,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "synergy",
+      "title_zh": "Brothers in Arms",
+      "title_en": "Brothers in Arms",
+      "desc_zh": "+{{var_25}}~{{var_26}} Armor for Autobots as well as +{{var_27}}~{{var_28}} Melee Damage in Solo Missions.",
+      "desc_en": "+{{var_25}}~{{var_26}} Armor for Autobots as well as +{{var_27}}~{{var_28}} Melee Damage in Solo Missions.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 15,
+      "synergy_bots": [
+        "ironhide_cin_rotf",
+        "ratchet_gs_kabam"
+      ]
+    },
+    {
+      "id": 2343,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "synergy",
+      "title_zh": "Chief Medical Officer",
+      "title_en": "Chief Medical Officer",
+      "desc_zh": "Up to {{var_29}} chance based lost Health to Repair {{var_30}}~{{var_31}} of base Health instead of gaining an Attack Buff when Rolling Out.",
+      "desc_en": "Up to {{var_29}} chance based lost Health to Repair {{var_30}}~{{var_31}} of base Health instead of gaining an Attack Buff when Rolling Out.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 16,
+      "synergy_bots": [
+        "ratchet_gs_kabam"
+      ]
+    },
+    {
+      "id": 2344,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "synergy",
+      "title_zh": "Role Models",
+      "title_en": "Role Models",
+      "desc_zh": "Bumblebee's Heavy Attacks gain a +{{var_32}}~{{var_33}} Attack Buff for each alive team member.",
+      "desc_en": "Bumblebee's Heavy Attacks gain a +{{var_32}}~{{var_33}} Attack Buff for each alive team member.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 17,
+      "synergy_bots": [
+        "bumblebee_gs_kabam"
+      ]
+    },
+    {
+      "id": 2345,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "synergy",
+      "title_zh": "Role Models",
+      "title_en": "Role Models",
+      "desc_zh": "Bumblebee gains a new ability and grants {{var_34}}~{{var_35}} Armor to his role models.",
+      "desc_en": "Bumblebee gains a new ability and grants {{var_34}}~{{var_35}} Armor to his role models.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 18,
+      "synergy_bots": [
+        "bumblebee_gs_kabam"
+      ]
+    },
+    {
+      "id": 2346,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "synergy",
+      "title_zh": "Doppelganger",
+      "title_en": "Doppelganger",
+      "desc_zh": "Nemesis Prime gains +{{var_36}}~{{var_37}} Armor.",
+      "desc_en": "Nemesis Prime gains +{{var_36}}~{{var_37}} Armor.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 19,
+      "synergy_bots": [
+        "nemesisprime_gs_voyager2015"
+      ]
+    },
+    {
+      "id": 2347,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "synergy",
+      "title_zh": "Original Model",
+      "title_en": "Original Model",
+      "desc_zh": "Armor Break is {{var_38}}~{{var_39}} more effective.",
+      "desc_en": "Armor Break is {{var_38}}~{{var_39}} more effective.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 20,
+      "synergy_bots": [
+        "nemesisprime_gs_voyager2015"
+      ]
+    },
+    {
+      "id": 2348,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "synergy",
+      "title_zh": "Lieutenants",
+      "title_en": "Lieutenants",
+      "desc_zh": "Optimus gains {{var_40}}~{{var_41}} Attack and Armor and his lieutenants gain unique abilities.",
+      "desc_en": "Optimus gains {{var_40}}~{{var_41}} Attack and Armor and his lieutenants gain unique abilities.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 21,
+      "synergy_bots": [
+        "prowl_gs_deluxe2016",
+        "jazz_gs_twm05"
+      ]
+    },
+    {
+      "id": 2349,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "synergy",
+      "title_zh": "Lieutenants",
+      "title_en": "Lieutenants",
+      "desc_zh": "If Prowl Drains the opponent’s Power to {{var_42}} of their Max Power, he has a {{var_43}}~{{var_44}} chance to Stun the opponent for {{var_45}}.",
+      "desc_en": "If Prowl Drains the opponent’s Power to {{var_42}} of their Max Power, he has a {{var_43}}~{{var_44}} chance to Stun the opponent for {{var_45}}.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 22,
+      "synergy_bots": [
+        "prowl_gs_deluxe2016"
+      ]
+    },
+    {
+      "id": 2350,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "synergy",
+      "title_zh": "Lieutenants",
+      "title_en": "Lieutenants",
+      "desc_zh": "Each time Jazz avoids all hits in an opponent’s Special Attack he gains an Attack Buff, increasing his Attack Rating by {{var_46}}~{{var_47}} for the remainder of the fight.",
+      "desc_en": "Each time Jazz avoids all hits in an opponent’s Special Attack he gains an Attack Buff, increasing his Attack Rating by {{var_46}}~{{var_47}} for the remainder of the fight.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 23,
+      "synergy_bots": [
+        "jazz_gs_twm05"
+      ]
+    },
+    {
+      "id": 2351,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "synergy",
+      "title_zh": "Autobot Leaders",
+      "title_en": "Autobot Leaders",
+      "desc_zh": "All Autobots gain +{{var_48}} Armor Piercing against Decepticons.",
+      "desc_en": "All Autobots gain +{{var_48}} Armor Piercing against Decepticons.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 24,
+      "synergy_bots": [
+        "rodimusprime_gs_mp09"
+      ]
+    },
+    {
+      "id": 2352,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "synergy",
+      "title_zh": "Optimus Maximus",
+      "title_en": "Optimus Maximus",
+      "desc_zh": "Start the fight with {{var_49}}~{{var_50}} Power. Bots only benefit from this bonus if all Bots on the team have this Synergy.",
+      "desc_en": "Start the fight with {{var_49}}~{{var_50}} Power. Bots only benefit from this bonus if all Bots on the team have this Synergy.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 25,
+      "synergy_bots": [
+        "mirage_gs_deluxe2016",
+        "prowl_gs_deluxe2016",
+        "ironhide_gs_kabam",
+        "sunstreaker_gs_deluxe2008"
+      ]
+    },
+    {
+      "id": 2353,
+      "bot_id": "fte_optimus_gs_t3",
+      "category": "synergy",
+      "title_zh": "Leadership (5 Star)",
+      "title_en": "Leadership (5 Star)",
+      "desc_zh": "Acting as a beacon of leadership for the team, all lower tier teammates gain +{{var_51}} Armor Rating.",
+      "desc_en": "Acting as a beacon of leadership for the team, all lower tier teammates gain +{{var_51}} Armor Rating.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 26,
+      "synergy_bots": []
+    }
+  ]
+}

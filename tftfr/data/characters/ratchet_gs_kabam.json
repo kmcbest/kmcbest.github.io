@@ -35,165 +35,177 @@
       "id": 2747,
       "bot_id": "ratchet_gs_kabam",
       "category": "basic",
-      "title_zh": "When converting to alt",
+      "title_zh": "转换为 alt 时",
       "title_en": "When converting to alt",
-      "desc_zh": "form: When below {{var_1}} health, Ratchet activates Self-Diagnosis, repairing {{var_2}} Health and generating 18.3~% Power over {{var_3}}.",
-      "desc_en": "*When converting to alt-form: When below {{var_1}} health, Ratchet activates Self-Diagnosis, repairing {{var_2}} Health and generating 18.3~% Power over {{var_3}}.",
+      "desc_zh": "形式：当低于 {{var_1}} 健康状况时，Ratchet 会激活自我诊断，修复 {{var_2}} 健康状况并产生超过 {{var_3}} 18.3~% 的电量。",
+      "desc_en": "When converting to alt-form: When below {{var_1}} health, Ratchet activates Self-Diagnosis, repairing {{var_2}} Health and generating 18.3~% Power over {{var_3}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 0,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2748,
       "bot_id": "ratchet_gs_kabam",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "*Ranged Attacks:",
-      "desc_en": "*Ranged Attacks:",
+      "title_en": "Basic Abilities",
+      "desc_zh": "远程攻击：",
+      "desc_en": "Ranged Attacks:",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 1,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2749,
       "bot_id": "ratchet_gs_kabam",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "**+{{var_4}} Critical Rate",
-      "desc_en": "**+{{var_4}} Critical Rate",
+      "title_en": "Basic Abilities",
+      "desc_zh": "+{{var_4}} 临界率",
+      "desc_en": "+{{var_4}} Critical Rate",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 2,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2750,
       "bot_id": "ratchet_gs_kabam",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "**Critical Hits Inflict Shock damage for {{var_5}} Attack over {{var_6}}. (Rank 2)",
-      "desc_en": "**Critical Hits Inflict Shock damage for {{var_5}} Attack over {{var_6}}. (Rank 2)",
+      "title_en": "Basic Abilities",
+      "desc_zh": "暴击 {{var_5}} 攻击对 {{var_6}} 造成感应触电伤害。 （排名2）",
+      "desc_en": "Critical Hits Inflict Shock damage for {{var_5}} Attack over {{var_6}}. (Rank 2)",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 3,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2751,
       "bot_id": "ratchet_gs_kabam",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "*Critical Hits:",
-      "desc_en": "*Critical Hits:",
+      "title_en": "Basic Abilities",
+      "desc_zh": "关键点击：",
+      "desc_en": "Critical Hits:",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 4,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2752,
       "bot_id": "ratchet_gs_kabam",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "**{{var_7}} chance to Stun per stack of Shock for {{var_8}}.",
-      "desc_en": "**{{var_7}} chance to Stun per stack of Shock for {{var_8}}.",
+      "title_en": "Basic Abilities",
+      "desc_zh": "{{var_8}} 的每层触电有 {{var_7}} 次击晕机会。",
+      "desc_en": "{{var_7}} chance to Stun per stack of Shock for {{var_8}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 5,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2753,
       "bot_id": "ratchet_gs_kabam",
       "category": "passive",
-      "title_zh": "Self-Diagnosis",
+      "title_zh": "自诊断",
       "title_en": "Self-Diagnosis",
-      "desc_zh": "*  Self-Diagnosis",
-      "desc_en": "*  Self-Diagnosis",
+      "desc_zh": "自诊断",
+      "desc_en": "Self-Diagnosis",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 6,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2754,
       "bot_id": "ratchet_gs_kabam",
       "category": "passive",
-      "title_zh": "Shock",
+      "title_zh": "感应触电",
       "title_en": "Shock",
-      "desc_zh": "* Shock",
-      "desc_en": "* Shock",
+      "desc_zh": "震惊",
+      "desc_en": "Shock",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 7,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2755,
       "bot_id": "ratchet_gs_kabam",
       "category": "signature",
-      "title_zh": "Emergency Repair",
+      "title_zh": "紧急抢修",
       "title_en": "Emergency Repair",
-      "desc_zh": "Ratchet activates Emergency Repairs when taking a lot of damage from a single hit.\n\nWhen Attacked: Ratchet has a {{var_9}} chance to activate Emergency Repairs when the opponent deals more than {{var_10}} of their Attack in a single hit, repairing the damage taken over {{var_11}}.\n\n+{{var_12}} per level",
+      "desc_zh": "当单次攻击造成大量伤害时，棘轮会激活紧急修复。\n\n受到攻击时：当对手单次攻击造成的攻击量超过 {{var_10}} 时，棘轮有 {{var_9}} 几率激活紧急修复，修复受到的伤害超过 {{var_11}}。\n\n每级 +{{var_12}}",
       "desc_en": "Emergency Repair\nRatchet activates Emergency Repairs when taking a lot of damage from a single hit.\nWhen Attacked: Ratchet has a {{var_9}} chance to activate Emergency Repairs when the opponent deals more than {{var_10}} of their Attack in a single hit, repairing the damage taken over {{var_11}}.\n+{{var_12}} per level",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 8,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2756,
       "bot_id": "ratchet_gs_kabam",
       "category": "sp1",
-      "title_zh": "Impact Wrench",
+      "title_zh": "冲击扳手",
       "title_en": "Impact Wrench",
-      "desc_zh": "Maximum torque for minimum exertion.",
-      "desc_en": "#Impact Wrench - Maximum torque for minimum exertion.",
+      "desc_zh": "用最小的力达到最大的扭矩。",
+      "desc_en": "Impact Wrench - Maximum torque for minimum exertion.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 9,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2757,
       "bot_id": "ratchet_gs_kabam",
       "category": "sp2",
       "title_zh": "特殊技 2",
-      "title_en": "特殊技 2",
-      "desc_zh": "#*{{var_13}} chance to Stun for {{var_14}}. This chance increases by {{var_15}} per stack of Shock.",
-      "desc_en": "#*{{var_13}} chance to Stun for {{var_14}}. This chance increases by {{var_15}} per stack of Shock.",
+      "title_en": "Special Attack 2",
+      "desc_zh": "{{var_13}} 有机会击晕 {{var_14}}。每叠加一层触电，此几率就会增加 {{var_15}}。",
+      "desc_en": "{{var_13}} chance to Stun for {{var_14}}. This chance increases by {{var_15}} per stack of Shock.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 10,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2758,
       "bot_id": "ratchet_gs_kabam",
       "category": "sp3",
-      "title_zh": "Emergency Response",
+      "title_zh": "应急响应",
       "title_en": "Emergency Response",
-      "desc_zh": "Help yourself before helping others.",
-      "desc_en": "#Emergency Response - Help yourself before helping others.",
+      "desc_zh": "在帮助别人之前先帮助自己。",
+      "desc_en": "Emergency Response - Help yourself before helping others.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 11,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2759,
       "bot_id": "ratchet_gs_kabam",
       "category": "synergy",
-      "title_zh": "Allies",
+      "title_zh": "盟友",
       "title_en": "Allies",
-      "desc_zh": "+{{var_23}}~{{var_24}} Armor.",
+      "desc_zh": "+{{var_23}}~{{var_24}} 装甲。",
       "desc_en": "+{{var_23}}~{{var_24}} Armor.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -201,45 +213,48 @@
       "synergy_bots": [
         "jazz_gs_twm05",
         "grimlock_gs_mp08"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2760,
       "bot_id": "ratchet_gs_kabam",
       "category": "synergy",
-      "title_zh": "Allies",
+      "title_zh": "盟友",
       "title_en": "Allies",
-      "desc_zh": "+{{var_25}}~{{var_26}} Armor.",
+      "desc_zh": "+{{var_25}}~{{var_26}} 装甲。",
       "desc_en": "+{{var_25}}~{{var_26}} Armor.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 13,
       "synergy_bots": [
         "ironhide_cin_rotf"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2761,
       "bot_id": "ratchet_gs_kabam",
       "category": "synergy",
-      "title_zh": "Chief Medical Officer",
+      "title_zh": "首席军医",
       "title_en": "Chief Medical Officer",
-      "desc_zh": "Up to {{var_27}} chance based lost Health to Repair {{var_28}} of base Health instead of gaining an Attack Buff when Rolling Out.",
+      "desc_zh": "最多 {{var_27}} 机会损失生命值来修复 {{var_28}} 基础生命值，而不是在推出时获得攻击增益。",
       "desc_en": "Up to {{var_27}} chance based lost Health to Repair {{var_28}} of base Health instead of gaining an Attack Buff when Rolling Out.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 14,
       "synergy_bots": [
         "fte_optimus_gs_t3"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2762,
       "bot_id": "ratchet_gs_kabam",
       "category": "synergy",
-      "title_zh": "Medic Support",
+      "title_zh": "医疗支持",
       "title_en": "Medic Support",
-      "desc_zh": "{{var_29}}~{{var_30}} of base health repaired at the start of the fight. +{{var_31}}~{{var_32}} extra repair in Raids.",
+      "desc_zh": "战斗开始时修复了基地生命值的{{var_29}}~{{var_30}}。 + 突袭中的 {{var_31}}~{{var_32}} 额外修复。",
       "desc_en": "{{var_29}}~{{var_30}} of base health repaired at the start of the fight. +{{var_31}}~{{var_32}} extra repair in Raids.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -247,65 +262,70 @@
       "synergy_bots": [
         "ironhide_gs_kabam",
         "bumblebee_cin_dotm"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2763,
       "bot_id": "ratchet_gs_kabam",
       "category": "synergy",
-      "title_zh": "Brain Drain",
+      "title_zh": "心智压榨",
       "title_en": "Brain Drain",
-      "desc_zh": "Shockwave gains a {{var_33}} chance to Stun the opponent for {{var_34}} on Shockwave’s Special 2.",
+      "desc_zh": "冲击波在冲击波的特殊 2 上获得 {{var_33}} 机会击晕对手，造成 {{var_34}}。",
       "desc_en": "Shockwave gains a {{var_33}} chance to Stun the opponent for {{var_34}} on Shockwave’s Special 2.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 16,
       "synergy_bots": [
         "shockwave_gs"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2764,
       "bot_id": "ratchet_gs_kabam",
       "category": "synergy",
-      "title_zh": "Brothers in Arms",
+      "title_zh": "并肩作战",
       "title_en": "Brothers in Arms",
-      "desc_zh": "{{var_35}}~{{var_36}} Armor for Autobots as well as +{{var_37}}~{{var_38}} Melee Damage in Solo Missions.",
+      "desc_zh": "汽车人的 {{var_35}}~{{var_36}} 装甲以及单人任务中的 +{{var_37}}~{{var_38}} 近战伤害。",
       "desc_en": "{{var_35}}~{{var_36}} Armor for Autobots as well as +{{var_37}}~{{var_38}} Melee Damage in Solo Missions.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 17,
       "synergy_bots": [
         "fte_optimus_gs_t3"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2765,
       "bot_id": "ratchet_gs_kabam",
       "category": "synergy",
-      "title_zh": "Till All Are One",
+      "title_zh": "直到一切合而为一",
       "title_en": "Till All Are One",
-      "desc_zh": "+{{var_39}}~{{var_40}} Attack Rating for Autobots. +{{var_41}}~{{var_42}} Debuff Damage for Autobots in Raids.",
+      "desc_zh": "+{{var_39}}~{{var_40}} 汽车人攻击评级。 +{{var_41}}~{{var_42}} 突袭中汽车人的减益伤害。",
       "desc_en": "+{{var_39}}~{{var_40}} Attack Rating for Autobots. +{{var_41}}~{{var_42}} Debuff Damage for Autobots in Raids.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 18,
       "synergy_bots": [
         "bumblebee_gs_kabam"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2766,
       "bot_id": "ratchet_gs_kabam",
       "category": "synergy",
-      "title_zh": "Leadership (5 Star)",
+      "title_zh": "领袖威仪 (5星)",
       "title_en": "Leadership (5 Star)",
-      "desc_zh": "+{{var_43}} Power Rate.",
+      "desc_zh": "+{{var_43}} 功率率。",
       "desc_en": "+{{var_43}} Power Rate.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 19,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     }
   ]
 }

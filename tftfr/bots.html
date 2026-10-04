@@ -1316,6 +1316,120 @@
             color: #FFF;
         }
 
+        /* Ability Implementation Status Menu */
+        .ability-status-select {
+            appearance: none;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 4px 22px 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 6px center;
+        }
+
+        .ability-status-select:hover {
+            filter: brightness(1.15);
+        }
+
+        .ability-status-select option {
+            background: #111827;
+            color: #F8FAFC;
+        }
+
+        .ability-status-select.status-unimplemented {
+            background-color: rgba(148, 163, 184, 0.1);
+            border-color: rgba(148, 163, 184, 0.35);
+            color: #94A3B8;
+        }
+
+        .ability-status-select.status-partial {
+            background-color: rgba(245, 158, 11, 0.15);
+            border-color: rgba(245, 158, 11, 0.5);
+            color: #FBBF24;
+            box-shadow: 0 0 8px rgba(245, 158, 11, 0.15);
+        }
+
+        .ability-status-select.status-implemented {
+            background-color: rgba(160, 185, 129, 0.18);
+            border-color: rgba(16, 185, 129, 0.55);
+            color: #34D399;
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.2);
+        }
+
+        .ability-status-select.status-ignored {
+            background-color: rgba(168, 85, 247, 0.1);
+            border-color: rgba(168, 85, 247, 0.35);
+            color: #C084FC;
+        }
+
+        /* Bilingual Description Tabs */
+        .desc-tabs-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 100%;
+        }
+
+        .desc-tabs-nav {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .desc-tab-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .desc-tab-btn:hover {
+            background: rgba(255, 255, 255, 0.09);
+            color: #FFF;
+        }
+
+        .desc-tab-btn.active {
+            background: rgba(56, 189, 248, 0.2);
+            border-color: #38BDF8;
+            color: #38BDF8;
+            box-shadow: 0 0 8px rgba(56, 189, 248, 0.2);
+        }
+
+        .desc-tab-btn .badge-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #10B981;
+        }
+
+        .ability-title-edit-input.en {
+            color: #93C5FD;
+            border-color: rgba(147, 197, 253, 0.25);
+        }
+
+        .ability-title-edit-input.en:focus {
+            border-color: #60A5FA;
+            box-shadow: 0 0 8px rgba(96, 165, 250, 0.3);
+        }
+
+
         .ability-desc-textarea {
             width: 100%;
             background: var(--bg-darker);
@@ -1569,12 +1683,7 @@
         <div class="header-container">
             <div class="logo-group">
                 <span class="logo-title">TFTF 数值与技能中枢</span>
-                <span class="logo-badge">Upstash KV Live</span>
-                <a href="api.html" target="_blank" style="text-decoration:none; margin-left: 8px;">
-                    <span style="background: rgba(56, 189, 248, 0.2); color: #38BDF8; border: 1px solid rgba(56, 189, 248, 0.5); padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#38BDF8'; this.style.color='#000';" onmouseout="this.style.background='rgba(56, 189, 248, 0.2)'; this.style.color='#38BDF8';">
-                        🤖 智能体查询接口 (Agent API) &rarr;
-                    </span>
-                </a>
+                <span class="logo-badge">SQLite Database Live</span>
             </div>
             <div class="controls-bar">
                 <input type="text" id="searchInput" class="search-box" placeholder="搜索机器人中英文名 / ID..." oninput="handleSearch()">
@@ -1715,12 +1824,24 @@
             <div class="modal-body">
                 <input type="hidden" id="newAbCategory" value="basic">
                 <div class="form-row">
-                    <label>能力标题 (Title)</label>
-                    <input type="text" id="newAbTitle" placeholder="如：能量过载 / 幽影潜行 / 破甲斩击...">
+                    <label>能力标题 (Title - 中英双语)</label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="newAbTitle" style="flex: 1;" placeholder="中文标题 (如：能量过载)...">
+                        <input type="text" id="newAbTitleEn" class="ability-title-edit-input en" style="flex: 1;" placeholder="English Title (e.g. Energy Overload)...">
+                    </div>
                 </div>
                 <div class="form-row">
-                    <label>效果详细描述 (Description)</label>
-                    <textarea id="newAbDesc" rows="4" placeholder="详细描述该技能触发机制、持续时间、数值百分比等..."></textarea>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <label style="margin-bottom: 0;">效果详细描述 (Description)</label>
+                        <div class="desc-tabs-nav">
+                            <button type="button" class="desc-tab-btn active" onclick="switchNewAbDescTab(this, 'zh')">中文</button>
+                            <button type="button" class="desc-tab-btn" onclick="switchNewAbDescTab(this, 'en')">英文</button>
+                        </div>
+                    </div>
+                    <div class="desc-tabs-container">
+                        <textarea id="newAbDesc" class="ability-desc-textarea desc-ta-zh" rows="4" placeholder="详细描述该技能触发机制、持续时间、数值百分比等..."></textarea>
+                        <textarea id="newAbDescEn" class="ability-desc-textarea desc-ta-en" rows="4" placeholder="Detailed mechanics, duration, damage percentages..." style="display: none;"></textarea>
+                    </div>
                 </div>
                 <div class="form-row" id="newAbSynergyRow" style="display: none;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
@@ -1743,6 +1864,15 @@
                         <span style="font-size: 12px; color: var(--text-sub);">点击左侧方框挑选图标</span>
                     </div>
                     <input type="hidden" id="newAbPuaIconVal" value="">
+                </div>
+                <div class="form-row">
+                    <label>代码实现进度状态 (Status)</label>
+                    <select class="ability-status-select status-unimplemented" id="newAbStatus" onchange="this.className = 'ability-status-select status-' + this.value" style="width: 100%; height: 34px; font-size: 13px;">
+                        <option value="unimplemented" selected>未实现 (默认)</option>
+                        <option value="partial">部分实现</option>
+                        <option value="implemented">已实现</option>
+                        <option value="ignored">暂不考虑</option>
+                    </select>
                 </div>
                 <button class="btn-submit-new-ability" onclick="submitNewAbility()">确认添加至角色能力库</button>
             </div>
@@ -1891,7 +2021,7 @@
                 return false;
             }
         }
-
+    
         let gOverviewData = null;
         let gPuaIcons = [];
         let gCurBotId = null;
@@ -2322,41 +2452,36 @@
             }
 
             try {
-                // Update local memory
-                bot.hp = hp;
-                bot.attack = attack;
-                bot.rating = rating;
-                if (payload.crit_chance !== undefined) bot.crit_chance = payload.crit_chance;
-                if (payload.crit_damage !== undefined) bot.crit_damage = payload.crit_damage;
-                if (payload.crit_chance_ranged !== undefined) bot.crit_chance_ranged = payload.crit_chance_ranged;
-                if (payload.crit_chance_melee !== undefined) bot.crit_chance_melee = payload.crit_chance_melee;
-
-                const cDef = (gOverviewData && gOverviewData.classes) ? (gOverviewData.classes.find(c => c.class_id === bot.class) || {}) : {};
-                bot.effective_crit_chance = bot.crit_chance !== null ? bot.crit_chance : (cDef.crit_chance || 0.15);
-                bot.effective_crit_damage = bot.crit_damage !== null ? bot.crit_damage : (cDef.crit_damage || 1.5);
-                bot.effective_crit_ranged = bot.crit_chance_ranged !== null ? bot.crit_chance_ranged : (bot.effective_crit_chance + (cDef.ranged_crit_bonus || 0.0));
-                bot.effective_crit_melee = bot.crit_chance_melee !== null ? bot.crit_chance_melee : bot.effective_crit_chance;
-
-                // Sync to Upstash KV: character detail and overview
-                let charDetail = await kvGet('tftf:char:' + botId, `./data/characters/${botId}.json`) || {};
-                Object.assign(charDetail, payload, {
-                    effective_crit_chance: bot.effective_crit_chance,
-                    effective_crit_damage: bot.effective_crit_damage,
-                    effective_crit_ranged: bot.effective_crit_ranged,
-                    effective_crit_melee: bot.effective_crit_melee
+                const res = await fetch(`/api/character/${botId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
                 });
+                const ret = await res.json();
+                if (ret.ok) {
+                    bot.hp = hp;
+                    bot.attack = attack;
+                    bot.rating = rating;
+                    if (payload.crit_chance !== undefined) bot.crit_chance = payload.crit_chance;
+                    if (payload.crit_damage !== undefined) bot.crit_damage = payload.crit_damage;
+                    if (payload.crit_chance_ranged !== undefined) bot.crit_chance_ranged = payload.crit_chance_ranged;
+                    if (payload.crit_chance_melee !== undefined) bot.crit_chance_melee = payload.crit_chance_melee;
 
-                await Promise.all([
-                    kvSet('tftf:char:' + botId, charDetail),
-                    kvSet('tftf:overview', gOverviewData)
-                ]);
+                    const cDef = (gOverviewData && gOverviewData.classes) ? (gOverviewData.classes.find(c => c.class_id === bot.class) || {}) : {};
+                    bot.effective_crit_chance = bot.crit_chance !== null ? bot.crit_chance : (cDef.crit_chance || 0.15);
+                    bot.effective_crit_damage = bot.crit_damage !== null ? bot.crit_damage : (cDef.crit_damage || 1.5);
+                    bot.effective_crit_ranged = bot.crit_chance_ranged !== null ? bot.crit_chance_ranged : (bot.effective_crit_chance + (cDef.ranged_crit_bonus || 0.0));
+                    bot.effective_crit_melee = bot.crit_chance_melee !== null ? bot.crit_chance_melee : bot.effective_crit_chance;
 
-                gEditingCardBots.delete(botId);
-                refreshSingleCard(botId);
-                showToast(`✓ [${bot.name_zh || bot.name_en}] 属性已在线保存到 Upstash KV！`);
+                    gEditingCardBots.delete(botId);
+                    refreshSingleCard(botId);
+                    showToast(`✓ [${bot.name_zh || bot.name_en}] 属性已保存入库！`);
+                } else {
+                    alert("保存失败: " + (ret.error || "未知错误"));
+                }
             } catch (err) {
                 console.error("Save character stats error:", err);
-                alert("保存失败，请检查网络连接");
+                alert("保存失败，请检查网络或服务器状态");
             }
         }
 
@@ -2385,10 +2510,8 @@
         async function openCharacterModal(bid) {
             gCurBotId = bid;
             try {
-                const data = await kvGet('tftf:char:' + bid, `./data/characters/${bid}.json`);
-                if (!data) throw new Error("无法读取角色详情");
-                data.portrait_url = `portraits/${bid}.png`;
-                data.portrait_large_url = `portraits/${bid}_large.png`;
+                const res = await fetch(`/api/character/${bid}`);
+                const data = await res.json();
 
                 document.getElementById('mAvatar').src = data.portrait_url;
                 document.getElementById('mNameZh').innerText = data.name_zh;
@@ -2457,6 +2580,71 @@
         let gNewSpecialPuaIcons = {};
 
         // Helper: Create single Ability Card element
+
+        function switchDescTab(btn, lang) {
+            const parent = btn.closest('.desc-tabs-container');
+            if (!parent) return;
+            const buttons = parent.querySelectorAll('.desc-tab-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const taZh = parent.querySelector('.desc-ta-zh');
+            const taEn = parent.querySelector('.desc-ta-en');
+            if (lang === 'zh') {
+                if (taZh) taZh.style.display = 'block';
+                if (taEn) taEn.style.display = 'none';
+            } else {
+                if (taZh) taZh.style.display = 'none';
+                if (taEn) taEn.style.display = 'block';
+            }
+        }
+
+        function switchNewAbDescTab(btn, lang) {
+            const nav = btn.closest('.desc-tabs-nav');
+            if (nav) {
+                nav.querySelectorAll('.desc-tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            }
+            const taZh = document.getElementById('newAbDesc');
+            const taEn = document.getElementById('newAbDescEn');
+            if (lang === 'zh') {
+                if (taZh) taZh.style.display = 'block';
+                if (taEn) taEn.style.display = 'none';
+            } else {
+                if (taZh) taZh.style.display = 'none';
+                if (taEn) taEn.style.display = 'block';
+            }
+        }
+
+        async function changeAbilityStatus(aid, newStatus) {
+            const selectEl = document.getElementById(`status_${aid}`);
+            if (selectEl) {
+                selectEl.className = `ability-status-select status-${newStatus}`;
+            }
+
+            const statusNames = {
+                'unimplemented': '未实现',
+                'partial': '部分实现',
+                'implemented': '已实现',
+                'ignored': '暂不考虑'
+            };
+
+            try {
+                const res = await fetch(`/api/ability/${aid}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status: newStatus })
+                });
+                const ret = await res.json();
+                if (ret.ok) {
+                    showToast(`能力状态已更新：${statusNames[newStatus] || newStatus}`);
+                }
+            } catch (err) {
+                console.error("Failed to update status:", err);
+                alert("更新状态失败");
+            }
+        }
+
         function createAbilityCardElement(ab) {
             const abCard = document.createElement('div');
             abCard.className = 'ability-card';
@@ -2480,20 +2668,36 @@
                 `;
             }
 
+            const hasEnDesc = Boolean(ab.desc_en && ab.desc_en.trim());
+
             abCard.innerHTML = `
                 <div class="ability-header-row">
                     <div class="ability-pua-picker-btn" onclick="openPuaPicker('ability', '${ab.id}', '${ab.pua_icon || ''}')" title="点击选择PUA图标">
                         <span class="tecnica-icon ability-pua-icon-glyph">${puaChar}</span>
                         <span class="ability-pua-hex-sub">${puaSub}</span>
                     </div>
-                    <input type="text" class="ability-title-edit-input" id="title_${ab.id}" value="${escapeHtml(ab.title_zh || ab.title_en || '')}" placeholder="技能标题...">
+                    <input type="text" class="ability-title-edit-input" id="title_zh_${ab.id}" value="${escapeHtml(ab.title_zh || '')}" placeholder="中文标题...">
+                    <input type="text" class="ability-title-edit-input en" id="title_en_${ab.id}" value="${escapeHtml(ab.title_en || '')}" placeholder="English Title...">
                     <div class="ability-card-actions">
                         <button class="btn-card-action save" onclick="saveAbilityItem(${ab.id})">保存</button>
                         <button class="btn-card-action del" onclick="deleteAbilityItem(${ab.id})">删除</button>
+                        <select class="ability-status-select status-${ab.status || 'unimplemented'}" id="status_${ab.id}" onchange="changeAbilityStatus(${ab.id}, this.value)" title="代码实现进度状态">
+                            <option value="unimplemented" ${(ab.status === 'unimplemented' || !ab.status) ? 'selected' : ''}>未实现</option>
+                            <option value="partial" ${ab.status === 'partial' ? 'selected' : ''}>部分实现</option>
+                            <option value="implemented" ${ab.status === 'implemented' ? 'selected' : ''}>已实现</option>
+                            <option value="ignored" ${ab.status === 'ignored' ? 'selected' : ''}>暂不考虑</option>
+                        </select>
                     </div>
                 </div>
                 ${synergySectionHtml}
-                <textarea class="ability-desc-textarea" id="desc_${ab.id}" placeholder="技能描述...">${escapeHtml(ab.desc_zh || ab.desc_en || '')}</textarea>
+                <div class="desc-tabs-container">
+                    <div class="desc-tabs-nav">
+                        <button type="button" class="desc-tab-btn active" onclick="switchDescTab(this, 'zh')">中文</button>
+                        <button type="button" class="desc-tab-btn" onclick="switchDescTab(this, 'en')">英文${hasEnDesc ? '<span class="badge-dot" title="已填英文"></span>' : ''}</button>
+                    </div>
+                    <textarea class="ability-desc-textarea desc-ta-zh" id="desc_zh_${ab.id}" placeholder="中文机制与效果描述...">${escapeHtml(ab.desc_zh || '')}</textarea>
+                    <textarea class="ability-desc-textarea desc-ta-en" id="desc_en_${ab.id}" placeholder="English mechanics & effect description..." style="display: none;">${escapeHtml(ab.desc_en || '')}</textarea>
+                </div>
             `;
 
             if (ab.category === 'synergy') {
@@ -2511,6 +2715,7 @@
             if (existingAb) {
                 const puaChar = existingAb.pua_icon ? String.fromCharCode(parseInt(existingAb.pua_icon, 16)) : '+';
                 const puaSub = existingAb.pua_icon ? existingAb.pua_icon : 'PUA';
+                const hasEnDesc = Boolean(existingAb.desc_en && existingAb.desc_en.trim());
 
                 abCard.innerHTML = `
                     <div class="ability-header-row">
@@ -2518,12 +2723,26 @@
                             <span class="tecnica-icon ability-pua-icon-glyph">${puaChar}</span>
                             <span class="ability-pua-hex-sub">${puaSub}</span>
                         </div>
-                        <input type="text" class="ability-title-edit-input" id="title_${existingAb.id}" value="${escapeHtml(existingAb.title_zh || existingAb.title_en || '')}" placeholder="特殊技 ${spBadge} 标题...">
+                        <input type="text" class="ability-title-edit-input" id="title_zh_${existingAb.id}" value="${escapeHtml(existingAb.title_zh || '')}" placeholder="特殊技 ${spBadge} 中文标题...">
+                        <input type="text" class="ability-title-edit-input en" id="title_en_${existingAb.id}" value="${escapeHtml(existingAb.title_en || '')}" placeholder="SP${spBadge} English Title...">
                         <div class="ability-card-actions">
                             <button class="btn-card-action save" onclick="saveAbilityItem(${existingAb.id})">保存</button>
+                            <select class="ability-status-select status-${existingAb.status || 'unimplemented'}" id="status_${existingAb.id}" onchange="changeAbilityStatus(${existingAb.id}, this.value)" title="代码实现进度状态">
+                                <option value="unimplemented" ${(existingAb.status === 'unimplemented' || !existingAb.status) ? 'selected' : ''}>未实现</option>
+                                <option value="partial" ${existingAb.status === 'partial' ? 'selected' : ''}>部分实现</option>
+                                <option value="implemented" ${existingAb.status === 'implemented' ? 'selected' : ''}>已实现</option>
+                                <option value="ignored" ${existingAb.status === 'ignored' ? 'selected' : ''}>暂不考虑</option>
+                            </select>
                         </div>
                     </div>
-                    <textarea class="ability-desc-textarea" id="desc_${existingAb.id}" placeholder="特殊技 ${spBadge} 详细机制与效果描述...">${escapeHtml(existingAb.desc_zh || existingAb.desc_en || '')}</textarea>
+                    <div class="desc-tabs-container">
+                        <div class="desc-tabs-nav">
+                            <button type="button" class="desc-tab-btn active" onclick="switchDescTab(this, 'zh')">中文</button>
+                            <button type="button" class="desc-tab-btn" onclick="switchDescTab(this, 'en')">英文${hasEnDesc ? '<span class="badge-dot" title="已填英文"></span>' : ''}</button>
+                        </div>
+                        <textarea class="ability-desc-textarea desc-ta-zh" id="desc_zh_${existingAb.id}" placeholder="特殊技 ${spBadge} 详细机制与效果描述...">${escapeHtml(existingAb.desc_zh || '')}</textarea>
+                        <textarea class="ability-desc-textarea desc-ta-en" id="desc_en_${existingAb.id}" placeholder="Special Attack ${spBadge} English mechanics & effect description..." style="display: none;">${escapeHtml(existingAb.desc_en || '')}</textarea>
+                    </div>
                 `;
             } else {
                 const curHex = gNewSpecialPuaIcons[spKey] || '';
@@ -2536,12 +2755,26 @@
                             <span class="tecnica-icon ability-pua-icon-glyph" id="pua_glyph_new_${spKey}">${puaChar}</span>
                             <span class="ability-pua-hex-sub" id="pua_hex_new_${spKey}">${puaSub}</span>
                         </div>
-                        <input type="text" class="ability-title-edit-input" id="title_new_${spKey}" value="" placeholder="特殊技 ${spBadge} 标题 (留空待填写)...">
+                        <input type="text" class="ability-title-edit-input" id="title_zh_new_${spKey}" value="" placeholder="特殊技 ${spBadge} 中文标题 (留空待填写)...">
+                        <input type="text" class="ability-title-edit-input en" id="title_en_new_${spKey}" value="" placeholder="SP${spBadge} English Title...">
                         <div class="ability-card-actions">
                             <button class="btn-card-action save" onclick="saveNewSpecialSlot('${spKey}', '${spBadge}')">保存</button>
+                            <select class="ability-status-select status-unimplemented" id="status_new_${spKey}" onchange="this.className = 'ability-status-select status-' + this.value" title="代码实现进度状态">
+                                <option value="unimplemented" selected>未实现</option>
+                                <option value="partial">部分实现</option>
+                                <option value="implemented">已实现</option>
+                                <option value="ignored">暂不考虑</option>
+                            </select>
                         </div>
                     </div>
-                    <textarea class="ability-desc-textarea" id="desc_new_${spKey}" placeholder="特殊技 ${spBadge} 详细机制与效果描述 (留空待填写)..."></textarea>
+                    <div class="desc-tabs-container">
+                        <div class="desc-tabs-nav">
+                            <button type="button" class="desc-tab-btn active" onclick="switchDescTab(this, 'zh')">中文</button>
+                            <button type="button" class="desc-tab-btn" onclick="switchDescTab(this, 'en')">英文</button>
+                        </div>
+                        <textarea class="ability-desc-textarea desc-ta-zh" id="desc_zh_new_${spKey}" placeholder="特殊技 ${spBadge} 详细机制与效果描述 (留空待填写)..."></textarea>
+                        <textarea class="ability-desc-textarea desc-ta-en" id="desc_en_new_${spKey}" placeholder="Special Attack ${spBadge} English description (leave blank if none)..." style="display: none;"></textarea>
+                    </div>
                 `;
             }
 
@@ -2550,42 +2783,47 @@
 
         async function saveNewSpecialSlot(spKey, spBadge) {
             if (!gCurBotId) return;
-            const titleInput = document.getElementById(`title_new_${spKey}`);
-            const descInput = document.getElementById(`desc_new_${spKey}`);
-            const title_zh = titleInput ? titleInput.value.trim() : '';
-            const desc_zh = descInput ? descInput.value.trim() : '';
+            const titleZhInput = document.getElementById(`title_zh_new_${spKey}`) || document.getElementById(`title_new_${spKey}`);
+            const titleEnInput = document.getElementById(`title_en_new_${spKey}`);
+            const descZhInput = document.getElementById(`desc_zh_new_${spKey}`) || document.getElementById(`desc_new_${spKey}`);
+            const descEnInput = document.getElementById(`desc_en_new_${spKey}`);
+            const statusSelect = document.getElementById(`status_new_${spKey}`);
+
+            const title_zh = titleZhInput ? titleZhInput.value.trim() : '';
+            const title_en = titleEnInput ? titleEnInput.value.trim() : '';
+            const desc_zh = descZhInput ? descZhInput.value.trim() : '';
+            const desc_en = descEnInput ? descEnInput.value.trim() : '';
+            const status = statusSelect ? statusSelect.value : 'unimplemented';
             const pua_icon = gNewSpecialPuaIcons[spKey] || '';
 
-            if (!title_zh && !desc_zh) {
+            if (!title_zh && !title_en && !desc_zh && !desc_en) {
                 alert(`请先填写特殊技 ${spBadge} 的标题或描述后再保存！`);
                 return;
             }
 
             try {
-                let charDetail = await kvGet('tftf:char:' + gCurBotId, `./data/characters/${gCurBotId}.json`) || {};
-                if (!charDetail.abilities) charDetail.abilities = [];
-                const newId = Date.now();
-                charDetail.abilities.push({
-                    id: newId,
-                    bot_id: gCurBotId,
-                    category: spKey,
-                    title_zh: title_zh || `特殊技 ${spBadge}`,
-                    desc_zh,
-                    pua_icon,
-                    synergy_bots: []
+                const res = await fetch('/api/ability/new', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        bot_id: gCurBotId,
+                        category: spKey,
+                        title_zh: title_zh || `特殊技 ${spBadge}`,
+                        title_en: title_en || `Special Attack ${spBadge}`,
+                        desc_zh,
+                        desc_en,
+                        pua_icon,
+                        status
+                    })
                 });
-                if (gOverviewData) {
-                    gOverviewData.total_abilities = (gOverviewData.total_abilities || 0) + 1;
+                const ret = await res.json();
+                if (ret.ok) {
+                    showToast(`特殊技 ${spBadge} 已保存入库！`);
+                    gNewSpecialPuaIcons[spKey] = '';
+                    await openCharacterModal(gCurBotId);
                 }
-                await Promise.all([
-                    kvSet('tftf:char:' + gCurBotId, charDetail),
-                    kvSet('tftf:overview', gOverviewData)
-                ]);
-                showToast(`特殊技 ${spBadge} 已保存入库！`);
-                gNewSpecialPuaIcons[spKey] = '';
-                openCharacterModal(gCurBotId);
             } catch (err) {
-                console.error("Save failed:", err);
+                console.error("Failed to save special attack slot:", err);
                 alert("保存失败");
             }
         }
@@ -2704,54 +2942,53 @@
             };
 
             try {
-                let charDetail = await kvGet('tftf:char:' + gCurBotId, `./data/characters/${gCurBotId}.json`) || {};
-                Object.assign(charDetail, payload);
-
-                // Update gOverviewData
-                const botObj = (gOverviewData && gOverviewData.characters) ? gOverviewData.characters.find(c => c.bot_id === gCurBotId) : null;
-                if (botObj) {
-                    Object.assign(botObj, payload);
-                    const cDef = (gOverviewData.classes || []).find(c => c.class_id === botObj.class) || {};
-                    botObj.effective_crit_chance = botObj.crit_chance !== null ? botObj.crit_chance : (cDef.crit_chance || 0.15);
-                    botObj.effective_crit_damage = botObj.crit_damage !== null ? botObj.crit_damage : (cDef.crit_damage || 1.5);
-                    botObj.effective_crit_ranged = botObj.crit_chance_ranged !== null ? botObj.crit_chance_ranged : (botObj.effective_crit_chance + (cDef.ranged_crit_bonus || 0.0));
-                    botObj.effective_crit_melee = botObj.crit_chance_melee !== null ? botObj.crit_chance_melee : botObj.effective_crit_chance;
+                const res = await fetch(`/api/character/${gCurBotId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const ret = await res.json();
+                if (ret.ok) {
+                    showToast("角色数值设定已保存入库！");
+                    const ovRes = await fetch('/api/overview');
+                    gOverviewData = await ovRes.json();
+                    renderDashboard();
                 }
-
-                await Promise.all([
-                    kvSet('tftf:char:' + gCurBotId, charDetail),
-                    kvSet('tftf:overview', gOverviewData)
-                ]);
-
-                showToast("角色数值设定已在线保存到 Upstash KV！");
-                renderDashboard();
             } catch (err) {
                 console.error("Save failed:", err);
-                alert("保存失败，请检查网络连接");
+                alert("保存失败，请检查服务连接");
             }
         }
 
         // Save individual ability
         async function saveAbilityItem(aid) {
-            const titleInput = document.getElementById(`title_${aid}`);
-            const descInput = document.getElementById(`desc_${aid}`);
-            const title_zh = titleInput ? titleInput.value.trim() : '';
-            const desc_zh = descInput ? descInput.value.trim() : '';
+            const titleZhInput = document.getElementById(`title_zh_${aid}`) || document.getElementById(`title_${aid}`);
+            const titleEnInput = document.getElementById(`title_en_${aid}`);
+            const descZhInput = document.getElementById(`desc_zh_${aid}`) || document.getElementById(`desc_${aid}`);
+            const descEnInput = document.getElementById(`desc_en_${aid}`);
+            const statusSelect = document.getElementById(`status_${aid}`);
 
-            const payload = { title_zh, desc_zh };
+            const title_zh = titleZhInput ? titleZhInput.value.trim() : '';
+            const title_en = titleEnInput ? titleEnInput.value.trim() : '';
+            const desc_zh = descZhInput ? descZhInput.value.trim() : '';
+            const desc_en = descEnInput ? descEnInput.value.trim() : '';
+            const status = statusSelect ? statusSelect.value : 'unimplemented';
+
+            const payload = { title_zh, title_en, desc_zh, desc_en, status };
             if (gSynergyPartnersMap[aid] !== undefined) {
                 payload.synergy_bots = gSynergyPartnersMap[aid];
             }
 
             try {
-                let charDetail = await kvGet('tftf:char:' + gCurBotId, `./data/characters/${gCurBotId}.json`) || {};
-                if (!charDetail.abilities) charDetail.abilities = [];
-                const ab = charDetail.abilities.find(a => String(a.id) === String(aid));
-                if (ab) {
-                    Object.assign(ab, payload);
+                const res = await fetch(`/api/ability/${aid}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const ret = await res.json();
+                if (ret.ok) {
+                    showToast("技能已保存！");
                 }
-                await kvSet('tftf:char:' + gCurBotId, charDetail);
-                showToast("技能已在线保存到 Upstash KV！");
             } catch (err) {
                 console.error("Failed to save ability:", err);
                 alert("保存失败");
@@ -2763,19 +3000,15 @@
             if (!confirm("确认删除此项能力？")) return;
 
             try {
-                let charDetail = await kvGet('tftf:char:' + gCurBotId, `./data/characters/${gCurBotId}.json`) || {};
-                if (charDetail.abilities) {
-                    charDetail.abilities = charDetail.abilities.filter(a => String(a.id) !== String(aid));
+                const res = await fetch(`/api/ability/delete/${aid}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const ret = await res.json();
+                if (ret.ok) {
+                    showToast("能力已删除");
+                    if (gCurBotId) openCharacterModal(gCurBotId);
                 }
-                if (gOverviewData && gOverviewData.total_abilities > 0) {
-                    gOverviewData.total_abilities--;
-                }
-                await Promise.all([
-                    kvSet('tftf:char:' + gCurBotId, charDetail),
-                    kvSet('tftf:overview', gOverviewData)
-                ]);
-                showToast("能力已删除");
-                if (gCurBotId) openCharacterModal(gCurBotId);
             } catch (err) {
                 console.error("Failed to delete ability:", err);
                 alert("删除失败");
@@ -2795,10 +3028,10 @@
             container.innerHTML = partnerIds.map(bid => {
                 const bObj = (gOverviewData && gOverviewData.characters) ? gOverviewData.characters.find(c => c.bot_id === bid) : null;
                 const name = bObj ? (bObj.name_zh || bObj.name_en) : bid;
-                const portrait = bObj ? bObj.portrait_url : `portraits/${bid}.png`;
+                const portrait = bObj ? bObj.portrait_url : `/portrait/${bid}`;
                 return `
                     <div class="synergy-chip" title="${escapeHtml(name)} (${bid})">
-                        <img src="${portrait}" class="synergy-chip-avatar" alt="${escapeHtml(name)}" onerror="this.src='portraits/${bid}.png'">
+                        <img src="${portrait}" class="synergy-chip-avatar" alt="${escapeHtml(name)}" onerror="this.src='/portrait/${bid}'">
                         <span>${escapeHtml(name)}</span>
                         <span class="synergy-chip-remove" onclick="removeSynergyPartner(${aid}, '${bid}')" title="移除此协同角色">&times;</span>
                     </div>
@@ -2823,7 +3056,7 @@
             container.innerHTML = gNewAbSynergyBots.map(bid => {
                 const bObj = (gOverviewData && gOverviewData.characters) ? gOverviewData.characters.find(c => c.bot_id === bid) : null;
                 const name = bObj ? (bObj.name_zh || bObj.name_en) : bid;
-                const portrait = bObj ? bObj.portrait_url : `portraits/${bid}.png`;
+                const portrait = bObj ? bObj.portrait_url : `/portrait/${bid}`;
                 return `
                     <div class="synergy-chip" title="${escapeHtml(name)}">
                         <img src="${portrait}" class="synergy-chip-avatar" alt="${escapeHtml(name)}">
@@ -2906,7 +3139,7 @@
 
                 item.innerHTML = `
                     <div class="check-mark">✓</div>
-                    <img src="${c.portrait_url}" class="synergy-picker-avatar" alt="${c.name_zh || c.bot_id}" onerror="this.src='portraits/${c.bot_id}.png'">
+                    <img src="${c.portrait_url}" class="synergy-picker-avatar" alt="${c.name_zh || c.bot_id}" onerror="this.src='/portrait/${c.bot_id}'">
                     <div class="synergy-picker-name">${escapeHtml(c.name_zh || c.name_en)}</div>
                     <div class="synergy-picker-sub">${escapeHtml(c.name_en || '')}</div>
                 `;
@@ -2950,7 +3183,31 @@
             document.getElementById('newAbCategory').value = categoryKey;
             document.getElementById('addAbilityCategoryLabel').innerText = `所属分类: ${categoryName}`;
             document.getElementById('newAbTitle').value = '';
+            const titleEnEl = document.getElementById('newAbTitleEn');
+            if (titleEnEl) titleEnEl.value = '';
             document.getElementById('newAbDesc').value = '';
+            const descEnEl = document.getElementById('newAbDescEn');
+            if (descEnEl) descEnEl.value = '';
+
+            // Reset description tab to Chinese
+            const nav = document.querySelector('#addAbilityModal .desc-tabs-nav');
+            if (nav) {
+                nav.querySelectorAll('.desc-tab-btn').forEach((b, idx) => {
+                    if (idx === 0) b.classList.add('active');
+                    else b.classList.remove('active');
+                });
+            }
+            const taZh = document.getElementById('newAbDesc');
+            const taEn = document.getElementById('newAbDescEn');
+            if (taZh) taZh.style.display = 'block';
+            if (taEn) taEn.style.display = 'none';
+
+            const statusEl = document.getElementById('newAbStatus');
+            if (statusEl) {
+                statusEl.value = 'unimplemented';
+                statusEl.className = 'ability-status-select status-unimplemented';
+            }
+
             document.getElementById('newAbPuaIconVal').value = '';
             document.getElementById('newAbPuaGlyph').innerText = '+';
             document.getElementById('newAbPuaHex').innerText = 'PUA';
@@ -2996,26 +3253,20 @@
             }
 
             try {
-                let charDetail = await kvGet('tftf:char:' + gCurBotId, `./data/characters/${gCurBotId}.json`) || {};
-                if (!charDetail.abilities) charDetail.abilities = [];
-                const newId = Date.now();
-                payload.id = newId;
-                payload.bot_id = gCurBotId;
-                payload.sort_order = 0;
-                charDetail.abilities.push(payload);
-                if (gOverviewData) {
-                    gOverviewData.total_abilities = (gOverviewData.total_abilities || 0) + 1;
+                const res = await fetch('/api/ability/new', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const ret = await res.json();
+                if (ret.ok) {
+                    showToast("新能力创建成功！");
+                    closeAddAbilityModal();
+                    openCharacterModal(gCurBotId);
                 }
-                await Promise.all([
-                    kvSet('tftf:char:' + gCurBotId, charDetail),
-                    kvSet('tftf:overview', gOverviewData)
-                ]);
-                showToast("新能力创建成功并已保存到 Upstash KV！");
-                closeAddAbilityModal();
-                openCharacterModal(gCurBotId);
             } catch (err) {
                 console.error("Failed to create ability:", err);
-                alert("创建失败，请检查网络连接");
+                alert("创建失败");
             }
         }
 
@@ -3073,19 +3324,22 @@
 
             try {
                 if (type === 'ability') {
-                    let charDetail = await kvGet('tftf:char:' + gCurBotId, `./data/characters/${gCurBotId}.json`) || {};
-                    if (charDetail.abilities) {
-                        const ab = charDetail.abilities.find(a => String(a.id) === String(targetId));
-                        if (ab) ab.pua_icon = hex;
-                        await kvSet('tftf:char:' + gCurBotId, charDetail);
-                    }
-                    showToast(`技能图标已更新: ${icon.glyph_name} (${hex})`);
-                    const btn = document.querySelector(`.ability-pua-picker-btn[onclick*="'${targetId}'"]`);
-                    if (btn) {
-                        const glyphSpan = btn.querySelector('.ability-pua-icon-glyph');
-                        const hexSpan = btn.querySelector('.ability-pua-hex-sub');
-                        if (glyphSpan) glyphSpan.innerText = String.fromCharCode(icon.codepoint_dec);
-                        if (hexSpan) hexSpan.innerText = hex;
+                    const res = await fetch(`/api/ability/${targetId}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ pua_icon: hex })
+                    });
+                    const ret = await res.json();
+                    if (ret.ok) {
+                        showToast(`技能图标已存入数据库: ${icon.glyph_name} (${hex})`);
+                        // Update button immediately in open modal
+                        const btn = document.querySelector(`.ability-pua-picker-btn[onclick*="'${targetId}'"]`);
+                        if (btn) {
+                            const glyphSpan = btn.querySelector('.ability-pua-icon-glyph');
+                            const hexSpan = btn.querySelector('.ability-pua-hex-sub');
+                            if (glyphSpan) glyphSpan.innerText = String.fromCharCode(icon.codepoint_dec);
+                            if (hexSpan) hexSpan.innerText = hex;
+                        }
                     }
                 } else if (type === 'new_ability') {
                     document.getElementById('newAbPuaIconVal').value = hex;
@@ -3100,41 +3354,53 @@
                     if (hexEl) hexEl.innerText = hex;
                     showToast(`特殊技图标已选用: ${icon.glyph_name} (${hex})`);
                 } else if (type === 'class') {
-                    if (gOverviewData && gOverviewData.classes) {
-                        const cl = gOverviewData.classes.find(c => c.class_id === targetId);
-                        if (cl) cl.pua_icon = hex;
-                        await kvSet('tftf:overview', gOverviewData);
+                    const res = await fetch(`/api/class/${targetId}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ pua_icon: hex })
+                    });
+                    const ret = await res.json();
+                    if (ret.ok) {
+                        showToast(`职业 [${targetId}] 图标已存入数据库: ${icon.glyph_name} (${hex})`);
+                        const ovRes = await fetch('/api/overview');
+                        gOverviewData = await ovRes.json();
+                        renderDashboard();
+                        if (gCurBotId) openCharacterModal(gCurBotId);
                     }
-                    showToast(`职业 [${targetId}] 图标已更新: ${icon.glyph_name} (${hex})`);
-                    renderDashboard();
-                    if (gCurBotId) openCharacterModal(gCurBotId);
                 } else if (type === 'faction') {
-                    if (gOverviewData && gOverviewData.factions) {
-                        const f = gOverviewData.factions.find(fc => fc.faction_id === targetId);
-                        if (f) f.pua_icon = hex;
-                        await kvSet('tftf:overview', gOverviewData);
+                    const res = await fetch(`/api/faction/${targetId}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ pua_icon: hex })
+                    });
+                    const ret = await res.json();
+                    if (ret.ok) {
+                        showToast(`阵营 [${targetId}] 图标已存入数据库: ${icon.glyph_name} (${hex})`);
+                        const ovRes = await fetch('/api/overview');
+                        gOverviewData = await ovRes.json();
+                        renderDashboard();
+                        if (gCurBotId) openCharacterModal(gCurBotId);
                     }
-                    showToast(`阵营 [${targetId}] 图标已更新: ${icon.glyph_name} (${hex})`);
-                    renderDashboard();
-                    if (gCurBotId) openCharacterModal(gCurBotId);
                 } else if (type === 'char_faction') {
-                    if (gOverviewData && gOverviewData.characters) {
-                        const b = gOverviewData.characters.find(c => c.bot_id === targetId);
-                        if (b) b.pua_faction_icon = hex;
-                        await kvSet('tftf:overview', gOverviewData);
+                    const res = await fetch(`/api/character/${targetId}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ pua_faction_icon: hex })
+                    });
+                    const ret = await res.json();
+                    if (ret.ok) {
+                        showToast(`角色阵营图标已存入数据库: ${icon.glyph_name} (${hex})`);
+                        const ovRes = await fetch('/api/overview');
+                        gOverviewData = await ovRes.json();
+                        renderDashboard();
+                        if (gCurBotId) openCharacterModal(gCurBotId);
                     }
-                    let charDetail = await kvGet('tftf:char:' + targetId, `./data/characters/${targetId}.json`) || {};
-                    charDetail.pua_faction_icon = hex;
-                    await kvSet('tftf:char:' + targetId, charDetail);
-                    showToast(`角色阵营图标已更新: ${icon.glyph_name} (${hex})`);
-                    renderDashboard();
-                    if (gCurBotId) openCharacterModal(gCurBotId);
                 }
 
                 closePuaModal();
             } catch (err) {
                 console.error("Failed to save PUA icon:", err);
-                alert("保存失败，请检查网络连接");
+                alert("保存失败，请检查服务连接");
             }
         }
 
@@ -3210,10 +3476,8 @@
             modal.classList.add('active');
 
             try {
-                gCurCardData = await kvGet('tftf:char:' + bid, `./data/characters/${bid}.json`);
-                if (!gCurCardData) throw new Error("无法读取机体档案");
-                gCurCardData.portrait_url = `portraits/${bid}.png`;
-                gCurCardData.portrait_large_url = `portraits/${bid}_large.png`;
+                const res = await fetch('/api/character/' + bid);
+                gCurCardData = await res.json();
                 renderCardDossier();
             } catch (err) {
                 console.error("Failed to load character dossier:", err);
@@ -3272,7 +3536,7 @@
                 const pName = pBot ? pBot.name_zh : pid;
                 return `
                     <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(5,10,20,0.85);border:1px solid rgba(255,255,255,0.1);padding:3px 8px;border-radius:6px;margin:2px 4px 2px 0;">
-                        <img src="portraits/${pid}.png" onerror="this.style.display='none'" style="width:20px;height:20px;border-radius:50%;object-fit:cover;flex-shrink:0;">
+                        <img src="/portrait/${pid}" onerror="this.style.display='none'" style="width:20px;height:20px;border-radius:50%;object-fit:cover;flex-shrink:0;">
                         <span style="font-size:11px;font-weight:600;color:#cbd5e1;">${pName}</span>
                     </div>
                 `;
@@ -3397,7 +3661,7 @@
                 </div>
             ` : '<div style="font-size:12px;color:#64748b;font-style:italic;">暂无机体专属档案文本</div>';
 
-            // Section 2: Signature
+            // Section 2: Signature (Full width banner for Long mode)
             const sigContentHtml = sigAbs.length ? sigAbs.map(s => `
                 <div style="background:linear-gradient(90deg, rgba(245,158,11,0.15) 0%, rgba(15,23,42,0.6) 100%);border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:14px 16px;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);margin-bottom:10px;">
                     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
@@ -3411,40 +3675,72 @@
                 </div>
             `).join('') : '<div style="font-size:12px;color:#64748b;font-style:italic;">暂无招牌能力配置</div>';
 
-            // Section 3: Basic & Passives
-            const basicPassHtml = `
-                <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:14px;">
-                    <div style="background:rgba(15,23,42,0.5);border:1px solid rgba(0,240,255,0.2);border-radius:12px;padding:14px;">
-                        <div class="tecnica" style="font-size:11px;font-weight:700;color:#00F0FF;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #1e293b;padding-bottom:6px;">
-                            <span style="width:6px;height:6px;border-radius:50%;background:#00F0FF;"></span> 基础能力 (BASIC ABILITIES)
-                        </div>
-                        ${basicAbs.length ? basicAbs.map((b, idx) => `
-                            <div style="${idx > 0 ? 'padding-top:10px;margin-top:10px;border-top:1px solid rgba(255,255,255,0.06);' : ''}">
-                                <div style="display:flex;justify-content:space-between;align-items:baseline;">
-                                    <span style="font-size:13px;font-weight:700;color:#FFF;">${b.title_zh || '基础能力'}</span>
-                                    <span class="tecnica" style="font-size:10px;color:#38bdf8;">${b.title_en || ''}</span>
-                                </div>
-                                <div style="font-size:12px;color:#94a3b8;margin-top:4px;line-height:1.5;">${fmtDossierDesc(b.desc_zh)}</div>
-                            </div>
-                        `).join('') : '<div style="font-size:12px;color:#64748b;">暂无基础能力</div>'}
+            // Left Col Basic Card HTML
+            const basicCardHtml = `
+                <div style="background:rgba(15,23,42,0.5);border:1px solid rgba(0,240,255,0.2);border-radius:12px;padding:14px;">
+                    <div class="tecnica" style="font-size:11px;font-weight:700;color:#00F0FF;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #1e293b;padding-bottom:6px;">
+                        <span style="width:6px;height:6px;border-radius:50%;background:#00F0FF;"></span> 基础能力 (BASIC ABILITIES)
                     </div>
-
-                    <div style="background:rgba(15,23,42,0.5);border:1px solid rgba(34,197,94,0.25);border-radius:12px;padding:14px;">
-                        <div class="tecnica" style="font-size:11px;font-weight:700;color:#4ade80;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #1e293b;padding-bottom:6px;">
-                            <span style="width:6px;height:6px;border-radius:50%;background:#4ade80;"></span> 被动战技 (PASSIVE ABILITIES)
-                        </div>
-                        ${passiveAbs.length ? passiveAbs.map((p, idx) => `
-                            <div style="${idx > 0 ? 'padding-top:10px;margin-top:10px;border-top:1px solid rgba(255,255,255,0.06);' : ''}">
-                                <div style="display:flex;justify-content:space-between;align-items:baseline;">
-                                    <span style="font-size:13px;font-weight:700;color:#FFF;">${p.title_zh || '被动战技'}</span>
-                                    <span class="tecnica" style="font-size:10px;color:#4ade80;">${p.title_en || ''}</span>
-                                </div>
-                                <div style="font-size:12px;color:#94a3b8;margin-top:4px;line-height:1.5;">${fmtDossierDesc(p.desc_zh)}</div>
+                    ${basicAbs.length ? basicAbs.map((b, idx) => `
+                        <div style="${idx > 0 ? 'padding-top:10px;margin-top:10px;border-top:1px solid rgba(255,255,255,0.06);' : ''}">
+                            <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                                <span style="font-size:13px;font-weight:700;color:#FFF;">${b.title_zh || '基础能力'}</span>
+                                <span class="tecnica" style="font-size:10px;color:#38bdf8;">${b.title_en || ''}</span>
                             </div>
-                        `).join('') : '<div style="font-size:12px;color:#64748b;">暂无被动战技</div>'}
-                    </div>
+                            <div style="font-size:12px;color:#94a3b8;margin-top:4px;line-height:1.5;">${fmtDossierDesc(b.desc_zh)}</div>
+                        </div>
+                    `).join('') : '<div style="font-size:12px;color:#64748b;">暂无基础能力</div>'}
                 </div>
             `;
+
+            // Right Col Passives Card HTML
+            const passiveCardHtml = `
+                <div style="background:rgba(15,23,42,0.5);border:1px solid rgba(34,197,94,0.25);border-radius:12px;padding:14px;">
+                    <div class="tecnica" style="font-size:11px;font-weight:700;color:#4ade80;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #1e293b;padding-bottom:6px;">
+                        <span style="width:6px;height:6px;border-radius:50%;background:#4ade80;"></span> 被动战技 (PASSIVE ABILITIES)
+                    </div>
+                    ${passiveAbs.length ? passiveAbs.map((p, idx) => `
+                        <div style="${idx > 0 ? 'padding-top:10px;margin-top:10px;border-top:1px solid rgba(255,255,255,0.06);' : ''}">
+                            <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                                <span style="font-size:13px;font-weight:700;color:#FFF;">${p.title_zh || '被动战技'}</span>
+                                <span class="tecnica" style="font-size:10px;color:#4ade80;">${p.title_en || ''}</span>
+                            </div>
+                            <div style="font-size:12px;color:#94a3b8;margin-top:4px;line-height:1.5;">${fmtDossierDesc(p.desc_zh)}</div>
+                        </div>
+                    `).join('') : '<div style="font-size:12px;color:#64748b;">暂无被动战技</div>'}
+                </div>
+            `;
+
+            // Section 3: Basic & Passives for Long Mode
+            const basicPassHtml = `
+                <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:14px;align-items:start;">
+                    ${basicCardHtml}
+                    ${passiveCardHtml}
+                </div>
+            `;
+
+            // Section 3: Basic & Passives + Signature for Tab Mode (Signature moved under Basic to save vertical space!)
+            const basicPassTabHtml = `
+                <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:14px;align-items:start;">
+                    <div style="display:flex;flex-direction:column;gap:14px;">
+                        ${basicCardHtml}
+                        ${sigAbs.length ? sigAbs.map(s => `
+                            <div style="background:linear-gradient(90deg, rgba(245,158,11,0.15) 0%, rgba(15,23,42,0.6) 100%);border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:14px 16px;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);">
+                                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                                    <div style="display:flex;align-items:center;gap:8px;">
+                                        <span style="font-size:14px;font-weight:700;color:#FFF;">${s.title_zh || '觉醒能力'}</span>
+                                        <span class="tecnica" style="font-size:11px;color:#f59e0b;">${s.title_en || ''}</span>
+                                    </div>
+                                    <span class="tecnica" style="font-size:10px;font-weight:700;background:rgba(245,158,11,0.2);color:#fde047;padding:1px 6px;border-radius:4px;border:1px solid rgba(245,158,11,0.4);">SIGNATURE</span>
+                                </div>
+                                <div style="font-size:12px;color:#e2e8f0;line-height:1.6;">${fmtDossierDesc(s.desc_zh)}</div>
+                            </div>
+                        `).join('') : ''}
+                    </div>
+                    ${passiveCardHtml}
+                </div>
+            `;
+
 
             // Section 4: Specials (SP1, SP2, SP3)
             const spContentHtml = spAbs.length ? spAbs.map((sp, idx) => {
@@ -3553,23 +3849,22 @@
                         <!-- Tabbing Buttons -->
                         <div style="display:flex;gap:8px;border-bottom:1px solid #1e293b;padding-bottom:12px;margin-bottom:16px;flex-wrap:wrap;">
                             <button id="btnDossierTab_abilities" class="dossier-tab-btn ${gDossierActiveTab === 'abilities' ? 'active' : ''}" onclick="switchDossierTab('abilities')">
-                                ⚡ 技能矩阵 (Abilities)
+                                ⚡ 能力
                             </button>
                             <button id="btnDossierTab_specials" class="dossier-tab-btn ${gDossierActiveTab === 'specials' ? 'active' : ''}" onclick="switchDossierTab('specials')">
-                                💥 特殊战技 (Specials)
+                                💥 特殊技
                             </button>
                             <button id="btnDossierTab_synergies" class="dossier-tab-btn ${gDossierActiveTab === 'synergies' ? 'active' : ''}" onclick="switchDossierTab('synergies')">
-                                🔗 战友协同 (Synergies)
+                                🔗 协同
                             </button>
                             <button id="btnDossierTab_lore" class="dossier-tab-btn ${gDossierActiveTab === 'lore' ? 'active' : ''}" onclick="switchDossierTab('lore')">
-                                📜 档案设定 (Lore)
+                                📜 人物设定
                             </button>
                         </div>
 
                         <!-- Tab 1: Abilities -->
                         <div id="dossierTab_abilities" style="${gDossierActiveTab === 'abilities' ? 'display:block;' : 'display:none;'}">
-                            <div style="margin-bottom:14px;">${sigContentHtml}</div>
-                            ${basicPassHtml}
+                            ${basicPassTabHtml}
                         </div>
 
                         <!-- Tab 2: Specials -->

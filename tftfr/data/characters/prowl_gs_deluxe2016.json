@@ -36,235 +36,252 @@
       "bot_id": "prowl_gs_deluxe2016",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "* Suppression",
-      "desc_en": "* Suppression",
+      "title_en": "Basic Abilities",
+      "desc_zh": "抑制",
+      "desc_en": "Suppression",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 0,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2725,
       "bot_id": "prowl_gs_deluxe2016",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "* Power Burn",
-      "desc_en": "* Power Burn",
+      "title_en": "Basic Abilities",
+      "desc_zh": "功率消耗",
+      "desc_en": "Power Burn",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 1,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2726,
       "bot_id": "prowl_gs_deluxe2016",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "* Ranged Buff",
-      "desc_en": "* Ranged Buff",
+      "title_en": "Basic Abilities",
+      "desc_zh": "远程增益",
+      "desc_en": "Ranged Buff",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 2,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2727,
       "bot_id": "prowl_gs_deluxe2016",
       "category": "passive",
-      "title_zh": "On Dash Back:",
+      "title_zh": "在仪表板上：",
       "title_en": "On Dash Back:",
-      "desc_zh": "*On Dash Back:",
-      "desc_en": "*On Dash Back:",
+      "desc_zh": "在仪表板上：",
+      "desc_en": "On Dash Back:",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 3,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2728,
       "bot_id": "prowl_gs_deluxe2016",
       "category": "passive",
-      "title_zh": "Prowl tries to Suppress the opponent. While tension is building up, Prowl prepares for the inevitable fight by charging a Melee Buff every {{var_1}} for a maximum of 10 stacks.",
+      "title_zh": "战斗被动",
       "title_en": "Prowl tries to Suppress the opponent. While tension is building up, Prowl prepares for the inevitable fight by charging a Melee Buff every {{var_1}} for a maximum of 10 stacks.",
-      "desc_zh": "**Prowl tries to Suppress the opponent. While tension is building up, Prowl prepares for the inevitable fight by charging a Melee Buff every {{var_1}} for a maximum of 10 stacks.",
-      "desc_en": "**Prowl tries to Suppress the opponent. While tension is building up, Prowl prepares for the inevitable fight by charging a Melee Buff every {{var_1}} for a maximum of 10 stacks.",
+      "desc_zh": "警车试图压制对手。当紧张局势加剧时，警车为不可避免的战斗做好准备，每 {{var_1}} 充能一个近战增益，最多叠加 10 层。",
+      "desc_en": "Prowl tries to Suppress the opponent. While tension is building up, Prowl prepares for the inevitable fight by charging a Melee Buff every {{var_1}} for a maximum of 10 stacks.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 4,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2729,
       "bot_id": "prowl_gs_deluxe2016",
       "category": "passive",
-      "title_zh": "When Prowl is struck or hits towards the opponent, each Melee Buff increases damage by {{var_2}} for {{var_3}}.",
+      "title_zh": "战斗被动",
       "title_en": "When Prowl is struck or hits towards the opponent, each Melee Buff increases damage by {{var_2}} for {{var_3}}.",
-      "desc_zh": "**When Prowl is struck or hits towards the opponent, each Melee Buff increases damage by {{var_2}} for {{var_3}}.",
-      "desc_en": "**When Prowl is struck or hits towards the opponent, each Melee Buff increases damage by {{var_2}} for {{var_3}}.",
+      "desc_zh": "当警车被击中或击中对手时，每个近战增益都会为 {{var_3}} 增加 {{var_2}} 伤害。",
+      "desc_en": "When Prowl is struck or hits towards the opponent, each Melee Buff increases damage by {{var_2}} for {{var_3}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 5,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2730,
       "bot_id": "prowl_gs_deluxe2016",
       "category": "passive",
-      "title_zh": "{{var_4}} chance to automatically Evade the next incoming attack. This interrupts the charging of Melee Buffs.",
+      "title_zh": "战斗被动",
       "title_en": "{{var_4}} chance to automatically Evade the next incoming attack. This interrupts the charging of Melee Buffs.",
-      "desc_zh": "**{{var_4}} chance to automatically Evade the next incoming attack. This interrupts the charging of Melee Buffs.",
-      "desc_en": "**{{var_4}} chance to automatically Evade the next incoming attack. This interrupts the charging of Melee Buffs.",
+      "desc_zh": "{{var_4}} 有机会自动躲避下一次攻击。这会中断近战增益的充电。",
+      "desc_en": "{{var_4}} chance to automatically Evade the next incoming attack. This interrupts the charging of Melee Buffs.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 6,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2731,
       "bot_id": "prowl_gs_deluxe2016",
       "category": "passive",
-      "title_zh": "Ranged Attacks:",
+      "title_zh": "远程射击",
       "title_en": "Ranged Attacks:",
-      "desc_zh": "*Ranged Attacks:",
-      "desc_en": "*Ranged Attacks:",
+      "desc_zh": "远程攻击：",
+      "desc_en": "Ranged Attacks:",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 7,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2732,
       "bot_id": "prowl_gs_deluxe2016",
       "category": "passive",
-      "title_zh": "{{var_5}} chance to Stun opponents for {{var_6}} on the first Ranged hit of a combo. (Unlisted)",
+      "title_zh": "战斗被动",
       "title_en": "{{var_5}} chance to Stun opponents for {{var_6}} on the first Ranged hit of a combo. (Unlisted)",
-      "desc_zh": "**{{var_5}} chance to Stun opponents for {{var_6}} on the first Ranged hit of a combo. (Unlisted)",
-      "desc_en": "**{{var_5}} chance to Stun opponents for {{var_6}} on the first Ranged hit of a combo. (Unlisted)",
+      "desc_zh": "在连击的第一次远程攻击中，有 {{var_5}} 机会击晕对手，获得 {{var_6}}。 （未列出）",
+      "desc_en": "{{var_5}} chance to Stun opponents for {{var_6}} on the first Ranged hit of a combo. (Unlisted)",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 8,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2733,
       "bot_id": "prowl_gs_deluxe2016",
       "category": "passive",
-      "title_zh": "+{{var_7}} chance if Prowl is charging his Melee Buffs. (Unlisted)",
+      "title_zh": "战斗被动",
       "title_en": "+{{var_7}} chance if Prowl is charging his Melee Buffs. (Unlisted)",
-      "desc_zh": "**+{{var_7}} chance if Prowl is charging his Melee Buffs. (Unlisted)",
-      "desc_en": "**+{{var_7}} chance if Prowl is charging his Melee Buffs. (Unlisted)",
+      "desc_zh": "如果警车正在为其近战增益蓄力，则 +{{var_7}} 几率。 （未列出）",
+      "desc_en": "+{{var_7}} chance if Prowl is charging his Melee Buffs. (Unlisted)",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 9,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2734,
       "bot_id": "prowl_gs_deluxe2016",
       "category": "signature",
-      "title_zh": "Good Cop",
+      "title_zh": "好警察",
       "title_en": "Good Cop",
-      "desc_zh": "After charging his Melee Buffs, Prowl gets a surge of Power based on how many Melee Buffs he activated.\n\nPassive: After charging his Melee Buffs, Prowl gets {{var_8}} Power for each Melee Buff activated.\n\n+{{var_9}} per level.",
+      "desc_zh": "在为他的近战增益充电后，警车会根据他激活的近战增益数量获得能量激增。\n\n被动：在为近战增益充电后，警车会为每个激活的近战增益获得 {{var_8}} 能量。\n\n每级 +{{var_9}}。",
       "desc_en": "Good Cop\nAfter charging his Melee Buffs, Prowl gets a surge of Power based on how many Melee Buffs he activated.\nPassive: After charging his Melee Buffs, Prowl gets {{var_8}} Power for each Melee Buff activated.\n+{{var_9}} per level.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 10,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2735,
       "bot_id": "prowl_gs_deluxe2016",
       "category": "sp1",
-      "title_zh": "Short Circuit",
+      "title_zh": "短路",
       "title_en": "Short Circuit",
-      "desc_zh": "His short fuse and their short circuit.",
-      "desc_en": "#Short Circuit - His short fuse and their short circuit.",
+      "desc_zh": "他的保险丝短路了，他们也短路了。",
+      "desc_en": "Short Circuit - His short fuse and their short circuit.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 11,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2736,
       "bot_id": "prowl_gs_deluxe2016",
       "category": "sp2",
       "title_zh": "特殊技 2",
-      "title_en": "特殊技 2",
-      "desc_zh": "#*{{var_10}} chance to Power Burn, consuming up to {{var_11}} of the target’s max Power.",
-      "desc_en": "#*{{var_10}} chance to Power Burn, consuming up to {{var_11}} of the target’s max Power.",
+      "title_en": "Special Attack 2",
+      "desc_zh": "{{var_10}} 机会进行能量燃烧，最多消耗目标最大能量 {{var_11}}。",
+      "desc_en": "{{var_10}} chance to Power Burn, consuming up to {{var_11}} of the target’s max Power.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 12,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2737,
       "bot_id": "prowl_gs_deluxe2016",
       "category": "sp3",
       "title_zh": "特殊技 3",
-      "title_en": "特殊技 3",
-      "desc_zh": "#*If the opponent reaches zero Power as a result of this Power Burn, the strength of their Power Gain Buffs is reduced by {{var_12}} for the rest of the fight.",
-      "desc_en": "#*If the opponent reaches zero Power as a result of this Power Burn, the strength of their Power Gain Buffs is reduced by {{var_12}} for the rest of the fight.",
+      "title_en": "Special Attack 3",
+      "desc_zh": "如果对手由于此能量燃烧而达到零能量，则在剩余的战斗中，其能量获取增益的强度将减少 {{var_12}}。",
+      "desc_en": "If the opponent reaches zero Power as a result of this Power Burn, the strength of their Power Gain Buffs is reduced by {{var_12}} for the rest of the fight.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 13,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2738,
       "bot_id": "prowl_gs_deluxe2016",
       "category": "synergy",
-      "title_zh": "Allies",
+      "title_zh": "盟友",
       "title_en": "Allies",
-      "desc_zh": "{{var_17}}~{{var_18}} Armor.",
+      "desc_zh": "{{var_17}}~{{var_18}} 装甲。",
       "desc_en": "{{var_17}}~{{var_18}} Armor.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 14,
       "synergy_bots": [
         "ultramagnus_gs_leader"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2739,
       "bot_id": "prowl_gs_deluxe2016",
       "category": "synergy",
-      "title_zh": "Brothers in Arms",
+      "title_zh": "并肩作战",
       "title_en": "Brothers in Arms",
-      "desc_zh": "{{var_19}}~{{var_20}} Armor for Autobots. {{var_21}}~{{var_22}} Melee Damage for Autobots in Solo Missions.",
+      "desc_zh": "{{var_19}}~{{var_20}} 汽车人装甲。 {{var_21}}~{{var_22}} 在单人任务中对汽车人的近战伤害。",
       "desc_en": "{{var_19}}~{{var_20}} Armor for Autobots. {{var_21}}~{{var_22}} Melee Damage for Autobots in Solo Missions.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 15,
       "synergy_bots": [
         "ultramagnus_gs_leader"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2740,
       "bot_id": "prowl_gs_deluxe2016",
       "category": "synergy",
-      "title_zh": "Allies",
+      "title_zh": "盟友",
       "title_en": "Allies",
-      "desc_zh": "{{var_23}}~{{var_24}} Armor.",
+      "desc_zh": "{{var_23}}~{{var_24}} 装甲。",
       "desc_en": "{{var_23}}~{{var_24}} Armor.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 16,
       "synergy_bots": [
         "arcee_gs_deluxe2014"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2741,
       "bot_id": "prowl_gs_deluxe2016",
       "category": "synergy",
-      "title_zh": "Code 12: Reckless Driving",
+      "title_zh": "守则 12：鲁莽驾驶",
       "title_en": "Code 12: Reckless Driving",
-      "desc_zh": "{{var_25}}~{{var_26}} Attack Buff for {{var_27}} when using a Heavy Attack. Stacking those buffs refreshes the duration of the entire stack.",
+      "desc_zh": "{{var_25}}~{{var_26}} 使用重击时 {{var_27}} 的攻击增益。堆叠这些增益会刷新整个堆叠的持续时间。",
       "desc_en": "{{var_25}}~{{var_26}} Attack Buff for {{var_27}} when using a Heavy Attack. Stacking those buffs refreshes the duration of the entire stack.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -273,15 +290,16 @@
         "sideswipe_gs",
         "hotrod_cin_tlk",
         "mirage_gs_deluxe2016"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2742,
       "bot_id": "prowl_gs_deluxe2016",
       "category": "synergy",
-      "title_zh": "Enemies",
+      "title_zh": "宿敌",
       "title_en": "Enemies",
-      "desc_zh": "{{var_28}}~{{var_29}} Attack Rating.",
+      "desc_zh": "{{var_28}}~{{var_29}} 攻击评级。",
       "desc_en": "{{var_28}}~{{var_29}} Attack Rating.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -289,67 +307,72 @@
       "synergy_bots": [
         "barricade_cin_dotm",
         "kickback_gs_kabam"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2743,
       "bot_id": "prowl_gs_deluxe2016",
       "category": "synergy",
-      "title_zh": "Role Models",
+      "title_zh": "楷模榜样",
       "title_en": "Role Models",
-      "desc_zh": "{{var_30}}~{{var_31}} Armor.",
+      "desc_zh": "{{var_30}}~{{var_31}} 装甲。",
       "desc_en": "{{var_30}}~{{var_31}} Armor.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 19,
       "synergy_bots": [
         "bumblebee_gs_kabam"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2744,
       "bot_id": "prowl_gs_deluxe2016",
       "category": "synergy",
-      "title_zh": "Role Models",
+      "title_zh": "楷模榜样",
       "title_en": "Role Models",
-      "desc_zh": "Bumblebee's Heavy Attacks gain a {{var_32}}~{{var_33}} Attack Buff for each alive team member.",
+      "desc_zh": "大黄蜂的重击为每个活着的团队成员获得 {{var_32}}~{{var_33}} 攻击增益。",
       "desc_en": "Bumblebee's Heavy Attacks gain a {{var_32}}~{{var_33}} Attack Buff for each alive team member.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 20,
       "synergy_bots": [
         "bumblebee_gs_kabam"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2745,
       "bot_id": "prowl_gs_deluxe2016",
       "category": "synergy",
-      "title_zh": "Lieutenants",
+      "title_zh": "副官",
       "title_en": "Lieutenants",
-      "desc_zh": "Optimus gains {{var_34}}~{{var_35}} Attack and Armor and his lieutenants gain unique abilities.",
+      "desc_zh": "擎天柱获得 {{var_34}}~{{var_35}} 攻击力和装甲值，他的副官获得独特的能力。",
       "desc_en": "Optimus gains {{var_34}}~{{var_35}} Attack and Armor and his lieutenants gain unique abilities.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 21,
       "synergy_bots": [
         "fte_optimus_gs_t3"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2746,
       "bot_id": "prowl_gs_deluxe2016",
       "category": "synergy",
-      "title_zh": "Lieutenants",
+      "title_zh": "副官",
       "title_en": "Lieutenants",
-      "desc_zh": "If Prowl Drains the opponent’s Power to {{var_36}} of their Max Power, he has a {{var_37}}~{{var_38}} chance to Stun the opponent for {{var_39}}.",
+      "desc_zh": "如果警车将对手的力量消耗至最大力量的 {{var_36}}，他有 {{var_37}}~{{var_38}} 的机会击晕对手 {{var_39}}。",
       "desc_en": "If Prowl Drains the opponent’s Power to {{var_36}} of their Max Power, he has a {{var_37}}~{{var_38}} chance to Stun the opponent for {{var_39}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 22,
       "synergy_bots": [
         "fte_optimus_gs_t3"
-      ]
+      ],
+      "status": "unimplemented"
     }
   ]
 }

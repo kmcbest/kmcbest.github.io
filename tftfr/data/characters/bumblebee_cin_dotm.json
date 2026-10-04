@@ -36,138 +36,148 @@
       "bot_id": "bumblebee_cin_dotm",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "* Agility",
-      "desc_en": "* Agility",
+      "title_en": "Basic Abilities",
+      "desc_zh": "敏捷性",
+      "desc_en": "Agility",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 0,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2420,
       "bot_id": "bumblebee_cin_dotm",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "* Attack Buff",
-      "desc_en": "* Attack Buff",
+      "title_en": "Basic Abilities",
+      "desc_zh": "攻击增益",
+      "desc_en": "Attack Buff",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 1,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2421,
       "bot_id": "bumblebee_cin_dotm",
       "category": "passive",
-      "title_zh": "Melee Calibration Mode: {{var_1}} chance to Evade the opponent's Basic Melee Attacks.",
+      "title_zh": "战斗被动",
       "title_en": "Melee Calibration Mode: {{var_1}} chance to Evade the opponent's Basic Melee Attacks.",
-      "desc_zh": "*Melee Calibration Mode: {{var_1}} chance to Evade the opponent's Basic Melee Attacks.",
-      "desc_en": "*Melee Calibration Mode: {{var_1}} chance to Evade the opponent's Basic Melee Attacks.",
+      "desc_zh": "近战校准模式：{{var_1}} 几率躲避对手的基本近战攻击。",
+      "desc_en": "Melee Calibration Mode: {{var_1}} chance to Evade the opponent's Basic Melee Attacks.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 2,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2422,
       "bot_id": "bumblebee_cin_dotm",
       "category": "passive",
-      "title_zh": "Ranged Calibration Mode: {{var_2}} chance to Evade the opponent's Basic Ranged Attacks.",
+      "title_zh": "战斗被动",
       "title_en": "Ranged Calibration Mode: {{var_2}} chance to Evade the opponent's Basic Ranged Attacks.",
-      "desc_zh": "*Ranged Calibration Mode: {{var_2}} chance to Evade the opponent's Basic Ranged Attacks.",
-      "desc_en": "*Ranged Calibration Mode: {{var_2}} chance to Evade the opponent's Basic Ranged Attacks.",
+      "desc_zh": "远程校准模式：{{var_2}} 几率躲避对手的基本远程攻击。",
+      "desc_en": "Ranged Calibration Mode: {{var_2}} chance to Evade the opponent's Basic Ranged Attacks.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 3,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2423,
       "bot_id": "bumblebee_cin_dotm",
       "category": "passive",
-      "title_zh": "Passive: Bumblebee is furious when his teammates are hurt, granting him +{{var_3}} Attack per fallen teammate for {{var_4}} at the start of the fight.",
+      "title_zh": "战斗被动",
       "title_en": "Passive: Bumblebee is furious when his teammates are hurt, granting him +{{var_3}} Attack per fallen teammate for {{var_4}} at the start of the fight.",
-      "desc_zh": "*Passive: Bumblebee is furious when his teammates are hurt, granting him +{{var_3}} Attack per fallen teammate for {{var_4}} at the start of the fight.",
-      "desc_en": "*Passive: Bumblebee is furious when his teammates are hurt, granting him +{{var_3}} Attack per fallen teammate for {{var_4}} at the start of the fight.",
+      "desc_zh": "被动：当队友受伤时，大黄蜂会勃然大怒，在战斗开始时，每倒下的队友，他都会获得 +{{var_3}} 攻击力。",
+      "desc_en": "Passive: Bumblebee is furious when his teammates are hurt, granting him +{{var_3}} Attack per fallen teammate for {{var_4}} at the start of the fight.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 4,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2424,
       "bot_id": "bumblebee_cin_dotm",
       "category": "passive",
-      "title_zh": "When Knocking Down Opponents: Gains a permanent Attack Buff, increasing Attack by {{var_5}}. The bigger the size of the opponent, the larger the Attack bonus. (Max: 15 stacks)",
+      "title_zh": "战斗被动",
       "title_en": "When Knocking Down Opponents: Gains a permanent Attack Buff, increasing Attack by {{var_5}}. The bigger the size of the opponent, the larger the Attack bonus. (Max: 15 stacks)",
-      "desc_zh": "*When Knocking Down Opponents: Gains a permanent Attack Buff, increasing Attack by {{var_5}}. The bigger the size of the opponent, the larger the Attack bonus. (Max: 15 stacks)",
-      "desc_en": "*When Knocking Down Opponents: Gains a permanent Attack Buff, increasing Attack by {{var_5}}. The bigger the size of the opponent, the larger the Attack bonus. (Max: 15 stacks)",
+      "desc_zh": "击倒对手时：获得永久攻击增益，攻击力增加 {{var_5}}。对手的体型越大，攻击加值就越大。 （最多：15 叠）",
+      "desc_en": "When Knocking Down Opponents: Gains a permanent Attack Buff, increasing Attack by {{var_5}}. The bigger the size of the opponent, the larger the Attack bonus. (Max: 15 stacks)",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 5,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2425,
       "bot_id": "bumblebee_cin_dotm",
       "category": "signature",
-      "title_zh": "Alacrity",
+      "title_zh": "欢快",
       "title_en": "Alacrity",
-      "desc_zh": "Bumblebee switches between his Ranged and Melee Calibration modes faster. Additionally, Bumblebee's agility grants him a temporary {{var_6}} Attack Buff for {{var_7}} after Dodging an incoming Melee Attack.",
+      "desc_zh": "大黄蜂在远程和近战校准模式之间切换得更快。此外，大黄蜂的敏捷性使他在躲避传入的近战攻击后获得 {{var_7}} 的临时 {{var_6}} 攻击增益。",
       "desc_en": "Alacrity\nBumblebee switches between his Ranged and Melee Calibration modes faster. Additionally, Bumblebee's agility grants him a temporary {{var_6}} Attack Buff for {{var_7}} after Dodging an incoming Melee Attack.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 6,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2426,
       "bot_id": "bumblebee_cin_dotm",
       "category": "sp1",
-      "title_zh": "Buzz Kick",
+      "title_zh": "嗡嗡声踢",
       "title_en": "Buzz Kick",
-      "desc_zh": "He may float like a butterfly, but he stings like a Bumblebee.",
-      "desc_en": "#Buzz Kick - He may float like a butterfly, but he stings like a Bumblebee.",
+      "desc_zh": "他可能像蝴蝶一样漂浮，但他像大黄蜂一样蜇人。",
+      "desc_en": "Buzz Kick - He may float like a butterfly, but he stings like a Bumblebee.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 7,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2427,
       "bot_id": "bumblebee_cin_dotm",
       "category": "sp2",
       "title_zh": "特殊技 2",
-      "title_en": "特殊技 2",
-      "desc_zh": "#* (+v8.0) Each hit has a {{var_8}} chance to inflict an Armor Break, removing enemy Armor and applying {{var_9}} Armor reduction for {{var_10}}.",
-      "desc_en": "#* (+v8.0) Each hit has a {{var_8}} chance to inflict an Armor Break, removing enemy Armor and applying {{var_9}} Armor reduction for {{var_10}}.",
+      "title_en": "Special Attack 2",
+      "desc_zh": "(+v8.0) 每次命中都有 {{var_8}} 几率造成装甲破坏，移除敌方装甲并为 {{var_10}} 应用 {{var_9}} 装甲减少。",
+      "desc_en": "(+v8.0) Each hit has a {{var_8}} chance to inflict an Armor Break, removing enemy Armor and applying {{var_9}} Armor reduction for {{var_10}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 8,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2428,
       "bot_id": "bumblebee_cin_dotm",
       "category": "sp3",
-      "title_zh": "Bug Shot",
+      "title_zh": "虫子射击",
       "title_en": "Bug Shot",
-      "desc_zh": "You can still see the youthful joy in his eyes between the kicks and energy blasts.",
-      "desc_en": "#Bug Shot - You can still see the youthful joy in his eyes between the kicks and energy blasts.",
+      "desc_zh": "在踢腿和能量爆炸之间，你仍然可以看到他眼中年轻的喜悦。",
+      "desc_en": "Bug Shot - You can still see the youthful joy in his eyes between the kicks and energy blasts.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 9,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2429,
       "bot_id": "bumblebee_cin_dotm",
       "category": "synergy",
-      "title_zh": "Allies",
+      "title_zh": "盟友",
       "title_en": "Allies",
-      "desc_zh": "+{{var_17}}~{{var_18}} Armor.",
+      "desc_zh": "+{{var_17}}~{{var_18}} 装甲。",
       "desc_en": "+{{var_17}}~{{var_18}} Armor.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -176,15 +186,16 @@
         "ironhide_gs_kabam",
         "optimusprime_cin_tf",
         "hotrod_cin_tlk"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2430,
       "bot_id": "bumblebee_cin_dotm",
       "category": "synergy",
-      "title_zh": "Till All Are One",
+      "title_zh": "直到一切合而为一",
       "title_en": "Till All Are One",
-      "desc_zh": "+{{var_19}}~{{var_20}} Attack Rating for Autobots. +{{var_21}}~{{var_22}} Debuff damage for Autobots in Raids.",
+      "desc_zh": "+{{var_19}}~{{var_20}} 汽车人攻击评级。 +{{var_21}}~{{var_22}} 突袭中汽车人的减益伤害。",
       "desc_en": "+{{var_19}}~{{var_20}} Attack Rating for Autobots. +{{var_21}}~{{var_22}} Debuff damage for Autobots in Raids.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -192,15 +203,16 @@
       "synergy_bots": [
         "ratchet_gs_kabam",
         "optimusprime_cin_tf"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2431,
       "bot_id": "bumblebee_cin_dotm",
       "category": "synergy",
-      "title_zh": "Enemies",
+      "title_zh": "宿敌",
       "title_en": "Enemies",
-      "desc_zh": "+{{var_23}}~{{var_24}} Attack Rating.",
+      "desc_zh": "+{{var_23}}~{{var_24}} 攻击评级。",
       "desc_en": "+{{var_23}}~{{var_24}} Attack Rating.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -208,45 +220,48 @@
       "synergy_bots": [
         "barricade_cin_dotm",
         "megatron_cin_rotf"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2432,
       "bot_id": "bumblebee_cin_dotm",
       "category": "synergy",
-      "title_zh": "Medic Support",
+      "title_zh": "医疗支持",
       "title_en": "Medic Support",
-      "desc_zh": "{{var_25}}~{{var_26}} of base Health Repaired at the start of the fight. +{{var_27}}~{{var_28}} extra Repair in Raids.",
+      "desc_zh": "战斗开始时修复基地生命值的{{var_25}}~{{var_26}}。 +{{var_27}}~{{var_28}} 突袭中的额外修复。",
       "desc_en": "{{var_25}}~{{var_26}} of base Health Repaired at the start of the fight. +{{var_27}}~{{var_28}} extra Repair in Raids.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 13,
       "synergy_bots": [
         "ratchet_gs_kabam"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2433,
       "bot_id": "bumblebee_cin_dotm",
       "category": "synergy",
-      "title_zh": "Espionage Specialists",
+      "title_zh": "间谍专家",
       "title_en": "Espionage Specialists",
-      "desc_zh": "{{var_29}}~{{var_30}} less likely to activate the opponent's abilities when hitting with Special 2 or 3.",
+      "desc_zh": "{{var_29}}~{{var_30}} 在使用特殊 2 或 3 击球时激活对手能力的可能性较小。",
       "desc_en": "{{var_29}}~{{var_30}} less likely to activate the opponent's abilities when hitting with Special 2 or 3.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 14,
       "synergy_bots": [
         "mirage_gs_deluxe2016"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2434,
       "bot_id": "bumblebee_cin_dotm",
       "category": "synergy",
-      "title_zh": "Speed Chasers",
+      "title_zh": "速度追逐者",
       "title_en": "Speed Chasers",
-      "desc_zh": "+{{var_31}}~{{var_32}} Attack on the next hit when dodging the Opponent's attacks.",
+      "desc_zh": "+{{var_31}}~{{var_32}} 躲避对手攻击时进行下一次攻击。",
       "desc_en": "+{{var_31}}~{{var_32}} Attack on the next hit when dodging the Opponent's attacks.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -254,22 +269,24 @@
       "synergy_bots": [
         "sideswipe_gs",
         "mirage_gs_deluxe2016"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2435,
       "bot_id": "bumblebee_cin_dotm",
       "category": "synergy",
-      "title_zh": "Brothers in Arms",
+      "title_zh": "并肩作战",
       "title_en": "Brothers in Arms",
-      "desc_zh": "+{{var_33}}~{{var_34}} Armor for Autobots as well as +{{var_35}}~{{var_36}} Melee Damage in Solo Missions.",
+      "desc_zh": "+{{var_33}}~{{var_34}} 汽车人装甲以及+{{var_35}}~{{var_36}} 单人任务中的近战伤害。",
       "desc_en": "+{{var_33}}~{{var_34}} Armor for Autobots as well as +{{var_35}}~{{var_36}} Melee Damage in Solo Missions.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 16,
       "synergy_bots": [
         "hotrod_cin_tlk"
-      ]
+      ],
+      "status": "unimplemented"
     }
   ]
 }

@@ -42,7 +42,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 0,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3513,
@@ -55,7 +56,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 1,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3514,
@@ -68,7 +70,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 2,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3515,
@@ -81,7 +84,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 3,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3516,
@@ -94,7 +98,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 4,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3517,
@@ -107,7 +112,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 5,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3518,
@@ -120,7 +126,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 6,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3519,
@@ -133,7 +140,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 7,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3520,
@@ -151,7 +159,8 @@
         "deadend_gs_deluxe2015",
         "breakdown_gs",
         "wildrider_gs_deluxe2016"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3521,
@@ -167,20 +176,22 @@
       "synergy_bots": [
         "mirage_gs_deluxe2016",
         "bumblebee_gs_kabam"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3522,
       "bot_id": "dragstrip_gs_deluxe2016",
       "category": "synergy",
-      "title_zh": "Leadership (5 Star)",
+      "title_zh": "领袖威仪 (5星)",
       "title_en": "Leadership (5 Star)",
       "desc_zh": "团队所有低星级队员获得 +{{var_8}} 护甲穿透。",
       "desc_en": "All lower tier teammates gain +{{var_8}} Armor Piercing.",
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 10,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     }
   ]
 }

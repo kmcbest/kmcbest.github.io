@@ -42,7 +42,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 0,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3547,
@@ -55,7 +56,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 1,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3548,
@@ -68,7 +70,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 2,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3549,
@@ -81,7 +84,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 3,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3550,
@@ -94,7 +98,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 4,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3551,
@@ -107,7 +112,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 5,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3552,
@@ -120,7 +126,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 6,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3553,
@@ -137,7 +144,8 @@
         "fte_optimus_gs_t3",
         "rodimusprime_gs_mp09",
         "ultramagnus_gs_leader"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3554,
@@ -153,20 +161,22 @@
       "synergy_bots": [
         "drift_cin_aoe",
         "bludgeon_gs_rd20"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3555,
       "bot_id": "starsaber_gs_leader2014",
       "category": "synergy",
-      "title_zh": "Leadership (5 Star)",
+      "title_zh": "领袖威仪 (5星)",
       "title_en": "Leadership (5 Star)",
       "desc_zh": "团队所有低星级队员获得 +{{var_4}} 能量获取速率。",
       "desc_en": "All lower tier teammates gain +{{var_4}} Power Rate.",
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 9,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     }
   ]
 }

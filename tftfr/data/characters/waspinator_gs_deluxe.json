@@ -35,191 +35,205 @@
       "id": 3448,
       "bot_id": "waspinator_gs_deluxe",
       "category": "basic",
-      "title_zh": "[https://transformers",
-      "title_en": "[https://transformers",
-      "desc_zh": "forged-to-fight.fandom.com/wiki/File:Resistance.png Resistance Debuff]",
-      "desc_en": "*  [https://transformers-forged-to-fight.fandom.com/wiki/File:Resistance.png Resistance Debuff]",
+      "title_zh": "抗性削弱",
+      "title_en": "Resistance Debuff",
+      "desc_zh": "降低敌方对特定攻击类型的抗性。",
+      "desc_en": "Reduces enemy resistances to attacks.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 0,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3449,
       "bot_id": "waspinator_gs_deluxe",
       "category": "basic",
-      "title_zh": "[https://transformers",
-      "title_en": "[https://transformers",
-      "desc_zh": "forged-to-fight.fandom.com/wiki/File:Buff_Special_Damage.png Special Damage]",
-      "desc_en": "*  [https://transformers-forged-to-fight.fandom.com/wiki/File:Buff_Special_Damage.png Special Damage]",
+      "title_zh": "特殊技增伤",
+      "title_en": "Special Damage",
+      "desc_zh": "提升特殊技造成的伤害。",
+      "desc_en": "Increases damage dealt by Special Attacks.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 1,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3450,
       "bot_id": "waspinator_gs_deluxe",
       "category": "passive",
-      "title_zh": "<strong>Passive:</strong>",
+      "title_zh": "<strong>被动：</strong>",
       "title_en": "<strong>Passive:</strong>",
-      "desc_zh": "<strong>Passive:</strong>",
+      "desc_zh": "<strong>被动：</strong>",
       "desc_en": "<strong>Passive:</strong>",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 2,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3451,
       "bot_id": "waspinator_gs_deluxe",
       "category": "passive",
-      "title_zh": "When Waspinator drops below half of his Base Health, he diverts power to his ranged weapons, doubling Projectile Speed by {{var_1}} for the remainder of the fight.",
+      "title_zh": "战斗被动",
       "title_en": "When Waspinator drops below half of his Base Health, he diverts power to his ranged weapons, doubling Projectile Speed by {{var_1}} for the remainder of the fight.",
-      "desc_zh": "*  When Waspinator drops below half of his Base Health, he diverts power to his ranged weapons, doubling Projectile Speed by {{var_1}} for the remainder of the fight.",
-      "desc_en": "*  When Waspinator drops below half of his Base Health, he diverts power to his ranged weapons, doubling Projectile Speed by {{var_1}} for the remainder of the fight.",
+      "desc_zh": "当黄蜂者的基础生命值低于一半时，他会将能量转移到远程武器上，在剩余的战斗中将射弹速度提高一倍 {{var_1}}。",
+      "desc_en": "When Waspinator drops below half of his Base Health, he diverts power to his ranged weapons, doubling Projectile Speed by {{var_1}} for the remainder of the fight.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 3,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3452,
       "bot_id": "waspinator_gs_deluxe",
       "category": "passive",
-      "title_zh": "When Waspinator drops below a quarter of his Base Health, he gains a {{var_2}} Special Damage Buff for the remainder of the fight.",
+      "title_zh": "战斗被动",
       "title_en": "When Waspinator drops below a quarter of his Base Health, he gains a {{var_2}} Special Damage Buff for the remainder of the fight.",
-      "desc_zh": "*  When Waspinator drops below a quarter of his Base Health, he gains a {{var_2}} Special Damage Buff for the remainder of the fight.",
-      "desc_en": "*  When Waspinator drops below a quarter of his Base Health, he gains a {{var_2}} Special Damage Buff for the remainder of the fight.",
+      "desc_zh": "当黄蜂者的基础生命值低于四分之一时，他会在剩余的战斗中获得 {{var_2}} 特殊伤害增益。",
+      "desc_en": "When Waspinator drops below a quarter of his Base Health, he gains a {{var_2}} Special Damage Buff for the remainder of the fight.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 4,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3453,
       "bot_id": "waspinator_gs_deluxe",
       "category": "passive",
-      "title_zh": "<strong>Ranged Attacks</strong>",
+      "title_zh": "<strong>远程攻击</strong>",
       "title_en": "<strong>Ranged Attacks</strong>",
-      "desc_zh": "<strong>Ranged Attacks</strong>",
+      "desc_zh": "<strong>远程攻击</strong>",
       "desc_en": "<strong>Ranged Attacks</strong>",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 5,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3454,
       "bot_id": "waspinator_gs_deluxe",
       "category": "passive",
-      "title_zh": "Basic ranged attacks sting the opponent, inflicting a {{var_3}} Resistance Debuff for {{var_4}} after a short delay.",
+      "title_zh": "战斗被动",
       "title_en": "Basic ranged attacks sting the opponent, inflicting a {{var_3}} Resistance Debuff for {{var_4}} after a short delay.",
-      "desc_zh": "*  Basic ranged attacks sting the opponent, inflicting a {{var_3}} Resistance Debuff for {{var_4}} after a short delay.",
-      "desc_en": "*  Basic ranged attacks sting the opponent, inflicting a {{var_3}} Resistance Debuff for {{var_4}} after a short delay.",
+      "desc_zh": "基本远程攻击刺痛对手，在短暂延迟后对 {{var_4}} 造成 {{var_3}} 抵抗减益。",
+      "desc_en": "Basic ranged attacks sting the opponent, inflicting a {{var_3}} Resistance Debuff for {{var_4}} after a short delay.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 6,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3455,
       "bot_id": "waspinator_gs_deluxe",
       "category": "passive",
-      "title_zh": "<strong>Heavy Attacks</strong>",
+      "title_zh": "<strong>重击</strong>",
       "title_en": "<strong>Heavy Attacks</strong>",
-      "desc_zh": "<strong>Heavy Attacks</strong>",
+      "desc_zh": "<strong>重击</strong>",
       "desc_en": "<strong>Heavy Attacks</strong>",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 7,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3456,
       "bot_id": "waspinator_gs_deluxe",
       "category": "passive",
-      "title_zh": "{{var_5}} chance to instantly inflict a {{var_6}} Resistance Debuff for {{var_7}}.",
+      "title_zh": "战斗被动",
       "title_en": "{{var_5}} chance to instantly inflict a {{var_6}} Resistance Debuff for {{var_7}}.",
-      "desc_zh": "*  {{var_5}} chance to instantly inflict a {{var_6}} Resistance Debuff for {{var_7}}.",
-      "desc_en": "*  {{var_5}} chance to instantly inflict a {{var_6}} Resistance Debuff for {{var_7}}.",
+      "desc_zh": "{{var_5}} 有机会立即对 {{var_7}} 造成 {{var_6}} 抵抗减益。",
+      "desc_en": "{{var_5}} chance to instantly inflict a {{var_6}} Resistance Debuff for {{var_7}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 8,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3457,
       "bot_id": "waspinator_gs_deluxe",
       "category": "passive",
-      "title_zh": "{{var_8}} chance to Nullify a Resistance.",
+      "title_zh": "{{var_8}} 次机会消灭抵抗。",
       "title_en": "{{var_8}} chance to Nullify a Resistance.",
-      "desc_zh": "*  {{var_8}} chance to Nullify a Resistance.",
-      "desc_en": "*  {{var_8}} chance to Nullify a Resistance.",
+      "desc_zh": "{{var_8}} 次机会消灭抵抗。",
+      "desc_en": "{{var_8}} chance to Nullify a Resistance.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 9,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3458,
       "bot_id": "waspinator_gs_deluxe",
       "category": "signature",
-      "title_zh": "Waspinator Lives! - <em>Waspinator’s ability to endure otherwise fatal blows and quickly reassemble himself makes him a tough bot to take out.</em>",
+      "title_zh": "黄蜂者还活着！ - <em>黄蜂者能够承受致命的打击并快速自我重组，这使他成为一个难以消灭的机器人。</em>",
       "title_en": "Waspinator Lives! - <em>Waspinator’s ability to endure otherwise fatal blows and quickly reassemble himself makes him a tough bot to take out.</em>",
-      "desc_zh": "On Knockout Blow: If Waspinator would take lethal damage, he instead becomes Invulnerable, Purifies all Debuffs and Repairs {{var_9}} health.\n\n+{{var_10}} per level",
+      "desc_zh": "击倒打击：如果黄蜂者受到致命伤害，他会变得无敌，净化所有减益并修复 {{var_9}} 生命值。\n\n+{{var_10}} 每级",
       "desc_en": "Waspinator Lives! - <em>Waspinator’s ability to endure otherwise fatal blows and quickly reassemble himself makes him a tough bot to take out.</em>\nOn Knockout Blow: If Waspinator would take lethal damage, he instead becomes Invulnerable, Purifies all Debuffs and Repairs {{var_9}} health.\n+{{var_10}} per level",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 10,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3459,
       "bot_id": "waspinator_gs_deluxe",
       "category": "sp1",
-      "title_zh": "Eye Lasers",
+      "title_zh": "眼睛激光",
       "title_en": "Eye Lasers",
-      "desc_zh": "Waspinator overloads his optic sensors!",
-      "desc_en": "#Eye Lasers - Waspinator overloads his optic sensors!",
+      "desc_zh": "黄蜂者的光学传感器超载！",
+      "desc_en": "Eye Lasers - Waspinator overloads his optic sensors!",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 11,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3460,
       "bot_id": "waspinator_gs_deluxe",
       "category": "sp2",
       "title_zh": "特殊技 2",
-      "title_en": "特殊技 2",
-      "desc_zh": "#*  {{var_11}} chance to gain a Precision Buff, increasing Critical Rate and lowering the opponent’s chance of Evading attacks by {{var_12}} for {{var_13}}.",
-      "desc_en": "#*  {{var_11}} chance to gain a Precision Buff, increasing Critical Rate and lowering the opponent’s chance of Evading attacks by {{var_12}} for {{var_13}}.",
+      "title_en": "Special Attack 2",
+      "desc_zh": "{{var_11}}有几率获得精准增益，提高{{var_13}}的暴击率并降低对手躲避{{var_12}}攻击的几率。",
+      "desc_en": "{{var_11}} chance to gain a Precision Buff, increasing Critical Rate and lowering the opponent’s chance of Evading attacks by {{var_12}} for {{var_13}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 12,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3461,
       "bot_id": "waspinator_gs_deluxe",
       "category": "sp3",
-      "title_zh": "Unsteady Sting Shot",
+      "title_zh": "不稳定的刺击",
       "title_en": "Unsteady Sting Shot",
-      "desc_zh": "Waspinator use kick then Waspinator use gun.",
-      "desc_en": "#Unsteady Sting Shot - Waspinator use kick then Waspinator use gun.",
+      "desc_zh": "黄蜂人使用踢，然后黄蜂人使用枪。",
+      "desc_en": "Unsteady Sting Shot - Waspinator use kick then Waspinator use gun.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 13,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3462,
       "bot_id": "waspinator_gs_deluxe",
       "category": "synergy",
-      "title_zh": "Enemies",
+      "title_zh": "宿敌",
       "title_en": "Enemies",
-      "desc_zh": "{{var_21}}~{{var_22}} Attack Rating.",
+      "desc_zh": "{{var_21}}~{{var_22}} 攻击评级。",
       "desc_en": "{{var_21}}~{{var_22}} Attack Rating.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -229,30 +243,32 @@
         "dinobot_bw_kabam",
         "optimusprimal_bw_mp32",
         "cheetor_bw_transmetal"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3463,
       "bot_id": "waspinator_gs_deluxe",
       "category": "synergy",
-      "title_zh": "Allies",
+      "title_zh": "盟友",
       "title_en": "Allies",
-      "desc_zh": "{{var_23}}~{{var_24}} Armor.",
+      "desc_zh": "{{var_23}}~{{var_24}} 装甲。",
       "desc_en": "{{var_23}}~{{var_24}} Armor.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 15,
       "synergy_bots": [
         "scorponok_bw_kabam"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3464,
       "bot_id": "waspinator_gs_deluxe",
       "category": "synergy",
-      "title_zh": "Sky Assault",
+      "title_zh": "天空突击",
       "title_en": "Sky Assault",
-      "desc_zh": "{{var_25}}~{{var_26}} Anti-Evade",
+      "desc_zh": "{{var_25}}~{{var_26}} 反规避",
       "desc_en": "{{var_25}}~{{var_26}} Anti-Evade",
       "pua_icon": "",
       "raw_data_json": "",
@@ -260,65 +276,70 @@
       "synergy_bots": [
         "windblade_gs",
         "fte_stars_gs_t3"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3465,
       "bot_id": "waspinator_gs_deluxe",
       "category": "synergy",
-      "title_zh": "Weaponsmiths",
+      "title_zh": "武器铁匠",
       "title_en": "Weaponsmiths",
-      "desc_zh": "{{var_27}}~{{var_28}} Chance for Heavy Attacks to be a Critical Hit.",
+      "desc_zh": "{{var_27}}~{{var_28}} 重击造成暴击的几率。",
       "desc_en": "{{var_27}}~{{var_28}} Chance for Heavy Attacks to be a Critical Hit.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 17,
       "synergy_bots": [
         "mixmaster_cin_rotf"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3466,
       "bot_id": "waspinator_gs_deluxe",
       "category": "synergy",
-      "title_zh": "Beast Purification",
+      "title_zh": "野兽净化",
       "title_en": "Beast Purification",
-      "desc_zh": "Heavy Attacks: Beast Wars Characters gain {{var_29}}~{{var_30}} Attack for {{var_31}} and Purify Damaging Debuffs as long as there are two or more other Beast Wars bots on the team with Optimus.",
+      "desc_zh": "重击：只要团队中有两个或更多其他野兽战争机器人与擎天柱一起，野兽战争角色就会获得{{var_31}}的{{var_29}}~{{var_30}}攻击力并净化伤害减益。",
       "desc_en": "Heavy Attacks: Beast Wars Characters gain {{var_29}}~{{var_30}} Attack for {{var_31}} and Purify Damaging Debuffs as long as there are two or more other Beast Wars bots on the team with Optimus.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 18,
       "synergy_bots": [
         "optimusprimal_bw_mp32"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3467,
       "bot_id": "waspinator_gs_deluxe",
       "category": "synergy",
-      "title_zh": "Beast Ancestor",
+      "title_zh": "兽祖",
       "title_en": "Beast Ancestor",
-      "desc_zh": "After each Heavy Attack, this bot gains a Beast Fury buff that grants Attacks a {{var_32}}~{{var_33}} chance to be Unblockable for {{var_34}}.",
+      "desc_zh": "每次重击后，该机器人都会获得野兽之怒增益，使攻击有 {{var_32}}~{{var_33}} 机会无法被 {{var_34}} 阻挡。",
       "desc_en": "After each Heavy Attack, this bot gains a Beast Fury buff that grants Attacks a {{var_32}}~{{var_33}} chance to be Unblockable for {{var_34}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 19,
       "synergy_bots": [
         "tantrum_gs_kabam"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3468,
       "bot_id": "waspinator_gs_deluxe",
       "category": "synergy",
-      "title_zh": "Leadership (5 Star)",
+      "title_zh": "领袖威仪 (5星)",
       "title_en": "Leadership (5 Star)",
-      "desc_zh": "All lower tier teammates gain +{{var_35}} Special Damage.",
+      "desc_zh": "所有较低级别的队友都会获得 +{{var_35}} 特殊伤害。",
       "desc_en": "All lower tier teammates gain +{{var_35}} Special Damage.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 20,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     }
   ]
 }

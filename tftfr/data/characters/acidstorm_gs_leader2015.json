@@ -42,7 +42,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 0,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3567,
@@ -55,7 +56,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 1,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3568,
@@ -68,7 +70,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 2,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3569,
@@ -81,7 +84,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 3,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3570,
@@ -94,7 +98,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 4,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3571,
@@ -107,7 +112,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 5,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3572,
@@ -120,7 +126,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 6,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3573,
@@ -136,7 +143,8 @@
       "synergy_bots": [
         "ionstorm_gs_leader2015",
         "novastorm_gs_leader2015"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3574,
@@ -153,20 +161,22 @@
         "fte_stars_gs_t3",
         "skywarp_gs_leader2015",
         "thundercracker_gs_leader2015"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3575,
       "bot_id": "acidstorm_gs_leader2015",
       "category": "synergy",
-      "title_zh": "Leadership (5 Star)",
+      "title_zh": "领袖威仪 (5星)",
       "title_en": "Leadership (5 Star)",
       "desc_zh": "团队所有低星级队员获得 +{{var_4}} 酸液腐蚀伤害。",
       "desc_en": "All lower tier teammates gain +{{var_4}} Acid Damage.",
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 9,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     }
   ]
 }

@@ -35,42 +35,45 @@
       "id": 3475,
       "bot_id": "sharkticon_gs_demolition",
       "category": "signature",
-      "title_zh": "Shark Enhancement",
+      "title_zh": "鲨鱼强化",
       "title_en": "Shark Enhancement",
-      "desc_zh": "*Awakening this Sharkticon will Enhance it with abilities from some of the strongest bots on New Quintessa.\n\n*This Bot unlocks abilities only once its Signature ability is awakened. Increase this Bot's signature level to improve its abilities.\n\n(Only when a Sharkticon has this Signature Ability awakened can they use their abilities, which are some of the most potent abilities and Special Attack abilities from other Bots of their Class.)",
-      "desc_en": "Shark Enhancement\n*Awakening this Sharkticon will Enhance it with abilities from some of the strongest bots on New Quintessa.\n*This Bot unlocks abilities only once its Signature ability is awakened. Increase this Bot's signature level to improve its abilities.\n(Only when a Sharkticon has this Signature Ability awakened can they use their abilities, which are some of the most potent abilities and Special Attack abilities from other Bots of their Class.)",
+      "desc_zh": "唤醒这只 Sharkticon 可以利用新昆塔萨上一些最强大的机器人的能力来增强它。\n\n该机器人只有在其招牌能力被唤醒后才能解锁能力。提高该机器人的签名级别以提高其能力。\n\n（只有当鲨鱼提克觉醒了这个招牌能力时，他们才能使用他们的能力，这是其他同类机器人中最强大的能力和特殊技能力。）",
+      "desc_en": "Shark Enhancement\nAwakening this Sharkticon will Enhance it with abilities from some of the strongest bots on New Quintessa.\nThis Bot unlocks abilities only once its Signature ability is awakened. Increase this Bot's signature level to improve its abilities.\n(Only when a Sharkticon has this Signature Ability awakened can they use their abilities, which are some of the most potent abilities and Special Attack abilities from other Bots of their Class.)",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 0,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3476,
       "bot_id": "sharkticon_gs_demolition",
       "category": "sp1",
       "title_zh": "特殊技 1",
-      "title_en": "特殊技 1",
-      "desc_zh": "*3. Shark Attack - These Sharks are just as deadly on land.",
-      "desc_en": "*3. Shark Attack - These Sharks are just as deadly on land.",
+      "title_en": "Special Attack 1",
+      "desc_zh": "3. 鲨鱼袭击 - 这些鲨鱼在陆地上同样致命。",
+      "desc_en": "3. Shark Attack - These Sharks are just as deadly on land.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 1,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3477,
       "bot_id": "sharkticon_gs_demolition",
       "category": "synergy",
-      "title_zh": "Shark Frenzy",
+      "title_zh": "鲨鱼狂潮",
       "title_en": "Shark Frenzy",
-      "desc_zh": "If your entire team consists of Sharkticons, all Sharkticons heal {{var_1}}~{{var_2}} health for each Alive bot on your team when using Special Attack 3.",
+      "desc_zh": "如果您的整个团队由 Sharkticons 组成，则在使用特殊技 3 时，所有 Sharkticons 都会为您团队中的每个 Alive 机器人恢复 {{var_1}}~{{var_2}} 生命值。",
       "desc_en": "If your entire team consists of Sharkticons, all Sharkticons heal {{var_1}}~{{var_2}} health for each Alive bot on your team when using Special Attack 3.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 2,
       "synergy_bots": [
         "sharkticon_gs_kabam"
-      ]
+      ],
+      "status": "unimplemented"
     }
   ]
 }

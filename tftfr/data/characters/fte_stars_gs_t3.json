@@ -36,203 +36,218 @@
       "bot_id": "fte_stars_gs_t3",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "* Null Ray",
-      "desc_en": "* Null Ray",
+      "title_en": "Basic Abilities",
+      "desc_zh": "零射线",
+      "desc_en": "Null Ray",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 0,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2355,
       "bot_id": "fte_stars_gs_t3",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "* Ranged Buff",
-      "desc_en": "* Ranged Buff",
+      "title_en": "Basic Abilities",
+      "desc_zh": "远程增益",
+      "desc_en": "Ranged Buff",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 1,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2356,
       "bot_id": "fte_stars_gs_t3",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "* Armor Break",
-      "desc_en": "* Armor Break",
+      "title_en": "Basic Abilities",
+      "desc_zh": "破甲",
+      "desc_en": "Armor Break",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 2,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2357,
       "bot_id": "fte_stars_gs_t3",
       "category": "passive",
-      "title_zh": "Null Ray",
+      "title_zh": "零点射线",
       "title_en": "Null Ray",
-      "desc_zh": "Null Ray",
+      "desc_zh": "零射线",
       "desc_en": "Null Ray",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 3,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2358,
       "bot_id": "fte_stars_gs_t3",
       "category": "passive",
-      "title_zh": "Ranged attacks have {{var_1}} increase to Critical Chance.",
+      "title_zh": "战斗被动",
       "title_en": "Ranged attacks have {{var_1}} increase to Critical Chance.",
-      "desc_zh": "* Ranged attacks have {{var_1}} increase to Critical Chance.",
-      "desc_en": "* Ranged attacks have {{var_1}} increase to Critical Chance.",
+      "desc_zh": "远程攻击的暴击率增加 {{var_1}}。",
+      "desc_en": "Ranged attacks have {{var_1}} increase to Critical Chance.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 4,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2359,
       "bot_id": "fte_stars_gs_t3",
       "category": "passive",
-      "title_zh": "Basic Ranged Attacks have a {{var_2}} Chance to Nullify an Armor, Melee, or Attack Buff. This does not affect Buffs from Modules or Boosts.",
+      "title_zh": "战斗被动",
       "title_en": "Basic Ranged Attacks have a {{var_2}} Chance to Nullify an Armor, Melee, or Attack Buff. This does not affect Buffs from Modules or Boosts.",
-      "desc_zh": "* Basic Ranged Attacks have a {{var_2}} Chance to Nullify an Armor, Melee, or Attack Buff. This does not affect Buffs from Modules or Boosts.",
-      "desc_en": "* Basic Ranged Attacks have a {{var_2}} Chance to Nullify an Armor, Melee, or Attack Buff. This does not affect Buffs from Modules or Boosts.",
+      "desc_zh": "基本远程攻击有 {{var_2}} 几率使装甲、近战或攻击增益无效。这不会影响来自战术模块或增益道具的增益。",
+      "desc_en": "Basic Ranged Attacks have a {{var_2}} Chance to Nullify an Armor, Melee, or Attack Buff. This does not affect Buffs from Modules or Boosts.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 5,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2360,
       "bot_id": "fte_stars_gs_t3",
       "category": "passive",
-      "title_zh": "When an opponent’s buff is Nullified that bot takes {{var_3}} of attack as instant Shock Damage.",
+      "title_zh": "战斗被动",
       "title_en": "When an opponent’s buff is Nullified that bot takes {{var_3}} of attack as instant Shock Damage.",
-      "desc_zh": "* When an opponent’s buff is Nullified that bot takes {{var_3}} of attack as instant Shock Damage.",
-      "desc_en": "* When an opponent’s buff is Nullified that bot takes {{var_3}} of attack as instant Shock Damage.",
+      "desc_zh": "当对手的增益无效时，机器人将攻击的 {{var_3}} 作为即时冲击伤害。",
+      "desc_en": "When an opponent’s buff is Nullified that bot takes {{var_3}} of attack as instant Shock Damage.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 6,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2361,
       "bot_id": "fte_stars_gs_t3",
       "category": "passive",
-      "title_zh": "Passive",
+      "title_zh": "常驻被动",
       "title_en": "Passive",
-      "desc_zh": "Passive",
+      "desc_zh": "被动",
       "desc_en": "Passive",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 7,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2362,
       "bot_id": "fte_stars_gs_t3",
       "category": "passive",
-      "title_zh": "{{var_4}} chance Starscream Evades Heavy Melee Attacks, because sometimes, cowards do survive.",
+      "title_zh": "战斗被动",
       "title_en": "{{var_4}} chance Starscream Evades Heavy Melee Attacks, because sometimes, cowards do survive.",
-      "desc_zh": "* {{var_4}} chance Starscream Evades Heavy Melee Attacks, because sometimes, cowards do survive.",
-      "desc_en": "* {{var_4}} chance Starscream Evades Heavy Melee Attacks, because sometimes, cowards do survive.",
+      "desc_zh": "{{var_4}} 机会红蜘蛛躲避猛烈的近战攻击，因为有时，胆小鬼确实能活下来。",
+      "desc_en": "{{var_4}} chance Starscream Evades Heavy Melee Attacks, because sometimes, cowards do survive.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 8,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2363,
       "bot_id": "fte_stars_gs_t3",
       "category": "passive",
-      "title_zh": "Heavy Attack",
+      "title_zh": "强力重击",
       "title_en": "Heavy Attack",
-      "desc_zh": "Heavy Attack",
+      "desc_zh": "重击",
       "desc_en": "Heavy Attack",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 9,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2364,
       "bot_id": "fte_stars_gs_t3",
       "category": "passive",
-      "title_zh": "{{var_5}} Chance to inflict Burn causing {{var_6}} of Attack as heat damage over {{var_7}}.",
+      "title_zh": "战斗被动",
       "title_en": "{{var_5}} Chance to inflict Burn causing {{var_6}} of Attack as heat damage over {{var_7}}.",
-      "desc_zh": "* {{var_5}} Chance to inflict Burn causing {{var_6}} of Attack as heat damage over {{var_7}}.",
-      "desc_en": "* {{var_5}} Chance to inflict Burn causing {{var_6}} of Attack as heat damage over {{var_7}}.",
+      "desc_zh": "{{var_5}} 有机会造成燃烧，造成 {{var_6}} 攻击，作为对 {{var_7}} 的热伤害。",
+      "desc_en": "{{var_5}} Chance to inflict Burn causing {{var_6}} of Attack as heat damage over {{var_7}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 10,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2365,
       "bot_id": "fte_stars_gs_t3",
       "category": "signature",
-      "title_zh": "Nullify All Hope",
+      "title_zh": "消弭希望",
       "title_en": "Nullify All Hope",
-      "desc_zh": "Starscream’s cunning is without limits, eventually he will find a way to nullify any advantage an opponent has.\n\n* Starscream’s Null Ray has a {{var_8}} chance to Nullify any type of Buff. This does not affect Buffs from Modules or Boosts.\n\napproximately +{{var_9}} per level",
-      "desc_en": "Nullify All Hope\nStarscream’s cunning is without limits, eventually he will find a way to nullify any advantage an opponent has.\n* Starscream’s Null Ray has a {{var_8}} chance to Nullify any type of Buff. This does not affect Buffs from Modules or Boosts.\napproximately +{{var_9}} per level",
+      "desc_zh": "红蜘蛛的狡猾是没有极限的，他最终会找到一种方法来抵消对手的优势。\n\n红蜘蛛的无效射线有 {{var_8}} 几率无效化任何类型的增益。这不会影响来自战术模块或增益道具的增益。\n\n每级大约+{{var_9}}",
+      "desc_en": "Nullify All Hope\nStarscream’s cunning is without limits, eventually he will find a way to nullify any advantage an opponent has.\nStarscream’s Null Ray has a {{var_8}} chance to Nullify any type of Buff. This does not affect Buffs from Modules or Boosts.\napproximately +{{var_9}} per level",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 11,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2366,
       "bot_id": "fte_stars_gs_t3",
       "category": "sp1",
-      "title_zh": "Air Superiority Complex",
+      "title_zh": "制空情结",
       "title_en": "Air Superiority Complex",
-      "desc_zh": "A sycophant’s vengeance at last.",
-      "desc_en": "#Air Superiority Complex - A sycophant’s vengeance at last.",
+      "desc_zh": "阿谀奉承者终于报仇了。",
+      "desc_en": "Air Superiority Complex - A sycophant’s vengeance at last.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 12,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2367,
       "bot_id": "fte_stars_gs_t3",
       "category": "sp2",
       "title_zh": "特殊技 2",
-      "title_en": "特殊技 2",
-      "desc_zh": "#* {{var_10}} Chance to increase Ranged Damage by {{var_11}} and Projectile Speed for {{var_12}}.",
-      "desc_en": "#* {{var_10}} Chance to increase Ranged Damage by {{var_11}} and Projectile Speed for {{var_12}}.",
+      "title_en": "Special Attack 2",
+      "desc_zh": "{{var_10}} 有机会增加 {{var_11}} 的远程伤害和 {{var_12}} 的射弹速度。",
+      "desc_en": "{{var_10}} Chance to increase Ranged Damage by {{var_11}} and Projectile Speed for {{var_12}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 13,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2368,
       "bot_id": "fte_stars_gs_t3",
       "category": "sp3",
-      "title_zh": "Cunning Treachery",
+      "title_zh": "狡猾的背叛",
       "title_en": "Cunning Treachery",
-      "desc_zh": "He’s got you now!",
-      "desc_en": "#Cunning Treachery - He’s got you now!",
+      "desc_zh": "他现在已经得到你了！",
+      "desc_en": "Cunning Treachery - He’s got you now!",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 14,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2369,
       "bot_id": "fte_stars_gs_t3",
       "category": "synergy",
-      "title_zh": "Starscream's Seekers",
+      "title_zh": "红蜘蛛的探索者",
       "title_en": "Starscream's Seekers",
-      "desc_zh": "+{{var_16}}~{{var_17}} Damage and {{var_18}}~{{var_19}} Armor Piercing for all Decepticon Ranged Attacks.",
+      "desc_zh": "+{{var_16}}~{{var_17}} 伤害和 {{var_18}}~{{var_19}} 所有霸天虎远程攻击的穿甲。",
       "desc_en": "+{{var_16}}~{{var_17}} Damage and {{var_18}}~{{var_19}} Armor Piercing for all Decepticon Ranged Attacks.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -242,15 +257,16 @@
         "skywarp_gs_leader2015",
         "ramjet_gs_deluxe2008",
         "dirge_gs_deluxe2008"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2370,
       "bot_id": "fte_stars_gs_t3",
       "category": "synergy",
-      "title_zh": "Sky Assault",
+      "title_zh": "天空突击",
       "title_en": "Sky Assault",
-      "desc_zh": "+{{var_20}}~{{var_21}} Anti-Evade",
+      "desc_zh": "+{{var_20}}~{{var_21}} 反规避",
       "desc_en": "+{{var_20}}~{{var_21}} Anti-Evade",
       "pua_icon": "",
       "raw_data_json": "",
@@ -258,15 +274,16 @@
       "synergy_bots": [
         "windblade_gs",
         "waspinator_gs_deluxe"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2371,
       "bot_id": "fte_stars_gs_t3",
       "category": "synergy",
-      "title_zh": "Enemies",
+      "title_zh": "宿敌",
       "title_en": "Enemies",
-      "desc_zh": "+{{var_22}}~{{var_23}} Attack Rating.",
+      "desc_zh": "+{{var_22}}~{{var_23}} 攻击评级。",
       "desc_en": "+{{var_22}}~{{var_23}} Attack Rating.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -274,93 +291,100 @@
       "synergy_bots": [
         "galvatron_gs_voyager2016",
         "jazz_gs_twm05"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2372,
       "bot_id": "fte_stars_gs_t3",
       "category": "synergy",
-      "title_zh": "Lieutenants",
+      "title_zh": "副官",
       "title_en": "Lieutenants",
-      "desc_zh": "Megatron gains new abilities and his Lieutenants gain +{{var_24}}~{{var_25}} Armor and +{{var_26}}~{{var_27}} Attack Rating.",
+      "desc_zh": "威震天获得新能力，他的副官获得+{{var_24}}~{{var_25}}装甲和+{{var_26}}~{{var_27}}攻击评级。",
       "desc_en": "Megatron gains new abilities and his Lieutenants gain +{{var_24}}~{{var_25}} Armor and +{{var_26}}~{{var_27}} Attack Rating.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 18,
       "synergy_bots": [
         "megatron_gs_leader2015"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2373,
       "bot_id": "fte_stars_gs_t3",
       "category": "synergy",
-      "title_zh": "Lieutenants",
+      "title_zh": "副官",
       "title_en": "Lieutenants",
-      "desc_zh": "Megatron’s Special Attacks have a {{var_28}}~{{var_29}}% chance to Stun the opponent for {{var_30}}. This effect will only trigger once per fight for each Special Attack and this Stun debuff cannot be Fused.",
+      "desc_zh": "威震天的特殊技有 {{var_28}}~{{var_29}}% 的几率使对手昏迷 {{var_30}}。此效果每次特殊技每场战斗只会触发一次，且此眩晕减益无法融合。",
       "desc_en": "Megatron’s Special Attacks have a {{var_28}}~{{var_29}}% chance to Stun the opponent for {{var_30}}. This effect will only trigger once per fight for each Special Attack and this Stun debuff cannot be Fused.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 19,
       "synergy_bots": [
         "megatron_gs_leader2015"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2374,
       "bot_id": "fte_stars_gs_t3",
       "category": "synergy",
-      "title_zh": "Old Friends",
+      "title_zh": "老朋友",
       "title_en": "Old Friends",
-      "desc_zh": "Increases the duration of Jetfire's Stun for well-timed Blocks by {{var_31}}~{{var_32}}.",
+      "desc_zh": "通过 {{var_31}}~{{var_32}} 增加适时格挡的天火眩晕持续时间。",
       "desc_en": "Increases the duration of Jetfire's Stun for well-timed Blocks by {{var_31}}~{{var_32}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 20,
       "synergy_bots": [
         "jetfire_gs_leader2014"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2375,
       "bot_id": "fte_stars_gs_t3",
       "category": "synergy",
-      "title_zh": "Old Friends – Jetfire",
+      "title_zh": "老朋友——天火",
       "title_en": "Old Friends – Jetfire",
-      "desc_zh": "While Dashing Back, Ranged Attacks miss Starscream, which grants him a {{var_33}}~{{var_34}} Crit Damage buff for {{var_35}}.",
-      "desc_en": "* Old Friends – Jetfire - While Dashing Back, Ranged Attacks miss Starscream, which grants him a {{var_33}}~{{var_34}} Crit Damage buff for {{var_35}}.",
+      "desc_zh": "猛冲回来时，远程攻击会错过红蜘蛛，这会为他提供 {{var_33}}~{{var_34}} 暴击伤害增益，以及 {{var_35}}。",
+      "desc_en": "Old Friends – Jetfire - While Dashing Back, Ranged Attacks miss Starscream, which grants him a {{var_33}}~{{var_34}} Crit Damage buff for {{var_35}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 21,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2376,
       "bot_id": "fte_stars_gs_t3",
       "category": "synergy",
-      "title_zh": "Leadership (5 Star)",
+      "title_zh": "领袖威仪 (5星)",
       "title_en": "Leadership (5 Star)",
-      "desc_zh": "Acting as a guard against treachery, all lower tier teammates gain +{{var_36}} Nullify Resistance.",
+      "desc_zh": "作为防止背叛的卫士，所有下层队友都会获得+{{var_36}} 无效抵抗力。",
       "desc_en": "Acting as a guard against treachery, all lower tier teammates gain +{{var_36}} Nullify Resistance.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 22,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2377,
       "bot_id": "fte_stars_gs_t3",
       "category": "synergy",
-      "title_zh": "Own the Skies",
+      "title_zh": "拥有天空",
       "title_en": "Own the Skies",
-      "desc_zh": "+{{var_37}}~{{var_38}} Attack against bots with an Aerial alternate form.",
+      "desc_zh": "+{{var_37}}~{{var_38}} 以空中替代形式攻击机器人。",
       "desc_en": "+{{var_37}}~{{var_38}} Attack against bots with an Aerial alternate form.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 23,
       "synergy_bots": [
         "slipstream_gs"
-      ]
+      ],
+      "status": "unimplemented"
     }
   ]
 }

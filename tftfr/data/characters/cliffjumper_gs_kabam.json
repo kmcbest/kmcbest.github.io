@@ -42,7 +42,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 0,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3537,
@@ -55,7 +56,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 1,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3538,
@@ -68,7 +70,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 2,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3539,
@@ -81,7 +84,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 3,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3540,
@@ -94,7 +98,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 4,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3541,
@@ -107,7 +112,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 5,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3542,
@@ -120,7 +126,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 6,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3543,
@@ -135,7 +142,8 @@
       "sort_order": 7,
       "synergy_bots": [
         "fte_optimus_gs_t3"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3544,
@@ -150,20 +158,22 @@
       "sort_order": 8,
       "synergy_bots": [
         "bumblebee_gs_kabam"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3545,
       "bot_id": "cliffjumper_gs_kabam",
       "category": "synergy",
-      "title_zh": "Leadership (5 Star)",
+      "title_zh": "领袖威仪 (5星)",
       "title_en": "Leadership (5 Star)",
       "desc_zh": "团队所有低星级队员获得 +{{var_4}} 破甲效果。",
       "desc_en": "All lower tier teammates gain +{{var_4}} Armor Piercing.",
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 9,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     }
   ]
 }

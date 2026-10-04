@@ -35,100 +35,107 @@
       "id": 2709,
       "bot_id": "optimusprime_cin_tf",
       "category": "basic",
-      "title_zh": "[https://transformers",
-      "title_en": "[https://transformers",
-      "desc_zh": "forged-to-fight.fandom.com/wiki/File:Buff_Armor.png Armor Buff] - Reduces damage taken from attacks.",
-      "desc_en": "*  [https://transformers-forged-to-fight.fandom.com/wiki/File:Buff_Armor.png Armor Buff] - Reduces damage taken from attacks.",
+      "title_zh": "装甲增益",
+      "title_en": "Armor Buff",
+      "desc_zh": "降低受到的攻击伤害。",
+      "desc_en": "Reduces damage taken from attacks.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 0,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2710,
       "bot_id": "optimusprime_cin_tf",
       "category": "basic",
-      "title_zh": "[https://transformers",
-      "title_en": "[https://transformers",
-      "desc_zh": "forged-to-fight.fandom.com/wiki/File:Melee.png Melee Buff] - Temporarily increases the damage of Melee Attacks.",
-      "desc_en": "*  [https://transformers-forged-to-fight.fandom.com/wiki/File:Melee.png Melee Buff] - Temporarily increases the damage of Melee Attacks.",
+      "title_zh": "近战强化",
+      "title_en": "Melee Buff",
+      "desc_zh": "临时提升近战攻击的伤害。",
+      "desc_en": "Temporarily increases the damage of Melee Attacks.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 1,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2711,
       "bot_id": "optimusprime_cin_tf",
       "category": "basic",
-      "title_zh": "[https://transformers",
-      "title_en": "[https://transformers",
-      "desc_zh": "forged-to-fight.fandom.com/wiki/File:Buff_Willpower.png Willpower] - Returns damage he deals as Health when Bleeding",
-      "desc_en": "*  [https://transformers-forged-to-fight.fandom.com/wiki/File:Buff_Willpower.png Willpower] - Returns damage he deals as Health when Bleeding",
+      "title_zh": "钢铁意志",
+      "title_en": "Willpower",
+      "desc_zh": "流血状态下将造成的伤害按比例转化为自身生命值恢复。",
+      "desc_en": "Returns damage he deals as Health when Bleeding.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 2,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2712,
       "bot_id": "optimusprime_cin_tf",
       "category": "signature",
-      "title_zh": "I'll Take You All On! - Optimus Prime's perseverance changes the tide of the battle, providing increased Armor and three Melee Buffs when at low health. This may occur once per fight.",
+      "title_zh": "我会带你们一起去的！ - 擎天柱的毅力改变了战斗的潮流，在生命值较低时提供更高的装甲值和三个近战增益。每场战斗可能会发生一次。",
       "title_en": "I'll Take You All On! - Optimus Prime's perseverance changes the tide of the battle, providing increased Armor and three Melee Buffs when at low health. This may occur once per fight.",
-      "desc_zh": "* Dropping Below {{var_1}} Health: Optimus Prime's perseverance changes the tide of the battle, providing +{{var_2}} increased Armor and three {{var_3}} Melee Buffs for {{var_4}}. This may occur once per fight.\n\n+{{var_5}} per level.",
-      "desc_en": "I'll Take You All On! - Optimus Prime's perseverance changes the tide of the battle, providing increased Armor and three Melee Buffs when at low health. This may occur once per fight.\n* Dropping Below {{var_1}} Health: Optimus Prime's perseverance changes the tide of the battle, providing +{{var_2}} increased Armor and three {{var_3}} Melee Buffs for {{var_4}}. This may occur once per fight.\n+{{var_5}} per level.",
+      "desc_zh": "生命值低于 {{var_1}}：擎天柱的毅力改变了战斗的潮流，为 {{var_4}} 提供了 +{{var_2}} 增加的装甲值和三个 {{var_3}} 近战增益。每场战斗可能会发生一次。\n\n每级 +{{var_5}}。",
+      "desc_en": "I'll Take You All On! - Optimus Prime's perseverance changes the tide of the battle, providing increased Armor and three Melee Buffs when at low health. This may occur once per fight.\nDropping Below {{var_1}} Health: Optimus Prime's perseverance changes the tide of the battle, providing +{{var_2}} increased Armor and three {{var_3}} Melee Buffs for {{var_4}}. This may occur once per fight.\n+{{var_5}} per level.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 3,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2713,
       "bot_id": "optimusprime_cin_tf",
       "category": "sp1",
-      "title_zh": "Guardian Slash",
+      "title_zh": "守护斩",
       "title_en": "Guardian Slash",
-      "desc_zh": "Twin swords have opponents seeing double the trouble.",
-      "desc_en": "#Guardian Slash - Twin swords have opponents seeing double the trouble.",
+      "desc_zh": "双剑让对手看到双倍的麻烦。",
+      "desc_en": "Guardian Slash - Twin swords have opponents seeing double the trouble.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 4,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2714,
       "bot_id": "optimusprime_cin_tf",
       "category": "sp2",
       "title_zh": "特殊技 2",
-      "title_en": "特殊技 2",
-      "desc_zh": "#* This attack deals up to +{{var_6}} damage based on Health lost.",
-      "desc_en": "#* This attack deals up to +{{var_6}} damage based on Health lost.",
+      "title_en": "Special Attack 2",
+      "desc_zh": "根据损失的生命值，此攻击最多造成 +{{var_6}} 伤害。",
+      "desc_en": "This attack deals up to +{{var_6}} damage based on Health lost.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 5,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2715,
       "bot_id": "optimusprime_cin_tf",
       "category": "sp3",
-      "title_zh": "I'll Take You All On!",
+      "title_zh": "我会带你们一起去的！",
       "title_en": "I'll Take You All On!",
-      "desc_zh": "You'll have to go through a savage sword combo wielded by a strong will to take Optimus on.",
-      "desc_en": "#I'll Take You All On! - You'll have to go through a savage sword combo wielded by a strong will to take Optimus on.",
+      "desc_zh": "你必须以坚强的意志使用野蛮的剑组合来对抗擎天柱。",
+      "desc_en": "I'll Take You All On! - You'll have to go through a savage sword combo wielded by a strong will to take Optimus on.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 6,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2716,
       "bot_id": "optimusprime_cin_tf",
       "category": "synergy",
-      "title_zh": "Allies",
+      "title_zh": "盟友",
       "title_en": "Allies",
-      "desc_zh": "+{{var_8}}~{{var_9}} Armor.",
+      "desc_zh": "+{{var_8}}~{{var_9}} 装甲。",
       "desc_en": "+{{var_8}}~{{var_9}} Armor.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -138,15 +145,16 @@
         "bumblebee_gs_kabam",
         "drift_cin_aoe",
         "hound_cin_tlk"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2717,
       "bot_id": "optimusprime_cin_tf",
       "category": "synergy",
-      "title_zh": "Enemies",
+      "title_zh": "宿敌",
       "title_en": "Enemies",
-      "desc_zh": "+{{var_10}}~{{var_11}} Attack Rating.",
+      "desc_zh": "+{{var_10}}~{{var_11}} 攻击评级。",
       "desc_en": "+{{var_10}}~{{var_11}} Attack Rating.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -154,15 +162,16 @@
       "synergy_bots": [
         "megatron_gs_leader2015",
         "megatronus_gs_kabam"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2718,
       "bot_id": "optimusprime_cin_tf",
       "category": "synergy",
-      "title_zh": "Enemies",
+      "title_zh": "宿敌",
       "title_en": "Enemies",
-      "desc_zh": "+{{var_12}}~{{var_13}} Attack Rating.",
+      "desc_zh": "+{{var_12}}~{{var_13}} 攻击评级。",
       "desc_en": "+{{var_12}}~{{var_13}} Attack Rating.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -170,80 +179,86 @@
       "synergy_bots": [
         "grindor_cin_rotf",
         "bonecrusher_cin_rotf"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2719,
       "bot_id": "optimusprime_cin_tf",
       "category": "synergy",
-      "title_zh": "Sensei",
+      "title_zh": "老师",
       "title_en": "Sensei",
-      "desc_zh": "{{var_14}}~{{var_15}} Armor.",
+      "desc_zh": "{{var_14}}~{{var_15}} 装甲。",
       "desc_en": "{{var_14}}~{{var_15}} Armor.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 10,
       "synergy_bots": [
         "drift_cin_aoe"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2720,
       "bot_id": "optimusprime_cin_tf",
       "category": "synergy",
-      "title_zh": "Till All Are One",
+      "title_zh": "直到一切合而为一",
       "title_en": "Till All Are One",
-      "desc_zh": "{{var_16}}~{{var_17}} Attack Rating for Autobots. {{var_18}}~{{var_19}} debuff damage for Autobots in Raids.",
+      "desc_zh": "汽车人的 {{var_16}}~{{var_17}} 攻击评级。突袭中汽车人的 {{var_18}}~{{var_19}} 减益伤害。",
       "desc_en": "{{var_16}}~{{var_17}} Attack Rating for Autobots. {{var_18}}~{{var_19}} debuff damage for Autobots in Raids.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 11,
       "synergy_bots": [
         "bumblebee_gs_kabam"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2721,
       "bot_id": "optimusprime_cin_tf",
       "category": "synergy",
-      "title_zh": "Old Friends",
+      "title_zh": "老朋友",
       "title_en": "Old Friends",
-      "desc_zh": "{{var_20}}~{{var_21}} chance to deal an additional Bleed stack when inflicting Bleed.",
+      "desc_zh": "{{var_20}}~{{var_21}} 在造成流血时有机会造成额外的流血叠加。",
       "desc_en": "{{var_20}}~{{var_21}} chance to deal an additional Bleed stack when inflicting Bleed.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 12,
       "synergy_bots": [
         "ironhide_gs_kabam"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2722,
       "bot_id": "optimusprime_cin_tf",
       "category": "synergy",
-      "title_zh": "Medic Support",
+      "title_zh": "医疗支持",
       "title_en": "Medic Support",
-      "desc_zh": "{{var_22}}~{{var_23}} of base Health Repaired at the start of the fight. +{{var_24}}~{{var_25}} extra Repair in Raids.",
+      "desc_zh": "战斗开始时修复基地生命值的{{var_22}}~{{var_23}}。 +{{var_24}}~{{var_25}} 突袭中的额外修复。",
       "desc_en": "{{var_22}}~{{var_23}} of base Health Repaired at the start of the fight. +{{var_24}}~{{var_25}} extra Repair in Raids.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 13,
       "synergy_bots": [
         "hound_cin_tlk"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2723,
       "bot_id": "optimusprime_cin_tf",
       "category": "synergy",
-      "title_zh": "Leadership (5 Star)",
+      "title_zh": "领袖威仪 (5星)",
       "title_en": "Leadership (5 Star)",
-      "desc_zh": "Acting as a beacon of leadership for the team, all lower tier teammates gain +{{var_26}} Attack Rating.",
+      "desc_zh": "作为团队的领导灯塔，所有较低级别的队友都获得 +{{var_26}} 攻击评级。",
       "desc_en": "Acting as a beacon of leadership for the team, all lower tier teammates gain +{{var_26}} Attack Rating.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 14,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     }
   ]
 }

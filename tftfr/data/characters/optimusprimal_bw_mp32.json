@@ -35,122 +35,131 @@
       "id": 2700,
       "bot_id": "optimusprimal_bw_mp32",
       "category": "signature",
-      "title_zh": "Isn't That Just Prime",
+      "title_zh": "这不就是总理吗",
       "title_en": "Isn't That Just Prime",
-      "desc_zh": "Optimus Primal hopes for the best, but always prepares for the worst. Damaging Debuffs have shorter durations and recover health when they expire.\n\nDamaging Debuffs expire {{var_1}} faster for each Armor Buff on Optimus Primal. Optimus Primal gains {{var_2}} of his max Health each time a Bleed on him expires.\n\n+about {{var_3}} per level",
+      "desc_zh": "擎天柱抱最好的希望，但总是做最坏的准备。伤害减益的持续时间较短，并在到期后恢复生命值。\n\n擎天柱上的每个装甲增益的伤害减益效果会更快 {{var_1}} 过期。每次流血结束时，擎天柱都会获得最大生命值的 {{var_2}}。\n\n+每级大约 {{var_3}}",
       "desc_en": "Isn't That Just Prime\nOptimus Primal hopes for the best, but always prepares for the worst. Damaging Debuffs have shorter durations and recover health when they expire.\nDamaging Debuffs expire {{var_1}} faster for each Armor Buff on Optimus Primal. Optimus Primal gains {{var_2}} of his max Health each time a Bleed on him expires.\n+about {{var_3}} per level",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 0,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2701,
       "bot_id": "optimusprimal_bw_mp32",
       "category": "sp1",
-      "title_zh": "Law of the Jungle",
+      "title_zh": "丛林法则",
       "title_en": "Law of the Jungle",
-      "desc_zh": "Optimus Primal launches into the air to bring justice to his foes.",
-      "desc_en": "#Law of the Jungle - Optimus Primal launches into the air to bring justice to his foes.",
+      "desc_zh": "擎天柱升空，为敌人伸张正义。",
+      "desc_en": "Law of the Jungle - Optimus Primal launches into the air to bring justice to his foes.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 1,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2702,
       "bot_id": "optimusprimal_bw_mp32",
       "category": "sp2",
       "title_zh": "特殊技 2",
-      "title_en": "特殊技 2",
-      "desc_zh": "#*If Optimus Primal has received any Bleeds this fight he will inflict Bleed on the opponent that deals {{var_4}} of Attack over {{var_5}}. The strength of the Bleed increases by {{var_6}} for each Bleed inflicted on Optimus Primal this fight.",
-      "desc_en": "#*If Optimus Primal has received any Bleeds this fight he will inflict Bleed on the opponent that deals {{var_4}} of Attack over {{var_5}}. The strength of the Bleed increases by {{var_6}} for each Bleed inflicted on Optimus Primal this fight.",
+      "title_en": "Special Attack 2",
+      "desc_zh": "如果擎天柱在这场战斗中受到任何流血，他将对造成 {{var_4}} 攻击力超过 {{var_5}} 的对手造成流血。这场战斗中擎天柱每次流血，流血强度都会增加 {{var_6}}。",
+      "desc_en": "If Optimus Primal has received any Bleeds this fight he will inflict Bleed on the opponent that deals {{var_4}} of Attack over {{var_5}}. The strength of the Bleed increases by {{var_6}} for each Bleed inflicted on Optimus Primal this fight.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 2,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2703,
       "bot_id": "optimusprimal_bw_mp32",
       "category": "sp3",
-      "title_zh": "Beast Warrior",
+      "title_zh": "野兽战士",
       "title_en": "Beast Warrior",
-      "desc_zh": "The quickest way to peace, is to end the battle quickly.",
-      "desc_en": "#Beast Warrior - The quickest way to peace, is to end the battle quickly.",
+      "desc_zh": "最快的和平方法，就是尽快结束战斗。",
+      "desc_en": "Beast Warrior - The quickest way to peace, is to end the battle quickly.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 3,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2704,
       "bot_id": "optimusprimal_bw_mp32",
       "category": "synergy",
-      "title_zh": "Allies Dinobot, Rhinox, Cheetor",
+      "title_zh": "盟友恐龙机器人、犀牛、猎豹",
       "title_en": "Allies Dinobot, Rhinox, Cheetor",
-      "desc_zh": "+{{var_13}}~{{var_14}} Armor Rating.",
-      "desc_en": "*  Allies Dinobot, Rhinox, Cheetor- +{{var_13}}~{{var_14}} Armor Rating.",
+      "desc_zh": "+{{var_13}}~{{var_14}} 装甲等级。",
+      "desc_en": "Allies Dinobot, Rhinox, Cheetor- +{{var_13}}~{{var_14}} Armor Rating.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 4,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2705,
       "bot_id": "optimusprimal_bw_mp32",
       "category": "synergy",
-      "title_zh": "Enemies – Waspinator, Scorponok",
+      "title_zh": "敌人 – 黄蜂、蝎子",
       "title_en": "Enemies – Waspinator, Scorponok",
-      "desc_zh": "+{{var_15}}~{{var_16}} Attack Rating.",
-      "desc_en": "*  Enemies – Waspinator, Scorponok - +{{var_15}}~{{var_16}} Attack Rating.",
+      "desc_zh": "+{{var_15}}~{{var_16}} 攻击评级。",
+      "desc_en": "Enemies – Waspinator, Scorponok - +{{var_15}}~{{var_16}} Attack Rating.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 5,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2706,
       "bot_id": "optimusprimal_bw_mp32",
       "category": "synergy",
-      "title_zh": "Beast Ancestor",
+      "title_zh": "兽祖",
       "title_en": "Beast Ancestor",
-      "desc_zh": "After each Heavy Attack, this bot gains a Beast Fury buff that grants Attacks a {{var_17}}~{{var_18}} chance to be Unblockable for {{var_19}}.",
+      "desc_zh": "每次重击后，该机器人都会获得野兽之怒增益，使攻击有 {{var_17}}~{{var_18}} 机会无法被 {{var_19}} 阻挡。",
       "desc_en": "After each Heavy Attack, this bot gains a Beast Fury buff that grants Attacks a {{var_17}}~{{var_18}} chance to be Unblockable for {{var_19}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 6,
       "synergy_bots": [
         "tantrum_gs_kabam"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2707,
       "bot_id": "optimusprimal_bw_mp32",
       "category": "synergy",
-      "title_zh": "Beast Purification",
+      "title_zh": "野兽净化",
       "title_en": "Beast Purification",
-      "desc_zh": "Heavy Attacks of Beast Wars characters grant {{var_20}}~{{var_21}} Attack Rating for {{var_22}} and Purify Damaging Debuffs as long as there are 2 or more Beast Wars bots on Primal’s team.",
+      "desc_zh": "只要 Primal 的队伍中有 2 个或更多野兽战争机器人，野兽战争角色的重击就会为 {{var_22}} 提供 {{var_20}}~{{var_21}} 攻击评级并净化伤害减益。",
       "desc_en": "Heavy Attacks of Beast Wars characters grant {{var_20}}~{{var_21}} Attack Rating for {{var_22}} and Purify Damaging Debuffs as long as there are 2 or more Beast Wars bots on Primal’s team.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 7,
       "synergy_bots": [
         "optimusprimal_bw_mp32"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2708,
       "bot_id": "optimusprimal_bw_mp32",
       "category": "synergy",
-      "title_zh": "Leadership (5 Star)",
+      "title_zh": "领袖威仪 (5星)",
       "title_en": "Leadership (5 Star)",
-      "desc_zh": "All Bots - Acting as a beacon of leadership for the team, all lower tier teammates gain +{{var_23}} Attack Rating.",
+      "desc_zh": "所有机器人 - 作为团队领导的灯塔，所有较低级别的队友都获得 +{{var_23}} 攻击评级。",
       "desc_en": "All Bots - Acting as a beacon of leadership for the team, all lower tier teammates gain +{{var_23}} Attack Rating.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 8,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     }
   ]
 }

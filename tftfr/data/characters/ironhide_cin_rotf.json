@@ -36,164 +36,176 @@
       "bot_id": "ironhide_cin_rotf",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "*Critical Damage",
-      "desc_en": "*Critical Damage",
+      "title_en": "Basic Abilities",
+      "desc_zh": "严重伤害",
+      "desc_en": "Critical Damage",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 0,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2587,
       "bot_id": "ironhide_cin_rotf",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "*Burn",
-      "desc_en": "*Burn",
+      "title_en": "Basic Abilities",
+      "desc_zh": "烧伤",
+      "desc_en": "Burn",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 1,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2588,
       "bot_id": "ironhide_cin_rotf",
       "category": "passive",
-      "title_zh": "When Attacked: {{var_1}} chance to increase Critical Damage by {{var_2}} for {{var_3}}.",
+      "title_zh": "战斗被动",
       "title_en": "When Attacked: {{var_1}} chance to increase Critical Damage by {{var_2}} for {{var_3}}.",
-      "desc_zh": "*When Attacked: {{var_1}} chance to increase Critical Damage by {{var_2}} for {{var_3}}.",
-      "desc_en": "*When Attacked: {{var_1}} chance to increase Critical Damage by {{var_2}} for {{var_3}}.",
+      "desc_zh": "受到攻击时：{{var_1}} 有几率为 {{var_3}} 增加 {{var_2}} 的暴击伤害。",
+      "desc_en": "When Attacked: {{var_1}} chance to increase Critical Damage by {{var_2}} for {{var_3}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 2,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2589,
       "bot_id": "ironhide_cin_rotf",
       "category": "passive",
-      "title_zh": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
+      "title_zh": "战斗被动",
       "title_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
-      "desc_zh": "*Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
-      "desc_en": "*Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
+      "desc_zh": "重击：双重导弹攻击有 +{{var_4}} 几率造成燃烧。",
+      "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 3,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2590,
       "bot_id": "ironhide_cin_rotf",
       "category": "passive",
-      "title_zh": "Missile Attacks:",
+      "title_zh": "导弹攻击：",
       "title_en": "Missile Attacks:",
-      "desc_zh": "*Missile Attacks:",
-      "desc_en": "*Missile Attacks:",
+      "desc_zh": "导弹攻击：",
+      "desc_en": "Missile Attacks:",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 4,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2591,
       "bot_id": "ironhide_cin_rotf",
       "category": "passive",
-      "title_zh": "+{{var_5}} Critical Rate",
+      "title_zh": "+{{var_5}} 临界率",
       "title_en": "+{{var_5}} Critical Rate",
-      "desc_zh": "**+{{var_5}} Critical Rate",
-      "desc_en": "**+{{var_5}} Critical Rate",
+      "desc_zh": "+{{var_5}} 临界率",
+      "desc_en": "+{{var_5}} Critical Rate",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 5,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2592,
       "bot_id": "ironhide_cin_rotf",
       "category": "passive",
-      "title_zh": "{{var_6}} chance to inflict Burn, dealing heat damage for {{var_7}} over {{var_8}}.",
+      "title_zh": "战斗被动",
       "title_en": "{{var_6}} chance to inflict Burn, dealing heat damage for {{var_7}} over {{var_8}}.",
-      "desc_zh": "**{{var_6}} chance to inflict Burn, dealing heat damage for {{var_7}} over {{var_8}}.",
-      "desc_en": "**{{var_6}} chance to inflict Burn, dealing heat damage for {{var_7}} over {{var_8}}.",
+      "desc_zh": "{{var_6}} 有机会造成灼伤，对 {{var_7}} 造成热伤害，而不是对 {{var_8}}。",
+      "desc_en": "{{var_6}} chance to inflict Burn, dealing heat damage for {{var_7}} over {{var_8}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 6,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2593,
       "bot_id": "ironhide_cin_rotf",
       "category": "passive",
-      "title_zh": "When inflicting Burn on already burning opponents, extra stacks will be inflicted, each dealing {{var_9}} attack.",
+      "title_zh": "战斗被动",
       "title_en": "When inflicting Burn on already burning opponents, extra stacks will be inflicted, each dealing {{var_9}} attack.",
-      "desc_zh": "**When inflicting Burn on already burning opponents, extra stacks will be inflicted, each dealing {{var_9}} attack.",
-      "desc_en": "**When inflicting Burn on already burning opponents, extra stacks will be inflicted, each dealing {{var_9}} attack.",
+      "desc_zh": "当对已经燃烧的对手造成燃烧时，会造成额外的堆叠，每次造成 {{var_9}} 攻击。",
+      "desc_en": "When inflicting Burn on already burning opponents, extra stacks will be inflicted, each dealing {{var_9}} attack.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 7,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2594,
       "bot_id": "ironhide_cin_rotf",
       "category": "signature",
-      "title_zh": "Obliteration",
+      "title_zh": "湮灭",
       "title_en": "Obliteration",
-      "desc_zh": "Special Attacks: Ironhide has a {{var_10}} chance to obliterate the opponent with +{{var_11}} Critical Damage on his Special Attacks. This may occur once per fight.\n\n+{{var_12}} per level.",
+      "desc_zh": "特殊技：铁皮的特殊技有 {{var_10}} 几率消灭对手，造成 +{{var_11}} 暴击伤害。每场战斗可能会发生一次。\n\n每级 +{{var_12}}。",
       "desc_en": "Obliteration\nSpecial Attacks: Ironhide has a {{var_10}} chance to obliterate the opponent with +{{var_11}} Critical Damage on his Special Attacks. This may occur once per fight.\n+{{var_12}} per level.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 8,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2595,
       "bot_id": "ironhide_cin_rotf",
       "category": "sp1",
-      "title_zh": "Feelin' Lucky",
+      "title_zh": "感觉很幸运",
       "title_en": "Feelin' Lucky",
-      "desc_zh": "He loves to show off his cannons.",
-      "desc_en": "#Feelin' Lucky - He loves to show off his cannons.",
+      "desc_zh": "他喜欢炫耀他的大炮。",
+      "desc_en": "Feelin' Lucky - He loves to show off his cannons.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 9,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2596,
       "bot_id": "ironhide_cin_rotf",
       "category": "sp2",
       "title_zh": "特殊技 2",
-      "title_en": "特殊技 2",
-      "desc_zh": "#*{{var_13}} chance to Stun for {{var_14}}.",
-      "desc_en": "#*{{var_13}} chance to Stun for {{var_14}}.",
+      "title_en": "Special Attack 2",
+      "desc_zh": "{{var_13}} 有机会击晕 {{var_14}}。",
+      "desc_en": "{{var_13}} chance to Stun for {{var_14}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 10,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2597,
       "bot_id": "ironhide_cin_rotf",
       "category": "sp3",
-      "title_zh": "Standoff Break",
+      "title_zh": "对峙突破",
       "title_en": "Standoff Break",
-      "desc_zh": "Point your weapon at him and he'll tear you apart.",
-      "desc_en": "#Standoff Break - Point your weapon at him and he'll tear you apart.",
+      "desc_zh": "用你的武器指着他，他会把你撕成碎片。",
+      "desc_en": "Standoff Break - Point your weapon at him and he'll tear you apart.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 11,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2598,
       "bot_id": "ironhide_cin_rotf",
       "category": "synergy",
-      "title_zh": "Allies",
+      "title_zh": "盟友",
       "title_en": "Allies",
-      "desc_zh": "+{{var_20}} Armor.",
+      "desc_zh": "+{{var_20}} 装甲。",
       "desc_en": "+{{var_20}} Armor.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -201,15 +213,16 @@
       "synergy_bots": [
         "ratchet_gs_kabam",
         "bumblebee_gs_kabam"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2599,
       "bot_id": "ironhide_cin_rotf",
       "category": "synergy",
-      "title_zh": "Allies",
+      "title_zh": "盟友",
       "title_en": "Allies",
-      "desc_zh": "{{var_21}}~{{var_22}} Armor.",
+      "desc_zh": "{{var_21}}~{{var_22}} 装甲。",
       "desc_en": "{{var_21}}~{{var_22}} Armor.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -218,30 +231,32 @@
         "optimusprime_cin_tf",
         "arcee_gs_deluxe2014",
         "windblade_gs"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2600,
       "bot_id": "ironhide_cin_rotf",
       "category": "synergy",
-      "title_zh": "Old Friends",
+      "title_zh": "老朋友",
       "title_en": "Old Friends",
-      "desc_zh": "{{var_23}}~{{var_24}} chance to deal an additional Bleed stack when inflicting Bleed.",
+      "desc_zh": "{{var_23}}~{{var_24}} 在造成流血时有机会造成额外的流血叠加。",
       "desc_en": "{{var_23}}~{{var_24}} chance to deal an additional Bleed stack when inflicting Bleed.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 14,
       "synergy_bots": [
         "optimusprime_cin_tf"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2601,
       "bot_id": "ironhide_cin_rotf",
       "category": "synergy",
-      "title_zh": "Weapon Specialists",
+      "title_zh": "武器专家",
       "title_en": "Weapon Specialists",
-      "desc_zh": "+{{var_25}}~{{var_26}} duration for Damaging Debuffs. +{{var_27}}~{{var_28}} Attack Rating in Alliance Missions.",
+      "desc_zh": "+{{var_25}}~{{var_26}} 伤害减益持续时间。 +{{var_27}}~{{var_28}} 联盟任务中的攻击评级。",
       "desc_en": "+{{var_25}}~{{var_26}} duration for Damaging Debuffs. +{{var_27}}~{{var_28}} Attack Rating in Alliance Missions.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -250,50 +265,54 @@
         "mixmaster_cin_rotf",
         "rhinox_gs_voyager2014",
         "hound_cin_tlk"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2602,
       "bot_id": "ironhide_cin_rotf",
       "category": "synergy",
-      "title_zh": "Brother in Arms",
+      "title_zh": "战友兄弟",
       "title_en": "Brother in Arms",
-      "desc_zh": "{{var_29}}~{{var_30}} Armor for Autobots. +{{var_31}}~{{var_32}} Melee Damage for Autobots in Solo Missions.",
+      "desc_zh": "{{var_29}}~{{var_30}} 汽车人装甲。 +{{var_31}}~{{var_32}} 单人任务中汽车人的近战伤害。",
       "desc_en": "{{var_29}}~{{var_30}} Armor for Autobots. +{{var_31}}~{{var_32}} Melee Damage for Autobots in Solo Missions.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 16,
       "synergy_bots": [
         "fte_optimus_gs_t3"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2603,
       "bot_id": "ironhide_cin_rotf",
       "category": "synergy",
-      "title_zh": "Medic Support",
+      "title_zh": "医疗支持",
       "title_en": "Medic Support",
-      "desc_zh": "{{var_33}}~{{var_34}} of Base Health Repaired at the start of the fight. +{{var_35}}~{{var_36}} extra Repair in Raids.",
+      "desc_zh": "战斗开始时修复基地生命值的{{var_33}}~{{var_34}}。 +{{var_35}}~{{var_36}} 突袭中的额外修复。",
       "desc_en": "{{var_33}}~{{var_34}} of Base Health Repaired at the start of the fight. +{{var_35}}~{{var_36}} extra Repair in Raids.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 17,
       "synergy_bots": [
         "ratchet_gs_kabam"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2604,
       "bot_id": "ironhide_cin_rotf",
       "category": "synergy",
-      "title_zh": "Leadership (5 Star)",
+      "title_zh": "领袖威仪 (5星)",
       "title_en": "Leadership (5 Star)",
-      "desc_zh": "+{{var_37}} Special Damage for all lower tier teammates.",
+      "desc_zh": "+{{var_37}} 对所有低等级队友造成特殊伤害。",
       "desc_en": "+{{var_37}} Special Damage for all lower tier teammates.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 18,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     }
   ]
 }

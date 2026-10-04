@@ -35,92 +35,99 @@
       "id": 3194,
       "bot_id": "necrotronus_gs_kabam",
       "category": "basic",
-      "title_zh": "[https://transformers",
-      "title_en": "[https://transformers",
-      "desc_zh": "forged-to-fight.fandom.com/wiki/File:Debuff_Power_Leak.png Power Rate Down] - Decreases the opponent's ability to gain Power.",
-      "desc_en": "* [https://transformers-forged-to-fight.fandom.com/wiki/File:Debuff_Power_Leak.png Power Rate Down] - Decreases the opponent's ability to gain Power.",
+      "title_zh": "能量获取削弱",
+      "title_en": "Power Rate Down",
+      "desc_zh": "降低对手获取能量的速率。",
+      "desc_en": "Decreases the opponent's ability to gain Power.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 0,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3195,
       "bot_id": "necrotronus_gs_kabam",
       "category": "basic",
-      "title_zh": "[https://transformers",
-      "title_en": "[https://transformers",
-      "desc_zh": "forged-to-fight.fandom.com/wiki/File:Relic.png Overwhelming Power] - Reduces Block Proficiency and reduced defense against Melee Attacks.",
-      "desc_en": "* [https://transformers-forged-to-fight.fandom.com/wiki/File:Relic.png Overwhelming Power] - Reduces Block Proficiency and reduced defense against Melee Attacks.",
+      "title_zh": "绝对压制",
+      "title_en": "Overwhelming Power",
+      "desc_zh": "降低对手格挡效能并削弱其对抗近战攻击的防御。",
+      "desc_en": "Reduces Block Proficiency and reduces defense against Melee Attacks.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 1,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3196,
       "bot_id": "necrotronus_gs_kabam",
       "category": "basic",
-      "title_zh": "[https://transformers",
-      "title_en": "[https://transformers",
-      "desc_zh": "forged-to-fight.fandom.com/wiki/File:Debuff_Bleed.png Bleed] - Bleeding Energon causes direct damage over time.",
-      "desc_en": "* [https://transformers-forged-to-fight.fandom.com/wiki/File:Debuff_Bleed.png Bleed] - Bleeding Energon causes direct damage over time.",
+      "title_zh": "流血",
+      "title_en": "Bleed",
+      "desc_zh": "能量液流失造成持续直接伤害。",
+      "desc_en": "Bleeding Energon causes direct damage over time.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 2,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3197,
       "bot_id": "necrotronus_gs_kabam",
       "category": "signature",
-      "title_zh": "Outrage - Titan Charges have a high maximum and also increase Critical Damage.",
+      "title_zh": "愤怒 - 泰坦冲锋的最大值很高，并且还会增加暴击伤害。",
       "title_en": "Outrage - Titan Charges have a high maximum and also increase Critical Damage.",
-      "desc_zh": "*Maximum Titan Charges is 40\n\n*Critical Damage increases by {{var_1}} while Overwhelming Power is active.\n\n+{{var_2}} per level",
-      "desc_en": "Outrage - Titan Charges have a high maximum and also increase Critical Damage.\n*Maximum Titan Charges is 40\n*Critical Damage increases by {{var_1}} while Overwhelming Power is active.\n+{{var_2}} per level",
+      "desc_zh": "泰坦最大充能数为 40\n\n当压倒性力量激活时，暴击伤害会增加 {{var_1}}。\n\n+{{var_2}} 每级",
+      "desc_en": "Outrage - Titan Charges have a high maximum and also increase Critical Damage.\nMaximum Titan Charges is 40\nCritical Damage increases by {{var_1}} while Overwhelming Power is active.\n+{{var_2}} per level",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 3,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3198,
       "bot_id": "necrotronus_gs_kabam",
       "category": "sp1",
-      "title_zh": "Fall and Rise Again",
+      "title_zh": "跌倒并再次崛起",
       "title_en": "Fall and Rise Again",
-      "desc_zh": "We will be eternal.",
-      "desc_en": "#Fall and Rise Again - We will be eternal.",
+      "desc_zh": "我们将是永恒的。",
+      "desc_en": "Fall and Rise Again - We will be eternal.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 4,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3199,
       "bot_id": "necrotronus_gs_kabam",
       "category": "sp2",
       "title_zh": "特殊技 2",
-      "title_en": "特殊技 2",
-      "desc_zh": "#* {{var_3}} Chance to increase Power Rate by +{{var_4}} for {{var_5}}.",
-      "desc_en": "#* {{var_3}} Chance to increase Power Rate by +{{var_4}} for {{var_5}}.",
+      "title_en": "Special Attack 2",
+      "desc_zh": "{{var_3}} 有机会为 {{var_5}} 增加 +{{var_4}} 的功率。",
+      "desc_en": "{{var_3}} Chance to increase Power Rate by +{{var_4}} for {{var_5}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 5,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3200,
       "bot_id": "necrotronus_gs_kabam",
       "category": "sp3",
       "title_zh": "特殊技 3",
-      "title_en": "特殊技 3",
-      "desc_zh": "#*Necrotronus loses 10 Titan Charges.",
-      "desc_en": "#*Necrotronus loses 10 Titan Charges.",
+      "title_en": "Special Attack 3",
+      "desc_zh": "Necrotronus 失去 10 个泰坦冲锋。",
+      "desc_en": "Necrotronus loses 10 Titan Charges.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 6,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3201,
@@ -128,12 +135,13 @@
       "category": "synergy",
       "title_zh": "",
       "title_en": "",
-      "desc_zh": "Aspiration - Megatronus - Start the fight with {{var_12}}~{{var_13}}Titan Charges.",
-      "desc_en": "* - Aspiration - Megatronus - Start the fight with {{var_12}}~{{var_13}}Titan Charges.",
+      "desc_zh": "渴望 - 威震天 - 使用 {{var_12}}~{{var_13}} 泰坦冲锋开始战斗。",
+      "desc_en": "- Aspiration - Megatronus - Start the fight with {{var_12}}~{{var_13}}Titan Charges.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 7,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3202,
@@ -141,12 +149,13 @@
       "category": "synergy",
       "title_zh": "",
       "title_en": "",
-      "desc_zh": "Power Consumed - Megatronus - +{{var_14}}~{{var_15}} Critical Chance when Megatronus has more Power than the opponent.",
-      "desc_en": "* - Power Consumed - Megatronus - +{{var_14}}~{{var_15}} Critical Chance when Megatronus has more Power than the opponent.",
+      "desc_zh": "消耗的力量 - 威震天 - +{{var_14}}~{{var_15}} 当威震天拥有比对手更多的力量时的暴击率。",
+      "desc_en": "- Power Consumed - Megatronus - +{{var_14}}~{{var_15}} Critical Chance when Megatronus has more Power than the opponent.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 8,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3203,
@@ -154,12 +163,13 @@
       "category": "synergy",
       "title_zh": "",
       "title_en": "",
-      "desc_zh": "Disciples - Nemesis Prime, Bludgeon - +{{var_16}}~{{var_17}} Power Gain when your Bot has less Power than the opponent.",
-      "desc_en": "* - Disciples - Nemesis Prime, Bludgeon - +{{var_16}}~{{var_17}} Power Gain when your Bot has less Power than the opponent.",
+      "desc_zh": "门徒 - Nemesis Prime、Bludgeon - 当你的机器人的力量低于对手时，+{{var_16}}~{{var_17}} 力量增益。",
+      "desc_en": "- Disciples - Nemesis Prime, Bludgeon - +{{var_16}}~{{var_17}} Power Gain when your Bot has less Power than the opponent.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 9,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3204,
@@ -167,12 +177,13 @@
       "category": "synergy",
       "title_zh": "",
       "title_en": "",
-      "desc_zh": "Cityspeaker - Windblade - +{{var_18}}~{{var_19}} Power Gain from Sword Attacks.",
-      "desc_en": "* - Cityspeaker - Windblade - +{{var_18}}~{{var_19}} Power Gain from Sword Attacks.",
+      "desc_zh": "Cityspeaker - Windblade - +{{var_18}}~{{var_19}} 剑攻击带来的力量增益。",
+      "desc_en": "- Cityspeaker - Windblade - +{{var_18}}~{{var_19}} Power Gain from Sword Attacks.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 10,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3205,
@@ -180,25 +191,27 @@
       "category": "synergy",
       "title_zh": "",
       "title_en": "",
-      "desc_zh": "Titan Hunters - Thundercracker, Waspinator - +{{var_20}}~{{var_21}} Armor Pierce.",
-      "desc_en": "* - Titan Hunters - Thundercracker, Waspinator - +{{var_20}}~{{var_21}} Armor Pierce.",
+      "desc_zh": "泰坦猎人 - 雷霆、黄蜂 - +{{var_20}}~{{var_21}} 穿甲。",
+      "desc_en": "- Titan Hunters - Thundercracker, Waspinator - +{{var_20}}~{{var_21}} Armor Pierce.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 11,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3206,
       "bot_id": "necrotronus_gs_kabam",
       "category": "synergy",
-      "title_zh": "Leadership (5 Star)",
+      "title_zh": "领袖威仪 (5星)",
       "title_en": "Leadership (5 Star)",
-      "desc_zh": "Acting as a beacon of leadership, all lower tier teammates gain +{{var_22}} critical rate.",
+      "desc_zh": "作为领导者的灯塔，所有较低级别的队友都获得+{{var_22}}暴击率。",
       "desc_en": "Acting as a beacon of leadership, all lower tier teammates gain +{{var_22}} critical rate.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 12,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     }
   ]
 }

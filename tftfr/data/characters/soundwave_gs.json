@@ -36,151 +36,162 @@
       "bot_id": "soundwave_gs",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "*Power Gain",
-      "desc_en": "*Power Gain",
+      "title_en": "Basic Abilities",
+      "desc_zh": "功率增益",
+      "desc_en": "Power Gain",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 0,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3376,
       "bot_id": "soundwave_gs",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "*Power Leak",
-      "desc_en": "*Power Leak",
+      "title_en": "Basic Abilities",
+      "desc_zh": "漏电",
+      "desc_en": "Power Leak",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 1,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3377,
       "bot_id": "soundwave_gs",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "*Shock",
-      "desc_en": "*Shock",
+      "title_en": "Basic Abilities",
+      "desc_zh": "震惊",
+      "desc_en": "Shock",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 2,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3378,
       "bot_id": "soundwave_gs",
       "category": "passive",
-      "title_zh": "Passive: Soundwave does not generate Power from hitting opponents, use his Heavy and Special Attacks to generate Power instead.",
+      "title_zh": "战斗被动",
       "title_en": "Passive: Soundwave does not generate Power from hitting opponents, use his Heavy and Special Attacks to generate Power instead.",
-      "desc_zh": "*Passive: Soundwave does not generate Power from hitting opponents, use his Heavy and Special Attacks to generate Power instead.",
-      "desc_en": "*Passive: Soundwave does not generate Power from hitting opponents, use his Heavy and Special Attacks to generate Power instead.",
+      "desc_zh": "被动：声波不会通过击中对手来产生能量，而是使用他的重击和特殊技来产生能量。",
+      "desc_en": "Passive: Soundwave does not generate Power from hitting opponents, use his Heavy and Special Attacks to generate Power instead.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 3,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3379,
       "bot_id": "soundwave_gs",
       "category": "passive",
-      "title_zh": "Heavy Attacks:",
+      "title_zh": "强力重击",
       "title_en": "Heavy Attacks:",
-      "desc_zh": "*Heavy Attacks:",
-      "desc_en": "*Heavy Attacks:",
+      "desc_zh": "重击：",
+      "desc_en": "Heavy Attacks:",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 4,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3380,
       "bot_id": "soundwave_gs",
       "category": "passive",
-      "title_zh": "Generates {{var_1}} of a Power Bar per second until a Special Attack is activated or upon gaining 2 bars of Power.",
+      "title_zh": "战斗被动",
       "title_en": "Generates {{var_1}} of a Power Bar per second until a Special Attack is activated or upon gaining 2 bars of Power.",
-      "desc_zh": "**Generates {{var_1}} of a Power Bar per second until a Special Attack is activated or upon gaining 2 bars of Power.",
-      "desc_en": "**Generates {{var_1}} of a Power Bar per second until a Special Attack is activated or upon gaining 2 bars of Power.",
+      "desc_zh": "每秒生成 {{var_1}} 能量条，直到激活特殊技或获得 2 条能量为止。",
+      "desc_en": "Generates {{var_1}} of a Power Bar per second until a Special Attack is activated or upon gaining 2 bars of Power.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 5,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3381,
       "bot_id": "soundwave_gs",
       "category": "passive",
-      "title_zh": "{{var_2}} chance to inflict Shock, dealing Shock Damage for {{var_3}} Attack over {{var_4}}.",
+      "title_zh": "战斗被动",
       "title_en": "{{var_2}} chance to inflict Shock, dealing Shock Damage for {{var_3}} Attack over {{var_4}}.",
-      "desc_zh": "**{{var_2}} chance to inflict Shock, dealing Shock Damage for {{var_3}} Attack over {{var_4}}.",
-      "desc_en": "**{{var_2}} chance to inflict Shock, dealing Shock Damage for {{var_3}} Attack over {{var_4}}.",
+      "desc_zh": "{{var_2}} 有机会造成触电，{{var_3}} 攻击对 {{var_4}} 造成感应触电伤害。",
+      "desc_en": "{{var_2}} chance to inflict Shock, dealing Shock Damage for {{var_3}} Attack over {{var_4}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 6,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3382,
       "bot_id": "soundwave_gs",
       "category": "signature",
-      "title_zh": "Sonic Shield",
+      "title_zh": "音波护盾",
       "title_en": "Sonic Shield",
-      "desc_zh": "Soundwave projects a Sonic Shield that grants him Energy Resistance and a chance to Reflect incoming Ranged Attacks.\n\nWhen filling a Power Bar: Soundwave projects a Sonic Shield that grants him {{var_5}} Energy Resistance and has a {{var_6}} chance to Reflect incoming Ranged Attacks, dealing {{var_7}} of their original damage.\n\n+about {{var_8}} per level",
+      "desc_zh": "声波投射出一个音波护盾，赋予他能量抵抗力并有机会反射传入的远程攻击。\n\n当填充能量条时：声波投射一个音波护盾，赋予他 {{var_5}} 能量抗性，并有 {{var_6}} 几率反射传入的远程攻击，造成 {{var_7}} 的原始伤害。\n\n+每级大约 {{var_8}}",
       "desc_en": "Sonic Shield\nSoundwave projects a Sonic Shield that grants him Energy Resistance and a chance to Reflect incoming Ranged Attacks.\nWhen filling a Power Bar: Soundwave projects a Sonic Shield that grants him {{var_5}} Energy Resistance and has a {{var_6}} chance to Reflect incoming Ranged Attacks, dealing {{var_7}} of their original damage.\n+about {{var_8}} per level",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 7,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3383,
       "bot_id": "soundwave_gs",
       "category": "sp1",
-      "title_zh": "Sonic Cannon",
+      "title_zh": "音波炮",
       "title_en": "Sonic Cannon",
-      "desc_zh": "Listen to this and your ears will be burning.",
-      "desc_en": "# Sonic Cannon - Listen to this and your ears will be burning.",
+      "desc_zh": "听着这个，你的耳朵会燃烧。",
+      "desc_en": "Sonic Cannon - Listen to this and your ears will be burning.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 8,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3384,
       "bot_id": "soundwave_gs",
       "category": "sp2",
       "title_zh": "特殊技 2",
-      "title_en": "特殊技 2",
-      "desc_zh": "#*{{var_9}} chance to Stun for {{var_10}}.",
-      "desc_en": "#*{{var_9}} chance to Stun for {{var_10}}.",
+      "title_en": "Special Attack 2",
+      "desc_zh": "{{var_9}} 有机会击晕 {{var_10}}。",
+      "desc_en": "{{var_9}} chance to Stun for {{var_10}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 9,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3385,
       "bot_id": "soundwave_gs",
       "category": "sp3",
       "title_zh": "特殊技 3",
-      "title_en": "特殊技 3",
-      "desc_zh": "#*{{var_11}} chance to Power Leak, consuming {{var_12}} of a Power Bar over {{var_13}}.",
-      "desc_en": "#*{{var_11}} chance to Power Leak, consuming {{var_12}} of a Power Bar over {{var_13}}.",
+      "title_en": "Special Attack 3",
+      "desc_zh": "{{var_11}} 有机会发生电源泄漏，消耗电源条的 {{var_12}} 超过 {{var_13}}。",
+      "desc_en": "{{var_11}} chance to Power Leak, consuming {{var_12}} of a Power Bar over {{var_13}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 10,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3386,
       "bot_id": "soundwave_gs",
       "category": "synergy",
-      "title_zh": "Allies",
+      "title_zh": "盟友",
       "title_en": "Allies",
-      "desc_zh": "+{{var_23}}~{{var_24}} Armor.",
+      "desc_zh": "+{{var_23}}~{{var_24}} 装甲。",
       "desc_en": "+{{var_23}}~{{var_24}} Armor.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -189,45 +200,48 @@
         "ramjet_gs_deluxe2008",
         "bludgeon_gs_rd20",
         "kickback_gs_kabam"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3387,
       "bot_id": "soundwave_gs",
       "category": "synergy",
-      "title_zh": "Enemies",
+      "title_zh": "宿敌",
       "title_en": "Enemies",
-      "desc_zh": "{{var_25}}~{{var_26}} Attack Rating.",
+      "desc_zh": "{{var_25}}~{{var_26}} 攻击评级。",
       "desc_en": "{{var_25}}~{{var_26}} Attack Rating.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 12,
       "synergy_bots": [
         "fte_optimus_gs_t3"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3388,
       "bot_id": "soundwave_gs",
       "category": "synergy",
-      "title_zh": "Enemies",
+      "title_zh": "宿敌",
       "title_en": "Enemies",
-      "desc_zh": "{{var_27}}~{{var_28}} Attack Rating.",
+      "desc_zh": "{{var_27}}~{{var_28}} 攻击评级。",
       "desc_en": "{{var_27}}~{{var_28}} Attack Rating.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 13,
       "synergy_bots": [
         "blaster_gs_leader2016"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3389,
       "bot_id": "soundwave_gs",
       "category": "synergy",
-      "title_zh": "Shield Amp",
+      "title_zh": "屏蔽放大器",
       "title_en": "Shield Amp",
-      "desc_zh": "{{var_29}}~{{var_30}} damage reduction when Shielded.",
+      "desc_zh": "屏蔽时{{var_29}}~{{var_30}}伤害减少。",
       "desc_en": "{{var_29}}~{{var_30}} damage reduction when Shielded.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -235,80 +249,86 @@
       "synergy_bots": [
         "mirage_gs_deluxe2016",
         "rhinox_gs_voyager2014"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3390,
       "bot_id": "soundwave_gs",
       "category": "synergy",
-      "title_zh": "Brain Gain",
+      "title_zh": "大脑增益",
       "title_en": "Brain Gain",
-      "desc_zh": "Soundwave increases his Attack against Demolition Bots by {{var_31}}~{{var_32}} at the start of the fight. Shockwave only benefits from this bonus if all Bots on the team have this Synergy.",
+      "desc_zh": "声波在战斗开始时将其对拆除机器人的攻击力提高 {{var_31}}~{{var_32}}。仅当团队中的所有机器人都具有此协同羁绊时，冲击波才能受益于此奖励。",
       "desc_en": "Soundwave increases his Attack against Demolition Bots by {{var_31}}~{{var_32}} at the start of the fight. Shockwave only benefits from this bonus if all Bots on the team have this Synergy.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 15,
       "synergy_bots": [
         "shockwave_gs"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3391,
       "bot_id": "soundwave_gs",
       "category": "synergy",
-      "title_zh": "Brain Drain",
+      "title_zh": "心智压榨",
       "title_en": "Brain Drain",
-      "desc_zh": "Shockwave's Shocks last {{var_33}}~{{var_34}} longer.",
+      "desc_zh": "Shockwave 的冲击持续 {{var_33}}~{{var_34}} 的时间更长。",
       "desc_en": "Shockwave's Shocks last {{var_33}}~{{var_34}} longer.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 16,
       "synergy_bots": [
         "shockwave_gs"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3392,
       "bot_id": "soundwave_gs",
       "category": "synergy",
-      "title_zh": "Till All is Ours",
+      "title_zh": "直到一切都是我们的",
       "title_en": "Till All is Ours",
-      "desc_zh": "All Decepticons gain {{var_35}}~{{var_36}} Attack against Autobots.",
+      "desc_zh": "所有霸天虎都会获得 {{var_35}}~{{var_36}} 对汽车人的攻击力。",
       "desc_en": "All Decepticons gain {{var_35}}~{{var_36}} Attack against Autobots.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 17,
       "synergy_bots": [
         "megatron_gs_leader2015"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3393,
       "bot_id": "soundwave_gs",
       "category": "synergy",
-      "title_zh": "Taped Together",
+      "title_zh": "粘在一起",
       "title_en": "Taped Together",
-      "desc_zh": "Increase Heavy Attack Damage by {{var_37}}~{{var_38}}.",
+      "desc_zh": "重击伤害增加 {{var_37}}~{{var_38}}。",
       "desc_en": "Increase Heavy Attack Damage by {{var_37}}~{{var_38}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 18,
       "synergy_bots": [
         "soundblaster_gs_mp13b"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3394,
       "bot_id": "soundwave_gs",
       "category": "synergy",
-      "title_zh": "Leadership (5 Star)",
+      "title_zh": "领袖威仪 (5星)",
       "title_en": "Leadership (5 Star)",
-      "desc_zh": "+{{var_39}} Power Rate for all lower tier teammates.",
+      "desc_zh": "+{{var_39}} 所有较低级别队友的功率率。",
       "desc_en": "+{{var_39}} Power Rate for all lower tier teammates.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 19,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     }
   ]
 }

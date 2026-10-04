@@ -36,164 +36,176 @@
       "bot_id": "barricade_cin_dotm",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "* Critical Damage {{var_1}}",
-      "desc_en": "* Critical Damage {{var_1}}",
+      "title_en": "Basic Abilities",
+      "desc_zh": "严重伤害 {{var_1}}",
+      "desc_en": "Critical Damage {{var_1}}",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 0,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2920,
       "bot_id": "barricade_cin_dotm",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "* Backfire",
-      "desc_en": "* Backfire",
+      "title_en": "Basic Abilities",
+      "desc_zh": "事与愿违",
+      "desc_en": "Backfire",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 1,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2921,
       "bot_id": "barricade_cin_dotm",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "* Power Steal",
-      "desc_en": "* Power Steal",
+      "title_en": "Basic Abilities",
+      "desc_zh": "偷电",
+      "desc_en": "Power Steal",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 2,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2922,
       "bot_id": "barricade_cin_dotm",
       "category": "passive",
-      "title_zh": "Melee Attacks - Up to {{var_2}} Critical Damage based on the opponent's stored Power.",
+      "title_zh": "战斗被动",
       "title_en": "Melee Attacks - Up to {{var_2}} Critical Damage based on the opponent's stored Power.",
-      "desc_zh": "* Melee Attacks - Up to {{var_2}} Critical Damage based on the opponent's stored Power.",
-      "desc_en": "* Melee Attacks - Up to {{var_2}} Critical Damage based on the opponent's stored Power.",
+      "desc_zh": "近战攻击 - 根据对手储存的力量，最多可造成 {{var_2}} 暴击伤害。",
+      "desc_en": "Melee Attacks - Up to {{var_2}} Critical Damage based on the opponent's stored Power.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 3,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2923,
       "bot_id": "barricade_cin_dotm",
       "category": "passive",
-      "title_zh": "When Knocked Down:",
+      "title_zh": "被击倒时：",
       "title_en": "When Knocked Down:",
-      "desc_zh": "* When Knocked Down:",
-      "desc_en": "* When Knocked Down:",
+      "desc_zh": "被击倒时：",
+      "desc_en": "When Knocked Down:",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 4,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2924,
       "bot_id": "barricade_cin_dotm",
       "category": "passive",
-      "title_zh": "{{var_3}} chance to evade basic and special attacks for {{var_4}}.",
+      "title_zh": "战斗被动",
       "title_en": "{{var_3}} chance to evade basic and special attacks for {{var_4}}.",
-      "desc_zh": "** {{var_3}} chance to evade basic and special attacks for {{var_4}}.",
-      "desc_en": "** {{var_3}} chance to evade basic and special attacks for {{var_4}}.",
+      "desc_zh": "{{var_3}} 有机会躲避 {{var_4}} 的基本和特殊技。",
+      "desc_en": "{{var_3}} chance to evade basic and special attacks for {{var_4}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 5,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2925,
       "bot_id": "barricade_cin_dotm",
       "category": "passive",
-      "title_zh": "{{var_5}} Critical Rate Buff for {{var_6}}seconds.",
+      "title_zh": "{{var_5}} {{var_6}} 秒的临界速率增益。",
       "title_en": "{{var_5}} Critical Rate Buff for {{var_6}}seconds.",
-      "desc_zh": "** {{var_5}} Critical Rate Buff for {{var_6}}seconds.",
-      "desc_en": "** {{var_5}} Critical Rate Buff for {{var_6}}seconds.",
+      "desc_zh": "{{var_5}} {{var_6}} 秒的临界速率增益。",
+      "desc_en": "{{var_5}} Critical Rate Buff for {{var_6}}seconds.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 6,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2926,
       "bot_id": "barricade_cin_dotm",
       "category": "passive",
-      "title_zh": "Ranged Attacks: {{var_7}} to inflict Backfire for {{var_8}}.",
+      "title_zh": "战斗被动",
       "title_en": "Ranged Attacks: {{var_7}} to inflict Backfire for {{var_8}}.",
-      "desc_zh": "* Ranged Attacks: {{var_7}} to inflict Backfire for {{var_8}}.",
-      "desc_en": "* Ranged Attacks: {{var_7}} to inflict Backfire for {{var_8}}.",
+      "desc_zh": "远程攻击：{{var_7}} 对 {{var_8}} 造成适得其反。",
+      "desc_en": "Ranged Attacks: {{var_7}} to inflict Backfire for {{var_8}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 7,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2927,
       "bot_id": "barricade_cin_dotm",
       "category": "signature",
-      "title_zh": "Bad Cop",
+      "title_zh": "坏警察",
       "title_en": "Bad Cop",
-      "desc_zh": "Passive: Backfire becomes stackable and its duration is increased (by {{var_9}}).",
+      "desc_zh": "被动：逆火可堆叠且其持续时间增加（由{{var_9}}决定）。",
       "desc_en": "Bad Cop\nPassive: Backfire becomes stackable and its duration is increased (by {{var_9}}).",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 8,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2928,
       "bot_id": "barricade_cin_dotm",
       "category": "sp1",
-      "title_zh": "Punishment",
+      "title_zh": "惩罚",
       "title_en": "Punishment",
-      "desc_zh": "You have the right to remain silent.",
-      "desc_en": "#  Punishment - You have the right to remain silent.",
+      "desc_zh": "你有权保持沉默。",
+      "desc_en": "Punishment - You have the right to remain silent.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 9,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2929,
       "bot_id": "barricade_cin_dotm",
       "category": "sp2",
       "title_zh": "特殊技 2",
-      "title_en": "特殊技 2",
-      "desc_zh": "#*{{var_10}} to inflict Backfire for {{var_11}}.",
-      "desc_en": "#*{{var_10}} to inflict Backfire for {{var_11}}.",
+      "title_en": "Special Attack 2",
+      "desc_zh": "{{var_10}} 对 {{var_11}} 造成逆火。",
+      "desc_en": "{{var_10}} to inflict Backfire for {{var_11}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 10,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2930,
       "bot_id": "barricade_cin_dotm",
       "category": "sp3",
-      "title_zh": "Subjugation",
+      "title_zh": "征服",
       "title_en": "Subjugation",
-      "desc_zh": "Taze opponents into submission.",
-      "desc_en": "# Subjugation - Taze opponents into submission.",
+      "desc_zh": "使对手屈服。",
+      "desc_en": "Subjugation - Taze opponents into submission.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 11,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2931,
       "bot_id": "barricade_cin_dotm",
       "category": "synergy",
-      "title_zh": "Enemies",
+      "title_zh": "宿敌",
       "title_en": "Enemies",
-      "desc_zh": "+{{var_16}}~{{var_17}} Attack Rating.",
+      "desc_zh": "+{{var_16}}~{{var_17}} 攻击评级。",
       "desc_en": "+{{var_16}}~{{var_17}} Attack Rating.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -203,52 +215,56 @@
         "prowl_gs_deluxe2016",
         "hotrod_cin_tlk",
         "hound_cin_tlk"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2932,
       "bot_id": "barricade_cin_dotm",
       "category": "synergy",
-      "title_zh": "Outlaws",
+      "title_zh": "亡命之徒",
       "title_en": "Outlaws",
-      "desc_zh": "{{var_18}} chance to inflict Power Lock for {{var_19}}~{{var_20}} when hitting with the first Heavy Attack.",
+      "desc_zh": "第一次重击击中时，{{var_18}} 有机会对 {{var_19}}~{{var_20}} 造成强力锁定。",
       "desc_en": "{{var_18}} chance to inflict Power Lock for {{var_19}}~{{var_20}} when hitting with the first Heavy Attack.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 13,
       "synergy_bots": [
         "grindor_cin_rotf"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2933,
       "bot_id": "barricade_cin_dotm",
       "category": "synergy",
-      "title_zh": "Forged to Serve",
+      "title_zh": "锻造服务",
       "title_en": "Forged to Serve",
-      "desc_zh": "Megatron has a {{var_21}}~{{var_22}} chance to inflict 2 Impair Charges per hit.",
+      "desc_zh": "威震天有 {{var_21}}~{{var_22}} 几率每次击中造成 2 个损伤球。",
       "desc_en": "Megatron has a {{var_21}}~{{var_22}} chance to inflict 2 Impair Charges per hit.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 14,
       "synergy_bots": [
         "megatron_cin_rotf"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2934,
       "bot_id": "barricade_cin_dotm",
       "category": "synergy",
-      "title_zh": "Forged to Lead",
+      "title_zh": "锻造领先",
       "title_en": "Forged to Lead",
-      "desc_zh": "Megatron's minion's each provide him with a unique ability. In return Megatron provides {{var_23}}~{{var_24}} Armor.",
+      "desc_zh": "威震天的每个爪牙都为他提供了独特的能力。作为回报，威震天提供 {{var_23}}~{{var_24}} 装甲。",
       "desc_en": "Megatron's minion's each provide him with a unique ability. In return Megatron provides {{var_23}}~{{var_24}} Armor.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 15,
       "synergy_bots": [
         "megatron_gs_leader2015"
-      ]
+      ],
+      "status": "unimplemented"
     }
   ]
 }

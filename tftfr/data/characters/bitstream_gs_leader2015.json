@@ -42,7 +42,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 0,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3613,
@@ -55,7 +56,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 1,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3614,
@@ -68,7 +70,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 2,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3615,
@@ -81,7 +84,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 3,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3616,
@@ -94,7 +98,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 4,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3617,
@@ -107,7 +112,8 @@
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 5,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 3618,
@@ -123,7 +129,8 @@
       "synergy_bots": [
         "soundwave_gs",
         "shockwave_gs"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3619,
@@ -138,20 +145,22 @@
       "sort_order": 7,
       "synergy_bots": [
         "fte_stars_gs_t3"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 3620,
       "bot_id": "bitstream_gs_leader2015",
       "category": "synergy",
-      "title_zh": "Leadership (5 Star)",
+      "title_zh": "领袖威仪 (5星)",
       "title_en": "Leadership (5 Star)",
       "desc_zh": "团队所有低星级队员获得 +{{var_3}} 暴击率。",
       "desc_en": "All lower tier teammates gain +{{var_3}} Critical Rating.",
       "pua_icon": "",
       "raw_data_json": "{}",
       "sort_order": 8,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     }
   ]
 }

@@ -36,151 +36,162 @@
       "bot_id": "mirage_gs_deluxe2016",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "* Shielding",
-      "desc_en": "* Shielding",
+      "title_en": "Basic Abilities",
+      "desc_zh": "屏蔽",
+      "desc_en": "Shielding",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 0,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2681,
       "bot_id": "mirage_gs_deluxe2016",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "* Power Burn 1",
-      "desc_en": "* Power Burn 1",
+      "title_en": "Basic Abilities",
+      "desc_zh": "功率燃烧 1",
+      "desc_en": "Power Burn 1",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 1,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2682,
       "bot_id": "mirage_gs_deluxe2016",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "* Attack Debuff 1",
-      "desc_en": "* Attack Debuff 1",
+      "title_en": "Basic Abilities",
+      "desc_zh": "攻击减益 1",
+      "desc_en": "Attack Debuff 1",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 2,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2683,
       "bot_id": "mirage_gs_deluxe2016",
       "category": "passive",
-      "title_zh": "Heavy Attacks: Mirage shrugs off Ranged Attacks and Burn Debuffs when speeding up as an F1 car.",
+      "title_zh": "战斗被动",
       "title_en": "Heavy Attacks: Mirage shrugs off Ranged Attacks and Burn Debuffs when speeding up as an F1 car.",
-      "desc_zh": "* Heavy Attacks: Mirage shrugs off Ranged Attacks and Burn Debuffs when speeding up as an F1 car.",
-      "desc_en": "* Heavy Attacks: Mirage shrugs off Ranged Attacks and Burn Debuffs when speeding up as an F1 car.",
+      "desc_zh": "重击：幻影在作为 F1 赛车加速时不会受到远程攻击和燃烧减益的影响。",
+      "desc_en": "Heavy Attacks: Mirage shrugs off Ranged Attacks and Burn Debuffs when speeding up as an F1 car.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 3,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2684,
       "bot_id": "mirage_gs_deluxe2016",
       "category": "passive",
-      "title_zh": "Ranged Attacks: {{var_1}} Armor Penetration",
+      "title_zh": "远程攻击：{{var_1}} 破甲穿透",
       "title_en": "Ranged Attacks: {{var_1}} Armor Penetration",
-      "desc_zh": "* Ranged Attacks: {{var_1}} Armor Penetration",
-      "desc_en": "* Ranged Attacks: {{var_1}} Armor Penetration",
+      "desc_zh": "远程攻击：{{var_1}} 破甲穿透",
+      "desc_en": "Ranged Attacks: {{var_1}} Armor Penetration",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 4,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2685,
       "bot_id": "mirage_gs_deluxe2016",
       "category": "passive",
-      "title_zh": "Passive: Mirage starts the fight in Power Mode, granting +{{var_2}} Power Rate. While in this mode, Mirage activates a Shield when the opponent activates a Special Attack. The shield decreases enemy Critical Damage and Ranged Damage by {{var_3}} until Mirage is knocked down. The shield requires {{var_4}} before it may re-activate.",
+      "title_zh": "战斗被动",
       "title_en": "Passive: Mirage starts the fight in Power Mode, granting +{{var_2}} Power Rate. While in this mode, Mirage activates a Shield when the opponent activates a Special Attack. The shield decreases enemy Critical Damage and Ranged Damage by {{var_3}} until Mirage is knocked down. The shield requires {{var_4}} before it may re-activate.",
-      "desc_zh": "* Passive: Mirage starts the fight in Power Mode, granting +{{var_2}} Power Rate. While in this mode, Mirage activates a Shield when the opponent activates a Special Attack. The shield decreases enemy Critical Damage and Ranged Damage by {{var_3}} until Mirage is knocked down. The shield requires {{var_4}} before it may re-activate.",
-      "desc_en": "* Passive: Mirage starts the fight in Power Mode, granting +{{var_2}} Power Rate. While in this mode, Mirage activates a Shield when the opponent activates a Special Attack. The shield decreases enemy Critical Damage and Ranged Damage by {{var_3}} until Mirage is knocked down. The shield requires {{var_4}} before it may re-activate.",
+      "desc_zh": "被动：Mirage 在能量模式下开始战斗，获得 +{{var_2}} 能量值。在此模式下，当对手激活特殊技时，幻影会激活护盾。护盾会减少敌人的暴击伤害和远程伤害 {{var_3}}，直到幻影被击倒。该防护罩需要 {{var_4}} 才能重新激活。",
+      "desc_en": "Passive: Mirage starts the fight in Power Mode, granting +{{var_2}} Power Rate. While in this mode, Mirage activates a Shield when the opponent activates a Special Attack. The shield decreases enemy Critical Damage and Ranged Damage by {{var_3}} until Mirage is knocked down. The shield requires {{var_4}} before it may re-activate.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 5,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2686,
       "bot_id": "mirage_gs_deluxe2016",
       "category": "passive",
-      "title_zh": "Mirage has a chance to return to this mode from other modes when struck by enemy attacks.",
+      "title_zh": "战斗被动",
       "title_en": "Mirage has a chance to return to this mode from other modes when struck by enemy attacks.",
-      "desc_zh": "* Mirage has a chance to return to this mode from other modes when struck by enemy attacks.",
-      "desc_en": "* Mirage has a chance to return to this mode from other modes when struck by enemy attacks.",
+      "desc_zh": "当受到敌人攻击时，幻影有机会从其他模式返回到此模式。",
+      "desc_en": "Mirage has a chance to return to this mode from other modes when struck by enemy attacks.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 6,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2687,
       "bot_id": "mirage_gs_deluxe2016",
       "category": "signature",
-      "title_zh": "K.E.R.S - The Kinetic Energy Recovery System generates the following buffs when activating Special Attacks:",
+      "title_zh": "K.E.R.S - 动能恢复系统在激活特殊技时会产生以下增益：",
       "title_en": "K.E.R.S - The Kinetic Energy Recovery System generates the following buffs when activating Special Attacks:",
-      "desc_zh": "* Special 1 - Faster projectiles for {{var_5}}seconds.\n\n* Special 2 - Unblockable basic Melee Attacks for {{var_6}}seconds.\n\n* Special 3 - +{{var_7}} Attack for {{var_8}}seconds.\n\n+{{var_9}} per level.\n\n(The buffs refresh for each special attack hit, essentially letting him take full advantage of the buffs during the Specials and only counts down after it ends.)",
-      "desc_en": "K.E.R.S - The Kinetic Energy Recovery System generates the following buffs when activating Special Attacks:\n* Special 1 - Faster projectiles for {{var_5}}seconds.\n* Special 2 - Unblockable basic Melee Attacks for {{var_6}}seconds.\n* Special 3 - +{{var_7}} Attack for {{var_8}}seconds.\n+{{var_9}} per level.\n(The buffs refresh for each special attack hit, essentially letting him take full advantage of the buffs during the Specials and only counts down after it ends.)",
+      "desc_zh": "特殊 1 - 更快的射弹，持续 {{var_5}} 秒。\n\n特殊 2 - {{var_6}} 秒内不可阻挡的基本近战攻击。\n\n特殊 3 - +{{var_7}} 攻击 {{var_8}} 秒。\n\n每级 +{{var_9}}。\n\n（每次特殊技都会刷新增益效果，本质上是让他在特殊技期间充分利用增益效果，并且只会在特殊技结束后倒计时。）",
+      "desc_en": "K.E.R.S - The Kinetic Energy Recovery System generates the following buffs when activating Special Attacks:\nSpecial 1 - Faster projectiles for {{var_5}}seconds.\nSpecial 2 - Unblockable basic Melee Attacks for {{var_6}}seconds.\nSpecial 3 - +{{var_7}} Attack for {{var_8}}seconds.\n+{{var_9}} per level.\n(The buffs refresh for each special attack hit, essentially letting him take full advantage of the buffs during the Specials and only counts down after it ends.)",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 7,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2688,
       "bot_id": "mirage_gs_deluxe2016",
       "category": "sp1",
-      "title_zh": "Jump Start",
+      "title_zh": "快速启动",
       "title_en": "Jump Start",
-      "desc_zh": "A quick warm-up to knock the boom glitches out the enemy's brain garage.",
-      "desc_en": "# Jump Start - A quick warm-up to knock the boom glitches out the enemy's brain garage.",
+      "desc_zh": "快速热身以击倒敌人的大脑车库中的繁荣。",
+      "desc_en": "Jump Start - A quick warm-up to knock the boom glitches out the enemy's brain garage.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 8,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2689,
       "bot_id": "mirage_gs_deluxe2016",
       "category": "sp2",
       "title_zh": "特殊技 2",
-      "title_en": "特殊技 2",
-      "desc_zh": "#* Mirage enters Disruption Mode, granting Ranged Attacks a {{var_10}} chance to drain {{var_11}} Power while in the mode.",
-      "desc_en": "#* Mirage enters Disruption Mode, granting Ranged Attacks a {{var_10}} chance to drain {{var_11}} Power while in the mode.",
+      "title_en": "Special Attack 2",
+      "desc_zh": "Mirage 进入干扰模式，在该模式下远程攻击有 {{var_10}} 机会消耗 {{var_11}} 能量。",
+      "desc_en": "Mirage enters Disruption Mode, granting Ranged Attacks a {{var_10}} chance to drain {{var_11}} Power while in the mode.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 9,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2690,
       "bot_id": "mirage_gs_deluxe2016",
       "category": "sp3",
-      "title_zh": "Sleight of Hand and Fist",
+      "title_zh": "功夫与拳头",
       "title_en": "Sleight of Hand and Fist",
-      "desc_zh": "A stealth approach using technology and trickery helps maintain that freshly-waxed shine.",
-      "desc_en": "# Sleight of Hand and Fist -  A stealth approach using technology and trickery helps maintain that freshly-waxed shine.",
+      "desc_zh": "使用技术和技巧的秘密方法有助于保持刚打蜡的光泽。",
+      "desc_en": "Sleight of Hand and Fist -  A stealth approach using technology and trickery helps maintain that freshly-waxed shine.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 10,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2691,
       "bot_id": "mirage_gs_deluxe2016",
       "category": "synergy",
-      "title_zh": "Speed Chasers",
+      "title_zh": "速度追逐者",
       "title_en": "Speed Chasers",
-      "desc_zh": "+{{var_17}}~{{var_18}} Attack on the next hit when dodging opponents' attacks.",
+      "desc_zh": "+{{var_17}}~{{var_18}} 躲避对手攻击时进行下一次攻击。",
       "desc_en": "+{{var_17}}~{{var_18}} Attack on the next hit when dodging opponents' attacks.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -189,15 +200,16 @@
         "sideswipe_gs",
         "bumblebee_cin_dotm",
         "cheetor_bw_transmetal"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2692,
       "bot_id": "mirage_gs_deluxe2016",
       "category": "synergy",
-      "title_zh": "Sharpshooters",
+      "title_zh": "神枪手",
       "title_en": "Sharpshooters",
-      "desc_zh": "+{{var_19}}~{{var_20}} Critical Rate on ranged attacks.",
+      "desc_zh": "+{{var_19}}~{{var_20}} 远程攻击的暴击率。",
       "desc_en": "+{{var_19}}~{{var_20}} Critical Rate on ranged attacks.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -205,15 +217,16 @@
       "synergy_bots": [
         "arcee_gs_deluxe2014",
         "hound_cin_tlk"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2693,
       "bot_id": "mirage_gs_deluxe2016",
       "category": "synergy",
-      "title_zh": "Espionage Specialists",
+      "title_zh": "间谍专家",
       "title_en": "Espionage Specialists",
-      "desc_zh": "{{var_21}}~{{var_22}} less likely to activate the opponent's abilities when hitting with Special 2 or 3.",
+      "desc_zh": "{{var_21}}~{{var_22}} 在使用特殊 2 或 3 击球时激活对手能力的可能性较小。",
       "desc_en": "{{var_21}}~{{var_22}} less likely to activate the opponent's abilities when hitting with Special 2 or 3.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -221,30 +234,32 @@
       "synergy_bots": [
         "bumblebee_cin_dotm",
         "bumblebee_gs_kabam"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2694,
       "bot_id": "mirage_gs_deluxe2016",
       "category": "synergy",
-      "title_zh": "Racing Rivals",
+      "title_zh": "赛车对手",
       "title_en": "Racing Rivals",
-      "desc_zh": "+{{var_23}}~{{var_24}} Critical Damage.",
+      "desc_zh": "+{{var_23}}~{{var_24}} 严重伤害。",
       "desc_en": "+{{var_23}}~{{var_24}} Critical Damage.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 14,
       "synergy_bots": [
         "hotrod_cin_tlk"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2695,
       "bot_id": "mirage_gs_deluxe2016",
       "category": "synergy",
-      "title_zh": "Shield Amp",
+      "title_zh": "屏蔽放大器",
       "title_en": "Shield Amp",
-      "desc_zh": "+{{var_25}}~{{var_26}} damage deduction when Shielded.",
+      "desc_zh": "+{{var_25}}~{{var_26}} 屏蔽时伤害扣除。",
       "desc_en": "+{{var_25}}~{{var_26}} damage deduction when Shielded.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -252,65 +267,70 @@
       "synergy_bots": [
         "soundwave_gs",
         "blaster_gs_leader2016"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2696,
       "bot_id": "mirage_gs_deluxe2016",
       "category": "synergy",
-      "title_zh": "Brain Drain",
+      "title_zh": "心智压榨",
       "title_en": "Brain Drain",
-      "desc_zh": "Shockwave Drains {{var_27}}~{{var_28}} more Power from Shocked opponents.",
+      "desc_zh": "冲击波会从震惊的对手身上消耗更多 {{var_27}}~{{var_28}} 的能量。",
       "desc_en": "Shockwave Drains {{var_27}}~{{var_28}} more Power from Shocked opponents.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 16,
       "synergy_bots": [
         "shockwave_gs"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2697,
       "bot_id": "mirage_gs_deluxe2016",
       "category": "synergy",
-      "title_zh": "Uneasy Allies",
+      "title_zh": "不安的盟友",
       "title_en": "Uneasy Allies",
-      "desc_zh": "+{{var_29}}~{{var_30}} Armor.",
+      "desc_zh": "+{{var_29}}~{{var_30}} 装甲。",
       "desc_en": "+{{var_29}}~{{var_30}} Armor.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 17,
       "synergy_bots": [
         "cliffjumper_gs_kabam"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2698,
       "bot_id": "mirage_gs_deluxe2016",
       "category": "synergy",
-      "title_zh": "Optimus Maximus",
+      "title_zh": "巨擎天柱",
       "title_en": "Optimus Maximus",
-      "desc_zh": "Start the fight with {{var_31}}~{{var_32}} Power. Only applies if all Bots on the team have this Synergy.",
+      "desc_zh": "使用{{var_31}}~{{var_32}} Power开始战斗。仅当团队中的所有机器人都具有此协同羁绊时才适用。",
       "desc_en": "Start the fight with {{var_31}}~{{var_32}} Power. Only applies if all Bots on the team have this Synergy.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 18,
       "synergy_bots": [
         "fte_optimus_gs_t3"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2699,
       "bot_id": "mirage_gs_deluxe2016",
       "category": "synergy",
-      "title_zh": "Leadership (5 Star)",
+      "title_zh": "领袖威仪 (5星)",
       "title_en": "Leadership (5 Star)",
-      "desc_zh": "All lower tier teammates gain +{{var_33}} Power Rate.",
+      "desc_zh": "所有较低级别的队友都会获得+{{var_33}} 功率值。",
       "desc_en": "All lower tier teammates gain +{{var_33}} Power Rate.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 19,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     }
   ]
 }

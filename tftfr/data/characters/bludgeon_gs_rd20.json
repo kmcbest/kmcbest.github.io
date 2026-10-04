@@ -36,177 +36,190 @@
       "bot_id": "bludgeon_gs_rd20",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "* Bleed",
-      "desc_en": "* Bleed",
+      "title_en": "Basic Abilities",
+      "desc_zh": "出血",
+      "desc_en": "Bleed",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 0,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2936,
       "bot_id": "bludgeon_gs_rd20",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "* Armor Buff",
-      "desc_en": "* Armor Buff",
+      "title_en": "Basic Abilities",
+      "desc_zh": "装甲增益",
+      "desc_en": "Armor Buff",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 1,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2937,
       "bot_id": "bludgeon_gs_rd20",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "* Stun",
-      "desc_en": "* Stun",
+      "title_en": "Basic Abilities",
+      "desc_zh": "击晕",
+      "desc_en": "Stun",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 2,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2938,
       "bot_id": "bludgeon_gs_rd20",
       "category": "passive",
-      "title_zh": "Blade Attacks: {{var_1}} chance to Bleed on Critical Hits, dealing {{var_2}} Attack over {{var_3}}.",
+      "title_zh": "战斗被动",
       "title_en": "Blade Attacks: {{var_1}} chance to Bleed on Critical Hits, dealing {{var_2}} Attack over {{var_3}}.",
-      "desc_zh": "* Blade Attacks: {{var_1}} chance to Bleed on Critical Hits, dealing {{var_2}} Attack over {{var_3}}.",
-      "desc_en": "* Blade Attacks: {{var_1}} chance to Bleed on Critical Hits, dealing {{var_2}} Attack over {{var_3}}.",
+      "desc_zh": "刀片攻击：{{var_1}} 几率在暴击时流血，造成 {{var_2}} 攻击超过 {{var_3}}。",
+      "desc_en": "Blade Attacks: {{var_1}} chance to Bleed on Critical Hits, dealing {{var_2}} Attack over {{var_3}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 3,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2939,
       "bot_id": "bludgeon_gs_rd20",
       "category": "passive",
-      "title_zh": "When Attacked: {{var_4}} chance to gain an Armor Buff when struck by Critical Hits, reducing damage from attacks by {{var_5}} for {{var_6}}seconds.",
+      "title_zh": "战斗被动",
       "title_en": "When Attacked: {{var_4}} chance to gain an Armor Buff when struck by Critical Hits, reducing damage from attacks by {{var_5}} for {{var_6}}seconds.",
-      "desc_zh": "* When Attacked: {{var_4}} chance to gain an Armor Buff when struck by Critical Hits, reducing damage from attacks by {{var_5}} for {{var_6}}seconds.",
-      "desc_en": "* When Attacked: {{var_4}} chance to gain an Armor Buff when struck by Critical Hits, reducing damage from attacks by {{var_5}} for {{var_6}}seconds.",
+      "desc_zh": "受到攻击时：受到暴击时，{{var_4}} 有几率获得装甲增益，减少 {{var_5}} 攻击造成的伤害，持续 {{var_6}} 秒。",
+      "desc_en": "When Attacked: {{var_4}} chance to gain an Armor Buff when struck by Critical Hits, reducing damage from attacks by {{var_5}} for {{var_6}}seconds.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 4,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2940,
       "bot_id": "bludgeon_gs_rd20",
       "category": "passive",
-      "title_zh": "Heavy Attacks:",
+      "title_zh": "强力重击",
       "title_en": "Heavy Attacks:",
-      "desc_zh": "* Heavy Attacks:",
-      "desc_en": "* Heavy Attacks:",
+      "desc_zh": "重击：",
+      "desc_en": "Heavy Attacks:",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 5,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2941,
       "bot_id": "bludgeon_gs_rd20",
       "category": "passive",
-      "title_zh": "Renews the duration of Armor Up Buffs when Bludgeon turns into a Tank.",
+      "title_zh": "战斗被动",
       "title_en": "Renews the duration of Armor Up Buffs when Bludgeon turns into a Tank.",
-      "desc_zh": "** Renews the duration of Armor Up Buffs when Bludgeon turns into a Tank.",
-      "desc_en": "** Renews the duration of Armor Up Buffs when Bludgeon turns into a Tank.",
+      "desc_zh": "当大棒变成坦克时，更新装甲增强增益的持续时间。",
+      "desc_en": "Renews the duration of Armor Up Buffs when Bludgeon turns into a Tank.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 6,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2942,
       "bot_id": "bludgeon_gs_rd20",
       "category": "passive",
-      "title_zh": "{{var_7}} chance to Stun for {{var_8}}.",
+      "title_zh": "{{var_7}} 有机会击晕 {{var_8}}。",
       "title_en": "{{var_7}} chance to Stun for {{var_8}}.",
-      "desc_zh": "** {{var_7}} chance to Stun for {{var_8}}.",
-      "desc_en": "** {{var_7}} chance to Stun for {{var_8}}.",
+      "desc_zh": "{{var_7}} 有机会击晕 {{var_8}}。",
+      "desc_en": "{{var_7}} chance to Stun for {{var_8}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 7,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2943,
       "bot_id": "bludgeon_gs_rd20",
       "category": "passive",
-      "title_zh": "Special Attacks: +{{var_9}} chance to inflict Bleed on Critical Blade Attacks.",
+      "title_zh": "战斗被动",
       "title_en": "Special Attacks: +{{var_9}} chance to inflict Bleed on Critical Blade Attacks.",
-      "desc_zh": "* Special Attacks: +{{var_9}} chance to inflict Bleed on Critical Blade Attacks.",
-      "desc_en": "* Special Attacks: +{{var_9}} chance to inflict Bleed on Critical Blade Attacks.",
+      "desc_zh": "特殊技：+{{var_9}} 几率在致命利刃攻击上造成流血。",
+      "desc_en": "Special Attacks: +{{var_9}} chance to inflict Bleed on Critical Blade Attacks.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 8,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2944,
       "bot_id": "bludgeon_gs_rd20",
       "category": "signature",
-      "title_zh": "Metallikato",
+      "title_zh": "金属卡托",
       "title_en": "Metallikato",
-      "desc_zh": "Skilled in the ancient Cybertronian martial art of Metallikato, Bludgeon requires full concentration in order gain a Critical Damage Buff.\n\nPassive: When Bludgeon misses with a Melee Attack, his desire to destroy the opponent grows stronger, providing {{var_10}} Critical Damage for his next Critical Hit.\n\n+{{var_11}} per level",
+      "desc_zh": "精通古老的塞伯坦武术 Metallikato，Bludgeon 需要全神贯注才能获得暴击伤害增益。\n\n被动：当大棒的近战攻击未命中时，他摧毁对手的欲望会变得更强，为他的下一次暴击提供 {{var_10}} 暴击伤害。\n\n+{{var_11}} 每级",
       "desc_en": "Metallikato\nSkilled in the ancient Cybertronian martial art of Metallikato, Bludgeon requires full concentration in order gain a Critical Damage Buff.\nPassive: When Bludgeon misses with a Melee Attack, his desire to destroy the opponent grows stronger, providing {{var_10}} Critical Damage for his next Critical Hit.\n+{{var_11}} per level",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 9,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2945,
       "bot_id": "bludgeon_gs_rd20",
       "category": "sp1",
-      "title_zh": "Way of the Blade",
+      "title_zh": "刀锋之道",
       "title_en": "Way of the Blade",
-      "desc_zh": "From a crouching position, Bludgeon leaps into a roundhouse to reveal a hidden blade.",
-      "desc_en": "# Way of the Blade - From a crouching position, Bludgeon leaps into a roundhouse to reveal a hidden blade.",
+      "desc_zh": "棍棒从蹲伏的位置跳入圆屋，露出一把袖剑。",
+      "desc_en": "Way of the Blade - From a crouching position, Bludgeon leaps into a roundhouse to reveal a hidden blade.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 10,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2946,
       "bot_id": "bludgeon_gs_rd20",
       "category": "sp2",
-      "title_zh": "Aberrance",
+      "title_zh": "畸变",
       "title_en": "Aberrance",
-      "desc_zh": "Those afraid of breaking Metallikato code don't like to win.",
-      "desc_en": "# Aberrance - Those afraid of breaking Metallikato code don't like to win.",
+      "desc_zh": "那些害怕破坏 Metallikato 代码的人不喜欢获胜。",
+      "desc_en": "Aberrance - Those afraid of breaking Metallikato code don't like to win.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 11,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2947,
       "bot_id": "bludgeon_gs_rd20",
       "category": "sp3",
       "title_zh": "特殊技 3",
-      "title_en": "特殊技 3",
-      "desc_zh": "#*{{var_12}} chance to Stun for {{var_13}}.",
-      "desc_en": "#*{{var_12}} chance to Stun for {{var_13}}.",
+      "title_en": "Special Attack 3",
+      "desc_zh": "{{var_12}} 有机会击晕 {{var_13}}。",
+      "desc_en": "{{var_12}} chance to Stun for {{var_13}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 12,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2948,
       "bot_id": "bludgeon_gs_rd20",
       "category": "synergy",
-      "title_zh": "Allies",
+      "title_zh": "盟友",
       "title_en": "Allies",
-      "desc_zh": "+{{var_16}}~{{var_17}} Armor.",
+      "desc_zh": "+{{var_16}}~{{var_17}} 装甲。",
       "desc_en": "+{{var_16}}~{{var_17}} Armor.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -215,30 +228,32 @@
         "soundwave_gs",
         "ramjet_gs_deluxe2008",
         "kickback_gs_kabam"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2949,
       "bot_id": "bludgeon_gs_rd20",
       "category": "synergy",
-      "title_zh": "Enemies",
+      "title_zh": "宿敌",
       "title_en": "Enemies",
-      "desc_zh": "+{{var_18}}~{{var_19}} Attack Rating.",
+      "desc_zh": "+{{var_18}}~{{var_19}} 攻击评级。",
       "desc_en": "+{{var_18}}~{{var_19}} Attack Rating.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 14,
       "synergy_bots": [
         "fte_optimus_gs_t3"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2950,
       "bot_id": "bludgeon_gs_rd20",
       "category": "synergy",
-      "title_zh": "Enemies",
+      "title_zh": "宿敌",
       "title_en": "Enemies",
-      "desc_zh": "+{{var_20}}~{{var_21}} Attack Rating.",
+      "desc_zh": "+{{var_20}}~{{var_21}} 攻击评级。",
       "desc_en": "+{{var_20}}~{{var_21}} Attack Rating.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -246,15 +261,16 @@
       "synergy_bots": [
         "jazz_gs_twm05",
         "wheeljack_gs_mp20"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2951,
       "bot_id": "bludgeon_gs_rd20",
       "category": "synergy",
-      "title_zh": "Swordmasters",
+      "title_zh": "剑圣",
       "title_en": "Swordmasters",
-      "desc_zh": "{{var_22}}~{{var_23}} Critical Damage for each Sword Attack that isn't a critical hit until the next Critical Hit. (This does not count hits against opponents with active Crit Resist Buffs or while the Swordmaster bot has active Crit Rate Debuffs.) +{{var_24}}~{{var_25}} more Critical Hits in Solo Missions.",
+      "desc_zh": "{{var_22}}~{{var_23}} 每次剑攻击的暴击伤害，在下一次暴击之前不会成为暴击。 （这不计算对具有有效暴击抗性增益的对手或当剑圣机器人具有有效暴击率减益时的命中。） 在单人任务中+{{var_24}}~{{var_25}}更多致命一击。",
       "desc_en": "{{var_22}}~{{var_23}} Critical Damage for each Sword Attack that isn't a critical hit until the next Critical Hit. (This does not count hits against opponents with active Crit Resist Buffs or while the Swordmaster bot has active Crit Rate Debuffs.) +{{var_24}}~{{var_25}} more Critical Hits in Solo Missions.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -263,20 +279,22 @@
         "windblade_gs",
         "drift_cin_aoe",
         "dinobot_bw_kabam"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2952,
       "bot_id": "bludgeon_gs_rd20",
       "category": "synergy",
-      "title_zh": "Leadership (5 Star)",
+      "title_zh": "领袖威仪 (5星)",
       "title_en": "Leadership (5 Star)",
-      "desc_zh": "All lower tier teammates gain +{{var_26}} Critical Damage.",
+      "desc_zh": "所有较低级别的队友都会获得 +{{var_26}} 暴击伤害。",
       "desc_en": "All lower tier teammates gain +{{var_26}} Critical Damage.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 17,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     }
   ]
 }

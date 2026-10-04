@@ -36,242 +36,260 @@
       "bot_id": "jetfire_gs_leader2014",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "*Parry Shield",
-      "desc_en": "*Parry Shield",
+      "title_en": "Basic Abilities",
+      "desc_zh": "招架盾",
+      "desc_en": "Parry Shield",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 0,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2653,
       "bot_id": "jetfire_gs_leader2014",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "*Shock",
-      "desc_en": "*Shock",
+      "title_en": "Basic Abilities",
+      "desc_zh": "震惊",
+      "desc_en": "Shock",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 1,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2654,
       "bot_id": "jetfire_gs_leader2014",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "*Ranged Buff",
-      "desc_en": "*Ranged Buff",
+      "title_en": "Basic Abilities",
+      "desc_zh": "远程增益",
+      "desc_en": "Ranged Buff",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 2,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2655,
       "bot_id": "jetfire_gs_leader2014",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "*Shielding",
-      "desc_en": "*Shielding",
+      "title_en": "Basic Abilities",
+      "desc_zh": "屏蔽",
+      "desc_en": "Shielding",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 3,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2656,
       "bot_id": "jetfire_gs_leader2014",
       "category": "passive",
-      "title_zh": "Parry Shield",
+      "title_zh": "招架盾",
       "title_en": "Parry Shield",
-      "desc_zh": "Parry Shield",
+      "desc_zh": "招架盾",
       "desc_en": "Parry Shield",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 4,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2657,
       "bot_id": "jetfire_gs_leader2014",
       "category": "passive",
-      "title_zh": "Well Timed Blocks against Light and Heavy Ranged Attacks activate the Parry Shield, Reflecting those attacks at {{var_1}} of their original damage.",
+      "title_zh": "战斗被动",
       "title_en": "Well Timed Blocks against Light and Heavy Ranged Attacks activate the Parry Shield, Reflecting those attacks at {{var_1}} of their original damage.",
-      "desc_zh": "* Well Timed Blocks against Light and Heavy Ranged Attacks activate the Parry Shield, Reflecting those attacks at {{var_1}} of their original damage.",
-      "desc_en": "* Well Timed Blocks against Light and Heavy Ranged Attacks activate the Parry Shield, Reflecting those attacks at {{var_1}} of their original damage.",
+      "desc_zh": "对轻型和重型远程攻击的适时格挡会激活招架护盾，将这些攻击反射到 {{var_1}} 的原始伤害。",
+      "desc_en": "Well Timed Blocks against Light and Heavy Ranged Attacks activate the Parry Shield, Reflecting those attacks at {{var_1}} of their original damage.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 5,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2658,
       "bot_id": "jetfire_gs_leader2014",
       "category": "passive",
-      "title_zh": "Well Timed Blocks against Basic Melee Hits also activate the Parry Shield, granting +{{var_2}} Block Proficiency.",
+      "title_zh": "战斗被动",
       "title_en": "Well Timed Blocks against Basic Melee Hits also activate the Parry Shield, granting +{{var_2}} Block Proficiency.",
-      "desc_zh": "* Well Timed Blocks against Basic Melee Hits also activate the Parry Shield, granting +{{var_2}} Block Proficiency.",
-      "desc_en": "* Well Timed Blocks against Basic Melee Hits also activate the Parry Shield, granting +{{var_2}} Block Proficiency.",
+      "desc_zh": "针对基本近战命中的适时格挡也会激活招架护盾，从而获得 +{{var_2}} 格挡熟练度。",
+      "desc_en": "Well Timed Blocks against Basic Melee Hits also activate the Parry Shield, granting +{{var_2}} Block Proficiency.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 6,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2659,
       "bot_id": "jetfire_gs_leader2014",
       "category": "passive",
-      "title_zh": "Each time the Parry Shield activates Jetfire gains 1 Energy Charge(s). Energy Charges each increase Jetfire’s Power Rate by {{var_3}}. [Max 10]",
+      "title_zh": "战斗被动",
       "title_en": "Each time the Parry Shield activates Jetfire gains 1 Energy Charge(s). Energy Charges each increase Jetfire’s Power Rate by {{var_3}}. [Max 10]",
-      "desc_zh": "* Each time the Parry Shield activates Jetfire gains 1 Energy Charge(s). Energy Charges each increase Jetfire’s Power Rate by {{var_3}}. [Max 10]",
-      "desc_en": "* Each time the Parry Shield activates Jetfire gains 1 Energy Charge(s). Energy Charges each increase Jetfire’s Power Rate by {{var_3}}. [Max 10]",
+      "desc_zh": "每次招架护盾激活天火都会获得 1 个能量球。每次能源费用都会使 Jetfire 的功率增加 {{var_3}}。 [最多 10 个]",
+      "desc_en": "Each time the Parry Shield activates Jetfire gains 1 Energy Charge(s). Energy Charges each increase Jetfire’s Power Rate by {{var_3}}. [Max 10]",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 7,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2660,
       "bot_id": "jetfire_gs_leader2014",
       "category": "passive",
-      "title_zh": "Heavy Attacks",
+      "title_zh": "强力重击",
       "title_en": "Heavy Attacks",
-      "desc_zh": "Heavy Attacks",
+      "desc_zh": "重击",
       "desc_en": "Heavy Attacks",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 8,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2661,
       "bot_id": "jetfire_gs_leader2014",
       "category": "passive",
-      "title_zh": "{{var_4}} Chance Jetfire consumes 1 Energy Charge to inflict Shock on the opponent, dealing {{var_5}} of Attack over {{var_6}}.",
+      "title_zh": "战斗被动",
       "title_en": "{{var_4}} Chance Jetfire consumes 1 Energy Charge to inflict Shock on the opponent, dealing {{var_5}} of Attack over {{var_6}}.",
-      "desc_zh": "* {{var_4}} Chance Jetfire consumes 1 Energy Charge to inflict Shock on the opponent, dealing {{var_5}} of Attack over {{var_6}}.",
-      "desc_en": "* {{var_4}} Chance Jetfire consumes 1 Energy Charge to inflict Shock on the opponent, dealing {{var_5}} of Attack over {{var_6}}.",
+      "desc_zh": "{{var_4}} 机会天火消耗 1 个能量球对对手造成触电，造成 {{var_5}} 的攻击力超过 {{var_6}}。",
+      "desc_en": "{{var_4}} Chance Jetfire consumes 1 Energy Charge to inflict Shock on the opponent, dealing {{var_5}} of Attack over {{var_6}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 9,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2662,
       "bot_id": "jetfire_gs_leader2014",
       "category": "passive",
-      "title_zh": "Blocking (v8.0)",
+      "title_zh": "阻止 (v8.0)",
       "title_en": "Blocking (v8.0)",
-      "desc_zh": "Blocking (v8.0)",
+      "desc_zh": "阻止 (v8.0)",
       "desc_en": "Blocking (v8.0)",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 10,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2663,
       "bot_id": "jetfire_gs_leader2014",
       "category": "passive",
-      "title_zh": "Activating the Parry Shield against Basic Melee Attacks grants a {{var_7}} chance to Stun the opponent for {{var_8}}.",
+      "title_zh": "战斗被动",
       "title_en": "Activating the Parry Shield against Basic Melee Attacks grants a {{var_7}} chance to Stun the opponent for {{var_8}}.",
-      "desc_zh": "* Activating the Parry Shield against Basic Melee Attacks grants a {{var_7}} chance to Stun the opponent for {{var_8}}.",
-      "desc_en": "* Activating the Parry Shield against Basic Melee Attacks grants a {{var_7}} chance to Stun the opponent for {{var_8}}.",
+      "desc_zh": "激活招架盾来抵御基本近战攻击会获得 {{var_7}} 几率击晕对手 {{var_8}}。",
+      "desc_en": "Activating the Parry Shield against Basic Melee Attacks grants a {{var_7}} chance to Stun the opponent for {{var_8}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 11,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2664,
       "bot_id": "jetfire_gs_leader2014",
       "category": "passive",
-      "title_zh": "Special Attacks",
+      "title_zh": "特殊技",
       "title_en": "Special Attacks",
-      "desc_zh": "Special Attacks",
+      "desc_zh": "特殊技",
       "desc_en": "Special Attacks",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 12,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2665,
       "bot_id": "jetfire_gs_leader2014",
       "category": "passive",
-      "title_zh": "If Jetfire has no Energy Charges when activating a Special Attack, he gains 1 Energy Charge.",
+      "title_zh": "战斗被动",
       "title_en": "If Jetfire has no Energy Charges when activating a Special Attack, he gains 1 Energy Charge.",
-      "desc_zh": "* If Jetfire has no Energy Charges when activating a Special Attack, he gains 1 Energy Charge.",
-      "desc_en": "* If Jetfire has no Energy Charges when activating a Special Attack, he gains 1 Energy Charge.",
+      "desc_zh": "如果天火在激活特殊技时没有能量球，他会获得 1 个能量球。",
+      "desc_en": "If Jetfire has no Energy Charges when activating a Special Attack, he gains 1 Energy Charge.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 13,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2666,
       "bot_id": "jetfire_gs_leader2014",
       "category": "signature",
-      "title_zh": "Damage Control",
+      "title_zh": "损害控制",
       "title_en": "Damage Control",
-      "desc_zh": "Jetfire’s state-of-the-art awesome Repair System diverts reserve energy to mend damaged components and suppress any active fires.\n\nBlocking\n\n* While Jetfire is under {{var_9}} Health, his Repair System is Online. While the Repair System is Online, Holding Block for {{var_10}} consumes an Energy Charge to Purify a Burn Debuff and Repair {{var_11}} of Health over {{var_12}}.",
-      "desc_en": "Damage Control\nJetfire’s state-of-the-art awesome Repair System diverts reserve energy to mend damaged components and suppress any active fires.\nBlocking\n* While Jetfire is under {{var_9}} Health, his Repair System is Online. While the Repair System is Online, Holding Block for {{var_10}} consumes an Energy Charge to Purify a Burn Debuff and Repair {{var_11}} of Health over {{var_12}}.",
+      "desc_zh": "Jetfire 最先进的出色修复系统可转移储备能量来修复损坏的部件并抑制任何活跃的火灾。\n\n阻塞\n\n虽然 Jetfire 处于 {{var_9}} Health 状态，但他的修复系统处于在线状态。当修复系统在线时，{{var_10}} 的保持块会消耗能量来净化燃烧减益并修复 {{var_11}} 的生命值超过 {{var_12}}。",
+      "desc_en": "Damage Control\nJetfire’s state-of-the-art awesome Repair System diverts reserve energy to mend damaged components and suppress any active fires.\nBlocking\nWhile Jetfire is under {{var_9}} Health, his Repair System is Online. While the Repair System is Online, Holding Block for {{var_10}} consumes an Energy Charge to Purify a Burn Debuff and Repair {{var_11}} of Health over {{var_12}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 14,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2667,
       "bot_id": "jetfire_gs_leader2014",
       "category": "sp1",
-      "title_zh": "Full Power to Weapons",
+      "title_zh": "武器的全部力量",
       "title_en": "Full Power to Weapons",
-      "desc_zh": "\"Disruptors are often misunderstood decives, allow me to demonstrate their ideal use.\"",
-      "desc_en": "#Full Power to Weapons - \"Disruptors are often misunderstood decives, allow me to demonstrate their ideal use.\"",
+      "desc_zh": "“干扰者常常被误解为欺骗者，请允许我展示他们的理想用途。”",
+      "desc_en": "Full Power to Weapons - \"Disruptors are often misunderstood decives, allow me to demonstrate their ideal use.\"",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 15,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2668,
       "bot_id": "jetfire_gs_leader2014",
       "category": "sp2",
       "title_zh": "特殊技 2",
-      "title_en": "特殊技 2",
-      "desc_zh": "#* Jetfire converts all Energy Charges into Ranged Bonus, each increasing Ranged Damage by {{var_13}} and Projectile Speed by {{var_14}} for {{var_15}}.",
-      "desc_en": "#* Jetfire converts all Energy Charges into Ranged Bonus, each increasing Ranged Damage by {{var_13}} and Projectile Speed by {{var_14}} for {{var_15}}.",
+      "title_en": "Special Attack 2",
+      "desc_zh": "天火将所有能量充能转化为远程加成，每个加成都会增加 {{var_13}} 的远程伤害和 {{var_15}} 的射弹速度 {{var_14}}。",
+      "desc_en": "Jetfire converts all Energy Charges into Ranged Bonus, each increasing Ranged Damage by {{var_13}} and Projectile Speed by {{var_14}} for {{var_15}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 16,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2669,
       "bot_id": "jetfire_gs_leader2014",
       "category": "sp3",
       "title_zh": "特殊技 3",
-      "title_en": "特殊技 3",
-      "desc_zh": "#* If Jetfire converts 5 or more Energy Charges, this attack has a {{var_16}} chance to inflict Power Lock, stopping the opponent’s flow of Power for {{var_17}}.",
-      "desc_en": "#* If Jetfire converts 5 or more Energy Charges, this attack has a {{var_16}} chance to inflict Power Lock, stopping the opponent’s flow of Power for {{var_17}}.",
+      "title_en": "Special Attack 3",
+      "desc_zh": "如果天火转换 5 个或更多能量球，则此攻击有 {{var_16}} 几率造成能量锁定，从而阻止对手 {{var_17}} 的能量流。",
+      "desc_en": "If Jetfire converts 5 or more Energy Charges, this attack has a {{var_16}} chance to inflict Power Lock, stopping the opponent’s flow of Power for {{var_17}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 17,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2670,
       "bot_id": "jetfire_gs_leader2014",
       "category": "synergy",
-      "title_zh": "Allies",
+      "title_zh": "盟友",
       "title_en": "Allies",
-      "desc_zh": "+{{var_24}}~{{var_25}} Armor Rating.",
+      "desc_zh": "+{{var_24}}~{{var_25}} 装甲等级。",
       "desc_en": "+{{var_24}}~{{var_25}} Armor Rating.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -279,15 +297,16 @@
       "synergy_bots": [
         "sideswipe_gs",
         "wheeljack_gs_mp20"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2671,
       "bot_id": "jetfire_gs_leader2014",
       "category": "synergy",
-      "title_zh": "Enemies",
+      "title_zh": "宿敌",
       "title_en": "Enemies",
-      "desc_zh": "+{{var_26}}~{{var_27}} Attack Rating.",
+      "desc_zh": "+{{var_26}}~{{var_27}} 攻击评级。",
       "desc_en": "+{{var_26}}~{{var_27}} Attack Rating.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -296,71 +315,76 @@
         "kickback_gs_kabam",
         "megatron_gs_leader2015",
         "ramjet_gs_deluxe2008"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2672,
       "bot_id": "jetfire_gs_leader2014",
       "category": "synergy",
-      "title_zh": "Brain Drain",
+      "title_zh": "心智压榨",
       "title_en": "Brain Drain",
-      "desc_zh": "Shockwave Repairs {{var_28}}~{{var_29}} Health over {{var_30}} each time he gains 6 or more Energy Charges.",
+      "desc_zh": "每当他获得 6 个或更多能量球时，冲击波就会比 {{var_30}} 修复 {{var_28}}~{{var_29}} 生命值。",
       "desc_en": "Shockwave Repairs {{var_28}}~{{var_29}} Health over {{var_30}} each time he gains 6 or more Energy Charges.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 20,
       "synergy_bots": [
         "shockwave_gs"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2673,
       "bot_id": "jetfire_gs_leader2014",
       "category": "synergy",
-      "title_zh": "Brain Gain – Shockwave",
+      "title_zh": "大脑增益——冲击波",
       "title_en": "Brain Gain – Shockwave",
-      "desc_zh": "{{var_31}}~{{var_32}} increase to Attack Rating against Demolition Bots. Shockwave only benefits from this bonus if all Bots on the team have this Synergy.",
-      "desc_en": "* Brain Gain – Shockwave - {{var_31}}~{{var_32}} increase to Attack Rating against Demolition Bots. Shockwave only benefits from this bonus if all Bots on the team have this Synergy.",
+      "desc_zh": "{{var_31}}~{{var_32}} 增加对拆除机器人的攻击评级。仅当团队中的所有机器人都具有此协同羁绊时，冲击波才能受益于此奖励。",
+      "desc_en": "Brain Gain – Shockwave - {{var_31}}~{{var_32}} increase to Attack Rating against Demolition Bots. Shockwave only benefits from this bonus if all Bots on the team have this Synergy.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 21,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2674,
       "bot_id": "jetfire_gs_leader2014",
       "category": "synergy",
-      "title_zh": "Old Friends – Starscream",
+      "title_zh": "老朋友——红蜘蛛",
       "title_en": "Old Friends – Starscream",
-      "desc_zh": "timed Blocks by {{var_33}}~{{var_34}}.",
+      "desc_zh": "定时块由 {{var_33}}~{{var_34}} 组成。",
       "desc_en": "timed Blocks by {{var_33}}~{{var_34}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 22,
       "synergy_bots": [
         "jetfire_gs_leader2014"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2675,
       "bot_id": "jetfire_gs_leader2014",
       "category": "synergy",
-      "title_zh": "Old Friends – Starscream",
+      "title_zh": "老朋友——红蜘蛛",
       "title_en": "Old Friends – Starscream",
-      "desc_zh": "While Dashing Back, Ranged Attacks miss Starscream, which grants him a {{var_35}}~{{var_36}} Crit Damage buff for {{var_37}}.",
-      "desc_en": "* Old Friends – Starscream - While Dashing Back, Ranged Attacks miss Starscream, which grants him a {{var_35}}~{{var_36}} Crit Damage buff for {{var_37}}.",
+      "desc_zh": "猛冲回来时，远程攻击会错过红蜘蛛，这会为他提供 {{var_35}}~{{var_36}} 暴击伤害增益，以及 {{var_37}}。",
+      "desc_en": "Old Friends – Starscream - While Dashing Back, Ranged Attacks miss Starscream, which grants him a {{var_35}}~{{var_36}} Crit Damage buff for {{var_37}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 23,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2676,
       "bot_id": "jetfire_gs_leader2014",
       "category": "synergy",
-      "title_zh": "Shieldmasters",
+      "title_zh": "盾大师",
       "title_en": "Shieldmasters",
-      "desc_zh": "Well-timed Blocks against Melee Attacks have {{var_38}} Block Proficiency and drains Power equal to {{var_39}}~{{var_40}} of the opponent's max Power.",
+      "desc_zh": "针对近战攻击的适时格挡具有 {{var_38}} 格挡熟练度，并消耗相当于对手最大功率 {{var_39}}~{{var_40}} 的功率。",
       "desc_en": "Well-timed Blocks against Melee Attacks have {{var_38}} Block Proficiency and drains Power equal to {{var_39}}~{{var_40}} of the opponent's max Power.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -368,50 +392,54 @@
       "synergy_bots": [
         "dinobot_bw_kabam",
         "mixmaster_cin_rotf"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2677,
       "bot_id": "jetfire_gs_leader2014",
       "category": "synergy",
-      "title_zh": "Sky Assault",
+      "title_zh": "天空突击",
       "title_en": "Sky Assault",
-      "desc_zh": "+{{var_41}}~{{var_42}} Anti-Evade.",
+      "desc_zh": "+{{var_41}}~{{var_42}} 反规避。",
       "desc_en": "+{{var_41}}~{{var_42}} Anti-Evade.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 25,
       "synergy_bots": [
         "thundercracker_gs_leader2015"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2678,
       "bot_id": "jetfire_gs_leader2014",
       "category": "synergy",
-      "title_zh": "Jet Judo",
+      "title_zh": "喷射柔道",
       "title_en": "Jet Judo",
-      "desc_zh": "+{{var_43}}~{{var_44}} Melee Buff against bots with an aerial alternate form.",
+      "desc_zh": "+{{var_43}}~{{var_44}} 以空中替代形式对抗机器人的近战增益。",
       "desc_en": "+{{var_43}}~{{var_44}} Melee Buff against bots with an aerial alternate form.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 26,
       "synergy_bots": [
         "sunstreaker_gs_deluxe2008"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2679,
       "bot_id": "jetfire_gs_leader2014",
       "category": "synergy",
-      "title_zh": "Leadership (5 Star)",
+      "title_zh": "领袖威仪 (5星)",
       "title_en": "Leadership (5 Star)",
-      "desc_zh": "Acting as a beacon of leadership for the team, all lower tier teammates gain +{{var_45}} Power Rate.",
+      "desc_zh": "作为团队的领导灯塔，所有较低级别的队友都获得+{{var_45}}功率率。",
       "desc_en": "Acting as a beacon of leadership for the team, all lower tier teammates gain +{{var_45}} Power Rate.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 27,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     }
   ]
 }

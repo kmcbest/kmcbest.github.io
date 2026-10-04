@@ -36,153 +36,164 @@
       "bot_id": "bonecrusher_cin_rotf",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "* Crit Rate Buff",
-      "desc_en": "* Crit Rate Buff",
+      "title_en": "Basic Abilities",
+      "desc_zh": "暴击率增益",
+      "desc_en": "Crit Rate Buff",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 0,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2954,
       "bot_id": "bonecrusher_cin_rotf",
       "category": "basic",
       "title_zh": "基础特长",
-      "title_en": "基础特长",
-      "desc_zh": "* Bleed",
-      "desc_en": "* Bleed",
+      "title_en": "Basic Abilities",
+      "desc_zh": "出血",
+      "desc_en": "Bleed",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 1,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2955,
       "bot_id": "bonecrusher_cin_rotf",
       "category": "passive",
-      "title_zh": "When struck by melee critical hits: {{var_1}} chance to Bleed, dealing {{var_2}} Attack over {{var_3}}.",
+      "title_zh": "战斗被动",
       "title_en": "When struck by melee critical hits: {{var_1}} chance to Bleed, dealing {{var_2}} Attack over {{var_3}}.",
-      "desc_zh": "* When struck by melee critical hits: {{var_1}} chance to Bleed, dealing {{var_2}} Attack over {{var_3}}.",
-      "desc_en": "* When struck by melee critical hits: {{var_1}} chance to Bleed, dealing {{var_2}} Attack over {{var_3}}.",
+      "desc_zh": "受到近战暴击时：{{var_1}} 几率流血，造成 {{var_2}} 攻击力高于 {{var_3}}。",
+      "desc_en": "When struck by melee critical hits: {{var_1}} chance to Bleed, dealing {{var_2}} Attack over {{var_3}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 2,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2956,
       "bot_id": "bonecrusher_cin_rotf",
       "category": "passive",
-      "title_zh": "Passive: Opponents trigger {{var_4}} fewer Evades per stack of Bleed.",
+      "title_zh": "战斗被动",
       "title_en": "Passive: Opponents trigger {{var_4}} fewer Evades per stack of Bleed.",
-      "desc_zh": "* Passive: Opponents trigger {{var_4}} fewer Evades per stack of Bleed.",
-      "desc_en": "* Passive: Opponents trigger {{var_4}} fewer Evades per stack of Bleed.",
+      "desc_zh": "被动：每层流血，对手触发的回避次数减少 {{var_4}}。",
+      "desc_en": "Passive: Opponents trigger {{var_4}} fewer Evades per stack of Bleed.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 3,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2957,
       "bot_id": "bonecrusher_cin_rotf",
       "category": "passive",
-      "title_zh": "Opponent's Special Attacks: Bonecrusher's hate toward the opponent grows. This raises his <s>Attack by {{var_5}}</s> Critical Rating on Heavy and Special Attacks for {{var_6}}.",
+      "title_zh": "战斗被动",
       "title_en": "Opponent's Special Attacks: Bonecrusher's hate toward the opponent grows. This raises his <s>Attack by {{var_5}}</s> Critical Rating on Heavy and Special Attacks for {{var_6}}.",
-      "desc_zh": "* Opponent's Special Attacks: Bonecrusher's hate toward the opponent grows. This raises his <s>Attack by {{var_5}}</s> Critical Rating on Heavy and Special Attacks for {{var_6}}.",
-      "desc_en": "* Opponent's Special Attacks: Bonecrusher's hate toward the opponent grows. This raises his <s>Attack by {{var_5}}</s> Critical Rating on Heavy and Special Attacks for {{var_6}}.",
+      "desc_zh": "对手的特殊技：碎骨者对对手的仇恨增加。这提高了他对 {{var_6}} 的重击和特殊技的<s>{{var_5}} 攻击</s>临界评级。",
+      "desc_en": "Opponent's Special Attacks: Bonecrusher's hate toward the opponent grows. This raises his <s>Attack by {{var_5}}</s> Critical Rating on Heavy and Special Attacks for {{var_6}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 4,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2958,
       "bot_id": "bonecrusher_cin_rotf",
       "category": "passive",
-      "title_zh": "Heavy Attacks: - {{var_7}} chance to Bleed, dealing {{var_8}} attack over {{var_9}}.",
+      "title_zh": "战斗被动",
       "title_en": "Heavy Attacks: - {{var_7}} chance to Bleed, dealing {{var_8}} attack over {{var_9}}.",
-      "desc_zh": "* Heavy Attacks: - {{var_7}} chance to Bleed, dealing {{var_8}} attack over {{var_9}}.",
-      "desc_en": "* Heavy Attacks: - {{var_7}} chance to Bleed, dealing {{var_8}} attack over {{var_9}}.",
+      "desc_zh": "重击： - {{var_7}} 几率流血，对 {{var_9}} 造成 {{var_8}} 攻击。",
+      "desc_en": "Heavy Attacks: - {{var_7}} chance to Bleed, dealing {{var_8}} attack over {{var_9}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 5,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2959,
       "bot_id": "bonecrusher_cin_rotf",
       "category": "signature",
-      "title_zh": "Pure Hate",
+      "title_zh": "纯粹的仇恨",
       "title_en": "Pure Hate",
-      "desc_zh": "Bleeding opponents fuel Bonecrusher's hatred, raising his Attack and Power Rate while reducing the opponent's.\n\n* Passive: Bleeding opponents fuel Bonecrusher's hatred, raising his Attack by {{var_10}} and Power Rate by {{var_11}} per stack of Bleed. Opponent's Attack and Power Rate are reduced by the same amount.\n\n* + about {{var_12}} per level.",
-      "desc_en": "Pure Hate\nBleeding opponents fuel Bonecrusher's hatred, raising his Attack and Power Rate while reducing the opponent's.\n* Passive: Bleeding opponents fuel Bonecrusher's hatred, raising his Attack by {{var_10}} and Power Rate by {{var_11}} per stack of Bleed. Opponent's Attack and Power Rate are reduced by the same amount.\n* + about {{var_12}} per level.",
+      "desc_zh": "对手流血会加剧碎骨者的仇恨，提高他的攻击力和力量值，同时降低对手的攻击力和力量值。\n\n被动：流血的对手会加剧碎骨者的仇恨，每层流血都会将他的攻击力提高 {{var_10}}，将功率提高 {{var_11}}。对手的攻击力和力量值减少相同的量。\n\n+ 每级大约 {{var_12}}。",
+      "desc_en": "Pure Hate\nBleeding opponents fuel Bonecrusher's hatred, raising his Attack and Power Rate while reducing the opponent's.\nPassive: Bleeding opponents fuel Bonecrusher's hatred, raising his Attack by {{var_10}} and Power Rate by {{var_11}} per stack of Bleed. Opponent's Attack and Power Rate are reduced by the same amount.\n+ about {{var_12}} per level.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 6,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2960,
       "bot_id": "bonecrusher_cin_rotf",
       "category": "sp1",
-      "title_zh": "Scorpion Sting",
+      "title_zh": "蝎子蜇伤",
       "title_en": "Scorpion Sting",
-      "desc_zh": "Side effects may include pain, paresthesia, and instant death.",
-      "desc_en": "# Scorpion Sting - Side effects may include pain, paresthesia, and instant death.",
+      "desc_zh": "副作用可能包括疼痛、感觉异常和立即死亡。",
+      "desc_en": "Scorpion Sting - Side effects may include pain, paresthesia, and instant death.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 7,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2961,
       "bot_id": "bonecrusher_cin_rotf",
       "category": "sp2",
       "title_zh": "特殊技 2",
-      "title_en": "特殊技 2",
-      "desc_zh": "#*{{var_13}} chance to Bleed, dealing {{var_14}} Attack over {{var_15}}.",
-      "desc_en": "#*{{var_13}} chance to Bleed, dealing {{var_14}} Attack over {{var_15}}.",
+      "title_en": "Special Attack 2",
+      "desc_zh": "{{var_13}} 有机会流血，对 {{var_15}} 造成 {{var_14}} 攻击。",
+      "desc_en": "{{var_13}} chance to Bleed, dealing {{var_14}} Attack over {{var_15}}.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 8,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2962,
       "bot_id": "bonecrusher_cin_rotf",
       "category": "sp3",
-      "title_zh": "Abhornado",
+      "title_zh": "阿博纳多",
       "title_en": "Abhornado",
-      "desc_zh": "A savage pirouette of claws and hatred.",
-      "desc_en": "# Abhornado - A savage pirouette of claws and hatred.",
+      "desc_zh": "充满利爪和仇恨的野蛮旋转。",
+      "desc_en": "Abhornado - A savage pirouette of claws and hatred.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 9,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     },
     {
       "id": 2963,
       "bot_id": "bonecrusher_cin_rotf",
       "category": "synergy",
-      "title_zh": "Allies",
+      "title_zh": "盟友",
       "title_en": "Allies",
-      "desc_zh": "+{{var_22}}~{{var_23}} Armor.",
+      "desc_zh": "+{{var_22}}~{{var_23}} 装甲。",
       "desc_en": "+{{var_22}}~{{var_23}} Armor.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 10,
       "synergy_bots": [
         "barricade_cin_dotm"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2964,
       "bot_id": "bonecrusher_cin_rotf",
       "category": "synergy",
-      "title_zh": "Allies",
+      "title_zh": "盟友",
       "title_en": "Allies",
-      "desc_zh": "{{var_24}}~{{var_25}} Armor.",
+      "desc_zh": "{{var_24}}~{{var_25}} 装甲。",
       "desc_en": "{{var_24}}~{{var_25}} Armor.",
       "pua_icon": "",
       "raw_data_json": "",
@@ -190,65 +201,70 @@
       "synergy_bots": [
         "grindor_cin_rotf",
         "mixmaster_cin_rotf"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2965,
       "bot_id": "bonecrusher_cin_rotf",
       "category": "synergy",
-      "title_zh": "Enemies",
+      "title_zh": "宿敌",
       "title_en": "Enemies",
-      "desc_zh": "+{{var_26}}~{{var_27}} Attack Rating.",
+      "desc_zh": "+{{var_26}}~{{var_27}} 攻击评级。",
       "desc_en": "+{{var_26}}~{{var_27}} Attack Rating.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 12,
       "synergy_bots": [
         "optimusprime_cin_tf"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2966,
       "bot_id": "bonecrusher_cin_rotf",
       "category": "synergy",
-      "title_zh": "Forged to Serve",
+      "title_zh": "锻造服务",
       "title_en": "Forged to Serve",
-      "desc_zh": "Megatron has {{var_28}}~{{var_29}} chance to Stun his opponent when they reach 20 impair charges.",
+      "desc_zh": "当对手达到 20 个伤害指控时，威震天有 {{var_28}}~{{var_29}} 机会击晕对手。",
       "desc_en": "Megatron has {{var_28}}~{{var_29}} chance to Stun his opponent when they reach 20 impair charges.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 13,
       "synergy_bots": [
         "megatron_cin_rotf"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2967,
       "bot_id": "bonecrusher_cin_rotf",
       "category": "synergy",
-      "title_zh": "Forged to Serve",
+      "title_zh": "锻造服务",
       "title_en": "Forged to Serve",
-      "desc_zh": "Megatron's minions each provide him with a unique ability. In return Megatron provides +{{var_30}}~{{var_31}} Armor.",
+      "desc_zh": "威震天的每个爪牙都为他提供了独特的能力。作为回报，威震天提供+{{var_30}}~{{var_31}} 装甲。",
       "desc_en": "Megatron's minions each provide him with a unique ability. In return Megatron provides +{{var_30}}~{{var_31}} Armor.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 14,
       "synergy_bots": [
         "megatron_gs_leader2015"
-      ]
+      ],
+      "status": "unimplemented"
     },
     {
       "id": 2968,
       "bot_id": "bonecrusher_cin_rotf",
       "category": "synergy",
-      "title_zh": "Leadership (5 Star)",
+      "title_zh": "领袖威仪 (5星)",
       "title_en": "Leadership (5 Star)",
-      "desc_zh": "Acting as a beacon of leadership for the team, all lower tier teammates gain +{{var_32}} Critical Damage.",
+      "desc_zh": "作为团队的领导灯塔，所有较低级别的队友都会获得 +{{var_32}} 暴击伤害。",
       "desc_en": "Acting as a beacon of leadership for the team, all lower tier teammates gain +{{var_32}} Critical Damage.",
       "pua_icon": "",
       "raw_data_json": "",
       "sort_order": 15,
-      "synergy_bots": []
+      "synergy_bots": [],
+      "status": "unimplemented"
     }
   ]
 }

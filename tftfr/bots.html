@@ -2028,6 +2028,89 @@
         let gCurrentPuaTarget = null;
         let gActiveFactionFilter = 'all';
 
+        async function fetchCharacterData(bid) {
+            if (typeof kvGet === 'function') {
+                return await kvGet('tftf:char:' + bid, `./data/characters/${bid}.json`);
+            }
+            try {
+                const res = await fetch('/api/character/' + bid);
+                if (res.ok) {
+                    return await res.json();
+                }
+            } catch (e) {
+                console.warn("Local /api/character fetch failed, trying static fallback:", e);
+            }
+            try {
+                const fbRes = await fetch(`./data/characters/${bid}.json`);
+                if (fbRes.ok) return await fbRes.json();
+            } catch (fbErr) {
+                console.error("Static character json fetch failed:", fbErr);
+            }
+            return null;
+        }
+
+        async function saveCharacterData(botId, payload) {
+            if (typeof kvSet === 'function') {
+                let charDetail = await kvGet('tftf:char:' + botId, `./data/characters/${botId}.json`) || {};
+                Object.assign(charDetail, payload);
+                const botInOverview = (gOverviewData && gOverviewData.characters) ? gOverviewData.characters.find(c => c.bot_id === botId) : null;
+                if (botInOverview) Object.assign(botInOverview, payload);
+                await Promise.all([
+                    kvSet('tftf:char:' + botId, charDetail),
+                    kvSet('tftf:overview', gOverviewData)
+                ]);
+                return { ok: true, success: true };
+            }
+            const res = await fetch(`/api/character/${botId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            return await res.json();
+        }
+
+        async function saveAbilityData(aid, payload) {
+            if (typeof kvSet === 'function') {
+                if (gCurBotId) {
+                    let charDetail = await kvGet('tftf:char:' + gCurBotId, `./data/characters/${gCurBotId}.json`) || {};
+                    if (charDetail.abilities) {
+                        let ab = charDetail.abilities.find(a => a.id === aid);
+                        if (!ab) {
+                            ab = { id: aid };
+                            charDetail.abilities.push(ab);
+                        }
+                        Object.assign(ab, payload);
+                        await kvSet('tftf:char:' + gCurBotId, charDetail);
+                    }
+                }
+                return { ok: true, success: true };
+            }
+            const res = await fetch(`/api/ability/${aid}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            return await res.json();
+        }
+
+        async function deleteAbilityData(aid) {
+            if (typeof kvSet === 'function') {
+                if (gCurBotId) {
+                    let charDetail = await kvGet('tftf:char:' + gCurBotId, `./data/characters/${gCurBotId}.json`) || {};
+                    if (charDetail.abilities) {
+                        charDetail.abilities = charDetail.abilities.filter(a => a.id !== aid);
+                        await kvSet('tftf:char:' + gCurBotId, charDetail);
+                    }
+                }
+                return { ok: true, success: true };
+            }
+            const res = await fetch(`/api/ability/delete/${aid}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            });
+            return await res.json();
+        }
+
         // 5 Top-level Ability Sections (with 3 Special Attacks grouped into 1 section)
         const SECTION_DEFS = [
             { type: 'single',        key: 'basic',     name: '基础能力（Abilities）', desc: '常驻基础属性与特性' },
@@ -2050,16 +2133,23 @@
         // Initialize dashboard
         async function init() {
             try {
-                gOverviewData = await kvGet('tftf:overview', './data/overview.json');
-                if (gOverviewData && gOverviewData.characters) {
-                    gOverviewData.characters.forEach(c => {
-                        c.portrait_url = `portraits/${c.bot_id}.png`;
-                        c.portrait_large_url = `portraits/${c.bot_id}_large.png`;
-                    });
+                if (typeof kvGet === 'function') {
+                    gOverviewData = await kvGet('tftf:overview', './data/overview.json');
+                    if (gOverviewData && gOverviewData.characters) {
+                        gOverviewData.characters.forEach(c => {
+                            c.portrait_url = `portraits/${c.bot_id}.png`;
+                            c.portrait_large_url = `portraits/${c.bot_id}_large.png`;
+                        });
+                    }
+                    const puaData = await kvGet('tftf:pua_icons', './data/pua_icons.json');
+                    gPuaIcons = (puaData && puaData.icons) ? puaData.icons : [];
+                } else {
+                    const res = await fetch('/api/overview');
+                    gOverviewData = await res.json();
+                    const puaRes = await fetch('/api/pua_icons');
+                    const puaData = await puaRes.json();
+                    gPuaIcons = puaData.icons || [];
                 }
-
-                const puaData = await kvGet('tftf:pua_icons', './data/pua_icons.json');
-                gPuaIcons = (puaData && puaData.icons) ? puaData.icons : [];
                 document.getElementById('statTotalPua').innerText = `${gPuaIcons.length} 个`;
 
                 renderDashboard();
@@ -2452,13 +2542,8 @@
             }
 
             try {
-                const res = await fetch(`/api/character/${botId}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                const ret = await res.json();
-                if (ret.ok) {
+                const ret = await saveCharacterData(botId, payload);
+                if (ret && (ret.ok || ret.success)) {
                     bot.hp = hp;
                     bot.attack = attack;
                     bot.rating = rating;
@@ -2475,9 +2560,9 @@
 
                     gEditingCardBots.delete(botId);
                     refreshSingleCard(botId);
-                    showToast(`✓ [${bot.name_zh || bot.name_en}] 属性已保存入库！`);
+                    showToast(`✓ [${bot.name_zh || bot.name_en}] 属性已保存！`);
                 } else {
-                    alert("保存失败: " + (ret.error || "未知错误"));
+                    alert("保存失败: " + ((ret && ret.error) || "未知错误"));
                 }
             } catch (err) {
                 console.error("Save character stats error:", err);
@@ -2510,8 +2595,10 @@
         async function openCharacterModal(bid) {
             gCurBotId = bid;
             try {
-                const res = await fetch(`/api/character/${bid}`);
-                const data = await res.json();
+                const data = await fetchCharacterData(bid);
+                if (!data || data.error) {
+                    throw new Error((data && data.error) || "角色数据未找到");
+                }
 
                 document.getElementById('mAvatar').src = data.portrait_url;
                 document.getElementById('mNameZh').innerText = data.name_zh;
@@ -2630,13 +2717,8 @@
             };
 
             try {
-                const res = await fetch(`/api/ability/${aid}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ status: newStatus })
-                });
-                const ret = await res.json();
-                if (ret.ok) {
+                const ret = await saveAbilityData(aid, { status: newStatus });
+                if (ret && (ret.ok || ret.success)) {
                     showToast(`能力状态已更新：${statusNames[newStatus] || newStatus}`);
                 }
             } catch (err) {
@@ -2942,17 +3024,18 @@
             };
 
             try {
-                const res = await fetch(`/api/character/${gCurBotId}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                const ret = await res.json();
-                if (ret.ok) {
-                    showToast("角色数值设定已保存入库！");
-                    const ovRes = await fetch('/api/overview');
-                    gOverviewData = await ovRes.json();
+                const ret = await saveCharacterData(gCurBotId, payload);
+                if (ret && (ret.ok || ret.success)) {
+                    showToast("角色数值设定已保存！");
+                    if (typeof kvGet === 'function') {
+                        gOverviewData = await kvGet('tftf:overview', './data/overview.json');
+                    } else {
+                        const ovRes = await fetch('/api/overview');
+                        gOverviewData = await ovRes.json();
+                    }
                     renderDashboard();
+                } else {
+                    alert("保存失败: " + ((ret && ret.error) || "未知错误"));
                 }
             } catch (err) {
                 console.error("Save failed:", err);
@@ -2980,14 +3063,11 @@
             }
 
             try {
-                const res = await fetch(`/api/ability/${aid}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                const ret = await res.json();
-                if (ret.ok) {
+                const ret = await saveAbilityData(aid, payload);
+                if (ret && (ret.ok || ret.success)) {
                     showToast("技能已保存！");
+                } else {
+                    alert("保存失败: " + ((ret && ret.error) || "未知错误"));
                 }
             } catch (err) {
                 console.error("Failed to save ability:", err);
@@ -3000,14 +3080,12 @@
             if (!confirm("确认删除此项能力？")) return;
 
             try {
-                const res = await fetch(`/api/ability/delete/${aid}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' }
-                });
-                const ret = await res.json();
-                if (ret.ok) {
+                const ret = await deleteAbilityData(aid);
+                if (ret && (ret.ok || ret.success)) {
                     showToast("能力已删除");
                     if (gCurBotId) openCharacterModal(gCurBotId);
+                } else {
+                    alert("删除失败: " + ((ret && ret.error) || "未知错误"));
                 }
             } catch (err) {
                 console.error("Failed to delete ability:", err);
@@ -3476,8 +3554,11 @@
             modal.classList.add('active');
 
             try {
-                const res = await fetch('/api/character/' + bid);
-                gCurCardData = await res.json();
+                const data = await fetchCharacterData(bid);
+                if (!data || data.error) {
+                    throw new Error((data && data.error) || "机体档案数据未找到");
+                }
+                gCurCardData = data;
                 renderCardDossier();
             } catch (err) {
                 console.error("Failed to load character dossier:", err);

@@ -2059,14 +2059,21 @@
                     kvSet('tftf:char:' + botId, charDetail),
                     kvSet('tftf:overview', gOverviewData)
                 ]);
-                return { ok: true, success: true };
             }
-            const res = await fetch(`/api/character/${botId}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-            return await res.json();
+            const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
+            if (isLocal) {
+                try {
+                    const res = await fetch(`/api/character/${botId}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (res.ok) return await res.json();
+                } catch (e) {
+                    console.warn("Local /api/character POST failed:", e);
+                }
+            }
+            return { ok: true, success: true };
         }
 
         async function saveAbilityData(aid, payload) {
@@ -2074,23 +2081,30 @@
                 if (gCurBotId) {
                     let charDetail = await kvGet('tftf:char:' + gCurBotId, `./data/characters/${gCurBotId}.json`) || {};
                     if (charDetail.abilities) {
-                        let ab = charDetail.abilities.find(a => a.id === aid);
+                        let ab = charDetail.abilities.find(a => String(a.id) === String(aid));
                         if (!ab) {
-                            ab = { id: aid };
+                            ab = { id: aid, bot_id: gCurBotId };
                             charDetail.abilities.push(ab);
                         }
                         Object.assign(ab, payload);
                         await kvSet('tftf:char:' + gCurBotId, charDetail);
                     }
                 }
-                return { ok: true, success: true };
             }
-            const res = await fetch(`/api/ability/${aid}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-            return await res.json();
+            const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
+            if (isLocal) {
+                try {
+                    const res = await fetch(`/api/ability/${aid}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (res.ok) return await res.json();
+                } catch (e) {
+                    console.warn("Local /api/ability POST failed:", e);
+                }
+            }
+            return { ok: true, success: true };
         }
 
         async function deleteAbilityData(aid) {
@@ -2098,17 +2112,56 @@
                 if (gCurBotId) {
                     let charDetail = await kvGet('tftf:char:' + gCurBotId, `./data/characters/${gCurBotId}.json`) || {};
                     if (charDetail.abilities) {
-                        charDetail.abilities = charDetail.abilities.filter(a => a.id !== aid);
+                        charDetail.abilities = charDetail.abilities.filter(a => String(a.id) !== String(aid));
                         await kvSet('tftf:char:' + gCurBotId, charDetail);
                     }
                 }
-                return { ok: true, success: true };
             }
-            const res = await fetch(`/api/ability/delete/${aid}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' }
-            });
-            return await res.json();
+            const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
+            if (isLocal) {
+                try {
+                    const res = await fetch(`/api/ability/delete/${aid}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                    if (res.ok) return await res.json();
+                } catch (e) {
+                    console.warn("Local /api/ability/delete POST failed:", e);
+                }
+            }
+            return { ok: true, success: true };
+        }
+
+        async function saveNewAbility(payload) {
+            if (typeof kvSet === 'function') {
+                if (payload.bot_id) {
+                    let charDetail = await kvGet('tftf:char:' + payload.bot_id, `./data/characters/${payload.bot_id}.json`) || {};
+                    if (!charDetail.abilities) charDetail.abilities = [];
+                    const maxId = charDetail.abilities.reduce((max, a) => Math.max(max, parseInt(a.id) || 0), 0);
+                    const newId = maxId > 0 ? maxId + 1 : Date.now();
+                    const newAb = {
+                        id: newId,
+                        ...payload,
+                        sort_order: charDetail.abilities.length + 1
+                    };
+                    charDetail.abilities.push(newAb);
+                    await kvSet('tftf:char:' + payload.bot_id, charDetail);
+                }
+            }
+            const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
+            if (isLocal) {
+                try {
+                    const res = await fetch('/api/ability/new', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (res.ok) return await res.json();
+                } catch (e) {
+                    console.warn("Local /api/ability/new POST failed:", e);
+                }
+            }
+            return { ok: true, success: true };
         }
 
         // 5 Top-level Ability Sections (with 3 Special Attacks grouped into 1 section)
@@ -2884,25 +2937,22 @@
             }
 
             try {
-                const res = await fetch('/api/ability/new', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        bot_id: gCurBotId,
-                        category: spKey,
-                        title_zh: title_zh || `特殊技 ${spBadge}`,
-                        title_en: title_en || `Special Attack ${spBadge}`,
-                        desc_zh,
-                        desc_en,
-                        pua_icon,
-                        status
-                    })
+                const ret = await saveNewAbility({
+                    bot_id: gCurBotId,
+                    category: spKey,
+                    title_zh: title_zh || `特殊技 ${spBadge}`,
+                    title_en: title_en || `Special Attack ${spBadge}`,
+                    desc_zh,
+                    desc_en,
+                    pua_icon,
+                    status
                 });
-                const ret = await res.json();
-                if (ret.ok) {
+                if (ret && (ret.ok || ret.success)) {
                     showToast(`特殊技 ${spBadge} 已保存入库！`);
                     gNewSpecialPuaIcons[spKey] = '';
                     await openCharacterModal(gCurBotId);
+                } else {
+                    alert("保存失败");
                 }
             } catch (err) {
                 console.error("Failed to save special attack slot:", err);
@@ -3331,16 +3381,13 @@
             }
 
             try {
-                const res = await fetch('/api/ability/new', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                const ret = await res.json();
-                if (ret.ok) {
+                const ret = await saveNewAbility(payload);
+                if (ret && (ret.ok || ret.success)) {
                     showToast("新能力创建成功！");
                     closeAddAbilityModal();
                     openCharacterModal(gCurBotId);
+                } else {
+                    alert("创建失败");
                 }
             } catch (err) {
                 console.error("Failed to create ability:", err);
@@ -3399,17 +3446,13 @@
 
             const hex = icon.codepoint_hex;
             const { type, targetId } = gCurrentPuaTarget;
+            const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
 
             try {
                 if (type === 'ability') {
-                    const res = await fetch(`/api/ability/${targetId}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ pua_icon: hex })
-                    });
-                    const ret = await res.json();
-                    if (ret.ok) {
-                        showToast(`技能图标已存入数据库: ${icon.glyph_name} (${hex})`);
+                    const ret = await saveAbilityData(targetId, { pua_icon: hex });
+                    if (ret && (ret.ok || ret.success)) {
+                        showToast(`技能图标已存入: ${icon.glyph_name} (${hex})`);
                         // Update button immediately in open modal
                         const btn = document.querySelector(`.ability-pua-picker-btn[onclick*="'${targetId}'"]`);
                         if (btn) {
@@ -3418,6 +3461,8 @@
                             if (glyphSpan) glyphSpan.innerText = String.fromCharCode(icon.codepoint_dec);
                             if (hexSpan) hexSpan.innerText = hex;
                         }
+                    } else {
+                        throw new Error((ret && ret.error) || "保存失败");
                     }
                 } else if (type === 'new_ability') {
                     document.getElementById('newAbPuaIconVal').value = hex;
@@ -3432,46 +3477,75 @@
                     if (hexEl) hexEl.innerText = hex;
                     showToast(`特殊技图标已选用: ${icon.glyph_name} (${hex})`);
                 } else if (type === 'class') {
-                    const res = await fetch(`/api/class/${targetId}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ pua_icon: hex })
-                    });
-                    const ret = await res.json();
-                    if (ret.ok) {
-                        showToast(`职业 [${targetId}] 图标已存入数据库: ${icon.glyph_name} (${hex})`);
+                    if (typeof kvSet === 'function') {
+                        if (gOverviewData && gOverviewData.classes) {
+                            const cls = gOverviewData.classes.find(c => c.class_id === targetId);
+                            if (cls) cls.pua_icon = hex;
+                            await kvSet('tftf:overview', gOverviewData);
+                        }
+                    }
+                    if (isLocal) {
+                        try {
+                            await fetch(`/api/class/${targetId}`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ pua_icon: hex })
+                            });
+                        } catch (e) {
+                            console.warn("Local /api/class POST failed:", e);
+                        }
+                    }
+                    showToast(`职业 [${targetId}] 图标已存入数据库: ${icon.glyph_name} (${hex})`);
+                    if (typeof kvGet === 'function') {
+                        gOverviewData = await kvGet('tftf:overview', './data/overview.json');
+                    } else if (isLocal) {
                         const ovRes = await fetch('/api/overview');
                         gOverviewData = await ovRes.json();
-                        renderDashboard();
-                        if (gCurBotId) openCharacterModal(gCurBotId);
                     }
+                    renderDashboard();
+                    if (gCurBotId) openCharacterModal(gCurBotId);
                 } else if (type === 'faction') {
-                    const res = await fetch(`/api/faction/${targetId}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ pua_icon: hex })
-                    });
-                    const ret = await res.json();
-                    if (ret.ok) {
-                        showToast(`阵营 [${targetId}] 图标已存入数据库: ${icon.glyph_name} (${hex})`);
-                        const ovRes = await fetch('/api/overview');
-                        gOverviewData = await ovRes.json();
-                        renderDashboard();
-                        if (gCurBotId) openCharacterModal(gCurBotId);
+                    if (typeof kvSet === 'function') {
+                        if (gOverviewData && gOverviewData.factions) {
+                            const fac = gOverviewData.factions.find(f => f.faction_id === targetId);
+                            if (fac) fac.pua_icon = hex;
+                            await kvSet('tftf:overview', gOverviewData);
+                        }
                     }
-                } else if (type === 'char_faction') {
-                    const res = await fetch(`/api/character/${targetId}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ pua_faction_icon: hex })
-                    });
-                    const ret = await res.json();
-                    if (ret.ok) {
-                        showToast(`角色阵营图标已存入数据库: ${icon.glyph_name} (${hex})`);
+                    if (isLocal) {
+                        try {
+                            await fetch(`/api/faction/${targetId}`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ pua_icon: hex })
+                            });
+                        } catch (e) {
+                            console.warn("Local /api/faction POST failed:", e);
+                        }
+                    }
+                    showToast(`阵营 [${targetId}] 图标已存入数据库: ${icon.glyph_name} (${hex})`);
+                    if (typeof kvGet === 'function') {
+                        gOverviewData = await kvGet('tftf:overview', './data/overview.json');
+                    } else if (isLocal) {
                         const ovRes = await fetch('/api/overview');
                         gOverviewData = await ovRes.json();
+                    }
+                    renderDashboard();
+                    if (gCurBotId) openCharacterModal(gCurBotId);
+                } else if (type === 'char_faction') {
+                    const ret = await saveCharacterData(targetId, { pua_faction_icon: hex });
+                    if (ret && (ret.ok || ret.success)) {
+                        showToast(`角色阵营图标已存入数据库: ${icon.glyph_name} (${hex})`);
+                        if (typeof kvGet === 'function') {
+                            gOverviewData = await kvGet('tftf:overview', './data/overview.json');
+                        } else if (isLocal) {
+                            const ovRes = await fetch('/api/overview');
+                            gOverviewData = await ovRes.json();
+                        }
                         renderDashboard();
                         if (gCurBotId) openCharacterModal(gCurBotId);
+                    } else {
+                        throw new Error((ret && ret.error) || "保存失败");
                     }
                 }
 

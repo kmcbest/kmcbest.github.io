@@ -1038,6 +1038,29 @@
             color: var(--text-main);
         }
 
+        .sp-move-name-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px dashed rgba(255, 255, 255, 0.12);
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin-bottom: 4px;
+        }
+
+        .sp-move-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #94a3b8;
+            white-space: nowrap;
+        }
+
+        .sp-move-name-bar .ability-title-edit-input {
+            flex: 1;
+            min-width: 120px;
+        }
+
         .sp-subgroup-cards {
             display: flex;
             flex-direction: column;
@@ -2653,6 +2676,8 @@
             }
         }
 
+        let gCurBotDetail = null;
+
         // Open Character Modal
         async function openCharacterModal(bid) {
             gCurBotId = bid;
@@ -2661,6 +2686,7 @@
                 if (!data || data.error) {
                     throw new Error((data && data.error) || "角色数据未找到");
                 }
+                gCurBotDetail = data;
 
                 document.getElementById('mAvatar').src = data.portrait_url;
                 document.getElementById('mNameZh').innerText = data.name_zh;
@@ -2821,8 +2847,8 @@
                         <span class="tecnica-icon ability-pua-icon-glyph">${puaChar}</span>
                         <span class="ability-pua-hex-sub">${puaSub}</span>
                     </div>
-                    <input type="text" class="ability-title-edit-input" id="title_zh_${ab.id}" value="${escapeHtml(ab.title_zh || '')}" placeholder="中文标题...">
-                    <input type="text" class="ability-title-edit-input en" id="title_en_${ab.id}" value="${escapeHtml(ab.title_en || '')}" placeholder="English Title...">
+                    <input type="text" class="ability-title-edit-input" id="title_zh_${ab.id}" value="${escapeHtml(ab.title_zh || '')}" placeholder="${(ab.category && ab.category.startsWith('sp')) ? '效果标题 (如: 震击伤害 / 弱点扫描)...' : '中文标题...'}">
+                    <input type="text" class="ability-title-edit-input en" id="title_en_${ab.id}" value="${escapeHtml(ab.title_en || '')}" placeholder="${(ab.category && ab.category.startsWith('sp')) ? 'Effect Title (e.g. Shock Damage)...' : 'English Title...'}">
                     <div class="ability-card-actions">
                         <button class="btn-card-action save" onclick="saveAbilityItem(${ab.id})">保存</button>
                         <button class="btn-card-action del" onclick="deleteAbilityItem(${ab.id})">删除</button>
@@ -2843,8 +2869,8 @@
                         <button type="button" class="desc-tab-btn active" onclick="switchDescTab(this, 'zh')">中文</button>
                         <button type="button" class="desc-tab-btn" onclick="switchDescTab(this, 'en')">英文${hasEnDesc ? '<span class="badge-dot" title="已填英文"></span>' : ''}</button>
                     </div>
-                    <textarea class="ability-desc-textarea desc-ta-zh" id="desc_zh_${ab.id}" placeholder="中文机制与效果描述...">${escapeHtml(ab.desc_zh || '')}</textarea>
-                    <textarea class="ability-desc-textarea desc-ta-en" id="desc_en_${ab.id}" placeholder="English mechanics & effect description..." style="display: none;">${escapeHtml(ab.desc_en || '')}</textarea>
+                    <textarea class="ability-desc-textarea desc-ta-zh" id="desc_zh_${ab.id}" placeholder="${(ab.category && ab.category.startsWith('sp')) ? '特殊技效果机制描述 (如: 100%几率施放震击，在4秒内造成...)...' : '中文机制与效果描述...'}">${escapeHtml(ab.desc_zh || '')}</textarea>
+                    <textarea class="ability-desc-textarea desc-ta-en" id="desc_en_${ab.id}" placeholder="${(ab.category && ab.category.startsWith('sp')) ? 'Special attack effect description...' : 'English mechanics & effect description...'}" style="display: none;">${escapeHtml(ab.desc_en || '')}</textarea>
                 </div>
             `;
 
@@ -2855,123 +2881,30 @@
             return abCard;
         }
 
-        // Render Special Attacks (Fixed 3 slots: SP1, SP2, SP3; no add/delete buttons)
-        function createSpecialAttackSlotElement(existingAb, spKey, spBadge, spName) {
-            const abCard = document.createElement('div');
-            abCard.className = 'ability-card';
-
-            if (existingAb) {
-                const puaChar = existingAb.pua_icon ? String.fromCharCode(parseInt(existingAb.pua_icon, 16)) : '+';
-                const puaSub = existingAb.pua_icon ? existingAb.pua_icon : 'PUA';
-                const hasEnDesc = Boolean(existingAb.desc_en && existingAb.desc_en.trim());
-
-                abCard.innerHTML = `
-                    <div class="ability-header-row">
-                        <div class="ability-pua-picker-btn" onclick="openPuaPicker('ability', '${existingAb.id}', '${existingAb.pua_icon || ''}')" title="点击选择PUA图标">
-                            <span class="tecnica-icon ability-pua-icon-glyph">${puaChar}</span>
-                            <span class="ability-pua-hex-sub">${puaSub}</span>
-                        </div>
-                        <input type="text" class="ability-title-edit-input" id="title_zh_${existingAb.id}" value="${escapeHtml(existingAb.title_zh || '')}" placeholder="特殊技 ${spBadge} 中文标题...">
-                        <input type="text" class="ability-title-edit-input en" id="title_en_${existingAb.id}" value="${escapeHtml(existingAb.title_en || '')}" placeholder="SP${spBadge} English Title...">
-                        <div class="ability-card-actions">
-                            <button class="btn-card-action save" onclick="saveAbilityItem(${existingAb.id})">保存</button>
-                            <select class="ability-status-select status-${existingAb.status || 'unimplemented'}" id="status_${existingAb.id}" onchange="changeAbilityStatus(${existingAb.id}, this.value)" title="代码实现进度状态">
-                                <option value="unimplemented" ${(existingAb.status === 'unimplemented' || !existingAb.status) ? 'selected' : ''}>未实现</option>
-                                <option value="priority" ${existingAb.status === 'priority' ? 'selected' : ''}>优先实现</option>
-                                <option value="partial" ${existingAb.status === 'partial' ? 'selected' : ''}>部分实现</option>
-                                <option value="implemented" ${existingAb.status === 'implemented' ? 'selected' : ''}>已实现</option>
-                                <option value="ignored" ${existingAb.status === 'ignored' ? 'selected' : ''}>暂不考虑</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="desc-tabs-container">
-                        <div class="desc-tabs-nav">
-                            <button type="button" class="desc-tab-btn active" onclick="switchDescTab(this, 'zh')">中文</button>
-                            <button type="button" class="desc-tab-btn" onclick="switchDescTab(this, 'en')">英文${hasEnDesc ? '<span class="badge-dot" title="已填英文"></span>' : ''}</button>
-                        </div>
-                        <textarea class="ability-desc-textarea desc-ta-zh" id="desc_zh_${existingAb.id}" placeholder="特殊技 ${spBadge} 详细机制与效果描述...">${escapeHtml(existingAb.desc_zh || '')}</textarea>
-                        <textarea class="ability-desc-textarea desc-ta-en" id="desc_en_${existingAb.id}" placeholder="Special Attack ${spBadge} English mechanics & effect description..." style="display: none;">${escapeHtml(existingAb.desc_en || '')}</textarea>
-                    </div>
-                `;
-            } else {
-                const curHex = gNewSpecialPuaIcons[spKey] || '';
-                const puaChar = curHex ? String.fromCharCode(parseInt(curHex, 16)) : '+';
-                const puaSub = curHex || 'PUA';
-
-                abCard.innerHTML = `
-                    <div class="ability-header-row">
-                        <div class="ability-pua-picker-btn" onclick="openPuaPicker('new_sp', '${spKey}', '${curHex}')" title="点击选择PUA图标">
-                            <span class="tecnica-icon ability-pua-icon-glyph" id="pua_glyph_new_${spKey}">${puaChar}</span>
-                            <span class="ability-pua-hex-sub" id="pua_hex_new_${spKey}">${puaSub}</span>
-                        </div>
-                        <input type="text" class="ability-title-edit-input" id="title_zh_new_${spKey}" value="" placeholder="特殊技 ${spBadge} 中文标题 (留空待填写)...">
-                        <input type="text" class="ability-title-edit-input en" id="title_en_new_${spKey}" value="" placeholder="SP${spBadge} English Title...">
-                        <div class="ability-card-actions">
-                            <button class="btn-card-action save" onclick="saveNewSpecialSlot('${spKey}', '${spBadge}')">保存</button>
-                            <select class="ability-status-select status-unimplemented" id="status_new_${spKey}" onchange="this.className = 'ability-status-select status-' + this.value" title="代码实现进度状态">
-                                <option value="unimplemented" selected>未实现</option>
-                                <option value="priority">优先实现</option>
-                                <option value="partial">部分实现</option>
-                                <option value="implemented">已实现</option>
-                                <option value="ignored">暂不考虑</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="desc-tabs-container">
-                        <div class="desc-tabs-nav">
-                            <button type="button" class="desc-tab-btn active" onclick="switchDescTab(this, 'zh')">中文</button>
-                            <button type="button" class="desc-tab-btn" onclick="switchDescTab(this, 'en')">英文</button>
-                        </div>
-                        <textarea class="ability-desc-textarea desc-ta-zh" id="desc_zh_new_${spKey}" placeholder="特殊技 ${spBadge} 详细机制与效果描述 (留空待填写)..."></textarea>
-                        <textarea class="ability-desc-textarea desc-ta-en" id="desc_en_new_${spKey}" placeholder="Special Attack ${spBadge} English description (leave blank if none)..." style="display: none;"></textarea>
-                    </div>
-                `;
-            }
-
-            return abCard;
-        }
-
-        async function saveNewSpecialSlot(spKey, spBadge) {
+        // Save SP Move Name (招式名称单独保存)
+        async function saveSpMoveName(spKey) {
             if (!gCurBotId) return;
-            const titleZhInput = document.getElementById(`title_zh_new_${spKey}`) || document.getElementById(`title_new_${spKey}`);
-            const titleEnInput = document.getElementById(`title_en_new_${spKey}`);
-            const descZhInput = document.getElementById(`desc_zh_new_${spKey}`) || document.getElementById(`desc_new_${spKey}`);
-            const descEnInput = document.getElementById(`desc_en_new_${spKey}`);
-            const statusSelect = document.getElementById(`status_new_${spKey}`);
-
-            const title_zh = titleZhInput ? titleZhInput.value.trim() : '';
-            const title_en = titleEnInput ? titleEnInput.value.trim() : '';
-            const desc_zh = descZhInput ? descZhInput.value.trim() : '';
-            const desc_en = descEnInput ? descEnInput.value.trim() : '';
-            const status = statusSelect ? statusSelect.value : 'unimplemented';
-            const pua_icon = gNewSpecialPuaIcons[spKey] || '';
-
-            if (!title_zh && !title_en && !desc_zh && !desc_en) {
-                alert(`请先填写特殊技 ${spBadge} 的标题或描述后再保存！`);
-                return;
-            }
-
+            const zhInput = document.getElementById(`sp_name_zh_${spKey}`);
+            const enInput = document.getElementById(`sp_name_en_${spKey}`);
+            const name_zh = zhInput ? zhInput.value.trim() : '';
+            const name_en = enInput ? enInput.value.trim() : '';
+            const payload = {
+                [`${spKey}_name_zh`]: name_zh,
+                [`${spKey}_name_en`]: name_en
+            };
             try {
-                const ret = await saveNewAbility({
-                    bot_id: gCurBotId,
-                    category: spKey,
-                    title_zh: title_zh || `特殊技 ${spBadge}`,
-                    title_en: title_en || `Special Attack ${spBadge}`,
-                    desc_zh,
-                    desc_en,
-                    pua_icon,
-                    status
-                });
+                const ret = await saveCharacterData(gCurBotId, payload);
                 if (ret && (ret.ok || ret.success)) {
-                    showToast(`特殊技 ${spBadge} 已保存入库！`);
-                    gNewSpecialPuaIcons[spKey] = '';
-                    await openCharacterModal(gCurBotId);
+                    showToast(`特殊技 ${spKey.toUpperCase()} 招式名称已保存！`);
+                    if (gCurBotDetail) {
+                        Object.assign(gCurBotDetail, payload);
+                    }
                 } else {
-                    alert("保存失败");
+                    alert("保存招式名称失败");
                 }
             } catch (err) {
-                console.error("Failed to save special attack slot:", err);
-                alert("保存失败");
+                console.error("Failed to save SP move name:", err);
+                alert("保存招式名称失败");
             }
         }
 
@@ -3010,12 +2943,13 @@
                         contentArea.innerHTML = `<div class="empty-category-placeholder">暂无该分类技能，点击右上角 <b>[+ 新增能力]</b> 进行创作</div>`;
                     }
                 } else if (secDef.type === 'special_group') {
-                    // Exactly 3 fixed SP slots: SP1, SP2, SP3 (no add buttons)
+                    // Exactly 3 fixed SP slots: SP1, SP2, SP3, each with dedicated move name row and dynamic effects list!
+                    const totalSpEffects = abilities.filter(a => a.category && a.category.startsWith('sp')).length;
                     block.innerHTML = `
                         <div class="category-header-bar">
                             <div class="cat-title-left">
                                 <span class="cat-title-text">${secDef.name}</span>
-                                <span class="cat-count-badge">固定 3 招式槽位</span>
+                                <span class="cat-count-badge">${totalSpEffects} 个效果条目</span>
                             </div>
                         </div>
                         <div class="category-content-area" id="cat_content_special" style="gap: 16px;"></div>
@@ -3024,7 +2958,10 @@
                     const contentArea = block.querySelector('#cat_content_special');
 
                     secDef.subgroups.forEach(sub => {
-                        const existingAb = abilities.find(a => a.category === sub.key);
+                        const spAbs = abilities.filter(a => a.category === sub.key);
+                        const moveNameZh = (gCurBotDetail && gCurBotDetail[`${sub.key}_name_zh`]) || (spAbs.length > 0 ? spAbs[0].title_zh : '');
+                        const moveNameEn = (gCurBotDetail && gCurBotDetail[`${sub.key}_name_en`]) || (spAbs.length > 0 ? spAbs[0].title_en : '');
+
                         const subBlock = document.createElement('div');
                         subBlock.className = 'sp-subgroup';
                         subBlock.innerHTML = `
@@ -3032,13 +2969,29 @@
                                 <div class="sp-subgroup-title">
                                     <span class="sp-badge ${sub.badgeClass}">${sub.badge}</span>
                                     <span class="sp-name">${sub.name}</span>
+                                    <span class="cat-count-badge" id="sp_count_${sub.key}">${spAbs.length} 个效果</span>
                                 </div>
+                                <button class="btn-add-ability" onclick="openAddAbilityModal('${sub.key}', '${sub.name}效果')">
+                                    <span>+</span> 添加效果
+                                </button>
+                            </div>
+                            <div class="sp-move-name-bar">
+                                <span class="sp-move-label">招式官方名称:</span>
+                                <input type="text" class="ability-title-edit-input" id="sp_name_zh_${sub.key}" value="${escapeHtml(moveNameZh)}" placeholder="中文招式名 (如: 应急响应)...">
+                                <input type="text" class="ability-title-edit-input en" id="sp_name_en_${sub.key}" value="${escapeHtml(moveNameEn)}" placeholder="English Move Name (e.g. Emergency Response)...">
+                                <button class="btn-card-action save" onclick="saveSpMoveName('${sub.key}')">保存名称</button>
                             </div>
                             <div class="sp-subgroup-cards" id="sp_cards_${sub.key}"></div>
                         `;
                         contentArea.appendChild(subBlock);
                         const subCardsArea = subBlock.querySelector(`#sp_cards_${sub.key}`);
-                        subCardsArea.appendChild(createSpecialAttackSlotElement(existingAb, sub.key, sub.badge, sub.name));
+                        if (spAbs.length > 0) {
+                            spAbs.forEach(ab => {
+                                subCardsArea.appendChild(createAbilityCardElement(ab));
+                            });
+                        } else {
+                            subCardsArea.innerHTML = `<div class="empty-category-placeholder" style="padding: 10px 14px;">暂无该特殊技效果，点击右上角 <b>[+ 添加效果]</b> 录入技能效果</div>`;
+                        }
                     });
                 }
             });
@@ -3389,8 +3342,12 @@
             const pua_icon = document.getElementById('newAbPuaIconVal').value;
 
             if (!title_zh && !title_en) {
-                alert("请输入能力标题！");
-                return;
+                if (category && category.startsWith('sp')) {
+                    title_zh = '效果';
+                } else {
+                    alert("请输入能力标题！");
+                    return;
+                }
             }
 
             const statusEl = document.getElementById('newAbStatus');

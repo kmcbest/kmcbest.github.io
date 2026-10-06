@@ -1,7 +1,25 @@
 {
-  "total": 3,
+  "total": 4,
   "status": "priority",
   "abilities": [
+    {
+      "id": 2754,
+      "bot_id": "ratchet_gs_kabam",
+      "bot_name_zh": "救护车",
+      "bot_name_en": "Ratchet",
+      "bot_class": "tech",
+      "bot_faction": "autobot",
+      "bot_source": "Kabam",
+      "category": "passive",
+      "title_zh": "远程震击",
+      "title_en": "Ranged Shock",
+      "desc_zh": "远程攻击+20%的暴击率，如果出暴击，将施加攻击力75%的震击伤害，持续6.5秒",
+      "desc_en": "Shock",
+      "pua_icon": "0xe914",
+      "synergy_bots": [],
+      "status": "priority",
+      "sort_order": 7
+    },
     {
       "id": 2386,
       "bot_id": "arcee_gs_deluxe2014",

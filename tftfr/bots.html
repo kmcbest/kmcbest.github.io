@@ -3858,6 +3858,17 @@
             const descEnInp = document.getElementById(`desc_en_${aid}`);
             const stSel = document.getElementById(`status_${aid}`);
 
+            // Live PUA icon detection from card button DOM
+            let puaIconVal = ab.pua_icon || '';
+            const puaBtn = document.querySelector(`.ability-pua-picker-btn[onclick*="'${aid}'"]`);
+            if (puaBtn) {
+                const hexSpan = puaBtn.querySelector('.ability-pua-hex-sub');
+                if (hexSpan && hexSpan.innerText && hexSpan.innerText.trim() !== 'PUA' && hexSpan.innerText.trim() !== '+') {
+                    puaIconVal = hexSpan.innerText.trim();
+                }
+            }
+            ab.pua_icon = puaIconVal;
+
             gCopySourceAbility = {
                 id: aid,
                 bot_id: gCurBotId,
@@ -3865,7 +3876,7 @@
                 title_en: enInp ? enInp.value.trim() : (ab.title_en || ''),
                 desc_zh: descZhInp ? descZhInp.value.trim() : (ab.desc_zh || ''),
                 desc_en: descEnInp ? descEnInp.value.trim() : (ab.desc_en || ''),
-                pua_icon: ab.pua_icon || '',
+                pua_icon: puaIconVal,
                 category: ab.category || 'passive',
                 status: stSel ? stSel.value : (ab.status || 'unimplemented'),
                 synergy_bots: gSynergyPartnersMap[aid] || ab.synergy_bots || []
@@ -4236,6 +4247,8 @@
             }
 
             let successCount = 0;
+            // Capture targetCurBot before closeCopyAbilityModal clears gSelectedCopyBotIds!
+            const targetCurBot = gSelectedCopyBotIds.includes(gCurBotId);
 
             const basePayload = {
                 title_zh: gCopySourceAbility.title_zh,
@@ -4260,12 +4273,29 @@
                             category: targetCat,
                             bot_id: item.botId
                         }, item.botId);
+                        if (item.botId === gCurBotId && gCurBotDetail && gCurBotDetail.abilities) {
+                            const existing = gCurBotDetail.abilities.find(a => String(a.id) === String(item.existingAb.id));
+                            if (existing) {
+                                Object.assign(existing, basePayload, { category: targetCat });
+                            }
+                        }
                     } else {
-                        await saveNewAbility({
+                        const newRet = await saveNewAbility({
                             ...basePayload,
                             bot_id: item.botId,
                             category: targetCat
                         });
+                        if (item.botId === gCurBotId && gCurBotDetail) {
+                            if (!gCurBotDetail.abilities) gCurBotDetail.abilities = [];
+                            const newId = (newRet && newRet.id) ? newRet.id : Date.now();
+                            gCurBotDetail.abilities.push({
+                                id: newId,
+                                ...basePayload,
+                                bot_id: item.botId,
+                                category: targetCat,
+                                sort_order: gCurBotDetail.abilities.length + 1
+                            });
+                        }
                     }
                     successCount++;
                 }
@@ -4276,18 +4306,34 @@
                         ? currentBotSlot 
                         : gCopySourceAbility.category;
 
-                    await saveNewAbility({
+                    const newRet = await saveNewAbility({
                         ...basePayload,
                         bot_id: item.botId,
                         category: targetCat
                     });
+                    if (item.botId === gCurBotId && gCurBotDetail) {
+                        if (!gCurBotDetail.abilities) gCurBotDetail.abilities = [];
+                        const newId = (newRet && newRet.id) ? newRet.id : Date.now();
+                        gCurBotDetail.abilities.push({
+                            id: newId,
+                            ...basePayload,
+                            bot_id: item.botId,
+                            category: targetCat,
+                            sort_order: gCurBotDetail.abilities.length + 1
+                        });
+                    }
                     successCount++;
                 }
 
                 showToast(`🎉 成功将技能复制到 ${successCount} 位角色！`);
                 closeCopyAbilityModal();
 
-                if (gSelectedCopyBotIds.includes(gCurBotId)) {
+                if (targetCurBot) {
+                    // Instantly re-render in-memory abilities for the active modal
+                    if (gCurBotDetail && gCurBotDetail.abilities) {
+                        renderCategorizedAbilities(gCurBotDetail.abilities);
+                    }
+                    // Also trigger a background fetch to ensure full consistency
                     await openCharacterModal(gCurBotId);
                 }
             } catch (err) {
@@ -4467,6 +4513,11 @@
                     const ret = await saveAbilityData(targetId, { pua_icon: hex });
                     if (ret && (ret.ok || ret.success)) {
                         showToast(`技能图标已存入: ${icon.glyph_name} (${hex})`);
+                        // Keep in-memory object in sync
+                        if (gCurBotDetail && gCurBotDetail.abilities) {
+                            const abObj = gCurBotDetail.abilities.find(a => String(a.id) === String(targetId));
+                            if (abObj) abObj.pua_icon = hex;
+                        }
                         // Update button immediately in open modal
                         const btn = document.querySelector(`.ability-pua-picker-btn[onclick*="'${targetId}'"]`);
                         if (btn) {
@@ -4474,6 +4525,7 @@
                             const hexSpan = btn.querySelector('.ability-pua-hex-sub');
                             if (glyphSpan) glyphSpan.innerText = String.fromCharCode(icon.codepoint_dec);
                             if (hexSpan) hexSpan.innerText = hex;
+                            btn.setAttribute('onclick', `openPuaPicker('ability', '${targetId}', '${hex}')`);
                         }
                     } else {
                         throw new Error((ret && ret.error) || "保存失败");

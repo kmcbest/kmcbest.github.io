@@ -223,15 +223,15 @@
       "id": 2780,
       "bot_id": "rhinox_gs_voyager2014",
       "category": "sp1",
-      "title_zh": "戈尔战术",
-      "title_en": "Tactical Gore",
-      "desc_zh": "戈尔战术 - 明智的、经过深思熟虑的刺杀是解决争论的有效方法。",
+      "title_zh": "驱散",
+      "title_en": "Nulliffy",
+      "desc_zh": "100%几率破坏目标的武器系统，驱散最多1个近战、远程或特殊伤害增益。\n// 测试用例：对方有2层近战增益，2层远程增益，1层特殊伤害增益，则SP1击中后，对方被驱散3个增益，还剩1层近战增益，1层远程增益，0层特殊伤害增益",
       "desc_en": "Tactical Gore - A sensible, well-thought-out impaling is an effective way to settle an argument.",
-      "pua_icon": "",
+      "pua_icon": "0xe950",
       "raw_data_json": "",
       "sort_order": 13,
       "synergy_bots": [],
-      "status": "unimplemented"
+      "status": "priority"
     },
     {
       "id": 2781,
@@ -368,6 +368,34 @@
       "sort_order": 22,
       "synergy_bots": [],
       "status": "unimplemented"
+    },
+    {
+      "id": 2790,
+      "bot_id": "rhinox_gs_voyager2014",
+      "category": "passive",
+      "title_zh": "远程流血",
+      "title_en": "Ranged Bleed",
+      "desc_zh": "远程攻击30%几率触发流血，造成攻击力60%的伤害，持续5秒",
+      "desc_en": "Starts the fight with 6 Shield Buffs <s>each capping damage from one attack to {{var_1}} of the opponent's Attack Rating. </s>which are removed each time Rhinox is hit by a Basic or Heavy Melee Attack.",
+      "pua_icon": "0xe401",
+      "raw_data_json": "",
+      "sort_order": 24,
+      "synergy_bots": [],
+      "status": "priority"
+    },
+    {
+      "id": 2791,
+      "bot_id": "rhinox_gs_voyager2014",
+      "category": "sp1",
+      "title_zh": "流血",
+      "title_en": "Bleed",
+      "desc_zh": "该方式下每次移除增益都有100%几率触发流血，施加攻击力120%的流血伤害，持续14秒。\n// 测试用例：对方有2层近战增益，2层远程增益，1层特殊伤害增益，则SP1击中后，对方被驱散3个增益，被施加3层流血",
+      "desc_en": "Starts the fight with 6 Shield Buffs <s>each capping damage from one attack to {{var_1}} of the opponent's Attack Rating. </s>which are removed each time Rhinox is hit by a Basic or Heavy Melee Attack.",
+      "pua_icon": "0xe401",
+      "raw_data_json": "",
+      "sort_order": 25,
+      "synergy_bots": [],
+      "status": "priority"
     }
   ]
 }

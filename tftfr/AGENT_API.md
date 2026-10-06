@@ -11,7 +11,8 @@
 
 | 资源 | URL | 说明 |
 | :--- | :--- | :--- |
-| **全角色技能总库** | `https://kmcbest.github.io/tftfr/data/all_abilities.json` | 包含全部 78 位角色、1324 项技能及机制描述的完整字典 |
+| **优先实现能力列表 (待办)** | `https://kmcbest.github.io/tftfr/data/priority_abilities.json` | 当前被标记为优先实现（status='priority'）的能力列表（供智能体直取实现任务） |
+| **全角色技能总库** | `https://kmcbest.github.io/tftfr/data/all_abilities.json` | 包含全部 78 位角色、1320 项技能及机制描述的完整字典 |
 | **全角色概览与 6/60 属性** | `https://kmcbest.github.io/tftfr/data/overview.json` | 阵营、职业默认倍率、生命值 (HP)、攻击力 (ATK)、评分 (Rating) |
 | **单机体详细档案** | `https://kmcbest.github.io/tftfr/data/characters/{bot_id}.json` | 指定机体的所有被动、特殊技 (SP1/SP2/SP3)、觉醒技 (Signature) 与协同羁绊 |
 | **PUA 专用字体码表** | `https://kmcbest.github.io/tftfr/data/pua_icons.json` | 游戏中所有派系、职业与战技图标的 Unicode 十六进制码 |
@@ -20,6 +21,11 @@
 
 - **Upstash KV REST URL**: `https://deciding-bulldog-136761.upstash.io`
 - **只读 Token (Read-Only Token)**: `ggAAAAAAAhY5AAIgcDG7a511dMnvUap5JjML7kdCMH0hQAG95-3BtwD6YEaFeQ`
+- **查询优先实现能力列表**:
+  ```bash
+  curl -H "Authorization: Bearer ggAAAAAAAhY5AAIgcDG7a511dMnvUap5JjML7kdCMH0hQAG95-3BtwD6YEaFeQ" \
+       https://deciding-bulldog-136761.upstash.io/get/tftf:priority_abilities
+  ```
 - **查询单机体实时数据**:
   ```bash
   curl -H "Authorization: Bearer ggAAAAAAAhY5AAIgcDG7a511dMnvUap5JjML7kdCMH0hQAG95-3BtwD6YEaFeQ" \

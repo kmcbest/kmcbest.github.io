@@ -1,0 +1,24 @@
+{
+  "total": 1,
+  "status": "priority",
+  "abilities": [
+    {
+      "id": 2385,
+      "bot_id": "arcee_gs_deluxe2014",
+      "bot_name_zh": "阿尔茜",
+      "bot_name_en": "Arcee",
+      "bot_class": "warr",
+      "bot_faction": "autobot",
+      "bot_source": "Kabam",
+      "category": "signature",
+      "title_zh": "守卫者的残暴",
+      "title_en": "Guardian's Ferocity",
+      "desc_zh": "阿尔茜总是想保护她的队友，对有威胁的对手发动强大的攻击。\n\n所有特殊技：{{var_8}} 的概率获得精确增益，增加 {{var_9}} 的暴击率并在 {{var_10}} 秒内防止对手规避。",
+      "desc_en": "Always wanting to protect her fellow teammates, Arcee strikes powerful attacks against threatening opponents.\n\nSpecial Attacks: {{var_8}} Chance to gain a Precision Buff, increasing Critical Rate by {{var_9}} and preventing the opponent from Evading attacks for {{var_10}} seconds.",
+      "pua_icon": "0xe40d",
+      "synergy_bots": [],
+      "status": "priority",
+      "sort_order": 7
+    }
+  ]
+}

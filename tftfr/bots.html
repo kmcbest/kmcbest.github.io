@@ -1339,6 +1339,331 @@
             color: #FFF;
         }
 
+        .btn-card-action.copy:hover {
+            background: #0284C7;
+            border-color: #0284C7;
+            color: #FFF;
+        }
+
+        /* Copy Ability Modal Styles */
+        .copy-modal-content {
+            max-width: 820px;
+            max-height: 88vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .copy-modal-header-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .copy-modal-source-info {
+            font-size: 12px;
+            color: var(--text-sub);
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .copy-filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .copy-quick-actions {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .btn-copy-action {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .btn-copy-action:hover {
+            border-color: #0284C7;
+            background: rgba(2, 132, 199, 0.15);
+        }
+
+        .copy-current-bot-box {
+            background: rgba(2, 132, 199, 0.08);
+            border: 1px solid rgba(2, 132, 199, 0.35);
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-bottom: 12px;
+        }
+
+        .copy-current-bot-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #38BDF8;
+            margin-bottom: 8px;
+        }
+
+        .copy-slot-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .copy-slot-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .copy-slot-pill:hover {
+            border-color: #38BDF8;
+        }
+
+        .copy-slot-pill input[type="radio"] {
+            margin: 0;
+            accent-color: #38BDF8;
+        }
+
+        .copy-classes-scroll-container {
+            max-height: 48vh;
+            overflow-y: auto;
+            padding-right: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .copy-class-section {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .copy-class-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .copy-class-title {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .btn-copy-select-class {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-sub);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .btn-copy-select-class:hover {
+            color: #FFF;
+            border-color: #0284C7;
+        }
+
+        .copy-picker-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(136px, 1fr));
+            gap: 6px;
+        }
+
+        .copy-picker-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 5px 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            position: relative;
+            user-select: none;
+            transition: all 0.15s;
+        }
+
+        .copy-picker-item:hover {
+            border-color: #38BDF8;
+            background: rgba(56, 189, 248, 0.08);
+        }
+
+        .copy-picker-item.selected {
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.14);
+            box-shadow: 0 0 6px rgba(16, 185, 129, 0.25);
+        }
+
+        .copy-picker-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            object-fit: cover;
+            flex-shrink: 0;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .copy-picker-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .copy-picker-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .copy-picker-sub {
+            font-size: 10px;
+            color: var(--text-sub);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .badge-current-bot {
+            font-size: 9px;
+            padding: 1px 4px;
+            border-radius: 3px;
+            background: #F59E0B;
+            color: #000;
+            font-weight: 700;
+            margin-left: 3px;
+        }
+
+        .copy-picker-check {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: transparent;
+            flex-shrink: 0;
+        }
+
+        .copy-picker-item.selected .copy-picker-check {
+            background: #10B981;
+            border-color: #10B981;
+            color: #FFF;
+        }
+
+        .copy-modal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .copy-selected-summary {
+            font-size: 13px;
+            color: var(--text-sub);
+        }
+
+        /* Conflict Modal */
+        .conflict-bots-list {
+            max-height: 200px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin-bottom: 14px;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .conflict-bot-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+        }
+
+        .conflict-bot-row:last-child {
+            border-bottom: none;
+        }
+
+        .conflict-action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .btn-conflict-action {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.15s;
+            border: 1px solid transparent;
+        }
+
+        .btn-conflict-action.overwrite {
+            background: rgba(245, 158, 11, 0.15);
+            border-color: #F59E0B;
+            color: #FDE68A;
+        }
+
+        .btn-conflict-action.overwrite:hover {
+            background: #F59E0B;
+            color: #000;
+        }
+
+        .btn-conflict-action.add-new {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: #3B82F6;
+            color: #93C5FD;
+        }
+
+        .btn-conflict-action.add-new:hover {
+            background: #3B82F6;
+            color: #FFF;
+        }
+
         /* Ability Implementation Status Menu */
         .ability-status-select {
             appearance: none;
@@ -1970,6 +2295,103 @@
         </div>
     </div>
 
+    <!-- Copy Ability Modal -->
+    <div class="modal-overlay" id="copyAbilityModal" onclick="closeModalOnBackdrop(event, 'copyAbilityModal')">
+        <div class="modal-content copy-modal-content">
+            <div class="modal-header">
+                <div>
+                    <div class="copy-modal-header-title">
+                        <span>📋</span>
+                        <span class="copy-modal-title-text">复制技能到其他角色 (Copy Ability)</span>
+                    </div>
+                    <div class="copy-modal-source-info" id="copyModalSourceInfo">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+                <button class="modal-close-btn" onclick="closeCopyAbilityModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="padding-top: 10px;">
+                <!-- Filter & Search Bar -->
+                <div class="copy-filter-bar">
+                    <input type="text" id="copySearchInput" class="pua-search-input" placeholder="🔍 搜索目标角色 (中文名 / 英文名 / ID)..." oninput="filterCopyPicker(this.value)">
+                    <div class="copy-quick-actions">
+                        <button type="button" class="btn-copy-action" onclick="selectAllCopyBots(true)">全选</button>
+                        <button type="button" class="btn-copy-action" onclick="selectAllCopyBots(false)">清空</button>
+                        <button type="button" class="btn-copy-action" onclick="invertSelectCopyBots()">反选</button>
+                    </div>
+                </div>
+
+                <!-- Current Character Slot Option Bar (Shown when current bot is selected) -->
+                <div id="copyCurrentBotBox" class="copy-current-bot-box" style="display: none;">
+                    <div class="copy-current-bot-header">
+                        <span class="copy-current-icon">🎯</span>
+                        <span class="copy-current-title">复制到当前角色【<span id="copyCurrentBotName"></span>】的目标槽位:</span>
+                    </div>
+                    <div class="copy-slot-options">
+                        <label class="copy-slot-pill"><input type="radio" name="copyTargetSlot" value="sp1"> <span>特殊技 1 (SP1)</span></label>
+                        <label class="copy-slot-pill"><input type="radio" name="copyTargetSlot" value="sp2"> <span>特殊技 2 (SP2)</span></label>
+                        <label class="copy-slot-pill"><input type="radio" name="copyTargetSlot" value="sp3"> <span>特殊技 3 (SP3)</span></label>
+                        <label class="copy-slot-pill"><input type="radio" name="copyTargetSlot" value="passive"> <span>被动 (Passive)</span></label>
+                        <label class="copy-slot-pill"><input type="radio" name="copyTargetSlot" value="same" checked> <span id="copySameSlotLabel">保持原分类</span></label>
+                    </div>
+                </div>
+
+                <!-- Categorized Character List by Class -->
+                <div class="copy-classes-scroll-container" id="copyClassesContainer">
+                    <!-- Populated dynamically: grouped by Class with compact cards -->
+                </div>
+
+                <!-- Bottom Footer Bar -->
+                <div class="copy-modal-footer">
+                    <div class="copy-selected-summary" id="copySelectedSummary">已选择 0 位目标角色</div>
+                    <div class="copy-footer-buttons">
+                        <button type="button" class="btn-card-action del" onclick="closeCopyAbilityModal()" style="padding: 7px 14px; font-size: 13px;">取消</button>
+                        <button type="button" class="btn-card-action save" id="btnConfirmCopy" onclick="confirmCopyAbility()" style="padding: 7px 20px; font-size: 13px; font-weight: 700; background: #0284C7; border-color: #0284C7;">
+                            确认复制 (0)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copy Conflict Resolution Modal -->
+    <div class="modal-overlay" id="copyConflictModal" style="z-index: 10001;" onclick="closeModalOnBackdrop(event, 'copyConflictModal')">
+        <div class="modal-content" style="max-width: 520px; border-color: #F59E0B;">
+            <div class="modal-header" style="border-bottom-color: rgba(245, 158, 11, 0.3);">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 20px;">⚠️</span>
+                    <div>
+                        <div style="font-size: 16px; font-weight: 700; color: #FBBF24;">检测到同名重复技能</div>
+                        <div style="font-size: 12px; color: var(--text-sub);">部分目标角色已存在相同图标与中文名称的技能</div>
+                    </div>
+                </div>
+                <button class="modal-close-btn" onclick="closeCopyConflictModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="font-size: 13px; color: var(--text-main); margin-bottom: 10px;">
+                    以下 <b id="conflictCountText" style="color: #FBBF24;">0</b> 位角色已存在该技能，请选择处理方式：
+                </div>
+                <div id="conflictBotsList" class="conflict-bots-list">
+                    <!-- e.g. 【大黄蜂】: 已有技能 [暴击流血] (图标: 0xe401) -->
+                </div>
+                <div class="conflict-action-buttons">
+                    <button type="button" class="btn-conflict-action overwrite" onclick="resolveCopyConflict(true)">
+                        <div style="font-weight: 700; font-size: 14px;">覆盖已有技能</div>
+                        <div style="font-size: 11px; opacity: 0.85; margin-top: 2px;">更新这几位角色上的原技能内容（描述/英文名等），其余角色正常新增</div>
+                    </button>
+                    <button type="button" class="btn-conflict-action add-new" onclick="resolveCopyConflict(false)">
+                        <div style="font-weight: 700; font-size: 14px;">作为新技能添加</div>
+                        <div style="font-size: 11px; opacity: 0.85; margin-top: 2px;">保留原有技能，为所有目标角色添加新的独立技能条目</div>
+                    </button>
+                    <button type="button" class="btn-card-action del" onclick="closeCopyConflictModal()" style="margin-top: 6px; padding: 6px 12px; width: 100%;">
+                        取消返回
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Character Dossier Card Modal -->
     <div class="modal-overlay" id="cardDossierModal" onclick="closeModalOnBackdrop(event, 'cardDossierModal')">
         <div class="modal-content card-dossier-modal-content">
@@ -2108,18 +2530,19 @@
             return { ok: true, success: true };
         }
 
-        async function saveAbilityData(aid, payload) {
+        async function saveAbilityData(aid, payload, targetBotId = null) {
+            const bId = targetBotId || payload.bot_id || gCurBotId;
             if (typeof kvSet === 'function') {
-                if (gCurBotId) {
-                    let charDetail = await kvGet('tftf:char:' + gCurBotId, `./data/characters/${gCurBotId}.json`) || {};
+                if (bId) {
+                    let charDetail = await kvGet('tftf:char:' + bId, `./data/characters/${bId}.json`) || {};
                     if (charDetail.abilities) {
                         let ab = charDetail.abilities.find(a => String(a.id) === String(aid));
                         if (!ab) {
-                            ab = { id: aid, bot_id: gCurBotId };
+                            ab = { id: aid, bot_id: bId };
                             charDetail.abilities.push(ab);
                         }
                         Object.assign(ab, payload);
-                        await kvSet('tftf:char:' + gCurBotId, charDetail);
+                        await kvSet('tftf:char:' + bId, charDetail);
                     }
                 }
             }
@@ -2857,6 +3280,7 @@
                     <input type="text" class="ability-title-edit-input en" id="title_en_${ab.id}" value="${escapeHtml(ab.title_en || '')}" data-orig-val="${escapeHtml(ab.title_en || '')}" onfocus="this.dataset.origVal = this.value" onblur="handleAbilityInputBlur(this, ${ab.id})" placeholder="${(ab.category && ab.category.startsWith('sp')) ? 'Effect Title (e.g. Shock Damage)...' : 'English Title...'}">
                     <div class="ability-card-actions">
                         <button class="btn-card-action save" onclick="saveAbilityItem(${ab.id})">保存</button>
+                        <button type="button" class="btn-card-action copy" onclick="openCopyAbilityModal(${ab.id})" title="复制该技能给其他角色或复制到当前角色的特殊技">复制到</button>
                         <button class="btn-card-action del" onclick="deleteAbilityItem(${ab.id})">删除</button>
                         ${ab.category !== 'basic' ? `
                         <select class="ability-status-select status-${ab.status || 'unimplemented'}" id="status_${ab.id}" onchange="changeAbilityStatus(${ab.id}, this.value)" title="代码实现进度状态">
@@ -3404,6 +3828,477 @@
                 saveAbilityItem(gActiveSynergyTargetId);
             }
             closeSynergyPickerModal();
+        }
+
+        // ==========================================
+        // Ability Copy Feature (复制技能到其他角色)
+        // ==========================================
+        let gCopySourceAbility = null;
+        let gSelectedCopyBotIds = [];
+        let gCopySearchQuery = '';
+        let gPendingConflictResolution = null;
+
+        function normPuaForCompare(icon) {
+            if (!icon) return '';
+            let s = String(icon).trim().toLowerCase();
+            const n = parseInt(s, 16);
+            if (!isNaN(n)) return '0x' + n.toString(16).toLowerCase();
+            return s;
+        }
+
+        function openCopyAbilityModal(aid) {
+            if (!gCurBotDetail || !gCurBotDetail.abilities) return;
+            const ab = gCurBotDetail.abilities.find(a => String(a.id) === String(aid));
+            if (!ab) return;
+
+            // Get live values from current DOM in case user edited them without saving
+            const zhInp = document.getElementById(`title_zh_${aid}`) || document.getElementById(`title_${aid}`);
+            const enInp = document.getElementById(`title_en_${aid}`);
+            const descZhInp = document.getElementById(`desc_zh_${aid}`) || document.getElementById(`desc_${aid}`);
+            const descEnInp = document.getElementById(`desc_en_${aid}`);
+            const stSel = document.getElementById(`status_${aid}`);
+
+            gCopySourceAbility = {
+                id: aid,
+                bot_id: gCurBotId,
+                title_zh: zhInp ? zhInp.value.trim() : (ab.title_zh || ''),
+                title_en: enInp ? enInp.value.trim() : (ab.title_en || ''),
+                desc_zh: descZhInp ? descZhInp.value.trim() : (ab.desc_zh || ''),
+                desc_en: descEnInp ? descEnInp.value.trim() : (ab.desc_en || ''),
+                pua_icon: ab.pua_icon || '',
+                category: ab.category || 'passive',
+                status: stSel ? stSel.value : (ab.status || 'unimplemented'),
+                synergy_bots: gSynergyPartnersMap[aid] || ab.synergy_bots || []
+            };
+
+            // Format PUA icon glyph
+            let puaGlyph = '';
+            if (gCopySourceAbility.pua_icon) {
+                const hexVal = parseInt(gCopySourceAbility.pua_icon, 16);
+                if (!isNaN(hexVal)) puaGlyph = String.fromCharCode(hexVal);
+            }
+
+            // Find category display name
+            let catName = gCopySourceAbility.category;
+            SECTION_DEFS.forEach(s => {
+                if (s.key === gCopySourceAbility.category) catName = s.name;
+                if (s.subgroups) {
+                    const sub = s.subgroups.find(sg => sg.key === gCopySourceAbility.category);
+                    if (sub) catName = sub.name;
+                }
+            });
+
+            // Populate header info
+            const infoEl = document.getElementById('copyModalSourceInfo');
+            if (infoEl) {
+                infoEl.innerHTML = `
+                    <span style="color: var(--text-muted);">源技能:</span>
+                    ${puaGlyph ? `<span class="tecnica-icon" style="color: #38BDF8; font-size: 14px;">${puaGlyph}</span>` : ''}
+                    <b style="color: #FFF;">${escapeHtml(gCopySourceAbility.title_zh || '未命名技能')}</b>
+                    ${gCopySourceAbility.title_en ? `<span style="color: var(--text-sub);">(${escapeHtml(gCopySourceAbility.title_en)})</span>` : ''}
+                    <span class="sp-badge sp-badge-1" style="margin-left: 4px;">${escapeHtml(catName)}</span>
+                    <span style="color: var(--text-muted); margin-left: 4px;">来自: ${escapeHtml(gCurBotDetail.name_zh || gCurBotId)}</span>
+                `;
+            }
+
+            // Update slot label for same
+            const sameLabel = document.getElementById('copySameSlotLabel');
+            if (sameLabel) sameLabel.innerText = `保持原分类 (${catName})`;
+
+            const botNameEl = document.getElementById('copyCurrentBotName');
+            if (botNameEl) botNameEl.innerText = gCurBotDetail.name_zh || gCurBotId;
+
+            // Reset selection and filters
+            gSelectedCopyBotIds = [];
+            gCopySearchQuery = '';
+            const searchInp = document.getElementById('copySearchInput');
+            if (searchInp) searchInp.value = '';
+
+            // Reset current bot slot radio
+            const defRadio = document.querySelector('input[name="copyTargetSlot"][value="same"]');
+            if (defRadio) defRadio.checked = true;
+
+            const curBox = document.getElementById('copyCurrentBotBox');
+            if (curBox) curBox.style.display = 'none';
+
+            renderCopyPickerGrid();
+            document.getElementById('copyAbilityModal').classList.add('active');
+        }
+
+        function closeCopyAbilityModal() {
+            document.getElementById('copyAbilityModal').classList.remove('active');
+            gCopySourceAbility = null;
+            gSelectedCopyBotIds = [];
+        }
+
+        function renderCopyPickerGrid() {
+            const container = document.getElementById('copyClassesContainer');
+            if (!container || !gOverviewData) return;
+            container.innerHTML = '';
+
+            const classes = gOverviewData.classes || [];
+            const allChars = gOverviewData.characters || [];
+            const query = (gCopySearchQuery || '').trim().toLowerCase();
+
+            let totalRenderedBots = 0;
+
+            classes.forEach(cls => {
+                let classChars = allChars.filter(c => c.class === cls.class_id);
+
+                if (query) {
+                    classChars = classChars.filter(c => {
+                        const zh = (c.name_zh || '').toLowerCase();
+                        const en = (c.name_en || '').toLowerCase();
+                        const bid = (c.bot_id || '').toLowerCase();
+                        return zh.includes(query) || en.includes(query) || bid.includes(query);
+                    });
+                }
+
+                if (classChars.length === 0) return;
+                totalRenderedBots += classChars.length;
+
+                const allSelectedInClass = classChars.length > 0 && classChars.every(c => gSelectedCopyBotIds.includes(c.bot_id));
+
+                const classSection = document.createElement('div');
+                classSection.className = 'copy-class-section';
+
+                let classPuaChar = '';
+                if (cls.pua_icon) {
+                    const hexVal = parseInt(cls.pua_icon, 16);
+                    if (!isNaN(hexVal)) classPuaChar = String.fromCharCode(hexVal);
+                }
+
+                classSection.innerHTML = `
+                    <div class="copy-class-header">
+                        <div class="copy-class-title" style="color: ${cls.color_hex || '#38BDF8'};">
+                            ${classPuaChar ? `<span class="tecnica-icon">${classPuaChar}</span>` : ''}
+                            <span>${escapeHtml(cls.name_zh || cls.class_id)}</span>
+                            <span class="cat-count-badge" style="background: rgba(255,255,255,0.08);">${classChars.length}</span>
+                        </div>
+                        <button type="button" class="btn-copy-select-class" onclick="toggleSelectClass('${cls.class_id}')">
+                            ${allSelectedInClass ? '取消本类' : '全选本类'}
+                        </button>
+                    </div>
+                    <div class="copy-picker-grid" id="copy_grid_${cls.class_id}"></div>
+                `;
+
+                container.appendChild(classSection);
+                const grid = classSection.querySelector(`#copy_grid_${cls.class_id}`);
+
+                classChars.forEach(c => {
+                    const isSelected = gSelectedCopyBotIds.includes(c.bot_id);
+                    const isCurrent = (c.bot_id === gCurBotId);
+
+                    const item = document.createElement('div');
+                    item.className = `copy-picker-item ${isSelected ? 'selected' : ''}`;
+                    item.onclick = () => toggleCopyBotSelection(c.bot_id);
+
+                    item.innerHTML = `
+                        <img src="${c.portrait_url}" class="copy-picker-avatar" alt="${c.name_zh || c.bot_id}" onerror="this.src='/portrait/${c.bot_id}'">
+                        <div class="copy-picker-info">
+                            <div class="copy-picker-name">
+                                ${escapeHtml(c.name_zh || c.name_en)}
+                                ${isCurrent ? '<span class="badge-current-bot">当前</span>' : ''}
+                            </div>
+                            <div class="copy-picker-sub">${escapeHtml(c.name_en || c.bot_id)}</div>
+                        </div>
+                        <div class="copy-picker-check">✓</div>
+                    `;
+                    grid.appendChild(item);
+                });
+            });
+
+            if (totalRenderedBots === 0) {
+                container.innerHTML = `<div class="empty-category-placeholder" style="padding: 30px;">未找到匹配的目标角色</div>`;
+            }
+
+            updateCopySelectionUI();
+        }
+
+        function filterCopyPicker(query) {
+            gCopySearchQuery = query;
+            renderCopyPickerGrid();
+        }
+
+        function toggleCopyBotSelection(bid) {
+            const idx = gSelectedCopyBotIds.indexOf(bid);
+            if (idx > -1) {
+                gSelectedCopyBotIds.splice(idx, 1);
+            } else {
+                gSelectedCopyBotIds.push(bid);
+            }
+            renderCopyPickerGrid();
+        }
+
+        function toggleSelectClass(clsId) {
+            if (!gOverviewData || !gOverviewData.characters) return;
+            const query = (gCopySearchQuery || '').trim().toLowerCase();
+            let classChars = gOverviewData.characters.filter(c => c.class === clsId);
+            if (query) {
+                classChars = classChars.filter(c => {
+                    const zh = (c.name_zh || '').toLowerCase();
+                    const en = (c.name_en || '').toLowerCase();
+                    const bid = (c.bot_id || '').toLowerCase();
+                    return zh.includes(query) || en.includes(query) || bid.includes(query);
+                });
+            }
+            const allSelected = classChars.length > 0 && classChars.every(c => gSelectedCopyBotIds.includes(c.bot_id));
+            if (allSelected) {
+                const idsToRemove = new Set(classChars.map(c => c.bot_id));
+                gSelectedCopyBotIds = gSelectedCopyBotIds.filter(id => !idsToRemove.has(id));
+            } else {
+                classChars.forEach(c => {
+                    if (!gSelectedCopyBotIds.includes(c.bot_id)) {
+                        gSelectedCopyBotIds.push(c.bot_id);
+                    }
+                });
+            }
+            renderCopyPickerGrid();
+        }
+
+        function selectAllCopyBots(selectAll) {
+            if (!gOverviewData || !gOverviewData.characters) return;
+            if (!selectAll) {
+                gSelectedCopyBotIds = [];
+            } else {
+                const query = (gCopySearchQuery || '').trim().toLowerCase();
+                let chars = gOverviewData.characters;
+                if (query) {
+                    chars = chars.filter(c => {
+                        const zh = (c.name_zh || '').toLowerCase();
+                        const en = (c.name_en || '').toLowerCase();
+                        const bid = (c.bot_id || '').toLowerCase();
+                        return zh.includes(query) || en.includes(query) || bid.includes(query);
+                    });
+                }
+                chars.forEach(c => {
+                    if (!gSelectedCopyBotIds.includes(c.bot_id)) {
+                        gSelectedCopyBotIds.push(c.bot_id);
+                    }
+                });
+            }
+            renderCopyPickerGrid();
+        }
+
+        function invertSelectCopyBots() {
+            if (!gOverviewData || !gOverviewData.characters) return;
+            const query = (gCopySearchQuery || '').trim().toLowerCase();
+            let chars = gOverviewData.characters;
+            if (query) {
+                chars = chars.filter(c => {
+                    const zh = (c.name_zh || '').toLowerCase();
+                    const en = (c.name_en || '').toLowerCase();
+                    const bid = (c.bot_id || '').toLowerCase();
+                    return zh.includes(query) || en.includes(query) || bid.includes(query);
+                });
+            }
+            const curSelected = new Set(gSelectedCopyBotIds);
+            chars.forEach(c => {
+                if (curSelected.has(c.bot_id)) {
+                    gSelectedCopyBotIds = gSelectedCopyBotIds.filter(id => id !== c.bot_id);
+                } else {
+                    gSelectedCopyBotIds.push(c.bot_id);
+                }
+            });
+            renderCopyPickerGrid();
+        }
+
+        function updateCopySelectionUI() {
+            const summary = document.getElementById('copySelectedSummary');
+            if (summary) {
+                summary.innerHTML = `已选择 <b style="color: #38BDF8;">${gSelectedCopyBotIds.length}</b> 位目标角色`;
+            }
+            const btnConfirm = document.getElementById('btnConfirmCopy');
+            if (btnConfirm) {
+                btnConfirm.innerText = `确认复制 (${gSelectedCopyBotIds.length})`;
+            }
+            const curBox = document.getElementById('copyCurrentBotBox');
+            if (curBox) {
+                curBox.style.display = gSelectedCopyBotIds.includes(gCurBotId) ? 'block' : 'none';
+            }
+        }
+
+        async function confirmCopyAbility() {
+            if (!gCopySourceAbility) return;
+            if (gSelectedCopyBotIds.length === 0) {
+                alert("请先勾选至少一位目标角色！");
+                return;
+            }
+
+            const btnConfirm = document.getElementById('btnConfirmCopy');
+            if (btnConfirm) {
+                btnConfirm.disabled = true;
+                btnConfirm.innerText = "正在检查冲突与目标...";
+            }
+
+            try {
+                // Handle current bot slot choice
+                let currentBotSlot = 'same';
+                if (gSelectedCopyBotIds.includes(gCurBotId)) {
+                    const checkedRadio = document.querySelector('input[name="copyTargetSlot"]:checked');
+                    currentBotSlot = checkedRadio ? checkedRadio.value : 'same';
+
+                    if (currentBotSlot === 'same') {
+                        const chooseSp = confirm(
+                            "您勾选了当前角色【" + (gCurBotDetail.name_zh || gCurBotId) + "】。\n\n" +
+                            "是否复制到特殊技 (SP1 / SP2 / SP3)？\n\n" +
+                            "• 点击【确定】：选择具体特殊技\n" +
+                            "• 点击【取消】：按原技能分类进行复制"
+                        );
+                        if (chooseSp) {
+                            const spNum = prompt("请输入要复制到的特殊技编号 (1 为 SP1, 2 为 SP2, 3 为 SP3):", "1");
+                            if (spNum === '1') currentBotSlot = 'sp1';
+                            else if (spNum === '2') currentBotSlot = 'sp2';
+                            else if (spNum === '3') currentBotSlot = 'sp3';
+                        }
+                    }
+                }
+
+                // Check for conflicts: PUA icon and Chinese title identical
+                const conflicts = [];
+                const cleanTargets = [];
+                const srcPua = normPuaForCompare(gCopySourceAbility.pua_icon);
+                const srcZh = (gCopySourceAbility.title_zh || '').trim().toLowerCase();
+
+                for (const bid of gSelectedCopyBotIds) {
+                    let botData = (bid === gCurBotId && gCurBotDetail) ? gCurBotDetail : await fetchCharacterData(bid);
+                    let abs = (botData && botData.abilities) ? botData.abilities : [];
+                    let matched = abs.find(a => {
+                        const aPua = normPuaForCompare(a.pua_icon);
+                        const aZh = (a.title_zh || '').trim().toLowerCase();
+                        return (srcZh.length > 0 && aZh === srcZh && aPua === srcPua);
+                    });
+
+                    const botName = (botData && (botData.name_zh || botData.name_en)) || bid;
+                    if (matched) {
+                        conflicts.push({ botId: bid, botName, existingAb: matched, botData });
+                    } else {
+                        cleanTargets.push({ botId: bid, botName, botData });
+                    }
+                }
+
+                if (conflicts.length > 0) {
+                    gPendingConflictResolution = { conflicts, cleanTargets, currentBotSlot };
+                    showCopyConflictModal(conflicts);
+                } else {
+                    await executeCopySave({ conflicts: [], cleanTargets, overwriteConflicts: false, currentBotSlot });
+                }
+            } catch (err) {
+                console.error("Copy preparation failed:", err);
+                alert("检查复制目标失败，请重试");
+            } finally {
+                if (btnConfirm) {
+                    btnConfirm.disabled = false;
+                    btnConfirm.innerText = `确认复制 (${gSelectedCopyBotIds.length})`;
+                }
+            }
+        }
+
+        function showCopyConflictModal(conflicts) {
+            const countEl = document.getElementById('conflictCountText');
+            if (countEl) countEl.innerText = conflicts.length;
+
+            const listEl = document.getElementById('conflictBotsList');
+            if (listEl) {
+                listEl.innerHTML = '';
+                conflicts.forEach(c => {
+                    const row = document.createElement('div');
+                    row.className = 'conflict-bot-row';
+                    row.innerHTML = `
+                        <span style="color: #38BDF8; font-weight: 700;">【${escapeHtml(c.botName)}】</span>
+                        <span>已有技能: <b style="color: #FFF;">${escapeHtml(c.existingAb.title_zh || '')}</b></span>
+                        <span style="color: var(--text-sub); font-size: 11px;">(图标: ${c.existingAb.pua_icon || '无'}, 分类: ${c.existingAb.category || 'passive'})</span>
+                    `;
+                    listEl.appendChild(row);
+                });
+            }
+
+            document.getElementById('copyConflictModal').classList.add('active');
+        }
+
+        function closeCopyConflictModal() {
+            document.getElementById('copyConflictModal').classList.remove('active');
+            gPendingConflictResolution = null;
+        }
+
+        async function resolveCopyConflict(overwrite) {
+            if (!gPendingConflictResolution) return;
+            const { conflicts, cleanTargets, currentBotSlot } = gPendingConflictResolution;
+            closeCopyConflictModal();
+            await executeCopySave({ conflicts, cleanTargets, overwriteConflicts: overwrite, currentBotSlot });
+        }
+
+        async function executeCopySave({ conflicts, cleanTargets, overwriteConflicts, currentBotSlot }) {
+            const btnConfirm = document.getElementById('btnConfirmCopy');
+            if (btnConfirm) {
+                btnConfirm.disabled = true;
+                btnConfirm.innerText = "正在写入中...";
+            }
+
+            let successCount = 0;
+
+            const basePayload = {
+                title_zh: gCopySourceAbility.title_zh,
+                title_en: gCopySourceAbility.title_en,
+                desc_zh: gCopySourceAbility.desc_zh,
+                desc_en: gCopySourceAbility.desc_en,
+                pua_icon: gCopySourceAbility.pua_icon,
+                status: gCopySourceAbility.status || 'unimplemented',
+                synergy_bots: gCopySourceAbility.synergy_bots || []
+            };
+
+            try {
+                // 1. Handle conflicting targets
+                for (const item of conflicts) {
+                    let targetCat = (item.botId === gCurBotId && currentBotSlot !== 'same') 
+                        ? currentBotSlot 
+                        : (item.existingAb.category || gCopySourceAbility.category);
+
+                    if (overwriteConflicts) {
+                        await saveAbilityData(item.existingAb.id, {
+                            ...basePayload,
+                            category: targetCat,
+                            bot_id: item.botId
+                        }, item.botId);
+                    } else {
+                        await saveNewAbility({
+                            ...basePayload,
+                            bot_id: item.botId,
+                            category: targetCat
+                        });
+                    }
+                    successCount++;
+                }
+
+                // 2. Handle clean targets
+                for (const item of cleanTargets) {
+                    let targetCat = (item.botId === gCurBotId && currentBotSlot !== 'same') 
+                        ? currentBotSlot 
+                        : gCopySourceAbility.category;
+
+                    await saveNewAbility({
+                        ...basePayload,
+                        bot_id: item.botId,
+                        category: targetCat
+                    });
+                    successCount++;
+                }
+
+                showToast(`🎉 成功将技能复制到 ${successCount} 位角色！`);
+                closeCopyAbilityModal();
+
+                if (gSelectedCopyBotIds.includes(gCurBotId)) {
+                    await openCharacterModal(gCurBotId);
+                }
+            } catch (err) {
+                console.error("Execute copy save failed:", err);
+                alert("复制保存过程中出现错误，请检查网络或控制台");
+            } finally {
+                if (btnConfirm) {
+                    btnConfirm.disabled = false;
+                    btnConfirm.innerText = "确认复制";
+                }
+            }
         }
 
         // Open Add Ability Modal

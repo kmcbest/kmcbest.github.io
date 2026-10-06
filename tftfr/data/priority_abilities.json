@@ -1,5 +1,5 @@
 {
-  "total": 4,
+  "total": 7,
   "status": "priority",
   "abilities": [
     {
@@ -19,6 +19,60 @@
       "synergy_bots": [],
       "status": "priority",
       "sort_order": 7
+    },
+    {
+      "id": 2758,
+      "bot_id": "ratchet_gs_kabam",
+      "bot_name_zh": "救护车",
+      "bot_name_en": "Ratchet",
+      "bot_class": "tech",
+      "bot_faction": "autobot",
+      "bot_source": "Kabam",
+      "category": "sp3",
+      "title_zh": "震击",
+      "title_en": "Shock",
+      "desc_zh": "100%概率施加震击，施加攻击力97.5%的震击伤害，持续4秒",
+      "desc_en": "Emergency Response - Help yourself before helping others.",
+      "pua_icon": "0xe914",
+      "synergy_bots": [],
+      "status": "priority",
+      "sort_order": 11
+    },
+    {
+      "id": 2770,
+      "bot_id": "rhinox_gs_voyager2014",
+      "bot_name_zh": "犀牛",
+      "bot_name_en": "Rhinox",
+      "bot_class": "tech",
+      "bot_faction": "maximal",
+      "bot_source": "Kabam",
+      "category": "passive",
+      "title_zh": "远程流血",
+      "title_en": "Ranged Bleed",
+      "desc_zh": "远程攻击30%几率触发流血，造成攻击力60%的伤害，持续5秒",
+      "desc_en": "Starts the fight with 6 Shield Buffs <s>each capping damage from one attack to {{var_1}} of the opponent's Attack Rating. </s>which are removed each time Rhinox is hit by a Basic or Heavy Melee Attack.",
+      "pua_icon": "0xe401",
+      "synergy_bots": [],
+      "status": "priority",
+      "sort_order": 3
+    },
+    {
+      "id": 2781,
+      "bot_id": "rhinox_gs_voyager2014",
+      "bot_name_zh": "犀牛",
+      "bot_name_en": "Rhinox",
+      "bot_class": "tech",
+      "bot_faction": "maximal",
+      "bot_source": "Kabam",
+      "category": "sp2",
+      "title_zh": "流血",
+      "title_en": "Bleed",
+      "desc_zh": "40%概率触发流血，施加攻击力60%的伤害，持续8秒",
+      "desc_en": "<s>{{var_18}}</s> {{var_19}} chance to gore the target's weapons systems, Nullifying up to 1 Melee, Ranged, or Special Damage Buffs.",
+      "pua_icon": "",
+      "synergy_bots": [],
+      "status": "priority",
+      "sort_order": 14
     },
     {
       "id": 2386,

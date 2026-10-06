@@ -1793,43 +1793,43 @@
                 <div class="char-edit-stats-box">
                     <div class="edit-stat-col">
                         <label>生命值 (HP 6/60)</label>
-                        <input type="number" id="inpHp" placeholder="如 35484">
+                        <input type="number" id="inpHp" placeholder="如 35484" onfocus="this.dataset.origVal = this.value" onblur="handleStatInputBlur(this)">
                     </div>
                     <div class="edit-stat-col">
                         <label>攻击力 (ATK 6/60)</label>
-                        <input type="number" id="inpAttack" placeholder="如 2519">
+                        <input type="number" id="inpAttack" placeholder="如 2519" onfocus="this.dataset.origVal = this.value" onblur="handleStatInputBlur(this)">
                     </div>
                     <div class="edit-stat-col">
                         <label>角色评分 (Rating 6/60)</label>
-                        <input type="number" id="inpRating" placeholder="如 11670">
+                        <input type="number" id="inpRating" placeholder="如 11670" onfocus="this.dataset.origVal = this.value" onblur="handleStatInputBlur(this)">
                     </div>
                     <div class="edit-stat-col">
                         <label>生命倍率 (HP Mult)</label>
-                        <input type="number" id="inpHealthMult" step="0.05">
+                        <input type="number" id="inpHealthMult" step="0.05" onfocus="this.dataset.origVal = this.value" onblur="handleStatInputBlur(this)">
                     </div>
                     <div class="edit-stat-col">
                         <label>攻击倍率 (ATK Mult)</label>
-                        <input type="number" id="inpAttackMult" step="0.05">
+                        <input type="number" id="inpAttackMult" step="0.05" onfocus="this.dataset.origVal = this.value" onblur="handleStatInputBlur(this)">
                     </div>
                     <div class="edit-stat-col">
                         <label>基础暴击率 (Crit %)</label>
-                        <input type="number" id="inpCritChance" step="0.01" placeholder="默认跟随职业">
+                        <input type="number" id="inpCritChance" step="0.01" placeholder="默认跟随职业" onfocus="this.dataset.origVal = this.value" onblur="handleStatInputBlur(this)">
                     </div>
                     <div class="edit-stat-col">
                         <label>暴击伤害倍率 (Dmg)</label>
-                        <input type="number" id="inpCritDamage" step="0.05" placeholder="默认跟随职业">
+                        <input type="number" id="inpCritDamage" step="0.05" placeholder="默认跟随职业" onfocus="this.dataset.origVal = this.value" onblur="handleStatInputBlur(this)">
                     </div>
                     <div class="edit-stat-col">
                         <label>远程暴击率 (Ranged)</label>
-                        <input type="number" id="inpCritRanged" step="0.01" placeholder="留空默认">
+                        <input type="number" id="inpCritRanged" step="0.01" placeholder="留空默认" onfocus="this.dataset.origVal = this.value" onblur="handleStatInputBlur(this)">
                     </div>
                     <div class="edit-stat-col">
                         <label>近战暴击率 (Melee)</label>
-                        <input type="number" id="inpCritMelee" step="0.01" placeholder="如惊天雷设0">
+                        <input type="number" id="inpCritMelee" step="0.01" placeholder="如惊天雷设0" onfocus="this.dataset.origVal = this.value" onblur="handleStatInputBlur(this)">
                     </div>
                     <div class="edit-stat-col">
                         <label>格挡减伤率 (Block)</label>
-                        <input type="number" id="inpBlockProf" step="0.05" value="0.5">
+                        <input type="number" id="inpBlockProf" step="0.05" value="0.5" onfocus="this.dataset.origVal = this.value" onblur="handleStatInputBlur(this)">
                     </div>
                     <button class="btn-save-stats" onclick="saveCharacterStats()">保存角色数值设定</button>
                 </div>
@@ -2734,6 +2734,12 @@
                 document.getElementById('inpCritMelee').value = data.crit_chance_melee !== null ? data.crit_chance_melee : '';
                 document.getElementById('inpBlockProf').value = data.block_proficiency;
 
+                ['inpHp', 'inpAttack', 'inpRating', 'inpHealthMult', 'inpAttackMult',
+                 'inpCritChance', 'inpCritDamage', 'inpCritRanged', 'inpCritMelee', 'inpBlockProf'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.dataset.origVal = el.value;
+                });
+
                 const descEl = document.getElementById('mDescZh');
                 if (descEl) descEl.innerText = data.desc_zh || data.note || '';
 
@@ -2847,8 +2853,8 @@
                         <span class="tecnica-icon ability-pua-icon-glyph">${puaChar}</span>
                         <span class="ability-pua-hex-sub">${puaSub}</span>
                     </div>
-                    <input type="text" class="ability-title-edit-input" id="title_zh_${ab.id}" value="${escapeHtml(ab.title_zh || '')}" placeholder="${(ab.category && ab.category.startsWith('sp')) ? '效果标题 (如: 震击伤害 / 弱点扫描)...' : '中文标题...'}">
-                    <input type="text" class="ability-title-edit-input en" id="title_en_${ab.id}" value="${escapeHtml(ab.title_en || '')}" placeholder="${(ab.category && ab.category.startsWith('sp')) ? 'Effect Title (e.g. Shock Damage)...' : 'English Title...'}">
+                    <input type="text" class="ability-title-edit-input" id="title_zh_${ab.id}" value="${escapeHtml(ab.title_zh || '')}" data-orig-val="${escapeHtml(ab.title_zh || '')}" onfocus="this.dataset.origVal = this.value" onblur="handleAbilityInputBlur(this, ${ab.id})" placeholder="${(ab.category && ab.category.startsWith('sp')) ? '效果标题 (如: 震击伤害 / 弱点扫描)...' : '中文标题...'}">
+                    <input type="text" class="ability-title-edit-input en" id="title_en_${ab.id}" value="${escapeHtml(ab.title_en || '')}" data-orig-val="${escapeHtml(ab.title_en || '')}" onfocus="this.dataset.origVal = this.value" onblur="handleAbilityInputBlur(this, ${ab.id})" placeholder="${(ab.category && ab.category.startsWith('sp')) ? 'Effect Title (e.g. Shock Damage)...' : 'English Title...'}">
                     <div class="ability-card-actions">
                         <button class="btn-card-action save" onclick="saveAbilityItem(${ab.id})">保存</button>
                         <button class="btn-card-action del" onclick="deleteAbilityItem(${ab.id})">删除</button>
@@ -2869,8 +2875,8 @@
                         <button type="button" class="desc-tab-btn active" onclick="switchDescTab(this, 'zh')">中文</button>
                         <button type="button" class="desc-tab-btn" onclick="switchDescTab(this, 'en')">英文${hasEnDesc ? '<span class="badge-dot" title="已填英文"></span>' : ''}</button>
                     </div>
-                    <textarea class="ability-desc-textarea desc-ta-zh" id="desc_zh_${ab.id}" placeholder="${(ab.category && ab.category.startsWith('sp')) ? '特殊技效果机制描述 (如: 100%几率施放震击，在4秒内造成...)...' : '中文机制与效果描述...'}">${escapeHtml(ab.desc_zh || '')}</textarea>
-                    <textarea class="ability-desc-textarea desc-ta-en" id="desc_en_${ab.id}" placeholder="${(ab.category && ab.category.startsWith('sp')) ? 'Special attack effect description...' : 'English mechanics & effect description...'}" style="display: none;">${escapeHtml(ab.desc_en || '')}</textarea>
+                    <textarea class="ability-desc-textarea desc-ta-zh" id="desc_zh_${ab.id}" data-orig-val="${escapeHtml(ab.desc_zh || '')}" onfocus="this.dataset.origVal = this.value" onblur="handleAbilityInputBlur(this, ${ab.id})" placeholder="${(ab.category && ab.category.startsWith('sp')) ? '特殊技效果机制描述 (如: 100%几率施放震击，在4秒内造成...)...' : '中文机制与效果描述...'}">${escapeHtml(ab.desc_zh || '')}</textarea>
+                    <textarea class="ability-desc-textarea desc-ta-en" id="desc_en_${ab.id}" data-orig-val="${escapeHtml(ab.desc_en || '')}" onfocus="this.dataset.origVal = this.value" onblur="handleAbilityInputBlur(this, ${ab.id})" placeholder="${(ab.category && ab.category.startsWith('sp')) ? 'Special attack effect description...' : 'English mechanics & effect description...'}" style="display: none;">${escapeHtml(ab.desc_en || '')}</textarea>
                 </div>
             `;
 
@@ -2881,30 +2887,68 @@
             return abCard;
         }
 
+        // Blur auto-save handler for SP Move Name
+        function handleSpNameInputBlur(el, spKey) {
+            if (!el) return;
+            const orig = el.dataset.origVal !== undefined ? el.dataset.origVal : '';
+            if (el.value === orig) return;
+            saveSpMoveName(spKey, true);
+        }
+
+        const gSavingSpMoves = new Set();
+        const gQueuedSpMoves = new Map();
+
         // Save SP Move Name (招式名称单独保存)
-        async function saveSpMoveName(spKey) {
+        async function saveSpMoveName(spKey, isAutoSave = false) {
             if (!gCurBotId) return;
-            const zhInput = document.getElementById(`sp_name_zh_${spKey}`);
-            const enInput = document.getElementById(`sp_name_en_${spKey}`);
-            const name_zh = zhInput ? zhInput.value.trim() : '';
-            const name_en = enInput ? enInput.value.trim() : '';
-            const payload = {
-                [`${spKey}_name_zh`]: name_zh,
-                [`${spKey}_name_en`]: name_en
-            };
+            if (gSavingSpMoves.has(spKey)) {
+                gQueuedSpMoves.set(spKey, isAutoSave && (gQueuedSpMoves.get(spKey) !== false));
+                return;
+            }
+            gSavingSpMoves.add(spKey);
             try {
+                const zhInput = document.getElementById(`sp_name_zh_${spKey}`);
+                const enInput = document.getElementById(`sp_name_en_${spKey}`);
+                const name_zh = zhInput ? zhInput.value.trim() : '';
+                const name_en = enInput ? enInput.value.trim() : '';
+                const payload = {
+                    [`${spKey}_name_zh`]: name_zh,
+                    [`${spKey}_name_en`]: name_en
+                };
                 const ret = await saveCharacterData(gCurBotId, payload);
                 if (ret && (ret.ok || ret.success)) {
-                    showToast(`特殊技 ${spKey.toUpperCase()} 招式名称已保存！`);
+                    if (zhInput) zhInput.dataset.origVal = zhInput.value;
+                    if (enInput) enInput.dataset.origVal = enInput.value;
                     if (gCurBotDetail) {
                         Object.assign(gCurBotDetail, payload);
                     }
+                    if (isAutoSave) {
+                        showToast(`特殊技 ${spKey.toUpperCase()} 招式名称已自动保存！`);
+                    } else {
+                        showToast(`特殊技 ${spKey.toUpperCase()} 招式名称已保存！`);
+                    }
                 } else {
-                    alert("保存招式名称失败");
+                    if (!isAutoSave) {
+                        alert("保存招式名称失败");
+                    } else {
+                        console.error("Auto-save SP move name failed:", ret);
+                        showToast("招式名称自动保存失败", 3000);
+                    }
                 }
             } catch (err) {
                 console.error("Failed to save SP move name:", err);
-                alert("保存招式名称失败");
+                if (!isAutoSave) {
+                    alert("保存招式名称失败");
+                } else {
+                    showToast("招式名称自动保存失败", 3000);
+                }
+            } finally {
+                gSavingSpMoves.delete(spKey);
+                if (gQueuedSpMoves.has(spKey)) {
+                    const nextIsAuto = gQueuedSpMoves.get(spKey);
+                    gQueuedSpMoves.delete(spKey);
+                    saveSpMoveName(spKey, nextIsAuto);
+                }
             }
         }
 
@@ -2977,8 +3021,8 @@
                             </div>
                             <div class="sp-move-name-bar">
                                 <span class="sp-move-label">招式官方名称:</span>
-                                <input type="text" class="ability-title-edit-input" id="sp_name_zh_${sub.key}" value="${escapeHtml(moveNameZh)}" placeholder="中文招式名 (如: 应急响应)...">
-                                <input type="text" class="ability-title-edit-input en" id="sp_name_en_${sub.key}" value="${escapeHtml(moveNameEn)}" placeholder="English Move Name (e.g. Emergency Response)...">
+                                <input type="text" class="ability-title-edit-input" id="sp_name_zh_${sub.key}" value="${escapeHtml(moveNameZh)}" data-orig-val="${escapeHtml(moveNameZh)}" onfocus="this.dataset.origVal = this.value" onblur="handleSpNameInputBlur(this, '${sub.key}')" placeholder="中文招式名 (如: 应急响应)...">
+                                <input type="text" class="ability-title-edit-input en" id="sp_name_en_${sub.key}" value="${escapeHtml(moveNameEn)}" data-orig-val="${escapeHtml(moveNameEn)}" onfocus="this.dataset.origVal = this.value" onblur="handleSpNameInputBlur(this, '${sub.key}')" placeholder="English Move Name (e.g. Emergency Response)...">
                                 <button class="btn-card-action save" onclick="saveSpMoveName('${sub.key}')">保存名称</button>
                             </div>
                             <div class="sp-subgroup-cards" id="sp_cards_${sub.key}"></div>
@@ -3005,9 +3049,25 @@
             document.getElementById('charModal').classList.remove('active');
         }
 
+        // Blur auto-save handler for Character Stats
+        function handleStatInputBlur(el) {
+            if (!el) return;
+            const orig = el.dataset.origVal !== undefined ? el.dataset.origVal : '';
+            if (el.value === orig) return;
+            saveCharacterStats(true);
+        }
+
+        let gSavingStats = false;
+        let gQueuedStats = false;
+
         // Save Character Stats
-        async function saveCharacterStats() {
+        async function saveCharacterStats(isAutoSave = false) {
             if (!gCurBotId) return;
+            if (gSavingStats) {
+                gQueuedStats = true;
+                return;
+            }
+            gSavingStats = true;
 
             const hp_val = document.getElementById('inpHp').value.trim();
             const hp = hp_val !== '' ? parseInt(hp_val, 10) : null;
@@ -3044,7 +3104,16 @@
             try {
                 const ret = await saveCharacterData(gCurBotId, payload);
                 if (ret && (ret.ok || ret.success)) {
-                    showToast("角色数值设定已保存！");
+                    ['inpHp', 'inpAttack', 'inpRating', 'inpHealthMult', 'inpAttackMult',
+                     'inpCritChance', 'inpCritDamage', 'inpCritRanged', 'inpCritMelee', 'inpBlockProf'].forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) el.dataset.origVal = el.value;
+                    });
+                    if (isAutoSave) {
+                        showToast("角色数值已自动保存！");
+                    } else {
+                        showToast("角色数值设定已保存！");
+                    }
                     if (typeof kvGet === 'function') {
                         gOverviewData = await kvGet('tftf:overview', './data/overview.json');
                     } else {
@@ -3053,16 +3122,48 @@
                     }
                     renderDashboard();
                 } else {
-                    alert("保存失败: " + ((ret && ret.error) || "未知错误"));
+                    if (!isAutoSave) {
+                        alert("保存失败: " + ((ret && ret.error) || "未知错误"));
+                    } else {
+                        console.error("Auto-save stats failed:", ret);
+                        showToast("数值自动保存失败", 3000);
+                    }
                 }
             } catch (err) {
                 console.error("Save failed:", err);
-                alert("保存失败，请检查服务连接");
+                if (!isAutoSave) {
+                    alert("保存失败，请检查服务连接");
+                } else {
+                    showToast("数值自动保存失败", 3000);
+                }
+            } finally {
+                gSavingStats = false;
+                if (gQueuedStats) {
+                    gQueuedStats = false;
+                    saveCharacterStats(true);
+                }
             }
         }
 
+        // Blur auto-save handler for individual ability
+        function handleAbilityInputBlur(el, aid) {
+            if (!el) return;
+            const orig = el.dataset.origVal !== undefined ? el.dataset.origVal : '';
+            if (el.value === orig) return;
+            saveAbilityItem(aid, true);
+        }
+
+        const gSavingAbilities = new Set();
+        const gQueuedAbilitySaves = new Map();
+
         // Save individual ability
-        async function saveAbilityItem(aid) {
+        async function saveAbilityItem(aid, isAutoSave = false) {
+            if (gSavingAbilities.has(aid)) {
+                gQueuedAbilitySaves.set(aid, isAutoSave && (gQueuedAbilitySaves.get(aid) !== false));
+                return;
+            }
+            gSavingAbilities.add(aid);
+
             const titleZhInput = document.getElementById(`title_zh_${aid}`) || document.getElementById(`title_${aid}`);
             const titleEnInput = document.getElementById(`title_en_${aid}`);
             const descZhInput = document.getElementById(`desc_zh_${aid}`) || document.getElementById(`desc_${aid}`);
@@ -3084,13 +3185,43 @@
             try {
                 const ret = await saveAbilityData(aid, payload);
                 if (ret && (ret.ok || ret.success)) {
-                    showToast("技能已保存！");
+                    if (titleZhInput) titleZhInput.dataset.origVal = titleZhInput.value;
+                    if (titleEnInput) titleEnInput.dataset.origVal = titleEnInput.value;
+                    if (descZhInput) descZhInput.dataset.origVal = descZhInput.value;
+                    if (descEnInput) descEnInput.dataset.origVal = descEnInput.value;
+
+                    if (gCurBotDetail && gCurBotDetail.abilities) {
+                        let ab = gCurBotDetail.abilities.find(a => String(a.id) === String(aid));
+                        if (ab) Object.assign(ab, payload);
+                    }
+
+                    if (isAutoSave) {
+                        showToast("技能已自动保存！");
+                    } else {
+                        showToast("技能已保存！");
+                    }
                 } else {
-                    alert("保存失败: " + ((ret && ret.error) || "未知错误"));
+                    if (!isAutoSave) {
+                        alert("保存失败: " + ((ret && ret.error) || "未知错误"));
+                    } else {
+                        console.error("Auto-save ability failed:", ret);
+                        showToast("技能自动保存失败", 3000);
+                    }
                 }
             } catch (err) {
                 console.error("Failed to save ability:", err);
-                alert("保存失败");
+                if (!isAutoSave) {
+                    alert("保存失败");
+                } else {
+                    showToast("技能自动保存失败", 3000);
+                }
+            } finally {
+                gSavingAbilities.delete(aid);
+                if (gQueuedAbilitySaves.has(aid)) {
+                    const nextIsAuto = gQueuedAbilitySaves.get(aid);
+                    gQueuedAbilitySaves.delete(aid);
+                    saveAbilityItem(aid, nextIsAuto);
+                }
             }
         }
 

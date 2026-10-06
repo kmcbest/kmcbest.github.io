@@ -1,6 +1,6 @@
 {
   "total_bots": 78,
-  "total_abilities": 1313,
+  "total_abilities": 1314,
   "bots": {
     "grimlock_gs_mp08": {
       "bot_id": "grimlock_gs_mp08",
@@ -17853,6 +17853,20 @@
           "desc_zh": "{{var_18}} 有机会造成触电，对 {{var_20}} 进行 {{var_19}} 攻击造成触电。",
           "desc_en": "{{var_18}} Chance to inflict Shock, dealing Shock for  {{var_19}} Attack over {{var_20}}.",
           "pua_icon": "",
+          "raw_data_json": "",
+          "sort_order": 16,
+          "synergy_bots": [],
+          "status": "unimplemented"
+        },
+        {
+          "id": 3651,
+          "bot_id": "wheeljack_gs_mp20",
+          "category": "sp1",
+          "title_zh": "能量流失",
+          "title_en": "Power Leak",
+          "desc_zh": "随着时间的推移，减去一定百分比的对手力量。",
+          "desc_en": "Power Leak - Substracts a percentage of the opponents' Power over time.",
+          "pua_icon": "0xe607",
           "raw_data_json": "",
           "sort_order": 16,
           "synergy_bots": [],

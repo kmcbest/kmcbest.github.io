@@ -276,6 +276,20 @@
       "status": "unimplemented"
     },
     {
+      "id": 3651,
+      "bot_id": "wheeljack_gs_mp20",
+      "category": "sp1",
+      "title_zh": "能量流失",
+      "title_en": "Power Leak",
+      "desc_zh": "随着时间的推移，减去一定百分比的对手力量。",
+      "desc_en": "Power Leak - Substracts a percentage of the opponents' Power over time.",
+      "pua_icon": "0xe607",
+      "raw_data_json": "",
+      "sort_order": 16,
+      "synergy_bots": [],
+      "status": "unimplemented"
+    },
+    {
       "id": 2891,
       "bot_id": "wheeljack_gs_mp20",
       "category": "sp3",

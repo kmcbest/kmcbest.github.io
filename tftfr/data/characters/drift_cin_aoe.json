@@ -130,20 +130,6 @@
       "status": "implemented"
     },
     {
-      "id": 2512,
-      "bot_id": "drift_cin_aoe",
-      "category": "passive",
-      "title_zh": "剑刃暴击",
-      "title_en": "Critical Sword Attacks",
-      "desc_zh": "近战与远程攻击出暴击时，有65%的概率造成攻击力30%的流血伤害，持续2秒。",
-      "desc_en": "Critical Melee and Ranged attacks have a 65% chance to inflict Bleed, dealing 30% Attack over 2 seconds.",
-      "pua_icon": "0xe401",
-      "raw_data_json": "",
-      "sort_order": 7,
-      "synergy_bots": [],
-      "status": "implemented"
-    },
-    {
       "id": 2513,
       "bot_id": "drift_cin_aoe",
       "category": "passive",

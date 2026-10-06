@@ -144,20 +144,6 @@
       "status": "unimplemented"
     },
     {
-      "id": 2943,
-      "bot_id": "bludgeon_gs_rd20",
-      "category": "passive",
-      "title_zh": "剑刃攻击",
-      "title_en": "Blade Attacks",
-      "desc_zh": "暴击时有25%的概率触发流血，在5秒内造成攻击力120%的伤害。如果是特殊技中的剑刃暴击，概率+60%。",
-      "desc_en": "25% chance to inflict Bleed on Critical Hits, dealing 120% of Attack over 5 seconds. If it's a Critical Blade Attack in Special Attacks, chance is increased by 60%.",
-      "pua_icon": "0xe401",
-      "raw_data_json": "",
-      "sort_order": 8,
-      "synergy_bots": [],
-      "status": "implemented"
-    },
-    {
       "id": 2944,
       "bot_id": "bludgeon_gs_rd20",
       "category": "signature",

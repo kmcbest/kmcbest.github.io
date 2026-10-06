@@ -102,20 +102,6 @@
       "status": "implemented"
     },
     {
-      "id": 2958,
-      "bot_id": "bonecrusher_cin_rotf",
-      "category": "passive",
-      "title_zh": "重击流血",
-      "title_en": "Heavy Attacks Bleed",
-      "desc_zh": "重击命中时：70%几率触发流血，造成攻击力45%的伤害，持续5.6秒。",
-      "desc_en": "Heavy Attacks: 70% chance to inflict Bleed, dealing 45% Attack over 5.6 seconds.",
-      "pua_icon": "0xe401",
-      "raw_data_json": "",
-      "sort_order": 5,
-      "synergy_bots": [],
-      "status": "implemented"
-    },
-    {
       "id": 2959,
       "bot_id": "bonecrusher_cin_rotf",
       "category": "signature",

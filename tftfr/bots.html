@@ -3069,6 +3069,7 @@
             const title_zh = titleZhInput ? titleZhInput.value.trim() : '';
             const title_en = titleEnInput ? titleEnInput.value.trim() : '';
             const desc_zh = descZhInput ? descZhInput.value.trim() : '';
+            const desc_en = descEnInput ? descEnInput.value.trim() : '';
             const payload = { title_zh, title_en, desc_zh, desc_en };
             if (statusSelect) {
                 payload.status = statusSelect.value;
@@ -3330,10 +3331,14 @@
 
             const category = document.getElementById('newAbCategory').value;
             const title_zh = document.getElementById('newAbTitle').value.trim();
+            const titleEnEl = document.getElementById('newAbTitleEn');
+            const title_en = titleEnEl ? titleEnEl.value.trim() : '';
             const desc_zh = document.getElementById('newAbDesc').value.trim();
+            const descEnEl = document.getElementById('newAbDescEn');
+            const desc_en = descEnEl ? descEnEl.value.trim() : '';
             const pua_icon = document.getElementById('newAbPuaIconVal').value;
 
-            if (!title_zh) {
+            if (!title_zh && !title_en) {
                 alert("请输入能力标题！");
                 return;
             }
@@ -3345,13 +3350,35 @@
                 bot_id: gCurBotId,
                 category,
                 title_zh,
+                title_en,
                 desc_zh,
+                desc_en,
                 pua_icon,
                 status
             };
 
             if (category === 'synergy') {
                 payload.synergy_bots = gNewAbSynergyBots;
+            }
+
+            if (typeof kvSet === 'function') {
+                try {
+                    let charDetail = await kvGet('tftf:char:' + gCurBotId, `./data/characters/${gCurBotId}.json`) || {};
+                    if (!charDetail.abilities) charDetail.abilities = [];
+                    let maxId = 5000;
+                    charDetail.abilities.forEach(a => { if (a.id && a.id > maxId) maxId = a.id; });
+                    payload.id = maxId + 1;
+                    charDetail.abilities.push(payload);
+                    await kvSet('tftf:char:' + gCurBotId, charDetail);
+                    showToast("新能力创建成功！");
+                    closeAddAbilityModal();
+                    openCharacterModal(gCurBotId);
+                    return;
+                } catch (err) {
+                    console.error("Failed to save new ability to cloud:", err);
+                    alert("创建失败: " + err);
+                    return;
+                }
             }
 
             try {

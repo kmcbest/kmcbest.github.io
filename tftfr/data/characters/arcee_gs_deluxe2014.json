@@ -99,7 +99,7 @@
       "raw_data_json": "",
       "sort_order": 5,
       "synergy_bots": [],
-      "status": "partial"
+      "status": "implemented"
     },
     {
       "id": 2384,
@@ -127,7 +127,7 @@
       "raw_data_json": "",
       "sort_order": 7,
       "synergy_bots": [],
-      "status": "priority"
+      "status": "unimplemented"
     },
     {
       "id": 2386,
@@ -141,7 +141,7 @@
       "raw_data_json": "",
       "sort_order": 8,
       "synergy_bots": [],
-      "status": "unimplemented"
+      "status": "priority"
     },
     {
       "id": 2387,
@@ -155,7 +155,7 @@
       "raw_data_json": "",
       "sort_order": 9,
       "synergy_bots": [],
-      "status": "unimplemented"
+      "status": "priority"
     },
     {
       "id": 2388,
@@ -169,7 +169,7 @@
       "raw_data_json": "",
       "sort_order": 10,
       "synergy_bots": [],
-      "status": "unimplemented"
+      "status": "priority"
     },
     {
       "id": 2389,

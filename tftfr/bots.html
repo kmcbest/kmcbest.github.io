@@ -2030,6 +2030,15 @@
                 return false;
             }
         }
+
+        // Register Service Worker for Cache-First asset caching (Instant F5 load)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js').catch(err => {
+                    console.warn('ServiceWorker registration failed:', err);
+                });
+            });
+        }
     
         let gOverviewData = null;
         let gPuaIcons = [];
@@ -2195,26 +2204,59 @@
         // Initialize dashboard
         async function init() {
             try {
+                // 1. Fast path: 优先使用 localStorage 缓存秒级渲染页面（0ms 零白屏、零重复网络开销）
+                const cachedOv = localStorage.getItem('tftf_cached_overview');
+                const cachedPua = localStorage.getItem('tftf_cached_pua');
+                if (cachedOv) {
+                    try {
+                        gOverviewData = JSON.parse(cachedOv);
+                        if (cachedPua) gPuaIcons = JSON.parse(cachedPua);
+                        if (gOverviewData && gOverviewData.characters) {
+                            gOverviewData.characters.forEach(c => {
+                                c.portrait_url = `portraits/${c.bot_id}.png`;
+                                c.portrait_large_url = `portraits/${c.bot_id}_large.png`;
+                            });
+                        }
+                        const puaStat = document.getElementById('statTotalPua');
+                        if (puaStat) puaStat.innerText = `${gPuaIcons.length} 个`;
+                        renderDashboard();
+                    } catch (e) {
+                        console.warn('Local cache parse error:', e);
+                    }
+                }
+
+                // 2. 网络同步最新状态（如有更新才重新刷新）
                 if (typeof kvGet === 'function') {
-                    gOverviewData = await kvGet('tftf:overview', './data/overview.json');
-                    if (gOverviewData && gOverviewData.characters) {
-                        gOverviewData.characters.forEach(c => {
-                            c.portrait_url = `portraits/${c.bot_id}.png`;
-                            c.portrait_large_url = `portraits/${c.bot_id}_large.png`;
-                        });
+                    const freshOv = await kvGet('tftf:overview', './data/overview.json');
+                    if (freshOv) {
+                        const freshStr = JSON.stringify(freshOv);
+                        if (freshStr !== cachedOv) {
+                            gOverviewData = freshOv;
+                            localStorage.setItem('tftf_cached_overview', freshStr);
+                            if (gOverviewData && gOverviewData.characters) {
+                                gOverviewData.characters.forEach(c => {
+                                    c.portrait_url = `portraits/${c.bot_id}.png`;
+                                    c.portrait_large_url = `portraits/${c.bot_id}_large.png`;
+                                });
+                            }
+                            renderDashboard();
+                        }
                     }
                     const puaData = await kvGet('tftf:pua_icons', './data/pua_icons.json');
-                    gPuaIcons = (puaData && puaData.icons) ? puaData.icons : [];
+                    if (puaData && puaData.icons) {
+                        gPuaIcons = puaData.icons;
+                        localStorage.setItem('tftf_cached_pua', JSON.stringify(gPuaIcons));
+                    }
                 } else {
                     const res = await fetch('/api/overview');
                     gOverviewData = await res.json();
                     const puaRes = await fetch('/api/pua_icons');
                     const puaData = await puaRes.json();
                     gPuaIcons = puaData.icons || [];
+                    renderDashboard();
                 }
-                document.getElementById('statTotalPua').innerText = `${gPuaIcons.length} 个`;
-
-                renderDashboard();
+                const puaStat = document.getElementById('statTotalPua');
+                if (puaStat) puaStat.innerText = `${gPuaIcons.length} 个`;
             } catch (err) {
                 console.error("Failed to load dashboard data:", err);
             }
@@ -2486,7 +2528,7 @@
                 </div>
                 <div class="card-top">
                     <div class="avatar-frame">
-                        <img class="avatar-img" src="${bot.portrait_url}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'58\\' height=\\'58\\'><rect width=\\'100%\\' height=\\'100%\\' fill=\\'%23222\\'/><text x=\\'50%\\' y=\\'50%\\' fill=\\'%23666\\' font-size=\\'10\\' text-anchor=\\'middle\\' dy=\\'.3em\\'>TF</text></svg>'">
+                        <img class="avatar-img" src="${bot.portrait_url}" decoding="async" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'58\\' height=\\'58\\'><rect width=\\'100%\\' height=\\'100%\\' fill=\\'%23222\\'/><text x=\\'50%\\' y=\\'50%\\' fill=\\'%23666\\' font-size=\\'10\\' text-anchor=\\'middle\\' dy=\\'.3em\\'>TF</text></svg>'">
                     </div>
                     <div class="card-info">
                         <div class="char-names" title="${bot.name_zh} (${bot.name_en})">

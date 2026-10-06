@@ -396,6 +396,20 @@
       "sort_order": 24,
       "synergy_bots": [],
       "status": "unimplemented"
+    },
+    {
+      "id": 2652,
+      "bot_id": "jazz_gs_twm05",
+      "category": "basic",
+      "title_zh": "逆火",
+      "title_en": "Backfire",
+      "desc_zh": "",
+      "desc_en": "Backfire",
+      "pua_icon": "0xe901",
+      "raw_data_json": "",
+      "sort_order": 26,
+      "synergy_bots": [],
+      "status": "unimplemented"
     }
   ]
 }

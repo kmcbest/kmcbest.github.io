@@ -38,20 +38,6 @@
   "portrait_large_url": "portraits/shockwave_gs_large.png",
   "abilities": [
     {
-      "id": 3274,
-      "bot_id": "shockwave_gs",
-      "category": "basic",
-      "title_zh": "基础特长",
-      "title_en": "Basic Abilities",
-      "desc_zh": "震惊",
-      "desc_en": "Shock",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 0,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
       "id": 3275,
       "bot_id": "shockwave_gs",
       "category": "basic",

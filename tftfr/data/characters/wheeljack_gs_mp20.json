@@ -25,11 +25,11 @@
   "attack": 2306,
   "rating": 10009,
   "sp1_name_zh": "原型",
-  "sp1_name_en": "Special Attack 1",
+  "sp1_name_en": "Prototype",
   "sp2_name_zh": "迭代",
-  "sp2_name_en": "Special Attack 2",
+  "sp2_name_en": "Iteration",
   "sp3_name_zh": "完美",
-  "sp3_name_en": "Special Attack 3",
+  "sp3_name_en": "Perfect",
   "effective_crit_chance": 0.18,
   "effective_crit_damage": 1.5,
   "effective_crit_ranged": 0.18,
@@ -259,21 +259,7 @@
       "raw_data_json": "",
       "sort_order": 15,
       "synergy_bots": [],
-      "status": "priority"
-    },
-    {
-      "id": 2890,
-      "bot_id": "wheeljack_gs_mp20",
-      "category": "sp2",
-      "title_zh": "特殊技 2",
-      "title_en": "Special Attack 2",
-      "desc_zh": "{{var_18}} 有机会造成触电，对 {{var_20}} 进行 {{var_19}} 攻击造成触电。",
-      "desc_en": "{{var_18}} Chance to inflict Shock, dealing Shock for  {{var_19}} Attack over {{var_20}}.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 16,
-      "synergy_bots": [],
-      "status": "unimplemented"
+      "status": "implemented"
     },
     {
       "id": 3651,
@@ -281,27 +267,13 @@
       "category": "sp1",
       "title_zh": "能量流失",
       "title_en": "Power Leak",
-      "desc_zh": "随着时间的推移，减去一定百分比的对手力量。",
+      "desc_zh": "30%的概率造成能量流失，在3秒内扣除对方一格能量的40%。",
       "desc_en": "Power Leak - Substracts a percentage of the opponents' Power over time.",
       "pua_icon": "0xe607",
       "raw_data_json": "",
       "sort_order": 16,
       "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2891,
-      "bot_id": "wheeljack_gs_mp20",
-      "category": "sp3",
-      "title_zh": "特殊技 3",
-      "title_en": "Special Attack 3",
-      "desc_zh": "{{var_21}} 电源泄漏的机会，消耗 {{var_23}} 电源条的 {{var_22}}。",
-      "desc_en": "{{var_21}} Chance to Power Leak , consuming {{var_22}} of a Power Bar for {{var_23}}.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 17,
-      "synergy_bots": [],
-      "status": "unimplemented"
+      "status": "implemented"
     },
     {
       "id": 2892,
@@ -416,7 +388,77 @@
       "raw_data_json": "",
       "sort_order": 26,
       "synergy_bots": [],
-      "status": "unimplemented"
+      "status": "implemented"
+    },
+    {
+      "id": 3652,
+      "bot_id": "wheeljack_gs_mp20",
+      "category": "sp2",
+      "title_zh": "能量流失",
+      "title_en": "Power Leak",
+      "desc_zh": "30%的概率造成能量流失，在3秒内扣除对方一格能量的40%。",
+      "desc_en": "Power Leak - Substracts a percentage of the opponents' Power over time.",
+      "pua_icon": "0xe607",
+      "raw_data_json": "",
+      "sort_order": 28,
+      "synergy_bots": [],
+      "status": "implemented"
+    },
+    {
+      "id": 3653,
+      "bot_id": "wheeljack_gs_mp20",
+      "category": "sp3",
+      "title_zh": "能量流失",
+      "title_en": "Power Leak",
+      "desc_zh": "30%的概率造成能量流失，在3秒内扣除对方一格能量的40%。",
+      "desc_en": "Power Leak - Substracts a percentage of the opponents' Power over time.",
+      "pua_icon": "0xe607",
+      "raw_data_json": "",
+      "sort_order": 28,
+      "synergy_bots": [],
+      "status": "priority"
+    },
+    {
+      "id": 3654,
+      "bot_id": "wheeljack_gs_mp20",
+      "category": "sp1",
+      "title_zh": "眩晕",
+      "title_en": "Stun",
+      "desc_zh": "10%的概率造成眩晕，持续3秒",
+      "desc_en": "",
+      "pua_icon": "0xe605",
+      "raw_data_json": "",
+      "sort_order": 28,
+      "synergy_bots": [],
+      "status": "implemented"
+    },
+    {
+      "id": 3655,
+      "bot_id": "wheeljack_gs_mp20",
+      "category": "sp2",
+      "title_zh": "眩晕",
+      "title_en": "Stun",
+      "desc_zh": "10%的概率造成眩晕，持续3秒",
+      "desc_en": "",
+      "pua_icon": "0xe605",
+      "raw_data_json": "",
+      "sort_order": 29,
+      "synergy_bots": [],
+      "status": "implemented"
+    },
+    {
+      "id": 3656,
+      "bot_id": "wheeljack_gs_mp20",
+      "category": "sp3",
+      "title_zh": "眩晕",
+      "title_en": "Stun",
+      "desc_zh": "10%的概率造成眩晕，持续3秒",
+      "desc_en": "",
+      "pua_icon": "0xe605",
+      "raw_data_json": "",
+      "sort_order": 30,
+      "synergy_bots": [],
+      "status": "implemented"
     }
   ]
 }

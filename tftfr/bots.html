@@ -2030,6 +2030,116 @@
             transform: translateY(0);
             opacity: 1;
         }
+
+        /* Priority Abilities Overview Card & Modal */
+        .overview-card-priority {
+            cursor: pointer;
+            border-color: rgba(16, 185, 129, 0.35);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(20, 24, 33, 0.95) 100%);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .overview-card-priority:hover {
+            border-color: #10B981;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.25);
+            transform: translateY(-2px);
+        }
+        .overview-card-priority .overview-label {
+            color: #34D399;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .overview-card-priority .overview-value {
+            color: #10B981;
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+        .priority-pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10B981;
+            display: inline-block;
+            box-shadow: 0 0 8px #10B981;
+            animation: pulse-green 2s infinite;
+        }
+        @keyframes pulse-green {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        /* Priority List Modal */
+        .priority-modal-content {
+            max-width: 840px;
+            width: 90%;
+            background: #141821;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(16, 185, 129, 0.15);
+        }
+        .priority-item-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .priority-item-card:hover {
+            background: rgba(16, 185, 129, 0.05);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+        .priority-item-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .priority-item-bot {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        .priority-item-bot:hover .priority-bot-name {
+            color: #38BDF8;
+            text-decoration: underline;
+        }
+        .priority-bot-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: #F3F4F6;
+        }
+        .priority-ability-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #10B981;
+        }
+        .priority-cat-badge {
+            font-size: 11px;
+            padding: 2px 7px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #D1D5DB;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .priority-item-desc {
+            font-size: 12px;
+            color: #9CA3AF;
+            line-height: 1.5;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 8px 12px;
+            border-radius: 6px;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
     </style>
 </head>
 <body>
@@ -2080,6 +2190,16 @@
             <div class="overview-card">
                 <span class="overview-label">PUA 矢量字形库</span>
                 <span class="overview-value" id="statTotalPua">523 个</span>
+            </div>
+            <div class="overview-card overview-card-priority" id="cardPriorityAbilities" onclick="openPriorityModal()" title="点击查看优先实现技能列表">
+                <span class="overview-label">
+                    <span>优先实现待办</span>
+                    <span class="priority-pulse-dot" id="priorityPulseDot"></span>
+                </span>
+                <span class="overview-value">
+                    <span id="statPriorityCount" style="color: #10B981;">0</span>
+                    <span style="font-size: 13px; font-weight: 500; color: #6EE7B7;">条</span>
+                </span>
             </div>
         </div>
 
@@ -2419,6 +2539,36 @@
         </div>
     </div>
 
+    <!-- Priority Abilities Detail Modal -->
+    <div class="modal-overlay" id="priorityModal" onclick="closeModalOnBackdrop(event, 'priorityModal')">
+        <div class="modal-content priority-modal-content">
+            <div class="modal-header" style="border-bottom: 1px solid rgba(16, 185, 129, 0.25);">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); display: flex; align-items: center; justify-content: center; color: #10B981; font-size: 20px;">
+                        ⚡
+                    </div>
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="tecnica" style="font-size: 16px; font-weight: 700; color: #10B981; letter-spacing: 0.5px;">
+                                PRIORITY ABILITIES // 优先实现待办任务
+                            </span>
+                            <span id="priorityModalCountBadge" style="font-size: 11px; padding: 2px 8px; border-radius: 999px; background: rgba(16, 185, 129, 0.2); color: #34D399; font-weight: 600;">
+                                0 条
+                            </span>
+                        </div>
+                        <div style="font-size: 11px; color: var(--text-sub); margin-top: 2px;">
+                            实时追踪标记为「优先实现」的战技。点击角色可直接穿透至其完整档案进行编辑与调试。
+                        </div>
+                    </div>
+                </div>
+                <button class="modal-close-btn" onclick="closePriorityModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="padding: 20px 24px; max-height: calc(85vh - 100px); overflow-y: auto;" id="priorityModalBody">
+                <div style="text-align: center; padding: 30px; color: var(--text-sub);">正在加载优先实现列表...</div>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast Notification -->
     <div class="toast" id="toastMsg">已保存更新</div>
 
@@ -2543,6 +2693,7 @@
                         }
                         Object.assign(ab, payload);
                         await kvSet('tftf:char:' + bId, charDetail);
+                        syncPriorityAbilitiesCache(bId, aid, ab);
                     }
                 }
             }
@@ -2569,6 +2720,7 @@
                     if (charDetail.abilities) {
                         charDetail.abilities = charDetail.abilities.filter(a => String(a.id) !== String(aid));
                         await kvSet('tftf:char:' + gCurBotId, charDetail);
+                        syncPriorityAbilitiesCache(gCurBotId, aid, { status: 'deleted' });
                     }
                 }
             }
@@ -2601,6 +2753,7 @@
                     };
                     charDetail.abilities.push(newAb);
                     await kvSet('tftf:char:' + payload.bot_id, charDetail);
+                    syncPriorityAbilitiesCache(payload.bot_id, newAb.id, newAb);
                 }
             }
             const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
@@ -2638,6 +2791,161 @@
             { type: 'single',        key: 'synergy',   name: '协同奖励 (Synergy Bonuses)', desc: '同队伍羁绊加成' }
         ];
 
+        // Priority Abilities State & Handlers
+        let gPriorityAbilitiesList = [];
+
+        async function fetchPriorityAbilities() {
+            try {
+                let pData = null;
+                if (typeof kvGet === 'function') {
+                    pData = await kvGet('tftf:priority_abilities', './data/priority_abilities.json');
+                } else {
+                    const res = await fetch('./data/priority_abilities.json');
+                    if (res.ok) pData = await res.json();
+                }
+                if (pData && Array.isArray(pData.abilities)) {
+                    gPriorityAbilitiesList = pData.abilities;
+                } else if (Array.isArray(pData)) {
+                    gPriorityAbilitiesList = pData;
+                } else {
+                    gPriorityAbilitiesList = [];
+                }
+                updatePriorityBadgeDisplay();
+            } catch (err) {
+                console.warn("Failed to load priority abilities:", err);
+                gPriorityAbilitiesList = [];
+                updatePriorityBadgeDisplay();
+            }
+        }
+
+        function updatePriorityBadgeDisplay() {
+            const el = document.getElementById('statPriorityCount');
+            const dot = document.getElementById('priorityPulseDot');
+            const count = gPriorityAbilitiesList.length;
+            if (el) el.innerText = count;
+            if (dot) dot.style.display = count > 0 ? 'inline-block' : 'none';
+            const mBadge = document.getElementById('priorityModalCountBadge');
+            if (mBadge) mBadge.innerText = `${count} 条`;
+        }
+
+        async function syncPriorityAbilitiesCache(bId, abId, updatedAbility) {
+            if (!gPriorityAbilitiesList) gPriorityAbilitiesList = [];
+            const aidStr = String(abId);
+            const isPriority = (updatedAbility && updatedAbility.status === 'priority');
+            
+            const existingIdx = gPriorityAbilitiesList.findIndex(item => String(item.id) === aidStr);
+
+            if (isPriority) {
+                const botObj = (gOverviewData && gOverviewData.characters) ? gOverviewData.characters.find(c => c.bot_id === bId) : null;
+                const newItem = {
+                    id: updatedAbility.id || abId,
+                    bot_id: bId,
+                    bot_name_zh: (botObj && botObj.name_zh) || (gCurBotDetail && gCurBotDetail.name_zh) || bId,
+                    bot_name_en: (botObj && botObj.name_en) || (gCurBotDetail && gCurBotDetail.name_en) || '',
+                    bot_class: (botObj && botObj.class) || (gCurBotDetail && gCurBotDetail.class) || '',
+                    bot_faction: (botObj && botObj.faction) || (gCurBotDetail && gCurBotDetail.faction) || '',
+                    bot_source: (botObj && botObj.source) || (gCurBotDetail && gCurBotDetail.source) || '',
+                    category: updatedAbility.category || '',
+                    title_zh: updatedAbility.title_zh || '',
+                    title_en: updatedAbility.title_en || '',
+                    desc_zh: updatedAbility.desc_zh || '',
+                    desc_en: updatedAbility.desc_en || '',
+                    pua_icon: updatedAbility.pua_icon || '',
+                    synergy_bots: updatedAbility.synergy_bots || [],
+                    status: 'priority',
+                    sort_order: updatedAbility.sort_order || 0
+                };
+                if (existingIdx >= 0) {
+                    gPriorityAbilitiesList[existingIdx] = Object.assign(gPriorityAbilitiesList[existingIdx], newItem);
+                } else {
+                    gPriorityAbilitiesList.push(newItem);
+                }
+            } else {
+                if (existingIdx >= 0) {
+                    gPriorityAbilitiesList.splice(existingIdx, 1);
+                }
+            }
+
+            updatePriorityBadgeDisplay();
+
+            if (typeof kvSet === 'function') {
+                const payload = {
+                    total: gPriorityAbilitiesList.length,
+                    status: 'priority',
+                    abilities: gPriorityAbilitiesList
+                };
+                try {
+                    await kvSet('tftf:priority_abilities', payload);
+                } catch (e) {
+                    console.warn("Failed to update tftf:priority_abilities in Upstash KV:", e);
+                }
+            }
+        }
+
+        function openPriorityModal() {
+            renderPriorityModalContent();
+            document.getElementById('priorityModal').classList.add('active');
+        }
+
+        function closePriorityModal() {
+            document.getElementById('priorityModal').classList.remove('active');
+        }
+
+        function renderPriorityModalContent() {
+            const body = document.getElementById('priorityModalBody');
+            if (!body) return;
+
+            if (!gPriorityAbilitiesList || gPriorityAbilitiesList.length === 0) {
+                body.innerHTML = `
+                    <div style="text-align: center; padding: 48px 20px; color: #10B981;">
+                        <div style="font-size: 36px; margin-bottom: 12px;">🎉</div>
+                        <div style="font-size: 16px; font-weight: 700; color: #E5E7EB; margin-bottom: 6px;">全部优先实现任务均已清空！</div>
+                        <div style="font-size: 12px; color: #9CA3AF;">当前没有处于「优先实现」状态的技能，全部 TODO 已完成或已转为已实现/部分实现。</div>
+                    </div>
+                `;
+                return;
+            }
+
+            const catMap = {
+                basic: '基础能力',
+                passive: '被动能力',
+                sp1: '特殊技 1',
+                sp2: '特殊技 2',
+                sp3: '特殊技 3',
+                signature: '觉醒超能',
+                synergy: '协同加成'
+            };
+
+            let html = '';
+            gPriorityAbilitiesList.forEach((item, idx) => {
+                const bName = item.bot_name_zh || item.bot_id;
+                const bEn = item.bot_name_en ? ` (${item.bot_name_en})` : '';
+                const catName = catMap[item.category] || item.category || '技能';
+                const title = item.title_zh || '未命名战技';
+                const puaChar = item.pua_icon ? String.fromCharCode(parseInt(item.pua_icon, 16)) : '';
+                const desc = item.desc_zh || item.desc_en || '无描述说明';
+
+                html += `
+                    <div class="priority-item-card">
+                        <div class="priority-item-header">
+                            <div class="priority-item-bot" onclick="closePriorityModal(); openCharacterModal('${item.bot_id}')" title="点击打开此角色档案卡进行编辑与调试">
+                                <span class="tecnica-icon" style="font-size: 18px; color: #38BDF8;">${puaChar || '🤖'}</span>
+                                <span class="priority-bot-name">${bName}${bEn}</span>
+                                <span style="font-size: 11px; color: #64748B; font-family: monospace;">[${item.bot_id}]</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span class="priority-cat-badge">${catName}</span>
+                                <span class="priority-ability-title">${title}</span>
+                            </div>
+                        </div>
+                        <div class="priority-item-desc">${desc}</div>
+                    </div>
+                `;
+            });
+
+            body.innerHTML = html;
+        }
+
         // Initialize dashboard
         async function init() {
             try {
@@ -2661,6 +2969,7 @@
                 document.getElementById('statTotalPua').innerText = `${gPuaIcons.length} 个`;
 
                 renderDashboard();
+                fetchPriorityAbilities();
             } catch (err) {
                 console.error("Failed to load dashboard data:", err);
             }

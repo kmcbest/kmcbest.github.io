@@ -38,34 +38,6 @@
   "portrait_large_url": "portraits/bludgeon_gs_rd20_large.png",
   "abilities": [
     {
-      "id": 2935,
-      "bot_id": "bludgeon_gs_rd20",
-      "category": "basic",
-      "title_zh": "基础特长",
-      "title_en": "Basic Abilities",
-      "desc_zh": "出血",
-      "desc_en": "Bleed",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 0,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2936,
-      "bot_id": "bludgeon_gs_rd20",
-      "category": "basic",
-      "title_zh": "基础特长",
-      "title_en": "Basic Abilities",
-      "desc_zh": "装甲增益",
-      "desc_en": "Armor Buff",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 1,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
       "id": 2937,
       "bot_id": "bludgeon_gs_rd20",
       "category": "basic",

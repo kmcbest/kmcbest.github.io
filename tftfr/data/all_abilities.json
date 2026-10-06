@@ -1,6 +1,6 @@
 {
   "total_bots": 78,
-  "total_abilities": 1314,
+  "total_abilities": 1313,
   "bots": {
     "grimlock_gs_mp08": {
       "bot_id": "grimlock_gs_mp08",
@@ -6785,11 +6785,11 @@
           "id": 2919,
           "bot_id": "barricade_cin_dotm",
           "category": "basic",
-          "title_zh": "基础特长",
-          "title_en": "Basic Abilities",
+          "title_zh": "暴击伤害",
+          "title_en": "Crit Damage",
           "desc_zh": "严重伤害 {{var_1}}",
           "desc_en": "Critical Damage {{var_1}}",
-          "pua_icon": "",
+          "pua_icon": "0xe906",
           "raw_data_json": "",
           "sort_order": 0,
           "synergy_bots": [],
@@ -6799,11 +6799,11 @@
           "id": 2920,
           "bot_id": "barricade_cin_dotm",
           "category": "basic",
-          "title_zh": "基础特长",
-          "title_en": "Basic Abilities",
-          "desc_zh": "事与愿违",
+          "title_zh": "逆火",
+          "title_en": "Backfire",
+          "desc_zh": "",
           "desc_en": "Backfire",
-          "pua_icon": "",
+          "pua_icon": "0xe901",
           "raw_data_json": "",
           "sort_order": 1,
           "synergy_bots": [],
@@ -6813,27 +6813,13 @@
           "id": 2921,
           "bot_id": "barricade_cin_dotm",
           "category": "basic",
-          "title_zh": "基础特长",
-          "title_en": "Basic Abilities",
-          "desc_zh": "偷电",
+          "title_zh": "能量窃取",
+          "title_en": "Power Steal",
+          "desc_zh": "",
           "desc_en": "Power Steal",
-          "pua_icon": "",
+          "pua_icon": "0xe607",
           "raw_data_json": "",
           "sort_order": 2,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2922,
-          "bot_id": "barricade_cin_dotm",
-          "category": "passive",
-          "title_zh": "战斗被动",
-          "title_en": "Melee Attacks - Up to {{var_2}} Critical Damage based on the opponent's stored Power.",
-          "desc_zh": "近战攻击 - 根据对手储存的力量，最多可造成 {{var_2}} 暴击伤害。",
-          "desc_en": "Melee Attacks - Up to {{var_2}} Critical Damage based on the opponent's stored Power.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 3,
           "synergy_bots": [],
           "status": "unimplemented"
         },
@@ -6841,57 +6827,15 @@
           "id": 2923,
           "bot_id": "barricade_cin_dotm",
           "category": "passive",
-          "title_zh": "被击倒时：",
-          "title_en": "When Knocked Down:",
-          "desc_zh": "被击倒时：",
+          "title_zh": "近战规避",
+          "title_en": "Melee Evade",
+          "desc_zh": "被击倒时，有85%的概率获得3秒的近战规避，可规避基础近战和SP1/SP2中的近战攻击",
           "desc_en": "When Knocked Down:",
-          "pua_icon": "",
+          "pua_icon": "0xe509",
           "raw_data_json": "",
           "sort_order": 4,
           "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2924,
-          "bot_id": "barricade_cin_dotm",
-          "category": "passive",
-          "title_zh": "战斗被动",
-          "title_en": "{{var_3}} chance to evade basic and special attacks for {{var_4}}.",
-          "desc_zh": "{{var_3}} 有机会躲避 {{var_4}} 的基本和特殊技。",
-          "desc_en": "{{var_3}} chance to evade basic and special attacks for {{var_4}}.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 5,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2925,
-          "bot_id": "barricade_cin_dotm",
-          "category": "passive",
-          "title_zh": "{{var_5}} {{var_6}} 秒的临界速率增益。",
-          "title_en": "{{var_5}} Critical Rate Buff for {{var_6}}seconds.",
-          "desc_zh": "{{var_5}} {{var_6}} 秒的临界速率增益。",
-          "desc_en": "{{var_5}} Critical Rate Buff for {{var_6}}seconds.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 6,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2926,
-          "bot_id": "barricade_cin_dotm",
-          "category": "passive",
-          "title_zh": "战斗被动",
-          "title_en": "Ranged Attacks: {{var_7}} to inflict Backfire for {{var_8}}.",
-          "desc_zh": "远程攻击：{{var_7}} 对 {{var_8}} 造成适得其反。",
-          "desc_en": "Ranged Attacks: {{var_7}} to inflict Backfire for {{var_8}}.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 7,
-          "synergy_bots": [],
-          "status": "unimplemented"
+          "status": "priority"
         },
         {
           "id": 2927,
@@ -7001,6 +6945,20 @@
           "status": "unimplemented"
         },
         {
+          "id": 2936,
+          "bot_id": "barricade_cin_dotm",
+          "category": "passive",
+          "title_zh": "暴击几率",
+          "title_en": "Crit Rate",
+          "desc_zh": "被击倒时，有40%的概率获得暴击几率增益，持续7.5秒",
+          "desc_en": "",
+          "pua_icon": "0xe40d",
+          "raw_data_json": "",
+          "sort_order": 14,
+          "synergy_bots": [],
+          "status": "priority"
+        },
+        {
           "id": 2934,
           "bot_id": "barricade_cin_dotm",
           "category": "synergy",
@@ -7015,6 +6973,20 @@
             "megatron_gs_leader2015"
           ],
           "status": "unimplemented"
+        },
+        {
+          "id": 2935,
+          "bot_id": "barricade_cin_dotm",
+          "category": "passive",
+          "title_zh": "远程规避",
+          "title_en": "Ranged Evade",
+          "desc_zh": "被击倒时，有85%的概率获得3秒的远程规避，可规避基础近战和SP1/SP2中的远程攻击",
+          "desc_en": "",
+          "pua_icon": "0xe518",
+          "raw_data_json": "",
+          "sort_order": 17,
+          "synergy_bots": [],
+          "status": "priority"
         }
       ]
     },
@@ -7988,6 +7960,20 @@
           "pua_icon": "",
           "raw_data_json": "",
           "sort_order": 24,
+          "synergy_bots": [],
+          "status": "unimplemented"
+        },
+        {
+          "id": 2652,
+          "bot_id": "jazz_gs_twm05",
+          "category": "basic",
+          "title_zh": "逆火",
+          "title_en": "Backfire",
+          "desc_zh": "",
+          "desc_en": "Backfire",
+          "pua_icon": "0xe901",
+          "raw_data_json": "",
+          "sort_order": 26,
           "synergy_bots": [],
           "status": "unimplemented"
         }
@@ -15021,20 +15007,6 @@
       "portrait_large_url": "portraits/jetfire_gs_leader2014_large.png",
       "abilities": [
         {
-          "id": 2652,
-          "bot_id": "jetfire_gs_leader2014",
-          "category": "basic",
-          "title_zh": "基础特长",
-          "title_en": "Basic Abilities",
-          "desc_zh": "招架盾",
-          "desc_en": "Parry Shield",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 0,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
           "id": 2653,
           "bot_id": "jetfire_gs_leader2014",
           "category": "basic",
@@ -15923,7 +15895,7 @@
           "raw_data_json": "",
           "sort_order": 11,
           "synergy_bots": [],
-          "status": "priority"
+          "status": "implemented"
         },
         {
           "id": 2759,
@@ -16495,20 +16467,6 @@
       "portrait_url": "portraits/shockwave_gs.png",
       "portrait_large_url": "portraits/shockwave_gs_large.png",
       "abilities": [
-        {
-          "id": 3274,
-          "bot_id": "shockwave_gs",
-          "category": "basic",
-          "title_zh": "基础特长",
-          "title_en": "Basic Abilities",
-          "desc_zh": "震惊",
-          "desc_en": "Shock",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 0,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
         {
           "id": 3275,
           "bot_id": "shockwave_gs",
@@ -17608,11 +17566,11 @@
       "attack": 2306,
       "rating": 10009,
       "sp1_name_zh": "原型",
-      "sp1_name_en": "Special Attack 1",
+      "sp1_name_en": "Prototype",
       "sp2_name_zh": "迭代",
-      "sp2_name_en": "Special Attack 2",
+      "sp2_name_en": "Iteration",
       "sp3_name_zh": "完美",
-      "sp3_name_en": "Special Attack 3",
+      "sp3_name_en": "Perfect",
       "effective_crit_chance": 0.18,
       "effective_crit_damage": 1.5,
       "effective_crit_ranged": 0.18,
@@ -17842,21 +17800,7 @@
           "raw_data_json": "",
           "sort_order": 15,
           "synergy_bots": [],
-          "status": "priority"
-        },
-        {
-          "id": 2890,
-          "bot_id": "wheeljack_gs_mp20",
-          "category": "sp2",
-          "title_zh": "特殊技 2",
-          "title_en": "Special Attack 2",
-          "desc_zh": "{{var_18}} 有机会造成触电，对 {{var_20}} 进行 {{var_19}} 攻击造成触电。",
-          "desc_en": "{{var_18}} Chance to inflict Shock, dealing Shock for  {{var_19}} Attack over {{var_20}}.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 16,
-          "synergy_bots": [],
-          "status": "unimplemented"
+          "status": "implemented"
         },
         {
           "id": 3651,
@@ -17864,27 +17808,13 @@
           "category": "sp1",
           "title_zh": "能量流失",
           "title_en": "Power Leak",
-          "desc_zh": "随着时间的推移，减去一定百分比的对手力量。",
+          "desc_zh": "30%的概率造成能量流失，在3秒内扣除对方一格能量的40%。",
           "desc_en": "Power Leak - Substracts a percentage of the opponents' Power over time.",
           "pua_icon": "0xe607",
           "raw_data_json": "",
           "sort_order": 16,
           "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2891,
-          "bot_id": "wheeljack_gs_mp20",
-          "category": "sp3",
-          "title_zh": "特殊技 3",
-          "title_en": "Special Attack 3",
-          "desc_zh": "{{var_21}} 电源泄漏的机会，消耗 {{var_23}} 电源条的 {{var_22}}。",
-          "desc_en": "{{var_21}} Chance to Power Leak , consuming {{var_22}} of a Power Bar for {{var_23}}.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 17,
-          "synergy_bots": [],
-          "status": "unimplemented"
+          "status": "implemented"
         },
         {
           "id": 2892,
@@ -17999,7 +17929,77 @@
           "raw_data_json": "",
           "sort_order": 26,
           "synergy_bots": [],
-          "status": "unimplemented"
+          "status": "implemented"
+        },
+        {
+          "id": 3652,
+          "bot_id": "wheeljack_gs_mp20",
+          "category": "sp2",
+          "title_zh": "能量流失",
+          "title_en": "Power Leak",
+          "desc_zh": "30%的概率造成能量流失，在3秒内扣除对方一格能量的40%。",
+          "desc_en": "Power Leak - Substracts a percentage of the opponents' Power over time.",
+          "pua_icon": "0xe607",
+          "raw_data_json": "",
+          "sort_order": 28,
+          "synergy_bots": [],
+          "status": "implemented"
+        },
+        {
+          "id": 3653,
+          "bot_id": "wheeljack_gs_mp20",
+          "category": "sp3",
+          "title_zh": "能量流失",
+          "title_en": "Power Leak",
+          "desc_zh": "30%的概率造成能量流失，在3秒内扣除对方一格能量的40%。",
+          "desc_en": "Power Leak - Substracts a percentage of the opponents' Power over time.",
+          "pua_icon": "0xe607",
+          "raw_data_json": "",
+          "sort_order": 28,
+          "synergy_bots": [],
+          "status": "priority"
+        },
+        {
+          "id": 3654,
+          "bot_id": "wheeljack_gs_mp20",
+          "category": "sp1",
+          "title_zh": "眩晕",
+          "title_en": "Stun",
+          "desc_zh": "10%的概率造成眩晕，持续3秒",
+          "desc_en": "",
+          "pua_icon": "0xe605",
+          "raw_data_json": "",
+          "sort_order": 28,
+          "synergy_bots": [],
+          "status": "implemented"
+        },
+        {
+          "id": 3655,
+          "bot_id": "wheeljack_gs_mp20",
+          "category": "sp2",
+          "title_zh": "眩晕",
+          "title_en": "Stun",
+          "desc_zh": "10%的概率造成眩晕，持续3秒",
+          "desc_en": "",
+          "pua_icon": "0xe605",
+          "raw_data_json": "",
+          "sort_order": 29,
+          "synergy_bots": [],
+          "status": "implemented"
+        },
+        {
+          "id": 3656,
+          "bot_id": "wheeljack_gs_mp20",
+          "category": "sp3",
+          "title_zh": "眩晕",
+          "title_en": "Stun",
+          "desc_zh": "10%的概率造成眩晕，持续3秒",
+          "desc_en": "",
+          "pua_icon": "0xe605",
+          "raw_data_json": "",
+          "sort_order": 30,
+          "synergy_bots": [],
+          "status": "implemented"
         }
       ]
     },
@@ -18769,7 +18769,7 @@
           "raw_data_json": "",
           "sort_order": 6,
           "synergy_bots": [],
-          "status": "unimplemented"
+          "status": "implemented"
         },
         {
           "id": 2385,
@@ -18797,7 +18797,7 @@
           "raw_data_json": "",
           "sort_order": 8,
           "synergy_bots": [],
-          "status": "priority"
+          "status": "partial"
         },
         {
           "id": 2387,
@@ -18811,7 +18811,7 @@
           "raw_data_json": "",
           "sort_order": 9,
           "synergy_bots": [],
-          "status": "priority"
+          "status": "implemented"
         },
         {
           "id": 2388,
@@ -18825,7 +18825,7 @@
           "raw_data_json": "",
           "sort_order": 10,
           "synergy_bots": [],
-          "status": "priority"
+          "status": "implemented"
         },
         {
           "id": 2389,
@@ -18968,34 +18968,6 @@
       "portrait_url": "portraits/bludgeon_gs_rd20.png",
       "portrait_large_url": "portraits/bludgeon_gs_rd20_large.png",
       "abilities": [
-        {
-          "id": 2935,
-          "bot_id": "bludgeon_gs_rd20",
-          "category": "basic",
-          "title_zh": "基础特长",
-          "title_en": "Basic Abilities",
-          "desc_zh": "出血",
-          "desc_en": "Bleed",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 0,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2936,
-          "bot_id": "bludgeon_gs_rd20",
-          "category": "basic",
-          "title_zh": "基础特长",
-          "title_en": "Basic Abilities",
-          "desc_zh": "装甲增益",
-          "desc_en": "Armor Buff",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 1,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
         {
           "id": 2937,
           "bot_id": "bludgeon_gs_rd20",
@@ -21482,6 +21454,20 @@
           "synergy_bots": [
             "slipstream_gs"
           ],
+          "status": "unimplemented"
+        },
+        {
+          "id": 3274,
+          "bot_id": "scorponok_bw_kabam",
+          "category": "basic",
+          "title_zh": "逆火",
+          "title_en": "Backfire",
+          "desc_zh": "",
+          "desc_en": "Backfire",
+          "pua_icon": "0xe901",
+          "raw_data_json": "",
+          "sort_order": 25,
+          "synergy_bots": [],
           "status": "unimplemented"
         }
       ]

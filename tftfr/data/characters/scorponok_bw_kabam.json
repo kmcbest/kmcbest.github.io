@@ -383,6 +383,20 @@
         "slipstream_gs"
       ],
       "status": "unimplemented"
+    },
+    {
+      "id": 3274,
+      "bot_id": "scorponok_bw_kabam",
+      "category": "basic",
+      "title_zh": "逆火",
+      "title_en": "Backfire",
+      "desc_zh": "",
+      "desc_en": "Backfire",
+      "pua_icon": "0xe901",
+      "raw_data_json": "",
+      "sort_order": 25,
+      "synergy_bots": [],
+      "status": "unimplemented"
     }
   ]
 }

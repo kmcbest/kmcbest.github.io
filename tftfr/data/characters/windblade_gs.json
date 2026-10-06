@@ -133,15 +133,15 @@
       "id": 2905,
       "bot_id": "windblade_gs",
       "category": "passive",
-      "title_zh": "流血",
-      "title_en": "Bleed",
-      "desc_zh": "出血",
-      "desc_en": "Bleed",
-      "pua_icon": "",
+      "title_zh": "剑刃暴击流血",
+      "title_en": "Critical Bleed",
+      "desc_zh": "近战（包括近战普通攻击和重击）出暴击时，有66%的概率触发流血，造成攻击力68%的伤害，持续4秒。",
+      "desc_en": "Critical Melee Attacks have a 66% chance to inflict Bleed, dealing 68% Attack over 4 seconds.",
+      "pua_icon": "0xe401",
       "raw_data_json": "",
       "sort_order": 7,
       "synergy_bots": [],
-      "status": "unimplemented"
+      "status": "implemented"
     },
     {
       "id": 2906,

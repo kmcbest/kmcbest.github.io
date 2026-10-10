@@ -2555,6 +2555,7 @@
                             <span id="priorityModalCountBadge" style="font-size: 11px; padding: 2px 8px; border-radius: 999px; background: rgba(16, 185, 129, 0.2); color: #34D399; font-weight: 600;">
                                 0 条
                             </span>
+                            <button id="btnReconcileAllPriority" onclick="reconcileAllPriorityFromCloud()" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #34D399; font-size: 11px; padding: 2px 8px; border-radius: 6px; cursor: pointer; transition: all 0.2s;" title="扫描云端全部角色档案，深度核对并彻底清理残留脏数据">🔄 全库核对</button>
                         </div>
                         <div style="font-size: 11px; color: var(--text-sub); margin-top: 2px;">
                             实时追踪标记为「优先实现」的战技。点击角色可直接穿透至其完整档案进行编辑与调试。
@@ -2625,6 +2626,25 @@
                 return false;
             }
         }
+
+        async function kvPipeline(commands) {
+            try {
+                const res = await fetch(`${UPSTASH.url}/pipeline`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${UPSTASH.token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(commands)
+                });
+                if (res.ok) {
+                    return await res.json();
+                }
+            } catch (err) {
+                console.warn("Upstash KV pipeline failed:", err);
+            }
+            return null;
+        }
     
         let gOverviewData = null;
         let gPuaIcons = [];
@@ -2663,6 +2683,9 @@
                     kvSet('tftf:char:' + botId, charDetail),
                     kvSet('tftf:overview', gOverviewData)
                 ]);
+                if (charDetail.abilities) {
+                    await reconcileBotPriorityAbilities(botId, charDetail.abilities);
+                }
             }
             const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
             if (isLocal) {
@@ -2693,7 +2716,7 @@
                         }
                         Object.assign(ab, payload);
                         await kvSet('tftf:char:' + bId, charDetail);
-                        syncPriorityAbilitiesCache(bId, aid, ab);
+                        await reconcileBotPriorityAbilities(bId, charDetail.abilities);
                     }
                 }
             }
@@ -2720,7 +2743,7 @@
                     if (charDetail.abilities) {
                         charDetail.abilities = charDetail.abilities.filter(a => String(a.id) !== String(aid));
                         await kvSet('tftf:char:' + gCurBotId, charDetail);
-                        syncPriorityAbilitiesCache(gCurBotId, aid, { status: 'deleted' });
+                        await reconcileBotPriorityAbilities(gCurBotId, charDetail.abilities);
                     }
                 }
             }
@@ -2753,7 +2776,7 @@
                     };
                     charDetail.abilities.push(newAb);
                     await kvSet('tftf:char:' + payload.bot_id, charDetail);
-                    syncPriorityAbilitiesCache(payload.bot_id, newAb.id, newAb);
+                    await reconcileBotPriorityAbilities(payload.bot_id, charDetail.abilities);
                 }
             }
             const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
@@ -2828,7 +2851,91 @@
             if (mBadge) mBadge.innerText = `${count} 条`;
         }
 
+        async function reconcileBotPriorityAbilities(bId, abilities) {
+            if (!gPriorityAbilitiesList) gPriorityAbilitiesList = [];
+            if (!Array.isArray(abilities)) return;
+
+            let dirty = false;
+            const currentBotAbilitiesMap = new Map();
+            abilities.forEach(a => currentBotAbilitiesMap.set(String(a.id), a));
+
+            // 1. Filter out stale items for bId
+            const nextList = [];
+            for (const item of gPriorityAbilitiesList) {
+                if (item.bot_id === bId) {
+                    const realAb = currentBotAbilitiesMap.get(String(item.id));
+                    if (!realAb || realAb.status !== 'priority') {
+                        dirty = true;
+                        continue;
+                    }
+                    if (item.title_zh !== realAb.title_zh || item.desc_zh !== realAb.desc_zh || item.pua_icon !== realAb.pua_icon || item.category !== realAb.category) {
+                        item.title_zh = realAb.title_zh || '';
+                        item.title_en = realAb.title_en || '';
+                        item.desc_zh = realAb.desc_zh || '';
+                        item.desc_en = realAb.desc_en || '';
+                        item.pua_icon = realAb.pua_icon || '';
+                        item.category = realAb.category || '';
+                        dirty = true;
+                    }
+                }
+                nextList.push(item);
+            }
+
+            // 2. Add any newly marked priority abilities
+            const botObj = (gOverviewData && gOverviewData.characters) ? gOverviewData.characters.find(c => c.bot_id === bId) : null;
+            for (const ab of abilities) {
+                if (ab.status === 'priority') {
+                    const exists = nextList.some(item => String(item.id) === String(ab.id));
+                    if (!exists) {
+                        nextList.push({
+                            id: ab.id,
+                            bot_id: bId,
+                            bot_name_zh: (botObj && botObj.name_zh) || (gCurBotDetail && gCurBotDetail.name_zh) || bId,
+                            bot_name_en: (botObj && botObj.name_en) || (gCurBotDetail && gCurBotDetail.name_en) || '',
+                            bot_class: (botObj && botObj.class) || (gCurBotDetail && gCurBotDetail.class) || '',
+                            bot_faction: (botObj && botObj.faction) || (gCurBotDetail && gCurBotDetail.faction) || '',
+                            bot_source: (botObj && botObj.source) || (gCurBotDetail && gCurBotDetail.source) || 'Kabam',
+                            category: ab.category || '',
+                            title_zh: ab.title_zh || '',
+                            title_en: ab.title_en || '',
+                            desc_zh: ab.desc_zh || '',
+                            desc_en: ab.desc_en || '',
+                            pua_icon: ab.pua_icon || '',
+                            synergy_bots: ab.synergy_bots || [],
+                            status: 'priority',
+                            sort_order: ab.sort_order || 0
+                        });
+                        dirty = true;
+                    }
+                }
+            }
+
+            if (dirty) {
+                gPriorityAbilitiesList = nextList;
+                updatePriorityBadgeDisplay();
+                if (typeof kvSet === 'function') {
+                    try {
+                        await kvSet('tftf:priority_abilities', {
+                            total: gPriorityAbilitiesList.length,
+                            status: 'priority',
+                            abilities: gPriorityAbilitiesList
+                        });
+                    } catch (e) {
+                        console.warn("Failed to update tftf:priority_abilities in Upstash KV:", e);
+                    }
+                }
+                const modal = document.getElementById('priorityModal');
+                if (modal && modal.classList.contains('active')) {
+                    renderPriorityModalContent();
+                }
+            }
+        }
+
         async function syncPriorityAbilitiesCache(bId, abId, updatedAbility) {
+            if (gCurBotDetail && gCurBotDetail.bot_id === bId && Array.isArray(gCurBotDetail.abilities)) {
+                await reconcileBotPriorityAbilities(bId, gCurBotDetail.abilities);
+                return;
+            }
             if (!gPriorityAbilitiesList) gPriorityAbilitiesList = [];
             const aidStr = String(abId);
             const isPriority = (updatedAbility && updatedAbility.status === 'priority');
@@ -2844,7 +2951,7 @@
                     bot_name_en: (botObj && botObj.name_en) || (gCurBotDetail && gCurBotDetail.name_en) || '',
                     bot_class: (botObj && botObj.class) || (gCurBotDetail && gCurBotDetail.class) || '',
                     bot_faction: (botObj && botObj.faction) || (gCurBotDetail && gCurBotDetail.faction) || '',
-                    bot_source: (botObj && botObj.source) || (gCurBotDetail && gCurBotDetail.source) || '',
+                    bot_source: (botObj && botObj.source) || (gCurBotDetail && gCurBotDetail.source) || 'Kabam',
                     category: updatedAbility.category || '',
                     title_zh: updatedAbility.title_zh || '',
                     title_en: updatedAbility.title_en || '',
@@ -2882,9 +2989,143 @@
             }
         }
 
+        async function verifyPriorityAbilitiesQuick() {
+            if (!gPriorityAbilitiesList || gPriorityAbilitiesList.length === 0) return;
+            const uniqueBotIds = [...new Set(gPriorityAbilitiesList.map(item => item.bot_id))];
+            let changedAny = false;
+
+            for (const bId of uniqueBotIds) {
+                try {
+                    const charData = await kvGet('tftf:char:' + bId, `./data/characters/${bId}.json`);
+                    if (charData && Array.isArray(charData.abilities)) {
+                        const botAbMap = new Map();
+                        charData.abilities.forEach(a => botAbMap.set(String(a.id), a));
+
+                        const itemsForBot = gPriorityAbilitiesList.filter(item => item.bot_id === bId);
+                        for (const item of itemsForBot) {
+                            const realAb = botAbMap.get(String(item.id));
+                            if (!realAb || realAb.status !== 'priority') {
+                                changedAny = true;
+                                gPriorityAbilitiesList = gPriorityAbilitiesList.filter(x => String(x.id) !== String(item.id));
+                            }
+                        }
+                    }
+                } catch (e) {
+                    console.warn(`Failed to verify priority abilities for [${bId}]:`, e);
+                }
+            }
+
+            if (changedAny) {
+                updatePriorityBadgeDisplay();
+                renderPriorityModalContent();
+                if (typeof kvSet === 'function') {
+                    await kvSet('tftf:priority_abilities', {
+                        total: gPriorityAbilitiesList.length,
+                        status: 'priority',
+                        abilities: gPriorityAbilitiesList
+                    });
+                }
+            }
+        }
+
+        async function reconcileAllPriorityFromCloud() {
+            const btn = document.getElementById('btnReconcileAllPriority');
+            const origText = btn ? btn.innerText : '🔄 全库核对';
+            if (btn) {
+                btn.disabled = true;
+                btn.innerText = '正在核对全库...';
+            }
+
+            try {
+                if (!gOverviewData || !Array.isArray(gOverviewData.characters)) {
+                    throw new Error("角色概览数据未就绪");
+                }
+
+                const characters = gOverviewData.characters;
+                const charKeys = characters.map(c => 'tftf:char:' + c.bot_id);
+                const chunk_size = 25;
+                const allCharsMap = new Map();
+
+                for (let i = 0; i < charKeys.length; i += chunk_size) {
+                    const chunk = charKeys.slice(i, i + chunk_size);
+                    const cmds = chunk.map(k => ["GET", k]);
+                    const results = await kvPipeline(cmds);
+                    if (results && Array.isArray(results)) {
+                        chunk.forEach((k, idx) => {
+                            const resObj = results[idx];
+                            if (resObj && resObj.result) {
+                                const val = typeof resObj.result === 'string' ? JSON.parse(resObj.result) : resObj.result;
+                                const bId = k.replace('tftf:char:', '');
+                                allCharsMap.set(bId, val);
+                            }
+                        });
+                    }
+                }
+
+                // If pipeline didn't get all or failed, fallback to individual kvGet
+                if (allCharsMap.size === 0) {
+                    for (const c of characters) {
+                        const botData = await kvGet('tftf:char:' + c.bot_id, `./data/characters/${c.bot_id}.json`);
+                        if (botData) allCharsMap.set(c.bot_id, botData);
+                    }
+                }
+
+                const cleanList = [];
+                for (const c of characters) {
+                    const botData = allCharsMap.get(c.bot_id);
+                    if (!botData || !Array.isArray(botData.abilities)) continue;
+                    for (const ab of botData.abilities) {
+                        if (ab.status === 'priority') {
+                            cleanList.push({
+                                id: ab.id,
+                                bot_id: c.bot_id,
+                                bot_name_zh: botData.name_zh || c.name_zh || c.bot_id,
+                                bot_name_en: botData.name_en || c.name_en || '',
+                                bot_class: botData.class || c.class || '',
+                                bot_faction: botData.faction || c.faction || '',
+                                bot_source: botData.source || c.source || 'Kabam',
+                                category: ab.category || '',
+                                title_zh: ab.title_zh || '',
+                                title_en: ab.title_en || '',
+                                desc_zh: ab.desc_zh || '',
+                                desc_en: ab.desc_en || '',
+                                pua_icon: ab.pua_icon || '',
+                                synergy_bots: ab.synergy_bots || [],
+                                status: 'priority',
+                                sort_order: ab.sort_order || 0
+                            });
+                        }
+                    }
+                }
+
+                gPriorityAbilitiesList = cleanList;
+                updatePriorityBadgeDisplay();
+                renderPriorityModalContent();
+
+                if (typeof kvSet === 'function') {
+                    await kvSet('tftf:priority_abilities', {
+                        total: cleanList.length,
+                        status: 'priority',
+                        abilities: cleanList
+                    });
+                }
+
+                showToast(`全库核对完成，共检测到 ${cleanList.length} 条有效优先待办！`);
+            } catch (err) {
+                console.error("全库核对失败:", err);
+                alert("全库核对失败: " + err.message);
+            } finally {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerText = origText;
+                }
+            }
+        }
+
         function openPriorityModal() {
             renderPriorityModalContent();
             document.getElementById('priorityModal').classList.add('active');
+            verifyPriorityAbilitiesQuick();
         }
 
         function closePriorityModal() {
@@ -3419,6 +3660,9 @@
                     throw new Error((data && data.error) || "角色数据未找到");
                 }
                 gCurBotDetail = data;
+                if (data && Array.isArray(data.abilities)) {
+                    reconcileBotPriorityAbilities(bid, data.abilities);
+                }
 
                 document.getElementById('mAvatar').src = data.portrait_url;
                 document.getElementById('mNameZh').innerText = data.name_zh;

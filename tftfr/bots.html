@@ -320,6 +320,88 @@
             transform: translateY(-2px);
         }
 
+        /* Cards with implemented abilities have an illuminated background */
+        .character-card.has-progress {
+            background: linear-gradient(180deg, #131d2e 0%, #0d1522 100%);
+            border-color: rgba(56, 189, 248, 0.35);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(56, 189, 248, 0.04);
+        }
+
+        .character-card.has-progress:hover {
+            border-color: rgba(56, 189, 248, 0.7);
+            box-shadow: 0 6px 24px rgba(56, 189, 248, 0.2), inset 0 0 24px rgba(56, 189, 248, 0.06);
+        }
+
+        /* 20-segment Parallelogram Skill Progress Bar */
+        .card-skill-progress {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top: 4px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            user-select: none;
+        }
+
+        .card-progress-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 11px;
+            line-height: 1;
+        }
+
+        .progress-meta-lbl {
+            color: var(--text-sub);
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .progress-meta-num {
+            color: #64748B;
+            font-size: 11px;
+            font-weight: 700;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            letter-spacing: 0.2px;
+        }
+
+        .progress-meta-num.active {
+            color: #38BDF8;
+        }
+
+        .progress-meta-num.complete {
+            color: #34D399;
+        }
+
+        .progress-segments-track {
+            display: flex;
+            align-items: center;
+            gap: 2.5px;
+            width: 100%;
+            height: 8px;
+            padding: 1px 3px;
+            box-sizing: border-box;
+        }
+
+        .progress-segment {
+            flex: 1;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            transform: skewX(-20deg);
+            border-radius: 1px;
+            transition: all 0.25s ease;
+        }
+
+        .progress-segment.filled {
+            background: #38BDF8;
+            box-shadow: 0 0 5px rgba(56, 189, 248, 0.55);
+        }
+
+        .progress-segment.filled-complete {
+            background: #10B981;
+            box-shadow: 0 0 5px rgba(16, 185, 129, 0.65);
+        }
+
         .card-faction-badge {
             position: absolute;
             top: 14px;
@@ -3200,12 +3282,30 @@
                     }
                     const puaData = await kvGet('tftf:pua_icons', './data/pua_icons.json');
                     gPuaIcons = (puaData && puaData.icons) ? puaData.icons : [];
+
+                    // Load all abilities for bot skill progress stats
+                    const allAbData = await kvGet('tftf:all_abilities', './data/all_abilities.json');
+                    if (allAbData && allAbData.bots) {
+                        computeAllBotAbilityStats(allAbData.bots);
+                    }
                 } else {
                     const res = await fetch('/api/overview');
                     gOverviewData = await res.json();
                     const puaRes = await fetch('/api/pua_icons');
                     const puaData = await puaRes.json();
                     gPuaIcons = puaData.icons || [];
+
+                    try {
+                        const abRes = await fetch('./data/all_abilities.json');
+                        if (abRes.ok) {
+                            const allAbData = await abRes.json();
+                            if (allAbData && allAbData.bots) {
+                                computeAllBotAbilityStats(allAbData.bots);
+                            }
+                        }
+                    } catch (e) {
+                        console.warn("Failed to load all_abilities.json fallback:", e);
+                    }
                 }
                 document.getElementById('statTotalPua').innerText = `${gPuaIcons.length} 个`;
 
@@ -3354,10 +3454,82 @@
 
         const gEditingCardBots = new Set();
 
+        // Global ability statistics map: { [botId]: { total, implemented, ratio, percent } }
+        let gBotAbilityStats = {};
+
+        function computeAllBotAbilityStats(botsObj) {
+            if (!botsObj) return;
+            for (const bId in botsObj) {
+                const botData = botsObj[bId];
+                const abs = (botData && Array.isArray(botData.abilities)) ? botData.abilities : [];
+                const total = abs.length;
+                const implemented = abs.filter(a => a && a.status === 'implemented').length;
+                const ratio = total > 0 ? (implemented / total) : 0;
+                const percent = Math.round(ratio * 100);
+                gBotAbilityStats[bId] = { total, implemented, ratio, percent };
+            }
+        }
+
+        function renderCardProgressHtml(botId) {
+            const stats = gBotAbilityStats[botId] || { total: 0, implemented: 0, ratio: 0, percent: 0 };
+            const total = stats.total || 0;
+            const implemented = stats.implemented || 0;
+            const ratio = total > 0 ? (implemented / total) : 0;
+            const percent = Math.round(ratio * 100);
+
+            let filledCount = Math.round(ratio * 20);
+            if (implemented > 0 && filledCount === 0) {
+                filledCount = 1;
+            }
+            if (filledCount > 20) filledCount = 20;
+
+            const isComplete = total > 0 && implemented >= total;
+            const hasProgress = implemented > 0;
+
+            let segmentsHtml = '';
+            for (let i = 0; i < 20; i++) {
+                const isFilled = i < filledCount;
+                let segCls = 'progress-segment';
+                if (isFilled) {
+                    segCls += isComplete ? ' filled-complete' : ' filled';
+                }
+                segmentsHtml += `<div class="${segCls}"></div>`;
+            }
+
+            const valCls = isComplete ? 'complete' : (hasProgress ? 'active' : '');
+
+            return `
+                <div class="card-skill-progress" id="progress_${botId}" title="能力进度: ${implemented}/${total} (${percent}%)">
+                    <div class="card-progress-meta">
+                        <span class="progress-meta-lbl">技能进度</span>
+                        <span class="progress-meta-num ${valCls}">${implemented}/${total} (${percent}%)</span>
+                    </div>
+                    <div class="progress-segments-track">
+                        ${segmentsHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateBotCardProgress(botId, abilities) {
+            if (!botId) return;
+            if (abilities && Array.isArray(abilities)) {
+                const total = abilities.length;
+                const implemented = abilities.filter(a => a && a.status === 'implemented').length;
+                const ratio = total > 0 ? (implemented / total) : 0;
+                const percent = Math.round(ratio * 100);
+                gBotAbilityStats[botId] = { total, implemented, ratio, percent };
+            }
+            refreshSingleCard(botId);
+        }
+
         // Create individual character card
         function createCharacterCard(bot, cls) {
+            const stats = gBotAbilityStats[bot.bot_id] || { total: 0, implemented: 0, ratio: 0, percent: 0 };
+            const hasProgress = stats.implemented > 0;
+
             const card = document.createElement('div');
-            card.className = 'character-card';
+            card.className = 'character-card' + (hasProgress ? ' has-progress' : '');
             card.id = `card_${bot.bot_id}`;
 
             if (!cls && gOverviewData && gOverviewData.classes) {
@@ -3515,6 +3687,8 @@
                         </svg>
                     </button>
                 </div>
+
+                ${renderCardProgressHtml(bot.bot_id)}
             `;
 
             if (isEditing) {
@@ -3662,6 +3836,7 @@
                 gCurBotDetail = data;
                 if (data && Array.isArray(data.abilities)) {
                     reconcileBotPriorityAbilities(bid, data.abilities);
+                    updateBotCardProgress(bid, data.abilities);
                 }
 
                 document.getElementById('mAvatar').src = data.portrait_url;
@@ -3790,6 +3965,11 @@
             try {
                 const ret = await saveAbilityData(aid, { status: newStatus });
                 if (ret && (ret.ok || ret.success)) {
+                    if (gCurBotDetail && gCurBotDetail.abilities) {
+                        const ab = gCurBotDetail.abilities.find(a => String(a.id) === String(aid));
+                        if (ab) ab.status = newStatus;
+                        updateBotCardProgress(gCurBotDetail.bot_id, gCurBotDetail.abilities);
+                    }
                     showToast(`能力状态已更新：${statusNames[newStatus] || newStatus}`);
                 }
             } catch (err) {
@@ -4170,6 +4350,7 @@
                     if (gCurBotDetail && gCurBotDetail.abilities) {
                         let ab = gCurBotDetail.abilities.find(a => String(a.id) === String(aid));
                         if (ab) Object.assign(ab, payload);
+                        updateBotCardProgress(gCurBotDetail.bot_id, gCurBotDetail.abilities);
                     }
 
                     if (isAutoSave) {

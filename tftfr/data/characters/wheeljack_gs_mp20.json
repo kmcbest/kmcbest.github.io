@@ -6,14 +6,14 @@
   "class": "tech",
   "star_default": 5,
   "source": "Kabam",
-  "health_mult": 1.0,
-  "attack_mult": 1.0,
+  "health_mult": 1,
+  "attack_mult": 1,
   "crit_chance": null,
   "crit_damage": null,
   "crit_chance_ranged": null,
   "crit_chance_melee": null,
   "block_proficiency": 0.5,
-  "mana_gain_mult": 1.0,
+  "mana_gain_mult": 1,
   "origin": "Generation 1",
   "desc_zh": "",
   "desc_en": "",
@@ -374,7 +374,7 @@
       "raw_data_json": "",
       "sort_order": 25,
       "synergy_bots": [],
-      "status": "priority"
+      "status": "implemented"
     },
     {
       "id": 2899,
@@ -392,31 +392,29 @@
     },
     {
       "id": 3652,
-      "bot_id": "wheeljack_gs_mp20",
-      "category": "sp2",
       "title_zh": "能量流失",
       "title_en": "Power Leak",
       "desc_zh": "30%的概率造成能量流失，在3秒内扣除对方一格能量的40%。",
       "desc_en": "Power Leak - Substracts a percentage of the opponents' Power over time.",
       "pua_icon": "0xe607",
-      "raw_data_json": "",
-      "sort_order": 28,
+      "status": "implemented",
       "synergy_bots": [],
-      "status": "implemented"
+      "bot_id": "wheeljack_gs_mp20",
+      "category": "sp2",
+      "sort_order": 28
     },
     {
       "id": 3653,
-      "bot_id": "wheeljack_gs_mp20",
-      "category": "sp3",
       "title_zh": "能量流失",
       "title_en": "Power Leak",
       "desc_zh": "30%的概率造成能量流失，在3秒内扣除对方一格能量的40%。",
       "desc_en": "Power Leak - Substracts a percentage of the opponents' Power over time.",
       "pua_icon": "0xe607",
-      "raw_data_json": "",
-      "sort_order": 28,
+      "status": "implemented",
       "synergy_bots": [],
-      "status": "priority"
+      "bot_id": "wheeljack_gs_mp20",
+      "category": "sp3",
+      "sort_order": 28
     },
     {
       "id": 3654,
@@ -427,38 +425,34 @@
       "desc_zh": "10%的概率造成眩晕，持续3秒",
       "desc_en": "",
       "pua_icon": "0xe605",
-      "raw_data_json": "",
-      "sort_order": 28,
-      "synergy_bots": [],
-      "status": "implemented"
+      "status": "implemented",
+      "sort_order": 28
     },
     {
       "id": 3655,
-      "bot_id": "wheeljack_gs_mp20",
-      "category": "sp2",
       "title_zh": "眩晕",
       "title_en": "Stun",
       "desc_zh": "10%的概率造成眩晕，持续3秒",
       "desc_en": "",
       "pua_icon": "0xe605",
-      "raw_data_json": "",
-      "sort_order": 29,
+      "status": "implemented",
       "synergy_bots": [],
-      "status": "implemented"
+      "bot_id": "wheeljack_gs_mp20",
+      "category": "sp2",
+      "sort_order": 29
     },
     {
       "id": 3656,
-      "bot_id": "wheeljack_gs_mp20",
-      "category": "sp3",
       "title_zh": "眩晕",
       "title_en": "Stun",
       "desc_zh": "10%的概率造成眩晕，持续3秒",
       "desc_en": "",
       "pua_icon": "0xe605",
-      "raw_data_json": "",
-      "sort_order": 30,
+      "status": "implemented",
       "synergy_bots": [],
-      "status": "implemented"
+      "bot_id": "wheeljack_gs_mp20",
+      "category": "sp3",
+      "sort_order": 30
     }
   ]
 }

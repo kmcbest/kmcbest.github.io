@@ -6,14 +6,14 @@
   "class": "tact",
   "star_default": 5,
   "source": "Kabam",
-  "health_mult": 1.0,
-  "attack_mult": 1.0,
+  "health_mult": 1,
+  "attack_mult": 1,
   "crit_chance": null,
   "crit_damage": null,
   "crit_chance_ranged": null,
   "crit_chance_melee": null,
   "block_proficiency": 0.5,
-  "mana_gain_mult": 1.0,
+  "mana_gain_mult": 1,
   "origin": "Generation 1",
   "desc_zh": "",
   "desc_en": "",
@@ -391,6 +391,19 @@
         "slipstream_gs"
       ],
       "status": "unimplemented"
+    },
+    {
+      "id": 2378,
+      "title_zh": "燃烧",
+      "title_en": "Burn",
+      "desc_zh": "重击命中时有20%几率造成燃烧，施加攻击力40%的伤害，持续4秒。",
+      "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
+      "pua_icon": "0xe41d",
+      "status": "implemented",
+      "synergy_bots": [],
+      "bot_id": "fte_stars_gs_t3",
+      "category": "passive",
+      "sort_order": 25
     }
   ]
 }

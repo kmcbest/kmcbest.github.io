@@ -1,6 +1,6 @@
 {
   "total_bots": 78,
-  "total_abilities": 1309,
+  "total_abilities": 1328,
   "bots": {
     "grimlock_gs_mp08": {
       "bot_id": "grimlock_gs_mp08",
@@ -252,6 +252,19 @@
           "sort_order": 14,
           "synergy_bots": [],
           "status": "unimplemented"
+        },
+        {
+          "id": 2542,
+          "title_zh": "燃烧",
+          "title_en": "Burn",
+          "desc_zh": "重击命中时有70%几率造成燃烧，施加攻击力80%的伤害，持续4秒。\n如果对手正在燃烧中，则燃烧可以叠加，每层依旧是4秒，但伤害为攻击力的30%。",
+          "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
+          "pua_icon": "0xe41d",
+          "status": "unimplemented",
+          "synergy_bots": [],
+          "bot_id": "grimlock_gs_mp08",
+          "category": "passive",
+          "sort_order": 16
         }
       ]
     },
@@ -326,15 +339,15 @@
           "id": 3056,
           "bot_id": "grindor_cin_rotf",
           "category": "passive",
-          "title_zh": "受到攻击时：",
-          "title_en": "When Attacked:",
-          "desc_zh": "受到攻击时：",
+          "title_zh": "护甲增益",
+          "title_en": "Armor Buff",
+          "desc_zh": "当受到攻击时，有8%的概率获得护甲增益，降低受到攻击伤害的41%，持续6秒",
           "desc_en": "When Attacked:",
-          "pua_icon": "",
+          "pua_icon": "0xe517",
           "raw_data_json": "",
           "sort_order": 2,
           "synergy_bots": [],
-          "status": "unimplemented"
+          "status": "implemented"
         },
         {
           "id": 3057,
@@ -407,20 +420,6 @@
           "status": "unimplemented"
         },
         {
-          "id": 3062,
-          "bot_id": "grindor_cin_rotf",
-          "category": "passive",
-          "title_zh": "战斗被动",
-          "title_en": "Missile Critical Hit: Inflicts Burn, dealing Heat damage for {{var_9}} Attack over {{var_10}}.",
-          "desc_zh": "导弹暴击：造成燃烧，对 {{var_9}} 攻击造成热伤害，高于 {{var_10}}。",
-          "desc_en": "Missile Critical Hit: Inflicts Burn, dealing Heat damage for {{var_9}} Attack over {{var_10}}.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 8,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
           "id": 3063,
           "bot_id": "grindor_cin_rotf",
           "category": "signature",
@@ -452,11 +451,11 @@
           "id": 3065,
           "bot_id": "grindor_cin_rotf",
           "category": "sp2",
-          "title_zh": "*造成",
-          "title_en": "*Inflicts a",
-          "desc_zh": "{{var_14}} 暴击率减益，持续 {{var_15}} 秒。",
+          "title_zh": "增伤",
+          "title_en": "Increase Damage",
+          "desc_zh": "根据对手当前的能量，最高造成40%的额外伤害。\n//用例：对手无能量，额外伤害为0，对手一格能量，额外伤害为40%/3，对手三格能量，额外伤害为40%",
           "desc_en": "Inflicts a -{{var_14}} Crit Rate Debuff for {{var_15}}seconds.",
-          "pua_icon": "",
+          "pua_icon": "0xe406",
           "raw_data_json": "",
           "sort_order": 11,
           "synergy_bots": [],
@@ -553,6 +552,19 @@
           "sort_order": 17,
           "synergy_bots": [],
           "status": "unimplemented"
+        },
+        {
+          "id": 3072,
+          "title_zh": "燃烧",
+          "title_en": "Burn",
+          "desc_zh": "重击暴击时有100%概率造成燃烧，施加攻击力80%的伤害，持续6秒。",
+          "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
+          "pua_icon": "0xe41d",
+          "status": "implemented",
+          "synergy_bots": [],
+          "bot_id": "grindor_cin_rotf",
+          "category": "passive",
+          "sort_order": 19
         }
       ]
     },
@@ -2289,6 +2301,19 @@
           "sort_order": 21,
           "synergy_bots": [],
           "status": "unimplemented"
+        },
+        {
+          "id": 3448,
+          "title_zh": "燃烧",
+          "title_en": "Burn",
+          "desc_zh": "所有导弹攻击（重击、SP1的最后一击，SP2的所有攻击）命中时有70%几率造成燃烧，施加攻击力80%的伤害，持续4秒。\n如果对手正在燃烧中，则燃烧可以叠加，每层依旧是4秒，但伤害为攻击力的30%。",
+          "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
+          "pua_icon": "0xe41d",
+          "status": "unimplemented",
+          "synergy_bots": [],
+          "bot_id": "tantrum_gs_kabam",
+          "category": "passive",
+          "sort_order": 23
         }
       ]
     },
@@ -2776,6 +2801,19 @@
           "sort_order": 30,
           "synergy_bots": [],
           "status": "unimplemented"
+        },
+        {
+          "id": 3426,
+          "title_zh": "净化燃烧",
+          "title_en": "Purify Burn",
+          "desc_zh": "重击命中时有70%几率造成燃烧，施加攻击力80%的伤害，持续4秒。",
+          "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
+          "pua_icon": "0xe41d",
+          "status": "unimplemented",
+          "synergy_bots": [],
+          "bot_id": "thundercracker_gs_leader2015",
+          "category": "passive",
+          "sort_order": 32
         }
       ]
     },
@@ -4035,11 +4073,11 @@
           "id": 2588,
           "bot_id": "ironhide_cin_rotf",
           "category": "passive",
-          "title_zh": "战斗被动",
-          "title_en": "When Attacked: {{var_1}} chance to increase Critical Damage by {{var_2}} for {{var_3}}.",
-          "desc_zh": "受到攻击时：{{var_1}} 有几率为 {{var_3}} 增加 {{var_2}} 的暴击伤害。",
+          "title_zh": "暴击伤害",
+          "title_en": "Crit Damage",
+          "desc_zh": "铁皮受到攻击时：有12%的概率获得暴击伤害增益，增加140%的暴击伤害，持续8秒",
           "desc_en": "When Attacked: {{var_1}} chance to increase Critical Damage by {{var_2}} for {{var_3}}.",
-          "pua_icon": "",
+          "pua_icon": "0xe906",
           "raw_data_json": "",
           "sort_order": 2,
           "synergy_bots": [],
@@ -4049,71 +4087,15 @@
           "id": 2589,
           "bot_id": "ironhide_cin_rotf",
           "category": "passive",
-          "title_zh": "战斗被动",
-          "title_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
-          "desc_zh": "重击：双重导弹攻击有 +{{var_4}} 几率造成燃烧。",
+          "title_zh": "燃烧",
+          "title_en": "Burn",
+          "desc_zh": "所有导弹攻击（重击、SP1的最后一击，SP2的所有攻击）命中时有70%几率造成燃烧，施加攻击力80%的伤害，持续4秒。\n如果对手正在燃烧中，则燃烧可以叠加，每层依旧是4秒，但伤害为攻击力的30%。",
           "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
-          "pua_icon": "",
+          "pua_icon": "0xe41d",
           "raw_data_json": "",
           "sort_order": 3,
           "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2590,
-          "bot_id": "ironhide_cin_rotf",
-          "category": "passive",
-          "title_zh": "导弹攻击：",
-          "title_en": "Missile Attacks:",
-          "desc_zh": "导弹攻击：",
-          "desc_en": "Missile Attacks:",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 4,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2591,
-          "bot_id": "ironhide_cin_rotf",
-          "category": "passive",
-          "title_zh": "+{{var_5}} 临界率",
-          "title_en": "+{{var_5}} Critical Rate",
-          "desc_zh": "+{{var_5}} 临界率",
-          "desc_en": "+{{var_5}} Critical Rate",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 5,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2592,
-          "bot_id": "ironhide_cin_rotf",
-          "category": "passive",
-          "title_zh": "战斗被动",
-          "title_en": "{{var_6}} chance to inflict Burn, dealing heat damage for {{var_7}} over {{var_8}}.",
-          "desc_zh": "{{var_6}} 有机会造成灼伤，对 {{var_7}} 造成热伤害，而不是对 {{var_8}}。",
-          "desc_en": "{{var_6}} chance to inflict Burn, dealing heat damage for {{var_7}} over {{var_8}}.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 6,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2593,
-          "bot_id": "ironhide_cin_rotf",
-          "category": "passive",
-          "title_zh": "战斗被动",
-          "title_en": "When inflicting Burn on already burning opponents, extra stacks will be inflicted, each dealing {{var_9}} attack.",
-          "desc_zh": "当对已经燃烧的对手造成燃烧时，会造成额外的堆叠，每次造成 {{var_9}} 攻击。",
-          "desc_en": "When inflicting Burn on already burning opponents, extra stacks will be inflicted, each dealing {{var_9}} attack.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 7,
-          "synergy_bots": [],
-          "status": "unimplemented"
+          "status": "implemented"
         },
         {
           "id": 2594,
@@ -4133,11 +4115,11 @@
           "id": 2595,
           "bot_id": "ironhide_cin_rotf",
           "category": "sp1",
-          "title_zh": "感觉很幸运",
-          "title_en": "Feelin' Lucky",
-          "desc_zh": "他喜欢炫耀他的大炮。",
+          "title_zh": "眩晕",
+          "title_en": "Stun",
+          "desc_zh": "最后一击有80%概率造成眩晕，持续2.5秒",
           "desc_en": "Feelin' Lucky - He loves to show off his cannons.",
-          "pua_icon": "",
+          "pua_icon": "0xe605",
           "raw_data_json": "",
           "sort_order": 9,
           "synergy_bots": [],
@@ -4147,29 +4129,15 @@
           "id": 2596,
           "bot_id": "ironhide_cin_rotf",
           "category": "sp2",
-          "title_zh": "特殊技 2",
-          "title_en": "Special Attack 2",
-          "desc_zh": "{{var_13}} 有机会击晕 {{var_14}}。",
+          "title_zh": "暴击伤害",
+          "title_en": "Crit Damage",
+          "desc_zh": "有76%的概率获得暴击伤害增益，增加75%的暴击伤害，持续4秒",
           "desc_en": "{{var_13}} chance to Stun for {{var_14}}.",
           "pua_icon": "",
           "raw_data_json": "",
           "sort_order": 10,
           "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2597,
-          "bot_id": "ironhide_cin_rotf",
-          "category": "sp3",
-          "title_zh": "对峙突破",
-          "title_en": "Standoff Break",
-          "desc_zh": "用你的武器指着他，他会把你撕成碎片。",
-          "desc_en": "Standoff Break - Point your weapon at him and he'll tear you apart.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 11,
-          "synergy_bots": [],
-          "status": "unimplemented"
+          "status": "implemented"
         },
         {
           "id": 2598,
@@ -4285,6 +4253,31 @@
           "sort_order": 18,
           "synergy_bots": [],
           "status": "unimplemented"
+        },
+        {
+          "id": 2605,
+          "bot_id": "ironhide_cin_rotf",
+          "category": "passive",
+          "title_zh": "导弹暴击",
+          "title_en": "Missile Crit",
+          "desc_zh": "所有导弹攻击（重击、SP1的最后一击，SP2的所有攻击）+100%暴击概率",
+          "desc_en": "",
+          "pua_icon": "0xe40d",
+          "status": "partial",
+          "sort_order": 19
+        },
+        {
+          "id": 2606,
+          "title_zh": "燃烧",
+          "title_en": "Burn",
+          "desc_zh": "最后一击有30%几率造成燃烧，施加攻击力100%的伤害，持续8秒。",
+          "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
+          "pua_icon": "",
+          "status": "implemented",
+          "synergy_bots": [],
+          "bot_id": "ironhide_cin_rotf",
+          "category": "sp3",
+          "sort_order": 17
         }
       ]
     },
@@ -5168,34 +5161,6 @@
           "status": "unimplemented"
         },
         {
-          "id": 3169,
-          "bot_id": "mixmaster_cin_rotf",
-          "category": "sp2",
-          "title_zh": "混合物",
-          "title_en": "Concoction",
-          "desc_zh": "Mixmaster 将其提升了一个档次，然后……砰！",
-          "desc_en": "Concoction - Mixmaster kicks it up a notch and…bam!",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 14,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 3170,
-          "bot_id": "mixmaster_cin_rotf",
-          "category": "sp3",
-          "title_zh": "特殊技 3",
-          "title_en": "Special Attack 3",
-          "desc_zh": "{{var_12}} 次机会造成燃烧，在 {{var_14}} 的 <s>6</s> 时间内对 {{var_13}} 攻击造成热伤害。",
-          "desc_en": "{{var_12}} chance to inflict Burn, dealing Heat Damage for {{var_13}} Attack over <s>6</s> {{var_14}}.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 15,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
           "id": 3171,
           "bot_id": "mixmaster_cin_rotf",
           "category": "synergy",
@@ -5292,6 +5257,32 @@
           "sort_order": 21,
           "synergy_bots": [],
           "status": "unimplemented"
+        },
+        {
+          "id": 3178,
+          "title_zh": "燃烧",
+          "title_en": "Burn",
+          "desc_zh": "60%概率造成燃烧，施加攻击力100%的伤害，持续8秒。",
+          "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
+          "pua_icon": "0xe41d",
+          "status": "implemented",
+          "synergy_bots": [],
+          "bot_id": "mixmaster_cin_rotf",
+          "category": "sp2",
+          "sort_order": 24
+        },
+        {
+          "id": 3179,
+          "title_zh": "燃烧",
+          "title_en": "Burn",
+          "desc_zh": "70%概率造成燃烧，施加攻击力120%的伤害，持续8秒。",
+          "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
+          "pua_icon": "0xe41d",
+          "status": "implemented",
+          "synergy_bots": [],
+          "bot_id": "mixmaster_cin_rotf",
+          "category": "sp3",
+          "sort_order": 23
         }
       ]
     },
@@ -5377,60 +5368,18 @@
           "status": "unimplemented"
         },
         {
-          "id": 3234,
-          "bot_id": "ramjet_gs_deluxe2008",
-          "category": "passive",
-          "title_zh": "战斗被动",
-          "title_en": "Passive: This bot's naturally tough Cybertronian exterior provides a permanent {{var_1}} passive Armor Buff.",
-          "desc_zh": "被动：该机器人天生坚韧的塞伯坦外观提供了永久的 {{var_1}} 被动装甲增益。",
-          "desc_en": "Passive: This bot's naturally tough Cybertronian exterior provides a permanent {{var_1}} passive Armor Buff.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 3,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 3235,
-          "bot_id": "ramjet_gs_deluxe2008",
-          "category": "passive",
-          "title_zh": "猛烈攻击的公羊：",
-          "title_en": "Ram with Heavy Attacks:",
-          "desc_zh": "猛烈攻击的公羊：",
-          "desc_en": "Ram with Heavy Attacks:",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 4,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 3236,
-          "bot_id": "ramjet_gs_deluxe2008",
-          "category": "passive",
-          "title_zh": "摆脱敌人攻击的影响。",
-          "title_en": "Shrugs off the impact of enemy attacks.",
-          "desc_zh": "摆脱敌人攻击的影响。",
-          "desc_en": "Shrugs off the impact of enemy attacks.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 5,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
           "id": 3237,
           "bot_id": "ramjet_gs_deluxe2008",
           "category": "passive",
-          "title_zh": "战斗被动",
-          "title_en": "{{var_2}} chance to Stun Burning opponents for {{var_3}}.",
-          "desc_zh": "{{var_2}} 有机会为 {{var_3}} 击晕燃烧的对手。",
+          "title_zh": "眩晕",
+          "title_en": "Stun",
+          "desc_zh": "重击命中处于燃烧状态的对手，100%概率触发眩晕，持续3秒",
           "desc_en": "{{var_2}} chance to Stun Burning opponents for {{var_3}}.",
-          "pua_icon": "",
+          "pua_icon": "0xe605",
           "raw_data_json": "",
           "sort_order": 6,
           "synergy_bots": [],
-          "status": "unimplemented"
+          "status": "implemented"
         },
         {
           "id": 3238,
@@ -5443,48 +5392,6 @@
           "pua_icon": "",
           "raw_data_json": "",
           "sort_order": 7,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 3239,
-          "bot_id": "ramjet_gs_deluxe2008",
-          "category": "sp1",
-          "title_zh": "导弹齐射",
-          "title_en": "Missile Volley",
-          "desc_zh": "冲压发动机从胸口发射出一连串火箭。",
-          "desc_en": "Missile Volley - Ramjet unleashes a barrage of rockets from his chest.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 8,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 3240,
-          "bot_id": "ramjet_gs_deluxe2008",
-          "category": "sp2",
-          "title_zh": "特殊技 2",
-          "title_en": "Special Attack 2",
-          "desc_zh": "{{var_9}} 每次命中有机会造成最多 4 次烧伤，造成 {{var_10}} 攻击，造成超过 <s>5</s> {{var_11}} 的热伤害。",
-          "desc_en": "{{var_9}} Chance per hit to inflict up to four Burns that deal {{var_10}} attack as heat damage over <s>5</s> {{var_11}}.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 9,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 3241,
-          "bot_id": "ramjet_gs_deluxe2008",
-          "category": "sp3",
-          "title_zh": "火箭爆破者",
-          "title_en": "Rocket Blaster",
-          "desc_zh": "突然的撞击所带来的热浪肯定会让对手头晕目眩。",
-          "desc_en": "Rocket Blaster - A blast of heat followed by a sudden impact is guaranteed to leave an opponent dizzy.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 10,
           "synergy_bots": [],
           "status": "unimplemented"
         },
@@ -5604,6 +5511,57 @@
           "sort_order": 18,
           "synergy_bots": [],
           "status": "unimplemented"
+        },
+        {
+          "id": 3251,
+          "bot_id": "ramjet_gs_deluxe2008",
+          "category": "passive",
+          "title_zh": "不可阻挡",
+          "title_en": "Unstoppable",
+          "desc_zh": "重击全程进入不可阻挡状态",
+          "desc_en": "",
+          "pua_icon": "0xe915",
+          "status": "implemented",
+          "sort_order": 18
+        },
+        {
+          "id": 3252,
+          "title_zh": "燃烧",
+          "title_en": "Burn",
+          "desc_zh": "每一击有60%的概率施加随机1~4层燃烧，每一层施加攻击力35%的伤害，持续6秒。\n//用例：因为SP1是两击，所以最多可以施加8层燃烧",
+          "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
+          "pua_icon": "0xe41d",
+          "status": "implemented",
+          "synergy_bots": [],
+          "bot_id": "ramjet_gs_deluxe2008",
+          "category": "sp1",
+          "sort_order": 19
+        },
+        {
+          "id": 3253,
+          "title_zh": "燃烧",
+          "title_en": "Burn",
+          "desc_zh": "每一击有100%的概率施加燃烧，造成攻击力70%的伤害，持续6秒。",
+          "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
+          "pua_icon": "0xe41d",
+          "status": "implemented",
+          "synergy_bots": [],
+          "bot_id": "ramjet_gs_deluxe2008",
+          "category": "sp2",
+          "sort_order": 18
+        },
+        {
+          "id": 3254,
+          "title_zh": "眩晕",
+          "title_en": "Stun",
+          "desc_zh": "技能完成后，100%概率给对手和自己同时施加眩晕，对手眩晕4秒，自己眩晕1秒。",
+          "desc_en": "{{var_2}} chance to Stun Burning opponents for {{var_3}}.",
+          "pua_icon": "0xe605",
+          "status": "implemented",
+          "synergy_bots": [],
+          "bot_id": "ramjet_gs_deluxe2008",
+          "category": "sp3",
+          "sort_order": 17
         }
       ]
     },
@@ -5829,20 +5787,6 @@
           "status": "unimplemented"
         },
         {
-          "id": 3461,
-          "bot_id": "waspinator_gs_deluxe",
-          "category": "sp3",
-          "title_zh": "不稳定的刺击",
-          "title_en": "Unsteady Sting Shot",
-          "desc_zh": "黄蜂人使用踢，然后黄蜂人使用枪。",
-          "desc_en": "Unsteady Sting Shot - Waspinator use kick then Waspinator use gun.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 13,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
           "id": 3462,
           "bot_id": "waspinator_gs_deluxe",
           "category": "synergy",
@@ -5955,6 +5899,19 @@
           "sort_order": 20,
           "synergy_bots": [],
           "status": "unimplemented"
+        },
+        {
+          "id": 3470,
+          "title_zh": "燃烧",
+          "title_en": "Burn",
+          "desc_zh": "100%概率施加燃烧，造成攻击力100%的伤害，持续5秒。",
+          "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
+          "pua_icon": "0xe41d",
+          "status": "implemented",
+          "synergy_bots": [],
+          "bot_id": "waspinator_gs_deluxe",
+          "category": "sp3",
+          "sort_order": 23
         }
       ]
     },
@@ -6835,7 +6792,7 @@
           "raw_data_json": "",
           "sort_order": 4,
           "synergy_bots": [],
-          "status": "priority"
+          "status": "implemented"
         },
         {
           "id": 2927,
@@ -6959,6 +6916,30 @@
             "megatron_gs_leader2015"
           ],
           "status": "unimplemented"
+        },
+        {
+          "id": 2935,
+          "bot_id": "barricade_cin_dotm",
+          "category": "passive",
+          "title_zh": "远程规避",
+          "title_en": "Ranged Evade",
+          "desc_zh": "被击倒时，有85%的概率获得3秒的远程规避，可规避基础近战和SP1/SP2中的远程攻击",
+          "desc_en": "",
+          "pua_icon": "0xe518",
+          "status": "implemented",
+          "sort_order": 17
+        },
+        {
+          "id": 2936,
+          "bot_id": "barricade_cin_dotm",
+          "category": "passive",
+          "title_zh": "暴击几率",
+          "title_en": "Crit Rate",
+          "desc_zh": "被击倒时，有40%的概率获得暴击几率增益，持续7.5秒",
+          "desc_en": "",
+          "pua_icon": "0xe40d",
+          "status": "implemented",
+          "sort_order": 14
         }
       ]
     },
@@ -7055,7 +7036,7 @@
           "raw_data_json": "",
           "sort_order": 3,
           "synergy_bots": [],
-          "status": "priority"
+          "status": "implemented"
         },
         {
           "id": 2441,
@@ -7491,6 +7472,19 @@
           "sort_order": 21,
           "synergy_bots": [],
           "status": "unimplemented"
+        },
+        {
+          "id": 2471,
+          "title_zh": "重击流血",
+          "title_en": "Heavy Attacks Bleed",
+          "desc_zh": "重击命中时：70%几率触发流血，造成攻击力45%的伤害，持续5.6秒。",
+          "desc_en": "Heavy Attacks: 70% chance to inflict Bleed, dealing 45% Attack over 5.6 seconds.",
+          "pua_icon": "0xe401",
+          "status": "unimplemented",
+          "synergy_bots": [],
+          "bot_id": "cheetor_bw_transmetal",
+          "category": "passive",
+          "sort_order": 23
         }
       ]
     },
@@ -7892,6 +7886,19 @@
           "sort_order": 24,
           "synergy_bots": [],
           "status": "unimplemented"
+        },
+        {
+          "id": 2652,
+          "title_zh": "逆火",
+          "title_en": "Backfire",
+          "desc_zh": "",
+          "desc_en": "Backfire",
+          "pua_icon": "0xe901",
+          "status": "unimplemented",
+          "synergy_bots": [],
+          "bot_id": "jazz_gs_twm05",
+          "category": "basic",
+          "sort_order": 26
         }
       ]
     },
@@ -8280,6 +8287,19 @@
           "sort_order": 23,
           "synergy_bots": [],
           "status": "unimplemented"
+        },
+        {
+          "id": 3096,
+          "title_zh": "重击流血",
+          "title_en": "Heavy Attacks Bleed",
+          "desc_zh": "重击命中时：70%几率触发流血，造成攻击力45%的伤害，持续5.6秒。",
+          "desc_en": "Heavy Attacks: 70% chance to inflict Bleed, dealing 45% Attack over 5.6 seconds.",
+          "pua_icon": "0xe401",
+          "status": "unimplemented",
+          "synergy_bots": [],
+          "bot_id": "kickback_gs_kabam",
+          "category": "passive",
+          "sort_order": 25
         }
       ]
     },
@@ -8368,99 +8388,29 @@
           "id": 2727,
           "bot_id": "prowl_gs_deluxe2016",
           "category": "passive",
-          "title_zh": "在仪表板上：",
-          "title_en": "On Dash Back:",
-          "desc_zh": "在仪表板上：",
+          "title_zh": "近战增益",
+          "title_en": "Melee Buff",
+          "desc_zh": "后闪一次开始充近战增益。//提示文字“立即投降！”\n0.5秒充一层，最多10层。//充能图标为灰色，层数逐渐增长\n充能过程中，有54%的概率规避对方近战、远程或特殊攻击\n充到10层或者被打断后，灰色图标变成橙色图标，每层增加11%的近战伤害，持续6秒。//打断时正在充的一层计入获得的近战增益层数，所有层数6秒统一过期。过期前，不能再次开始充近战增益。\n打断条件：警车前冲，被对方击中，近战击中对方，触发规避。//其他情况不被打断，防御成功不打断\n//用例，后闪并按住防御，充到9层，被敌人击中，则变成9层橙色近战增益，6秒倒计时开始",
           "desc_en": "On Dash Back:",
-          "pua_icon": "",
+          "pua_icon": "0xe412",
           "raw_data_json": "",
           "sort_order": 3,
           "synergy_bots": [],
-          "status": "unimplemented"
+          "status": "priority"
         },
         {
           "id": 2728,
           "bot_id": "prowl_gs_deluxe2016",
           "category": "passive",
-          "title_zh": "战斗被动",
-          "title_en": "Prowl tries to Suppress the opponent. While tension is building up, Prowl prepares for the inevitable fight by charging a Melee Buff every {{var_1}} for a maximum of 10 stacks.",
-          "desc_zh": "警车试图压制对手。当紧张局势加剧时，警车为不可避免的战斗做好准备，每 {{var_1}} 充能一个近战增益，最多叠加 10 层。",
+          "title_zh": "远程眩晕",
+          "title_en": "Ranged Stun",
+          "desc_zh": "远程的第一枪有10%的概率眩晕对手1.5秒。//用例：连开三枪，只有第一枪Roll Dice\n如果警车正在近战增益充能中，眩晕概率提高到80%",
           "desc_en": "Prowl tries to Suppress the opponent. While tension is building up, Prowl prepares for the inevitable fight by charging a Melee Buff every {{var_1}} for a maximum of 10 stacks.",
-          "pua_icon": "",
+          "pua_icon": "0xe605",
           "raw_data_json": "",
           "sort_order": 4,
           "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2729,
-          "bot_id": "prowl_gs_deluxe2016",
-          "category": "passive",
-          "title_zh": "战斗被动",
-          "title_en": "When Prowl is struck or hits towards the opponent, each Melee Buff increases damage by {{var_2}} for {{var_3}}.",
-          "desc_zh": "当警车被击中或击中对手时，每个近战增益都会为 {{var_3}} 增加 {{var_2}} 伤害。",
-          "desc_en": "When Prowl is struck or hits towards the opponent, each Melee Buff increases damage by {{var_2}} for {{var_3}}.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 5,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2730,
-          "bot_id": "prowl_gs_deluxe2016",
-          "category": "passive",
-          "title_zh": "战斗被动",
-          "title_en": "{{var_4}} chance to automatically Evade the next incoming attack. This interrupts the charging of Melee Buffs.",
-          "desc_zh": "{{var_4}} 有机会自动躲避下一次攻击。这会中断近战增益的充电。",
-          "desc_en": "{{var_4}} chance to automatically Evade the next incoming attack. This interrupts the charging of Melee Buffs.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 6,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2731,
-          "bot_id": "prowl_gs_deluxe2016",
-          "category": "passive",
-          "title_zh": "远程射击",
-          "title_en": "Ranged Attacks:",
-          "desc_zh": "远程攻击：",
-          "desc_en": "Ranged Attacks:",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 7,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2732,
-          "bot_id": "prowl_gs_deluxe2016",
-          "category": "passive",
-          "title_zh": "战斗被动",
-          "title_en": "{{var_5}} chance to Stun opponents for {{var_6}} on the first Ranged hit of a combo. (Unlisted)",
-          "desc_zh": "在连击的第一次远程攻击中，有 {{var_5}} 机会击晕对手，获得 {{var_6}}。 （未列出）",
-          "desc_en": "{{var_5}} chance to Stun opponents for {{var_6}} on the first Ranged hit of a combo. (Unlisted)",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 8,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2733,
-          "bot_id": "prowl_gs_deluxe2016",
-          "category": "passive",
-          "title_zh": "战斗被动",
-          "title_en": "+{{var_7}} chance if Prowl is charging his Melee Buffs. (Unlisted)",
-          "desc_zh": "如果警车正在为其近战增益蓄力，则 +{{var_7}} 几率。 （未列出）",
-          "desc_en": "+{{var_7}} chance if Prowl is charging his Melee Buffs. (Unlisted)",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 9,
-          "synergy_bots": [],
-          "status": "unimplemented"
+          "status": "priority"
         },
         {
           "id": 2734,
@@ -8468,55 +8418,55 @@
           "category": "signature",
           "title_zh": "好警察",
           "title_en": "Good Cop",
-          "desc_zh": "在为他的近战增益充电后，警车会根据他激活的近战增益数量获得能量激增。\n\n被动：在为近战增益充电后，警车会为每个激活的近战增益获得 {{var_8}} 能量。\n\n每级 +{{var_9}}。",
+          "desc_zh": "每次近战充能完毕（变橙色图标）时，每层充能获得4%的能量（以满能量槽计算）。//10层充能成功则获得40%的能量，也就是1.33格能量槽。",
           "desc_en": "Good Cop\nAfter charging his Melee Buffs, Prowl gets a surge of Power based on how many Melee Buffs he activated.\nPassive: After charging his Melee Buffs, Prowl gets {{var_8}} Power for each Melee Buff activated.\n+{{var_9}} per level.",
-          "pua_icon": "",
+          "pua_icon": "0xe608",
           "raw_data_json": "",
           "sort_order": 10,
           "synergy_bots": [],
-          "status": "unimplemented"
+          "status": "priority"
         },
         {
           "id": 2735,
           "bot_id": "prowl_gs_deluxe2016",
           "category": "sp1",
-          "title_zh": "短路",
-          "title_en": "Short Circuit",
-          "desc_zh": "他的保险丝短路了，他们也短路了。",
+          "title_zh": "能量燃烧",
+          "title_en": "Power Burn",
+          "desc_zh": "100%概率触发能量燃烧，0.5秒内扣减对方最大能量（按三格满计）的40.5%\n//仅第一击触发\n//三格能量的40.5%，就是比一格多一点，属于扣除大量能量的招式",
           "desc_en": "Short Circuit - His short fuse and their short circuit.",
-          "pua_icon": "",
+          "pua_icon": "0xe607",
           "raw_data_json": "",
           "sort_order": 11,
           "synergy_bots": [],
-          "status": "unimplemented"
+          "status": "implemented"
         },
         {
           "id": 2736,
           "bot_id": "prowl_gs_deluxe2016",
           "category": "sp2",
-          "title_zh": "特殊技 2",
-          "title_en": "Special Attack 2",
-          "desc_zh": "{{var_10}} 机会进行能量燃烧，最多消耗目标最大能量 {{var_11}}。",
+          "title_zh": "远程伤害",
+          "title_en": "Ranged Damage",
+          "desc_zh": "远程伤害提升50%，远程射速提升50%，持续6秒",
           "desc_en": "{{var_10}} chance to Power Burn, consuming up to {{var_11}} of the target’s max Power.",
-          "pua_icon": "",
+          "pua_icon": "0xe41b",
           "raw_data_json": "",
           "sort_order": 12,
           "synergy_bots": [],
-          "status": "unimplemented"
+          "status": "implemented"
         },
         {
           "id": 2737,
           "bot_id": "prowl_gs_deluxe2016",
           "category": "sp3",
-          "title_zh": "特殊技 3",
-          "title_en": "Special Attack 3",
-          "desc_zh": "如果对手由于此能量燃烧而达到零能量，则在剩余的战斗中，其能量获取增益的强度将减少 {{var_12}}。",
+          "title_zh": "能量锁定",
+          "title_en": "Power Lock",
+          "desc_zh": "技能发动时100%概率触发能量锁定，阻止对方获得能量，持续16秒",
           "desc_en": "If the opponent reaches zero Power as a result of this Power Burn, the strength of their Power Gain Buffs is reduced by {{var_12}} for the rest of the fight.",
-          "pua_icon": "",
+          "pua_icon": "0xe523",
           "raw_data_json": "",
           "sort_order": 13,
           "synergy_bots": [],
-          "status": "unimplemented"
+          "status": "implemented"
         },
         {
           "id": 2738,
@@ -8878,15 +8828,15 @@
           "id": 2825,
           "bot_id": "sideswipe_gs",
           "category": "sp1",
-          "title_zh": "昂首阔步",
-          "title_en": "Swagger",
-          "desc_zh": "几拳就可以了，但用闪踢看起来更酷。",
+          "title_zh": "眩晕",
+          "title_en": "Stun",
+          "desc_zh": "//几拳就可以了，但用闪踢看起来更酷。\n40%的概率击晕对手2.5秒",
           "desc_en": "Swagger - A couple of punches do the trick, but look cooler with a flash kick.",
-          "pua_icon": "",
+          "pua_icon": "0xe605",
           "raw_data_json": "",
           "sort_order": 12,
           "synergy_bots": [],
-          "status": "unimplemented"
+          "status": "implemented"
         },
         {
           "id": 2826,
@@ -8899,20 +8849,6 @@
           "pua_icon": "",
           "raw_data_json": "",
           "sort_order": 13,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2827,
-          "bot_id": "sideswipe_gs",
-          "category": "sp3",
-          "title_zh": "特殊技 3",
-          "title_en": "Special Attack 3",
-          "desc_zh": "{{var_12}} 有机会击晕 {{var_13}}。",
-          "desc_en": "{{var_12}} chance to Stun for {{var_13}}.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 14,
           "synergy_bots": [],
           "status": "unimplemented"
         },
@@ -8995,6 +8931,56 @@
           "sort_order": 19,
           "synergy_bots": [],
           "status": "unimplemented"
+        },
+        {
+          "id": 2834,
+          "title_zh": "燃烧",
+          "title_en": "Burn",
+          "desc_zh": "最后一击100%几率造成燃烧，施加攻击力80%的伤害，持续6秒。",
+          "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
+          "pua_icon": "0xe41d",
+          "status": "implemented",
+          "synergy_bots": [],
+          "bot_id": "sideswipe_gs",
+          "category": "sp2",
+          "sort_order": 22
+        },
+        {
+          "id": 2835,
+          "title_zh": "燃烧",
+          "title_en": "Burn",
+          "desc_zh": "最后一击100%几率造成燃烧，施加攻击力100%的伤害，持续4秒。",
+          "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
+          "pua_icon": "0xe41d",
+          "status": "implemented",
+          "synergy_bots": [],
+          "bot_id": "sideswipe_gs",
+          "category": "sp3",
+          "sort_order": 23
+        },
+        {
+          "id": 2836,
+          "bot_id": "sideswipe_gs",
+          "category": "sp1",
+          "title_zh": "暴击几率",
+          "title_en": "Crit Rate",
+          "desc_zh": "本技能内+25.5%暴击率 //倒计时在技能结束后消失",
+          "desc_en": "",
+          "pua_icon": "0xe40d",
+          "status": "implemented",
+          "sort_order": 23
+        },
+        {
+          "id": 2837,
+          "bot_id": "sideswipe_gs",
+          "category": "sp3",
+          "title_zh": "驱散",
+          "title_en": "Nullify",
+          "desc_zh": "除最后一击外，每一击有60%的概率驱散对方一个增益",
+          "desc_en": "",
+          "pua_icon": "0xe950",
+          "status": "implemented",
+          "sort_order": 24
         }
       ]
     },
@@ -11458,6 +11444,19 @@
           "sort_order": 19,
           "synergy_bots": [],
           "status": "unimplemented"
+        },
+        {
+          "id": 2505,
+          "title_zh": "重击流血",
+          "title_en": "Heavy Attacks Bleed",
+          "desc_zh": "重击命中并出暴击时：100%几率触发流血，造成攻击力80%的伤害，持续5秒。",
+          "desc_en": "Heavy Attacks: 70% chance to inflict Bleed, dealing 45% Attack over 5.6 seconds.",
+          "pua_icon": "0xe401",
+          "status": "implemented",
+          "synergy_bots": [],
+          "bot_id": "dinobot_bw_kabam",
+          "category": "passive",
+          "sort_order": 21
         }
       ]
     },
@@ -11543,130 +11542,32 @@
           "status": "unimplemented"
         },
         {
-          "id": 2330,
-          "bot_id": "fte_optimus_gs_t3",
-          "category": "passive",
-          "title_zh": "格挡防御",
-          "title_en": "Blocking:",
-          "desc_zh": "封锁：",
-          "desc_en": "Blocking:",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 3,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2331,
-          "bot_id": "fte_optimus_gs_t3",
-          "category": "passive",
-          "title_zh": "战斗被动",
-          "title_en": "When entering the Block stance, Optimus equips an Armor Buff, reducing damage from attacks by {{var_1}} for {{var_2}}.",
-          "desc_zh": "当进入格挡姿态时，擎天柱会装备装甲增益，减少 {{var_1}} 对 {{var_2}} 攻击造成的伤害。",
-          "desc_en": "When entering the Block stance, Optimus equips an Armor Buff, reducing damage from attacks by {{var_1}} for {{var_2}}.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 4,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2332,
-          "bot_id": "fte_optimus_gs_t3",
-          "category": "passive",
-          "title_zh": "战斗被动",
-          "title_en": "Prime's determination to protect teammates provides +{{var_3}} Armor per team member against Melee Attacks.",
-          "desc_zh": "Prime 保护队友的决心为每个团队成员提供 +{{var_3}} 装甲值以抵御近战攻击。",
-          "desc_en": "Prime's determination to protect teammates provides +{{var_3}} Armor per team member against Melee Attacks.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 5,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2333,
-          "bot_id": "fte_optimus_gs_t3",
-          "category": "passive",
-          "title_zh": "战斗被动",
-          "title_en": "Passive: Armor Break effects last {{var_4}} longer for every hit in the Combo Meter.",
-          "desc_zh": "被动：连击计数器中的每一次攻击都会使破甲效果持续 {{var_4}} 更长的时间。",
-          "desc_en": "Passive: Armor Break effects last {{var_4}} longer for every hit in the Combo Meter.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 6,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2334,
-          "bot_id": "fte_optimus_gs_t3",
-          "category": "passive",
-          "title_zh": "战斗被动",
-          "title_en": "Heavy Attacks: Rolling Out grants +{{var_5}} Attack per team member for {{var_6}}.",
-          "desc_zh": "重击：推出后，每个团队成员的 {{var_6}} 攻击力将获得 +{{var_5}} 攻击力。",
-          "desc_en": "Heavy Attacks: Rolling Out grants +{{var_5}} Attack per team member for {{var_6}}.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 7,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
           "id": 2335,
           "bot_id": "fte_optimus_gs_t3",
           "category": "signature",
-          "title_zh": "突破",
+          "title_zh": "突破口",
           "title_en": "Breach",
-          "desc_zh": "当对手的装甲被破时，擎天柱的暴击会造成流血。\n\n当对手的装甲被破时，擎天柱的暴击会造成 {{var_7}} 攻击流血超过 {{var_8}}。",
+          "desc_zh": "当对手身上有破甲减益时，擎天柱的暴击100%会造成流血，施加攻击力140%的伤害，持续4秒",
           "desc_en": "Breach\nOptimus Prime's Critical Hits inflict Bleed when the opponent's Armor is broken.\nWhen opponent's Armor is broken, Optimus Prime's Critical Hits inflict Bleed for {{var_7}} Attack over {{var_8}}.",
-          "pua_icon": "",
+          "pua_icon": "0xe401",
           "raw_data_json": "",
           "sort_order": 8,
           "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2336,
-          "bot_id": "fte_optimus_gs_t3",
-          "category": "sp1",
-          "title_zh": "能量战斧斩",
-          "title_en": "Energon Chop",
-          "desc_zh": "擎天柱用他的能量斧发出旋转斩击制服了对手。",
-          "desc_en": "Energon Chop - Optimus delivers a whirling slash with his Energon Axe to subdue his opponent.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 9,
-          "synergy_bots": [],
-          "status": "unimplemented"
+          "status": "implemented"
         },
         {
           "id": 2337,
           "bot_id": "fte_optimus_gs_t3",
           "category": "sp2",
-          "title_zh": "特殊技 2",
-          "title_en": "Special Attack 2",
-          "desc_zh": "{{var_9}} 几率破甲，移除敌方装甲并为 {{var_11}} 应用 {{var_10}} 装甲减少。",
+          "title_zh": "破甲",
+          "title_en": "Armor Break",
+          "desc_zh": "每一击都有92%的概率施加破甲，首先移除对方身上一层护甲增益，并施加35%的破甲减益，持续6秒。",
           "desc_en": "{{var_9}} chance to Armor Break, removing enemy armor and applying {{var_10}} armor reduction for {{var_11}}.",
-          "pua_icon": "",
+          "pua_icon": "0xe516",
           "raw_data_json": "",
           "sort_order": 10,
           "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2338,
-          "bot_id": "fte_optimus_gs_t3",
-          "category": "sp3",
-          "title_zh": "特殊技 3",
-          "title_en": "Special Attack 3",
-          "desc_zh": "+{{var_12}} 对 {{var_13}} 的攻击。此外，擎天柱小队中每倒下一名盟友，他的攻击力就会增加 +{{var_14}} 攻击力。",
-          "desc_en": "+{{var_12}} Attack for {{var_13}}. Additionally, Optimus Prime's Attack is increased by +{{var_14}} Attack per fallen ally in his squad.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 11,
-          "synergy_bots": [],
-          "status": "unimplemented"
+          "status": "implemented"
         },
         {
           "id": 2339,
@@ -11917,6 +11818,71 @@
           "sort_order": 26,
           "synergy_bots": [],
           "status": "unimplemented"
+        },
+        {
+          "id": 2354,
+          "title_zh": "破甲",
+          "title_en": "Armor Break",
+          "desc_zh": "第二击与第三击92%的概率施加破甲，首先移除对方身上一层护甲增益，并施加20%的破甲减益，持续3.5秒。",
+          "desc_en": "Gavel Crush - When the hammer strikes, judgment has been made.",
+          "pua_icon": "0xe516",
+          "status": "implemented",
+          "synergy_bots": [],
+          "bot_id": "fte_optimus_gs_t3",
+          "category": "sp1",
+          "sort_order": 28
+        },
+        {
+          "id": 2355,
+          "title_zh": "护甲增益",
+          "title_en": "Armor Buff",
+          "desc_zh": "当进入格挡姿态时，有100%的概率获得护甲增益，降低受到攻击伤害的16.5%，持续2.5秒。每个小队成员额外提供15%的护甲增益。\n//用例：小队中除擎天柱还有4人，则护甲增益为16.5%+15%*4=76.5%",
+          "desc_en": "When Attacked:",
+          "pua_icon": "0xe517",
+          "status": "implemented",
+          "synergy_bots": [],
+          "bot_id": "fte_optimus_gs_t3",
+          "category": "passive",
+          "sort_order": 29
+        },
+        {
+          "id": 2357,
+          "title_zh": "攻击增益",
+          "title_en": "Attack Buff",
+          "desc_zh": "发动重击时，获得一个攻击增益，增加（28.8%*小队人数）的攻击力，持续7秒\n//用例：小队中除擎天柱还有4人，则增加115.2%的攻击力\n//图标在技能开始时出现，结束后消失",
+          "desc_en": "Inflicts a -{{var_14}} Crit Rate Debuff for {{var_15}}seconds.",
+          "pua_icon": "0xe406",
+          "status": "unimplemented",
+          "synergy_bots": [],
+          "bot_id": "fte_optimus_gs_t3",
+          "category": "passive",
+          "sort_order": 26
+        },
+        {
+          "id": 2359,
+          "title_zh": "永久破甲",
+          "title_en": "Permanent Armor Break",
+          "desc_zh": "每一击都有92%的概率施加破甲，首先移除对方身上一层护甲增益，并施加35%的破甲减益，持续6秒。",
+          "desc_en": "{{var_9}} chance to Armor Break, removing enemy armor and applying {{var_10}} armor reduction for {{var_11}}.",
+          "pua_icon": "0xe516",
+          "status": "implemented",
+          "synergy_bots": [],
+          "bot_id": "fte_optimus_gs_t3",
+          "category": "sp3",
+          "sort_order": 26
+        },
+        {
+          "id": 2360,
+          "title_zh": "攻击增益",
+          "title_en": "Attack Buff",
+          "desc_zh": "获得一个攻击增益，增加20%的攻击力，持续6秒",
+          "desc_en": "Inflicts a -{{var_14}} Crit Rate Debuff for {{var_15}}seconds.",
+          "pua_icon": "0xe406",
+          "status": "implemented",
+          "synergy_bots": [],
+          "bot_id": "fte_optimus_gs_t3",
+          "category": "sp1",
+          "sort_order": 25
         }
       ]
     },
@@ -12313,6 +12279,19 @@
             "slipstream_gs"
           ],
           "status": "unimplemented"
+        },
+        {
+          "id": 2378,
+          "title_zh": "燃烧",
+          "title_en": "Burn",
+          "desc_zh": "重击命中时有20%几率造成燃烧，施加攻击力40%的伤害，持续4秒。",
+          "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
+          "pua_icon": "0xe41d",
+          "status": "implemented",
+          "synergy_bots": [],
+          "bot_id": "fte_stars_gs_t3",
+          "category": "passive",
+          "sort_order": 25
         }
       ]
     },
@@ -12632,6 +12611,19 @@
             "megatronus_gs_kabam"
           ],
           "status": "unimplemented"
+        },
+        {
+          "id": 3137,
+          "title_zh": "破甲",
+          "title_en": "Armor Break",
+          "desc_zh": "100%的概率施加16.2%的破甲，持续10秒。",
+          "desc_en": "Gavel Crush - When the hammer strikes, judgment has been made.",
+          "pua_icon": "0xe516",
+          "status": "unimplemented",
+          "synergy_bots": [],
+          "bot_id": "megatron_gs_leader2015",
+          "category": "sp1",
+          "sort_order": 20
         }
       ]
     },
@@ -13923,7 +13915,7 @@
           "id": 2864,
           "bot_id": "ultramagnus_gs_leader",
           "category": "signature",
-          "title_zh": "一切为了一",
+          "title_zh": "人人为我",
           "title_en": "All for One",
           "desc_zh": "通天晓为每位活着的队友和每位对手倒下的队友增加攻击力，并为每位倒下的队友和每位对手活着的队友增加物理抗性。\n\n被动：如果活着的队友多于死亡的队友或通天晓独自一人，他会获得+{{var_11}}物理抗性。如果死亡的队友多于活着的或平局的队友，通天晓将获得 {{var_12}} 攻击评级。如果所有队友都死了，他就会获得这两种效果。\n\n+每级大约 {{var_13}}\n\n攻击增益仅影响指挥官的马格努斯，而不影响野外的 AI。",
           "desc_en": "All for One\nUltra Magnus gains Attack for each alive teammate and each of the opponents' fallen teammates, plus Physical Resistance for each fallen teammate and each of the opponents' alive teammates.\nPassive: If more teammates are alive than dead or Ultra Magnus is alone, he gains +{{var_11}} Physical Resistance. If more teammates are dead than alive or tied, Ultra Magnus gains {{var_12}} Attack Rating. If all teammates are dead he gains both effects.\n+about {{var_13}} per level\nAttack buff only affects Commanders' Magnus's and not AI ones in the wild.",
@@ -13937,41 +13929,27 @@
           "id": 2865,
           "bot_id": "ultramagnus_gs_leader",
           "category": "sp1",
-          "title_zh": "木槌粉碎",
-          "title_en": "Gavel Crush",
-          "desc_zh": "当锤子敲响时，审判已经做出。",
+          "title_zh": "破甲",
+          "title_en": "Armor Break",
+          "desc_zh": "移除对方身上所有护甲增益，并按护甲层数施加16.2%的破甲（对方身上如果没有护甲增益，也会施加一层破甲），持续10秒。\n//用例：对方身上有10层护甲增益，则变成10层破甲减益，总计162%的破甲",
           "desc_en": "Gavel Crush - When the hammer strikes, judgment has been made.",
-          "pua_icon": "",
+          "pua_icon": "0xe516",
           "raw_data_json": "",
           "sort_order": 12,
           "synergy_bots": [],
-          "status": "unimplemented"
+          "status": "implemented"
         },
         {
           "id": 2866,
           "bot_id": "ultramagnus_gs_leader",
           "category": "sp2",
-          "title_zh": "特殊技 2",
-          "title_en": "Special Attack 2",
-          "desc_zh": "{{var_14}} 破甲穿透。",
+          "title_zh": "护甲穿透",
+          "title_en": "Armor Piercing",
+          "desc_zh": "75%的护甲穿透",
           "desc_en": "{{var_14}} Armor Penetration.",
-          "pua_icon": "",
+          "pua_icon": "0xe409",
           "raw_data_json": "",
           "sort_order": 13,
-          "synergy_bots": [],
-          "status": "unimplemented"
-        },
-        {
-          "id": 2867,
-          "bot_id": "ultramagnus_gs_leader",
-          "category": "sp3",
-          "title_zh": "特殊技 3",
-          "title_en": "Special Attack 3",
-          "desc_zh": "{{var_15}} 有机会为 {{var_17}} 应用 {{var_16}} 装甲减少。",
-          "desc_en": "{{var_15}} chance to apply {{var_16}} Armor reduction for {{var_17}}.",
-          "pua_icon": "",
-          "raw_data_json": "",
-          "sort_order": 14,
           "synergy_bots": [],
           "status": "unimplemented"
         },
@@ -14058,6 +14036,97 @@
           "sort_order": 20,
           "synergy_bots": [],
           "status": "unimplemented"
+        },
+        {
+          "id": 2874,
+          "title_zh": "燃烧",
+          "title_en": "Burn",
+          "desc_zh": "重击命中时有65%几率造成燃烧，施加攻击力80%的伤害，持续12秒。",
+          "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
+          "pua_icon": "0xe41d",
+          "status": "implemented",
+          "synergy_bots": [],
+          "bot_id": "ultramagnus_gs_leader",
+          "category": "passive",
+          "sort_order": 22
+        },
+        {
+          "id": 2875,
+          "title_zh": "燃烧",
+          "title_en": "Burn",
+          "desc_zh": "最后一击有65%几率造成燃烧，施加攻击力80%的伤害，持续12秒。",
+          "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
+          "pua_icon": "0xe41d",
+          "status": "implemented",
+          "synergy_bots": [],
+          "bot_id": "ultramagnus_gs_leader",
+          "category": "sp2",
+          "sort_order": 23
+        },
+        {
+          "id": 2876,
+          "title_zh": "燃烧",
+          "title_en": "Burn",
+          "desc_zh": "最后一击有65%几率造成燃烧，施加攻击力80%的伤害，持续12秒。",
+          "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
+          "pua_icon": "0xe41d",
+          "status": "implemented",
+          "synergy_bots": [],
+          "bot_id": "ultramagnus_gs_leader",
+          "category": "sp3",
+          "sort_order": 24
+        },
+        {
+          "id": 2877,
+          "title_zh": "护甲穿透",
+          "title_en": "Armor Piercing",
+          "desc_zh": "50%的护甲穿透",
+          "desc_en": "{{var_14}} Armor Penetration.",
+          "pua_icon": "0xe409",
+          "status": "unimplemented",
+          "synergy_bots": [],
+          "bot_id": "ultramagnus_gs_leader",
+          "category": "sp1",
+          "sort_order": 25
+        },
+        {
+          "id": 2879,
+          "title_zh": "驱散",
+          "title_en": "Nullify",
+          "desc_zh": "普通远程攻击有100%概率驱散一个攻击增益或近战增益",
+          "desc_en": "Tactical Gore - A sensible, well-thought-out impaling is an effective way to settle an argument.",
+          "pua_icon": "0xe950",
+          "status": "unimplemented",
+          "synergy_bots": [],
+          "bot_id": "ultramagnus_gs_leader",
+          "category": "passive",
+          "sort_order": 27
+        },
+        {
+          "id": 2880,
+          "title_zh": "破甲",
+          "title_en": "Armor Break",
+          "desc_zh": "第一击移除对方身上所有护甲增益，并按护甲增益层数施加16.2%的破甲（对方身上如果没有护甲增益，也会施加一层破甲），持续10秒。\n//用例：对方身上有10层护甲增益，则变成10层破甲减益，总计162%的破甲",
+          "desc_en": "Gavel Crush - When the hammer strikes, judgment has been made.",
+          "pua_icon": "0xe516",
+          "status": "implemented",
+          "synergy_bots": [],
+          "bot_id": "ultramagnus_gs_leader",
+          "category": "sp2",
+          "sort_order": 27
+        },
+        {
+          "id": 2881,
+          "title_zh": "破甲",
+          "title_en": "Armor Break",
+          "desc_zh": "第一击移除对方身上所有护甲增益，并按护甲增益层数施加16.2%的破甲（对方身上如果没有护甲增益，也会施加一层破甲），持续10秒。\n//用例：对方身上有10层护甲增益，则变成10层破甲减益，总计162%的破甲",
+          "desc_en": "Gavel Crush - When the hammer strikes, judgment has been made.",
+          "pua_icon": "0xe516",
+          "status": "implemented",
+          "synergy_bots": [],
+          "bot_id": "ultramagnus_gs_leader",
+          "category": "sp3",
+          "sort_order": 28
         }
       ]
     },
@@ -17863,31 +17932,29 @@
         },
         {
           "id": 3652,
-          "bot_id": "wheeljack_gs_mp20",
-          "category": "sp2",
           "title_zh": "能量流失",
           "title_en": "Power Leak",
           "desc_zh": "30%的概率造成能量流失，在3秒内扣除对方一格能量的40%。",
           "desc_en": "Power Leak - Substracts a percentage of the opponents' Power over time.",
           "pua_icon": "0xe607",
-          "raw_data_json": "",
-          "sort_order": 28,
+          "status": "implemented",
           "synergy_bots": [],
-          "status": "implemented"
+          "bot_id": "wheeljack_gs_mp20",
+          "category": "sp2",
+          "sort_order": 28
         },
         {
           "id": 3653,
-          "bot_id": "wheeljack_gs_mp20",
-          "category": "sp3",
           "title_zh": "能量流失",
           "title_en": "Power Leak",
           "desc_zh": "30%的概率造成能量流失，在3秒内扣除对方一格能量的40%。",
           "desc_en": "Power Leak - Substracts a percentage of the opponents' Power over time.",
           "pua_icon": "0xe607",
-          "raw_data_json": "",
-          "sort_order": 28,
+          "status": "implemented",
           "synergy_bots": [],
-          "status": "implemented"
+          "bot_id": "wheeljack_gs_mp20",
+          "category": "sp3",
+          "sort_order": 28
         },
         {
           "id": 3654,
@@ -17898,38 +17965,34 @@
           "desc_zh": "10%的概率造成眩晕，持续3秒",
           "desc_en": "",
           "pua_icon": "0xe605",
-          "raw_data_json": "",
-          "sort_order": 28,
-          "synergy_bots": [],
-          "status": "implemented"
+          "status": "implemented",
+          "sort_order": 28
         },
         {
           "id": 3655,
-          "bot_id": "wheeljack_gs_mp20",
-          "category": "sp2",
           "title_zh": "眩晕",
           "title_en": "Stun",
           "desc_zh": "10%的概率造成眩晕，持续3秒",
           "desc_en": "",
           "pua_icon": "0xe605",
-          "raw_data_json": "",
-          "sort_order": 29,
+          "status": "implemented",
           "synergy_bots": [],
-          "status": "implemented"
+          "bot_id": "wheeljack_gs_mp20",
+          "category": "sp2",
+          "sort_order": 29
         },
         {
           "id": 3656,
-          "bot_id": "wheeljack_gs_mp20",
-          "category": "sp3",
           "title_zh": "眩晕",
           "title_en": "Stun",
           "desc_zh": "10%的概率造成眩晕，持续3秒",
           "desc_en": "",
           "pua_icon": "0xe605",
-          "raw_data_json": "",
-          "sort_order": 30,
+          "status": "implemented",
           "synergy_bots": [],
-          "status": "implemented"
+          "bot_id": "wheeljack_gs_mp20",
+          "category": "sp3",
+          "sort_order": 30
         }
       ]
     },
@@ -18719,8 +18782,8 @@
           "id": 2386,
           "bot_id": "arcee_gs_deluxe2014",
           "category": "sp1",
-          "title_zh": "特技射击",
-          "title_en": "Trick Shot",
+          "title_zh": "远程伤害",
+          "title_en": "Ranged Damage",
           "desc_zh": "//阿尔茜炫耀着一点天赋；倒立在半空中也不会失准。\n\n远程伤害提升35%，远程射速提升20%，持续6.5秒",
           "desc_en": "//Arcee shows off with a bit of flair; never missing while upside-down in mid-air.\n\nIncreases Ranged Damage by 35% and Ranged Speed by 20%, for 6.5 seconds.",
           "pua_icon": "0xe41b",
@@ -18733,8 +18796,8 @@
           "id": 2387,
           "bot_id": "arcee_gs_deluxe2014",
           "category": "sp2",
-          "title_zh": "黑寡妇",
-          "title_en": "Femme's Fatality",
+          "title_zh": "流血",
+          "title_en": "Bleed",
           "desc_zh": "//以无与伦比的优雅连斩三次。\n\n如果暴击，100%触发流血，4秒内造成攻击力108%的伤害。",
           "desc_en": "//Slice thrice with unrivaled grace.\n\n100% chance to inflict Bleed on Critical Hits, dealing 108% Attack over 4 seconds.",
           "pua_icon": "0xe401",
@@ -19759,6 +19822,32 @@
           "sort_order": 21,
           "synergy_bots": [],
           "status": "unimplemented"
+        },
+        {
+          "id": 3033,
+          "title_zh": "燃烧",
+          "title_en": "Burn",
+          "desc_zh": "所有导弹攻击（重击、SP1的最后一击，SP2的所有攻击）命中时有70%几率造成燃烧，施加攻击力80%的伤害，持续4秒。\n如果对手正在燃烧中，则燃烧可以叠加，每层依旧是4秒，但伤害为攻击力的30%。",
+          "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
+          "pua_icon": "0xe41d",
+          "status": "unimplemented",
+          "synergy_bots": [],
+          "bot_id": "dirge_gs_deluxe2008",
+          "category": "passive",
+          "sort_order": 23
+        },
+        {
+          "id": 3034,
+          "title_zh": "重击流血",
+          "title_en": "Heavy Attacks Bleed",
+          "desc_zh": "重击命中时：70%几率触发流血，造成攻击力45%的伤害，持续5.6秒。",
+          "desc_en": "Heavy Attacks: 70% chance to inflict Bleed, dealing 45% Attack over 5.6 seconds.",
+          "pua_icon": "0xe401",
+          "status": "unimplemented",
+          "synergy_bots": [],
+          "bot_id": "dirge_gs_deluxe2008",
+          "category": "passive",
+          "sort_order": 24
         }
       ]
     },
@@ -20802,6 +20891,32 @@
           "sort_order": 23,
           "synergy_bots": [],
           "status": "unimplemented"
+        },
+        {
+          "id": 2586,
+          "title_zh": "燃烧",
+          "title_en": "Burn",
+          "desc_zh": "所有导弹攻击（重击、SP1的最后一击，SP2的所有攻击）命中时有70%几率造成燃烧，施加攻击力80%的伤害，持续4秒。\n如果对手正在燃烧中，则燃烧可以叠加，每层依旧是4秒，但伤害为攻击力的30%。",
+          "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
+          "pua_icon": "0xe41d",
+          "status": "unimplemented",
+          "synergy_bots": [],
+          "bot_id": "hound_cin_tlk",
+          "category": "passive",
+          "sort_order": 25
+        },
+        {
+          "id": 2587,
+          "title_zh": "重击流血",
+          "title_en": "Heavy Attacks Bleed",
+          "desc_zh": "重击命中时：70%几率触发流血，造成攻击力45%的伤害，持续5.6秒。",
+          "desc_en": "Heavy Attacks: 70% chance to inflict Bleed, dealing 45% Attack over 5.6 seconds.",
+          "pua_icon": "0xe401",
+          "status": "unimplemented",
+          "synergy_bots": [],
+          "bot_id": "hound_cin_tlk",
+          "category": "passive",
+          "sort_order": 26
         }
       ]
     },
@@ -21025,6 +21140,19 @@
           "sort_order": 12,
           "synergy_bots": [],
           "status": "unimplemented"
+        },
+        {
+          "id": 3207,
+          "title_zh": "重击流血",
+          "title_en": "Heavy Attacks Bleed",
+          "desc_zh": "重击命中时：70%几率触发流血，造成攻击力45%的伤害，持续5.6秒。",
+          "desc_en": "Heavy Attacks: 70% chance to inflict Bleed, dealing 45% Attack over 5.6 seconds.",
+          "pua_icon": "0xe401",
+          "status": "unimplemented",
+          "synergy_bots": [],
+          "bot_id": "necrotronus_gs_kabam",
+          "category": "passive",
+          "sort_order": 14
         }
       ]
     },
@@ -21413,6 +21541,32 @@
             "slipstream_gs"
           ],
           "status": "unimplemented"
+        },
+        {
+          "id": 3274,
+          "title_zh": "逆火",
+          "title_en": "Backfire",
+          "desc_zh": "",
+          "desc_en": "Backfire",
+          "pua_icon": "0xe901",
+          "status": "unimplemented",
+          "synergy_bots": [],
+          "bot_id": "scorponok_bw_kabam",
+          "category": "basic",
+          "sort_order": 25
+        },
+        {
+          "id": 3275,
+          "title_zh": "流血",
+          "title_en": "Bleed",
+          "desc_zh": "近战攻击出暴击时，40%的概率触发流血，施加攻击力60%的伤害，持续4秒",
+          "desc_en": "Heavy Attacks: 70% chance to inflict Bleed, dealing 45% Attack over 5.6 seconds.",
+          "pua_icon": "0xe401",
+          "status": "implemented",
+          "synergy_bots": [],
+          "bot_id": "scorponok_bw_kabam",
+          "category": "passive",
+          "sort_order": 26
         }
       ]
     },
@@ -21498,6 +21652,19 @@
             "sharkticon_gs_kabam"
           ],
           "status": "unimplemented"
+        },
+        {
+          "id": 3490,
+          "title_zh": "重击流血",
+          "title_en": "Heavy Attacks Bleed",
+          "desc_zh": "重击命中时：70%几率触发流血，造成攻击力45%的伤害，持续5.6秒。",
+          "desc_en": "Heavy Attacks: 70% chance to inflict Bleed, dealing 45% Attack over 5.6 seconds.",
+          "pua_icon": "0xe401",
+          "status": "unimplemented",
+          "synergy_bots": [],
+          "bot_id": "sharkticon_gs_warrior",
+          "category": "passive",
+          "sort_order": 4
         }
       ]
     },
@@ -21735,6 +21902,19 @@
           "sort_order": 13,
           "synergy_bots": [],
           "status": "unimplemented"
+        },
+        {
+          "id": 2485,
+          "title_zh": "重击流血",
+          "title_en": "Heavy Attacks Bleed",
+          "desc_zh": "重击命中时：70%几率触发流血，造成攻击力45%的伤害，持续5.6秒。",
+          "desc_en": "Heavy Attacks: 70% chance to inflict Bleed, dealing 45% Attack over 5.6 seconds.",
+          "pua_icon": "0xe401",
+          "status": "unimplemented",
+          "synergy_bots": [],
+          "bot_id": "chromia_gs_kabam",
+          "category": "passive",
+          "sort_order": 15
         }
       ]
     },
@@ -21938,6 +22118,19 @@
           "sort_order": 10,
           "synergy_bots": [],
           "status": "unimplemented"
+        },
+        {
+          "id": 3523,
+          "title_zh": "重击流血",
+          "title_en": "Heavy Attacks Bleed",
+          "desc_zh": "重击命中时：70%几率触发流血，造成攻击力45%的伤害，持续5.6秒。",
+          "desc_en": "Heavy Attacks: 70% chance to inflict Bleed, dealing 45% Attack over 5.6 seconds.",
+          "pua_icon": "0xe401",
+          "status": "unimplemented",
+          "synergy_bots": [],
+          "bot_id": "dragstrip_gs_deluxe2016",
+          "category": "passive",
+          "sort_order": 12
         }
       ]
     },
@@ -22110,8 +22303,22 @@
           "sort_order": 8,
           "synergy_bots": [],
           "status": "unimplemented"
+        },
+        {
+          "id": 3603,
+          "title_zh": "重击流血",
+          "title_en": "Heavy Attacks Bleed",
+          "desc_zh": "重击命中时：70%几率触发流血，造成攻击力45%的伤害，持续5.6秒。",
+          "desc_en": "Heavy Attacks: 70% chance to inflict Bleed, dealing 45% Attack over 5.6 seconds.",
+          "pua_icon": "0xe401",
+          "status": "unimplemented",
+          "synergy_bots": [],
+          "bot_id": "sunstorm_gs_leader2015",
+          "category": "passive",
+          "sort_order": 10
         }
       ]
     }
-  }
+  },
+  "updated_at": "2026-10-10 12:33:26"
 }

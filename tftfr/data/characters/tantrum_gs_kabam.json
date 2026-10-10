@@ -6,14 +6,14 @@
   "class": "braw",
   "star_default": 5,
   "source": "Kabam",
-  "health_mult": 1.0,
-  "attack_mult": 1.0,
+  "health_mult": 1,
+  "attack_mult": 1,
   "crit_chance": null,
   "crit_damage": null,
   "crit_chance_ranged": null,
   "crit_chance_melee": null,
   "block_proficiency": 0.5,
-  "mana_gain_mult": 1.0,
+  "mana_gain_mult": 1,
   "origin": "Generation 1",
   "desc_zh": "",
   "desc_en": "",
@@ -344,6 +344,19 @@
       "sort_order": 21,
       "synergy_bots": [],
       "status": "unimplemented"
+    },
+    {
+      "id": 3448,
+      "title_zh": "燃烧",
+      "title_en": "Burn",
+      "desc_zh": "所有导弹攻击（重击、SP1的最后一击，SP2的所有攻击）命中时有70%几率造成燃烧，施加攻击力80%的伤害，持续4秒。\n如果对手正在燃烧中，则燃烧可以叠加，每层依旧是4秒，但伤害为攻击力的30%。",
+      "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
+      "pua_icon": "0xe41d",
+      "status": "unimplemented",
+      "synergy_bots": [],
+      "bot_id": "tantrum_gs_kabam",
+      "category": "passive",
+      "sort_order": 23
     }
   ]
 }

@@ -6,14 +6,14 @@
   "class": "demo",
   "star_default": 5,
   "source": "Kabam",
-  "health_mult": 1,
-  "attack_mult": 1,
+  "health_mult": 1.0,
+  "attack_mult": 1.0,
   "crit_chance": null,
   "crit_damage": null,
   "crit_chance_ranged": null,
   "crit_chance_melee": null,
   "block_proficiency": 0.5,
-  "mana_gain_mult": 1,
+  "mana_gain_mult": 1.0,
   "origin": "Generation 1",
   "desc_zh": "",
   "desc_en": "",
@@ -220,6 +220,20 @@
       "status": "unimplemented"
     },
     {
+      "id": 3461,
+      "bot_id": "waspinator_gs_deluxe",
+      "category": "sp3",
+      "title_zh": "不稳定的刺击",
+      "title_en": "Unsteady Sting Shot",
+      "desc_zh": "黄蜂人使用踢，然后黄蜂人使用枪。",
+      "desc_en": "Unsteady Sting Shot - Waspinator use kick then Waspinator use gun.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 13,
+      "synergy_bots": [],
+      "status": "unimplemented"
+    },
+    {
       "id": 3462,
       "bot_id": "waspinator_gs_deluxe",
       "category": "synergy",
@@ -332,19 +346,6 @@
       "sort_order": 20,
       "synergy_bots": [],
       "status": "unimplemented"
-    },
-    {
-      "id": 3470,
-      "title_zh": "燃烧",
-      "title_en": "Burn",
-      "desc_zh": "100%概率施加燃烧，造成攻击力100%的伤害，持续5秒。",
-      "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
-      "pua_icon": "0xe41d",
-      "status": "implemented",
-      "synergy_bots": [],
-      "bot_id": "waspinator_gs_deluxe",
-      "category": "sp3",
-      "sort_order": 23
     }
   ]
 }

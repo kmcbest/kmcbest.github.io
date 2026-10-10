@@ -320,88 +320,6 @@
             transform: translateY(-2px);
         }
 
-        /* Cards with implemented abilities have an illuminated background */
-        .character-card.has-progress {
-            background: linear-gradient(180deg, #131d2e 0%, #0d1522 100%);
-            border-color: rgba(56, 189, 248, 0.35);
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(56, 189, 248, 0.04);
-        }
-
-        .character-card.has-progress:hover {
-            border-color: rgba(56, 189, 248, 0.7);
-            box-shadow: 0 6px 24px rgba(56, 189, 248, 0.2), inset 0 0 24px rgba(56, 189, 248, 0.06);
-        }
-
-        /* 20-segment Parallelogram Skill Progress Bar */
-        .card-skill-progress {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            margin-top: 4px;
-            padding-top: 8px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            user-select: none;
-        }
-
-        .card-progress-meta {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 11px;
-            line-height: 1;
-        }
-
-        .progress-meta-lbl {
-            color: var(--text-sub);
-            font-size: 11px;
-            font-weight: 500;
-        }
-
-        .progress-meta-num {
-            color: #64748B;
-            font-size: 11px;
-            font-weight: 700;
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            letter-spacing: 0.2px;
-        }
-
-        .progress-meta-num.active {
-            color: #38BDF8;
-        }
-
-        .progress-meta-num.complete {
-            color: #34D399;
-        }
-
-        .progress-segments-track {
-            display: flex;
-            align-items: center;
-            gap: 2.5px;
-            width: 100%;
-            height: 8px;
-            padding: 1px 3px;
-            box-sizing: border-box;
-        }
-
-        .progress-segment {
-            flex: 1;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.08);
-            transform: skewX(-20deg);
-            border-radius: 1px;
-            transition: all 0.25s ease;
-        }
-
-        .progress-segment.filled {
-            background: #38BDF8;
-            box-shadow: 0 0 5px rgba(56, 189, 248, 0.55);
-        }
-
-        .progress-segment.filled-complete {
-            background: #10B981;
-            box-shadow: 0 0 5px rgba(16, 185, 129, 0.65);
-        }
-
         .card-faction-badge {
             position: absolute;
             top: 14px;
@@ -1934,7 +1852,7 @@
 
         .pua-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
             gap: 10px;
             max-height: 480px;
             overflow-y: auto;
@@ -1945,26 +1863,46 @@
             background: var(--bg-darker);
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 10px 4px;
+            padding: 8px 4px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.2s;
+            position: relative;
+        }
+
+        .pua-cell.has-tag {
+            border-color: rgba(56, 189, 248, 0.4);
+            background: rgba(15, 23, 42, 0.7);
         }
 
         .pua-cell:hover {
             background: rgba(59, 130, 246, 0.2);
             border-color: #38BDF8;
-            transform: scale(1.08);
-            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+            transform: scale(1.06);
+            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.35);
+            z-index: 2;
         }
 
         .pua-cell .pua-glyph {
             font-size: 28px;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
             color: #38BDF8;
+            line-height: 1;
+        }
+
+        .pua-cell .pua-zh {
+            font-size: 11px;
+            font-weight: 700;
+            color: #38BDF8;
+            max-width: 90px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-align: center;
+            margin-bottom: 1px;
         }
 
         .pua-cell .pua-hex {
@@ -1976,7 +1914,7 @@
         .pua-cell .pua-name {
             font-size: 9px;
             color: var(--text-muted);
-            max-width: 80px;
+            max-width: 90px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -2443,15 +2381,29 @@
         <div class="modal-content pua-modal-content">
             <div class="modal-header">
                 <div>
-                    <div style="font-size: 16px; font-weight: 700;">选择 Tecnica Bold PUA 矢量图标</div>
+                    <div style="font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 10px;">
+                        <span>选择 Tecnica Bold PUA 矢量图标</span>
+                        <a href="pua_icons_viewer.html" target="_blank" style="font-size: 11px; font-weight: normal; color: #38bdf8; text-decoration: none; background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.35); padding: 2px 8px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px;" title="打开在线 PUA 图标对照与众创标注工具">
+                            <span>🏷️ 图标标注工具</span>
+                            <span style="font-size: 9px;">↗</span>
+                        </a>
+                    </div>
                     <div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;" id="puaTargetDesc">用于当前技能图标设置</div>
                 </div>
                 <button class="modal-close-btn" onclick="closePuaModal()">&times;</button>
             </div>
             <div class="modal-body">
-                <input type="text" id="puaSearchInput" class="pua-search-input" placeholder="输入名称或 Hex 搜索 (如 shield, bleed, stun, e50)..." oninput="filterPuaIcons()">
+                <input type="text" id="puaSearchInput" class="pua-search-input" placeholder="输入中文、英文名称或 Hex 搜索 (如 流血, bleed, 护盾, stun, e50)..." oninput="filterPuaIcons()">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 11px; padding: 0 2px;">
+                    <span id="puaSyncStatus" style="color: #94a3b8; display: flex; align-items: center; gap: 6px;">
+                        <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #4ade80;"></span>
+                        <span>正在同步社区标注...</span>
+                    </span>
+                    <span id="puaCountBadge" style="color: #38bdf8; font-weight: 600;">显示 523 / 523</span>
+                </div>
                 <div class="pua-filter-tabs">
                     <button class="pua-tab-btn active" onclick="filterPuaCategory('all', this)">全部 (All)</button>
+                    <button class="pua-tab-btn" onclick="filterPuaCategory('annotated', this)">仅看已标注 (Annotated)</button>
                     <button class="pua-tab-btn" onclick="filterPuaCategory('buff_shield', this)">护盾与格挡 (Shield)</button>
                     <button class="pua-tab-btn" onclick="filterPuaCategory('buff_effect', this)">增益与减益 (Buffs)</button>
                     <button class="pua-tab-btn" onclick="filterPuaCategory('ui_control', this)">UI控制与标记 (UI)</button>
@@ -2637,7 +2589,6 @@
                             <span id="priorityModalCountBadge" style="font-size: 11px; padding: 2px 8px; border-radius: 999px; background: rgba(16, 185, 129, 0.2); color: #34D399; font-weight: 600;">
                                 0 条
                             </span>
-                            <button id="btnReconcileAllPriority" onclick="reconcileAllPriorityFromCloud()" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #34D399; font-size: 11px; padding: 2px 8px; border-radius: 6px; cursor: pointer; transition: all 0.2s;" title="扫描云端全部角色档案，深度核对并彻底清理残留脏数据">🔄 全库核对</button>
                         </div>
                         <div style="font-size: 11px; color: var(--text-sub); margin-top: 2px;">
                             实时追踪标记为「优先实现」的战技。点击角色可直接穿透至其完整档案进行编辑与调试。
@@ -2708,25 +2659,6 @@
                 return false;
             }
         }
-
-        async function kvPipeline(commands) {
-            try {
-                const res = await fetch(`${UPSTASH.url}/pipeline`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${UPSTASH.token}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(commands)
-                });
-                if (res.ok) {
-                    return await res.json();
-                }
-            } catch (err) {
-                console.warn("Upstash KV pipeline failed:", err);
-            }
-            return null;
-        }
     
         let gOverviewData = null;
         let gPuaIcons = [];
@@ -2765,9 +2697,6 @@
                     kvSet('tftf:char:' + botId, charDetail),
                     kvSet('tftf:overview', gOverviewData)
                 ]);
-                if (charDetail.abilities) {
-                    await reconcileBotPriorityAbilities(botId, charDetail.abilities);
-                }
             }
             const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
             if (isLocal) {
@@ -2798,7 +2727,7 @@
                         }
                         Object.assign(ab, payload);
                         await kvSet('tftf:char:' + bId, charDetail);
-                        await reconcileBotPriorityAbilities(bId, charDetail.abilities);
+                        syncPriorityAbilitiesCache(bId, aid, ab);
                     }
                 }
             }
@@ -2825,7 +2754,7 @@
                     if (charDetail.abilities) {
                         charDetail.abilities = charDetail.abilities.filter(a => String(a.id) !== String(aid));
                         await kvSet('tftf:char:' + gCurBotId, charDetail);
-                        await reconcileBotPriorityAbilities(gCurBotId, charDetail.abilities);
+                        syncPriorityAbilitiesCache(gCurBotId, aid, { status: 'deleted' });
                     }
                 }
             }
@@ -2858,7 +2787,7 @@
                     };
                     charDetail.abilities.push(newAb);
                     await kvSet('tftf:char:' + payload.bot_id, charDetail);
-                    await reconcileBotPriorityAbilities(payload.bot_id, charDetail.abilities);
+                    syncPriorityAbilitiesCache(payload.bot_id, newAb.id, newAb);
                 }
             }
             const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
@@ -2933,91 +2862,7 @@
             if (mBadge) mBadge.innerText = `${count} 条`;
         }
 
-        async function reconcileBotPriorityAbilities(bId, abilities) {
-            if (!gPriorityAbilitiesList) gPriorityAbilitiesList = [];
-            if (!Array.isArray(abilities)) return;
-
-            let dirty = false;
-            const currentBotAbilitiesMap = new Map();
-            abilities.forEach(a => currentBotAbilitiesMap.set(String(a.id), a));
-
-            // 1. Filter out stale items for bId
-            const nextList = [];
-            for (const item of gPriorityAbilitiesList) {
-                if (item.bot_id === bId) {
-                    const realAb = currentBotAbilitiesMap.get(String(item.id));
-                    if (!realAb || realAb.status !== 'priority') {
-                        dirty = true;
-                        continue;
-                    }
-                    if (item.title_zh !== realAb.title_zh || item.desc_zh !== realAb.desc_zh || item.pua_icon !== realAb.pua_icon || item.category !== realAb.category) {
-                        item.title_zh = realAb.title_zh || '';
-                        item.title_en = realAb.title_en || '';
-                        item.desc_zh = realAb.desc_zh || '';
-                        item.desc_en = realAb.desc_en || '';
-                        item.pua_icon = realAb.pua_icon || '';
-                        item.category = realAb.category || '';
-                        dirty = true;
-                    }
-                }
-                nextList.push(item);
-            }
-
-            // 2. Add any newly marked priority abilities
-            const botObj = (gOverviewData && gOverviewData.characters) ? gOverviewData.characters.find(c => c.bot_id === bId) : null;
-            for (const ab of abilities) {
-                if (ab.status === 'priority') {
-                    const exists = nextList.some(item => String(item.id) === String(ab.id));
-                    if (!exists) {
-                        nextList.push({
-                            id: ab.id,
-                            bot_id: bId,
-                            bot_name_zh: (botObj && botObj.name_zh) || (gCurBotDetail && gCurBotDetail.name_zh) || bId,
-                            bot_name_en: (botObj && botObj.name_en) || (gCurBotDetail && gCurBotDetail.name_en) || '',
-                            bot_class: (botObj && botObj.class) || (gCurBotDetail && gCurBotDetail.class) || '',
-                            bot_faction: (botObj && botObj.faction) || (gCurBotDetail && gCurBotDetail.faction) || '',
-                            bot_source: (botObj && botObj.source) || (gCurBotDetail && gCurBotDetail.source) || 'Kabam',
-                            category: ab.category || '',
-                            title_zh: ab.title_zh || '',
-                            title_en: ab.title_en || '',
-                            desc_zh: ab.desc_zh || '',
-                            desc_en: ab.desc_en || '',
-                            pua_icon: ab.pua_icon || '',
-                            synergy_bots: ab.synergy_bots || [],
-                            status: 'priority',
-                            sort_order: ab.sort_order || 0
-                        });
-                        dirty = true;
-                    }
-                }
-            }
-
-            if (dirty) {
-                gPriorityAbilitiesList = nextList;
-                updatePriorityBadgeDisplay();
-                if (typeof kvSet === 'function') {
-                    try {
-                        await kvSet('tftf:priority_abilities', {
-                            total: gPriorityAbilitiesList.length,
-                            status: 'priority',
-                            abilities: gPriorityAbilitiesList
-                        });
-                    } catch (e) {
-                        console.warn("Failed to update tftf:priority_abilities in Upstash KV:", e);
-                    }
-                }
-                const modal = document.getElementById('priorityModal');
-                if (modal && modal.classList.contains('active')) {
-                    renderPriorityModalContent();
-                }
-            }
-        }
-
         async function syncPriorityAbilitiesCache(bId, abId, updatedAbility) {
-            if (gCurBotDetail && gCurBotDetail.bot_id === bId && Array.isArray(gCurBotDetail.abilities)) {
-                await reconcileBotPriorityAbilities(bId, gCurBotDetail.abilities);
-                return;
-            }
             if (!gPriorityAbilitiesList) gPriorityAbilitiesList = [];
             const aidStr = String(abId);
             const isPriority = (updatedAbility && updatedAbility.status === 'priority');
@@ -3033,7 +2878,7 @@
                     bot_name_en: (botObj && botObj.name_en) || (gCurBotDetail && gCurBotDetail.name_en) || '',
                     bot_class: (botObj && botObj.class) || (gCurBotDetail && gCurBotDetail.class) || '',
                     bot_faction: (botObj && botObj.faction) || (gCurBotDetail && gCurBotDetail.faction) || '',
-                    bot_source: (botObj && botObj.source) || (gCurBotDetail && gCurBotDetail.source) || 'Kabam',
+                    bot_source: (botObj && botObj.source) || (gCurBotDetail && gCurBotDetail.source) || '',
                     category: updatedAbility.category || '',
                     title_zh: updatedAbility.title_zh || '',
                     title_en: updatedAbility.title_en || '',
@@ -3071,143 +2916,9 @@
             }
         }
 
-        async function verifyPriorityAbilitiesQuick() {
-            if (!gPriorityAbilitiesList || gPriorityAbilitiesList.length === 0) return;
-            const uniqueBotIds = [...new Set(gPriorityAbilitiesList.map(item => item.bot_id))];
-            let changedAny = false;
-
-            for (const bId of uniqueBotIds) {
-                try {
-                    const charData = await kvGet('tftf:char:' + bId, `./data/characters/${bId}.json`);
-                    if (charData && Array.isArray(charData.abilities)) {
-                        const botAbMap = new Map();
-                        charData.abilities.forEach(a => botAbMap.set(String(a.id), a));
-
-                        const itemsForBot = gPriorityAbilitiesList.filter(item => item.bot_id === bId);
-                        for (const item of itemsForBot) {
-                            const realAb = botAbMap.get(String(item.id));
-                            if (!realAb || realAb.status !== 'priority') {
-                                changedAny = true;
-                                gPriorityAbilitiesList = gPriorityAbilitiesList.filter(x => String(x.id) !== String(item.id));
-                            }
-                        }
-                    }
-                } catch (e) {
-                    console.warn(`Failed to verify priority abilities for [${bId}]:`, e);
-                }
-            }
-
-            if (changedAny) {
-                updatePriorityBadgeDisplay();
-                renderPriorityModalContent();
-                if (typeof kvSet === 'function') {
-                    await kvSet('tftf:priority_abilities', {
-                        total: gPriorityAbilitiesList.length,
-                        status: 'priority',
-                        abilities: gPriorityAbilitiesList
-                    });
-                }
-            }
-        }
-
-        async function reconcileAllPriorityFromCloud() {
-            const btn = document.getElementById('btnReconcileAllPriority');
-            const origText = btn ? btn.innerText : '🔄 全库核对';
-            if (btn) {
-                btn.disabled = true;
-                btn.innerText = '正在核对全库...';
-            }
-
-            try {
-                if (!gOverviewData || !Array.isArray(gOverviewData.characters)) {
-                    throw new Error("角色概览数据未就绪");
-                }
-
-                const characters = gOverviewData.characters;
-                const charKeys = characters.map(c => 'tftf:char:' + c.bot_id);
-                const chunk_size = 25;
-                const allCharsMap = new Map();
-
-                for (let i = 0; i < charKeys.length; i += chunk_size) {
-                    const chunk = charKeys.slice(i, i + chunk_size);
-                    const cmds = chunk.map(k => ["GET", k]);
-                    const results = await kvPipeline(cmds);
-                    if (results && Array.isArray(results)) {
-                        chunk.forEach((k, idx) => {
-                            const resObj = results[idx];
-                            if (resObj && resObj.result) {
-                                const val = typeof resObj.result === 'string' ? JSON.parse(resObj.result) : resObj.result;
-                                const bId = k.replace('tftf:char:', '');
-                                allCharsMap.set(bId, val);
-                            }
-                        });
-                    }
-                }
-
-                // If pipeline didn't get all or failed, fallback to individual kvGet
-                if (allCharsMap.size === 0) {
-                    for (const c of characters) {
-                        const botData = await kvGet('tftf:char:' + c.bot_id, `./data/characters/${c.bot_id}.json`);
-                        if (botData) allCharsMap.set(c.bot_id, botData);
-                    }
-                }
-
-                const cleanList = [];
-                for (const c of characters) {
-                    const botData = allCharsMap.get(c.bot_id);
-                    if (!botData || !Array.isArray(botData.abilities)) continue;
-                    for (const ab of botData.abilities) {
-                        if (ab.status === 'priority') {
-                            cleanList.push({
-                                id: ab.id,
-                                bot_id: c.bot_id,
-                                bot_name_zh: botData.name_zh || c.name_zh || c.bot_id,
-                                bot_name_en: botData.name_en || c.name_en || '',
-                                bot_class: botData.class || c.class || '',
-                                bot_faction: botData.faction || c.faction || '',
-                                bot_source: botData.source || c.source || 'Kabam',
-                                category: ab.category || '',
-                                title_zh: ab.title_zh || '',
-                                title_en: ab.title_en || '',
-                                desc_zh: ab.desc_zh || '',
-                                desc_en: ab.desc_en || '',
-                                pua_icon: ab.pua_icon || '',
-                                synergy_bots: ab.synergy_bots || [],
-                                status: 'priority',
-                                sort_order: ab.sort_order || 0
-                            });
-                        }
-                    }
-                }
-
-                gPriorityAbilitiesList = cleanList;
-                updatePriorityBadgeDisplay();
-                renderPriorityModalContent();
-
-                if (typeof kvSet === 'function') {
-                    await kvSet('tftf:priority_abilities', {
-                        total: cleanList.length,
-                        status: 'priority',
-                        abilities: cleanList
-                    });
-                }
-
-                showToast(`全库核对完成，共检测到 ${cleanList.length} 条有效优先待办！`);
-            } catch (err) {
-                console.error("全库核对失败:", err);
-                alert("全库核对失败: " + err.message);
-            } finally {
-                if (btn) {
-                    btn.disabled = false;
-                    btn.innerText = origText;
-                }
-            }
-        }
-
         function openPriorityModal() {
             renderPriorityModalContent();
             document.getElementById('priorityModal').classList.add('active');
-            verifyPriorityAbilitiesQuick();
         }
 
         function closePriorityModal() {
@@ -3282,33 +2993,16 @@
                     }
                     const puaData = await kvGet('tftf:pua_icons', './data/pua_icons.json');
                     gPuaIcons = (puaData && puaData.icons) ? puaData.icons : [];
-
-                    // Load all abilities for bot skill progress stats
-                    const allAbData = await kvGet('tftf:all_abilities', './data/all_abilities.json');
-                    if (allAbData && allAbData.bots) {
-                        computeAllBotAbilityStats(allAbData.bots);
-                    }
                 } else {
                     const res = await fetch('/api/overview');
                     gOverviewData = await res.json();
                     const puaRes = await fetch('/api/pua_icons');
                     const puaData = await puaRes.json();
                     gPuaIcons = puaData.icons || [];
-
-                    try {
-                        const abRes = await fetch('./data/all_abilities.json');
-                        if (abRes.ok) {
-                            const allAbData = await abRes.json();
-                            if (allAbData && allAbData.bots) {
-                                computeAllBotAbilityStats(allAbData.bots);
-                            }
-                        }
-                    } catch (e) {
-                        console.warn("Failed to load all_abilities.json fallback:", e);
-                    }
                 }
                 document.getElementById('statTotalPua').innerText = `${gPuaIcons.length} 个`;
 
+                syncPuaTagsFromCloud();
                 renderDashboard();
                 fetchPriorityAbilities();
             } catch (err) {
@@ -3454,82 +3148,10 @@
 
         const gEditingCardBots = new Set();
 
-        // Global ability statistics map: { [botId]: { total, implemented, ratio, percent } }
-        let gBotAbilityStats = {};
-
-        function computeAllBotAbilityStats(botsObj) {
-            if (!botsObj) return;
-            for (const bId in botsObj) {
-                const botData = botsObj[bId];
-                const abs = (botData && Array.isArray(botData.abilities)) ? botData.abilities : [];
-                const total = abs.length;
-                const implemented = abs.filter(a => a && a.status === 'implemented').length;
-                const ratio = total > 0 ? (implemented / total) : 0;
-                const percent = Math.round(ratio * 100);
-                gBotAbilityStats[bId] = { total, implemented, ratio, percent };
-            }
-        }
-
-        function renderCardProgressHtml(botId) {
-            const stats = gBotAbilityStats[botId] || { total: 0, implemented: 0, ratio: 0, percent: 0 };
-            const total = stats.total || 0;
-            const implemented = stats.implemented || 0;
-            const ratio = total > 0 ? (implemented / total) : 0;
-            const percent = Math.round(ratio * 100);
-
-            let filledCount = Math.round(ratio * 20);
-            if (implemented > 0 && filledCount === 0) {
-                filledCount = 1;
-            }
-            if (filledCount > 20) filledCount = 20;
-
-            const isComplete = total > 0 && implemented >= total;
-            const hasProgress = implemented > 0;
-
-            let segmentsHtml = '';
-            for (let i = 0; i < 20; i++) {
-                const isFilled = i < filledCount;
-                let segCls = 'progress-segment';
-                if (isFilled) {
-                    segCls += isComplete ? ' filled-complete' : ' filled';
-                }
-                segmentsHtml += `<div class="${segCls}"></div>`;
-            }
-
-            const valCls = isComplete ? 'complete' : (hasProgress ? 'active' : '');
-
-            return `
-                <div class="card-skill-progress" id="progress_${botId}" title="能力进度: ${implemented}/${total} (${percent}%)">
-                    <div class="card-progress-meta">
-                        <span class="progress-meta-lbl">技能进度</span>
-                        <span class="progress-meta-num ${valCls}">${implemented}/${total} (${percent}%)</span>
-                    </div>
-                    <div class="progress-segments-track">
-                        ${segmentsHtml}
-                    </div>
-                </div>
-            `;
-        }
-
-        function updateBotCardProgress(botId, abilities) {
-            if (!botId) return;
-            if (abilities && Array.isArray(abilities)) {
-                const total = abilities.length;
-                const implemented = abilities.filter(a => a && a.status === 'implemented').length;
-                const ratio = total > 0 ? (implemented / total) : 0;
-                const percent = Math.round(ratio * 100);
-                gBotAbilityStats[botId] = { total, implemented, ratio, percent };
-            }
-            refreshSingleCard(botId);
-        }
-
         // Create individual character card
         function createCharacterCard(bot, cls) {
-            const stats = gBotAbilityStats[bot.bot_id] || { total: 0, implemented: 0, ratio: 0, percent: 0 };
-            const hasProgress = stats.implemented > 0;
-
             const card = document.createElement('div');
-            card.className = 'character-card' + (hasProgress ? ' has-progress' : '');
+            card.className = 'character-card';
             card.id = `card_${bot.bot_id}`;
 
             if (!cls && gOverviewData && gOverviewData.classes) {
@@ -3687,8 +3309,6 @@
                         </svg>
                     </button>
                 </div>
-
-                ${renderCardProgressHtml(bot.bot_id)}
             `;
 
             if (isEditing) {
@@ -3834,10 +3454,6 @@
                     throw new Error((data && data.error) || "角色数据未找到");
                 }
                 gCurBotDetail = data;
-                if (data && Array.isArray(data.abilities)) {
-                    reconcileBotPriorityAbilities(bid, data.abilities);
-                    updateBotCardProgress(bid, data.abilities);
-                }
 
                 document.getElementById('mAvatar').src = data.portrait_url;
                 document.getElementById('mNameZh').innerText = data.name_zh;
@@ -3965,11 +3581,6 @@
             try {
                 const ret = await saveAbilityData(aid, { status: newStatus });
                 if (ret && (ret.ok || ret.success)) {
-                    if (gCurBotDetail && gCurBotDetail.abilities) {
-                        const ab = gCurBotDetail.abilities.find(a => String(a.id) === String(aid));
-                        if (ab) ab.status = newStatus;
-                        updateBotCardProgress(gCurBotDetail.bot_id, gCurBotDetail.abilities);
-                    }
                     showToast(`能力状态已更新：${statusNames[newStatus] || newStatus}`);
                 }
             } catch (err) {
@@ -4350,7 +3961,6 @@
                     if (gCurBotDetail && gCurBotDetail.abilities) {
                         let ab = gCurBotDetail.abilities.find(a => String(a.id) === String(aid));
                         if (ab) Object.assign(ab, payload);
-                        updateBotCardProgress(gCurBotDetail.bot_id, gCurBotDetail.abilities);
                     }
 
                     if (isAutoSave) {
@@ -5207,8 +4817,22 @@
                 desc.innerText = `为角色 [${targetId}] 专属阵营选择 PUA 图标`;
             }
 
-            renderPuaGrid(gPuaIcons);
+            // Sync from Upstash cloud in background
+            syncPuaTagsFromCloud();
+
+            // Reset search & filter tabs
+            const searchInput = document.getElementById('puaSearchInput');
+            if (searchInput) searchInput.value = '';
+            gCurPuaCat = 'all';
+            document.querySelectorAll('.pua-tab-btn').forEach((b, idx) => {
+                b.classList.toggle('active', idx === 0);
+            });
+
+            filterPuaIcons();
             document.getElementById('puaModal').classList.add('active');
+            if (searchInput) {
+                setTimeout(() => searchInput.focus(), 80);
+            }
         }
 
         function closePuaModal() {
@@ -5222,13 +4846,21 @@
 
             icons.forEach(icon => {
                 const cell = document.createElement('div');
-                cell.className = 'pua-cell';
-                const char = String.fromCharCode(icon.codepoint_dec);
+                const hasTag = !!(icon.name_zh || icon.name_en || icon.notes);
+                cell.className = `pua-cell ${hasTag ? 'has-tag' : ''}`;
+                
+                const char = icon.char || String.fromCharCode(icon.codepoint_dec);
+                const hexClean = (icon.codepoint_hex || '').replace(/^0x/i, '').toUpperCase();
+                const zhText = icon.name_zh || '';
+                const enText = icon.name_en || icon.glyph_name || '';
+                const tooltip = `${hexClean} (${icon.glyph_name || ''})${zhText ? ' - ' + zhText : ''}${enText ? ' / ' + enText : ''}${icon.notes ? ' [' + icon.notes + ']' : ''}`;
+                cell.title = tooltip;
 
                 cell.innerHTML = `
                     <span class="tecnica-icon pua-glyph">${char}</span>
-                    <span class="pua-hex">${icon.codepoint_hex}</span>
-                    <span class="pua-name" title="${icon.glyph_name}">${icon.glyph_name}</span>
+                    ${zhText ? `<span class="pua-zh" title="${zhText}">${zhText}</span>` : ''}
+                    <span class="pua-hex">${hexClean}</span>
+                    <span class="pua-name" title="${enText}">${enText}</span>
                 `;
                 cell.onclick = () => selectPuaIcon(icon);
                 grid.appendChild(cell);
@@ -5238,15 +4870,16 @@
         async function selectPuaIcon(icon) {
             if (!gCurrentPuaTarget) return;
 
-            const hex = icon.codepoint_hex;
+            const hex = (icon.codepoint_hex || '').replace(/^0x/i, '').toUpperCase();
             const { type, targetId } = gCurrentPuaTarget;
             const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
+            const iconLabel = (icon.name_zh ? icon.name_zh + ' ' : '') + (icon.name_en || icon.glyph_name);
 
             try {
                 if (type === 'ability') {
                     const ret = await saveAbilityData(targetId, { pua_icon: hex });
                     if (ret && (ret.ok || ret.success)) {
-                        showToast(`技能图标已存入: ${icon.glyph_name} (${hex})`);
+                        showToast(`技能图标已存入: ${iconLabel} (${hex})`);
                         // Keep in-memory object in sync
                         if (gCurBotDetail && gCurBotDetail.abilities) {
                             const abObj = gCurBotDetail.abilities.find(a => String(a.id) === String(targetId));
@@ -5268,14 +4901,14 @@
                     document.getElementById('newAbPuaIconVal').value = hex;
                     document.getElementById('newAbPuaGlyph').innerText = String.fromCharCode(icon.codepoint_dec);
                     document.getElementById('newAbPuaHex').innerText = hex;
-                    showToast(`新技能图标已选用: ${icon.glyph_name} (${hex})`);
+                    showToast(`新技能图标已选用: ${iconLabel} (${hex})`);
                 } else if (type === 'new_sp') {
                     gNewSpecialPuaIcons[targetId] = hex;
                     const glyphEl = document.getElementById(`pua_glyph_new_${targetId}`);
                     const hexEl = document.getElementById(`pua_hex_new_${targetId}`);
                     if (glyphEl) glyphEl.innerText = String.fromCharCode(icon.codepoint_dec);
                     if (hexEl) hexEl.innerText = hex;
-                    showToast(`特殊技图标已选用: ${icon.glyph_name} (${hex})`);
+                    showToast(`特殊技图标已选用: ${iconLabel} (${hex})`);
                 } else if (type === 'class') {
                     if (typeof kvSet === 'function') {
                         if (gOverviewData && gOverviewData.classes) {
@@ -5295,7 +4928,7 @@
                             console.warn("Local /api/class POST failed:", e);
                         }
                     }
-                    showToast(`职业 [${targetId}] 图标已存入数据库: ${icon.glyph_name} (${hex})`);
+                    showToast(`职业 [${targetId}] 图标已存入数据库: ${iconLabel} (${hex})`);
                     if (typeof kvGet === 'function') {
                         gOverviewData = await kvGet('tftf:overview', './data/overview.json');
                     } else if (isLocal) {
@@ -5323,7 +4956,7 @@
                             console.warn("Local /api/faction POST failed:", e);
                         }
                     }
-                    showToast(`阵营 [${targetId}] 图标已存入数据库: ${icon.glyph_name} (${hex})`);
+                    showToast(`阵营 [${targetId}] 图标已存入数据库: ${iconLabel} (${hex})`);
                     if (typeof kvGet === 'function') {
                         gOverviewData = await kvGet('tftf:overview', './data/overview.json');
                     } else if (isLocal) {
@@ -5335,7 +4968,7 @@
                 } else if (type === 'char_faction') {
                     const ret = await saveCharacterData(targetId, { pua_faction_icon: hex });
                     if (ret && (ret.ok || ret.success)) {
-                        showToast(`角色阵营图标已存入数据库: ${icon.glyph_name} (${hex})`);
+                        showToast(`角色阵营图标已存入数据库: ${iconLabel} (${hex})`);
                         if (typeof kvGet === 'function') {
                             gOverviewData = await kvGet('tftf:overview', './data/overview.json');
                         } else if (isLocal) {
@@ -5366,15 +4999,99 @@
         }
 
         function filterPuaIcons() {
-            const q = document.getElementById('puaSearchInput').value.trim().toLowerCase();
+            const q = (document.getElementById('puaSearchInput').value || '').trim().toLowerCase();
             const filtered = gPuaIcons.filter(ic => {
-                if (gCurPuaCat !== 'all' && ic.category !== gCurPuaCat) return false;
-                if (q) {
-                    return ic.glyph_name.toLowerCase().includes(q) || ic.codepoint_hex.toLowerCase().includes(q);
+                const hasTag = !!(ic.name_zh || ic.name_en || ic.notes);
+                if (gCurPuaCat === 'annotated') {
+                    if (!hasTag) return false;
+                } else if (gCurPuaCat !== 'all' && ic.category !== gCurPuaCat) {
+                    return false;
                 }
-                return true;
+
+                if (!q) return true;
+
+                const hexClean = (ic.codepoint_hex || '').replace(/^0x/i, '').toLowerCase();
+                const hexFull = (ic.codepoint_hex || '').toLowerCase();
+                const glyph = (ic.glyph_name || '').toLowerCase();
+                const zh = (ic.name_zh || '').toLowerCase();
+                const en = (ic.name_en || '').toLowerCase();
+                const notes = (ic.notes || '').toLowerCase();
+                const char = ic.char || String.fromCharCode(ic.codepoint_dec);
+
+                return hexClean.includes(q) ||
+                       hexFull.includes(q) ||
+                       glyph.includes(q) ||
+                       zh.includes(q) ||
+                       en.includes(q) ||
+                       notes.includes(q) ||
+                       char.includes(q);
             });
             renderPuaGrid(filtered);
+
+            const countBadge = document.getElementById('puaCountBadge');
+            if (countBadge) {
+                countBadge.innerText = `显示 ${filtered.length} / ${gPuaIcons.length}`;
+            }
+        }
+
+        // Upstash PUA Annotation Tags Cloud Sync
+        let gPuaCloudSynced = false;
+        async function syncPuaTagsFromCloud() {
+            if (gPuaCloudSynced) return;
+            const statusEl = document.getElementById('puaSyncStatus');
+            try {
+                if (statusEl) {
+                    statusEl.innerHTML = `<span style="display:inline-block; width:6px; height:6px; border-radius:50%; background:#f59e0b;"></span><span>正在同步云端标注...</span>`;
+                }
+                const url = "https://deciding-bulldog-136761.upstash.io/hgetall/tftf_pua_tags";
+                const token = "ggAAAAAAAhY5AAIgcDG7a511dMnvUap5JjML7kdCMH0hQAG95-3BtwD6YEaFeQ";
+                const resp = await fetch(url, {
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                const data = await resp.json();
+                if (data && Array.isArray(data.result)) {
+                    const tagMap = {};
+                    for (let i = 0; i < data.result.length; i += 2) {
+                        const k = data.result[i];
+                        let rec = null;
+                        try {
+                            rec = JSON.parse(data.result[i + 1]);
+                        } catch(e) {
+                            rec = { name_en: data.result[i + 1], name_zh: '', notes: '' };
+                        }
+                        const hexKey = (rec.hex || k.replace(/^[\\\/]u/i, '')).toUpperCase();
+                        tagMap[hexKey] = rec;
+                    }
+
+                    let appliedCount = 0;
+                    gPuaIcons.forEach(ic => {
+                        const hexUpper = (ic.codepoint_hex || '').replace(/^0x/i, '').toUpperCase();
+                        const tag = tagMap[hexUpper];
+                        if (tag) {
+                            ic.name_zh = tag.name_zh || ic.name_zh || '';
+                            ic.name_en = tag.name_en || ic.name_en || '';
+                            ic.notes = tag.notes || ic.notes || '';
+                            if (tag.glyph_name && !ic.glyph_name) ic.glyph_name = tag.glyph_name;
+                            appliedCount++;
+                        }
+                    });
+
+                    gPuaCloudSynced = true;
+                    if (statusEl) {
+                        statusEl.innerHTML = `<span style="display:inline-block; width:6px; height:6px; border-radius:50%; background:#4ade80;"></span><span>已同步社区标注 (${appliedCount} 项)</span>`;
+                    }
+                    if (document.getElementById('puaModal') && document.getElementById('puaModal').classList.contains('active')) {
+                        filterPuaIcons();
+                    }
+                }
+            } catch (err) {
+                console.warn("PUA cloud sync fallback:", err);
+                if (statusEl) {
+                    const count = gPuaIcons.filter(ic => ic.name_zh || ic.name_en).length;
+                    statusEl.innerHTML = `<span style="display:inline-block; width:6px; height:6px; border-radius:50%; background:#38bdf8;"></span><span>使用本地标注缓存 (${count} 项)</span>`;
+                }
+            }
         }
 
         // Filter Faction

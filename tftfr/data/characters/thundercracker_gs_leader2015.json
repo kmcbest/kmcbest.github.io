@@ -6,14 +6,14 @@
   "class": "braw",
   "star_default": 5,
   "source": "Kabam",
-  "health_mult": 1,
-  "attack_mult": 1,
+  "health_mult": 1.0,
+  "attack_mult": 1.0,
   "crit_chance": null,
   "crit_damage": null,
   "crit_chance_ranged": 0.25,
-  "crit_chance_melee": 0,
+  "crit_chance_melee": 0.0,
   "block_proficiency": 0.5,
-  "mana_gain_mult": 1,
+  "mana_gain_mult": 1.0,
   "origin": "Generation 1",
   "desc_zh": "",
   "desc_en": "",
@@ -33,7 +33,7 @@
   "effective_crit_chance": 0.08,
   "effective_crit_damage": 1.35,
   "effective_crit_ranged": 0.25,
-  "effective_crit_melee": 0,
+  "effective_crit_melee": 0.0,
   "portrait_url": "portraits/thundercracker_gs_leader2015.png",
   "portrait_large_url": "portraits/thundercracker_gs_leader2015_large.png",
   "abilities": [
@@ -482,19 +482,6 @@
       "sort_order": 30,
       "synergy_bots": [],
       "status": "unimplemented"
-    },
-    {
-      "id": 3426,
-      "title_zh": "净化燃烧",
-      "title_en": "Purify Burn",
-      "desc_zh": "重击命中时有70%几率造成燃烧，施加攻击力80%的伤害，持续4秒。",
-      "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
-      "pua_icon": "0xe41d",
-      "status": "unimplemented",
-      "synergy_bots": [],
-      "bot_id": "thundercracker_gs_leader2015",
-      "category": "passive",
-      "sort_order": 32
     }
   ]
 }

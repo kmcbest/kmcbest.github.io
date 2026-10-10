@@ -6,14 +6,14 @@
   "class": "scou",
   "star_default": 5,
   "source": "Kabam",
-  "health_mult": 1,
-  "attack_mult": 1,
+  "health_mult": 1.0,
+  "attack_mult": 1.0,
   "crit_chance": null,
   "crit_damage": null,
   "crit_chance_ranged": null,
   "crit_chance_melee": null,
   "block_proficiency": 0.5,
-  "mana_gain_mult": 1,
+  "mana_gain_mult": 1.0,
   "origin": "Generation 1",
   "desc_zh": "",
   "desc_en": "",
@@ -396,19 +396,6 @@
       "sort_order": 24,
       "synergy_bots": [],
       "status": "unimplemented"
-    },
-    {
-      "id": 2652,
-      "title_zh": "逆火",
-      "title_en": "Backfire",
-      "desc_zh": "",
-      "desc_en": "Backfire",
-      "pua_icon": "0xe901",
-      "status": "unimplemented",
-      "synergy_bots": [],
-      "bot_id": "jazz_gs_twm05",
-      "category": "basic",
-      "sort_order": 26
     }
   ]
 }

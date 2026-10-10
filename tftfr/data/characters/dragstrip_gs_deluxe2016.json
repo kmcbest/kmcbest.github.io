@@ -6,14 +6,14 @@
   "class": "warr",
   "star_default": 5,
   "source": "Revival",
-  "health_mult": 1,
-  "attack_mult": 1,
+  "health_mult": 1.0,
+  "attack_mult": 1.0,
   "crit_chance": null,
   "crit_damage": null,
   "crit_chance_ranged": null,
   "crit_chance_melee": null,
   "block_proficiency": 0.5,
-  "mana_gain_mult": 1,
+  "mana_gain_mult": 1.0,
   "origin": "Generation 1",
   "desc_zh": "",
   "desc_en": "",
@@ -198,19 +198,6 @@
       "sort_order": 10,
       "synergy_bots": [],
       "status": "unimplemented"
-    },
-    {
-      "id": 3523,
-      "title_zh": "重击流血",
-      "title_en": "Heavy Attacks Bleed",
-      "desc_zh": "重击命中时：70%几率触发流血，造成攻击力45%的伤害，持续5.6秒。",
-      "desc_en": "Heavy Attacks: 70% chance to inflict Bleed, dealing 45% Attack over 5.6 seconds.",
-      "pua_icon": "0xe401",
-      "status": "unimplemented",
-      "synergy_bots": [],
-      "bot_id": "dragstrip_gs_deluxe2016",
-      "category": "passive",
-      "sort_order": 12
     }
   ]
 }

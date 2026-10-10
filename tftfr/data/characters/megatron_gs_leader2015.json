@@ -6,14 +6,14 @@
   "class": "tact",
   "star_default": 5,
   "source": "Kabam",
-  "health_mult": 1,
-  "attack_mult": 1,
+  "health_mult": 1.0,
+  "attack_mult": 1.0,
   "crit_chance": null,
   "crit_damage": null,
   "crit_chance_ranged": null,
   "crit_chance_melee": null,
   "block_proficiency": 0.5,
-  "mana_gain_mult": 1,
+  "mana_gain_mult": 1.0,
   "origin": "Generation 1",
   "desc_zh": "",
   "desc_en": "",
@@ -314,19 +314,6 @@
         "megatronus_gs_kabam"
       ],
       "status": "unimplemented"
-    },
-    {
-      "id": 3137,
-      "title_zh": "破甲",
-      "title_en": "Armor Break",
-      "desc_zh": "100%的概率施加16.2%的破甲，持续10秒。",
-      "desc_en": "Gavel Crush - When the hammer strikes, judgment has been made.",
-      "pua_icon": "0xe516",
-      "status": "unimplemented",
-      "synergy_bots": [],
-      "bot_id": "megatron_gs_leader2015",
-      "category": "sp1",
-      "sort_order": 20
     }
   ]
 }

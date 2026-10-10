@@ -4,3139 +4,4708 @@
       "codepoint_hex": "0xe000",
       "codepoint_dec": 57344,
       "glyph_name": "a.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe001",
       "codepoint_dec": 57345,
       "glyph_name": "ae.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe002",
       "codepoint_dec": 57346,
       "glyph_name": "aeacute.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe003",
       "codepoint_dec": 57347,
       "glyph_name": "aacute.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe004",
       "codepoint_dec": 57348,
       "glyph_name": "abreve.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe005",
       "codepoint_dec": 57349,
       "glyph_name": "acircumflex.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe006",
       "codepoint_dec": 57350,
       "glyph_name": "adieresis.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe007",
       "codepoint_dec": 57351,
       "glyph_name": "agrave.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe008",
       "codepoint_dec": 57352,
       "glyph_name": "amacron.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe009",
       "codepoint_dec": 57353,
       "glyph_name": "aogonek.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe00a",
       "codepoint_dec": 57354,
       "glyph_name": "aring.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe00b",
       "codepoint_dec": 57355,
       "glyph_name": "atilde.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe00c",
       "codepoint_dec": 57356,
       "glyph_name": "b.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe00d",
       "codepoint_dec": 57357,
       "glyph_name": "c.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe00e",
       "codepoint_dec": 57358,
       "glyph_name": "cacute.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe00f",
       "codepoint_dec": 57359,
       "glyph_name": "ccaron.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe010",
       "codepoint_dec": 57360,
       "glyph_name": "ccedilla.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe011",
       "codepoint_dec": 57361,
       "glyph_name": "ccircumflex.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe012",
       "codepoint_dec": 57362,
       "glyph_name": "cdotaccent.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe013",
       "codepoint_dec": 57363,
       "glyph_name": "d.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe014",
       "codepoint_dec": 57364,
       "glyph_name": "dcaron.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe015",
       "codepoint_dec": 57365,
       "glyph_name": "dcroat.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe016",
       "codepoint_dec": 57366,
       "glyph_name": "e.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe017",
       "codepoint_dec": 57367,
       "glyph_name": "eacute.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe018",
       "codepoint_dec": 57368,
       "glyph_name": "ebreve.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe019",
       "codepoint_dec": 57369,
       "glyph_name": "ecaron.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe01a",
       "codepoint_dec": 57370,
       "glyph_name": "ecircumflex.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe01b",
       "codepoint_dec": 57371,
       "glyph_name": "edieresis.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe01c",
       "codepoint_dec": 57372,
       "glyph_name": "edotaccent.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe01d",
       "codepoint_dec": 57373,
       "glyph_name": "egrave.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe01e",
       "codepoint_dec": 57374,
       "glyph_name": "emacron.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe01f",
       "codepoint_dec": 57375,
       "glyph_name": "eng.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe020",
       "codepoint_dec": 57376,
       "glyph_name": "eogonek.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe021",
       "codepoint_dec": 57377,
       "glyph_name": "eth.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe024",
       "codepoint_dec": 57380,
       "glyph_name": "f.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe025",
       "codepoint_dec": 57381,
       "glyph_name": "g.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe026",
       "codepoint_dec": 57382,
       "glyph_name": "gbreve.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe027",
       "codepoint_dec": 57383,
       "glyph_name": "gcircumflex.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe028",
       "codepoint_dec": 57384,
       "glyph_name": "uni0123.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe029",
       "codepoint_dec": 57385,
       "glyph_name": "gdotaccent.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe02a",
       "codepoint_dec": 57386,
       "glyph_name": "h.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe02b",
       "codepoint_dec": 57387,
       "glyph_name": "hbar.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe02c",
       "codepoint_dec": 57388,
       "glyph_name": "hcircumflex.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe02d",
       "codepoint_dec": 57389,
       "glyph_name": "i.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe02e",
       "codepoint_dec": 57390,
       "glyph_name": "ij.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe02f",
       "codepoint_dec": 57391,
       "glyph_name": "iacute.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe030",
       "codepoint_dec": 57392,
       "glyph_name": "ibreve.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe031",
       "codepoint_dec": 57393,
       "glyph_name": "icircumflex.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe032",
       "codepoint_dec": 57394,
       "glyph_name": "idieresis.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe033",
       "codepoint_dec": 57395,
       "glyph_name": "i.sc.loclTRK",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe034",
       "codepoint_dec": 57396,
       "glyph_name": "igrave.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe035",
       "codepoint_dec": 57397,
       "glyph_name": "imacron.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe036",
       "codepoint_dec": 57398,
       "glyph_name": "iogonek.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe037",
       "codepoint_dec": 57399,
       "glyph_name": "itilde.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe038",
       "codepoint_dec": 57400,
       "glyph_name": "j.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe039",
       "codepoint_dec": 57401,
       "glyph_name": "jcircumflex.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe03b",
       "codepoint_dec": 57403,
       "glyph_name": "k.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe03c",
       "codepoint_dec": 57404,
       "glyph_name": "uni0137.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe03d",
       "codepoint_dec": 57405,
       "glyph_name": "l.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe03e",
       "codepoint_dec": 57406,
       "glyph_name": "lacute.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe03f",
       "codepoint_dec": 57407,
       "glyph_name": "lcaron.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe040",
       "codepoint_dec": 57408,
       "glyph_name": "uni013C.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe041",
       "codepoint_dec": 57409,
       "glyph_name": "ldot.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe042",
       "codepoint_dec": 57410,
       "glyph_name": "lslash.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe043",
       "codepoint_dec": 57411,
       "glyph_name": "m.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe044",
       "codepoint_dec": 57412,
       "glyph_name": "n.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe045",
       "codepoint_dec": 57413,
       "glyph_name": "nacute.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe046",
       "codepoint_dec": 57414,
       "glyph_name": "ncaron.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe047",
       "codepoint_dec": 57415,
       "glyph_name": "uni0146.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe048",
       "codepoint_dec": 57416,
       "glyph_name": "ntilde.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe049",
       "codepoint_dec": 57417,
       "glyph_name": "o.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe04a",
       "codepoint_dec": 57418,
       "glyph_name": "oe.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe04b",
       "codepoint_dec": 57419,
       "glyph_name": "oacute.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe04c",
       "codepoint_dec": 57420,
       "glyph_name": "obreve.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe04d",
       "codepoint_dec": 57421,
       "glyph_name": "ocircumflex.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe04e",
       "codepoint_dec": 57422,
       "glyph_name": "odieresis.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe04f",
       "codepoint_dec": 57423,
       "glyph_name": "ograve.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe050",
       "codepoint_dec": 57424,
       "glyph_name": "ohungarumlaut.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe051",
       "codepoint_dec": 57425,
       "glyph_name": "omacron.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe052",
       "codepoint_dec": 57426,
       "glyph_name": "oslash.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe053",
       "codepoint_dec": 57427,
       "glyph_name": "oslashacute.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe054",
       "codepoint_dec": 57428,
       "glyph_name": "otilde.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe055",
       "codepoint_dec": 57429,
       "glyph_name": "p.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe056",
       "codepoint_dec": 57430,
       "glyph_name": "q.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe058",
       "codepoint_dec": 57432,
       "glyph_name": "r.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe059",
       "codepoint_dec": 57433,
       "glyph_name": "racute.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe05a",
       "codepoint_dec": 57434,
       "glyph_name": "rcaron.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe05b",
       "codepoint_dec": 57435,
       "glyph_name": "uni0157.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe05d",
       "codepoint_dec": 57437,
       "glyph_name": "s.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe05e",
       "codepoint_dec": 57438,
       "glyph_name": "sacute.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe05f",
       "codepoint_dec": 57439,
       "glyph_name": "scaron.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe060",
       "codepoint_dec": 57440,
       "glyph_name": "scedilla.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe061",
       "codepoint_dec": 57441,
       "glyph_name": "scircumflex.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe062",
       "codepoint_dec": 57442,
       "glyph_name": "uni0219.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe063",
       "codepoint_dec": 57443,
       "glyph_name": "t.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe065",
       "codepoint_dec": 57445,
       "glyph_name": "tbar.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe066",
       "codepoint_dec": 57446,
       "glyph_name": "tcaron.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe067",
       "codepoint_dec": 57447,
       "glyph_name": "uniE067",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe068",
       "codepoint_dec": 57448,
       "glyph_name": "thorn.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe069",
       "codepoint_dec": 57449,
       "glyph_name": "u.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe06a",
       "codepoint_dec": 57450,
       "glyph_name": "uacute.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe06b",
       "codepoint_dec": 57451,
       "glyph_name": "ubreve.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe06c",
       "codepoint_dec": 57452,
       "glyph_name": "ucircumflex.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe06d",
       "codepoint_dec": 57453,
       "glyph_name": "udieresis.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe06e",
       "codepoint_dec": 57454,
       "glyph_name": "ugrave.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe06f",
       "codepoint_dec": 57455,
       "glyph_name": "uhungarumlaut.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe070",
       "codepoint_dec": 57456,
       "glyph_name": "umacron.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe071",
       "codepoint_dec": 57457,
       "glyph_name": "uogonek.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe072",
       "codepoint_dec": 57458,
       "glyph_name": "uring.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe073",
       "codepoint_dec": 57459,
       "glyph_name": "utilde.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe074",
       "codepoint_dec": 57460,
       "glyph_name": "v.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe075",
       "codepoint_dec": 57461,
       "glyph_name": "w.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe076",
       "codepoint_dec": 57462,
       "glyph_name": "wacute.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe077",
       "codepoint_dec": 57463,
       "glyph_name": "wcircumflex.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe078",
       "codepoint_dec": 57464,
       "glyph_name": "wdieresis.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe079",
       "codepoint_dec": 57465,
       "glyph_name": "wgrave.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe07a",
       "codepoint_dec": 57466,
       "glyph_name": "x.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe07b",
       "codepoint_dec": 57467,
       "glyph_name": "y.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe07c",
       "codepoint_dec": 57468,
       "glyph_name": "yacute.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe07d",
       "codepoint_dec": 57469,
       "glyph_name": "ycircumflex.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe07e",
       "codepoint_dec": 57470,
       "glyph_name": "ydieresis.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe07f",
       "codepoint_dec": 57471,
       "glyph_name": "ygrave.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe080",
       "codepoint_dec": 57472,
       "glyph_name": "z.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe081",
       "codepoint_dec": 57473,
       "glyph_name": "zacute.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe082",
       "codepoint_dec": 57474,
       "glyph_name": "zcaron.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe083",
       "codepoint_dec": 57475,
       "glyph_name": "zdotaccent.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe084",
       "codepoint_dec": 57476,
       "glyph_name": "dotlessi.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe085",
       "codepoint_dec": 57477,
       "glyph_name": "uni0237.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe086",
       "codepoint_dec": 57478,
       "glyph_name": "uniE086",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe087",
       "codepoint_dec": 57479,
       "glyph_name": "aringacute.sc",
-      "category": "small_caps"
+      "category": "small_caps",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe091",
       "codepoint_dec": 57489,
       "glyph_name": "uniE091",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe092",
       "codepoint_dec": 57490,
       "glyph_name": "uniE092",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe093",
       "codepoint_dec": 57491,
       "glyph_name": "uniE093",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe094",
       "codepoint_dec": 57492,
       "glyph_name": "uniE094",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe099",
       "codepoint_dec": 57497,
       "glyph_name": "uniE099",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe100",
       "codepoint_dec": 57600,
       "glyph_name": "circle",
-      "category": "ui_control"
+      "category": "ui_control",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe101",
       "codepoint_dec": 57601,
       "glyph_name": "uniE101",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe102",
       "codepoint_dec": 57602,
       "glyph_name": "uniE102",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe103",
       "codepoint_dec": 57603,
       "glyph_name": "uniE103",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe104",
       "codepoint_dec": 57604,
       "glyph_name": "uniE104",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe105",
       "codepoint_dec": 57605,
       "glyph_name": "uniE105",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe106",
       "codepoint_dec": 57606,
       "glyph_name": "uniE106",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe107",
       "codepoint_dec": 57607,
       "glyph_name": "uniE107",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe108",
       "codepoint_dec": 57608,
       "glyph_name": "uniE108",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe109",
       "codepoint_dec": 57609,
       "glyph_name": "uniE109",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe110",
       "codepoint_dec": 57616,
       "glyph_name": "ui_sort",
-      "category": "ui_control"
+      "category": "ui_control",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe111",
       "codepoint_dec": 57617,
       "glyph_name": "ui_filter",
-      "category": "ui_control"
+      "category": "ui_control",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe112",
       "codepoint_dec": 57618,
       "glyph_name": "uniE112",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe113",
       "codepoint_dec": 57619,
       "glyph_name": "uniE113",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe114",
       "codepoint_dec": 57620,
       "glyph_name": "ui_locked",
-      "category": "ui_control"
+      "category": "ui_control",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe115",
       "codepoint_dec": 57621,
       "glyph_name": "ui_unlocked",
-      "category": "ui_control"
+      "category": "ui_control",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe116",
       "codepoint_dec": 57622,
       "glyph_name": "ui_link",
-      "category": "ui_control"
+      "category": "ui_control",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe117",
       "codepoint_dec": 57623,
       "glyph_name": "uniE117",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe118",
       "codepoint_dec": 57624,
       "glyph_name": "uniE118",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe119",
       "codepoint_dec": 57625,
       "glyph_name": "uniE119",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe11a",
       "codepoint_dec": 57626,
       "glyph_name": "uniE11A",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe11b",
       "codepoint_dec": 57627,
       "glyph_name": "uniE11B",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe11c",
       "codepoint_dec": 57628,
       "glyph_name": "uniE11C",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe11d",
       "codepoint_dec": 57629,
       "glyph_name": "uni2423.001",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe11e",
       "codepoint_dec": 57630,
       "glyph_name": "uni2423.002",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe11f",
       "codepoint_dec": 57631,
       "glyph_name": "uni2423.003",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe120",
       "codepoint_dec": 57632,
       "glyph_name": "uniE120",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe121",
       "codepoint_dec": 57633,
       "glyph_name": "uniE121",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe122",
       "codepoint_dec": 57634,
       "glyph_name": "uni270F25CB",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe123",
       "codepoint_dec": 57635,
       "glyph_name": "pencil_circled",
-      "category": "ui_control"
+      "category": "ui_control",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe124",
       "codepoint_dec": 57636,
       "glyph_name": "plus_circle",
-      "category": "ui_control"
+      "category": "ui_control",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe125",
       "codepoint_dec": 57637,
       "glyph_name": "minus_circle",
-      "category": "ui_control"
+      "category": "ui_control",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe126",
       "codepoint_dec": 57638,
       "glyph_name": "uniE126",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe127",
       "codepoint_dec": 57639,
       "glyph_name": "uniE127",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe128",
       "codepoint_dec": 57640,
       "glyph_name": "uniE128",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe129",
       "codepoint_dec": 57641,
       "glyph_name": "uniE129",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe12a",
       "codepoint_dec": 57642,
       "glyph_name": "uniE12A",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe12b",
       "codepoint_dec": 57643,
       "glyph_name": "uniE12B",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe12c",
       "codepoint_dec": 57644,
       "glyph_name": "uniE12C",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe12d",
       "codepoint_dec": 57645,
       "glyph_name": "ui_checkbox",
-      "category": "ui_control"
+      "category": "ui_control",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe12e",
       "codepoint_dec": 57646,
       "glyph_name": "ui_checkbox_checked",
-      "category": "ui_control"
+      "category": "ui_control",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe12f",
       "codepoint_dec": 57647,
       "glyph_name": "uniE12F",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe130",
       "codepoint_dec": 57648,
       "glyph_name": "uniE130",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe131",
       "codepoint_dec": 57649,
       "glyph_name": "uniE131",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe132",
       "codepoint_dec": 57650,
       "glyph_name": "uniE132",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe133",
       "codepoint_dec": 57651,
       "glyph_name": "uniE133",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe134",
       "codepoint_dec": 57652,
       "glyph_name": "uniE134",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe135",
       "codepoint_dec": 57653,
       "glyph_name": "uniE135",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe136",
       "codepoint_dec": 57654,
       "glyph_name": "uniE136",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe137",
       "codepoint_dec": 57655,
       "glyph_name": "uniE137",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe138",
       "codepoint_dec": 57656,
       "glyph_name": "uniE138",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe139",
       "codepoint_dec": 57657,
       "glyph_name": "uniE139",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe13a",
       "codepoint_dec": 57658,
       "glyph_name": "uniE13A",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe13b",
       "codepoint_dec": 57659,
       "glyph_name": "uniE13B",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe13c",
       "codepoint_dec": 57660,
       "glyph_name": "uniE13C",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe13d",
       "codepoint_dec": 57661,
       "glyph_name": "uniE13D",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe13e",
       "codepoint_dec": 57662,
       "glyph_name": "uniE13E",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe13f",
       "codepoint_dec": 57663,
       "glyph_name": "X_mark",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe140",
       "codepoint_dec": 57664,
       "glyph_name": "uniE140",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe141",
       "codepoint_dec": 57665,
       "glyph_name": "uniE141",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe142",
       "codepoint_dec": 57666,
       "glyph_name": "plus_inside_hexagon",
-      "category": "ui_control"
+      "category": "ui_control",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe143",
       "codepoint_dec": 57667,
       "glyph_name": "u1F516",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe144",
       "codepoint_dec": 57668,
       "glyph_name": "uniE144",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe145",
       "codepoint_dec": 57669,
       "glyph_name": "uniE145",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe146",
       "codepoint_dec": 57670,
       "glyph_name": "uniE146",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe147",
       "codepoint_dec": 57671,
       "glyph_name": "uniE147",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe148",
       "codepoint_dec": 57672,
       "glyph_name": "uniE148",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe149",
       "codepoint_dec": 57673,
       "glyph_name": "uniE149",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe14a",
       "codepoint_dec": 57674,
       "glyph_name": "uniE14A",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe14b",
       "codepoint_dec": 57675,
       "glyph_name": "uniE14B",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe14c",
       "codepoint_dec": 57676,
       "glyph_name": "uniE14C",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe14d",
       "codepoint_dec": 57677,
       "glyph_name": "uniE14D",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe14e",
       "codepoint_dec": 57678,
       "glyph_name": "uniE14E",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe14f",
       "codepoint_dec": 57679,
       "glyph_name": "uniE14F",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe150",
       "codepoint_dec": 57680,
       "glyph_name": "uniE150",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe151",
       "codepoint_dec": 57681,
       "glyph_name": "uniE151",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe152",
       "codepoint_dec": 57682,
       "glyph_name": "uniE152",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe153",
       "codepoint_dec": 57683,
       "glyph_name": "uniE153",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe154",
       "codepoint_dec": 57684,
       "glyph_name": "uniE154",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe155",
       "codepoint_dec": 57685,
       "glyph_name": "uniE155",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe156",
       "codepoint_dec": 57686,
       "glyph_name": "uniE156",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe157",
       "codepoint_dec": 57687,
       "glyph_name": "uniE157",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe158",
       "codepoint_dec": 57688,
       "glyph_name": "uniE158",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe159",
       "codepoint_dec": 57689,
       "glyph_name": "uniE159",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe15a",
       "codepoint_dec": 57690,
       "glyph_name": "uniE15A",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe15b",
       "codepoint_dec": 57691,
       "glyph_name": "uniE15B",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe15c",
       "codepoint_dec": 57692,
       "glyph_name": "uniE15C",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe15d",
       "codepoint_dec": 57693,
       "glyph_name": "uniE15D",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe15e",
       "codepoint_dec": 57694,
       "glyph_name": "uni2423.004",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe15f",
       "codepoint_dec": 57695,
       "glyph_name": "uniE15F",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe160",
       "codepoint_dec": 57696,
       "glyph_name": "uni2423.011",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "巨无霸/野生突击",
+      "name_en": "Maximals/Feral Strike",
+      "notes": "Cheetor's signature"
     },
     {
       "codepoint_hex": "0xe161",
       "codepoint_dec": 57697,
       "glyph_name": "uniE161",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe162",
       "codepoint_dec": 57698,
       "glyph_name": "uni2423.013",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe163",
       "codepoint_dec": 57699,
       "glyph_name": "uniE163",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe164",
       "codepoint_dec": 57700,
       "glyph_name": "uni2423.015",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe165",
       "codepoint_dec": 57701,
       "glyph_name": "uni2423.016",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe166",
       "codepoint_dec": 57702,
       "glyph_name": "uniE166",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe167",
       "codepoint_dec": 57703,
       "glyph_name": "uniE167",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe168",
       "codepoint_dec": 57704,
       "glyph_name": "uniE168",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "训诫",
+      "name_en": "Discipline",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe169",
       "codepoint_dec": 57705,
       "glyph_name": "uniE169",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe180",
       "codepoint_dec": 57728,
       "glyph_name": "uniE180",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe181",
       "codepoint_dec": 57729,
       "glyph_name": "uniE181",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe182",
       "codepoint_dec": 57730,
       "glyph_name": "uniE182",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe183",
       "codepoint_dec": 57731,
       "glyph_name": "uniE183",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe184",
       "codepoint_dec": 57732,
       "glyph_name": "uniE184",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe185",
       "codepoint_dec": 57733,
       "glyph_name": "uniE185",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "武器专家",
+      "name_en": "Weapon Specialist",
+      "notes": "Synergy"
     },
     {
       "codepoint_hex": "0xe186",
       "codepoint_dec": 57734,
       "glyph_name": "uniE186",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe187",
       "codepoint_dec": 57735,
       "glyph_name": "uni2423.008",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe188",
       "codepoint_dec": 57736,
       "glyph_name": "uni2423.009",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe189",
       "codepoint_dec": 57737,
       "glyph_name": "uni2423.010",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe190",
       "codepoint_dec": 57744,
       "glyph_name": "uniE190",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe201",
       "codepoint_dec": 57857,
       "glyph_name": "uniE201",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe202",
       "codepoint_dec": 57858,
       "glyph_name": "uniE202",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe203",
       "codepoint_dec": 57859,
       "glyph_name": "uniE203",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe204",
       "codepoint_dec": 57860,
       "glyph_name": "uniE204",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe205",
       "codepoint_dec": 57861,
       "glyph_name": "uniE205",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe206",
       "codepoint_dec": 57862,
       "glyph_name": "uniE206",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe207",
       "codepoint_dec": 57863,
       "glyph_name": "uniE207",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe208",
       "codepoint_dec": 57864,
       "glyph_name": "uniE208",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe209",
       "codepoint_dec": 57865,
       "glyph_name": "uniE209",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe20a",
       "codepoint_dec": 57866,
       "glyph_name": "uniE20A",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe20b",
       "codepoint_dec": 57867,
       "glyph_name": "uniE20B",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe20c",
       "codepoint_dec": 57868,
       "glyph_name": "uniE20C",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe210",
       "codepoint_dec": 57872,
       "glyph_name": "uniE210",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe211",
       "codepoint_dec": 57873,
       "glyph_name": "uniE211",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe212",
       "codepoint_dec": 57874,
       "glyph_name": "uniE212",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe213",
       "codepoint_dec": 57875,
       "glyph_name": "uniE213",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe214",
       "codepoint_dec": 57876,
       "glyph_name": "uniE214",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "红蜘蛛的游击军",
+      "name_en": "Starscream's Seekers",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe215",
       "codepoint_dec": 57877,
       "glyph_name": "uniE215",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe216",
       "codepoint_dec": 57878,
       "glyph_name": "uniE216",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe217",
       "codepoint_dec": 57879,
       "glyph_name": "uniE217",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe218",
       "codepoint_dec": 57880,
       "glyph_name": "uniE218",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe219",
       "codepoint_dec": 57881,
       "glyph_name": "uniE219",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe21a",
       "codepoint_dec": 57882,
       "glyph_name": "uniE21A",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe21b",
       "codepoint_dec": 57883,
       "glyph_name": "uniE21B",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe21c",
       "codepoint_dec": 57884,
       "glyph_name": "uniE21C",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe21d",
       "codepoint_dec": 57885,
       "glyph_name": "uniE21D",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe21e",
       "codepoint_dec": 57886,
       "glyph_name": "uniE21E",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe21f",
       "codepoint_dec": 57887,
       "glyph_name": "uniE21F",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe220",
       "codepoint_dec": 57888,
       "glyph_name": "uniE220",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe221",
       "codepoint_dec": 57889,
       "glyph_name": "uniE221",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe222",
       "codepoint_dec": 57890,
       "glyph_name": "uniE222",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe223",
       "codepoint_dec": 57891,
       "glyph_name": "uniE223",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe224",
       "codepoint_dec": 57892,
       "glyph_name": "uniE224",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "增伤",
+      "name_en": "Increase Damage",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe225",
       "codepoint_dec": 57893,
       "glyph_name": "uniE225",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe226",
       "codepoint_dec": 57894,
       "glyph_name": "uniE226",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe227",
       "codepoint_dec": 57895,
       "glyph_name": "uniE227",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe228",
       "codepoint_dec": 57896,
       "glyph_name": "uniE228",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe229",
       "codepoint_dec": 57897,
       "glyph_name": "uniE229",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe22a",
       "codepoint_dec": 57898,
       "glyph_name": "uniE22A",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe22b",
       "codepoint_dec": 57899,
       "glyph_name": "uniE22B",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "领导力",
+      "name_en": "Leadership",
+      "notes": "Synergy"
     },
     {
       "codepoint_hex": "0xe22c",
       "codepoint_dec": 57900,
       "glyph_name": "uniE22C",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe22d",
       "codepoint_dec": 57901,
       "glyph_name": "uniE22D",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe22e",
       "codepoint_dec": 57902,
       "glyph_name": "uniE22E",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "黑白颠倒",
+      "name_en": "Shattered Glass",
+      "notes": "倾天柱等镜像角色"
     },
     {
       "codepoint_hex": "0xe22f",
       "codepoint_dec": 57903,
       "glyph_name": "uniE22F",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe230",
       "codepoint_dec": 57904,
       "glyph_name": "uniE230",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe231",
       "codepoint_dec": 57905,
       "glyph_name": "uniE231",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe232",
       "codepoint_dec": 57906,
       "glyph_name": "uniE232",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe292",
       "codepoint_dec": 58002,
       "glyph_name": "uniE292",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe293",
       "codepoint_dec": 58003,
       "glyph_name": "uniE293",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe301",
       "codepoint_dec": 58113,
       "glyph_name": "uniE301",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "Brawler Class",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe302",
       "codepoint_dec": 58114,
       "glyph_name": "uniE302",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "Tactician Class",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe303",
       "codepoint_dec": 58115,
       "glyph_name": "uniE303",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "Demolition Class",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe304",
       "codepoint_dec": 58116,
       "glyph_name": "uniE304",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "Scout Class",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe305",
       "codepoint_dec": 58117,
       "glyph_name": "uniE305",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "Warrior Class",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe306",
       "codepoint_dec": 58118,
       "glyph_name": "uniE306",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "科技系/脑力增加/升级",
+      "name_en": "Tech Class/Brain Gain/Upgrade",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe310",
       "codepoint_dec": 58128,
       "glyph_name": "uniE310",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe311",
       "codepoint_dec": 58129,
       "glyph_name": "uniE311",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe350",
       "codepoint_dec": 58192,
       "glyph_name": "uniE350",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe351",
       "codepoint_dec": 58193,
       "glyph_name": "uniE351",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe352",
       "codepoint_dec": 58194,
       "glyph_name": "uniE352",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe401",
       "codepoint_dec": 58369,
       "glyph_name": "uniE401",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "流血",
+      "name_en": "Bleed",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe402",
       "codepoint_dec": 58370,
       "glyph_name": "uniE402",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "双刃剑",
+      "name_en": "Double Edge",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe403",
       "codepoint_dec": 58371,
       "glyph_name": "uniE403",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe404",
       "codepoint_dec": 58372,
       "glyph_name": "uniE404",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "暴击伤害",
+      "name_en": "Crit Damage",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe405",
       "codepoint_dec": 58373,
       "glyph_name": "uniE405",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "剑圣",
+      "name_en": "Swordmaster",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe406",
       "codepoint_dec": 58374,
       "glyph_name": "uniE406",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "攻击评分",
+      "name_en": "Attack Rating",
+      "notes": "Synergy Bonus"
     },
     {
       "codepoint_hex": "0xe407",
       "codepoint_dec": 58375,
       "glyph_name": "uniE407",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "计时器",
+      "name_en": "timer",
+      "notes": "countdown for certain buff/debuff like Rhinox's power lock"
     },
     {
       "codepoint_hex": "0xe408",
       "codepoint_dec": 58376,
       "glyph_name": "uniE408",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "千炼为侍",
+      "name_en": "Forged to Serve",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe409",
       "codepoint_dec": 58377,
       "glyph_name": "uniE409",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "暴击抗性/护甲穿透",
+      "name_en": "Crit Rate Resistance/Armor Piercing",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe40a",
       "codepoint_dec": 58378,
       "glyph_name": "uniE40A",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe40b",
       "codepoint_dec": 58379,
       "glyph_name": "uniE40B",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe40c",
       "codepoint_dec": 58380,
       "glyph_name": "uniE40C",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "爵士的混乱？",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe40d",
       "codepoint_dec": 58381,
       "glyph_name": "uniE40D",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "暴击几率/精准弹药",
+      "name_en": "Crit Rate/Precision Ammo",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe40e",
       "codepoint_dec": 58382,
       "glyph_name": "uniE40E",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe40f",
       "codepoint_dec": 58383,
       "glyph_name": "uniE40F",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe410",
       "codepoint_dec": 58384,
       "glyph_name": "uniE410",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe411",
       "codepoint_dec": 58385,
       "glyph_name": "uniE411",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "间谍专家/暗杀",
+      "name_en": "Espionage Specialists/Assassin",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe412",
       "codepoint_dec": 58386,
       "glyph_name": "uniE412",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "近战增益/镇压",
+      "name_en": "Melee Buff/Suppression",
+      "notes": "Rhinox against bleeding opponents/Prowl"
     },
     {
       "codepoint_hex": "0xe413",
       "codepoint_dec": 58387,
       "glyph_name": "uniE413",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "todo",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe414",
       "codepoint_dec": 58388,
       "glyph_name": "uniE414",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe415",
       "codepoint_dec": 58389,
       "glyph_name": "uniE415",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe416",
       "codepoint_dec": 58390,
       "glyph_name": "uniE416",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "执行者",
+      "name_en": "Enforcer",
+      "notes": "Kickback/Motormaster/Ramjet"
     },
     {
       "codepoint_hex": "0xe417",
       "codepoint_dec": 58391,
       "glyph_name": "uniE417",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "特殊攻击 1",
+      "name_en": "Special 1",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe418",
       "codepoint_dec": 58392,
       "glyph_name": "uniE418",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "特殊攻击2",
+      "name_en": "Special 2",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe419",
       "codepoint_dec": 58393,
       "glyph_name": "uniE419",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "特殊攻击 3",
+      "name_en": "Special 3",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe41a",
       "codepoint_dec": 58394,
       "glyph_name": "uniE41A",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe41b",
       "codepoint_dec": 58395,
       "glyph_name": "uniE41B",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "远程增益",
+      "name_en": "Ranged Buff",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe41c",
       "codepoint_dec": 58396,
       "glyph_name": "uniE41C",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "特殊伤害",
+      "name_en": "Special Damage",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe41d",
       "codepoint_dec": 58397,
       "glyph_name": "uniE41D",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "燃烧",
+      "name_en": "Burn",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe41e",
       "codepoint_dec": 58398,
       "glyph_name": "uniE41E",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "近战暴击率/背刺/护盾崩解",
+      "name_en": "Melee Crit Rate/Backstab/Shield Break",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe41f",
       "codepoint_dec": 58399,
       "glyph_name": "uniE41F",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "无法格挡",
+      "name_en": "Unblockable",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe501",
       "codepoint_dec": 58625,
       "glyph_name": "shield_up",
-      "category": "buff_shield"
+      "category": "buff_shield",
+      "name_zh": "格挡精通",
+      "name_en": "Block Proficiency",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe502",
       "codepoint_dec": 58626,
       "glyph_name": "u1F6E1_block",
-      "category": "buff_shield"
+      "category": "buff_shield",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe503",
       "codepoint_dec": 58627,
       "glyph_name": "uniE503",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "生命值",
+      "name_en": "health",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe504",
       "codepoint_dec": 58628,
       "glyph_name": "heart",
-      "category": "buff_effect"
+      "category": "buff_effect",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe505",
       "codepoint_dec": 58629,
       "glyph_name": "uniE505",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe506",
       "codepoint_dec": 58630,
       "glyph_name": "uniE506",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "抗性",
+      "name_en": "Resistance",
+      "notes": "燃烧和震击抗性"
     },
     {
       "codepoint_hex": "0xe507",
       "codepoint_dec": 58631,
       "glyph_name": "uniE507",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "抗性转换",
+      "name_en": "Resistance Shift",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe508",
       "codepoint_dec": 58632,
       "glyph_name": "uniE508",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "护甲（协同奖励）",
+      "name_en": "Armor (synergy)",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe509",
       "codepoint_dec": 58633,
       "glyph_name": "uniE509",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "近战规避",
+      "name_en": "Melee Evade",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe50a",
       "codepoint_dec": 58634,
       "glyph_name": "uniE50A",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe50b",
       "codepoint_dec": 58635,
       "glyph_name": "shield_timer",
-      "category": "buff_shield"
+      "category": "buff_shield",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe50c",
       "codepoint_dec": 58636,
       "glyph_name": "uniE50C",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe50d",
       "codepoint_dec": 58637,
       "glyph_name": "uniE50D",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe50e",
       "codepoint_dec": 58638,
       "glyph_name": "shield_bleed",
-      "category": "buff_shield"
+      "category": "buff_shield",
+      "name_zh": "流血抗性",
+      "name_en": "Bleed Resistance",
+      "notes": "精通"
     },
     {
       "codepoint_hex": "0xe50f",
       "codepoint_dec": 58639,
       "glyph_name": "uniE50F",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "格挡反伤",
+      "name_en": "Block Damage",
+      "notes": "Dinobot's block"
     },
     {
       "codepoint_hex": "0xe510",
       "codepoint_dec": 58640,
       "glyph_name": "shield_mana",
-      "category": "buff_shield"
+      "category": "buff_shield",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe511",
       "codepoint_dec": 58641,
       "glyph_name": "uniE511",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "修复/纳米修复",
+      "name_en": "Repair/Nano Repair",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe512",
       "codepoint_dec": 58642,
       "glyph_name": "shield_new",
-      "category": "buff_shield"
+      "category": "buff_shield",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe513",
       "codepoint_dec": 58643,
       "glyph_name": "shield_poison",
-      "category": "buff_shield"
+      "category": "buff_shield",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe514",
       "codepoint_dec": 58644,
       "glyph_name": "uniE514",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "污损状态",
+      "name_en": "Blemished State",
+      "notes": "Sunstreaker"
     },
     {
       "codepoint_hex": "0xe515",
       "codepoint_dec": 58645,
       "glyph_name": "u1F6E1",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "防护（犀牛的）",
+      "name_en": "Shielding (Rhinox)",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe516",
       "codepoint_dec": 58646,
       "glyph_name": "uniE516",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "破甲/护甲增益/暴击护甲",
+      "name_en": "Armor Break/Armor Buff/Crit Armor",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe517",
       "codepoint_dec": 58647,
       "glyph_name": "uniE517",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "护甲",
+      "name_en": "Armor",
+      "notes": "精通"
     },
     {
       "codepoint_hex": "0xe518",
       "codepoint_dec": 58648,
       "glyph_name": "uniE518",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "远程规避",
+      "name_en": "Ranged Evade",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe519",
       "codepoint_dec": 58649,
       "glyph_name": "uniE519",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "干扰/目眩/远程抵抗",
+      "name_en": "Interference/Dazed/Ranged Resistance",
+      "notes": "Blaster"
     },
     {
       "codepoint_hex": "0xe520",
       "codepoint_dec": 58656,
       "glyph_name": "uniE520",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "特殊攻击下降",
+      "name_en": "Special Damage Down",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe521",
       "codepoint_dec": 58657,
       "glyph_name": "uniE521",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe522",
       "codepoint_dec": 58658,
       "glyph_name": "uniE522",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe523",
       "codepoint_dec": 58659,
       "glyph_name": "uniE523",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "能量锁定",
+      "name_en": "Power Lock",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe524",
       "codepoint_dec": 58660,
       "glyph_name": "uniE524",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "酸液/玻璃瓦斯枪",
+      "name_en": "Acid/Glass Gas Gun",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe601",
       "codepoint_dec": 58881,
       "glyph_name": "uniE601",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe602",
       "codepoint_dec": 58882,
       "glyph_name": "uniE602",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "整洁状态",
+      "name_en": "Pristine State",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe603",
       "codepoint_dec": 58883,
       "glyph_name": "uniE603",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe604",
       "codepoint_dec": 58884,
       "glyph_name": "shield_stun",
-      "category": "buff_shield"
+      "category": "buff_shield",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe605",
       "codepoint_dec": 58885,
       "glyph_name": "uniE605",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "眩晕/昏迷",
+      "name_en": "Stun/Stupefy",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe606",
       "codepoint_dec": 58886,
       "glyph_name": "uniE606",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "能量功率/能量获取",
+      "name_en": "Power Rate/Power Gain",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe607",
       "codepoint_dec": 58887,
       "glyph_name": "uniE607",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "能量流失/能量燃烧/能量窃取",
+      "name_en": "Power Leak/Power Burn/Power Steal",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe608",
       "codepoint_dec": 58888,
       "glyph_name": "uniE608",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "能量涌动",
+      "name_en": "Power Flow",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe609",
       "codepoint_dec": 58889,
       "glyph_name": "uniE609",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe60a",
       "codepoint_dec": 58890,
       "glyph_name": "uniE60A",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "抗性减益",
+      "name_en": "Resistance Debuff",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe60b",
       "codepoint_dec": 58891,
       "glyph_name": "uniE60B",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe60c",
       "codepoint_dec": 58892,
       "glyph_name": "uniE60C",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe60d",
       "codepoint_dec": 58893,
       "glyph_name": "uniE60D",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe60e",
       "codepoint_dec": 58894,
       "glyph_name": "uniE60E",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "自我诊断",
+      "name_en": "Self-Diagnosis",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe60f",
       "codepoint_dec": 58895,
       "glyph_name": "uniE60F",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "减益融合",
+      "name_en": "Debuff Fusion",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe701",
       "codepoint_dec": 59137,
       "glyph_name": "uniE701",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "黑暗场",
+      "name_en": "Dark Field",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe702",
       "codepoint_dec": 59138,
       "glyph_name": "uniE702",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe703",
       "codepoint_dec": 59139,
       "glyph_name": "uniE703",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "招牌强化",
+      "name_en": "Signature Buff",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe704",
       "codepoint_dec": 59140,
       "glyph_name": "uniE704",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe705",
       "codepoint_dec": 59141,
       "glyph_name": "uniE705",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "类别环",
+      "name_en": "Class Wheel",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe706",
       "codepoint_dec": 59142,
       "glyph_name": "uniE706",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe707",
       "codepoint_dec": 59143,
       "glyph_name": "uniE707",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe708",
       "codepoint_dec": 59144,
       "glyph_name": "uniE708",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "同心协力",
+      "name_en": "Stand Together",
+      "notes": "精通"
     },
     {
       "codepoint_hex": "0xe801",
       "codepoint_dec": 59393,
       "glyph_name": "uniE801",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe802",
       "codepoint_dec": 59394,
       "glyph_name": "uniE802",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe803",
       "codepoint_dec": 59395,
       "glyph_name": "uniE803",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe804",
       "codepoint_dec": 59396,
       "glyph_name": "uniE804",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe805",
       "codepoint_dec": 59397,
       "glyph_name": "uniE805",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe806",
       "codepoint_dec": 59398,
       "glyph_name": "uniE806",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe807",
       "codepoint_dec": 59399,
       "glyph_name": "uniE807",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe808",
       "codepoint_dec": 59400,
       "glyph_name": "uniE808",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe809",
       "codepoint_dec": 59401,
       "glyph_name": "uniE809",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe80a",
       "codepoint_dec": 59402,
       "glyph_name": "uniE80A",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe80b",
       "codepoint_dec": 59403,
       "glyph_name": "uniE80B",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe80c",
       "codepoint_dec": 59404,
       "glyph_name": "uniE80C",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe80d",
       "codepoint_dec": 59405,
       "glyph_name": "uniE80D",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe80e",
       "codepoint_dec": 59406,
       "glyph_name": "uni2423.026",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe80f",
       "codepoint_dec": 59407,
       "glyph_name": "uni2423.027",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe810",
       "codepoint_dec": 59408,
       "glyph_name": "uniE810",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "黑暗燃烧",
+      "name_en": "Dark Burn",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe811",
       "codepoint_dec": 59409,
       "glyph_name": "uniE811",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe812",
       "codepoint_dec": 59410,
       "glyph_name": "uniE812",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe813",
       "codepoint_dec": 59411,
       "glyph_name": "uniE813",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe814",
       "codepoint_dec": 59412,
       "glyph_name": "uniE814",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe815",
       "codepoint_dec": 59413,
       "glyph_name": "uniE815",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe816",
       "codepoint_dec": 59414,
       "glyph_name": "uniE816",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe817",
       "codepoint_dec": 59415,
       "glyph_name": "uniE817",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe818",
       "codepoint_dec": 59416,
       "glyph_name": "uniE818",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe819",
       "codepoint_dec": 59417,
       "glyph_name": "uniE819",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe81a",
       "codepoint_dec": 59418,
       "glyph_name": "uniE81A",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe81b",
       "codepoint_dec": 59419,
       "glyph_name": "uniE81B",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe81c",
       "codepoint_dec": 59420,
       "glyph_name": "uni2423.021",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe81d",
       "codepoint_dec": 59421,
       "glyph_name": "uni2423.022",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe81e",
       "codepoint_dec": 59422,
       "glyph_name": "uni2423.023",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "回溯",
+      "name_en": "Undo",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe81f",
       "codepoint_dec": 59423,
       "glyph_name": "uni2423.024",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "多维封印",
+      "name_en": "Shroud",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe900",
       "codepoint_dec": 59648,
       "glyph_name": "uni2423.025",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe901",
       "codepoint_dec": 59649,
       "glyph_name": "uniE901",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "逆火/毒液逆火",
+      "name_en": "Backfire/Venom Backfire",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe902",
       "codepoint_dec": 59650,
       "glyph_name": "baseball_bat",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe903",
       "codepoint_dec": 59651,
       "glyph_name": "uniE903",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "减益减弱",
+      "name_en": "Debuff down",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe904",
       "codepoint_dec": 59652,
       "glyph_name": "u1F4C5",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe905",
       "codepoint_dec": 59653,
       "glyph_name": "uniE905",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "暴击伤害减益",
+      "name_en": "Crit Damage Debuff",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe906",
       "codepoint_dec": 59654,
       "glyph_name": "uniE906",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "暴击伤害/暴击伤害抗性",
+      "name_en": "Crit Damage/Crit Damage Resistance",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe907",
       "codepoint_dec": 59655,
       "glyph_name": "uniE907",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "恐惧",
+      "name_en": "Fear",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe908",
       "codepoint_dec": 59656,
       "glyph_name": "uniE908",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe909",
       "codepoint_dec": 59657,
       "glyph_name": "uniE909",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe90a",
       "codepoint_dec": 59658,
       "glyph_name": "uniE90A",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "黑暗能量/子空间脉冲克隆体/能量抵抗",
+      "name_en": "Dark Power/Subspace Impulse Cloner/Energy Resistance",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe90b",
       "codepoint_dec": 59659,
       "glyph_name": "uniE90B",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe90c",
       "codepoint_dec": 59660,
       "glyph_name": "uniE90C",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "修复阻止/绝望",
+      "name_en": "Repair Block/Despair",
+      "notes": "Shockwave"
     },
     {
       "codepoint_hex": "0xe90d",
       "codepoint_dec": 59661,
       "glyph_name": "uniE90D",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "玻璃大炮",
+      "name_en": "Glass Cannon",
+      "notes": "精通"
     },
     {
       "codepoint_hex": "0xe90e",
       "codepoint_dec": 59662,
       "glyph_name": "uniE90E",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe90f",
       "codepoint_dec": 59663,
       "glyph_name": "uniE90F",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "获得护甲",
+      "name_en": "Gain Armor",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe910",
       "codepoint_dec": 59664,
       "glyph_name": "uniE910",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "聚合炮",
+      "name_en": "Fusion Cannon",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe911",
       "codepoint_dec": 59665,
       "glyph_name": "uniE911",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "招架护盾/近战反射",
+      "name_en": "Parry Shield/Melee Reflect",
+      "notes": "Jetfire/G1 Ironhide"
     },
     {
       "codepoint_hex": "0xe912",
       "codepoint_dec": 59666,
       "glyph_name": "uniE912",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "暴击率减益/暴击抗性",
+      "name_en": "Crit Rate Debuff/Crit Resistance",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe913",
       "codepoint_dec": 59667,
       "glyph_name": "uniE913",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe914",
       "codepoint_dec": 59668,
       "glyph_name": "uniE914",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "震击/风暴喷发",
+      "name_en": "Shock/Stormfall Blast",
+      "notes": "Windblade"
     },
     {
       "codepoint_hex": "0xe915",
       "codepoint_dec": 59669,
       "glyph_name": "uniE915",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "不可阻挡/镇静",
+      "name_en": "Unstoppable/Unfazed",
+      "notes": "俗称霸体"
     },
     {
       "codepoint_hex": "0xe916",
       "codepoint_dec": 59670,
       "glyph_name": "uniE916",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "攻击减益/冲压",
+      "name_en": "Attack Debuff/Ramming",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe917",
       "codepoint_dec": 59671,
       "glyph_name": "uniE917",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "生命传递",
+      "name_en": "Health Transfer",
+      "notes": "回春手"
     },
     {
       "codepoint_hex": "0xe918",
       "codepoint_dec": 59672,
       "glyph_name": "uniE918",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe919",
       "codepoint_dec": 59673,
       "glyph_name": "uniE919",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe91a",
       "codepoint_dec": 59674,
       "glyph_name": "uniE91A",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "狂怒遗迹/保存遗迹/势不可挡的力量",
+      "name_en": "Relic of Fury/Relic of Preservation/Overwhelming Power",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe91b",
       "codepoint_dec": 59675,
       "glyph_name": "uniE91B",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "混乱/追星者",
+      "name_en": "Confusion/Star Seeker",
+      "notes": "Jazz/精通"
     },
     {
       "codepoint_hex": "0xe91c",
       "codepoint_dec": 59676,
       "glyph_name": "spade",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe91d",
       "codepoint_dec": 59677,
       "glyph_name": "club",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe91e",
       "codepoint_dec": 59678,
       "glyph_name": "diamond",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe91f",
       "codepoint_dec": 59679,
       "glyph_name": "uniE91F",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe920",
       "codepoint_dec": 59680,
       "glyph_name": "spider_mode_hunter",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe921",
       "codepoint_dec": 59681,
       "glyph_name": "spider_mode_trap",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe922",
       "codepoint_dec": 59682,
       "glyph_name": "uniE922",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe923",
       "codepoint_dec": 59683,
       "glyph_name": "uniE923",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe924",
       "codepoint_dec": 59684,
       "glyph_name": "uniE924",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe925",
       "codepoint_dec": 59685,
       "glyph_name": "uniE925",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe926",
       "codepoint_dec": 59686,
       "glyph_name": "uniE926",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe927",
       "codepoint_dec": 59687,
       "glyph_name": "uniE927",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe928",
       "codepoint_dec": 59688,
       "glyph_name": "uniE928",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe929",
       "codepoint_dec": 59689,
       "glyph_name": "uniE929",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe92a",
       "codepoint_dec": 59690,
       "glyph_name": "uniE92A",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "空袭",
+      "name_en": "Sky Assault",
+      "notes": "Anti-evade synergy"
     },
     {
       "codepoint_hex": "0xe92b",
       "codepoint_dec": 59691,
       "glyph_name": "uniE92B",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "法外狂徒",
+      "name_en": "Outlaws",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe92c",
       "codepoint_dec": 59692,
       "glyph_name": "uniE92C",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe92d",
       "codepoint_dec": 59693,
       "glyph_name": "uniE92D",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe92e",
       "codepoint_dec": 59694,
       "glyph_name": "uniE92E",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe92f",
       "codepoint_dec": 59695,
       "glyph_name": "uniE92F",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe930",
       "codepoint_dec": 59696,
       "glyph_name": "uniE930",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe931",
       "codepoint_dec": 59697,
       "glyph_name": "uniE931",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe932",
       "codepoint_dec": 59698,
       "glyph_name": "uniE932",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe933",
       "codepoint_dec": 59699,
       "glyph_name": "uniE933",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "消耗",
+      "name_en": "Consume",
+      "notes": "Kickback"
     },
     {
       "codepoint_hex": "0xe934",
       "codepoint_dec": 59700,
       "glyph_name": "uniE934",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe935",
       "codepoint_dec": 59701,
       "glyph_name": "uniE935",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe936",
       "codepoint_dec": 59702,
       "glyph_name": "uniE936",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe937",
       "codepoint_dec": 59703,
       "glyph_name": "uniE937",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "地狱弹药",
+      "name_en": "Inferno Ammo",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe938",
       "codepoint_dec": 59704,
       "glyph_name": "uniE938",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe939",
       "codepoint_dec": 59705,
       "glyph_name": "u1F489",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "注射",
+      "name_en": "Injection",
+      "notes": "回春手"
     },
     {
       "codepoint_hex": "0xe93a",
       "codepoint_dec": 59706,
       "glyph_name": "uniE93A",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "顽强意志",
+      "name_en": "Will Power",
+      "notes": "精通"
     },
     {
       "codepoint_hex": "0xe93b",
       "codepoint_dec": 59707,
       "glyph_name": "uniE93B",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe93c",
       "codepoint_dec": 59708,
       "glyph_name": "shield_sparkles",
-      "category": "buff_shield"
+      "category": "buff_shield",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe93d",
       "codepoint_dec": 59709,
       "glyph_name": "u1F514",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe93e",
       "codepoint_dec": 59710,
       "glyph_name": "two_pointers",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe93f",
       "codepoint_dec": 59711,
       "glyph_name": "u1F480_u1F525",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe940",
       "codepoint_dec": 59712,
       "glyph_name": "uniE940",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe941",
       "codepoint_dec": 59713,
       "glyph_name": "uniE941",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe942",
       "codepoint_dec": 59714,
       "glyph_name": "uniE942",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "意志力",
+      "name_en": "Will Power",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe943",
       "codepoint_dec": 59715,
       "glyph_name": "uniE943",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe944",
       "codepoint_dec": 59716,
       "glyph_name": "uniE944",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe945",
       "codepoint_dec": 59717,
       "glyph_name": "uniE945",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe946",
       "codepoint_dec": 59718,
       "glyph_name": "uniE946",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe947",
       "codepoint_dec": 59719,
       "glyph_name": "uniE947",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe948",
       "codepoint_dec": 59720,
       "glyph_name": "uniE948",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe949",
       "codepoint_dec": 59721,
       "glyph_name": "uniE949",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe950",
       "codepoint_dec": 59728,
       "glyph_name": "uniE950",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "驱散",
+      "name_en": "Nullify",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe951",
       "codepoint_dec": 59729,
       "glyph_name": "uniE951",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "偶像",
+      "name_en": "Role Models",
+      "notes": "Synergy Bumblebee GS"
     },
     {
       "codepoint_hex": "0xe952",
       "codepoint_dec": 59730,
       "glyph_name": "uniE952",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "减速",
+      "name_en": "Decelerate",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe953",
       "codepoint_dec": 59731,
       "glyph_name": "uniE953",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe960",
       "codepoint_dec": 59744,
       "glyph_name": "uniE960",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe961",
       "codepoint_dec": 59745,
       "glyph_name": "uniE961",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe962",
       "codepoint_dec": 59746,
       "glyph_name": "uniE962",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe980",
       "codepoint_dec": 59776,
       "glyph_name": "uniE980",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "中尉",
+      "name_en": "Liteunant",
+      "notes": "synergy"
     },
     {
       "codepoint_hex": "0xe981",
       "codepoint_dec": 59777,
       "glyph_name": "uniE981",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe982",
       "codepoint_dec": 59778,
       "glyph_name": "uniE982",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe983",
       "codepoint_dec": 59779,
       "glyph_name": "uniE983",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "强化格挡",
+      "name_en": "Enhance Block",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe984",
       "codepoint_dec": 59780,
       "glyph_name": "uniE984",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "完美格挡",
+      "name_en": "Perfect Block",
+      "notes": "精通"
     },
     {
       "codepoint_hex": "0xe985",
       "codepoint_dec": 59781,
       "glyph_name": "uniE985",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe986",
       "codepoint_dec": 59782,
       "glyph_name": "uniE986",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "背水一战",
+      "name_en": "Last Stand",
+      "notes": "精通"
     },
     {
       "codepoint_hex": "0xe987",
       "codepoint_dec": 59783,
       "glyph_name": "uniE987",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe988",
       "codepoint_dec": 59784,
       "glyph_name": "uniE988",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe989",
       "codepoint_dec": 59785,
       "glyph_name": "uniE989",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "校准",
+      "name_en": "Recalibration",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe98a",
       "codepoint_dec": 59786,
       "glyph_name": "uniE98A",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "镇压/抑制器",
+      "name_en": "Suppression/Inhibitor",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe98b",
       "codepoint_dec": 59787,
       "glyph_name": "uniE98B",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe98c",
       "codepoint_dec": 59788,
       "glyph_name": "uniE98C",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe98d",
       "codepoint_dec": 59789,
       "glyph_name": "uniE98D",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "反击",
+      "name_en": "Counterpunch",
+      "notes": "精通"
     },
     {
       "codepoint_hex": "0xe98e",
       "codepoint_dec": 59790,
       "glyph_name": "uniE98E",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "枪手",
+      "name_en": "Gunslinger",
+      "notes": "精通"
     },
     {
       "codepoint_hex": "0xe98f",
       "codepoint_dec": 59791,
       "glyph_name": "uniE98F",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "传送充能",
+      "name_en": "Teleport Charges",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe99a",
       "codepoint_dec": 59802,
       "glyph_name": "uniE99A",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "电容器",
+      "name_en": "Capacitor",
+      "notes": "精通"
     },
     {
       "codepoint_hex": "0xe99b",
       "codepoint_dec": 59803,
       "glyph_name": "uniE99B",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "燃烧抗性",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe99c",
       "codepoint_dec": 59804,
       "glyph_name": "uniE99C",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "近战抵抗",
+      "name_en": "Resist Melee",
+      "notes": "精通"
     },
     {
       "codepoint_hex": "0xe99d",
       "codepoint_dec": 59805,
       "glyph_name": "uniE99D",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "",
+      "name_en": "",
+      "notes": ""
     },
     {
       "codepoint_hex": "0xe99e",
       "codepoint_dec": 59806,
       "glyph_name": "uniE99E",
-      "category": "misc"
+      "category": "misc",
+      "name_zh": "疯狂喂食",
+      "name_en": "Feeding Frenzy",
+      "notes": "精通"
     }
   ]
 }

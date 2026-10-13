@@ -1683,6 +1683,376 @@
             color: var(--text-sub);
         }
 
+        /* Copy From Feature Styles */
+        .btn-copy-from-ability {
+            background: rgba(14, 165, 233, 0.12);
+            border: 1px solid rgba(14, 165, 233, 0.35);
+            color: #38BDF8;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.15s;
+        }
+        .btn-copy-from-ability:hover {
+            background: rgba(14, 165, 233, 0.25);
+            border-color: #38BDF8;
+            color: #FFF;
+            box-shadow: 0 0 8px rgba(14, 165, 233, 0.3);
+        }
+
+        .abilities-global-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 8px 14px;
+            margin-bottom: 14px;
+        }
+
+        .abilities-global-hint {
+            font-size: 12px;
+            color: var(--text-sub);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-global-copy-from {
+            background: rgba(14, 165, 233, 0.15);
+            border: 1px solid #0284C7;
+            color: #38BDF8;
+            padding: 5px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s;
+        }
+        .btn-global-copy-from:hover {
+            background: #0284C7;
+            color: #FFF;
+            box-shadow: 0 0 10px rgba(2, 132, 199, 0.4);
+        }
+
+        .copy-from-modal-content {
+            max-width: 980px;
+            width: 95vw;
+            max-height: 88vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .copy-from-grid-layout {
+            display: grid;
+            grid-template-columns: 310px 1fr;
+            gap: 14px;
+            min-height: 480px;
+            max-height: 60vh;
+        }
+
+        .copy-from-left-pane {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            border-right: 1px solid var(--border-color);
+            padding-right: 12px;
+            overflow: hidden;
+        }
+
+        .copy-from-right-pane {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            overflow: hidden;
+            padding-left: 2px;
+        }
+
+        .copy-from-bot-list {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding-right: 4px;
+        }
+
+        .copy-from-bot-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .copy-from-bot-item:hover {
+            border-color: #0284C7;
+            background: rgba(2, 132, 199, 0.1);
+        }
+
+        .copy-from-bot-item.active {
+            border-color: #38BDF8;
+            background: rgba(14, 165, 233, 0.18);
+            box-shadow: 0 0 8px rgba(14, 165, 233, 0.25);
+        }
+
+        .copy-from-bot-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            object-fit: cover;
+            background: #000;
+            flex-shrink: 0;
+        }
+
+        .copy-from-bot-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .copy-from-bot-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .copy-from-bot-sub {
+            font-size: 10px;
+            color: var(--text-sub);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .copy-from-abilities-container {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-right: 6px;
+        }
+
+        .copy-from-ability-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: all 0.15s;
+            position: relative;
+        }
+
+        .copy-from-ability-card:hover {
+            border-color: #38BDF8;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .copy-from-ability-card.selected {
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.12);
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.25);
+        }
+
+        .copy-from-ab-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .copy-from-ab-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .copy-from-ab-zh {
+            font-size: 13px;
+            font-weight: 700;
+            color: #FFF;
+        }
+
+        .copy-from-ab-en {
+            font-size: 11px;
+            color: var(--text-sub);
+        }
+
+        .copy-from-ab-desc {
+            font-size: 11px;
+            color: var(--text-main);
+            opacity: 0.85;
+            line-height: 1.45;
+            max-height: 48px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        /* Incremental Autocomplete Template Menu Styles */
+        .btn-ab-template-dropdown {
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            color: #38BDF8;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.15s;
+        }
+        .btn-ab-template-dropdown:hover {
+            background: rgba(56, 189, 248, 0.25);
+            color: #FFF;
+            border-color: #38BDF8;
+        }
+
+        .ab-template-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #0F172A;
+            border: 1px solid #0284C7;
+            border-radius: 8px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85), 0 0 16px rgba(2, 132, 199, 0.3);
+            z-index: 10010;
+            max-height: 330px;
+            display: flex;
+            flex-direction: column;
+            margin-top: 4px;
+        }
+
+        .ab-template-search-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(2, 132, 199, 0.1);
+        }
+
+        .ab-template-search-header input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            color: #FFF;
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            outline: none;
+        }
+        .ab-template-search-header input:focus {
+            border-color: #38BDF8;
+        }
+
+        .ab-template-count-badge {
+            font-size: 10px;
+            color: #38BDF8;
+            background: rgba(56, 189, 248, 0.15);
+            padding: 2px 6px;
+            border-radius: 10px;
+            white-space: nowrap;
+        }
+
+        .ab-template-list {
+            flex: 1;
+            overflow-y: auto;
+            max-height: 270px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ab-template-item {
+            padding: 8px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            cursor: pointer;
+            transition: all 0.12s;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .ab-template-item:hover, .ab-template-item.active {
+            background: rgba(2, 132, 199, 0.18);
+        }
+
+        .ab-template-item:last-child {
+            border-bottom: none;
+        }
+
+        .ab-template-item-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .ab-template-item-titles {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .ab-template-item-zh {
+            font-size: 13px;
+            font-weight: 700;
+            color: #FFF;
+        }
+
+        .ab-template-item-en {
+            font-size: 11px;
+            color: var(--text-sub);
+        }
+
+        .ab-template-item-meta {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .ab-template-item-desc {
+            font-size: 11px;
+            color: var(--text-sub);
+            line-height: 1.35;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .ab-match-highlight {
+            color: #38BDF8;
+            font-weight: 700;
+            text-decoration: underline;
+        }
+
         /* Conflict Modal */
         .conflict-bots-list {
             max-height: 200px;
@@ -2401,11 +2771,32 @@
             </div>
             <div class="modal-body">
                 <input type="hidden" id="newAbCategory" value="basic">
-                <div class="form-row">
-                    <label>能力标题 (Title - 中英双语)</label>
-                    <div style="display: flex; gap: 8px;">
-                        <input type="text" id="newAbTitle" style="flex: 1;" placeholder="中文标题 (如：能量过载)...">
-                        <input type="text" id="newAbTitleEn" class="ability-title-edit-input en" style="flex: 1;" placeholder="English Title (e.g. Energy Overload)...">
+                <div class="form-row" style="position: relative;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <label style="margin-bottom: 0;">能力标题 (Title - 中英双语)</label>
+                        <div style="display: flex; gap: 6px;">
+                            <button type="button" class="btn-ab-template-dropdown" id="btnToggleAbTplMenu" onclick="toggleAbilityTemplateMenu(event)">
+                                <span>📋 从已有库点选/匹配</span>
+                            </button>
+                            <button type="button" class="btn-copy-from-ability" onclick="openCopyFromFromAddModal()" title="直接从其他角色复制完整技能">
+                                <span>📥 从其他角色复制...</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 8px; position: relative;">
+                        <input type="text" id="newAbTitle" style="flex: 1;" placeholder="中文标题 (支持输入匹配已有库)..." autocomplete="off" oninput="handleAbTitleIncrementalSearch(this, 'zh')" onfocus="handleAbTitleIncrementalSearch(this, 'zh')">
+                        <input type="text" id="newAbTitleEn" class="ability-title-edit-input en" style="flex: 1;" placeholder="English Title (incremental match)..." autocomplete="off" oninput="handleAbTitleIncrementalSearch(this, 'en')" onfocus="handleAbTitleIncrementalSearch(this, 'en')">
+                    </div>
+                    <!-- 增量搜索 / 模板菜单浮层 -->
+                    <div id="abTemplateDropdownMenu" class="ab-template-dropdown-menu" style="display: none;">
+                        <div class="ab-template-search-header">
+                            <input type="text" id="abTemplateQuickFilter" placeholder="输入中/英文、拼音、或相关角色名称..." oninput="handleTemplateDropdownQuickFilter(this.value)" autocomplete="off">
+                            <span class="ab-template-count-badge" id="abTemplateMatchCount">0 条匹配</span>
+                            <button type="button" class="modal-close-btn" style="font-size: 16px; padding: 0 4px; color: var(--text-sub);" onclick="closeAbilityTemplateMenu()">&times;</button>
+                        </div>
+                        <div class="ab-template-list" id="abTemplateList">
+                            <!-- 动态填充 -->
+                        </div>
                     </div>
                 </div>
                 <div class="form-row">
@@ -2628,6 +3019,106 @@
         </div>
     </div>
 
+    <!-- Copy From Other Bot Modal -->
+    <div class="modal-overlay" id="copyFromModal" onclick="closeModalOnBackdrop(event, 'copyFromModal')">
+        <div class="modal-content copy-from-modal-content">
+            <div class="modal-header">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 18px;">📥</span>
+                    <div>
+                        <div style="font-size: 16px; font-weight: 700;">从其他角色复制技能 (Copy From)</div>
+                        <div style="font-size: 12px; color: var(--text-sub);">
+                            当前正在编辑: <b id="copyFromCurrentBotName" style="color: #38BDF8;">-</b> &nbsp;|&nbsp; 
+                            目标分类: <span id="copyFromTargetCatBadge" style="background: rgba(14, 165, 233, 0.15); color: #38BDF8; padding: 1px 6px; border-radius: 4px; font-size: 11px;">保持原分类</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="modal-close-btn" onclick="closeCopyFromModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="padding: 12px 16px; display: flex; flex-direction: column; gap: 10px; overflow: hidden; flex: 1;">
+                <!-- 顶部控制条：目标分类槽位选择 -->
+                <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); padding: 8px 12px; border-radius: 6px; flex-shrink: 0;">
+                    <div style="display: flex; align-items: center; gap: 8px; font-size: 12px;">
+                        <span style="color: var(--text-sub);">导入至当前角色的分类:</span>
+                        <select id="copyFromTargetCatSelect" style="background: #1E293B; border: 1px solid #0284C7; color: #FFF; border-radius: 4px; padding: 4px 8px; font-size: 12px;">
+                            <option value="keep">保持原技能所属分类 (SP1->SP1, 被动->被动等)</option>
+                            <option value="basic">基础能力 (Abilities / 基础特长)</option>
+                            <option value="passive">被动技能 (Passive Abilities)</option>
+                            <option value="sp1">特殊技 1 (Special 1)</option>
+                            <option value="sp2">特殊技 2 (Special 2)</option>
+                            <option value="sp3">特殊技 3 (Special 3)</option>
+                            <option value="heavy">重击 / 近战 (Heavy / Melee)</option>
+                            <option value="ranged">远程攻击 (Ranged)</option>
+                            <option value="signature">觉醒能力 (Signature Ability)</option>
+                            <option value="synergy">协同加成 (Synergies)</option>
+                        </select>
+                    </div>
+                    <div style="font-size: 11px; color: var(--text-sub);">
+                        已勾选 <b id="copyFromSelectedCount" style="color: #10B981; font-size: 13px;">0</b> 项技能
+                    </div>
+                </div>
+
+                <!-- 左右两栏布局 -->
+                <div class="copy-from-grid-layout">
+                    <!-- 左栏：来源角色选择 -->
+                    <div class="copy-from-left-pane">
+                        <div style="font-size: 12px; font-weight: 700; color: var(--text-main); display: flex; justify-content: space-between; align-items: center;">
+                            <span>1. 选择来源角色</span>
+                            <span id="copyFromBotCountBadge" style="font-size: 10px; color: var(--text-sub);">0 位角色</span>
+                        </div>
+                        <input type="text" id="copyFromBotSearch" placeholder="搜索角色名/英文名..." style="width: 100%; padding: 5px 8px; font-size: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 4px; color: #FFF;" oninput="filterCopyFromBots(this.value)">
+                        <!-- 阵营分类 Pills -->
+                        <div style="display: flex; gap: 4px; overflow-x: auto; padding-bottom: 2px;" id="copyFromFactionFilterPills">
+                            <button type="button" class="filter-pill active" onclick="setCopyFromFactionFilter('all', this)" style="padding: 2px 7px; font-size: 11px;">全部</button>
+                            <button type="button" class="filter-pill" onclick="setCopyFromFactionFilter('autobot', this)" style="padding: 2px 7px; font-size: 11px;">博派</button>
+                            <button type="button" class="filter-pill" onclick="setCopyFromFactionFilter('decepticon', this)" style="padding: 2px 7px; font-size: 11px;">狂派</button>
+                            <button type="button" class="filter-pill" onclick="setCopyFromFactionFilter('maximal', this)" style="padding: 2px 7px; font-size: 11px;">巨无霸</button>
+                            <button type="button" class="filter-pill" onclick="setCopyFromFactionFilter('predacon', this)" style="padding: 2px 7px; font-size: 11px;">原始兽</button>
+                        </div>
+                        <div class="copy-from-bot-list" id="copyFromBotList">
+                            <!-- 动态填充角色卡片列表 -->
+                        </div>
+                    </div>
+
+                    <!-- 右栏：该角色的技能列表选择 -->
+                    <div class="copy-from-right-pane">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div style="font-size: 12px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 6px;">
+                                <span>2. 勾选需要复制的技能</span>
+                                <span id="copyFromSourceBotTitle" style="color: #38BDF8; font-weight: normal; font-size: 11px;">(请在左侧选择角色)</span>
+                            </div>
+                            <div style="display: flex; gap: 6px;" id="copyFromRightActions">
+                                <button type="button" class="btn-card-action" onclick="toggleSelectAllCopyFromAbilities(true)" style="padding: 3px 8px; font-size: 11px;">全选</button>
+                                <button type="button" class="btn-card-action" onclick="toggleSelectAllCopyFromAbilities(false)" style="padding: 3px 8px; font-size: 11px;">清空</button>
+                            </div>
+                        </div>
+                        <!-- 搜索技能关键字 -->
+                        <input type="text" id="copyFromAbilitySearch" placeholder="搜索该角色的技能名称或效果..." style="width: 100%; padding: 5px 8px; font-size: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 4px; color: #FFF;" oninput="filterCopyFromAbilities(this.value)">
+                        
+                        <div class="copy-from-abilities-container" id="copyFromAbilitiesList">
+                            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 180px; color: var(--text-sub); font-size: 12px; gap: 8px;">
+                                <span>👈 请在左侧列表中点击选择来源角色</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 底部操作按钮 -->
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid var(--border-color); flex-shrink: 0;">
+                    <div style="font-size: 12px; color: var(--text-sub);" id="copyFromFooterSummary">
+                        已选 0 项技能导入至当前角色
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button type="button" class="btn-card-action del" onclick="closeCopyFromModal()" style="padding: 6px 14px; font-size: 12px;">取消</button>
+                        <button type="button" class="btn-card-action save" id="btnConfirmCopyFrom" onclick="confirmCopyFromAbilities()" style="padding: 6px 20px; font-size: 12px; font-weight: 700; background: #0284C7; border-color: #0284C7;" disabled>
+                            确认导入 (0)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Character Dossier Card Modal -->
     <div class="modal-overlay" id="cardDossierModal" onclick="closeModalOnBackdrop(event, 'cardDossierModal')">
         <div class="modal-content card-dossier-modal-content">
@@ -2702,8 +3193,11 @@
 
         async function kvGet(key, fallbackPath) {
             try {
-                const res = await fetch(`${UPSTASH.url}/get/${encodeURIComponent(key)}`, {
-                    headers: { 'Authorization': `Bearer ${UPSTASH.readToken}` }
+                const cacheBuster = `_t=${Date.now()}`;
+                const url = `${UPSTASH.url}/get/${encodeURIComponent(key)}?${cacheBuster}`;
+                const res = await fetch(url, {
+                    headers: { 'Authorization': `Bearer ${UPSTASH.readToken}` },
+                    cache: 'no-store'
                 });
                 if (res.ok) {
                     const json = await res.json();
@@ -2716,7 +3210,8 @@
             }
             if (fallbackPath) {
                 try {
-                    const fbRes = await fetch(fallbackPath);
+                    const fbUrl = fallbackPath + (fallbackPath.includes('?') ? '&' : '?') + `_t=${Date.now()}`;
+                    const fbRes = await fetch(fbUrl, { cache: 'no-store' });
                     if (fbRes.ok) return await fbRes.json();
                 } catch (fbErr) {
                     console.error(`Fallback fetch failed for [${fallbackPath}]:`, fbErr);
@@ -2761,12 +3256,30 @@
             }
             return null;
         }
+
+        // Local Storage Draft Resilience
+        function saveToLocalStorageDraft(botId, data) {
+            if (!botId || !data) return;
+            try {
+                localStorage.setItem(`tftf:draft:${botId}`, JSON.stringify(data));
+            } catch (e) {
+                console.warn("Failed to write draft to localStorage:", e);
+            }
+        }
     
         let gOverviewData = null;
         let gPuaIcons = [];
         let gCurBotId = null;
         let gCurrentPuaTarget = null;
         let gActiveFactionFilter = 'all';
+
+        // Global sequential save queue to prevent concurrent dirty read/write collisions
+        let gBotSaveQueue = Promise.resolve();
+        function enqueueBotSave(taskFn) {
+            const p = gBotSaveQueue.then(() => taskFn());
+            gBotSaveQueue = p.catch(err => console.error("Queued bot save error:", err));
+            return p;
+        }
 
         async function fetchCharacterData(bid) {
             if (typeof kvGet === 'function') {
@@ -2790,125 +3303,173 @@
         }
 
         async function saveCharacterData(botId, payload) {
-            if (typeof kvSet === 'function') {
-                let charDetail = await kvGet('tftf:char:' + botId, `./data/characters/${botId}.json`) || {};
-                Object.assign(charDetail, payload);
-                const botInOverview = (gOverviewData && gOverviewData.characters) ? gOverviewData.characters.find(c => c.bot_id === botId) : null;
-                if (botInOverview) Object.assign(botInOverview, payload);
-                await Promise.all([
-                    kvSet('tftf:char:' + botId, charDetail),
-                    kvSet('tftf:overview', gOverviewData)
-                ]);
-                if (charDetail.abilities) {
-                    await reconcileBotPriorityAbilities(botId, charDetail.abilities);
+            return enqueueBotSave(async () => {
+                if (typeof kvSet === 'function') {
+                    // Use live in-memory object if saving current bot to avoid stale overwrite
+                    let charDetail;
+                    if (botId === gCurBotId && gCurBotDetail) {
+                        charDetail = gCurBotDetail;
+                    } else {
+                        charDetail = await kvGet('tftf:char:' + botId, `./data/characters/${botId}.json`) || {};
+                    }
+                    Object.assign(charDetail, payload);
+                    charDetail.updated_at = new Date().toISOString().replace('T', ' ').substring(0, 19);
+                    saveToLocalStorageDraft(botId, charDetail);
+
+                    const botInOverview = (gOverviewData && gOverviewData.characters) ? gOverviewData.characters.find(c => c.bot_id === botId) : null;
+                    if (botInOverview) Object.assign(botInOverview, payload);
+                    await Promise.all([
+                        kvSet('tftf:char:' + botId, charDetail),
+                        kvSet('tftf:overview', gOverviewData)
+                    ]);
+                    if (charDetail.abilities && typeof reconcileBotPriorityAbilities === 'function') {
+                        await reconcileBotPriorityAbilities(botId, charDetail.abilities);
+                    }
                 }
-            }
-            const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
-            if (isLocal) {
-                try {
-                    const res = await fetch(`/api/character/${botId}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    if (res.ok) return await res.json();
-                } catch (e) {
-                    console.warn("Local /api/character POST failed:", e);
+                const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
+                if (isLocal) {
+                    try {
+                        const res = await fetch(`/api/character/${botId}`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        if (res.ok) return await res.json();
+                    } catch (e) {
+                        console.warn("Local /api/character POST failed:", e);
+                    }
                 }
-            }
-            return { ok: true, success: true };
+                return { ok: true, success: true };
+            });
         }
 
         async function saveAbilityData(aid, payload, targetBotId = null) {
-            const bId = targetBotId || payload.bot_id || gCurBotId;
-            if (typeof kvSet === 'function') {
-                if (bId) {
-                    let charDetail = await kvGet('tftf:char:' + bId, `./data/characters/${bId}.json`) || {};
-                    if (charDetail.abilities) {
+            return enqueueBotSave(async () => {
+                const bId = targetBotId || payload.bot_id || gCurBotId;
+                if (typeof kvSet === 'function') {
+                    if (bId) {
+                        // Crucial: Use in-memory master if saving currently open bot
+                        let charDetail;
+                        if (bId === gCurBotId && gCurBotDetail) {
+                            charDetail = gCurBotDetail;
+                        } else {
+                            charDetail = await kvGet('tftf:char:' + bId, `./data/characters/${bId}.json`) || {};
+                        }
+                        if (!charDetail.abilities) charDetail.abilities = [];
                         let ab = charDetail.abilities.find(a => String(a.id) === String(aid));
                         if (!ab) {
                             ab = { id: aid, bot_id: bId };
                             charDetail.abilities.push(ab);
                         }
                         Object.assign(ab, payload);
+                        charDetail.updated_at = new Date().toISOString().replace('T', ' ').substring(0, 19);
+                        saveToLocalStorageDraft(bId, charDetail);
+
                         await kvSet('tftf:char:' + bId, charDetail);
                         await reconcileBotPriorityAbilities(bId, charDetail.abilities);
                     }
                 }
-            }
-            const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
-            if (isLocal) {
-                try {
-                    const res = await fetch(`/api/ability/${aid}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    if (res.ok) return await res.json();
-                } catch (e) {
-                    console.warn("Local /api/ability POST failed:", e);
+                const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
+                if (isLocal) {
+                    try {
+                        const res = await fetch(`/api/ability/${aid}`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        if (res.ok) return await res.json();
+                    } catch (e) {
+                        console.warn("Local /api/ability POST failed:", e);
+                    }
                 }
-            }
-            return { ok: true, success: true };
+                return { ok: true, success: true };
+            });
         }
 
         async function deleteAbilityData(aid) {
-            if (typeof kvSet === 'function') {
-                if (gCurBotId) {
-                    let charDetail = await kvGet('tftf:char:' + gCurBotId, `./data/characters/${gCurBotId}.json`) || {};
-                    if (charDetail.abilities) {
-                        charDetail.abilities = charDetail.abilities.filter(a => String(a.id) !== String(aid));
-                        await kvSet('tftf:char:' + gCurBotId, charDetail);
-                        await reconcileBotPriorityAbilities(gCurBotId, charDetail.abilities);
+            return enqueueBotSave(async () => {
+                if (typeof kvSet === 'function') {
+                    if (gCurBotId) {
+                        let charDetail = (gCurBotDetail && gCurBotDetail.abilities) ? gCurBotDetail : (await kvGet('tftf:char:' + gCurBotId, `./data/characters/${gCurBotId}.json`) || {});
+                        if (charDetail.abilities) {
+                            charDetail.abilities = charDetail.abilities.filter(a => String(a.id) !== String(aid));
+                            charDetail.updated_at = new Date().toISOString().replace('T', ' ').substring(0, 19);
+                            saveToLocalStorageDraft(gCurBotId, charDetail);
+                            await kvSet('tftf:char:' + gCurBotId, charDetail);
+                            if (typeof syncPriorityAbilitiesCache === 'function') {
+                                syncPriorityAbilitiesCache(gCurBotId, aid, { status: 'deleted' });
+                            }
+                            if (typeof reconcileBotPriorityAbilities === 'function') {
+                                await reconcileBotPriorityAbilities(gCurBotId, charDetail.abilities);
+                            }
+                        }
                     }
                 }
-            }
-            const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
-            if (isLocal) {
-                try {
-                    const res = await fetch(`/api/ability/delete/${aid}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' }
-                    });
-                    if (res.ok) return await res.json();
-                } catch (e) {
-                    console.warn("Local /api/ability/delete POST failed:", e);
+                const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
+                if (isLocal) {
+                    try {
+                        const res = await fetch(`/api/ability/delete/${aid}`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' }
+                        });
+                        if (res.ok) return await res.json();
+                    } catch (e) {
+                        console.warn("Local /api/ability/delete POST failed:", e);
+                    }
                 }
-            }
-            return { ok: true, success: true };
+                return { ok: true, success: true };
+            });
         }
 
         async function saveNewAbility(payload) {
-            if (typeof kvSet === 'function') {
-                if (payload.bot_id) {
-                    let charDetail = await kvGet('tftf:char:' + payload.bot_id, `./data/characters/${payload.bot_id}.json`) || {};
-                    if (!charDetail.abilities) charDetail.abilities = [];
-                    const maxId = charDetail.abilities.reduce((max, a) => Math.max(max, parseInt(a.id) || 0), 0);
-                    const newId = maxId > 0 ? maxId + 1 : Date.now();
-                    const newAb = {
-                        id: newId,
-                        ...payload,
-                        sort_order: charDetail.abilities.length + 1
-                    };
-                    charDetail.abilities.push(newAb);
-                    await kvSet('tftf:char:' + payload.bot_id, charDetail);
-                    await reconcileBotPriorityAbilities(payload.bot_id, charDetail.abilities);
+            return enqueueBotSave(async () => {
+                let newId = null;
+                let newAb = null;
+                if (typeof kvSet === 'function') {
+                    if (payload.bot_id) {
+                        // Crucial: Use in-memory master if target is current bot
+                        let charDetail;
+                        if (payload.bot_id === gCurBotId && gCurBotDetail) {
+                            charDetail = gCurBotDetail;
+                        } else {
+                            charDetail = await kvGet('tftf:char:' + payload.bot_id, `./data/characters/${payload.bot_id}.json`) || {};
+                        }
+                        if (!charDetail.abilities) charDetail.abilities = [];
+                        const maxId = charDetail.abilities.reduce((max, a) => Math.max(max, parseInt(a.id) || 0), 0);
+                        newId = maxId > 0 ? maxId + 1 : Date.now();
+                        newAb = {
+                            id: newId,
+                            ...payload,
+                            sort_order: charDetail.abilities.length + 1
+                        };
+                        charDetail.abilities.push(newAb);
+                        charDetail.updated_at = new Date().toISOString().replace('T', ' ').substring(0, 19);
+                        saveToLocalStorageDraft(payload.bot_id, charDetail);
+
+                        await kvSet('tftf:char:' + payload.bot_id, charDetail);
+                        if (typeof syncPriorityAbilitiesCache === 'function') {
+                            syncPriorityAbilitiesCache(payload.bot_id, newAb.id, newAb);
+                        }
+                        if (typeof reconcileBotPriorityAbilities === 'function') {
+                            await reconcileBotPriorityAbilities(payload.bot_id, charDetail.abilities);
+                        }
+                    }
                 }
-            }
-            const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
-            if (isLocal) {
-                try {
-                    const res = await fetch('/api/ability/new', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    if (res.ok) return await res.json();
-                } catch (e) {
-                    console.warn("Local /api/ability/new POST failed:", e);
+                const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
+                if (isLocal) {
+                    try {
+                        const res = await fetch('/api/ability/new', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        if (res.ok) return await res.json();
+                    } catch (e) {
+                        console.warn("Local /api/ability/new POST failed:", e);
+                    }
                 }
-            }
-            return { ok: true, success: true };
+                return { ok: true, success: true, id: newId, ability: newAb };
+            });
         }
 
         // 5 Top-level Ability Sections (with 3 Special Attacks grouped into 1 section)
@@ -3864,10 +4425,30 @@
         async function openCharacterModal(bid) {
             gCurBotId = bid;
             try {
-                const data = await fetchCharacterData(bid);
+                let data = await fetchCharacterData(bid);
                 if (!data || data.error) {
                     throw new Error((data && data.error) || "角色数据未找到");
                 }
+
+                // Check if a more recent local draft exists
+                try {
+                    const draftStr = localStorage.getItem('tftf:draft:' + bid);
+                    if (draftStr) {
+                        const draft = JSON.parse(draftStr);
+                        if (draft && draft.abilities && draft.updated_at) {
+                            const cloudTime = new Date(data.updated_at || 0).getTime();
+                            const draftTime = new Date(draft.updated_at).getTime();
+                            if (draftTime > cloudTime) {
+                                console.log(`[Draft] Found newer local draft for ${bid} (${draft.updated_at} > ${data.updated_at})`);
+                                data = draft;
+                                setTimeout(() => showToast(`已加载角色【${data.name_zh || bid}】的本地最新草稿备份！`), 100);
+                            }
+                        }
+                    }
+                } catch (draftErr) {
+                    console.warn("Draft restore check failed:", draftErr);
+                }
+
                 gCurBotDetail = data;
                 if (data && Array.isArray(data.abilities)) {
                     reconcileBotPriorityAbilities(bid, data.abilities);
@@ -4044,8 +4625,8 @@
                         <span class="tecnica-icon ability-pua-icon-glyph">${puaChar}</span>
                         <span class="ability-pua-hex-sub">${puaSub}</span>
                     </div>
-                    <input type="text" class="ability-title-edit-input" id="title_zh_${ab.id}" value="${escapeHtml(ab.title_zh || '')}" data-orig-val="${escapeHtml(ab.title_zh || '')}" onfocus="this.dataset.origVal = this.value" onblur="handleAbilityInputBlur(this, ${ab.id})" placeholder="${(ab.category && ab.category.startsWith('sp')) ? '效果标题 (如: 震击伤害 / 弱点扫描)...' : '中文标题...'}">
-                    <input type="text" class="ability-title-edit-input en" id="title_en_${ab.id}" value="${escapeHtml(ab.title_en || '')}" data-orig-val="${escapeHtml(ab.title_en || '')}" onfocus="this.dataset.origVal = this.value" onblur="handleAbilityInputBlur(this, ${ab.id})" placeholder="${(ab.category && ab.category.startsWith('sp')) ? 'Effect Title (e.g. Shock Damage)...' : 'English Title...'}">
+                    <input type="text" class="ability-title-edit-input" id="title_zh_${ab.id}" value="${escapeHtml(ab.title_zh || '')}" data-orig-val="${escapeHtml(ab.title_zh || '')}" onfocus="this.dataset.origVal = this.value" oninput="updateDraftFromInput(${ab.id})" onblur="handleAbilityInputBlur(this, ${ab.id})" placeholder="${(ab.category && ab.category.startsWith('sp')) ? '效果标题 (如: 震击伤害 / 弱点扫描)...' : '中文标题...'}">
+                    <input type="text" class="ability-title-edit-input en" id="title_en_${ab.id}" value="${escapeHtml(ab.title_en || '')}" data-orig-val="${escapeHtml(ab.title_en || '')}" onfocus="this.dataset.origVal = this.value" oninput="updateDraftFromInput(${ab.id})" onblur="handleAbilityInputBlur(this, ${ab.id})" placeholder="${(ab.category && ab.category.startsWith('sp')) ? 'Effect Title (e.g. Shock Damage)...' : 'English Title...'}">
                     <div class="ability-card-actions">
                         <button class="btn-card-action save" onclick="saveAbilityItem(${ab.id})">保存</button>
                         <button type="button" class="btn-card-action copy" onclick="openCopyAbilityModal(${ab.id})" title="复制该技能给其他角色或复制到当前角色的特殊技">复制到</button>
@@ -4067,8 +4648,8 @@
                         <button type="button" class="desc-tab-btn active" onclick="switchDescTab(this, 'zh')">中文</button>
                         <button type="button" class="desc-tab-btn" onclick="switchDescTab(this, 'en')">英文${hasEnDesc ? '<span class="badge-dot" title="已填英文"></span>' : ''}</button>
                     </div>
-                    <textarea class="ability-desc-textarea desc-ta-zh" id="desc_zh_${ab.id}" data-orig-val="${escapeHtml(ab.desc_zh || '')}" onfocus="this.dataset.origVal = this.value" onblur="handleAbilityInputBlur(this, ${ab.id})" placeholder="${(ab.category && ab.category.startsWith('sp')) ? '特殊技效果机制描述 (如: 100%几率施放震击，在4秒内造成...)...' : '中文机制与效果描述...'}">${escapeHtml(ab.desc_zh || '')}</textarea>
-                    <textarea class="ability-desc-textarea desc-ta-en" id="desc_en_${ab.id}" data-orig-val="${escapeHtml(ab.desc_en || '')}" onfocus="this.dataset.origVal = this.value" onblur="handleAbilityInputBlur(this, ${ab.id})" placeholder="${(ab.category && ab.category.startsWith('sp')) ? 'Special attack effect description...' : 'English mechanics & effect description...'}" style="display: none;">${escapeHtml(ab.desc_en || '')}</textarea>
+                    <textarea class="ability-desc-textarea desc-ta-zh" id="desc_zh_${ab.id}" data-orig-val="${escapeHtml(ab.desc_zh || '')}" onfocus="this.dataset.origVal = this.value" oninput="updateDraftFromInput(${ab.id})" onblur="handleAbilityInputBlur(this, ${ab.id})" placeholder="${(ab.category && ab.category.startsWith('sp')) ? '特殊技效果机制描述 (如: 100%几率施放震击，在4秒内造成...)...' : '中文机制与效果描述...'}">${escapeHtml(ab.desc_zh || '')}</textarea>
+                    <textarea class="ability-desc-textarea desc-ta-en" id="desc_en_${ab.id}" data-orig-val="${escapeHtml(ab.desc_en || '')}" onfocus="this.dataset.origVal = this.value" oninput="updateDraftFromInput(${ab.id})" onblur="handleAbilityInputBlur(this, ${ab.id})" placeholder="${(ab.category && ab.category.startsWith('sp')) ? 'Special attack effect description...' : 'English mechanics & effect description...'}" style="display: none;">${escapeHtml(ab.desc_en || '')}</textarea>
                 </div>
             `;
 
@@ -4150,6 +4731,19 @@
             container.innerHTML = '';
             gSynergyPartnersMap = {};
 
+            // Global Copy From Toolbar
+            const globalBar = document.createElement('div');
+            globalBar.className = 'abilities-global-bar';
+            globalBar.innerHTML = `
+                <div class="abilities-global-hint">
+                    <span>💡 想要复用其他角色的技能？可点击右侧按钮直接浏览并批量复制导入</span>
+                </div>
+                <button type="button" class="btn-global-copy-from" onclick="openCopyFromModal('keep', '全部分类 (按原分类对应)')">
+                    <span>📥 从其他角色复制技能 (Copy From)</span>
+                </button>
+            `;
+            container.appendChild(globalBar);
+
             SECTION_DEFS.forEach(secDef => {
                 const block = document.createElement('div');
                 block.className = 'ability-category-block';
@@ -4162,9 +4756,14 @@
                                 <span class="cat-title-text">${secDef.name}</span>
                                 <span class="cat-count-badge">${absInCat.length} 条</span>
                             </div>
-                            <button class="btn-add-ability" onclick="openAddAbilityModal('${secDef.key}', '${secDef.name}')">
-                                <span>+</span> 新增能力
-                            </button>
+                            <div style="display: flex; gap: 6px; align-items: center;">
+                                <button type="button" class="btn-copy-from-ability" onclick="openCopyFromModal('${secDef.key}', '${secDef.name}')" title="从其他角色复制技能并导入至本分类">
+                                    <span>📥 从他处复制</span>
+                                </button>
+                                <button class="btn-add-ability" onclick="openAddAbilityModal('${secDef.key}', '${secDef.name}')">
+                                    <span>+</span> 新增能力
+                                </button>
+                            </div>
                         </div>
                         <div class="category-content-area" id="cat_content_${secDef.key}"></div>
                     `;
@@ -4207,9 +4806,14 @@
                                     <span class="sp-name">${sub.name}</span>
                                     <span class="cat-count-badge" id="sp_count_${sub.key}">${spAbs.length} 个效果</span>
                                 </div>
-                                <button class="btn-add-ability" onclick="openAddAbilityModal('${sub.key}', '${sub.name}效果')">
-                                    <span>+</span> 添加效果
-                                </button>
+                                <div style="display: flex; gap: 6px; align-items: center;">
+                                    <button type="button" class="btn-copy-from-ability" onclick="openCopyFromModal('${sub.key}', '${sub.name}效果')" title="从其他角色复制技能并导入至${sub.name}">
+                                        <span>📥 从他处复制</span>
+                                    </button>
+                                    <button class="btn-add-ability" onclick="openAddAbilityModal('${sub.key}', '${sub.name}效果')">
+                                        <span>+</span> 添加效果
+                                    </button>
+                                </div>
                             </div>
                             <div class="sp-move-name-bar">
                                 <span class="sp-move-label">招式官方名称:</span>
@@ -4337,6 +4941,26 @@
             }
         }
 
+        let gDraftSaveTimer = null;
+        function updateDraftFromInput(aid) {
+            if (!gCurBotDetail || !gCurBotDetail.abilities) return;
+            const ab = gCurBotDetail.abilities.find(a => String(a.id) === String(aid));
+            if (!ab) return;
+            const zhInp = document.getElementById(`title_zh_${aid}`) || document.getElementById(`title_${aid}`);
+            const enInp = document.getElementById(`title_en_${aid}`);
+            const descZhInp = document.getElementById(`desc_zh_${aid}`) || document.getElementById(`desc_${aid}`);
+            const descEnInp = document.getElementById(`desc_en_${aid}`);
+            if (zhInp) ab.title_zh = zhInp.value;
+            if (enInp) ab.title_en = enInp.value;
+            if (descZhInp) ab.desc_zh = descZhInp.value;
+            if (descEnInp) ab.desc_en = descEnInp.value;
+            gCurBotDetail.updated_at = new Date().toISOString().replace('T', ' ').substring(0, 19);
+            clearTimeout(gDraftSaveTimer);
+            gDraftSaveTimer = setTimeout(() => {
+                saveToLocalStorageDraft(gCurBotId, gCurBotDetail);
+            }, 500);
+        }
+
         // Blur auto-save handler for individual ability
         function handleAbilityInputBlur(el, aid) {
             if (!el) return;
@@ -4374,6 +4998,16 @@
                 payload.synergy_bots = gSynergyPartnersMap[aid];
             }
 
+            // Immediately sync live values to in-memory object and local draft
+            if (gCurBotDetail && gCurBotDetail.abilities) {
+                let ab = gCurBotDetail.abilities.find(a => String(a.id) === String(aid));
+                if (ab) {
+                    Object.assign(ab, payload);
+                    gCurBotDetail.updated_at = new Date().toISOString().replace('T', ' ').substring(0, 19);
+                    saveToLocalStorageDraft(gCurBotId, gCurBotDetail);
+                }
+            }
+
             try {
                 const ret = await saveAbilityData(aid, payload);
                 if (ret && (ret.ok || ret.success)) {
@@ -4385,9 +5019,10 @@
                     if (gCurBotDetail && gCurBotDetail.abilities) {
                         let ab = gCurBotDetail.abilities.find(a => String(a.id) === String(aid));
                         if (ab) Object.assign(ab, payload);
-                        updateBotCardProgress(gCurBotDetail.bot_id, gCurBotDetail.abilities);
+                        if (typeof updateBotCardProgress === 'function') {
+                            updateBotCardProgress(gCurBotDetail.bot_id, gCurBotDetail.abilities);
+                        }
                     }
-
                     if (isAutoSave) {
                         showToast("技能已自动保存！");
                     } else {
@@ -4426,7 +5061,9 @@
                 const ret = await deleteAbilityData(aid);
                 if (ret && (ret.ok || ret.success)) {
                     showToast("能力已删除");
-                    if (gCurBotId) openCharacterModal(gCurBotId);
+                    if (gCurBotDetail && gCurBotDetail.abilities) {
+                        renderCategorizedAbilities(gCurBotDetail.abilities);
+                    }
                 } else {
                     alert("删除失败: " + ((ret && ret.error) || "未知错误"));
                 }
@@ -4616,6 +5253,10 @@
         }
 
         function openCopyAbilityModal(aid) {
+            // Force active element blur to trigger any pending onblur auto-save
+            if (document.activeElement && typeof document.activeElement.blur === 'function') {
+                document.activeElement.blur();
+            }
             if (!gCurBotDetail || !gCurBotDetail.abilities) return;
             const ab = gCurBotDetail.abilities.find(a => String(a.id) === String(aid));
             if (!ab) return;
@@ -4899,6 +5540,13 @@
         }
 
         async function confirmCopyAbility() {
+            // Force active element blur to trigger any pending onblur save
+            if (document.activeElement && typeof document.activeElement.blur === 'function') {
+                document.activeElement.blur();
+            }
+            // Wait for any in-flight saves to finish writing before preparing copy
+            await gBotSaveQueue;
+
             if (!gCopySourceAbility) return;
             if (gSelectedCopyBotIds.length === 0) {
                 alert("请先勾选至少一位目标角色！");
@@ -4946,6 +5594,10 @@
                     let matched = abs.find(a => {
                         const aPua = normPuaForCompare(a.pua_icon);
                         const aZh = (a.title_zh || '').trim().toLowerCase();
+                        // Ignore generic placeholder titles without PUA icon to avoid accidental overwrites
+                        if (!aPua && !srcPua && ['战斗被动', '基础特长', '常驻被动', '基础能力', '特殊技 1', '特殊技 2', '特殊技 3'].includes(aZh)) {
+                            return false;
+                        }
                         return (srcZh.length > 0 && aZh === srcZh && aPua === srcPua);
                     });
 
@@ -5057,13 +5709,16 @@
                         if (item.botId === gCurBotId && gCurBotDetail) {
                             if (!gCurBotDetail.abilities) gCurBotDetail.abilities = [];
                             const newId = (newRet && newRet.id) ? newRet.id : Date.now();
-                            gCurBotDetail.abilities.push({
-                                id: newId,
-                                ...basePayload,
-                                bot_id: item.botId,
-                                category: targetCat,
-                                sort_order: gCurBotDetail.abilities.length + 1
-                            });
+                            const exists = gCurBotDetail.abilities.some(a => String(a.id) === String(newId));
+                            if (!exists) {
+                                gCurBotDetail.abilities.push({
+                                    id: newId,
+                                    ...basePayload,
+                                    bot_id: item.botId,
+                                    category: targetCat,
+                                    sort_order: gCurBotDetail.abilities.length + 1
+                                });
+                            }
                         }
                     }
                     successCount++;
@@ -5083,13 +5738,16 @@
                     if (item.botId === gCurBotId && gCurBotDetail) {
                         if (!gCurBotDetail.abilities) gCurBotDetail.abilities = [];
                         const newId = (newRet && newRet.id) ? newRet.id : Date.now();
-                        gCurBotDetail.abilities.push({
-                            id: newId,
-                            ...basePayload,
-                            bot_id: item.botId,
-                            category: targetCat,
-                            sort_order: gCurBotDetail.abilities.length + 1
-                        });
+                        const exists = gCurBotDetail.abilities.some(a => String(a.id) === String(newId));
+                        if (!exists) {
+                            gCurBotDetail.abilities.push({
+                                id: newId,
+                                ...basePayload,
+                                bot_id: item.botId,
+                                category: targetCat,
+                                sort_order: gCurBotDetail.abilities.length + 1
+                            });
+                        }
                     }
                     successCount++;
                 }
@@ -5102,8 +5760,7 @@
                     if (gCurBotDetail && gCurBotDetail.abilities) {
                         renderCategorizedAbilities(gCurBotDetail.abilities);
                     }
-                    // Also trigger a background fetch to ensure full consistency
-                    await openCharacterModal(gCurBotId);
+                    // NEVER call openCharacterModal(gCurBotId) which re-fetches and nukes memory!
                 }
             } catch (err) {
                 console.error("Execute copy save failed:", err);
@@ -5162,10 +5819,14 @@
                 renderNewAbSynergyChips();
             }
 
+            closeAbilityTemplateMenu();
+            ensureAllAbilitiesLoaded(); // Background warm-up
+
             document.getElementById('addAbilityModal').classList.add('active');
         }
 
         function closeAddAbilityModal() {
+            closeAbilityTemplateMenu();
             document.getElementById('addAbilityModal').classList.remove('active');
         }
 
@@ -5174,7 +5835,7 @@
             if (!gCurBotId) return;
 
             const category = document.getElementById('newAbCategory').value;
-            const title_zh = document.getElementById('newAbTitle').value.trim();
+            let title_zh = document.getElementById('newAbTitle').value.trim();
             const titleEnEl = document.getElementById('newAbTitleEn');
             const title_en = titleEnEl ? titleEnEl.value.trim() : '';
             const desc_zh = document.getElementById('newAbDesc').value.trim();
@@ -5214,13 +5875,686 @@
                 if (ret && (ret.ok || ret.success)) {
                     showToast("新能力创建成功！");
                     closeAddAbilityModal();
-                    openCharacterModal(gCurBotId);
+                    if (gCurBotDetail && gCurBotDetail.abilities) {
+                        renderCategorizedAbilities(gCurBotDetail.abilities);
+                    }
                 } else {
                     alert("创建失败");
                 }
             } catch (err) {
                 console.error("Failed to create ability:", err);
                 alert("创建失败");
+            }
+        }
+
+        // ==========================================
+        // Ability Templates & Autocomplete (Incremental Search)
+        // ==========================================
+        let gAllAbilitiesData = null;
+        let gUniqueAbilityTemplates = null;
+        let gFilteredTemplates = [];
+        let gLoadingAllAbilitiesPromise = null;
+
+        async function ensureAllAbilitiesLoaded() {
+            if (gAllAbilitiesData && gUniqueAbilityTemplates) return gAllAbilitiesData;
+            if (gLoadingAllAbilitiesPromise) return gLoadingAllAbilitiesPromise;
+
+            gLoadingAllAbilitiesPromise = (async () => {
+                try {
+                    let data = null;
+                    try {
+                        const res = await fetch('./data/all_abilities.json');
+                        if (res.ok) data = await res.json();
+                    } catch (e) {
+                        console.warn("[AllAbilities] fetch ./data/all_abilities.json failed", e);
+                    }
+                    if (!data) {
+                        try {
+                            const res = await fetch('/data/all_abilities.json');
+                            if (res.ok) data = await res.json();
+                        } catch (e2) {
+                            console.warn("[AllAbilities] fallback fetch failed", e2);
+                        }
+                    }
+
+                    if (data && data.bots) {
+                        gAllAbilitiesData = data;
+                    } else {
+                        gAllAbilitiesData = { bots: {} };
+                    }
+                    buildUniqueAbilityTemplates();
+                    return gAllAbilitiesData;
+                } catch (err) {
+                    console.error("[AllAbilities] Failed to load all abilities:", err);
+                    gAllAbilitiesData = { bots: {} };
+                    buildUniqueAbilityTemplates();
+                    return gAllAbilitiesData;
+                } finally {
+                    gLoadingAllAbilitiesPromise = null;
+                }
+            })();
+
+            return gLoadingAllAbilitiesPromise;
+        }
+
+        function buildUniqueAbilityTemplates() {
+            if (!gAllAbilitiesData || !gAllAbilitiesData.bots) {
+                gUniqueAbilityTemplates = [];
+                return;
+            }
+
+            // Sync currently edited bot into gAllAbilitiesData if available
+            if (gCurBotDetail && gCurBotDetail.bot_id) {
+                gAllAbilitiesData.bots[gCurBotDetail.bot_id] = {
+                    ...gAllAbilitiesData.bots[gCurBotDetail.bot_id],
+                    ...gCurBotDetail
+                };
+            }
+
+            const tplMap = new Map();
+
+            Object.entries(gAllAbilitiesData.bots).forEach(([bid, bot]) => {
+                const bName = bot.name_zh || bot.name_en || bid;
+                const abs = bot.abilities || [];
+                abs.forEach(ab => {
+                    const zh = (ab.title_zh || '').trim();
+                    const en = (ab.title_en || '').trim();
+                    const pua = (ab.pua_icon || '').trim();
+                    const descZh = (ab.desc_zh || '').trim();
+                    const descEn = (ab.desc_en || '').trim();
+
+                    if (!zh && !en) return;
+                    if (!pua && ['基础能力', '战斗被动', '基础特长', '常驻被动', '特殊技 1', '特殊技 2', '特殊技 3'].includes(zh) && !descZh) return;
+
+                    const key = `${zh}___${en}___${pua}`.toLowerCase();
+
+                    if (!tplMap.has(key)) {
+                        tplMap.set(key, {
+                            key,
+                            title_zh: zh,
+                            title_en: en,
+                            pua_icon: pua,
+                            desc_zh: descZh,
+                            desc_en: descEn,
+                            category: ab.category || 'passive',
+                            count: 1,
+                            bot_names: [bName]
+                        });
+                    } else {
+                        const item = tplMap.get(key);
+                        item.count += 1;
+                        if (!item.bot_names.includes(bName)) {
+                            item.bot_names.push(bName);
+                        }
+                        if (descZh && (!item.desc_zh || descZh.length > item.desc_zh.length)) {
+                            item.desc_zh = descZh;
+                        }
+                        if (descEn && (!item.desc_en || descEn.length > item.desc_en.length)) {
+                            item.desc_en = descEn;
+                        }
+                    }
+                });
+            });
+
+            gUniqueAbilityTemplates = Array.from(tplMap.values()).sort((a, b) => b.count - a.count);
+        }
+
+        async function toggleAbilityTemplateMenu(event) {
+            if (event) {
+                event.stopPropagation();
+            }
+            const menu = document.getElementById('abTemplateDropdownMenu');
+            if (!menu) return;
+
+            if (menu.style.display === 'flex') {
+                closeAbilityTemplateMenu();
+                return;
+            }
+
+            await ensureAllAbilitiesLoaded();
+            const qInp = document.getElementById('abTemplateQuickFilter');
+            const zhInp = document.getElementById('newAbTitle');
+            const enInp = document.getElementById('newAbTitleEn');
+            const initialQuery = (zhInp && zhInp.value.trim()) || (enInp && enInp.value.trim()) || '';
+
+            if (qInp) qInp.value = initialQuery;
+            renderAbilityTemplateList(initialQuery);
+
+            menu.style.display = 'flex';
+            if (qInp) {
+                setTimeout(() => qInp.focus(), 60);
+            }
+        }
+
+        function closeAbilityTemplateMenu() {
+            const menu = document.getElementById('abTemplateDropdownMenu');
+            if (menu) menu.style.display = 'none';
+        }
+
+        async function handleAbTitleIncrementalSearch(inputEl, lang) {
+            if (!inputEl) return;
+            const menu = document.getElementById('abTemplateDropdownMenu');
+            if (!menu) return;
+
+            await ensureAllAbilitiesLoaded();
+            const val = inputEl.value.trim();
+
+            const qInp = document.getElementById('abTemplateQuickFilter');
+            if (qInp) qInp.value = val;
+
+            renderAbilityTemplateList(val);
+            menu.style.display = 'flex';
+        }
+
+        function handleTemplateDropdownQuickFilter(val) {
+            renderAbilityTemplateList(val);
+        }
+
+        function renderAbilityTemplateList(query) {
+            const listEl = document.getElementById('abTemplateList');
+            const countEl = document.getElementById('abTemplateMatchCount');
+            if (!listEl) return;
+
+            const q = (query || '').trim().toLowerCase();
+            let matches = [];
+
+            if (!gUniqueAbilityTemplates || gUniqueAbilityTemplates.length === 0) {
+                buildUniqueAbilityTemplates();
+            }
+
+            if (!q) {
+                matches = (gUniqueAbilityTemplates || []).slice(0, 50);
+            } else {
+                const scored = [];
+                for (const tpl of (gUniqueAbilityTemplates || [])) {
+                    const zh = (tpl.title_zh || '').toLowerCase();
+                    const en = (tpl.title_en || '').toLowerCase();
+                    const bots = tpl.bot_names ? tpl.bot_names.join(' ').toLowerCase() : '';
+                    const pua = (tpl.pua_icon || '').toLowerCase();
+                    const desc = (tpl.desc_zh || '').toLowerCase();
+
+                    let score = 0;
+                    if (zh === q || en === q) score = 100;
+                    else if (zh.startsWith(q) || en.startsWith(q)) score = 80;
+                    else if (zh.includes(q)) score = 60;
+                    else if (en.includes(q)) score = 50;
+                    else if (bots.includes(q)) score = 40;
+                    else if (pua.includes(q)) score = 30;
+                    else if (desc.includes(q)) score = 20;
+
+                    if (score > 0) {
+                        scored.push({ tpl, score });
+                    }
+                }
+                scored.sort((a, b) => {
+                    if (b.score !== a.score) return b.score - a.score;
+                    return b.tpl.count - a.tpl.count;
+                });
+                matches = scored.slice(0, 40).map(s => s.tpl);
+            }
+
+            gFilteredTemplates = matches;
+            if (countEl) countEl.innerText = `${matches.length} 条匹配`;
+
+            if (matches.length === 0) {
+                listEl.innerHTML = `<div style="padding: 18px; text-align: center; color: var(--text-sub); font-size: 12px;">未找到匹配能力模版，可直接手动输入新标题与描述</div>`;
+                return;
+            }
+
+            listEl.innerHTML = matches.map((tpl, idx) => {
+                let puaGlyph = '';
+                if (tpl.pua_icon) {
+                    const hexVal = parseInt(tpl.pua_icon, 16);
+                    if (!isNaN(hexVal)) puaGlyph = String.fromCharCode(hexVal);
+                }
+
+                const botsText = tpl.bot_names ? (tpl.bot_names.slice(0, 3).join(', ') + (tpl.bot_names.length > 3 ? ' 等' : '')) : '';
+
+                return `
+                    <div class="ab-template-item" onclick="applyAbilityTemplate(${idx})" title="点击自动填充此能力标题、图标及效果描述">
+                        <div class="ab-template-item-top">
+                            <div class="ab-template-item-titles">
+                                ${puaGlyph ? `<span class="tecnica-icon" style="color: #38BDF8; font-size: 15px; margin-right: 4px;">${puaGlyph}</span>` : ''}
+                                <span class="ab-template-item-zh">${highlightQuery(tpl.title_zh || '未命名', q)}</span>
+                                ${tpl.title_en ? `<span class="ab-template-item-en">(${highlightQuery(tpl.title_en, q)})</span>` : ''}
+                            </div>
+                            <div class="ab-template-item-meta">
+                                ${botsText ? `<span class="cat-count-badge" style="background: rgba(14, 165, 233, 0.12); color: #38BDF8; font-size: 10px;">${escapeHtml(botsText)}</span>` : ''}
+                                <span class="cat-count-badge" style="background: rgba(255, 255, 255, 0.08); font-size: 10px;">×${tpl.count}</span>
+                            </div>
+                        </div>
+                        ${tpl.desc_zh ? `<div class="ab-template-item-desc">${escapeHtml(tpl.desc_zh)}</div>` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function highlightQuery(text, q) {
+            if (!text) return '';
+            if (!q) return escapeHtml(text);
+            const escapedText = escapeHtml(text);
+            const escapedQ = escapeHtml(q);
+            const regex = new RegExp(`(${escapedQ.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            return escapedText.replace(regex, '<span class="ab-match-highlight">$1</span>');
+        }
+
+        function applyAbilityTemplate(idx) {
+            const tpl = gFilteredTemplates[idx];
+            if (!tpl) return;
+
+            const zhInp = document.getElementById('newAbTitle');
+            const enInp = document.getElementById('newAbTitleEn');
+            const descZhInp = document.getElementById('newAbDesc');
+            const descEnInp = document.getElementById('newAbDescEn');
+            const puaVal = document.getElementById('newAbPuaIconVal');
+            const puaGlyph = document.getElementById('newAbPuaGlyph');
+            const puaHex = document.getElementById('newAbPuaHex');
+
+            if (zhInp) zhInp.value = tpl.title_zh || '';
+            if (enInp) enInp.value = tpl.title_en || '';
+            if (descZhInp && tpl.desc_zh) descZhInp.value = tpl.desc_zh;
+            if (descEnInp && tpl.desc_en) descEnInp.value = tpl.desc_en;
+
+            if (puaVal && puaGlyph && puaHex) {
+                if (tpl.pua_icon) {
+                    puaVal.value = tpl.pua_icon;
+                    const hexVal = parseInt(tpl.pua_icon, 16);
+                    puaGlyph.innerText = (!isNaN(hexVal)) ? String.fromCharCode(hexVal) : '+';
+                    puaHex.innerText = tpl.pua_icon;
+                } else {
+                    puaVal.value = '';
+                    puaGlyph.innerText = '+';
+                    puaHex.innerText = 'PUA';
+                }
+            }
+
+            closeAbilityTemplateMenu();
+            showToast(`✓ 已应用能力【${tpl.title_zh || tpl.title_en}】！`);
+        }
+
+        // Global click listener to close template menu when clicking outside
+        document.addEventListener('click', function (e) {
+            const menu = document.getElementById('abTemplateDropdownMenu');
+            if (!menu || menu.style.display !== 'flex') return;
+            const btn = document.getElementById('btnToggleAbTplMenu');
+            const zhInp = document.getElementById('newAbTitle');
+            const enInp = document.getElementById('newAbTitleEn');
+
+            if (!menu.contains(e.target) && (!btn || !btn.contains(e.target)) && (!zhInp || !zhInp.contains(e.target)) && (!enInp || !enInp.contains(e.target))) {
+                closeAbilityTemplateMenu();
+            }
+        });
+
+        // ==========================================
+        // Copy From Other Bot Feature
+        // ==========================================
+        let gCopyFromTargetCat = 'keep';
+        let gCopyFromSelectedBotId = null;
+        let gCopyFromFactionFilter = 'all';
+        let gCopyFromBotSearchQuery = '';
+        let gCopyFromAbilitySearchQuery = '';
+        let gSelectedCopyFromAbilityIds = new Set();
+
+        async function openCopyFromModal(targetCatKey = 'keep', targetCatName = '保持原分类') {
+            if (!gCurBotId) {
+                alert("未检测到当前正在编辑的角色！");
+                return;
+            }
+
+            gCopyFromTargetCat = targetCatKey || 'keep';
+            gCopyFromSelectedBotId = null;
+            gSelectedCopyFromAbilityIds.clear();
+            gCopyFromBotSearchQuery = '';
+            gCopyFromAbilitySearchQuery = '';
+
+            const curBotNameEl = document.getElementById('copyFromCurrentBotName');
+            if (curBotNameEl) {
+                curBotNameEl.innerText = (gCurBotDetail && (gCurBotDetail.name_zh || gCurBotDetail.name_en)) || gCurBotId;
+            }
+
+            const badgeEl = document.getElementById('copyFromTargetCatBadge');
+            if (badgeEl) badgeEl.innerText = targetCatName || '保持原分类';
+
+            const selEl = document.getElementById('copyFromTargetCatSelect');
+            if (selEl) {
+                selEl.value = targetCatKey || 'keep';
+                selEl.onchange = function () {
+                    gCopyFromTargetCat = this.value;
+                    const opt = this.options[this.selectedIndex];
+                    if (badgeEl && opt) badgeEl.innerText = opt.text;
+                };
+            }
+
+            const botSearchInp = document.getElementById('copyFromBotSearch');
+            if (botSearchInp) botSearchInp.value = '';
+
+            const abSearchInp = document.getElementById('copyFromAbilitySearch');
+            if (abSearchInp) abSearchInp.value = '';
+
+            const srcBotTitle = document.getElementById('copyFromSourceBotTitle');
+            if (srcBotTitle) srcBotTitle.innerText = '(请在左侧选择角色)';
+
+            const abList = document.getElementById('copyFromAbilitiesList');
+            if (abList) {
+                abList.innerHTML = `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 180px; color: var(--text-sub); font-size: 12px; gap: 8px;"><span>👈 请在左侧列表中点击选择来源角色</span></div>`;
+            }
+
+            updateCopyFromUI();
+
+            // Pre-load data and render bot list
+            await ensureAllAbilitiesLoaded();
+            renderCopyFromBotList();
+
+            document.getElementById('copyFromModal').classList.add('active');
+        }
+
+        function openCopyFromFromAddModal() {
+            const catKey = document.getElementById('newAbCategory') ? document.getElementById('newAbCategory').value : 'basic';
+            const catLabel = document.getElementById('addAbilityCategoryLabel') ? document.getElementById('addAbilityCategoryLabel').innerText.replace('所属分类: ', '') : '基础能力';
+            closeAddAbilityModal();
+            openCopyFromModal(catKey, catLabel);
+        }
+
+        function closeCopyFromModal() {
+            document.getElementById('copyFromModal').classList.remove('active');
+            gCopyFromSelectedBotId = null;
+            gSelectedCopyFromAbilityIds.clear();
+        }
+
+        function setCopyFromFactionFilter(faction, btn) {
+            gCopyFromFactionFilter = faction;
+            const container = document.getElementById('copyFromFactionFilterPills');
+            if (container) {
+                container.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+            }
+            if (btn) btn.classList.add('active');
+            renderCopyFromBotList();
+        }
+
+        function filterCopyFromBots(query) {
+            gCopyFromBotSearchQuery = (query || '').trim().toLowerCase();
+            renderCopyFromBotList();
+        }
+
+        function renderCopyFromBotList() {
+            const listEl = document.getElementById('copyFromBotList');
+            const countBadge = document.getElementById('copyFromBotCountBadge');
+            if (!listEl) return;
+
+            let bots = (gOverviewData && gOverviewData.characters) ? [...gOverviewData.characters] : [];
+            if (bots.length === 0 && gAllAbilitiesData && gAllAbilitiesData.bots) {
+                bots = Object.values(gAllAbilitiesData.bots);
+            }
+
+            // Filter out current bot
+            bots = bots.filter(b => b.bot_id !== gCurBotId);
+
+            // Filter by faction
+            if (gCopyFromFactionFilter !== 'all') {
+                bots = bots.filter(b => (b.faction || '').toLowerCase() === gCopyFromFactionFilter);
+            }
+
+            // Filter by search query
+            if (gCopyFromBotSearchQuery) {
+                bots = bots.filter(b => {
+                    const zh = (b.name_zh || '').toLowerCase();
+                    const en = (b.name_en || '').toLowerCase();
+                    const bid = (b.bot_id || '').toLowerCase();
+                    return zh.includes(gCopyFromBotSearchQuery) || en.includes(gCopyFromBotSearchQuery) || bid.includes(gCopyFromBotSearchQuery);
+                });
+            }
+
+            if (countBadge) countBadge.innerText = `${bots.length} 位角色`;
+
+            if (bots.length === 0) {
+                listEl.innerHTML = `<div style="padding: 20px; text-align: center; color: var(--text-sub); font-size: 12px;">未找到匹配角色</div>`;
+                return;
+            }
+
+            listEl.innerHTML = bots.map(b => {
+                const isActive = (b.bot_id === gCopyFromSelectedBotId);
+                const portraitUrl = b.portrait_url || `portraits/${b.bot_id}.png`;
+                const displayName = b.name_zh || b.name_en || b.bot_id;
+                const subName = b.name_en || b.bot_id;
+
+                return `
+                    <div class="copy-from-bot-item ${isActive ? 'active' : ''}" onclick="selectCopyFromSourceBot('${b.bot_id}')">
+                        <img src="${portraitUrl}" class="copy-from-bot-avatar" alt="${escapeHtml(displayName)}" onerror="this.src='/portrait/${b.bot_id}'">
+                        <div class="copy-from-bot-info">
+                            <div class="copy-from-bot-name">${escapeHtml(displayName)}</div>
+                            <div class="copy-from-bot-sub">${escapeHtml(subName)}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function selectCopyFromSourceBot(bid) {
+            gCopyFromSelectedBotId = bid;
+            gSelectedCopyFromAbilityIds.clear();
+
+            // Re-render bot list to reflect active state
+            renderCopyFromBotList();
+
+            // Load bot abilities
+            let botData = null;
+            if (gAllAbilitiesData && gAllAbilitiesData.bots && gAllAbilitiesData.bots[bid]) {
+                botData = gAllAbilitiesData.bots[bid];
+            } else {
+                try {
+                    botData = await fetchCharacterData(bid);
+                    if (botData && gAllAbilitiesData && gAllAbilitiesData.bots) {
+                        gAllAbilitiesData.bots[bid] = botData;
+                    }
+                } catch (e) {
+                    console.error("Failed to load source bot data:", e);
+                }
+            }
+
+            const srcBotTitle = document.getElementById('copyFromSourceBotTitle');
+            if (srcBotTitle) {
+                const name = (botData && (botData.name_zh || botData.name_en)) || bid;
+                srcBotTitle.innerText = `来自【${name}】的技能`;
+            }
+
+            renderCopyFromAbilitiesList(botData);
+            updateCopyFromUI();
+        }
+
+        function filterCopyFromAbilities(query) {
+            gCopyFromAbilitySearchQuery = (query || '').trim().toLowerCase();
+            const botData = (gAllAbilitiesData && gAllAbilitiesData.bots && gAllAbilitiesData.bots[gCopyFromSelectedBotId]) || null;
+            renderCopyFromAbilitiesList(botData);
+        }
+
+        function renderCopyFromAbilitiesList(botData) {
+            const container = document.getElementById('copyFromAbilitiesList');
+            if (!container) return;
+
+            if (!botData || !botData.abilities || botData.abilities.length === 0) {
+                container.innerHTML = `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 180px; color: var(--text-sub); font-size: 12px; gap: 8px;"><span>该角色暂无已录入的战技或能力</span></div>`;
+                return;
+            }
+
+            let abs = [...botData.abilities];
+            if (gCopyFromAbilitySearchQuery) {
+                abs = abs.filter(a => {
+                    const zh = (a.title_zh || '').toLowerCase();
+                    const en = (a.title_en || '').toLowerCase();
+                    const descZh = (a.desc_zh || '').toLowerCase();
+                    const descEn = (a.desc_en || '').toLowerCase();
+                    return zh.includes(gCopyFromAbilitySearchQuery) || en.includes(gCopyFromAbilitySearchQuery) || descZh.includes(gCopyFromAbilitySearchQuery) || descEn.includes(gCopyFromAbilitySearchQuery);
+                });
+            }
+
+            if (abs.length === 0) {
+                container.innerHTML = `<div style="padding: 24px; text-align: center; color: var(--text-sub); font-size: 12px;">未找到匹配的技能效果</div>`;
+                return;
+            }
+
+            container.innerHTML = abs.map(ab => {
+                const isSelected = gSelectedCopyFromAbilityIds.has(ab.id);
+                let puaChar = '';
+                if (ab.pua_icon) {
+                    const hexVal = parseInt(ab.pua_icon, 16);
+                    if (!isNaN(hexVal)) puaChar = String.fromCharCode(hexVal);
+                }
+
+                let catName = ab.category || 'passive';
+                SECTION_DEFS.forEach(s => {
+                    if (s.key === ab.category) catName = s.name;
+                    if (s.subgroups) {
+                        const sub = s.subgroups.find(sg => sg.key === ab.category);
+                        if (sub) catName = sub.name;
+                    }
+                });
+
+                return `
+                    <div class="copy-from-ability-card ${isSelected ? 'selected' : ''}" onclick="toggleCopyFromAbilitySelection(${ab.id})">
+                        <div class="copy-from-ab-header">
+                            <div class="copy-from-ab-title-wrap">
+                                <input type="checkbox" ${isSelected ? 'checked' : ''} style="cursor: pointer; margin-right: 4px;" onclick="event.stopPropagation(); toggleCopyFromAbilitySelection(${ab.id})">
+                                ${puaChar ? `<span class="tecnica-icon" style="color: #38BDF8; font-size: 14px;">${puaChar}</span>` : ''}
+                                <span class="copy-from-ab-zh">${escapeHtml(ab.title_zh || '未命名技能')}</span>
+                                ${ab.title_en ? `<span class="copy-from-ab-en">(${escapeHtml(ab.title_en)})</span>` : ''}
+                            </div>
+                            <span class="sp-badge sp-badge-1" style="font-size: 10px; padding: 1px 6px;">${escapeHtml(catName)}</span>
+                        </div>
+                        ${ab.desc_zh ? `<div class="copy-from-ab-desc">${escapeHtml(ab.desc_zh)}</div>` : (ab.desc_en ? `<div class="copy-from-ab-desc" style="color: var(--text-sub);">${escapeHtml(ab.desc_en)}</div>` : '')}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function toggleCopyFromAbilitySelection(aid) {
+            if (gSelectedCopyFromAbilityIds.has(aid)) {
+                gSelectedCopyFromAbilityIds.delete(aid);
+            } else {
+                gSelectedCopyFromAbilityIds.add(aid);
+            }
+            const botData = (gAllAbilitiesData && gAllAbilitiesData.bots && gAllAbilitiesData.bots[gCopyFromSelectedBotId]) || null;
+            renderCopyFromAbilitiesList(botData);
+            updateCopyFromUI();
+        }
+
+        function toggleSelectAllCopyFromAbilities(selectAll) {
+            const botData = (gAllAbilitiesData && gAllAbilitiesData.bots && gAllAbilitiesData.bots[gCopyFromSelectedBotId]) || null;
+            if (!botData || !botData.abilities) return;
+
+            let abs = botData.abilities;
+            if (gCopyFromAbilitySearchQuery) {
+                abs = abs.filter(a => {
+                    const zh = (a.title_zh || '').toLowerCase();
+                    const en = (a.title_en || '').toLowerCase();
+                    const descZh = (a.desc_zh || '').toLowerCase();
+                    const descEn = (a.desc_en || '').toLowerCase();
+                    return zh.includes(gCopyFromAbilitySearchQuery) || en.includes(gCopyFromAbilitySearchQuery) || descZh.includes(gCopyFromAbilitySearchQuery) || descEn.includes(gCopyFromAbilitySearchQuery);
+                });
+            }
+
+            if (selectAll) {
+                abs.forEach(a => gSelectedCopyFromAbilityIds.add(a.id));
+            } else {
+                abs.forEach(a => gSelectedCopyFromAbilityIds.delete(a.id));
+            }
+
+            renderCopyFromAbilitiesList(botData);
+            updateCopyFromUI();
+        }
+
+        function updateCopyFromUI() {
+            const count = gSelectedCopyFromAbilityIds.size;
+            const countEl = document.getElementById('copyFromSelectedCount');
+            if (countEl) countEl.innerText = count;
+
+            const summaryEl = document.getElementById('copyFromFooterSummary');
+            if (summaryEl) summaryEl.innerHTML = `已选 <b style="color: #10B981;">${count}</b> 项技能导入至当前角色【${escapeHtml((gCurBotDetail && gCurBotDetail.name_zh) || gCurBotId)}】`;
+
+            const btnConfirm = document.getElementById('btnConfirmCopyFrom');
+            if (btnConfirm) {
+                btnConfirm.disabled = (count === 0);
+                btnConfirm.innerText = `确认导入 (${count})`;
+            }
+        }
+
+        async function confirmCopyFromAbilities() {
+            if (gSelectedCopyFromAbilityIds.size === 0) {
+                alert("请先勾选需要复制的技能！");
+                return;
+            }
+            if (!gCurBotId || !gCurBotDetail) {
+                alert("未获取到当前角色详情，无法导入！");
+                return;
+            }
+
+            const btnConfirm = document.getElementById('btnConfirmCopyFrom');
+            if (btnConfirm) {
+                btnConfirm.disabled = true;
+                btnConfirm.innerText = "正在导入技能...";
+            }
+
+            // Wait for any pending saves to finish
+            await gBotSaveQueue;
+
+            const sourceBot = (gAllAbilitiesData && gAllAbilitiesData.bots && gAllAbilitiesData.bots[gCopyFromSelectedBotId]) || null;
+            const sourceAbs = (sourceBot && sourceBot.abilities) ? sourceBot.abilities : [];
+            const selectedAbs = sourceAbs.filter(a => gSelectedCopyFromAbilityIds.has(a.id));
+
+            if (selectedAbs.length === 0) {
+                alert("未找到选中的技能数据！");
+                if (btnConfirm) {
+                    btnConfirm.disabled = false;
+                    btnConfirm.innerText = `确认导入 (${gSelectedCopyFromAbilityIds.size})`;
+                }
+                return;
+            }
+
+            const targetSlot = document.getElementById('copyFromTargetCatSelect') ? document.getElementById('copyFromTargetCatSelect').value : gCopyFromTargetCat;
+
+            let successCount = 0;
+            try {
+                for (const ab of selectedAbs) {
+                    const finalCategory = (targetSlot === 'keep') ? (ab.category || 'passive') : targetSlot;
+                    const payload = {
+                        bot_id: gCurBotId,
+                        category: finalCategory,
+                        title_zh: ab.title_zh || '',
+                        title_en: ab.title_en || '',
+                        desc_zh: ab.desc_zh || '',
+                        desc_en: ab.desc_en || '',
+                        pua_icon: ab.pua_icon || '',
+                        status: ab.status || 'unimplemented',
+                        synergy_bots: Array.isArray(ab.synergy_bots) ? [...ab.synergy_bots] : []
+                    };
+
+                    const ret = await saveNewAbility(payload);
+                    const newId = (ret && ret.id) ? ret.id : (Date.now() + Math.floor(Math.random() * 1000));
+
+                    if (!gCurBotDetail.abilities) gCurBotDetail.abilities = [];
+                    gCurBotDetail.abilities.push({
+                        id: newId,
+                        ...payload,
+                        sort_order: gCurBotDetail.abilities.length + 1
+                    });
+                    successCount++;
+                }
+
+                // Instantly re-render in-memory abilities for the active modal
+                if (gCurBotDetail && gCurBotDetail.abilities) {
+                    renderCategorizedAbilities(gCurBotDetail.abilities);
+                }
+
+                const srcName = (sourceBot && (sourceBot.name_zh || sourceBot.name_en)) || gCopyFromSelectedBotId;
+                showToast(`🎉 成功从【${srcName}】导入 ${successCount} 项技能！`);
+                closeCopyFromModal();
+            } catch (err) {
+                console.error("Copy From failed:", err);
+                alert("导入技能时出现异常，请检查网络或控制台");
+            } finally {
+                if (btnConfirm) {
+                    btnConfirm.disabled = false;
+                    btnConfirm.innerText = "确认导入";
+                }
             }
         }
 

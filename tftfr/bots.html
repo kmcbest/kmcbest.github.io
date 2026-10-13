@@ -3703,42 +3703,10 @@
         }
 
         async function verifyPriorityAbilitiesQuick() {
-            if (!gPriorityAbilitiesList || gPriorityAbilitiesList.length === 0) return;
-            const uniqueBotIds = [...new Set(gPriorityAbilitiesList.map(item => item.bot_id))];
-            let changedAny = false;
-
-            for (const bId of uniqueBotIds) {
-                try {
-                    const charData = await kvGet('tftf:char:' + bId, `./data/characters/${bId}.json`);
-                    if (charData && Array.isArray(charData.abilities)) {
-                        const botAbMap = new Map();
-                        charData.abilities.forEach(a => botAbMap.set(String(a.id), a));
-
-                        const itemsForBot = gPriorityAbilitiesList.filter(item => item.bot_id === bId);
-                        for (const item of itemsForBot) {
-                            const realAb = botAbMap.get(String(item.id));
-                            if (!realAb || realAb.status !== 'priority') {
-                                changedAny = true;
-                                gPriorityAbilitiesList = gPriorityAbilitiesList.filter(x => String(x.id) !== String(item.id));
-                            }
-                        }
-                    }
-                } catch (e) {
-                    console.warn(`Failed to verify priority abilities for [${bId}]:`, e);
-                }
-            }
-
-            if (changedAny) {
-                updatePriorityBadgeDisplay();
-                renderPriorityModalContent();
-                if (typeof kvSet === 'function') {
-                    await kvSet('tftf:priority_abilities', {
-                        total: gPriorityAbilitiesList.length,
-                        status: 'priority',
-                        abilities: gPriorityAbilitiesList
-                    });
-                }
-            }
+            // Disabled aggressive background network purge on modal open to prevent ERR_CONNECTION_CLOSED
+            // and false-positive deletes from static fallback files.
+            // Full reconciliation is safely handled by the explicit "🔄 全库核对" (reconcileAllPriorityFromCloud).
+            return;
         }
 
         async function reconcileAllPriorityFromCloud(quiet = false) {
@@ -3775,12 +3743,9 @@
                     }
                 }
 
-                // If pipeline didn't get all or failed, fallback to individual kvGet
+                // If pipeline didn't get characters, abort safely to protect cloud priority list
                 if (allCharsMap.size === 0) {
-                    for (const c of characters) {
-                        const botData = await kvGet('tftf:char:' + c.bot_id, `./data/characters/${c.bot_id}.json`);
-                        if (botData) allCharsMap.set(c.bot_id, botData);
-                    }
+                    throw new Error("云端数据请求未完成，已中止核对以保护数据");
                 }
 
                 const cleanList = [];
@@ -3841,7 +3806,6 @@
         function openPriorityModal() {
             renderPriorityModalContent();
             document.getElementById('priorityModal').classList.add('active');
-            verifyPriorityAbilitiesQuick();
         }
 
         function closePriorityModal() {

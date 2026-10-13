@@ -3202,7 +3202,11 @@
                 if (res.ok) {
                     const json = await res.json();
                     if (json && json.result) {
-                        return typeof json.result === 'string' ? JSON.parse(json.result) : json.result;
+                        let parsed = typeof json.result === 'string' ? JSON.parse(json.result) : json.result;
+                        if (typeof parsed === 'string') {
+                            try { parsed = JSON.parse(parsed); } catch (e) {}
+                        }
+                        return parsed;
                     }
                 }
             } catch (err) {
@@ -3493,29 +3497,58 @@
 
         // Priority Abilities State & Handlers
         let gPriorityAbilitiesList = [];
+        let gPriorityAbilitiesLoadingPromise = null;
+        let gPriorityAbilitiesLoaded = false;
 
         async function fetchPriorityAbilities() {
-            try {
-                let pData = null;
-                if (typeof kvGet === 'function') {
-                    pData = await kvGet('tftf:priority_abilities', './data/priority_abilities.json');
-                } else {
-                    const res = await fetch('./data/priority_abilities.json');
-                    if (res.ok) pData = await res.json();
-                }
-                if (pData && Array.isArray(pData.abilities)) {
-                    gPriorityAbilitiesList = pData.abilities;
-                } else if (Array.isArray(pData)) {
-                    gPriorityAbilitiesList = pData;
-                } else {
+            if (gPriorityAbilitiesLoadingPromise) return gPriorityAbilitiesLoadingPromise;
+
+            gPriorityAbilitiesLoadingPromise = (async () => {
+                try {
+                    let pData = null;
+                    if (typeof kvGet === 'function') {
+                        pData = await kvGet('tftf:priority_abilities', './data/priority_abilities.json');
+                    } else {
+                        const res = await fetch('./data/priority_abilities.json');
+                        if (res.ok) pData = await res.json();
+                    }
+                    let list = (pData && Array.isArray(pData.abilities)) ? pData.abilities : (Array.isArray(pData) ? pData : []);
+
+                    // Resilience fallback: if Upstash KV returned an empty list, load from static JSON fallback
+                    if (list.length === 0) {
+                        try {
+                            const fb = await fetch(`./data/priority_abilities.json?_t=${Date.now()}`);
+                            if (fb.ok) {
+                                const fbData = await fb.json();
+                                if (fbData && Array.isArray(fbData.abilities) && fbData.abilities.length > 0) {
+                                    list = fbData.abilities;
+                                    console.log(`[Priority] Rescued ${list.length} priority abilities from static fallback JSON`);
+                                }
+                            }
+                        } catch (e) {
+                            console.warn("Failed to fetch fallback priority_abilities.json:", e);
+                        }
+                    }
+
+                    gPriorityAbilitiesList = list;
+                    gPriorityAbilitiesLoaded = true;
+                    updatePriorityBadgeDisplay();
+
+                    // If still empty and overview characters exist, trigger a quiet background reconcile from cloud
+                    if (gPriorityAbilitiesList.length === 0 && gOverviewData && Array.isArray(gOverviewData.characters)) {
+                        setTimeout(() => reconcileAllPriorityFromCloud(true), 1200);
+                    }
+                } catch (err) {
+                    console.warn("Failed to load priority abilities:", err);
                     gPriorityAbilitiesList = [];
+                    gPriorityAbilitiesLoaded = true;
+                    updatePriorityBadgeDisplay();
+                } finally {
+                    gPriorityAbilitiesLoadingPromise = null;
                 }
-                updatePriorityBadgeDisplay();
-            } catch (err) {
-                console.warn("Failed to load priority abilities:", err);
-                gPriorityAbilitiesList = [];
-                updatePriorityBadgeDisplay();
-            }
+            })();
+
+            return gPriorityAbilitiesLoadingPromise;
         }
 
         function updatePriorityBadgeDisplay() {
@@ -3529,6 +3562,9 @@
         }
 
         async function reconcileBotPriorityAbilities(bId, abilities) {
+            if (!gPriorityAbilitiesLoaded) {
+                await await fetchPriorityAbilities();
+            }
             if (!gPriorityAbilitiesList) gPriorityAbilitiesList = [];
             if (!Array.isArray(abilities)) return;
 
@@ -3705,10 +3741,10 @@
             }
         }
 
-        async function reconcileAllPriorityFromCloud() {
+        async function reconcileAllPriorityFromCloud(quiet = false) {
             const btn = document.getElementById('btnReconcileAllPriority');
             const origText = btn ? btn.innerText : '🔄 全库核对';
-            if (btn) {
+            if (btn && !quiet) {
                 btn.disabled = true;
                 btn.innerText = '正在核对全库...';
             }
@@ -3776,6 +3812,7 @@
                 }
 
                 gPriorityAbilitiesList = cleanList;
+                gPriorityAbilitiesLoaded = true;
                 updatePriorityBadgeDisplay();
                 renderPriorityModalContent();
 
@@ -3787,7 +3824,9 @@
                     });
                 }
 
-                showToast(`全库核对完成，共检测到 ${cleanList.length} 条有效优先待办！`);
+                if (!quiet) {
+                    showToast(`全库核对完成，共检测到 ${cleanList.length} 条有效优先待办！`);
+                }
             } catch (err) {
                 console.error("全库核对失败:", err);
                 alert("全库核对失败: " + err.message);

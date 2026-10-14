@@ -2612,6 +2612,181 @@
             white-space: pre-wrap;
             word-break: break-word;
         }
+
+        /* Implemented Abilities Overview Card & Modal */
+        .overview-card-implemented {
+            cursor: pointer;
+            border-color: rgba(56, 189, 248, 0.35);
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.08) 0%, rgba(20, 24, 33, 0.95) 100%);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .overview-card-implemented:hover {
+            border-color: #38BDF8;
+            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.25);
+            transform: translateY(-2px);
+        }
+        .overview-card-implemented .overview-label {
+            color: #7DD3FC;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .overview-card-implemented .overview-value {
+            color: #38BDF8;
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+        .implemented-pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #38BDF8;
+            display: inline-block;
+            box-shadow: 0 0 8px #38BDF8;
+            animation: pulse-cyan 2s infinite;
+        }
+        @keyframes pulse-cyan {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(56, 189, 248, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+        }
+
+        /* Implemented List Modal */
+        .implemented-modal-content {
+            max-width: 940px;
+            width: 92%;
+            background: #141821;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.15);
+        }
+        .impl-filter-bar {
+            padding: 10px 24px;
+            background: rgba(0, 0, 0, 0.25);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .impl-bot-group {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            margin-bottom: 14px;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+        .impl-bot-group:hover {
+            border-color: rgba(56, 189, 248, 0.35);
+            background: rgba(56, 189, 248, 0.02);
+        }
+        .impl-bot-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            background: rgba(56, 189, 248, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .impl-bot-header:hover {
+            background: rgba(56, 189, 248, 0.12);
+        }
+        .impl-bot-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .impl-bot-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: #080A0F;
+        }
+        .impl-bot-name-zh {
+            font-size: 15px;
+            font-weight: 700;
+            color: #F8FAFC;
+        }
+        .impl-bot-name-en {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-left: 6px;
+        }
+        .impl-bot-id-tag {
+            font-size: 11px;
+            color: #64748B;
+            font-family: monospace;
+            margin-left: 6px;
+        }
+        .impl-bot-badges {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .impl-ability-list {
+            padding: 10px 16px 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .impl-ability-card {
+            background: rgba(0, 0, 0, 0.22);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 8px;
+            padding: 9px 13px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            transition: all 0.15s;
+        }
+        .impl-ability-card:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+            background: rgba(0, 0, 0, 0.35);
+        }
+        .impl-ability-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .impl-status-tag {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 7px;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .impl-status-tag.status-implemented {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34D399;
+            border: 1px solid rgba(16, 185, 129, 0.35);
+        }
+        .impl-status-tag.status-partial {
+            background: rgba(245, 158, 11, 0.15);
+            color: #FBBF24;
+            border: 1px solid rgba(245, 158, 11, 0.35);
+        }
+        .impl-ability-desc {
+            font-size: 12px;
+            color: #94A3B8;
+            line-height: 1.5;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 6px 10px;
+            border-radius: 6px;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
     </style>
 </head>
 <body>
@@ -2671,6 +2846,16 @@
                 <span class="overview-value">
                     <span id="statPriorityCount" style="color: #10B981;">0</span>
                     <span style="font-size: 13px; font-weight: 500; color: #6EE7B7;">条</span>
+                </span>
+            </div>
+            <div class="overview-card overview-card-implemented" id="cardImplementedAbilities" onclick="openImplementedModal()" title="点击查看已实现及部分实现技能汇总">
+                <span class="overview-label">
+                    <span>已实现技能汇总</span>
+                    <span class="implemented-pulse-dot" id="implementedPulseDot"></span>
+                </span>
+                <span class="overview-value">
+                    <span id="statImplementedCount" style="color: #38BDF8;">0</span>
+                    <span style="font-size: 13px; font-weight: 500; color: #7DD3FC;">项</span>
                 </span>
             </div>
         </div>
@@ -3177,6 +3362,55 @@
         </div>
     </div>
 
+    
+    <!-- Implemented Abilities Detail Modal -->
+    <div class="modal-overlay" id="implementedModal" onclick="closeModalOnBackdrop(event, 'implementedModal')">
+        <div class="modal-content implemented-modal-content">
+            <div class="modal-header" style="border-bottom: 1px solid rgba(56, 189, 248, 0.25);">
+                <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                    <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4); display: flex; align-items: center; justify-content: center; color: #38BDF8; font-size: 20px;">
+                        ⚔️
+                    </div>
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                            <span class="tecnica" style="font-size: 16px; font-weight: 700; color: #38BDF8; letter-spacing: 0.5px;">
+                                IMPLEMENTED ABILITIES // 已实现技能汇总
+                            </span>
+                            <span id="implModalBotBadge" style="font-size: 11px; padding: 2px 8px; border-radius: 999px; background: rgba(56, 189, 248, 0.2); color: #7DD3FC; font-weight: 600;">
+                                0 个机器人
+                            </span>
+                            <span id="implModalCountBadge" style="font-size: 11px; padding: 2px 8px; border-radius: 999px; background: rgba(16, 185, 129, 0.2); color: #34D399; font-weight: 600;">
+                                0 条已实现
+                            </span>
+                            <span id="implModalPartialBadge" style="font-size: 11px; padding: 2px 8px; border-radius: 999px; background: rgba(245, 158, 11, 0.2); color: #FBBF24; font-weight: 600;">
+                                0 条部分实现
+                            </span>
+                            <button id="btnRefreshImplemented" onclick="refreshImplementedFromCloud()" style="background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4); color: #7DD3FC; font-size: 11px; padding: 2px 8px; border-radius: 6px; cursor: pointer; transition: all 0.2s;" title="扫描云端全部角色档案，实时同步最新已实现状态">🔄 实时同步</button>
+                        </div>
+                        <div style="font-size: 11px; color: var(--text-sub); margin-top: 2px;">
+                            实时列出拥有「已实现」和「部分实现」战技特性的机器人及其具体技能清单。点击角色可直接穿透至档案详情进行调试。
+                        </div>
+                    </div>
+                </div>
+                <button class="modal-close-btn" onclick="closeImplementedModal()">&times;</button>
+            </div>
+            
+            <!-- Filter & Search Controls -->
+            <div class="impl-filter-bar">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <button class="filter-btn impl-status-filter active" id="btnImplStatus_all" onclick="filterImplementedStatus('all', this)">全部</button>
+                    <button class="filter-btn impl-status-filter" id="btnImplStatus_implemented" onclick="filterImplementedStatus('implemented', this)">仅已实现</button>
+                    <button class="filter-btn impl-status-filter" id="btnImplStatus_partial" onclick="filterImplementedStatus('partial', this)">仅部分实现</button>
+                </div>
+                <input type="text" id="implSearchInput" class="search-box" style="width: 240px; padding: 5px 12px; font-size: 12px;" placeholder="搜索机器人 / 战技名称..." oninput="handleImplementedSearch()">
+            </div>
+
+            <div class="modal-body" style="padding: 20px 24px; max-height: calc(85vh - 150px); overflow-y: auto;" id="implementedModalBody">
+                <div style="text-align: center; padding: 30px; color: var(--text-sub);">正在加载已实现技能列表...</div>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast Notification -->
     <div class="toast" id="toastMsg">已保存更新</div>
 
@@ -3371,6 +3605,12 @@
 
                         await kvSet('tftf:char:' + bId, charDetail);
                         await reconcileBotPriorityAbilities(bId, charDetail.abilities);
+                        if (!gAllBotsData) gAllBotsData = {};
+                        gAllBotsData[bId] = charDetail;
+                        if (typeof updateBotCardProgress === 'function') updateBotCardProgress(bId, charDetail.abilities);
+                        if (typeof updateImplementedSummary === 'function') updateImplementedSummary();
+                        const implModal = document.getElementById('implementedModal');
+                        if (implModal && implModal.classList.contains('active')) renderImplementedModalContent();
                     }
                 }
                 const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
@@ -3405,6 +3645,12 @@
                             }
                             if (typeof reconcileBotPriorityAbilities === 'function') {
                                 await reconcileBotPriorityAbilities(gCurBotId, charDetail.abilities);
+                            if (!gAllBotsData) gAllBotsData = {};
+                            gAllBotsData[gCurBotId] = charDetail;
+                            if (typeof updateBotCardProgress === 'function') updateBotCardProgress(gCurBotId, charDetail.abilities);
+                            if (typeof updateImplementedSummary === 'function') updateImplementedSummary();
+                            const implModal = document.getElementById('implementedModal');
+                            if (implModal && implModal.classList.contains('active')) renderImplementedModalContent();
                             }
                         }
                     }
@@ -3456,6 +3702,12 @@
                         }
                         if (typeof reconcileBotPriorityAbilities === 'function') {
                             await reconcileBotPriorityAbilities(payload.bot_id, charDetail.abilities);
+                        if (!gAllBotsData) gAllBotsData = {};
+                        gAllBotsData[payload.bot_id] = charDetail;
+                        if (typeof updateBotCardProgress === 'function') updateBotCardProgress(payload.bot_id, charDetail.abilities);
+                        if (typeof updateImplementedSummary === 'function') updateImplementedSummary();
+                        const implModal = document.getElementById('implementedModal');
+                        if (implModal && implModal.classList.contains('active')) renderImplementedModalContent();
                         }
                     }
                 }
@@ -3867,6 +4119,310 @@
             body.innerHTML = html;
         }
 
+
+        // ==========================================
+        // Implemented Abilities Summary State & Handlers
+        // ==========================================
+        let gAllBotsData = {}; // Global dictionary: { [bot_id]: { ...botData, abilities: [...] } }
+        let gImplActiveFilter = 'all'; // 'all', 'implemented', 'partial'
+        let gImplSearchQuery = '';
+
+        function updateImplementedSummary() {
+            let totalImplemented = 0;
+            let totalPartial = 0;
+            let botsCount = 0;
+
+            const bots = gAllBotsData || {};
+            for (const bId in bots) {
+                const b = bots[bId];
+                const abs = (b && Array.isArray(b.abilities)) ? b.abilities : [];
+                const implCount = abs.filter(a => a && a.status === 'implemented').length;
+                const partCount = abs.filter(a => a && a.status === 'partial').length;
+                if (implCount > 0 || partCount > 0) {
+                    botsCount++;
+                    totalImplemented += implCount;
+                    totalPartial += partCount;
+                }
+            }
+
+            const totalCount = totalImplemented + totalPartial;
+            const countEl = document.getElementById('statImplementedCount');
+            const dotEl = document.getElementById('implementedPulseDot');
+            const cardEl = document.getElementById('cardImplementedAbilities');
+
+            if (countEl) countEl.innerText = totalCount;
+            if (dotEl) dotEl.style.display = totalCount > 0 ? 'inline-block' : 'none';
+            if (cardEl) cardEl.title = `点击查看已实现及部分实现技能汇总 (${botsCount} 个机器人 · ${totalImplemented} 已实现 · ${totalPartial} 部分实现)`;
+
+            const bBadge = document.getElementById('implModalBotBadge');
+            const cBadge = document.getElementById('implModalCountBadge');
+            const pBadge = document.getElementById('implModalPartialBadge');
+
+            if (bBadge) bBadge.innerText = `${botsCount} 个机器人`;
+            if (cBadge) cBadge.innerText = `${totalImplemented} 条已实现`;
+            if (pBadge) pBadge.innerText = `${totalPartial} 条部分实现`;
+        }
+
+        function openImplementedModal() {
+            renderImplementedModalContent();
+            document.getElementById('implementedModal').classList.add('active');
+        }
+
+        function closeImplementedModal() {
+            document.getElementById('implementedModal').classList.remove('active');
+        }
+
+        function filterImplementedStatus(status, btn) {
+            gImplActiveFilter = status;
+            document.querySelectorAll('.impl-status-filter').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            renderImplementedModalContent();
+        }
+
+        function handleImplementedSearch() {
+            const inp = document.getElementById('implSearchInput');
+            gImplSearchQuery = (inp ? inp.value.trim().toLowerCase() : '');
+            renderImplementedModalContent();
+        }
+
+        async function refreshImplementedFromCloud() {
+            const btn = document.getElementById('btnRefreshImplemented');
+            const origText = btn ? btn.innerText : '🔄 实时同步';
+            if (btn) {
+                btn.disabled = true;
+                btn.innerText = '正在同步...';
+            }
+
+            try {
+                if (!gOverviewData || !Array.isArray(gOverviewData.characters)) {
+                    throw new Error("角色概览数据未就绪");
+                }
+
+                const characters = gOverviewData.characters;
+                const charKeys = characters.map(c => 'tftf:char:' + c.bot_id);
+                const chunk_size = 25;
+
+                for (let i = 0; i < charKeys.length; i += chunk_size) {
+                    const chunk = charKeys.slice(i, i + chunk_size);
+                    const cmds = chunk.map(k => ["GET", k]);
+                    const results = await kvPipeline(cmds);
+                    if (results && Array.isArray(results)) {
+                        chunk.forEach((k, idx) => {
+                            const resObj = results[idx];
+                            if (resObj && resObj.result) {
+                                const val = typeof resObj.result === 'string' ? JSON.parse(resObj.result) : resObj.result;
+                                const bId = k.replace('tftf:char:', '');
+                                if (val) {
+                                    if (!gAllBotsData) gAllBotsData = {};
+                                    gAllBotsData[bId] = val;
+                                    if (val.abilities && Array.isArray(val.abilities)) {
+                                        updateBotCardProgress(bId, val.abilities);
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+
+                updateImplementedSummary();
+                renderImplementedModalContent();
+                showToast("已同步最新已实现技能状态！");
+            } catch (err) {
+                console.error("同步失败:", err);
+                alert("同步失败: " + err.message);
+            } finally {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerText = origText;
+                }
+            }
+        }
+
+        function renderImplementedModalContent() {
+            const body = document.getElementById('implementedModalBody');
+            if (!body) return;
+
+            const catMap = {
+                basic: '基础能力',
+                passive: '被动能力',
+                sp1: '特殊技 1',
+                sp2: '特殊技 2',
+                sp3: '特殊技 3',
+                signature: '觉醒超能',
+                synergy: '协同加成'
+            };
+
+            const bots = gAllBotsData || {};
+            const matchedBotGroups = [];
+
+            // Order bots matching gOverviewData.characters order if possible
+            const orderedBotIds = (gOverviewData && Array.isArray(gOverviewData.characters))
+                ? gOverviewData.characters.map(c => c.bot_id)
+                : Object.keys(bots);
+
+            for (const bId of orderedBotIds) {
+                const b = bots[bId] || (gOverviewData && gOverviewData.characters ? gOverviewData.characters.find(c => c.bot_id === bId) : null);
+                if (!b) continue;
+                const abs = (b.abilities && Array.isArray(b.abilities)) ? b.abilities : [];
+
+                // Filter abilities by status
+                let targetAbs = abs.filter(a => {
+                    if (!a) return false;
+                    if (gImplActiveFilter === 'implemented') return a.status === 'implemented';
+                    if (gImplActiveFilter === 'partial') return a.status === 'partial';
+                    return a.status === 'implemented' || a.status === 'partial';
+                });
+
+                // Filter by search query if present
+                if (gImplSearchQuery) {
+                    const bNameZh = (b.name_zh || '').toLowerCase();
+                    const bNameEn = (b.name_en || '').toLowerCase();
+                    const bIdLower = bId.toLowerCase();
+                    const botMatches = bNameZh.includes(gImplSearchQuery) || bNameEn.includes(gImplSearchQuery) || bIdLower.includes(gImplSearchQuery);
+
+                    if (!botMatches) {
+                        targetAbs = targetAbs.filter(a => {
+                            const tZh = (a.title_zh || '').toLowerCase();
+                            const tEn = (a.title_en || '').toLowerCase();
+                            const dZh = (a.desc_zh || '').toLowerCase();
+                            const dEn = (a.desc_en || '').toLowerCase();
+                            return tZh.includes(gImplSearchQuery) || tEn.includes(gImplSearchQuery) || dZh.includes(gImplSearchQuery) || dEn.includes(gImplSearchQuery);
+                        });
+                    }
+                }
+
+                if (targetAbs.length > 0) {
+                    const overviewBot = (gOverviewData && gOverviewData.characters) ? gOverviewData.characters.find(c => c.bot_id === bId) : null;
+                    const fullBot = Object.assign({}, overviewBot || {}, b);
+                    matchedBotGroups.push({
+                        bot: fullBot,
+                        abilities: targetAbs
+                    });
+                }
+            }
+
+            if (matchedBotGroups.length === 0) {
+                body.innerHTML = `
+                    <div style="text-align: center; padding: 48px 20px; color: var(--text-muted);">
+                        <div style="font-size: 36px; margin-bottom: 12px;">🔍</div>
+                        <div style="font-size: 16px; font-weight: 700; color: #E5E7EB; margin-bottom: 6px;">未找到匹配的已实现或部分实现技能</div>
+                        <div style="font-size: 12px; color: #9CA3AF;">请检查筛选条件或搜索关键词，或点击右上角「🔄 实时同步」更新最新状态。</div>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            matchedBotGroups.forEach(group => {
+                const bot = group.bot;
+                const bId = bot.bot_id;
+                const bName = bot.name_zh || bId;
+                const bEn = bot.name_en ? ` (${bot.name_en})` : '';
+                const portraitUrl = bot.portrait_url || `portraits/${bId}.png`;
+
+                const factionObj = (gOverviewData && gOverviewData.factions && gOverviewData.factions.find(f => f.faction_id === bot.faction)) || { name_zh: bot.faction || '', color_hex: '#888' };
+                const classObj = (gOverviewData && gOverviewData.classes && gOverviewData.classes.find(c => c.class_id === bot.class)) || { name_zh: bot.class || '', color_hex: '#38BDF8', pua_icon: '' };
+
+                let facPua = bot.pua_faction_icon || factionObj.pua_icon || '';
+                if (!facPua) {
+                    const isMovie = (bId.includes('_cin_') || bId.includes('_mv_'));
+                    if (bot.faction === 'autobot') facPua = isMovie ? 'E130' : 'E132';
+                    else if (bot.faction === 'decepticon') facPua = isMovie ? 'E131' : 'E133';
+                    else if (bot.faction === 'maximal') facPua = 'E160';
+                    else if (bot.faction === 'predacon') facPua = 'E161';
+                    else if (bot.faction === 'sharkticon') facPua = 'E99E';
+                }
+                const facGlyph = facPua ? String.fromCharCode(parseInt(facPua, 16)) : '';
+                const clsPua = classObj.pua_icon || '';
+                const clsGlyph = clsPua ? String.fromCharCode(parseInt(clsPua, 16)) : '';
+
+                const implCount = group.abilities.filter(a => a.status === 'implemented').length;
+                const partCount = group.abilities.filter(a => a.status === 'partial').length;
+                let countTagText = '';
+                if (implCount > 0 && partCount > 0) {
+                    countTagText = `${implCount} 已实现 · ${partCount} 部分实现`;
+                } else if (implCount > 0) {
+                    countTagText = `${implCount} 条已实现`;
+                } else {
+                    countTagText = `${partCount} 条部分实现`;
+                }
+
+                html += `
+                    <div class="impl-bot-group">
+                        <div class="impl-bot-header" onclick="closeImplementedModal(); openCharacterModal('${bId}')" title="点击直接打开【${bName}】档案卡进行技能编辑与测试">
+                            <div class="impl-bot-info">
+                                <img class="impl-bot-avatar" src="${portraitUrl}" onerror="this.onerror=null; this.src='portraits/default.png';" alt="${bName}">
+                                <div>
+                                    <div style="display: flex; align-items: baseline;">
+                                        <span class="impl-bot-name-zh">${bName}</span>
+                                        <span class="impl-bot-name-en">${bEn}</span>
+                                        <span class="impl-bot-id-tag">[${bId}]</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 8px; margin-top: 3px;">
+                                        <span style="font-size: 11px; color: ${factionObj.color_hex}; display: inline-flex; align-items: center; gap: 3px;">
+                                            ${facGlyph ? `<span class="tecnica-icon" style="font-size: 12px;">${facGlyph}</span>` : ''}
+                                            ${factionObj.name_zh || bot.faction}
+                                        </span>
+                                        <span style="font-size: 11px; color: ${classObj.color_hex}; display: inline-flex; align-items: center; gap: 3px;">
+                                            ${clsGlyph ? `<span class="tecnica-icon" style="font-size: 12px;">${clsGlyph}</span>` : ''}
+                                            ${classObj.name_zh || bot.class}系
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span style="font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 999px; background: rgba(56, 189, 248, 0.15); color: #7DD3FC; border: 1px solid rgba(56, 189, 248, 0.3);">
+                                    ${countTagText}
+                                </span>
+                                <span style="font-size: 12px; color: #38BDF8; font-weight: 600;">👉 档案 / 编辑</span>
+                            </div>
+                        </div>
+                        <div class="impl-ability-list">
+                `;
+
+                group.abilities.forEach(a => {
+                    const isImpl = (a.status === 'implemented');
+                    const statusLabel = isImpl ? '✅ 已实现' : '⏳ 部分实现';
+                    const statusClass = isImpl ? 'status-implemented' : 'status-partial';
+                    const catName = catMap[a.category] || a.category || '技能';
+                    const title = a.title_zh || a.title_en || '未命名战技';
+                    const puaChar = a.pua_icon ? String.fromCharCode(parseInt(a.pua_icon, 16)) : '';
+                    const desc = a.desc_zh || a.desc_en || '无描述说明';
+
+                    let synergyHtml = '';
+                    if (Array.isArray(a.synergy_bots) && a.synergy_bots.length > 0) {
+                        const sBadges = a.synergy_bots.map(sb => {
+                            const sBotObj = (gOverviewData && gOverviewData.characters) ? gOverviewData.characters.find(c => c.bot_id === sb) : null;
+                            return `<span style="font-size: 10px; padding: 1px 6px; border-radius: 4px; background: rgba(56, 189, 248, 0.15); color: #7DD3FC;">${(sBotObj && sBotObj.name_zh) || sb}</span>`;
+                        }).join(' ');
+                        synergyHtml = `<div style="display: flex; align-items: center; gap: 6px; margin-top: 4px;"><span style="font-size: 10px; color: var(--text-sub);">协同加成伙伴:</span> ${sBadges}</div>`;
+                    }
+
+                    html += `
+                        <div class="impl-ability-card">
+                            <div class="impl-ability-header">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span class="impl-status-tag ${statusClass}">${statusLabel}</span>
+                                    <span class="priority-cat-badge">${catName}</span>
+                                    ${puaChar ? `<span class="tecnica-icon" style="color: #38BDF8; font-size: 14px;">${puaChar}</span>` : ''}
+                                    <span style="font-size: 13px; font-weight: 700; color: #F1F5F9;">${title}</span>
+                                    ${a.title_en && a.title_en !== title ? `<span style="font-size: 11px; color: var(--text-sub);">(${a.title_en})</span>` : ''}
+                                </div>
+                            </div>
+                            <div class="impl-ability-desc">${desc}${synergyHtml}</div>
+                        </div>
+                    `;
+                });
+
+                html += `
+                        </div>
+                    </div>
+                `;
+            });
+
+            body.innerHTML = html;
+        }
+
         // Initialize dashboard
         async function init() {
             try {
@@ -3884,7 +4440,9 @@
                     // Load all abilities for bot skill progress stats
                     const allAbData = await kvGet('tftf:all_abilities', './data/all_abilities.json');
                     if (allAbData && allAbData.bots) {
+                        gAllBotsData = allAbData.bots;
                         computeAllBotAbilityStats(allAbData.bots);
+                        updateImplementedSummary();
                     }
                 } else {
                     const res = await fetch('/api/overview');
@@ -3898,7 +4456,9 @@
                         if (abRes.ok) {
                             const allAbData = await abRes.json();
                             if (allAbData && allAbData.bots) {
+                                gAllBotsData = allAbData.bots;
                                 computeAllBotAbilityStats(allAbData.bots);
+                                updateImplementedSummary();
                             }
                         }
                     } catch (e) {
@@ -4453,6 +5013,11 @@
                 }
 
                 gCurBotDetail = data;
+            if (data && !data.error) {
+                if (!gAllBotsData) gAllBotsData = {};
+                gAllBotsData[bid] = data;
+                if (typeof updateImplementedSummary === 'function') updateImplementedSummary();
+            }
                 if (data && Array.isArray(data.abilities)) {
                     reconcileBotPriorityAbilities(bid, data.abilities);
                     updateBotCardProgress(bid, data.abilities);
@@ -6885,6 +7450,8 @@
                 if (modalId === 'puaModal') closePuaModal();
                 if (modalId === 'addAbilityModal') closeAddAbilityModal();
                 if (modalId === 'cardDossierModal') closeCardDossierModal();
+                if (modalId === 'priorityModal') closePriorityModal();
+                if (modalId === 'implementedModal') closeImplementedModal();
             }
         }
 

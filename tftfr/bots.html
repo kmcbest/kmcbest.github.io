@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TFTF 角色数值与技能中枢 (Transformers Forged to Fight)</title>
+    <script src="html2canvas.min.js" defer></script>
     <style>
         @font-face {
             font-family: 'TecnicaBold';
@@ -2662,6 +2663,29 @@
             border: 1px solid rgba(56, 189, 248, 0.4);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.15);
         }
+        .implemented-modal-content.is-exporting {
+            max-width: 860px !important;
+            width: 860px !important;
+            max-height: none !important;
+            height: auto !important;
+            overflow: visible !important;
+            box-shadow: none !important;
+            border: 1px solid rgba(56, 189, 248, 0.45) !important;
+            background: #0E131F !important;
+            border-radius: 12px !important;
+        }
+        .implemented-modal-content.is-exporting #implementedModalBody {
+            max-height: none !important;
+            height: auto !important;
+            overflow: visible !important;
+            padding: 20px 24px 30px 24px !important;
+        }
+        .implemented-modal-content.is-exporting .no-export {
+            display: none !important;
+        }
+        .implemented-modal-content.is-exporting .impl-export-watermark {
+            display: block !important;
+        }
         .impl-filter-bar {
             padding: 10px 24px;
             background: rgba(0, 0, 0, 0.25);
@@ -3385,28 +3409,36 @@
                             <span id="implModalPartialBadge" style="font-size: 11px; padding: 2px 8px; border-radius: 999px; background: rgba(245, 158, 11, 0.2); color: #FBBF24; font-weight: 600;">
                                 0 条部分实现
                             </span>
-                            <button id="btnRefreshImplemented" onclick="refreshImplementedFromCloud()" style="background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4); color: #7DD3FC; font-size: 11px; padding: 2px 8px; border-radius: 6px; cursor: pointer; transition: all 0.2s;" title="扫描云端全部角色档案，实时同步最新已实现状态">🔄 实时同步</button>
+                            <button id="btnRefreshImplemented" class="no-export" onclick="refreshImplementedFromCloud()" style="background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4); color: #7DD3FC; font-size: 11px; padding: 2px 8px; border-radius: 6px; cursor: pointer; transition: all 0.2s;" title="扫描云端全部角色档案，实时同步最新已实现状态">🔄 实时同步</button>
                         </div>
                         <div style="font-size: 11px; color: var(--text-sub); margin-top: 2px;">
                             实时列出拥有「已实现」和「部分实现」战技特性的机器人及其具体技能清单。点击角色可直接穿透至档案详情进行调试。
                         </div>
                     </div>
                 </div>
-                <button class="modal-close-btn" onclick="closeImplementedModal()">&times;</button>
+                <button class="modal-close-btn no-export" onclick="closeImplementedModal()">&times;</button>
             </div>
             
             <!-- Filter & Search Controls -->
-            <div class="impl-filter-bar">
+            <div class="impl-filter-bar no-export">
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <button class="filter-btn impl-status-filter active" id="btnImplStatus_all" onclick="filterImplementedStatus('all', this)">全部</button>
                     <button class="filter-btn impl-status-filter" id="btnImplStatus_implemented" onclick="filterImplementedStatus('implemented', this)">仅已实现</button>
                     <button class="filter-btn impl-status-filter" id="btnImplStatus_partial" onclick="filterImplementedStatus('partial', this)">仅部分实现</button>
                 </div>
-                <input type="text" id="implSearchInput" class="search-box" style="width: 240px; padding: 5px 12px; font-size: 12px;" placeholder="搜索机器人 / 战技名称..." oninput="handleImplementedSearch()">
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                    <input type="text" id="implSearchInput" class="search-box" style="width: 180px; padding: 5px 12px; font-size: 12px;" placeholder="搜索机器人 / 战技名称..." oninput="handleImplementedSearch()">
+                    <button id="btnCopyImplementedText" class="filter-btn" style="border-color: rgba(56, 189, 248, 0.4); color: #7DD3FC; display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; font-size: 12px; font-weight: 600; cursor: pointer;" onclick="copyImplementedSummaryText()" title="复制当前筛选出的战技清单为格式化纯文本"><span style="font-size: 13px;">📋</span>复制文本</button>
+                    <button id="btnExportImplementedImage" class="filter-btn" style="border-color: rgba(56, 189, 248, 0.4); color: #7DD3FC; display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; font-size: 12px; font-weight: 600; cursor: pointer;" onclick="exportImplementedImage()" title="导出完整高清长图 (PNG)"><span style="font-size: 13px;">🖼️</span>导出长图</button>
+                </div>
             </div>
 
             <div class="modal-body" style="padding: 20px 24px; max-height: calc(85vh - 150px); overflow-y: auto;" id="implementedModalBody">
                 <div style="text-align: center; padding: 30px; color: var(--text-sub);">正在加载已实现技能列表...</div>
+            </div>
+
+            <div class="impl-export-watermark" style="display: none; text-align: center; padding: 14px 20px 10px; font-size: 11px; color: #64748B; border-top: 1px solid rgba(255, 255, 255, 0.08); background: rgba(0,0,0,0.25);">
+                ⚡ Transformers: Forged to Fight Offline Project // 战技实现进度一览 · 导出时间：<span id="implExportTime"></span>
             </div>
         </div>
     </div>
@@ -4421,6 +4453,189 @@
             });
 
             body.innerHTML = html;
+        }
+
+        function loadHtml2CanvasIfNeeded() {
+            if (window.html2canvas) return Promise.resolve(true);
+            return new Promise(resolve => {
+                const s = document.createElement('script');
+                s.src = 'html2canvas.min.js';
+                s.onload = () => resolve(true);
+                s.onerror = () => {
+                    console.warn('Local html2canvas.min.js load failed, trying CDN...');
+                    const sCdn = document.createElement('script');
+                    sCdn.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+                    sCdn.onload = () => resolve(true);
+                    sCdn.onerror = () => resolve(false);
+                    document.head.appendChild(sCdn);
+                };
+                document.head.appendChild(s);
+            });
+        }
+
+        async function copyImplementedSummaryText() {
+            const body = document.getElementById('implementedModalBody');
+            const groups = body ? body.querySelectorAll('.impl-bot-group') : [];
+            if (!groups || groups.length === 0) {
+                showToast('当前列表暂无可复制的内容');
+                return;
+            }
+
+            const botCountText = document.getElementById('implModalBotBadge')?.innerText || '';
+            const implCountText = document.getElementById('implModalCountBadge')?.innerText || '';
+            const partCountText = document.getElementById('implModalPartialBadge')?.innerText || '';
+
+            let filterStatusName = '全部';
+            if (gImplActiveFilter === 'implemented') filterStatusName = '仅已实现';
+            else if (gImplActiveFilter === 'partial') filterStatusName = '仅部分实现';
+
+            let text = `【TFTF 战技实现进度汇总】\n`;
+            text += `统计: ${botCountText} · ${implCountText} · ${partCountText}\n`;
+            text += `当前筛选: ${filterStatusName}`;
+            if (gImplSearchQuery) text += ` (检索: "${gImplSearchQuery}")`;
+            const now = new Date();
+            const dateStr = `${now.getFullYear()}/${String(now.getMonth()+1).padStart(2,'0')}/${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+            text += `\n导出时间: ${dateStr}\n`;
+            text += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+
+            let totalAbilitiesCopied = 0;
+
+            groups.forEach((group, idx) => {
+                const nameZh = group.querySelector('.impl-bot-name-zh')?.innerText?.trim() || '';
+                const nameEn = group.querySelector('.impl-bot-name-en')?.innerText?.trim() || '';
+                const idTag = group.querySelector('.impl-bot-id-tag')?.innerText?.trim() || '';
+
+                text += `🤖 [${idx + 1}] ${nameZh} (${nameEn}) ${idTag}\n`;
+
+                const cards = group.querySelectorAll('.impl-ability-card');
+                cards.forEach(card => {
+                    totalAbilitiesCopied++;
+                    const status = card.querySelector('.impl-status-tag')?.innerText?.trim() || '';
+                    const cat = card.querySelector('.priority-cat-badge')?.innerText?.trim() || '';
+                    const titleElem = card.querySelector('span[style*="font-weight: 700"]');
+                    const title = titleElem ? titleElem.innerText.trim() : '';
+                    const titleEnElem = card.querySelector('span[style*="color: var(--text-sub)"]');
+                    const titleEn = titleEnElem ? titleEnElem.innerText.trim() : '';
+                    const descElem = card.querySelector('.impl-ability-desc');
+                    let desc = descElem ? descElem.innerText.trim().replace(/\s+/g, ' ') : '';
+
+                    text += `  • [${status}] [${cat}] ${title}${titleEn ? ' ' + titleEn : ''}\n`;
+                    if (desc) {
+                        text += `    描述: ${desc}\n`;
+                    }
+                });
+                text += '\n';
+            });
+
+            text += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+            text += `共计 ${groups.length} 位角色，${totalAbilitiesCopied} 条战技\n`;
+            text += `（导出自 TFTF 战技数据库）\n`;
+
+            let copied = false;
+            if (navigator.clipboard && window.isSecureContext) {
+                try {
+                    await navigator.clipboard.writeText(text);
+                    copied = true;
+                } catch (e) {
+                    console.warn('navigator.clipboard writeText error:', e);
+                }
+            }
+
+            if (!copied) {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                ta.style.top = '-9999px';
+                document.body.appendChild(ta);
+                ta.focus();
+                ta.select();
+                try {
+                    copied = document.execCommand('copy');
+                } catch (err) {
+                    console.error('execCommand copy error:', err);
+                }
+                ta.remove();
+            }
+
+            if (copied) {
+                showToast(`📋 已成功复制 ${groups.length} 位角色 (${totalAbilitiesCopied} 条战技) 到剪贴板！`);
+            } else {
+                showToast('复制失败，请检查浏览器剪贴板权限', 3000);
+            }
+        }
+
+        async function exportImplementedImage() {
+            const btn = document.getElementById('btnExportImplementedImage');
+            const origBtnHtml = btn ? btn.innerHTML : '';
+            if (btn) {
+                btn.innerHTML = '<span style="font-size:13px;">⏳</span>正在生成...';
+                btn.disabled = true;
+            }
+            showToast('⏳ 正在渲染高清长图，请稍候...');
+
+            try {
+                const loaded = await loadHtml2CanvasIfNeeded();
+                if (!loaded || !window.html2canvas) {
+                    showToast('未能加载长图渲染引擎，请刷新重试', 3500);
+                    return;
+                }
+
+                const modalOverlay = document.getElementById('implementedModal');
+                const modalContent = modalOverlay.querySelector('.implemented-modal-content');
+                const modalBody = document.getElementById('implementedModalBody');
+
+                const timeEl = document.getElementById('implExportTime');
+                if (timeEl) {
+                    const now = new Date();
+                    timeEl.innerText = `${now.getFullYear()}/${String(now.getMonth()+1).padStart(2,'0')}/${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+                }
+
+                modalBody.scrollTop = 0;
+                modalContent.classList.add('is-exporting');
+
+                // Wait for styles reflow
+                await new Promise(r => setTimeout(r, 150));
+
+                const canvas = await window.html2canvas(modalContent, {
+                    backgroundColor: '#0E131F',
+                    scale: 2,
+                    useCORS: true,
+                    logging: false
+                });
+
+                modalContent.classList.remove('is-exporting');
+
+                const dateStr = new Date().toISOString().slice(0, 10);
+                const fileName = `TFTF_已实现战技汇总_${dateStr}.png`;
+
+                canvas.toBlob(blob => {
+                    if (!blob) {
+                        showToast('长图渲染失败，请重试');
+                        return;
+                    }
+                    const blobUrl = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = blobUrl;
+                    link.download = fileName;
+                    document.body.appendChild(link);
+                    link.click();
+                    link.remove();
+                    setTimeout(() => URL.revokeObjectURL(blobUrl), 4000);
+                    showToast('🎉 高清长图已生成并开始下载！');
+                }, 'image/png');
+
+            } catch (err) {
+                console.error('Export image error:', err);
+                const modalContent = document.querySelector('.implemented-modal-content');
+                if (modalContent) modalContent.classList.remove('is-exporting');
+                showToast('长图生成失败: ' + (err.message || err), 4000);
+            } finally {
+                if (btn) {
+                    btn.innerHTML = origBtnHtml;
+                    btn.disabled = false;
+                }
+            }
         }
 
         // Initialize dashboard

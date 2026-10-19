@@ -6,24 +6,24 @@
   "class": "scou",
   "star_default": 5,
   "source": "Kabam",
-  "health_mult": 1.0,
-  "attack_mult": 1.0,
+  "health_mult": 1,
+  "attack_mult": 1,
   "crit_chance": null,
   "crit_damage": null,
   "crit_chance_ranged": null,
   "crit_chance_melee": null,
   "block_proficiency": 0.5,
-  "mana_gain_mult": 1.0,
+  "mana_gain_mult": 1,
   "origin": "Cinematic (Movie)",
   "desc_zh": "",
   "desc_en": "",
   "note": "真人电影3·月黑之时",
   "pua_faction_icon": "E135",
   "pua_class_icon": "",
-  "updated_at": "2026-10-15 02:19:06",
-  "hp": 40250,
-  "attack": 3040,
-  "rating": 7036,
+  "updated_at": "2026-10-03 14:30:50",
+  "hp": 26794,
+  "attack": 2698,
+  "rating": 9902,
   "sp1_name_zh": "惩罚",
   "sp1_name_en": "Punishment",
   "sp2_name_zh": "特殊技 2",
@@ -91,7 +91,7 @@
       "raw_data_json": "",
       "sort_order": 4,
       "synergy_bots": [],
-      "status": "priority"
+      "status": "implemented"
     },
     {
       "id": 2927,
@@ -215,6 +215,30 @@
         "megatron_gs_leader2015"
       ],
       "status": "unimplemented"
+    },
+    {
+      "id": 2935,
+      "bot_id": "barricade_cin_dotm",
+      "category": "passive",
+      "title_zh": "远程规避",
+      "title_en": "Ranged Evade",
+      "desc_zh": "被击倒时，有85%的概率获得3秒的远程规避，可规避基础近战和SP1/SP2中的远程攻击",
+      "desc_en": "",
+      "pua_icon": "0xe518",
+      "status": "implemented",
+      "sort_order": 17
+    },
+    {
+      "id": 2936,
+      "bot_id": "barricade_cin_dotm",
+      "category": "passive",
+      "title_zh": "暴击几率",
+      "title_en": "Crit Rate",
+      "desc_zh": "被击倒时，有40%的概率获得暴击几率增益，持续7.5秒",
+      "desc_en": "",
+      "pua_icon": "0xe40d",
+      "status": "implemented",
+      "sort_order": 14
     }
   ]
 }

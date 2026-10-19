@@ -22,8 +22,13 @@ from pathlib import Path
 
 UPSTASH_URL = "https://deciding-bulldog-136761.upstash.io"
 WRITE_TOKEN = "gQAAAAAAAhY5AAIgcDEyZGMwZDRhNzRlZGQ0MDI2YWM2YmI3ZDExNTc3ZjZmNA"
-CHAR_DIR = Path(r"d:\docforall\GitHub\kmcbest.github.io\tftfr\data\characters")
+candidate_dirs = [
+    Path(r"D:\#E\Personal\kmcbest.github.io\tftfr\data\characters"),
+    Path(r"D:\docforall\GitHub\kmcbest.github.io\tftfr\data\characters"),
+]
+CHAR_DIR = next((d for d in candidate_dirs if d.exists()), candidate_dirs[0])
 DB_PATH = Path(__file__).resolve().parent.parent / "Server" / "tftf_database.db"
+
 
 
 def fetch_bot_from_upstash(bot_id: str):

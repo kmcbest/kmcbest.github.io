@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TFTF 技能图标配色规范与调色板 (Icon Colors & PUA Palette)</title>
+    <style>
+        @font-face {
+            font-family: 'TecnicaBold';
+            src: url('./fonts/Tecnica_Bold_116.ttf'), url('./Tecnica_Bold_116.ttf') format('truetype');
+        }
+
+        :root {
+            --bg-main: #0B0E14;
+            --bg-card: #151A23;
+            --bg-card-hover: #1E2532;
+            --bg-darker: #080A0F;
+            --border-color: #262F40;
+            --border-highlight: #3B82F6;
+            --text-main: #F1F5F9;
+            --text-muted: #94A3B8;
+            --text-sub: #64748B;
+            --primary: #3B82F6;
+            --primary-glow: rgba(59, 130, 246, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.5;
+            padding-bottom: 80px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(180deg, #131822 0%, #0B0E14 100%);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 32px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-container {
+            max-width: 1500px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-title {
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #EC4899, #8B5CF6, #3B82F6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-badge {
+            background: rgba(139, 92, 246, 0.15);
+            color: #C084FC;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: #1E2532;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: #2D3748;
+            border-color: var(--primary);
+            color: #FFF;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+            border-color: #60A5FA;
+            color: #FFF;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 0 12px var(--primary-glow);
+        }
+
+        .btn-cloud-save {
+            background: linear-gradient(135deg, #10B981, #059669);
+            border-color: #34D399;
+            color: #FFF;
+            font-weight: 600;
+        }
+        .btn-cloud-save:hover {
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1500px;
+            margin: 24px auto;
+            padding: 0 32px;
+        }
+
+        /* Banner info */
+        .info-banner {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .info-banner-text h2 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #F8FAFC;
+        }
+
+        .info-banner-text p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .palette-stats {
+            display: flex;
+            gap: 16px;
+        }
+
+        .stat-pill {
+            background: var(--bg-darker);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-pill .num {
+            font-size: 18px;
+            font-weight: 700;
+            color: #60A5FA;
+        }
+        .stat-pill .label {
+            font-size: 11px;
+            color: var(--text-sub);
+        }
+
+        /* Color Grid */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(460px, 1fr));
+            gap: 24px;
+        }
+
+        .color-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .color-card:hover {
+            border-color: #475569;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+        }
+
+        .color-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .color-title-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .color-name-en {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 15px;
+            font-weight: 700;
+            color: #F8FAFC;
+            letter-spacing: 0.5px;
+        }
+
+        .color-name-zh {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .color-swatch-badge {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            flex-shrink: 0;
+            transition: transform 0.2s;
+        }
+        .color-swatch-badge:hover {
+            transform: scale(1.1);
+        }
+
+        .color-desc {
+            font-size: 13px;
+            color: #CBD5E1;
+            line-height: 1.5;
+            min-height: 38px;
+        }
+
+        /* Color Inputs Controls */
+        .color-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            background: var(--bg-darker);
+            padding: 14px;
+            border-radius: 10px;
+            border: 1px solid #1E2532;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .control-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .picker-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        input[type="color"] {
+            -webkit-appearance: none;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            cursor: pointer;
+            background: none;
+            padding: 0;
+        }
+        input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+        input[type="color"]::-webkit-color-swatch {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+        }
+
+        .hex-input {
+            background: #11151C;
+            border: 1px solid var(--border-color);
+            color: #F1F5F9;
+            font-family: monospace;
+            font-size: 13px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            width: 100%;
+            text-transform: uppercase;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .hex-input:focus {
+            border-color: var(--primary);
+        }
+
+        /* PUA Glyphs Row */
+        .glyphs-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .glyphs-section-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-sub);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .glyphs-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        /* In-game HUD Badge Simulator */
+        .pua-badge {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'TecnicaBold', sans-serif !important;
+            font-size: 26px;
+            color: #FFFFFF;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            user-select: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .pua-badge:hover {
+            transform: scale(1.15) translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+            z-index: 10;
+        }
+
+        .pua-badge-tooltip {
+            position: absolute;
+            bottom: -32px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            color: #FFF;
+            font-family: -apple-system, sans-serif;
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            z-index: 20;
+            border: 1px solid #334155;
+        }
+
+        .pua-badge:hover .pua-badge-tooltip {
+            opacity: 1;
+        }
+
+        /* Code export snippet */
+        .code-box {
+            background: #0D1117;
+            border: 1px solid #1E2532;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-family: monospace;
+            font-size: 12px;
+            color: #93C5FD;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .code-box:hover {
+            background: #161D29;
+        }
+
+        /* Comparison Table Section */
+        .comparison-section {
+            margin-top: 50px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px;
+        }
+
+        .comparison-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #F8FAFC;
+        }
+
+        .comparison-sub {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .comparison-table th {
+            background: var(--bg-darker);
+            color: var(--text-sub);
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #10B981;
+            color: #FFF;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            display: none;
+            z-index: 1000;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <div class="logo-group">
+            <span class="logo-title">🎨 TFTF 技能图标配色规范与调色板</span>
+            <span class="logo-badge">Standard Palette</span>
+        </div>
+        <div class="nav-links">
+            <a href="abcode.html" class="nav-btn">⚡ 技能代码字典</a>
+            <a href="bots.html" class="nav-btn">🤖 机器人图鉴</a>
+            <a href="pua_icons_viewer.html" class="nav-btn">🔍 523 PUA 字符全集</a>
+            <a href="api.html" class="nav-btn">📡 API 文档</a>
+            <a href="index.html" class="nav-btn">📖 构建指南</a>
+            <button class="nav-btn" onclick="syncFromUpstashCloud()">🔄 从云端拉取</button>
+            <button class="nav-btn btn-cloud-save" onclick="uploadToUpstashCloud()">☁️ 保存并同步至云端</button>
+        </div>
+    </div>
+</header>
+
+<div class="main-container">
+    <div class="info-banner">
+        <div class="info-banner-text">
+            <h2>游戏技能图标 8 大标准颜色分类体系</h2>
+            <p>
+                在《变形金刚：百炼为战》底层中，Buff 技能图标严格依照以下 8 种语义调色呈现。您可在此直接使用 Color Picker 挑选和微调主色与渐变底色，调整后点击上方「保存并同步至云端」，代码层将直接以统一的英文常量（如 <code>COLOR_RED</code>、<code>COLOR_BLUE</code>）引用，彻底告别零散 Hex 混乱！
+            </p>
+        </div>
+        <div class="palette-stats">
+            <div class="stat-pill">
+                <div class="num" id="statCategoriesCount">8</div>
+                <div class="label">标准分类</div>
+            </div>
+            <div class="stat-pill">
+                <div class="num" id="statIconsCount">34</div>
+                <div class="label">已收录 PUA 字符</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="color-grid" id="colorGrid">
+        <!-- Rendered by JS -->
+    </div>
+
+    <!-- Python Code Block -->
+    <div style="margin-top: 40px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; padding: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <div>
+                <h3 style="font-size: 16px; font-weight: 700; color: #F8FAFC;">🐍 Python abilities/core.py 标准常量配置输出</h3>
+                <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">由下方色板实时生成的统一英文颜色常量，点击一键复制至 Python 代码使用。</p>
+            </div>
+            <button class="nav-btn btn-primary" onclick="copyPythonCode()">📋 复制 Python 代码</button>
+        </div>
+        <pre id="pythonCodeOutput" style="background: #090D13; border: 1px solid #1E2532; border-radius: 8px; padding: 16px; font-family: monospace; font-size: 12px; color: #A78BFA; overflow-x: auto; line-height: 1.6;"></pre>
+    </div>
+
+    <!-- Existing Code Discrepancies Check -->
+    <div class="comparison-section">
+        <h3 class="comparison-title">🔍 现有代码实现色值走查与对照表</h3>
+        <p class="comparison-sub">对比当前已实现的 37 位机体代码与标准色库，方便统一纠正手选色值。</p>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>标准角色</th>
+                    <th>标准英文名</th>
+                    <th>当前代码实测 Hex</th>
+                    <th>标准主色/底色</th>
+                    <th>差异状态与调整建议</th>
+                </tr>
+            </thead>
+            <tbody id="discrepancyTbody">
+                <tr>
+                    <td>红色 (减益类)</td>
+                    <td><code>RED_DEBUFF</code></td>
+                    <td>流血/震击: <code>#FF0000</code> / 破甲: <code>#EF4444</code></td>
+                    <td><code>#EF4444</code> / <code>#B91C1C</code></td>
+                    <td><span class="status-dot" style="background: #F59E0B;"></span>部分使用了纯红 #FF0000，建议统一为游戏原生质感的 #EF4444</td>
+                </tr>
+                <tr>
+                    <td>橙色 (伤害增益)</td>
+                    <td><code>ORANGE_DAMAGE</code></td>
+                    <td>大黄蜂/通用: <code>#F59E0B</code> / 警车: <code>#FF8800</code></td>
+                    <td><code>#FF8800</code> / <code>#DD6600</code></td>
+                    <td><span class="status-dot" style="background: #F59E0B;"></span>警车使用纯橙，通用使用琥珀黄，可依据上方选色器统一</td>
+                </tr>
+                <tr>
+                    <td>黄色 (状态/控制)</td>
+                    <td><code>YELLOW_STATUS</code></td>
+                    <td>不可阻挡: <code>#FFAA00</code> / 眩晕: <code>#FFE000</code></td>
+                    <td><code>#FFE000</code> / <code>#FFAA00</code></td>
+                    <td><span class="status-dot" style="background: #10B981;"></span>对齐正常：高亮亮黄配金黄底色</td>
+                </tr>
+                <tr>
+                    <td>蓝色 (防御增益)</td>
+                    <td><code>BLUE_DEFENSE</code></td>
+                    <td>铁皮护甲: <code>#29EBF4</code> / 驱散: <code>#38BDF8</code></td>
+                    <td><code>#29EBF4</code> / <code>#00C5E8</code></td>
+                    <td><span class="status-dot" style="background: #10B981;"></span>青蓝与天蓝质感均符合官方质感</td>
+                </tr>
+                <tr>
+                    <td>绿色 (生命与规避)</td>
+                    <td><code>GREEN_HEALTH</code></td>
+                    <td>规避/急救: <code>#10B981</code> / <code>#059669</code></td>
+                    <td><code>#10B981</code> / <code>#059669</code></td>
+                    <td><span class="status-dot" style="background: #10B981;"></span>完全统一，官方翡翠绿</td>
+                </tr>
+                <tr>
+                    <td>浅紫 (能量增益)</td>
+                    <td><code>LIGHT_PURPLE_POWER</code></td>
+                    <td>天火能量充能: <code>#A855F7</code> / <code>#7E22CE</code></td>
+                    <td><code>#A855F7</code> / <code>#7E22CE</code></td>
+                    <td><span class="status-dot" style="background: #10B981;"></span>完全统一，能量紫</td>
+                </tr>
+                <tr>
+                    <td>深紫 (宇宙大帝邪恶)</td>
+                    <td><code>DARK_PURPLE_SPECIAL</code></td>
+                    <td>暗天陨: <code>#D204F6</code> / 威震天: <code>#8B5CF6</code></td>
+                    <td><code>#D204F6</code> / <code>#9333EA</code></td>
+                    <td><span class="status-dot" style="background: #10B981;"></span>暗黑领袖专属暗能量紫，高辨识度</td>
+                </tr>
+                <tr>
+                    <td>灰色 (倒计时过渡)</td>
+                    <td><code>GRAY_COOLDOWN</code></td>
+                    <td>野牛蓄力/警车后闪: <code>#CBD5E1</code> / <code>#94A3B8</code></td>
+                    <td><code>#CBD5E1</code> / <code>#94A3B8</code></td>
+                    <td><span class="status-dot" style="background: #10B981;"></span>银灰/板岩灰倒计时，完全统一</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+    const UPSTASH = {
+        url: "https://deciding-bulldog-136761.upstash.io",
+        token: "gQAAAAAAAhY5AAIgcDEyZGMwZDRhNzRlZGQ0MDI2YWM2YmI3ZDExNTc3ZjZmNA",
+        readToken: "ggAAAAAAAhY5AAIgcDG7a511dMnvUap5JjML7kdCMH0hQAG95-3BtwD6YEaFeQ"
+    };
+
+    const LOCAL_DATA = {
+        "version": "1.0.0",
+        "updated_at": "2026-10-23 11:00:00",
+        "categories": [
+            {
+                "id": "RED_DEBUFF",
+                "name_en": "RED_DEBUFF",
+                "name_zh": "红色图标 (减益类)",
+                "meaning": "一般表示减益，如流血、震击、破甲、焚烧、能量流失、攻击削弱",
+                "top": "EF4444",
+                "bottom": "B91C1C",
+                "default_top": "EF4444",
+                "default_bottom": "B91C1C",
+                "pua_icons": [
+                    {"code": "E516", "char": "\uE516", "name": "破甲 (Armor Break)"},
+                    {"code": "E914", "char": "\uE914", "name": "震击 (Shock)"},
+                    {"code": "E607", "char": "\uE607", "name": "流血/能量流失 (Bleed/Power Leak)"},
+                    {"code": "E916", "char": "\uE916", "name": "攻击削弱 (Weakness/Atk Debuff)"},
+                    {"code": "E523", "char": "\uE523", "name": "能量锁定 (Power Lock)"},
+                    {"code": "E605", "char": "\uE605", "name": "重伤/受创"},
+                    {"code": "E950", "char": "\uE950", "name": "增益驱散 (Dispel)"}
+                ]
+            },
+            {
+                "id": "ORANGE_DAMAGE",
+                "name_en": "ORANGE_DAMAGE",
+                "name_zh": "橙色图标 (伤害类增益)",
+                "meaning": "一般表示伤害类增益，如近战加成、特殊技伤害、狂怒、远程增益、暴击强化",
+                "top": "FF8800",
+                "bottom": "DD6600",
+                "default_top": "FF8800",
+                "default_bottom": "DD6600",
+                "pua_icons": [
+                    {"code": "E406", "char": "\uE406", "name": "近战加成/攻击增益 (Melee/Atk Boost)"},
+                    {"code": "E41B", "char": "\uE41B", "name": "远程增益 (Ranged Boost)"},
+                    {"code": "E41F", "char": "\uE41F", "name": "绝对破防/特技增伤 (Unblockable/SP Boost)"},
+                    {"code": "E401", "char": "\uE401", "name": "近战突刺/利刃强化"},
+                    {"code": "E405", "char": "\uE405", "name": "怒气爆发 (Fury)"}
+                ]
+            },
+            {
+                "id": "YELLOW_STATUS",
+                "name_en": "YELLOW_STATUS",
+                "name_zh": "黄色图标 (状态/控制类)",
+                "meaning": "用得不多，不可阻挡的状态是黄色，眩晕/失控等控制状态",
+                "top": "FFE000",
+                "bottom": "FFAA00",
+                "default_top": "FFE000",
+                "default_bottom": "FFAA00",
+                "pua_icons": [
+                    {"code": "E915", "char": "\uE915", "name": "不可阻挡 (Unstoppable)"},
+                    {"code": "E605", "char": "\uE605", "name": "眩晕 (Stun)"},
+                    {"code": "E503", "char": "\uE503", "name": "控制抗性/免控"}
+                ]
+            },
+            {
+                "id": "BLUE_DEFENSE",
+                "name_en": "BLUE_DEFENSE",
+                "name_zh": "蓝色图标 (防御类增益)",
+                "meaning": "一般表示防御类增益，如护甲提升、力场护盾、伤害抗性",
+                "top": "29EBF4",
+                "bottom": "00C5E8",
+                "default_top": "29EBF4",
+                "default_bottom": "00C5E8",
+                "pua_icons": [
+                    {"code": "E409", "char": "\uE409", "name": "护甲增益 (Armor Up)"},
+                    {"code": "E516", "char": "\uE516", "name": "坚守护盾 (Shield/Barrier)"},
+                    {"code": "E408", "char": "\uE408", "name": "物理抗性 (Physical Resist)"},
+                    {"code": "E413", "char": "\uE413", "name": "能量抗性 (Energy Resist)"}
+                ]
+            },
+            {
+                "id": "GREEN_HEALTH",
+                "name_en": "GREEN_HEALTH",
+                "name_zh": "绿色图标 (生命类与规避)",
+                "meaning": "一般表示生命类增益，如修复、急救、近战规避、远程规避",
+                "top": "10B981",
+                "bottom": "059669",
+                "default_top": "10B981",
+                "default_bottom": "059669",
+                "pua_icons": [
+                    {"code": "E509", "char": "\uE509", "name": "近战规避 (Melee Evade)"},
+                    {"code": "E518", "char": "\uE518", "name": "远程规避 (Ranged Evade)"},
+                    {"code": "E40A", "char": "\uE40A", "name": "生命修复/急救 (Repair/Heal)"},
+                    {"code": "E503", "char": "\uE503", "name": "生命汲取/吸血 (Lifesteal)"}
+                ]
+            },
+            {
+                "id": "LIGHT_PURPLE_POWER",
+                "name_en": "LIGHT_PURPLE_POWER",
+                "name_zh": "浅紫色图标 (能量类增益)",
+                "meaning": "一般表示能量类增益，如能量获取、能量功率提升、能量充满",
+                "top": "A855F7",
+                "bottom": "7E22CE",
+                "default_top": "A855F7",
+                "default_bottom": "7E22CE",
+                "pua_icons": [
+                    {"code": "E914", "char": "\uE914", "name": "能量充能/能量功率 (Power Rate)"},
+                    {"code": "E412", "char": "\uE412", "name": "能量脉冲 (Power Gain)"},
+                    {"code": "E608", "char": "\uE608", "name": "能量涌动/过载"}
+                ]
+            },
+            {
+                "id": "DARK_PURPLE_SPECIAL",
+                "name_en": "DARK_PURPLE_SPECIAL",
+                "name_zh": "深紫色图标 (宇宙大帝/邪恶专属)",
+                "meaning": "用于几个宇宙大帝邪恶角色的特别图标，如暗天陨的黑暗能量充能，威震天的融合炮",
+                "top": "D204F6",
+                "bottom": "9333EA",
+                "default_top": "D204F6",
+                "default_bottom": "9333EA",
+                "pua_icons": [
+                    {"code": "E407", "char": "\uE407", "name": "暗能核心/充能倒计时 (Dark Core CD)"},
+                    {"code": "E90A", "char": "\uE90A", "name": "黑暗能量层数 (Dark Energy Stack)"},
+                    {"code": "E910", "char": "\uE910", "name": "融合炮就绪/层数 (Fusion Cannon Stack)"}
+                ]
+            },
+            {
+                "id": "GRAY_COOLDOWN",
+                "name_en": "GRAY_COOLDOWN",
+                "name_zh": "灰色图标 (倒计时与过渡状态)",
+                "meaning": "一般表示倒计时和过渡状态，如蓄力等待、模式切换冷却、未激活的预热状态",
+                "top": "CBD5E1",
+                "bottom": "94A3B8",
+                "default_top": "CBD5E1",
+                "default_bottom": "94A3B8",
+                "pua_icons": [
+                    {"code": "E910", "char": "\uE910", "name": "融合炮6秒灰色倒计时"},
+                    {"code": "E915", "char": "\uE915", "name": "不可阻挡1.5秒防御蓄力"},
+                    {"code": "E509", "char": "\uE509", "name": "近战校准1.5秒切换倒计时"},
+                    {"code": "E518", "char": "\uE518", "name": "远程校准1.5秒切换倒计时"},
+                    {"code": "E406", "char": "\uE406", "name": "后闪充能灰色预热"}
+                ]
+            }
+        ]
+    };
+
+    let ACTIVE_PALETTE = JSON.parse(JSON.stringify(LOCAL_DATA));
+
+    function init() {
+        renderCards();
+        updatePythonCodeOutput();
+        syncFromUpstashCloud(true);
+    }
+
+    function renderCards() {
+        const grid = document.getElementById('colorGrid');
+        grid.innerHTML = '';
+
+        let totalIcons = 0;
+
+        ACTIVE_PALETTE.categories.forEach((cat, index) => {
+            totalIcons += (cat.pua_icons ? cat.pua_icons.length : 0);
+
+            const card = document.createElement('div');
+            card.className = 'color-card';
+            card.id = `card_${cat.id}`;
+
+            const topHex = cat.top.replace('#', '').toUpperCase();
+            const bottomHex = cat.bottom.replace('#', '').toUpperCase();
+
+            // PUA glyphs list
+            const iconsHtml = (cat.pua_icons || []).map(icon => `
+                <div class="pua-badge" style="background: linear-gradient(135deg, #${topHex}, #${bottomHex});" onclick="copyChar('${icon.code}', '${icon.name}')">
+                    ${icon.char}
+                    <div class="pua-badge-tooltip">${icon.name} (0x${icon.code})</div>
+                </div>
+            `).join('');
+
+            card.innerHTML = `
+                <div class="color-card-header">
+                    <div class="color-title-group">
+                        <span class="color-name-en">${cat.name_en}</span>
+                        <span class="color-name-zh">${cat.name_zh}</span>
+                    </div>
+                    <div class="color-swatch-badge" id="swatch_${cat.id}" style="background: linear-gradient(135deg, #${topHex}, #${bottomHex});"></div>
+                </div>
+
+                <div class="color-desc">${cat.meaning}</div>
+
+                <div class="color-controls">
+                    <div class="control-group">
+                        <div class="control-label">
+                            <span>顶部主色 (Top/tc)</span>
+                            <span style="font-family: monospace;">#${topHex}</span>
+                        </div>
+                        <div class="picker-row">
+                            <input type="color" id="picker_top_${cat.id}" value="#${topHex}" oninput="handleColorChange('${cat.id}', 'top', this.value)">
+                            <input type="text" class="hex-input" id="hex_top_${cat.id}" value="${topHex}" maxlength="6" oninput="handleHexInput('${cat.id}', 'top', this.value)">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="control-label">
+                            <span>底部渐变 (Bottom/gb)</span>
+                            <span style="font-family: monospace;">#${bottomHex}</span>
+                        </div>
+                        <div class="picker-row">
+                            <input type="color" id="picker_bottom_${cat.id}" value="#${bottomHex}" oninput="handleColorChange('${cat.id}', 'bottom', this.value)">
+                            <input type="text" class="hex-input" id="hex_bottom_${cat.id}" value="${bottomHex}" maxlength="6" oninput="handleHexInput('${cat.id}', 'bottom', this.value)">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glyphs-section">
+                    <div class="glyphs-section-title">
+                        <span>关联 PUA 战斗 HUD 徽章实时预览 (点击复制十六进制)</span>
+                        <button class="nav-btn" style="padding: 2px 8px; font-size: 11px;" onclick="resetCategory('${cat.id}')">恢复默认</button>
+                    </div>
+                    <div class="glyphs-container" id="glyphs_${cat.id}">
+                        ${iconsHtml}
+                    </div>
+                </div>
+
+                <div class="code-box" onclick="copySnippet('${cat.id}')" title="点击复制该颜色的 Python 引用字典">
+                    <span>${cat.name_en} = {"tc": "${topHex}", "gt": "${topHex}", "gb": "${bottomHex}"}</span>
+                    <span style="color: #60A5FA; font-size: 11px;">📋 复制</span>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+        document.getElementById('statIconsCount').textContent = totalIcons;
+    }
+
+    function handleColorChange(id, part, val) {
+        const hex = val.replace('#', '').toUpperCase();
+        const cat = ACTIVE_PALETTE.categories.find(c => c.id === id);
+        if (!cat) return;
+
+        cat[part] = hex;
+        const hexInput = document.getElementById(`hex_${part}_${id}`);
+        if (hexInput) hexInput.value = hex;
+
+        updateCardPreview(id);
+        updatePythonCodeOutput();
+    }
+
+    function handleHexInput(id, part, val) {
+        val = val.replace('#', '').toUpperCase();
+        if (/^[0-9A-F]{6}$/i.test(val)) {
+            const cat = ACTIVE_PALETTE.categories.find(c => c.id === id);
+            if (!cat) return;
+
+            cat[part] = val;
+            const picker = document.getElementById(`picker_${part}_${id}`);
+            if (picker) picker.value = '#' + val;
+
+            updateCardPreview(id);
+            updatePythonCodeOutput();
+        }
+    }
+
+    function updateCardPreview(id) {
+        const cat = ACTIVE_PALETTE.categories.find(c => c.id === id);
+        if (!cat) return;
+
+        const topHex = cat.top.replace('#', '').toUpperCase();
+        const bottomHex = cat.bottom.replace('#', '').toUpperCase();
+        const gradientStr = `linear-gradient(135deg, #${topHex}, #${bottomHex})`;
+
+        const swatch = document.getElementById(`swatch_${id}`);
+        if (swatch) swatch.style.background = gradientStr;
+
+        const glyphs = document.getElementById(`glyphs_${id}`);
+        if (glyphs) {
+            const badges = glyphs.querySelectorAll('.pua-badge');
+            badges.forEach(b => {
+                b.style.background = gradientStr;
+            });
+        }
+
+        const card = document.getElementById(`card_${id}`);
+        if (card) {
+            const codeBox = card.querySelector('.code-box span');
+            if (codeBox) {
+                codeBox.textContent = `${cat.name_en} = {"tc": "${topHex}", "gt": "${topHex}", "gb": "${bottomHex}"}`;
+            }
+        }
+    }
+
+    function resetCategory(id) {
+        const cat = ACTIVE_PALETTE.categories.find(c => c.id === id);
+        if (!cat) return;
+        cat.top = cat.default_top;
+        cat.bottom = cat.default_bottom;
+
+        const pickerTop = document.getElementById(`picker_top_${id}`);
+        const hexTop = document.getElementById(`hex_top_${id}`);
+        const pickerBottom = document.getElementById(`picker_bottom_${id}`);
+        const hexBottom = document.getElementById(`hex_bottom_${id}`);
+
+        if (pickerTop) pickerTop.value = '#' + cat.top;
+        if (hexTop) hexTop.value = cat.top;
+        if (pickerBottom) pickerBottom.value = '#' + cat.bottom;
+        if (hexBottom) hexBottom.value = cat.bottom;
+
+        updateCardPreview(id);
+        updatePythonCodeOutput();
+        showToast(`已恢复 ${cat.name_en} 为默认基准色`);
+    }
+
+    function updatePythonCodeOutput() {
+        let lines = [
+            "# ===========================================================================",
+            "# TFTF Standard Ability Icon Color Palette (官方战斗 HUD 标准调色板)",
+            "# ===========================================================================",
+            "class AbilityColor:",
+        ];
+
+        ACTIVE_PALETTE.categories.forEach(cat => {
+            const top = cat.top.replace('#', '').toUpperCase();
+            const btm = cat.bottom.replace('#', '').toUpperCase();
+            lines.push(`    # ${cat.name_zh}: ${cat.meaning}`);
+            lines.push(`    ${cat.name_en} = {"tc": "${top}", "gt": "${top}", "gb": "${btm}"}`);
+            lines.push(`    ${cat.name_en}_TC = "${top}"`);
+            lines.push(`    ${cat.name_en}_GB = "${btm}"\n`);
+        });
+
+        document.getElementById('pythonCodeOutput').textContent = lines.join('\n');
+    }
+
+    function copySnippet(id) {
+        const cat = ACTIVE_PALETTE.categories.find(c => c.id === id);
+        if (!cat) return;
+        const top = cat.top.replace('#', '').toUpperCase();
+        const btm = cat.bottom.replace('#', '').toUpperCase();
+        const text = `{"tc": "${top}", "gt": "${top}", "gb": "${btm}"}`;
+        navigator.clipboard.writeText(text).then(() => showToast(`已复制 ${cat.name_en}: ${text}`));
+    }
+
+    function copyChar(code, name) {
+        const text = `\\u${code}`;
+        navigator.clipboard.writeText(text).then(() => showToast(`已复制图标字符 ${name}: ${text}`));
+    }
+
+    function copyPythonCode() {
+        const code = document.getElementById('pythonCodeOutput').textContent;
+        navigator.clipboard.writeText(code).then(() => showToast('已成功复制完整 Python 颜色定义！'));
+    }
+
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.style.display = 'block';
+        setTimeout(() => { t.style.display = 'none'; }, 2500);
+    }
+
+    // Upstash Sync
+    async function syncFromUpstashCloud(silent = false) {
+        try {
+            const resp = await fetch(`${UPSTASH.url}/get/tftf:color_palette`, {
+                headers: { "Authorization": `Bearer ${UPSTASH.readToken || UPSTASH.token}` }
+            });
+            const data = await resp.json();
+            if (data && data.result) {
+                const cloudData = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
+                if (cloudData && cloudData.categories && cloudData.categories.length > 0) {
+                    ACTIVE_PALETTE = cloudData;
+                    renderCards();
+                    updatePythonCodeOutput();
+                    if (!silent) showToast('已成功从 Upstash 云端同步最新调色板！');
+                }
+            }
+        } catch(e) {
+            if (!silent) alert('从云端同步失败: ' + e);
+        }
+    }
+
+    async function uploadToUpstashCloud() {
+        if (!confirm('确定将当前选中的色板配置保存并同步至 Upstash 云端吗？')) return;
+        try {
+            ACTIVE_PALETTE.updated_at = new Date().toISOString();
+            const resp = await fetch(`${UPSTASH.url}/set/tftf:color_palette`, {
+                method: 'POST',
+                headers: {
+                    "Authorization": `Bearer ${UPSTASH.token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(ACTIVE_PALETTE)
+            });
+            const res = await resp.json();
+            if (res && res.result === 'OK') {
+                showToast('已成功推送色板配置至 Upstash 云端！');
+            } else {
+                alert('上传响应: ' + JSON.stringify(res));
+            }
+        } catch(e) {
+            alert('上传云端失败: ' + e);
+        }
+    }
+
+    window.onload = init;
+</script>
+
+</body>
+</html>

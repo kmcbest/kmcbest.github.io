@@ -138,59 +138,74 @@
             padding: 0 32px;
         }
 
-        /* Banner info */
-        .info-banner {
-            background: rgba(30, 41, 59, 0.6);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px 24px;
+        /* HUD Live Compare Hero Banner */
+        .hud-hero-banner {
+            background: linear-gradient(180deg, rgba(20, 30, 48, 0.85) 0%, rgba(10, 16, 28, 0.95) 100%);
+            border: 1px solid #2A364F;
+            border-radius: 14px;
+            padding: 20px 28px;
             margin-bottom: 28px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            gap: 24px;
             flex-wrap: wrap;
-            gap: 16px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 24px 24px;
         }
 
-        .info-banner-text h2 {
-            font-size: 16px;
+        .hud-hero-info {
+            max-width: 720px;
+        }
+
+        .hud-hero-info h2 {
+            font-size: 17px;
             font-weight: 700;
-            margin-bottom: 6px;
             color: #F8FAFC;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
         }
 
-        .info-banner-text p {
+        .hud-hero-info p {
             font-size: 13px;
             color: var(--text-muted);
             line-height: 1.6;
         }
 
-        .palette-stats {
+        /* Combat HUD Simulation Container */
+        .hud-preview-stage {
             display: flex;
-            gap: 16px;
+            align-items: center;
+            gap: 24px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 16px 28px;
+            border-radius: 12px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
         }
 
-        .stat-pill {
-            background: var(--bg-darker);
-            border: 1px solid var(--border-color);
-            padding: 8px 16px;
-            border-radius: 8px;
-            text-align: center;
+        .hud-preview-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
         }
-        .stat-pill .num {
-            font-size: 18px;
-            font-weight: 700;
-            color: #60A5FA;
-        }
-        .stat-pill .label {
+
+        .hud-preview-label {
             font-size: 11px;
             color: var(--text-sub);
+            font-weight: 600;
         }
 
         /* Color Grid */
         .color-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(460px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(470px, 1fr));
             gap: 24px;
         }
 
@@ -204,7 +219,6 @@
             gap: 18px;
             transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
             position: relative;
-            overflow: hidden;
         }
 
         .color-card:hover {
@@ -239,19 +253,6 @@
         .color-name-zh {
             font-size: 13px;
             color: var(--text-muted);
-        }
-
-        .color-swatch-badge {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            flex-shrink: 0;
-            transition: transform 0.2s;
-        }
-        .color-swatch-badge:hover {
-            transform: scale(1.1);
         }
 
         .color-desc {
@@ -334,7 +335,7 @@
         .glyphs-section {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         .glyphs-section-title {
@@ -349,35 +350,87 @@
         .glyphs-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 14px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #1E2532;
+            padding: 16px;
+            border-radius: 12px;
+            align-items: center;
         }
 
-        /* In-game HUD Badge Simulator */
-        .pua-badge {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
+        /* ==========================================================================
+           True In-Game HUD Buff Widget Simulation
+           ========================================================================== */
+        .hud-buff-widget {
+            position: relative;
+            width: 52px;
+            height: 52px;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-family: 'TecnicaBold', sans-serif !important;
-            font-size: 26px;
-            color: #FFFFFF;
             cursor: pointer;
-            transition: all 0.2s ease;
-            position: relative;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
             user-select: none;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            border: 2px solid rgba(255, 255, 255, 0.4);
+            flex-shrink: 0;
         }
 
-        .pua-badge:hover {
-            transform: scale(1.15) translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+        .hud-buff-widget:hover {
+            transform: scale(1.18);
             z-index: 10;
         }
 
-        .pua-badge-tooltip {
+        /* The SVG Ring Container */
+        .hud-svg-ring {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg); /* Start from top 12 o'clock */
+            pointer-events: none;
+        }
+
+        .hud-svg-circle {
+            fill: rgba(0, 0, 0, 0.55);
+            stroke-width: 3;
+            stroke-linecap: round;
+            transition: stroke 0.2s ease, filter 0.2s ease;
+        }
+
+        /* Inner PUA Glyph */
+        .hud-glyph-text {
+            font-family: 'TecnicaBold', sans-serif !important;
+            font-size: 26px;
+            line-height: 1;
+            z-index: 2;
+            transition: color 0.2s ease, text-shadow 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Stack Number Badge */
+        .hud-stack-number {
+            position: absolute;
+            bottom: -3px;
+            right: -2px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-weight: 800;
+            font-size: 13px;
+            color: #FFFFFF;
+            line-height: 1;
+            z-index: 5;
+            text-shadow: 
+                1px 1px 0 #000, 
+                -1px -1px 0 #000, 
+                1px -1px 0 #000, 
+                -1px 1px 0 #000,
+                0 0 4px #000,
+                0 2px 4px rgba(0, 0, 0, 0.9);
+            pointer-events: none;
+        }
+
+        .hud-tooltip {
             position: absolute;
             bottom: -32px;
             left: 50%;
@@ -394,9 +447,10 @@
             transition: opacity 0.2s;
             z-index: 20;
             border: 1px solid #334155;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.8);
         }
 
-        .pua-badge:hover .pua-badge-tooltip {
+        .hud-buff-widget:hover .hud-tooltip {
             opacity: 1;
         }
 
@@ -417,60 +471,6 @@
         }
         .code-box:hover {
             background: #161D29;
-        }
-
-        /* Comparison Table Section */
-        .comparison-section {
-            margin-top: 50px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 24px;
-        }
-
-        .comparison-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: #F8FAFC;
-        }
-
-        .comparison-sub {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-        }
-
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-        }
-
-        .comparison-table th, .comparison-table td {
-            padding: 12px 16px;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .comparison-table th {
-            background: var(--bg-darker);
-            color: var(--text-sub);
-            font-weight: 600;
-            font-size: 11px;
-            text-transform: uppercase;
-        }
-
-        .comparison-table tr:hover {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 6px;
         }
 
         /* Toast notification */
@@ -502,14 +502,13 @@
     <div class="header-container">
         <div class="logo-group">
             <span class="logo-title">🎨 TFTF 技能图标配色规范与调色板</span>
-            <span class="logo-badge">Standard Palette</span>
+            <span class="logo-badge">Official HUD Standard</span>
         </div>
         <div class="nav-links">
             <a href="abcode.html" class="nav-btn">⚡ 技能代码字典</a>
             <a href="bots.html" class="nav-btn">🤖 机器人图鉴</a>
             <a href="pua_icons_viewer.html" class="nav-btn">🔍 523 PUA 字符全集</a>
             <a href="api.html" class="nav-btn">📡 API 文档</a>
-            <a href="index.html" class="nav-btn">📖 构建指南</a>
             <button class="nav-btn" onclick="syncFromUpstashCloud()">🔄 从云端拉取</button>
             <button class="nav-btn btn-cloud-save" onclick="uploadToUpstashCloud()">☁️ 保存并同步至云端</button>
         </div>
@@ -517,21 +516,35 @@
 </header>
 
 <div class="main-container">
-    <div class="info-banner">
-        <div class="info-banner-text">
-            <h2>游戏技能图标 8 大标准颜色分类体系</h2>
+
+    <!-- Official In-game Battle HUD Live Compare Hero Banner -->
+    <div class="hud-hero-banner">
+        <div class="hud-hero-info">
+            <h2>⚔️ 官方战斗 HUD 渲染标准验证</h2>
             <p>
-                在《变形金刚：百炼为战》底层中，Buff 技能图标严格依照以下 8 种语义调色呈现。您可在此直接使用 Color Picker 挑选和微调主色与渐变底色，调整后点击上方「保存并同步至云端」，代码层将直接以统一的英文常量（如 <code>COLOR_RED</code>、<code>COLOR_BLUE</code>）引用，彻底告别零散 Hex 混乱！
+                根据客户端底层 <code>HudBuffWidget.cs</code> 原理：外圈圆环（<code>_meterFill</code>）与内部 PUA 矢量字符（<code>_buffIcon</code>）均统一绑定 <code>appearance.CalloutTextColor</code>。底图为战斗画面透视背景，倒计时具有圆环进度缺口，堆叠层数在右下角以描边白字显示。
             </p>
         </div>
-        <div class="palette-stats">
-            <div class="stat-pill">
-                <div class="num" id="statCategoriesCount">8</div>
-                <div class="label">标准分类</div>
+        <div class="hud-preview-stage">
+            <div class="hud-preview-item">
+                <div class="hud-buff-widget" id="demoTimerWidget" title="倒计时图标 (带圆环缺口进度)">
+                    <svg class="hud-svg-ring" viewBox="0 0 52 52">
+                        <circle class="hud-svg-circle" id="demoTimerCircle" cx="26" cy="26" r="23" stroke="#D204F6" stroke-dasharray="115 150"></circle>
+                    </svg>
+                    <span class="hud-glyph-text" id="demoTimerGlyph" style="color: #D204F6;">&#xE407;</span>
+                </div>
+                <span class="hud-preview-label">倒计时状态 (Timer)</span>
             </div>
-            <div class="stat-pill">
-                <div class="num" id="statIconsCount">34</div>
-                <div class="label">已收录 PUA 字符</div>
+
+            <div class="hud-preview-item">
+                <div class="hud-buff-widget" id="demoStackWidget" title="常驻层数图标 (完整闭环带数字)">
+                    <svg class="hud-svg-ring" viewBox="0 0 52 52">
+                        <circle class="hud-svg-circle" id="demoStackCircle" cx="26" cy="26" r="23" stroke="#D204F6" stroke-dasharray="none"></circle>
+                    </svg>
+                    <span class="hud-glyph-text" id="demoStackGlyph" style="color: #D204F6;">&#xE90A;</span>
+                    <span class="hud-stack-number">4</span>
+                </div>
+                <span class="hud-preview-label">堆叠层数 (4层)</span>
             </div>
         </div>
     </div>
@@ -546,87 +559,13 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
             <div>
                 <h3 style="font-size: 16px; font-weight: 700; color: #F8FAFC;">🐍 Python abilities/core.py 标准常量配置输出</h3>
-                <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">由下方色板实时生成的统一英文颜色常量，点击一键复制至 Python 代码使用。</p>
+                <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">由下方色板实时生成的统一英文颜色常量，在代码中直接写英文名，避免手写 Hex。</p>
             </div>
             <button class="nav-btn btn-primary" onclick="copyPythonCode()">📋 复制 Python 代码</button>
         </div>
         <pre id="pythonCodeOutput" style="background: #090D13; border: 1px solid #1E2532; border-radius: 8px; padding: 16px; font-family: monospace; font-size: 12px; color: #A78BFA; overflow-x: auto; line-height: 1.6;"></pre>
     </div>
 
-    <!-- Existing Code Discrepancies Check -->
-    <div class="comparison-section">
-        <h3 class="comparison-title">🔍 现有代码实现色值走查与对照表</h3>
-        <p class="comparison-sub">对比当前已实现的 37 位机体代码与标准色库，方便统一纠正手选色值。</p>
-        <table class="comparison-table">
-            <thead>
-                <tr>
-                    <th>标准角色</th>
-                    <th>标准英文名</th>
-                    <th>当前代码实测 Hex</th>
-                    <th>标准主色/底色</th>
-                    <th>差异状态与调整建议</th>
-                </tr>
-            </thead>
-            <tbody id="discrepancyTbody">
-                <tr>
-                    <td>红色 (减益类)</td>
-                    <td><code>RED_DEBUFF</code></td>
-                    <td>流血/震击: <code>#FF0000</code> / 破甲: <code>#EF4444</code></td>
-                    <td><code>#EF4444</code> / <code>#B91C1C</code></td>
-                    <td><span class="status-dot" style="background: #F59E0B;"></span>部分使用了纯红 #FF0000，建议统一为游戏原生质感的 #EF4444</td>
-                </tr>
-                <tr>
-                    <td>橙色 (伤害增益)</td>
-                    <td><code>ORANGE_DAMAGE</code></td>
-                    <td>大黄蜂/通用: <code>#F59E0B</code> / 警车: <code>#FF8800</code></td>
-                    <td><code>#FF8800</code> / <code>#DD6600</code></td>
-                    <td><span class="status-dot" style="background: #F59E0B;"></span>警车使用纯橙，通用使用琥珀黄，可依据上方选色器统一</td>
-                </tr>
-                <tr>
-                    <td>黄色 (状态/控制)</td>
-                    <td><code>YELLOW_STATUS</code></td>
-                    <td>不可阻挡: <code>#FFAA00</code> / 眩晕: <code>#FFE000</code></td>
-                    <td><code>#FFE000</code> / <code>#FFAA00</code></td>
-                    <td><span class="status-dot" style="background: #10B981;"></span>对齐正常：高亮亮黄配金黄底色</td>
-                </tr>
-                <tr>
-                    <td>蓝色 (防御增益)</td>
-                    <td><code>BLUE_DEFENSE</code></td>
-                    <td>铁皮护甲: <code>#29EBF4</code> / 驱散: <code>#38BDF8</code></td>
-                    <td><code>#29EBF4</code> / <code>#00C5E8</code></td>
-                    <td><span class="status-dot" style="background: #10B981;"></span>青蓝与天蓝质感均符合官方质感</td>
-                </tr>
-                <tr>
-                    <td>绿色 (生命与规避)</td>
-                    <td><code>GREEN_HEALTH</code></td>
-                    <td>规避/急救: <code>#10B981</code> / <code>#059669</code></td>
-                    <td><code>#10B981</code> / <code>#059669</code></td>
-                    <td><span class="status-dot" style="background: #10B981;"></span>完全统一，官方翡翠绿</td>
-                </tr>
-                <tr>
-                    <td>浅紫 (能量增益)</td>
-                    <td><code>LIGHT_PURPLE_POWER</code></td>
-                    <td>天火能量充能: <code>#A855F7</code> / <code>#7E22CE</code></td>
-                    <td><code>#A855F7</code> / <code>#7E22CE</code></td>
-                    <td><span class="status-dot" style="background: #10B981;"></span>完全统一，能量紫</td>
-                </tr>
-                <tr>
-                    <td>深紫 (宇宙大帝邪恶)</td>
-                    <td><code>DARK_PURPLE_SPECIAL</code></td>
-                    <td>暗天陨: <code>#D204F6</code> / 威震天: <code>#8B5CF6</code></td>
-                    <td><code>#D204F6</code> / <code>#9333EA</code></td>
-                    <td><span class="status-dot" style="background: #10B981;"></span>暗黑领袖专属暗能量紫，高辨识度</td>
-                </tr>
-                <tr>
-                    <td>灰色 (倒计时过渡)</td>
-                    <td><code>GRAY_COOLDOWN</code></td>
-                    <td>野牛蓄力/警车后闪: <code>#CBD5E1</code> / <code>#94A3B8</code></td>
-                    <td><code>#CBD5E1</code> / <code>#94A3B8</code></td>
-                    <td><span class="status-dot" style="background: #10B981;"></span>银灰/板岩灰倒计时，完全统一</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -640,7 +579,7 @@
 
     const LOCAL_DATA = {
         "version": "1.0.0",
-        "updated_at": "2026-10-23 11:00:00",
+        "updated_at": "2026-10-23 11:15:00",
         "categories": [
             {
                 "id": "RED_DEBUFF",
@@ -671,7 +610,7 @@
                 "default_top": "FF8800",
                 "default_bottom": "DD6600",
                 "pua_icons": [
-                    {"code": "E406", "char": "\uE406", "name": "近战加成/攻击增益 (Melee/Atk Boost)"},
+                    {"code": "E406", "char": "\uE406", "name": "近战加成/攻击增益 (Melee/Atk Boost)", "stack": 4},
                     {"code": "E41B", "char": "\uE41B", "name": "远程增益 (Ranged Boost)"},
                     {"code": "E41F", "char": "\uE41F", "name": "绝对破防/特技增伤 (Unblockable/SP Boost)"},
                     {"code": "E401", "char": "\uE401", "name": "近战突刺/利刃强化"},
@@ -689,7 +628,7 @@
                 "default_bottom": "FFAA00",
                 "pua_icons": [
                     {"code": "E915", "char": "\uE915", "name": "不可阻挡 (Unstoppable)"},
-                    {"code": "E605", "char": "\uE605", "name": "眩晕 (Stun)"},
+                    {"code": "E605", "char": "\uE605", "name": "眩晕 (Stun)", "timer": true},
                     {"code": "E503", "char": "\uE503", "name": "控制抗性/免控"}
                 ]
             },
@@ -703,7 +642,7 @@
                 "default_top": "29EBF4",
                 "default_bottom": "00C5E8",
                 "pua_icons": [
-                    {"code": "E409", "char": "\uE409", "name": "护甲增益 (Armor Up)"},
+                    {"code": "E409", "char": "\uE409", "name": "护甲增益 (Armor Up)", "stack": 3},
                     {"code": "E516", "char": "\uE516", "name": "坚守护盾 (Shield/Barrier)"},
                     {"code": "E408", "char": "\uE408", "name": "物理抗性 (Physical Resist)"},
                     {"code": "E413", "char": "\uE413", "name": "能量抗性 (Energy Resist)"}
@@ -721,7 +660,7 @@
                 "pua_icons": [
                     {"code": "E509", "char": "\uE509", "name": "近战规避 (Melee Evade)"},
                     {"code": "E518", "char": "\uE518", "name": "远程规避 (Ranged Evade)"},
-                    {"code": "E40A", "char": "\uE40A", "name": "生命修复/急救 (Repair/Heal)"},
+                    {"code": "E40A", "char": "\uE40A", "name": "生命修复/急救 (Repair/Heal)", "timer": true},
                     {"code": "E503", "char": "\uE503", "name": "生命汲取/吸血 (Lifesteal)"}
                 ]
             },
@@ -735,7 +674,7 @@
                 "default_top": "A855F7",
                 "default_bottom": "7E22CE",
                 "pua_icons": [
-                    {"code": "E914", "char": "\uE914", "name": "能量充能/能量功率 (Power Rate)"},
+                    {"code": "E914", "char": "\uE914", "name": "能量充能/能量功率 (Power Rate)", "stack": 5},
                     {"code": "E412", "char": "\uE412", "name": "能量脉冲 (Power Gain)"},
                     {"code": "E608", "char": "\uE608", "name": "能量涌动/过载"}
                 ]
@@ -750,9 +689,9 @@
                 "default_top": "D204F6",
                 "default_bottom": "9333EA",
                 "pua_icons": [
-                    {"code": "E407", "char": "\uE407", "name": "暗能核心/充能倒计时 (Dark Core CD)"},
-                    {"code": "E90A", "char": "\uE90A", "name": "黑暗能量层数 (Dark Energy Stack)"},
-                    {"code": "E910", "char": "\uE910", "name": "融合炮就绪/层数 (Fusion Cannon Stack)"}
+                    {"code": "E407", "char": "\uE407", "name": "暗能核心/充能倒计时 (Dark Core CD)", "timer": true},
+                    {"code": "E90A", "char": "\uE90A", "name": "黑暗能量层数 (Dark Energy Stack)", "stack": 4},
+                    {"code": "E910", "char": "\uE910", "name": "融合炮就绪/层数 (Fusion Cannon Stack)", "stack": 3}
                 ]
             },
             {
@@ -765,11 +704,11 @@
                 "default_top": "CBD5E1",
                 "default_bottom": "94A3B8",
                 "pua_icons": [
-                    {"code": "E910", "char": "\uE910", "name": "融合炮6秒灰色倒计时"},
-                    {"code": "E915", "char": "\uE915", "name": "不可阻挡1.5秒防御蓄力"},
-                    {"code": "E509", "char": "\uE509", "name": "近战校准1.5秒切换倒计时"},
-                    {"code": "E518", "char": "\uE518", "name": "远程校准1.5秒切换倒计时"},
-                    {"code": "E406", "char": "\uE406", "name": "后闪充能灰色预热"}
+                    {"code": "E910", "char": "\uE910", "name": "融合炮6秒灰色倒计时", "timer": true},
+                    {"code": "E915", "char": "\uE915", "name": "不可阻挡1.5秒防御蓄力", "timer": true},
+                    {"code": "E509", "char": "\uE509", "name": "近战校准1.5秒切换倒计时", "timer": true},
+                    {"code": "E518", "char": "\uE518", "name": "远程校准1.5秒切换倒计时", "timer": true},
+                    {"code": "E406", "char": "\uE406", "name": "后闪充能灰色预热", "timer": true}
                 ]
             }
         ]
@@ -787,25 +726,30 @@
         const grid = document.getElementById('colorGrid');
         grid.innerHTML = '';
 
-        let totalIcons = 0;
-
-        ACTIVE_PALETTE.categories.forEach((cat, index) => {
-            totalIcons += (cat.pua_icons ? cat.pua_icons.length : 0);
-
+        ACTIVE_PALETTE.categories.forEach((cat) => {
             const card = document.createElement('div');
             card.className = 'color-card';
             card.id = `card_${cat.id}`;
 
             const topHex = cat.top.replace('#', '').toUpperCase();
-            const bottomHex = cat.bottom.replace('#', '').toUpperCase();
 
-            // PUA glyphs list
-            const iconsHtml = (cat.pua_icons || []).map(icon => `
-                <div class="pua-badge" style="background: linear-gradient(135deg, #${topHex}, #${bottomHex});" onclick="copyChar('${icon.code}', '${icon.name}')">
-                    ${icon.char}
-                    <div class="pua-badge-tooltip">${icon.name} (0x${icon.code})</div>
-                </div>
-            `).join('');
+            // PUA glyphs list with True HUD Ring + Colored Glyph
+            const iconsHtml = (cat.pua_icons || []).map(icon => {
+                const isTimer = !!icon.timer;
+                const dashArray = isTimer ? "115 150" : "none";
+                const stackHtml = icon.stack ? `<span class="hud-stack-number">${icon.stack}</span>` : '';
+
+                return `
+                    <div class="hud-buff-widget" onclick="copyChar('${icon.code}', '${icon.name}')" title="点击复制 \\u${icon.code}">
+                        <svg class="hud-svg-ring" viewBox="0 0 52 52">
+                            <circle class="hud-svg-circle" cx="26" cy="26" r="23" stroke="#${topHex}" stroke-dasharray="${dashArray}"></circle>
+                        </svg>
+                        <span class="hud-glyph-text" style="color: #${topHex}; text-shadow: 0 0 8px rgba(255,255,255,0.2);">${icon.char}</span>
+                        ${stackHtml}
+                        <div class="hud-tooltip">${icon.name} (0x${icon.code})</div>
+                    </div>
+                `;
+            }).join('');
 
             card.innerHTML = `
                 <div class="color-card-header">
@@ -813,7 +757,13 @@
                         <span class="color-name-en">${cat.name_en}</span>
                         <span class="color-name-zh">${cat.name_zh}</span>
                     </div>
-                    <div class="color-swatch-badge" id="swatch_${cat.id}" style="background: linear-gradient(135deg, #${topHex}, #${bottomHex});"></div>
+                    <!-- Sample mini HUD widget -->
+                    <div class="hud-buff-widget" style="width: 42px; height: 42px;">
+                        <svg class="hud-svg-ring" viewBox="0 0 52 52">
+                            <circle class="hud-svg-circle" id="swatch_circle_${cat.id}" cx="26" cy="26" r="23" stroke="#${topHex}"></circle>
+                        </svg>
+                        <span class="hud-glyph-text" id="swatch_glyph_${cat.id}" style="font-size: 20px; color: #${topHex};">★</span>
+                    </div>
                 </div>
 
                 <div class="color-desc">${cat.meaning}</div>
@@ -821,7 +771,7 @@
                 <div class="color-controls">
                     <div class="control-group">
                         <div class="control-label">
-                            <span>顶部主色 (Top/tc)</span>
+                            <span>主色 (Top / tc / 环圈与图标色)</span>
                             <span style="font-family: monospace;">#${topHex}</span>
                         </div>
                         <div class="picker-row">
@@ -832,19 +782,19 @@
 
                     <div class="control-group">
                         <div class="control-label">
-                            <span>底部渐变 (Bottom/gb)</span>
-                            <span style="font-family: monospace;">#${bottomHex}</span>
+                            <span>备用底色 (Bottom / gb)</span>
+                            <span style="font-family: monospace;">#${cat.bottom.replace('#','').toUpperCase()}</span>
                         </div>
                         <div class="picker-row">
-                            <input type="color" id="picker_bottom_${cat.id}" value="#${bottomHex}" oninput="handleColorChange('${cat.id}', 'bottom', this.value)">
-                            <input type="text" class="hex-input" id="hex_bottom_${cat.id}" value="${bottomHex}" maxlength="6" oninput="handleHexInput('${cat.id}', 'bottom', this.value)">
+                            <input type="color" id="picker_bottom_${cat.id}" value="#${cat.bottom.replace('#','')}" oninput="handleColorChange('${cat.id}', 'bottom', this.value)">
+                            <input type="text" class="hex-input" id="hex_bottom_${cat.id}" value="${cat.bottom.replace('#','').toUpperCase()}" maxlength="6" oninput="handleHexInput('${cat.id}', 'bottom', this.value)">
                         </div>
                     </div>
                 </div>
 
                 <div class="glyphs-section">
                     <div class="glyphs-section-title">
-                        <span>关联 PUA 战斗 HUD 徽章实时预览 (点击复制十六进制)</span>
+                        <span>战斗 HUD 徽章实时模拟 (外圈圆环 + 内部图标同步显色)</span>
                         <button class="nav-btn" style="padding: 2px 8px; font-size: 11px;" onclick="resetCategory('${cat.id}')">恢复默认</button>
                     </div>
                     <div class="glyphs-container" id="glyphs_${cat.id}">
@@ -853,14 +803,30 @@
                 </div>
 
                 <div class="code-box" onclick="copySnippet('${cat.id}')" title="点击复制该颜色的 Python 引用字典">
-                    <span>${cat.name_en} = {"tc": "${topHex}", "gt": "${topHex}", "gb": "${bottomHex}"}</span>
+                    <span>${cat.name_en} = {"tc": "${topHex}", "gt": "${topHex}", "gb": "${cat.bottom.replace('#','').toUpperCase()}"}</span>
                     <span style="color: #60A5FA; font-size: 11px;">📋 复制</span>
                 </div>
             `;
             grid.appendChild(card);
         });
 
-        document.getElementById('statIconsCount').textContent = totalIcons;
+        updateDemoWidgets();
+    }
+
+    function updateDemoWidgets() {
+        const darkCat = ACTIVE_PALETTE.categories.find(c => c.id === 'DARK_PURPLE_SPECIAL');
+        if (darkCat) {
+            const hex = '#' + darkCat.top.replace('#', '').toUpperCase();
+            const timerCircle = document.getElementById('demoTimerCircle');
+            const timerGlyph = document.getElementById('demoTimerGlyph');
+            const stackCircle = document.getElementById('demoStackCircle');
+            const stackGlyph = document.getElementById('demoStackGlyph');
+
+            if (timerCircle) timerCircle.setAttribute('stroke', hex);
+            if (timerGlyph) timerGlyph.style.color = hex;
+            if (stackCircle) stackCircle.setAttribute('stroke', hex);
+            if (stackGlyph) stackGlyph.style.color = hex;
+        }
     }
 
     function handleColorChange(id, part, val) {
@@ -874,6 +840,7 @@
 
         updateCardPreview(id);
         updatePythonCodeOutput();
+        updateDemoWidgets();
     }
 
     function handleHexInput(id, part, val) {
@@ -888,6 +855,7 @@
 
             updateCardPreview(id);
             updatePythonCodeOutput();
+            updateDemoWidgets();
         }
     }
 
@@ -895,26 +863,29 @@
         const cat = ACTIVE_PALETTE.categories.find(c => c.id === id);
         if (!cat) return;
 
-        const topHex = cat.top.replace('#', '').toUpperCase();
-        const bottomHex = cat.bottom.replace('#', '').toUpperCase();
-        const gradientStr = `linear-gradient(135deg, #${topHex}, #${bottomHex})`;
+        const topHex = '#' + cat.top.replace('#', '').toUpperCase();
 
-        const swatch = document.getElementById(`swatch_${id}`);
-        if (swatch) swatch.style.background = gradientStr;
+        // Update swatch
+        const swatchCircle = document.getElementById(`swatch_circle_${id}`);
+        const swatchGlyph = document.getElementById(`swatch_glyph_${id}`);
+        if (swatchCircle) swatchCircle.setAttribute('stroke', topHex);
+        if (swatchGlyph) swatchGlyph.style.color = topHex;
 
-        const glyphs = document.getElementById(`glyphs_${id}`);
-        if (glyphs) {
-            const badges = glyphs.querySelectorAll('.pua-badge');
-            badges.forEach(b => {
-                b.style.background = gradientStr;
-            });
+        // Update all glyph badges in this card
+        const glyphsContainer = document.getElementById(`glyphs_${id}`);
+        if (glyphsContainer) {
+            const circles = glyphsContainer.querySelectorAll('.hud-svg-circle');
+            circles.forEach(c => c.setAttribute('stroke', topHex));
+
+            const glyphTexts = glyphsContainer.querySelectorAll('.hud-glyph-text');
+            glyphTexts.forEach(gt => gt.style.color = topHex);
         }
 
         const card = document.getElementById(`card_${id}`);
         if (card) {
             const codeBox = card.querySelector('.code-box span');
             if (codeBox) {
-                codeBox.textContent = `${cat.name_en} = {"tc": "${topHex}", "gt": "${topHex}", "gb": "${bottomHex}"}`;
+                codeBox.textContent = `${cat.name_en} = {"tc": "${cat.top.replace('#','').toUpperCase()}", "gt": "${cat.top.replace('#','').toUpperCase()}", "gb": "${cat.bottom.replace('#','').toUpperCase()}"}`;
             }
         }
     }
@@ -937,6 +908,7 @@
 
         updateCardPreview(id);
         updatePythonCodeOutput();
+        updateDemoWidgets();
         showToast(`已恢复 ${cat.name_en} 为默认基准色`);
     }
 

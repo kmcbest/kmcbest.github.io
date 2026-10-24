@@ -1745,20 +1745,41 @@
             box-shadow: 0 0 10px rgba(2, 132, 199, 0.4);
         }
 
+        .btn-card-action:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
         .copy-from-modal-content {
             max-width: 980px;
             width: 95vw;
-            max-height: 88vh;
+            height: 88vh;
+            max-height: 860px;
+            min-height: 480px;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
+        }
+
+        .copy-from-modal-body {
+            padding: 12px 16px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 10px !important;
+            overflow: hidden !important;
+            flex: 1 1 0% !important;
+            min-height: 0 !important;
         }
 
         .copy-from-grid-layout {
             display: grid;
             grid-template-columns: 310px 1fr;
+            grid-template-rows: minmax(0, 1fr);
             gap: 14px;
-            min-height: 480px;
-            max-height: 60vh;
+            flex: 1 1 0%;
+            min-height: 0;
+            overflow: hidden;
         }
 
         .copy-from-left-pane {
@@ -1767,6 +1788,8 @@
             gap: 8px;
             border-right: 1px solid var(--border-color);
             padding-right: 12px;
+            min-height: 0;
+            height: 100%;
             overflow: hidden;
         }
 
@@ -1774,17 +1797,59 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
-            overflow: hidden;
             padding-left: 2px;
+            min-height: 0;
+            height: 100%;
+            overflow: hidden;
         }
 
         .copy-from-bot-list {
-            flex: 1;
+            flex: 1 1 0%;
+            min-height: 0;
             overflow-y: auto;
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
             gap: 4px;
-            padding-right: 4px;
+            padding-right: 6px;
+        }
+
+        .copy-from-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-color);
+            flex-shrink: 0;
+            background: var(--bg-card);
+            z-index: 2;
+        }
+
+        /* High-contrast cyber-styled custom scrollbars for copy-from panes */
+        .copy-from-bot-list::-webkit-scrollbar,
+        .copy-from-abilities-container::-webkit-scrollbar {
+            width: 7px;
+        }
+        .copy-from-bot-list::-webkit-scrollbar-track,
+        .copy-from-abilities-container::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 4px;
+        }
+        .copy-from-bot-list::-webkit-scrollbar-thumb,
+        .copy-from-abilities-container::-webkit-scrollbar-thumb {
+            background: rgba(56, 189, 248, 0.35);
+            border-radius: 4px;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+        }
+        .copy-from-bot-list::-webkit-scrollbar-thumb:hover,
+        .copy-from-abilities-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(56, 189, 248, 0.75);
+            box-shadow: 0 0 6px rgba(56, 189, 248, 0.4);
+        }
+        .copy-from-bot-list,
+        .copy-from-abilities-container {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(56, 189, 248, 0.35) rgba(15, 23, 42, 0.6);
         }
 
         .copy-from-bot-item {
@@ -1842,8 +1907,10 @@
         }
 
         .copy-from-abilities-container {
-            flex: 1;
+            flex: 1 1 0%;
+            min-height: 0;
             overflow-y: auto;
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
             gap: 8px;
@@ -2171,6 +2238,14 @@
             border-color: rgba(16, 185, 129, 0.55);
             color: #34D399;
             box-shadow: 0 0 8px rgba(16, 185, 129, 0.2);
+        }
+
+        .ability-status-select.status-rejected {
+            background-color: rgba(239, 68, 68, 0.18);
+            border-color: rgba(239, 68, 68, 0.6);
+            color: #F87171;
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.2);
+            font-weight: 700;
         }
 
         .ability-status-select.status-ignored {
@@ -3050,6 +3125,7 @@
                         <option value="priority">优先实现</option>
                         <option value="partial">部分实现</option>
                         <option value="implemented">已实现</option>
+                        <option value="rejected">未通过验收</option>
                         <option value="ignored">暂不考虑</option>
                     </select>
                 </div>
@@ -3244,7 +3320,7 @@
                 </div>
                 <button class="modal-close-btn" onclick="closeCopyFromModal()">&times;</button>
             </div>
-            <div class="modal-body" style="padding: 12px 16px; display: flex; flex-direction: column; gap: 10px; overflow: hidden; flex: 1;">
+            <div class="modal-body copy-from-modal-body">
                 <!-- 顶部控制条：目标分类槽位选择 -->
                 <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); padding: 8px 12px; border-radius: 6px; flex-shrink: 0;">
                     <div style="display: flex; align-items: center; gap: 8px; font-size: 12px;">
@@ -3271,13 +3347,13 @@
                 <div class="copy-from-grid-layout">
                     <!-- 左栏：来源角色选择 -->
                     <div class="copy-from-left-pane">
-                        <div style="font-size: 12px; font-weight: 700; color: var(--text-main); display: flex; justify-content: space-between; align-items: center;">
+                        <div style="font-size: 12px; font-weight: 700; color: var(--text-main); display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;">
                             <span>1. 选择来源角色</span>
                             <span id="copyFromBotCountBadge" style="font-size: 10px; color: var(--text-sub);">0 位角色</span>
                         </div>
-                        <input type="text" id="copyFromBotSearch" placeholder="搜索角色名/英文名..." style="width: 100%; padding: 5px 8px; font-size: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 4px; color: #FFF;" oninput="filterCopyFromBots(this.value)">
+                        <input type="text" id="copyFromBotSearch" placeholder="搜索角色名/英文名..." style="width: 100%; padding: 5px 8px; font-size: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 4px; color: #FFF; flex-shrink: 0;" oninput="filterCopyFromBots(this.value)">
                         <!-- 阵营分类 Pills -->
-                        <div style="display: flex; gap: 4px; overflow-x: auto; padding-bottom: 2px;" id="copyFromFactionFilterPills">
+                        <div style="display: flex; gap: 4px; overflow-x: auto; padding-bottom: 2px; flex-shrink: 0;" id="copyFromFactionFilterPills">
                             <button type="button" class="filter-pill active" onclick="setCopyFromFactionFilter('all', this)" style="padding: 2px 7px; font-size: 11px;">全部</button>
                             <button type="button" class="filter-pill" onclick="setCopyFromFactionFilter('autobot', this)" style="padding: 2px 7px; font-size: 11px;">博派</button>
                             <button type="button" class="filter-pill" onclick="setCopyFromFactionFilter('decepticon', this)" style="padding: 2px 7px; font-size: 11px;">狂派</button>
@@ -3291,7 +3367,7 @@
 
                     <!-- 右栏：该角色的技能列表选择 -->
                     <div class="copy-from-right-pane">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;">
                             <div style="font-size: 12px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 6px;">
                                 <span>2. 勾选需要复制的技能</span>
                                 <span id="copyFromSourceBotTitle" style="color: #38BDF8; font-weight: normal; font-size: 11px;">(请在左侧选择角色)</span>
@@ -3302,7 +3378,7 @@
                             </div>
                         </div>
                         <!-- 搜索技能关键字 -->
-                        <input type="text" id="copyFromAbilitySearch" placeholder="搜索该角色的技能名称或效果..." style="width: 100%; padding: 5px 8px; font-size: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 4px; color: #FFF;" oninput="filterCopyFromAbilities(this.value)">
+                        <input type="text" id="copyFromAbilitySearch" placeholder="搜索该角色的技能名称或效果..." style="width: 100%; padding: 5px 8px; font-size: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 4px; color: #FFF; flex-shrink: 0;" oninput="filterCopyFromAbilities(this.value)">
                         
                         <div class="copy-from-abilities-container" id="copyFromAbilitiesList">
                             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 180px; color: var(--text-sub); font-size: 12px; gap: 8px;">
@@ -3313,7 +3389,7 @@
                 </div>
 
                 <!-- 底部操作按钮 -->
-                <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid var(--border-color); flex-shrink: 0;">
+                <div class="copy-from-footer">
                     <div style="font-size: 12px; color: var(--text-sub);" id="copyFromFooterSummary">
                         已选 0 项技能导入至当前角色
                     </div>
@@ -5358,6 +5434,7 @@
                 'priority': '优先实现',
                 'partial': '部分实现',
                 'implemented': '已实现',
+                'rejected': '未通过验收',
                 'ignored': '暂不考虑'
             };
 
@@ -5420,6 +5497,7 @@
                             <option value="priority" ${ab.status === 'priority' ? 'selected' : ''}>优先实现</option>
                             <option value="partial" ${ab.status === 'partial' ? 'selected' : ''}>部分实现</option>
                             <option value="implemented" ${ab.status === 'implemented' ? 'selected' : ''}>已实现</option>
+                            <option value="rejected" ${ab.status === 'rejected' ? 'selected' : ''}>未通过验收</option>
                             <option value="ignored" ${ab.status === 'ignored' ? 'selected' : ''}>暂不考虑</option>
                         </select>
                         ` : ''}

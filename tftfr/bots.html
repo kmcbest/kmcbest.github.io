@@ -3715,6 +3715,12 @@
                         await reconcileBotPriorityAbilities(bId, charDetail.abilities);
                         if (!gAllBotsData) gAllBotsData = {};
                         gAllBotsData[bId] = charDetail;
+
+                        // 实时增量更新全局技能模板库 (使得后续新建技能立即可以匹配最新修改)
+                        if (typeof updateGlobalAbilityTemplateCache === 'function') {
+                            updateGlobalAbilityTemplateCache(bId, charDetail);
+                        }
+
                         if (typeof updateBotCardProgress === 'function') updateBotCardProgress(bId, charDetail.abilities);
                         if (typeof updateImplementedSummary === 'function') updateImplementedSummary();
                         const implModal = document.getElementById('implementedModal');
@@ -3755,6 +3761,12 @@
                                 await reconcileBotPriorityAbilities(gCurBotId, charDetail.abilities);
                             if (!gAllBotsData) gAllBotsData = {};
                             gAllBotsData[gCurBotId] = charDetail;
+
+                            // 实时增量更新全局技能模板库
+                            if (typeof updateGlobalAbilityTemplateCache === 'function') {
+                                updateGlobalAbilityTemplateCache(gCurBotId, charDetail);
+                            }
+
                             if (typeof updateBotCardProgress === 'function') updateBotCardProgress(gCurBotId, charDetail.abilities);
                             if (typeof updateImplementedSummary === 'function') updateImplementedSummary();
                             const implModal = document.getElementById('implementedModal');
@@ -3812,6 +3824,12 @@
                             await reconcileBotPriorityAbilities(payload.bot_id, charDetail.abilities);
                         if (!gAllBotsData) gAllBotsData = {};
                         gAllBotsData[payload.bot_id] = charDetail;
+
+                        // 实时增量更新全局技能模板库
+                        if (typeof updateGlobalAbilityTemplateCache === 'function') {
+                            updateGlobalAbilityTemplateCache(payload.bot_id, charDetail);
+                        }
+
                         if (typeof updateBotCardProgress === 'function') updateBotCardProgress(payload.bot_id, charDetail.abilities);
                         if (typeof updateImplementedSummary === 'function') updateImplementedSummary();
                         const implModal = document.getElementById('implementedModal');
@@ -6756,6 +6774,22 @@
         let gFilteredTemplates = [];
         let gLoadingAllAbilitiesPromise = null;
 
+        // 实时增量更新全局技能模板库 (使刚写好/修改/删除的技能立即能在“新建能力”匹配库中检索到)
+        function updateGlobalAbilityTemplateCache(botId, botDetail) {
+            if (!botId || !botDetail) return;
+            if (!gAllAbilitiesData) {
+                gAllAbilitiesData = { bots: {} };
+            }
+            if (!gAllAbilitiesData.bots) {
+                gAllAbilitiesData.bots = {};
+            }
+            gAllAbilitiesData.bots[botId] = {
+                ...gAllAbilitiesData.bots[botId],
+                ...botDetail
+            };
+            buildUniqueAbilityTemplates();
+        }
+
         async function ensureAllAbilitiesLoaded() {
             if (gAllAbilitiesData && gUniqueAbilityTemplates) return gAllAbilitiesData;
             if (gLoadingAllAbilitiesPromise) return gLoadingAllAbilitiesPromise;
@@ -6763,13 +6797,26 @@
             gLoadingAllAbilitiesPromise = (async () => {
                 try {
                     let data = null;
-                    try {
-                        const res = await fetch('./data/all_abilities.json');
-                        if (res.ok) data = await res.json();
-                    } catch (e) {
-                        console.warn("[AllAbilities] fetch ./data/all_abilities.json failed", e);
+
+                    // 1. 优先从 Upstash KV 实时拉取全局技能库 (涵盖最新在线云端写入)
+                    if (typeof kvGet === 'function') {
+                        try {
+                            data = await kvGet('tftf:all_abilities', './data/all_abilities.json');
+                        } catch (eKv) {
+                            console.warn("[AllAbilities] kvGet 'tftf:all_abilities' failed:", eKv);
+                        }
                     }
-                    if (!data) {
+
+                    // 2. 静态回退兜底
+                    if (!data || !data.bots) {
+                        try {
+                            const res = await fetch('./data/all_abilities.json');
+                            if (res.ok) data = await res.json();
+                        } catch (e) {
+                            console.warn("[AllAbilities] fetch ./data/all_abilities.json failed", e);
+                        }
+                    }
+                    if (!data || !data.bots) {
                         try {
                             const res = await fetch('/data/all_abilities.json');
                             if (res.ok) data = await res.json();
@@ -6783,6 +6830,15 @@
                     } else {
                         gAllAbilitiesData = { bots: {} };
                     }
+
+                    // 融入当前正在编辑的角色 (确保最新未持久化编辑立即可见)
+                    if (gCurBotDetail && gCurBotDetail.bot_id) {
+                        gAllAbilitiesData.bots[gCurBotDetail.bot_id] = {
+                            ...gAllAbilitiesData.bots[gCurBotDetail.bot_id],
+                            ...gCurBotDetail
+                        };
+                    }
+
                     buildUniqueAbilityTemplates();
                     return gAllAbilitiesData;
                 } catch (err) {

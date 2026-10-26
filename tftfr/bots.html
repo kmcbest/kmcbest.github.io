@@ -3533,7 +3533,7 @@
             readToken: "ggAAAAAAAhY5AAIgcDG7a511dMnvUap5JjML7kdCMH0hQAG95-3BtwD6YEaFeQ"
         };
 
-        async function kvGet(key, fallbackPath) {
+        async function kvGet(key) {
             try {
                 const cacheBuster = `_t=${Date.now()}`;
                 const url = `${UPSTASH.url}/get/${encodeURIComponent(key)}?${cacheBuster}`;
@@ -3552,16 +3552,7 @@
                     }
                 }
             } catch (err) {
-                console.warn(`Upstash KV read failed for [${key}], falling back:`, err);
-            }
-            if (fallbackPath) {
-                try {
-                    const fbUrl = fallbackPath + (fallbackPath.includes('?') ? '&' : '?') + `_t=${Date.now()}`;
-                    const fbRes = await fetch(fbUrl, { cache: 'no-store' });
-                    if (fbRes.ok) return await fbRes.json();
-                } catch (fbErr) {
-                    console.error(`Fallback fetch failed for [${fallbackPath}]:`, fbErr);
-                }
+                console.warn(`Upstash KV read failed for [${key}]:`, err);
             }
             return null;
         }
@@ -3629,21 +3620,7 @@
 
         async function fetchCharacterData(bid) {
             if (typeof kvGet === 'function') {
-                return await kvGet('tftf:char:' + bid, `./data/characters/${bid}.json`);
-            }
-            try {
-                const res = await fetch('/api/character/' + bid);
-                if (res.ok) {
-                    return await res.json();
-                }
-            } catch (e) {
-                console.warn("Local /api/character fetch failed, trying static fallback:", e);
-            }
-            try {
-                const fbRes = await fetch(`./data/characters/${bid}.json`);
-                if (fbRes.ok) return await fbRes.json();
-            } catch (fbErr) {
-                console.error("Static character json fetch failed:", fbErr);
+                return await kvGet('tftf:char:' + bid);
             }
             return null;
         }
@@ -3656,7 +3633,7 @@
                     if (botId === gCurBotId && gCurBotDetail) {
                         charDetail = gCurBotDetail;
                     } else {
-                        charDetail = await kvGet('tftf:char:' + botId, `./data/characters/${botId}.json`) || {};
+                        charDetail = await kvGet('tftf:char:' + botId) || {};
                     }
                     Object.assign(charDetail, payload);
                     charDetail.updated_at = new Date().toISOString().replace('T', ' ').substring(0, 19);
@@ -3671,18 +3648,8 @@
                     if (charDetail.abilities && typeof reconcileBotPriorityAbilities === 'function') {
                         await reconcileBotPriorityAbilities(botId, charDetail.abilities);
                     }
-                }
-                const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
-                if (isLocal) {
-                    try {
-                        const res = await fetch(`/api/character/${botId}`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(payload)
-                        });
-                        if (res.ok) return await res.json();
-                    } catch (e) {
-                        console.warn("Local /api/character POST failed:", e);
+                    if (typeof updateGlobalAbilityTemplateCache === 'function') {
+                        updateGlobalAbilityTemplateCache(botId, charDetail);
                     }
                 }
                 return { ok: true, success: true };
@@ -3699,7 +3666,7 @@
                         if (bId === gCurBotId && gCurBotDetail) {
                             charDetail = gCurBotDetail;
                         } else {
-                            charDetail = await kvGet('tftf:char:' + bId, `./data/characters/${bId}.json`) || {};
+                            charDetail = await kvGet('tftf:char:' + bId) || {};
                         }
                         if (!charDetail.abilities) charDetail.abilities = [];
                         let ab = charDetail.abilities.find(a => String(a.id) === String(aid));
@@ -3712,11 +3679,13 @@
                         saveToLocalStorageDraft(bId, charDetail);
 
                         await kvSet('tftf:char:' + bId, charDetail);
-                        await reconcileBotPriorityAbilities(bId, charDetail.abilities);
+                        if (typeof reconcileBotPriorityAbilities === 'function') {
+                            await reconcileBotPriorityAbilities(bId, charDetail.abilities);
+                        }
                         if (!gAllBotsData) gAllBotsData = {};
                         gAllBotsData[bId] = charDetail;
 
-                        // 实时增量更新全局技能模板库 (使得后续新建技能立即可以匹配最新修改)
+                        // 实时增量更新全局技能模板库并持久化到云端
                         if (typeof updateGlobalAbilityTemplateCache === 'function') {
                             updateGlobalAbilityTemplateCache(bId, charDetail);
                         }
@@ -3727,19 +3696,6 @@
                         if (implModal && implModal.classList.contains('active')) renderImplementedModalContent();
                     }
                 }
-                const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
-                if (isLocal) {
-                    try {
-                        const res = await fetch(`/api/ability/${aid}`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(payload)
-                        });
-                        if (res.ok) return await res.json();
-                    } catch (e) {
-                        console.warn("Local /api/ability POST failed:", e);
-                    }
-                }
                 return { ok: true, success: true };
             });
         }
@@ -3748,7 +3704,7 @@
             return enqueueBotSave(async () => {
                 if (typeof kvSet === 'function') {
                     if (gCurBotId) {
-                        let charDetail = (gCurBotDetail && gCurBotDetail.abilities) ? gCurBotDetail : (await kvGet('tftf:char:' + gCurBotId, `./data/characters/${gCurBotId}.json`) || {});
+                        let charDetail = (gCurBotDetail && gCurBotDetail.abilities) ? gCurBotDetail : (await kvGet('tftf:char:' + gCurBotId) || {});
                         if (charDetail.abilities) {
                             charDetail.abilities = charDetail.abilities.filter(a => String(a.id) !== String(aid));
                             charDetail.updated_at = new Date().toISOString().replace('T', ' ').substring(0, 19);
@@ -3759,10 +3715,11 @@
                             }
                             if (typeof reconcileBotPriorityAbilities === 'function') {
                                 await reconcileBotPriorityAbilities(gCurBotId, charDetail.abilities);
+                            }
                             if (!gAllBotsData) gAllBotsData = {};
                             gAllBotsData[gCurBotId] = charDetail;
 
-                            // 实时增量更新全局技能模板库
+                            // 实时增量更新全局技能模板库并持久化到云端
                             if (typeof updateGlobalAbilityTemplateCache === 'function') {
                                 updateGlobalAbilityTemplateCache(gCurBotId, charDetail);
                             }
@@ -3771,20 +3728,7 @@
                             if (typeof updateImplementedSummary === 'function') updateImplementedSummary();
                             const implModal = document.getElementById('implementedModal');
                             if (implModal && implModal.classList.contains('active')) renderImplementedModalContent();
-                            }
                         }
-                    }
-                }
-                const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
-                if (isLocal) {
-                    try {
-                        const res = await fetch(`/api/ability/delete/${aid}`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' }
-                        });
-                        if (res.ok) return await res.json();
-                    } catch (e) {
-                        console.warn("Local /api/ability/delete POST failed:", e);
                     }
                 }
                 return { ok: true, success: true };
@@ -3802,7 +3746,7 @@
                         if (payload.bot_id === gCurBotId && gCurBotDetail) {
                             charDetail = gCurBotDetail;
                         } else {
-                            charDetail = await kvGet('tftf:char:' + payload.bot_id, `./data/characters/${payload.bot_id}.json`) || {};
+                            charDetail = await kvGet('tftf:char:' + payload.bot_id) || {};
                         }
                         if (!charDetail.abilities) charDetail.abilities = [];
                         const maxId = charDetail.abilities.reduce((max, a) => Math.max(max, parseInt(a.id) || 0), 0);
@@ -3822,10 +3766,11 @@
                         }
                         if (typeof reconcileBotPriorityAbilities === 'function') {
                             await reconcileBotPriorityAbilities(payload.bot_id, charDetail.abilities);
+                        }
                         if (!gAllBotsData) gAllBotsData = {};
                         gAllBotsData[payload.bot_id] = charDetail;
 
-                        // 实时增量更新全局技能模板库
+                        // 实时增量更新全局技能模板库并持久化到云端
                         if (typeof updateGlobalAbilityTemplateCache === 'function') {
                             updateGlobalAbilityTemplateCache(payload.bot_id, charDetail);
                         }
@@ -3834,20 +3779,6 @@
                         if (typeof updateImplementedSummary === 'function') updateImplementedSummary();
                         const implModal = document.getElementById('implementedModal');
                         if (implModal && implModal.classList.contains('active')) renderImplementedModalContent();
-                        }
-                    }
-                }
-                const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
-                if (isLocal) {
-                    try {
-                        const res = await fetch('/api/ability/new', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(payload)
-                        });
-                        if (res.ok) return await res.json();
-                    } catch (e) {
-                        console.warn("Local /api/ability/new POST failed:", e);
                     }
                 }
                 return { ok: true, success: true, id: newId, ability: newAb };
@@ -3885,28 +3816,9 @@
                 try {
                     let pData = null;
                     if (typeof kvGet === 'function') {
-                        pData = await kvGet('tftf:priority_abilities', './data/priority_abilities.json');
-                    } else {
-                        const res = await fetch('./data/priority_abilities.json');
-                        if (res.ok) pData = await res.json();
+                        pData = await kvGet('tftf:priority_abilities');
                     }
                     let list = (pData && Array.isArray(pData.abilities)) ? pData.abilities : (Array.isArray(pData) ? pData : []);
-
-                    // Resilience fallback: if Upstash KV returned an empty list, load from static JSON fallback
-                    if (list.length === 0) {
-                        try {
-                            const fb = await fetch(`./data/priority_abilities.json?_t=${Date.now()}`);
-                            if (fb.ok) {
-                                const fbData = await fb.json();
-                                if (fbData && Array.isArray(fbData.abilities) && fbData.abilities.length > 0) {
-                                    list = fbData.abilities;
-                                    console.log(`[Priority] Rescued ${list.length} priority abilities from static fallback JSON`);
-                                }
-                            }
-                        } catch (e) {
-                            console.warn("Failed to fetch fallback priority_abilities.json:", e);
-                        }
-                    }
 
                     gPriorityAbilitiesList = list;
                     gPriorityAbilitiesLoaded = true;
@@ -4736,46 +4648,28 @@
         async function init() {
             try {
                 if (typeof kvGet === 'function') {
-                    gOverviewData = await kvGet('tftf:overview', './data/overview.json');
+                    gOverviewData = await kvGet('tftf:overview');
                     if (gOverviewData && gOverviewData.characters) {
                         gOverviewData.characters.forEach(c => {
                             c.portrait_url = `portraits/${c.bot_id}.png`;
                             c.portrait_large_url = `portraits/${c.bot_id}_large.png`;
                         });
                     }
-                    const puaData = await kvGet('tftf:pua_icons', './data/pua_icons.json');
+                    const puaData = await kvGet('tftf:pua_icons');
                     gPuaIcons = (puaData && puaData.icons) ? puaData.icons : [];
 
-                    // Load all abilities for bot skill progress stats
-                    const allAbData = await kvGet('tftf:all_abilities', './data/all_abilities.json');
+                    // Load all abilities directly from cloud for template library and stats
+                    const allAbData = await kvGet('tftf:all_abilities');
                     if (allAbData && allAbData.bots) {
                         gAllBotsData = allAbData.bots;
+                        gAllAbilitiesData = allAbData;
+                        buildUniqueAbilityTemplates();
                         computeAllBotAbilityStats(allAbData.bots);
                         updateImplementedSummary();
                     }
-                } else {
-                    const res = await fetch('/api/overview');
-                    gOverviewData = await res.json();
-                    const puaRes = await fetch('/api/pua_icons');
-                    const puaData = await puaRes.json();
-                    gPuaIcons = puaData.icons || [];
-
-                    try {
-                        const abRes = await fetch('./data/all_abilities.json');
-                        if (abRes.ok) {
-                            const allAbData = await abRes.json();
-                            if (allAbData && allAbData.bots) {
-                                gAllBotsData = allAbData.bots;
-                                computeAllBotAbilityStats(allAbData.bots);
-                                updateImplementedSummary();
-                            }
-                        }
-                    } catch (e) {
-                        console.warn("Failed to load all_abilities.json fallback:", e);
-                    }
                 }
                 document.getElementById('statTotalPua').innerText = `${gPuaIcons.length} 个`;
-                    syncPuaTagsFromCloud();
+                syncPuaTagsFromCloud();
 
                 renderDashboard();
                 fetchPriorityAbilities();
@@ -5790,7 +5684,7 @@
                         showToast("角色数值设定已保存！");
                     }
                     if (typeof kvGet === 'function') {
-                        gOverviewData = await kvGet('tftf:overview', './data/overview.json');
+                        gOverviewData = await kvGet('tftf:overview');
                     } else {
                         const ovRes = await fetch('/api/overview');
                         gOverviewData = await ovRes.json();
@@ -6774,7 +6668,32 @@
         let gFilteredTemplates = [];
         let gLoadingAllAbilitiesPromise = null;
 
-        // 实时增量更新全局技能模板库 (使刚写好/修改/删除的技能立即能在“新建能力”匹配库中检索到)
+        let gSyncAllAbilitiesTimer = null;
+        function triggerSyncAllAbilitiesToCloud() {
+            if (gSyncAllAbilitiesTimer) clearTimeout(gSyncAllAbilitiesTimer);
+            gSyncAllAbilitiesTimer = setTimeout(async () => {
+                if (!gAllAbilitiesData || !gAllAbilitiesData.bots) return;
+                try {
+                    const bots = gAllAbilitiesData.bots;
+                    let totalBots = 0;
+                    let totalAbilities = 0;
+                    for (const bid in bots) {
+                        totalBots++;
+                        if (Array.isArray(bots[bid].abilities)) {
+                            totalAbilities += bots[bid].abilities.length;
+                        }
+                    }
+                    gAllAbilitiesData.total_bots = totalBots;
+                    gAllAbilitiesData.total_abilities = totalAbilities;
+                    await kvSet('tftf:all_abilities', gAllAbilitiesData);
+                    console.log(`[Cloud Sync] Synced tftf:all_abilities (${totalBots} bots, ${totalAbilities} abilities)`);
+                } catch (e) {
+                    console.warn("[Cloud Sync] Failed to sync tftf:all_abilities to Upstash:", e);
+                }
+            }, 1200);
+        }
+
+        // 实时增量更新全局技能模板库 (使刚写好/修改/删除的技能立即能在“新建能力”匹配库中检索到并持久化至云端)
         function updateGlobalAbilityTemplateCache(botId, botDetail) {
             if (!botId || !botDetail) return;
             if (!gAllAbilitiesData) {
@@ -6788,51 +6707,29 @@
                 ...botDetail
             };
             buildUniqueAbilityTemplates();
+            triggerSyncAllAbilitiesToCloud();
         }
 
         async function ensureAllAbilitiesLoaded() {
-            if (gAllAbilitiesData && gUniqueAbilityTemplates) return gAllAbilitiesData;
+            if (gAllAbilitiesData && gUniqueAbilityTemplates && gUniqueAbilityTemplates.length > 0) return gAllAbilitiesData;
             if (gLoadingAllAbilitiesPromise) return gLoadingAllAbilitiesPromise;
 
             gLoadingAllAbilitiesPromise = (async () => {
                 try {
                     let data = null;
-
-                    // 1. 优先从 Upstash KV 实时拉取全局技能库 (涵盖最新在线云端写入)
                     if (typeof kvGet === 'function') {
-                        try {
-                            data = await kvGet('tftf:all_abilities', './data/all_abilities.json');
-                        } catch (eKv) {
-                            console.warn("[AllAbilities] kvGet 'tftf:all_abilities' failed:", eKv);
-                        }
-                    }
-
-                    // 2. 静态回退兜底
-                    if (!data || !data.bots) {
-                        try {
-                            const res = await fetch('./data/all_abilities.json');
-                            if (res.ok) data = await res.json();
-                        } catch (e) {
-                            console.warn("[AllAbilities] fetch ./data/all_abilities.json failed", e);
-                        }
-                    }
-                    if (!data || !data.bots) {
-                        try {
-                            const res = await fetch('/data/all_abilities.json');
-                            if (res.ok) data = await res.json();
-                        } catch (e2) {
-                            console.warn("[AllAbilities] fallback fetch failed", e2);
-                        }
+                        data = await kvGet('tftf:all_abilities');
                     }
 
                     if (data && data.bots) {
                         gAllAbilitiesData = data;
-                    } else {
+                        gAllBotsData = data.bots;
+                    } else if (!gAllAbilitiesData) {
                         gAllAbilitiesData = { bots: {} };
                     }
 
                     // 融入当前正在编辑的角色 (确保最新未持久化编辑立即可见)
-                    if (gCurBotDetail && gCurBotDetail.bot_id) {
+                    if (gCurBotDetail && gCurBotDetail.bot_id && gAllAbilitiesData.bots) {
                         gAllAbilitiesData.bots[gCurBotDetail.bot_id] = {
                             ...gAllAbilitiesData.bots[gCurBotDetail.bot_id],
                             ...gCurBotDetail
@@ -6843,7 +6740,7 @@
                     return gAllAbilitiesData;
                 } catch (err) {
                     console.error("[AllAbilities] Failed to load all abilities:", err);
-                    gAllAbilitiesData = { bots: {} };
+                    if (!gAllAbilitiesData) gAllAbilitiesData = { bots: {} };
                     buildUniqueAbilityTemplates();
                     return gAllAbilitiesData;
                 } finally {
@@ -7606,7 +7503,7 @@
                     }
                     showToast(`职业 [${targetId}] 图标已存入数据库: ${iconLabel} (${hex})`);
                     if (typeof kvGet === 'function') {
-                        gOverviewData = await kvGet('tftf:overview', './data/overview.json');
+                        gOverviewData = await kvGet('tftf:overview');
                     } else if (isLocal) {
                         const ovRes = await fetch('/api/overview');
                         gOverviewData = await ovRes.json();
@@ -7634,7 +7531,7 @@
                     }
                     showToast(`阵营 [${targetId}] 图标已存入数据库: ${iconLabel} (${hex})`);
                     if (typeof kvGet === 'function') {
-                        gOverviewData = await kvGet('tftf:overview', './data/overview.json');
+                        gOverviewData = await kvGet('tftf:overview');
                     } else if (isLocal) {
                         const ovRes = await fetch('/api/overview');
                         gOverviewData = await ovRes.json();
@@ -7646,7 +7543,7 @@
                     if (ret && (ret.ok || ret.success)) {
                         showToast(`角色阵营图标已存入数据库: ${iconLabel} (${hex})`);
                         if (typeof kvGet === 'function') {
-                            gOverviewData = await kvGet('tftf:overview', './data/overview.json');
+                            gOverviewData = await kvGet('tftf:overview');
                         } else if (isLocal) {
                             const ovRes = await fetch('/api/overview');
                             gOverviewData = await ovRes.json();

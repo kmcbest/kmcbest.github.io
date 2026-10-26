@@ -415,12 +415,13 @@
         }
 
         try {
-            // Load all abilities source of truth
-            let fullData = await kvGet('tftf:all_abilities', './data/all_abilities.json');
-            if (!fullData || !fullData.bots) {
-                fullData = await fetch('./data/all_abilities.json').then(r => r.json());
+            // Load all abilities source of truth directly from cloud
+            let fullData = await kvGet('tftf:all_abilities');
+            if (fullData && fullData.bots) {
+                gAllBotsData = fullData.bots;
+            } else {
+                gAllBotsData = {};
             }
-            gAllBotsData = fullData.bots;
 
             // Populate select dropdown
             const selectEl = document.getElementById('botSelect');

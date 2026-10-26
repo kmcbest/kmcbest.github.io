@@ -3535,8 +3535,7 @@
 
         async function kvGet(key) {
             try {
-                const cacheBuster = `_t=${Date.now()}`;
-                const url = `${UPSTASH.url}/get/${encodeURIComponent(key)}?${cacheBuster}`;
+                const url = `${UPSTASH.url}/get/${encodeURIComponent(key)}`;
                 const res = await fetch(url, {
                     headers: { 'Authorization': `Bearer ${UPSTASH.readToken}` },
                     cache: 'no-store'

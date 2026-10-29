@@ -3408,18 +3408,26 @@
     <div class="modal-overlay" id="cardDossierModal" onclick="closeModalOnBackdrop(event, 'cardDossierModal')">
         <div class="modal-content card-dossier-modal-content">
             <div class="card-dossier-header">
-                <div style="display: flex; align-items: center; gap: 14px;">
-                    <span class="tecnica" style="font-size: 15px; font-weight: 700; color: #00F0FF; letter-spacing: 0.5px;">
-                        CYBERTRONIAN DOSSIER // 机体档案卡
+                <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+                    <span class="tecnica" id="cardDossierTitle" style="font-size: 15px; font-weight: 700; color: #00F0FF; letter-spacing: 0.5px;">
+                        机体档案卡
                     </span>
                     <div class="card-view-mode-toggle">
                         <button id="btnModeLong" class="mode-toggle-btn active" onclick="setCardViewMode('long')">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 4px;"><rect x="6" y="2" width="12" height="20" rx="2"/><line x1="9" y1="6" x2="15" y2="6"/><line x1="9" y1="10" x2="15" y2="10"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
-                            长图模式
+                            <span id="txtBtnModeLong">长图模式</span>
                         </button>
                         <button id="btnModeTab" class="mode-toggle-btn" onclick="setCardViewMode('tab')">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 4px;"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-                            分栏模式
+                            <span id="txtBtnModeTab">分栏模式</span>
+                        </button>
+                    </div>
+                    <div class="card-view-mode-toggle">
+                        <button id="btnDossierLangZh" class="mode-toggle-btn active" onclick="setDossierLang('zh')">
+                            中文
+                        </button>
+                        <button id="btnDossierLangEn" class="mode-toggle-btn" onclick="setDossierLang('en')">
+                            English
                         </button>
                     </div>
                 </div>
@@ -7705,15 +7713,17 @@
         let gCurCardData = null;
         let gCardViewMode = 'long'; // 'long' or 'tab'
         let gDossierActiveTab = 'abilities';
+        let gDossierLang = 'zh'; // 'zh' or 'en'
 
         async function openCharacterCardModal(bid) {
             gCurCardBotId = bid;
             const modal = document.getElementById('cardDossierModal');
             const body = document.getElementById('cardDossierBody');
+            const isEn = gDossierLang === 'en';
             body.innerHTML = `
                 <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 0;gap:14px;">
                     <div style="width:36px;height:36px;border:3px solid rgba(0,240,255,0.2);border-top-color:#00F0FF;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
-                    <span class="tecnica" style="font-size:13px;color:#38bdf8;letter-spacing:1px;">ACCESSING CYBERTRONIAN MAINFRAME...</span>
+                    <span class="tecnica" style="font-size:13px;color:#38bdf8;letter-spacing:1px;">${isEn ? 'ACCESSING CYBERTRONIAN MAINFRAME...' : '正在检索塞伯坦核心数据网络...'}</span>
                 </div>
             `;
             modal.classList.add('active');
@@ -7721,19 +7731,45 @@
             try {
                 const data = await fetchCharacterData(bid);
                 if (!data || data.error) {
-                    throw new Error((data && data.error) || "机体档案数据未找到");
+                    throw new Error((data && data.error) || (isEn ? "Character dossier data not found" : "机体档案数据未找到"));
                 }
                 gCurCardData = data;
                 renderCardDossier();
             } catch (err) {
                 console.error("Failed to load character dossier:", err);
-                body.innerHTML = `<div style="text-align:center;padding:40px;color:#ef4444;">机体档案数据加载失败</div>`;
+                body.innerHTML = `<div style="text-align:center;padding:40px;color:#ef4444;">${isEn ? 'Failed to load character dossier data' : '机体档案数据加载失败'}</div>`;
             }
         }
 
         function closeCardDossierModal() {
             const modal = document.getElementById('cardDossierModal');
             if (modal) modal.classList.remove('active');
+        }
+
+        function setDossierLang(lang) {
+            gDossierLang = lang;
+            const btnZh = document.getElementById('btnDossierLangZh');
+            const btnEn = document.getElementById('btnDossierLangEn');
+            if (btnZh && btnEn) {
+                if (lang === 'zh') {
+                    btnZh.classList.add('active');
+                    btnEn.classList.remove('active');
+                } else {
+                    btnEn.classList.add('active');
+                    btnZh.classList.remove('active');
+                }
+            }
+            const titleEl = document.getElementById('cardDossierTitle');
+            if (titleEl) {
+                titleEl.textContent = (lang === 'zh') ? '机体档案卡' : 'CYBERTRONIAN DOSSIER';
+            }
+            const txtLong = document.getElementById('txtBtnModeLong');
+            const txtTab = document.getElementById('txtBtnModeTab');
+            if (txtLong && txtTab) {
+                txtLong.textContent = (lang === 'zh') ? '长图模式' : 'Poster View';
+                txtTab.textContent = (lang === 'zh') ? '分栏模式' : 'Tabbed View';
+            }
+            renderCardDossier();
         }
 
         function setCardViewMode(mode) {
@@ -7771,15 +7807,15 @@
         }
 
         function fmtDossierDesc(text) {
-            if (!text) return '暂无描述';
+            if (!text) return gDossierLang === 'en' ? 'No description available' : '暂无描述';
             return text.replace(/\{\{var[_\s]?\w*\}\}/g, '<span class="dossier-var-pill">$&</span>');
         }
 
-        function renderDossierPartnerChips(bids) {
+        function renderDossierPartnerChips(bids, isEn) {
             if (!bids || !bids.length) return '';
             return bids.map(pid => {
                 const pBot = gOverviewData && gOverviewData.characters.find(c => c.bot_id === pid);
-                const pName = pBot ? pBot.name_zh : pid;
+                const pName = pBot ? (isEn ? (pBot.name_en || pBot.name_zh) : pBot.name_zh) : pid;
                 return `
                     <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(5,10,20,0.85);border:1px solid rgba(255,255,255,0.1);padding:3px 8px;border-radius:6px;margin:2px 4px 2px 0;">
                         <img src="/portrait/${pid}" onerror="this.style.display='none'" style="width:20px;height:20px;border-radius:50%;object-fit:cover;flex-shrink:0;">
@@ -7793,9 +7829,10 @@
             const body = document.getElementById('cardDossierBody');
             if (!gCurCardData || !body) return;
 
+            const isEn = gDossierLang === 'en';
             const bot = gCurCardData;
-            const factionObj = (gOverviewData && gOverviewData.factions.find(f => f.faction_id === bot.faction)) || { name_zh: bot.faction, color_hex: '#888' };
-            const classObj = (gOverviewData && gOverviewData.classes.find(c => c.class_id === bot.class)) || { name_zh: bot.class, color_hex: '#38BDF8', pua_icon: '' };
+            const factionObj = (gOverviewData && gOverviewData.factions && gOverviewData.factions.find(f => f.faction_id === bot.faction)) || { name_zh: bot.faction, name_en: bot.faction, color_hex: '#888' };
+            const classObj = (gOverviewData && gOverviewData.classes && gOverviewData.classes.find(c => c.class_id === bot.class)) || { name_zh: bot.class, name_en: bot.class, color_hex: '#38BDF8', pua_icon: '' };
 
             let facPua = bot.pua_faction_icon || factionObj.pua_icon || '';
             if (!facPua) {
@@ -7809,35 +7846,46 @@
 
             const facGlyph = facPua ? String.fromCharCode(parseInt(facPua, 16)) : '⯁';
             const clsGlyph = classObj.pua_icon ? String.fromCharCode(parseInt(classObj.pua_icon, 16)) : '⯁';
-            const piVal = bot.rating || Math.round(((bot.health_mult || 1.0) * 1750 + (bot.attack_mult || 1.0) * 1550 + (bot.effective_crit_chance || 0.15) * 4200) * 1.12);
+
+            const ovBot = (gOverviewData && gOverviewData.characters) ? gOverviewData.characters.find(c => c.bot_id === bot.bot_id) : null;
+            const piVal = bot.rating || (ovBot && ovBot.rating) || Math.round(((bot.health_mult || 1.0) * 1750 + (bot.attack_mult || 1.0) * 1550 + (bot.effective_crit_chance || 0.15) * 4200) * 1.12);
+
+            const hpVal = bot.hp || (ovBot && ovBot.hp) || Math.round((bot.health_mult || 1.0) * 32400);
+            const atkVal = bot.attack || (ovBot && ovBot.attack) || Math.round((bot.attack_mult || 1.0) * 2300);
+            const critRateVal = Math.round((bot.effective_crit_chance || (ovBot && ovBot.effective_crit_chance) || 0.15) * 100) + '%';
+            const critDmgVal = (bot.effective_crit_damage || (ovBot && ovBot.effective_crit_damage) || 1.5).toFixed(2) + 'x';
 
             const abilities = bot.abilities || [];
             const basicAbs = abilities.filter(a => a.category === 'basic');
             const passiveAbs = abilities.filter(a => a.category === 'passive');
             const sigAbs = abilities.filter(a => a.category === 'signature');
-            const spAbs = abilities.filter(a => ['sp1', 'sp2', 'sp3'].includes(a.category));
             const synAbs = abilities.filter(a => a.category === 'synergy');
+
+            // Class name (Class word removed per requirement 1)
+            const factionDisplayName = (isEn ? (factionObj.name_en || bot.faction) : (factionObj.name_zh || bot.faction)).toUpperCase();
+            const classDisplayName = (isEn ? (classObj.name_en || bot.class) : (classObj.name_zh || bot.class)).toUpperCase();
+            const originDisplayName = isEn ? (bot.origin || 'GENERATION 1') : (bot.origin || '第一代 (G1)');
 
             // Header bar
             const headerHtml = `
                 <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-bottom:16px;border-bottom:1px solid rgba(0,240,255,0.2);margin-bottom:20px;">
-                    <div style="display:flex;align-items:center;gap:10px;">
+                    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
                         <div style="display:flex;align-items:center;gap:5px;background:${factionObj.color_hex}22;border:1px solid ${factionObj.color_hex}55;color:${factionObj.color_hex};padding:3px 10px;border-radius:6px;">
                             <span class="tecnica-icon" style="font-size:15px;">${facGlyph}</span>
-                            <span class="tecnica" style="font-size:11px;font-weight:700;">${(factionObj.name_zh || bot.faction).toUpperCase()}</span>
+                            <span class="tecnica" style="font-size:11px;font-weight:700;">${factionDisplayName}</span>
                         </div>
                         <div style="display:flex;align-items:center;gap:5px;background:${classObj.color_hex}22;border:1px solid ${classObj.color_hex}55;color:${classObj.color_hex};padding:3px 10px;border-radius:6px;">
                             <span class="tecnica-icon" style="font-size:15px;">${clsGlyph}</span>
-                            <span class="tecnica" style="font-size:11px;font-weight:700;">${(classObj.name_zh || bot.class).toUpperCase()} CLASS</span>
+                            <span class="tecnica" style="font-size:11px;font-weight:700;">${classDisplayName}</span>
                         </div>
                         <span class="tecnica" style="font-size:11px;color:#64748b;letter-spacing:1px;border-left:1px solid #1e293b;padding-left:10px;">
-                            ${bot.origin || 'GENERATION 1'}
+                            ${originDisplayName}
                         </span>
                     </div>
                     <div style="display:flex;align-items:center;gap:12px;">
                         <div style="color:#FFD700;letter-spacing:2px;font-size:13px;filter:drop-shadow(0 0 6px rgba(255,215,0,0.8));">★★★★★</div>
                         <div style="background:rgba(0,240,255,0.1);border:1px solid rgba(0,240,255,0.3);padding:2px 10px;border-radius:6px;text-align:right;">
-                            <div class="tecnica" style="font-size:9px;color:rgba(0,240,255,0.7);">POWER INDEX (PI)</div>
+                            <div class="tecnica" style="font-size:9px;color:rgba(0,240,255,0.7);">${isEn ? 'POWER INDEX (PI)' : '战力值 (PI)'}</div>
                             <div class="tecnica" style="font-size:16px;font-weight:900;color:#00F0FF;">${piVal.toLocaleString()}</div>
                         </div>
                     </div>
@@ -7856,44 +7904,43 @@
 
                     <div style="display:flex;flex-direction:column;gap:12px;">
                         <div>
-                            <div class="tecnica" style="font-size:11px;color:#38bdf8;letter-spacing:1px;margin-bottom:2px;">CYBERTRONIAN COMBATANT</div>
-                            <div style="display:flex;align-items:baseline;gap:10px;">
-                                <h1 style="font-size:32px;font-weight:900;color:#FFF;margin:0;">${bot.name_zh}</h1>
-                                <span class="tecnica" style="font-size:20px;font-weight:900;color:#00F0FF;">${bot.name_en}</span>
+                            <div class="tecnica" style="font-size:11px;color:#38bdf8;letter-spacing:1px;margin-bottom:2px;">
+                                ${isEn ? 'CYBERTRONIAN COMBATANT' : '塞伯坦战士'}
                             </div>
-                            <div style="font-size:12px;color:#94a3b8;margin-top:4px;">${bot.note || (bot.origin + ' · ' + (factionObj.name_zh || bot.faction) + ' ' + (classObj.name_zh || bot.class))}</div>
+                            <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;">
+                                <h1 style="font-size:32px;font-weight:900;color:#FFF;margin:0;">
+                                    ${isEn ? (bot.name_en || bot.name_zh) : bot.name_zh}
+                                </h1>
+                                <span class="tecnica" style="font-size:20px;font-weight:900;color:#00F0FF;">
+                                    ${isEn ? bot.name_zh : (bot.name_en || '')}
+                                </span>
+                            </div>
                         </div>
 
-                        <div style="display:flex;flex-wrap:wrap;gap:6px;">
-                            <span style="font-size:11px;font-weight:600;background:rgba(34,197,94,0.15);color:#4ade80;border:1px solid rgba(34,197,94,0.3);padding:2px 8px;border-radius:4px;">
-                                ${classObj.name_zh}核心
-                            </span>
+                        <!-- Single Capsule: Kabam人物 (Requirement 2) -->
+                        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:2px;">
                             <span style="font-size:11px;font-weight:600;background:rgba(0,240,255,0.15);color:#67e8f9;border:1px solid rgba(0,240,255,0.3);padding:2px 8px;border-radius:4px;">
-                                ${bot.source || 'Kabam'}收录
+                                ${isEn ? (bot.source || 'Kabam') + ' Character' : (bot.source || 'Kabam') + '人物'}
                             </span>
-                            ${bot.star_default ? `<span style="font-size:11px;font-weight:600;background:rgba(234,179,8,0.15);color:#fde047;border:1px solid rgba(234,179,8,0.3);padding:2px 8px;border-radius:4px;">初始 ${bot.star_default} 星</span>` : ''}
                         </div>
 
+                        <!-- Vitals Grid: Actual values without multiplier (Requirement 3) -->
                         <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:8px;padding-top:12px;border-top:1px solid #1e293b;">
                             <div style="background:rgba(15,23,42,0.8);border:1px solid #1e293b;border-radius:8px;padding:8px;text-align:center;">
-                                <div class="tecnica" style="font-size:9px;color:#94a3b8;">HEALTH</div>
-                                <div class="tecnica" style="font-size:14px;font-weight:700;color:#38bdf8;">${(bot.health_mult || 1.0).toFixed(2)}x</div>
-                                <div style="font-size:9px;color:#64748b;">生命倍率</div>
+                                <div class="tecnica" style="font-size:10px;color:#94a3b8;font-weight:700;">${isEn ? 'HEALTH' : '生命值'}</div>
+                                <div class="tecnica" style="font-size:15px;font-weight:900;color:#38bdf8;margin-top:2px;">${hpVal.toLocaleString()}</div>
                             </div>
                             <div style="background:rgba(15,23,42,0.8);border:1px solid #1e293b;border-radius:8px;padding:8px;text-align:center;">
-                                <div class="tecnica" style="font-size:9px;color:#94a3b8;">ATTACK</div>
-                                <div class="tecnica" style="font-size:14px;font-weight:700;color:#38bdf8;">${(bot.attack_mult || 1.0).toFixed(2)}x</div>
-                                <div style="font-size:9px;color:#64748b;">攻击倍率</div>
+                                <div class="tecnica" style="font-size:10px;color:#94a3b8;font-weight:700;">${isEn ? 'ATTACK' : '攻击力'}</div>
+                                <div class="tecnica" style="font-size:15px;font-weight:900;color:#38bdf8;margin-top:2px;">${atkVal.toLocaleString()}</div>
                             </div>
                             <div style="background:rgba(15,23,42,0.8);border:1px solid #1e293b;border-radius:8px;padding:8px;text-align:center;">
-                                <div class="tecnica" style="font-size:9px;color:#94a3b8;">CRIT RATE</div>
-                                <div class="tecnica" style="font-size:14px;font-weight:700;color:#4ade80;">${Math.round((bot.effective_crit_chance || 0.15) * 100)}%</div>
-                                <div style="font-size:9px;color:#64748b;">基准暴击</div>
+                                <div class="tecnica" style="font-size:10px;color:#94a3b8;font-weight:700;">${isEn ? 'CRIT RATE' : '暴击率'}</div>
+                                <div class="tecnica" style="font-size:15px;font-weight:900;color:#4ade80;margin-top:2px;">${critRateVal}</div>
                             </div>
                             <div style="background:rgba(15,23,42,0.8);border:1px solid #1e293b;border-radius:8px;padding:8px;text-align:center;">
-                                <div class="tecnica" style="font-size:9px;color:#94a3b8;">CRIT DMG</div>
-                                <div class="tecnica" style="font-size:14px;font-weight:700;color:#f59e0b;">${(bot.effective_crit_damage || 1.5).toFixed(2)}x</div>
-                                <div style="font-size:9px;color:#64748b;">暴击伤害</div>
+                                <div class="tecnica" style="font-size:10px;color:#94a3b8;font-weight:700;">${isEn ? 'CRIT DMG' : '暴击伤害'}</div>
+                                <div class="tecnica" style="font-size:15px;font-weight:900;color:#f59e0b;margin-top:2px;">${critDmgVal}</div>
                             </div>
                         </div>
                     </div>
@@ -7901,138 +7948,184 @@
             `;
 
             // Section 1: Dossier / Lore
-            const loreContentHtml = bot.desc_zh ? `
+            const loreText = isEn ? (bot.desc_en || bot.desc_zh) : (bot.desc_zh || bot.desc_en);
+            const loreContentHtml = loreText ? `
                 <div style="background:rgba(15,23,42,0.4);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;font-size:13px;line-height:1.7;color:#cbd5e1;">
-                    <p style="margin:0;">${bot.desc_zh}</p>
+                    <p style="margin:0;">${loreText}</p>
                 </div>
-            ` : '<div style="font-size:12px;color:#64748b;font-style:italic;">暂无机体专属档案文本</div>';
+            ` : `<div style="font-size:12px;color:#64748b;font-style:italic;">${isEn ? 'No character dossier lore available' : '暂无机体专属档案文本'}</div>`;
 
-            // Section 2: Signature (Full width banner for Long mode)
-            const sigContentHtml = sigAbs.length ? sigAbs.map(s => `
-                <div style="background:linear-gradient(90deg, rgba(245,158,11,0.15) 0%, rgba(15,23,42,0.6) 100%);border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:14px 16px;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);margin-bottom:10px;">
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                        <div style="display:flex;align-items:center;gap:8px;">
-                            <span style="font-size:14px;font-weight:700;color:#FFF;">${s.title_zh || '觉醒能力'}</span>
-                            <span class="tecnica" style="font-size:11px;color:#f59e0b;">${s.title_en || ''}</span>
+            // Section 2: Signature Ability (Requirements 5 & 6: Called "招牌能力", SIGNATURE badge removed)
+            const sigContentHtml = sigAbs.length ? sigAbs.map(s => {
+                const titleMain = isEn ? (s.title_en || s.title_zh || 'Signature Ability') : (s.title_zh || s.title_en || '招牌能力');
+                const titleSub = isEn ? s.title_zh : (s.title_en || '');
+                const descText = isEn ? (s.desc_en || s.desc_zh) : s.desc_zh;
+                return `
+                    <div style="background:linear-gradient(90deg, rgba(245,158,11,0.15) 0%, rgba(15,23,42,0.6) 100%);border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:14px 16px;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);margin-bottom:10px;">
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                                <span style="font-size:14px;font-weight:700;color:#FFF;">${titleMain}</span>
+                                ${titleSub ? `<span class="tecnica" style="font-size:11px;color:#f59e0b;">${titleSub}</span>` : ''}
+                            </div>
                         </div>
-                        <span class="tecnica" style="font-size:10px;font-weight:700;background:rgba(245,158,11,0.2);color:#fde047;padding:1px 6px;border-radius:4px;border:1px solid rgba(245,158,11,0.4);">SIGNATURE</span>
+                        <div style="font-size:12px;color:#e2e8f0;line-height:1.6;">${fmtDossierDesc(descText)}</div>
                     </div>
-                    <div style="font-size:12px;color:#e2e8f0;line-height:1.6;">${fmtDossierDesc(s.desc_zh)}</div>
-                </div>
-            `).join('') : '<div style="font-size:12px;color:#64748b;font-style:italic;">暂无招牌能力配置</div>';
+                `;
+            }).join('') : `<div style="font-size:12px;color:#64748b;font-style:italic;">${isEn ? 'No signature ability configured' : '暂无招牌能力配置'}</div>`;
 
-            // Left Col Basic Card HTML
+            // Section 3: Basic Abilities Card
             const basicCardHtml = `
                 <div style="background:rgba(15,23,42,0.5);border:1px solid rgba(0,240,255,0.2);border-radius:12px;padding:14px;">
                     <div class="tecnica" style="font-size:11px;font-weight:700;color:#00F0FF;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #1e293b;padding-bottom:6px;">
-                        <span style="width:6px;height:6px;border-radius:50%;background:#00F0FF;"></span> 基础能力 (BASIC ABILITIES)
+                        <span style="width:6px;height:6px;border-radius:50%;background:#00F0FF;"></span> ${isEn ? 'Basic Abilities' : '基础能力'}
                     </div>
-                    ${basicAbs.length ? basicAbs.map((b, idx) => `
-                        <div style="${idx > 0 ? 'padding-top:10px;margin-top:10px;border-top:1px solid rgba(255,255,255,0.06);' : ''}">
-                            <div style="display:flex;justify-content:space-between;align-items:baseline;">
-                                <span style="font-size:13px;font-weight:700;color:#FFF;">${b.title_zh || '基础能力'}</span>
-                                <span class="tecnica" style="font-size:10px;color:#38bdf8;">${b.title_en || ''}</span>
+                    ${basicAbs.length ? basicAbs.map((b, idx) => {
+                        const bTitleMain = isEn ? (b.title_en || b.title_zh || 'Basic Ability') : (b.title_zh || b.title_en || '基础能力');
+                        const bTitleSub = isEn ? b.title_zh : (b.title_en || '');
+                        const bDesc = isEn ? (b.desc_en || b.desc_zh) : b.desc_zh;
+                        return `
+                            <div style="${idx > 0 ? 'padding-top:10px;margin-top:10px;border-top:1px solid rgba(255,255,255,0.06);' : ''}">
+                                <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px;">
+                                    <span style="font-size:13px;font-weight:700;color:#FFF;">${bTitleMain}</span>
+                                    ${bTitleSub ? `<span class="tecnica" style="font-size:10px;color:#38bdf8;">${bTitleSub}</span>` : ''}
+                                </div>
+                                <div style="font-size:12px;color:#94a3b8;margin-top:4px;line-height:1.5;">${fmtDossierDesc(bDesc)}</div>
                             </div>
-                            <div style="font-size:12px;color:#94a3b8;margin-top:4px;line-height:1.5;">${fmtDossierDesc(b.desc_zh)}</div>
-                        </div>
-                    `).join('') : '<div style="font-size:12px;color:#64748b;">暂无基础能力</div>'}
+                        `;
+                    }).join('') : `<div style="font-size:12px;color:#64748b;">${isEn ? 'No basic abilities' : '暂无基础能力'}</div>`}
                 </div>
             `;
 
-            // Right Col Passives Card HTML
+            // Section 3: Passives Card (Requirement 8: Called "被动", NOT "被动战技")
             const passiveCardHtml = `
                 <div style="background:rgba(15,23,42,0.5);border:1px solid rgba(34,197,94,0.25);border-radius:12px;padding:14px;">
                     <div class="tecnica" style="font-size:11px;font-weight:700;color:#4ade80;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #1e293b;padding-bottom:6px;">
-                        <span style="width:6px;height:6px;border-radius:50%;background:#4ade80;"></span> 被动战技 (PASSIVE ABILITIES)
+                        <span style="width:6px;height:6px;border-radius:50%;background:#4ade80;"></span> ${isEn ? 'Passives' : '被动'}
                     </div>
-                    ${passiveAbs.length ? passiveAbs.map((p, idx) => `
-                        <div style="${idx > 0 ? 'padding-top:10px;margin-top:10px;border-top:1px solid rgba(255,255,255,0.06);' : ''}">
-                            <div style="display:flex;justify-content:space-between;align-items:baseline;">
-                                <span style="font-size:13px;font-weight:700;color:#FFF;">${p.title_zh || '被动战技'}</span>
-                                <span class="tecnica" style="font-size:10px;color:#4ade80;">${p.title_en || ''}</span>
+                    ${passiveAbs.length ? passiveAbs.map((p, idx) => {
+                        const pTitleMain = isEn ? (p.title_en || p.title_zh || 'Passive') : (p.title_zh || p.title_en || '被动');
+                        const pTitleSub = isEn ? p.title_zh : (p.title_en || '');
+                        const pDesc = isEn ? (p.desc_en || p.desc_zh) : p.desc_zh;
+                        return `
+                            <div style="${idx > 0 ? 'padding-top:10px;margin-top:10px;border-top:1px solid rgba(255,255,255,0.06);' : ''}">
+                                <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px;">
+                                    <span style="font-size:13px;font-weight:700;color:#FFF;">${pTitleMain}</span>
+                                    ${pTitleSub ? `<span class="tecnica" style="font-size:10px;color:#4ade80;">${pTitleSub}</span>` : ''}
+                                </div>
+                                <div style="font-size:12px;color:#94a3b8;margin-top:4px;line-height:1.5;">${fmtDossierDesc(pDesc)}</div>
                             </div>
-                            <div style="font-size:12px;color:#94a3b8;margin-top:4px;line-height:1.5;">${fmtDossierDesc(p.desc_zh)}</div>
-                        </div>
-                    `).join('') : '<div style="font-size:12px;color:#64748b;">暂无被动战技</div>'}
+                        `;
+                    }).join('') : `<div style="font-size:12px;color:#64748b;">${isEn ? 'No passive abilities' : '暂无被动'}</div>`}
                 </div>
             `;
 
-            // Section 3: Basic & Passives for Long Mode
+            // Section 3: Stacked Vertically (上下排列, Requirement 8)
             const basicPassHtml = `
-                <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:14px;align-items:start;">
+                <div style="display:flex;flex-direction:column;gap:14px;">
                     ${basicCardHtml}
                     ${passiveCardHtml}
                 </div>
             `;
 
-            // Section 3: Basic & Passives + Signature for Tab Mode (Signature moved under Basic to save vertical space!)
+            // Tab Mode Version of Section 3 (Signature + Basic + Passives all stacked vertically)
             const basicPassTabHtml = `
-                <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:14px;align-items:start;">
-                    <div style="display:flex;flex-direction:column;gap:14px;">
-                        ${basicCardHtml}
-                        ${sigAbs.length ? sigAbs.map(s => `
-                            <div style="background:linear-gradient(90deg, rgba(245,158,11,0.15) 0%, rgba(15,23,42,0.6) 100%);border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:14px 16px;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);">
-                                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                                    <div style="display:flex;align-items:center;gap:8px;">
-                                        <span style="font-size:14px;font-weight:700;color:#FFF;">${s.title_zh || '觉醒能力'}</span>
-                                        <span class="tecnica" style="font-size:11px;color:#f59e0b;">${s.title_en || ''}</span>
-                                    </div>
-                                    <span class="tecnica" style="font-size:10px;font-weight:700;background:rgba(245,158,11,0.2);color:#fde047;padding:1px 6px;border-radius:4px;border:1px solid rgba(245,158,11,0.4);">SIGNATURE</span>
-                                </div>
-                                <div style="font-size:12px;color:#e2e8f0;line-height:1.6;">${fmtDossierDesc(s.desc_zh)}</div>
-                            </div>
-                        `).join('') : ''}
-                    </div>
+                <div style="display:flex;flex-direction:column;gap:14px;">
+                    ${sigAbs.length ? sigContentHtml : ''}
+                    ${basicCardHtml}
                     ${passiveCardHtml}
                 </div>
             `;
 
+            // Section 4: Specials Grouped by SP1, SP2, SP3 (Requirements 9 & 10)
+            const spGroups = [1, 2, 3].map(spNum => {
+                const spCat = 'sp' + spNum;
+                const spNameZh = bot['sp' + spNum + '_name_zh'] || (ovBot && ovBot['sp' + spNum + '_name_zh']) || '';
+                const spNameEn = bot['sp' + spNum + '_name_en'] || (ovBot && ovBot['sp' + spNum + '_name_en']) || '';
+                const items = abilities.filter(a => a.category === spCat);
+                const badgeColor = spNum === 3 ? '#a855f7' : (spNum === 2 ? '#3b82f6' : '#00F0FF');
+                const cost = isEn 
+                    ? (spNum === 1 ? '1 BAR POWER' : (spNum === 2 ? '2 BARS POWER' : 'MAX 3 BARS'))
+                    : (spNum === 1 ? '1 格能量' : (spNum === 2 ? '2 格能量' : '3 格能量 (满能)'));
 
-            // Section 4: Specials (SP1, SP2, SP3)
-            const spContentHtml = spAbs.length ? spAbs.map((sp, idx) => {
-                const spTag = sp.category.toUpperCase();
-                const cost = sp.category === 'sp1' ? '1 BAR POWER' : (sp.category === 'sp2' ? '2 BARS POWER' : 'MAX 3 BARS');
-                const badgeColor = sp.category === 'sp3' ? '#a855f7' : (sp.category === 'sp2' ? '#3b82f6' : '#00F0FF');
+                const moveTitleMain = isEn 
+                    ? (spNameEn || spNameZh || ('Special Attack ' + spNum))
+                    : (spNameZh || spNameEn || ('特殊技 ' + spNum));
+                const moveTitleSub = isEn ? spNameZh : (spNameEn || '');
+
                 return `
-                    <div style="background:rgba(15,23,42,0.6);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px 16px;margin-bottom:8px;">
-                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
-                            <div style="display:flex;align-items:center;gap:8px;">
-                                <span class="tecnica" style="font-size:11px;font-weight:900;background:${badgeColor}22;color:${badgeColor};border:1px solid ${badgeColor}55;padding:1px 6px;border-radius:4px;">${spTag}</span>
-                                <span style="font-size:13px;font-weight:700;color:#FFF;">${sp.title_zh || '特殊技'}</span>
-                                <span class="tecnica" style="font-size:11px;color:#94a3b8;">${sp.title_en || ''}</span>
+                    <div style="background:rgba(15,23,42,0.6);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px 16px;margin-bottom:12px;">
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:8px;">
+                            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                                <span class="tecnica" style="font-size:11px;font-weight:900;background:${badgeColor}22;color:${badgeColor};border:1px solid ${badgeColor}55;padding:2px 8px;border-radius:4px;">
+                                    SP${spNum}
+                                </span>
+                                <span style="font-size:14px;font-weight:700;color:#FFF;">
+                                    ${moveTitleMain}
+                                </span>
+                                ${moveTitleSub ? `<span class="tecnica" style="font-size:11px;color:#94a3b8;">${moveTitleSub}</span>` : ''}
                             </div>
-                            <span class="tecnica" style="font-size:10px;color:${badgeColor};letter-spacing:0.5px;">${cost}</span>
+                            <span class="tecnica" style="font-size:10px;font-weight:600;color:${badgeColor};background:${badgeColor}11;padding:2px 6px;border-radius:4px;border:1px solid ${badgeColor}33;letter-spacing:0.5px;">
+                                ${cost}
+                            </span>
                         </div>
-                        <div style="font-size:12px;color:#cbd5e1;line-height:1.5;margin-top:4px;">${fmtDossierDesc(sp.desc_zh)}</div>
+                        ${items.length ? items.map((a, idx) => {
+                            const aTitleMain = isEn ? (a.title_en || a.title_zh || '') : (a.title_zh || a.title_en || '');
+                            const aTitleSub = isEn ? a.title_zh : (a.title_en || '');
+                            const aDesc = isEn ? (a.desc_en || a.desc_zh) : a.desc_zh;
+                            return `
+                                <div style="${idx > 0 ? 'padding-top:10px;margin-top:10px;border-top:1px solid rgba(255,255,255,0.04);' : ''}">
+                                    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;flex-wrap:wrap;gap:6px;">
+                                        <span style="font-size:13px;font-weight:700;color:${badgeColor};">
+                                            ${aTitleMain}
+                                        </span>
+                                        ${aTitleSub ? `<span class="tecnica" style="font-size:10px;color:#64748b;">${aTitleSub}</span>` : ''}
+                                    </div>
+                                    <div style="font-size:12px;color:#cbd5e1;line-height:1.6;">
+                                        ${fmtDossierDesc(aDesc)}
+                                    </div>
+                                </div>
+                            `;
+                        }).join('') : `
+                            <div style="font-size:12px;color:#64748b;font-style:italic;">
+                                ${isEn ? 'No specific ability triggers registered.' : '暂无附加技能词条'}
+                            </div>
+                        `}
                     </div>
                 `;
-            }).join('') : '<div style="font-size:12px;color:#64748b;font-style:italic;">暂无特殊技配置</div>';
+            }).join('');
 
-            // Section 5: Synergies
+            const spContentHtml = spGroups || `<div style="font-size:12px;color:#64748b;font-style:italic;">${isEn ? 'No special attacks configured' : '暂无特殊技配置'}</div>`;
+
+            // Section 5: Synergies (Requirement 11: Called "协同奖励", EN "Synergy Bonus")
             const synContentHtml = synAbs.length ? `
                 <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:12px;">
-                    ${synAbs.map(s => `
-                        <div style="background:rgba(15,23,42,0.6);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;justify-content:space-between;">
-                            <div>
-                                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
-                                    <span style="font-size:13px;font-weight:700;color:#FFF;">${s.title_zh || '协同奖励'}</span>
-                                    <span class="tecnica" style="font-size:10px;color:#38bdf8;">${s.title_en || ''}</span>
+                    ${synAbs.map(s => {
+                        const sTitleMain = isEn ? (s.title_en || s.title_zh || 'Synergy Bonus') : (s.title_zh || s.title_en || '协同奖励');
+                        const sTitleSub = isEn ? s.title_zh : (s.title_en || '');
+                        const sDesc = isEn ? (s.desc_en || s.desc_zh) : s.desc_zh;
+                        return `
+                            <div style="background:rgba(15,23,42,0.6);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;justify-content:space-between;">
+                                <div>
+                                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;flex-wrap:wrap;gap:6px;">
+                                        <span style="font-size:13px;font-weight:700;color:#FFF;">${sTitleMain}</span>
+                                        ${sTitleSub ? `<span class="tecnica" style="font-size:10px;color:#38bdf8;">${sTitleSub}</span>` : ''}
+                                    </div>
+                                    <div style="font-size:12px;color:#94a3b8;line-height:1.5;margin-bottom:8px;">${fmtDossierDesc(sDesc)}</div>
                                 </div>
-                                <div style="font-size:12px;color:#94a3b8;line-height:1.5;margin-bottom:8px;">${fmtDossierDesc(s.desc_zh)}</div>
+                                ${s.synergy_bots && s.synergy_bots.length ? `
+                                    <div style="padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);">
+                                        ${renderDossierPartnerChips(s.synergy_bots, isEn)}
+                                    </div>
+                                ` : ''}
                             </div>
-                            ${s.synergy_bots && s.synergy_bots.length ? `
-                                <div style="padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);">
-                                    ${renderDossierPartnerChips(s.synergy_bots)}
-                                </div>
-                            ` : ''}
-                        </div>
-                    `).join('')}
+                        `;
+                    }).join('')}
                 </div>
-            ` : '<div style="font-size:12px;color:#64748b;font-style:italic;">暂无协同加成</div>';
+            ` : `<div style="font-size:12px;color:#64748b;font-style:italic;">${isEn ? 'No synergy bonuses configured' : '暂无协同加成'}</div>`;
 
             // Footer
             const footerHtml = `
-                <div style="display:flex;justify-content:space-between;align-items:center;padding-top:20px;margin-top:20px;border-top:1px solid #1e293b;font-size:11px;color:#64748b;">
+                <div style="display:flex;justify-content:space-between;align-items:center;padding-top:20px;margin-top:20px;border-top:1px solid #1e293b;font-size:11px;color:#64748b;flex-wrap:wrap;gap:10px;">
                     <span class="tecnica">TRANSFORMERS: FORGED TO FIGHT // REVIVAL MAINFRAME</span>
                     <span class="tecnica">BOT_ID: ${bot.bot_id}</span>
                 </div>
@@ -8048,36 +8141,41 @@
 
                         <!-- 01 DOSSIER -->
                         <div class="dossier-sec-bar">
-                            <span class="tecnica" style="font-size:12px;font-weight:700;color:#00F0FF;letter-spacing:1px;">01 // DOSSIER & PROFILE · 机体档案与背景</span>
-                            <span class="tecnica" style="font-size:10px;color:#64748b;">DATA SPEC</span>
+                            <span class="tecnica" style="font-size:12px;font-weight:700;color:#00F0FF;letter-spacing:1px;">
+                                ${isEn ? '01 // DOSSIER' : '01 // 机体档案'}
+                            </span>
                         </div>
                         ${loreContentHtml}
 
-                        <!-- 02 SIGNATURE -->
+                        <!-- 02 SIGNATURE (Requirement 5) -->
                         <div class="dossier-sec-bar" style="border-left-color:#f59e0b;background:linear-gradient(90deg, rgba(245,158,11,0.18) 0%, rgba(15,23,42,0.04) 75%, transparent 100%);">
-                            <span class="tecnica" style="font-size:12px;font-weight:700;color:#f59e0b;letter-spacing:1px;">02 // SIGNATURE ABILITY · 觉醒招牌能力</span>
-                            <span class="tecnica" style="font-size:10px;color:#fde047;">AWAKENED</span>
+                            <span class="tecnica" style="font-size:12px;font-weight:700;color:#f59e0b;letter-spacing:1px;">
+                                ${isEn ? '02 // SIGNATURE ABILITY' : '02 // 招牌能力'}
+                            </span>
                         </div>
                         ${sigContentHtml}
 
-                        <!-- 03 BASIC & PASSIVE -->
+                        <!-- 03 ABILITIES (Requirement 7 & 8) -->
                         <div class="dossier-sec-bar">
-                            <span class="tecnica" style="font-size:12px;font-weight:700;color:#00F0FF;letter-spacing:1px;">03 // ABILITIES & PASSIVES · 基础能力与被动特长</span>
-                            <span class="tecnica" style="font-size:10px;color:#64748b;">COMBAT SUITE</span>
+                            <span class="tecnica" style="font-size:12px;font-weight:700;color:#00F0FF;letter-spacing:1px;">
+                                ${isEn ? '03 // ABILITIES' : '03 // 能力介绍'}
+                            </span>
                         </div>
                         ${basicPassHtml}
 
-                        <!-- 04 SPECIALS -->
+                        <!-- 04 SPECIALS (Requirements 9 & 10) -->
                         <div class="dossier-sec-bar">
-                            <span class="tecnica" style="font-size:12px;font-weight:700;color:#00F0FF;letter-spacing:1px;">04 // SPECIAL ATTACKS SEQUENCE · 特殊技序列 (SP1~SP3)</span>
-                            <span class="tecnica" style="font-size:10px;color:#64748b;">3 STAGES</span>
+                            <span class="tecnica" style="font-size:12px;font-weight:700;color:#00F0FF;letter-spacing:1px;">
+                                ${isEn ? '04 // SPECIAL ATTACKS' : '04 // 特殊技'}
+                            </span>
                         </div>
                         ${spContentHtml}
 
-                        <!-- 05 SYNERGIES -->
+                        <!-- 05 SYNERGIES (Requirement 11) -->
                         <div class="dossier-sec-bar">
-                            <span class="tecnica" style="font-size:12px;font-weight:700;color:#00F0FF;letter-spacing:1px;">05 // SPARK SYNERGY MATRIX · 战友火种协同</span>
-                            <span class="tecnica" style="font-size:10px;color:#64748b;">TEAM BONDS</span>
+                            <span class="tecnica" style="font-size:12px;font-weight:700;color:#00F0FF;letter-spacing:1px;">
+                                ${isEn ? '05 // SYNERGY BONUS' : '05 // 协同奖励'}
+                            </span>
                         </div>
                         ${synContentHtml}
 
@@ -8095,16 +8193,16 @@
                         <!-- Tabbing Buttons -->
                         <div style="display:flex;gap:8px;border-bottom:1px solid #1e293b;padding-bottom:12px;margin-bottom:16px;flex-wrap:wrap;">
                             <button id="btnDossierTab_abilities" class="dossier-tab-btn ${gDossierActiveTab === 'abilities' ? 'active' : ''}" onclick="switchDossierTab('abilities')">
-                                ⚡ 能力
+                                ⚡ ${isEn ? 'Abilities' : '能力'}
                             </button>
                             <button id="btnDossierTab_specials" class="dossier-tab-btn ${gDossierActiveTab === 'specials' ? 'active' : ''}" onclick="switchDossierTab('specials')">
-                                💥 特殊技
+                                💥 ${isEn ? 'Special Attacks' : '特殊技'}
                             </button>
                             <button id="btnDossierTab_synergies" class="dossier-tab-btn ${gDossierActiveTab === 'synergies' ? 'active' : ''}" onclick="switchDossierTab('synergies')">
-                                🔗 协同
+                                🔗 ${isEn ? 'Synergy Bonus' : '协同奖励'}
                             </button>
                             <button id="btnDossierTab_lore" class="dossier-tab-btn ${gDossierActiveTab === 'lore' ? 'active' : ''}" onclick="switchDossierTab('lore')">
-                                📜 人物设定
+                                📜 ${isEn ? 'Dossier' : '机体档案'}
                             </button>
                         </div>
 

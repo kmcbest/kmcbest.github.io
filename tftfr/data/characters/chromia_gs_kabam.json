@@ -20,7 +20,7 @@
   "note": "经典G1 勇士系",
   "pua_faction_icon": "E132",
   "pua_class_icon": "",
-  "updated_at": "2026-10-25 03:51:40",
+  "updated_at": "2026-10-31 05:06:28",
   "hp": 32402,
   "attack": 2306,
   "rating": 10009,
@@ -179,6 +179,30 @@
       "pua_icon": "E40E",
       "status": "priority",
       "sort_order": 11
+    },
+    {
+      "id": 2494,
+      "bot_id": "chromia_gs_kabam",
+      "category": "sp1",
+      "title_zh": "引爆",
+      "title_en": "Detonation",
+      "desc_zh": "如果目标身上有电荷，则引爆电荷，施加攻击力80%的瞬时伤害，并眩晕1.5秒",
+      "desc_en": "",
+      "pua_icon": "E908",
+      "status": "priority",
+      "sort_order": 12
+    },
+    {
+      "id": 2495,
+      "bot_id": "chromia_gs_kabam",
+      "category": "passive",
+      "title_zh": "感应电荷",
+      "title_en": "Sensor Charge",
+      "desc_zh": "远程普通攻击命中或被格挡时，70%的概率施加1层感应电荷，持续6秒  //灰图标，最大1层，可刷新\n感应电荷降低对手60%的规避概率\n电荷过期时立即扣除对方1.5%的最大能量",
+      "desc_en": "",
+      "pua_icon": "E806",
+      "status": "priority",
+      "sort_order": 13
     }
   ]
 }

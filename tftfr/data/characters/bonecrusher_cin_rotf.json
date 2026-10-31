@@ -36,224 +36,28 @@
   "effective_crit_melee": 0.24,
   "portrait_url": "portraits/bonecrusher_cin_rotf.png",
   "portrait_large_url": "portraits/bonecrusher_cin_rotf_large.png",
-  "abilities": [
+  "basic_abilities": [],
+  "game_abilities": [
     {
-      "id": 2953,
-      "bot_id": "bonecrusher_cin_rotf",
-      "category": "basic",
-      "title_zh": "基础特长",
-      "title_en": "Basic Abilities",
-      "desc_zh": "暴击率增益",
-      "desc_en": "Crit Rate Buff",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 0,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2954,
-      "bot_id": "bonecrusher_cin_rotf",
-      "category": "basic",
-      "title_zh": "基础特长",
-      "title_en": "Basic Abilities",
-      "desc_zh": "出血",
-      "desc_en": "Bleed",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 1,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2955,
-      "bot_id": "bonecrusher_cin_rotf",
-      "category": "passive",
       "title_zh": "战斗被动",
       "title_en": "When struck by melee critical hits: {{var_1}} chance to Bleed, dealing {{var_2}} Attack over {{var_3}}.",
       "desc_zh": "受到近战暴击时：{{var_1}} 几率流血，造成 {{var_2}} 攻击力高于 {{var_3}}。",
-      "desc_en": "When struck by melee critical hits: {{var_1}} chance to Bleed, dealing {{var_2}} Attack over {{var_3}}.",
       "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 2,
-      "synergy_bots": [],
-      "status": "unimplemented"
+      "ui_trigger": "战斗被动"
     },
     {
-      "id": 2956,
-      "bot_id": "bonecrusher_cin_rotf",
-      "category": "passive",
       "title_zh": "受暴击反伤流血",
       "title_en": "Bleed when Struck by Crit",
       "desc_zh": "受到近战暴击时：90%的几率给对方施加流血，造成攻击力89.6%的伤害，持续7秒，可叠加。",
-      "desc_en": "When struck by Critical Melee Hits: 90% chance to inflict Bleed, dealing 89.6% Attack over 7 seconds. Stacks.",
       "pua_icon": "0xe401",
-      "raw_data_json": "",
-      "sort_order": 3,
-      "synergy_bots": [],
-      "status": "implemented"
+      "ui_trigger": "受暴击反伤流血"
     },
     {
-      "id": 2957,
-      "bot_id": "bonecrusher_cin_rotf",
-      "category": "passive",
       "title_zh": "重击流血",
       "title_en": "Heavy Attacks Bleed",
       "desc_zh": "重击命中时：70%几率触发流血，造成攻击力45%的伤害，持续5.6秒。",
-      "desc_en": "Heavy Attacks: 70% chance to inflict Bleed, dealing 45% Attack over 5.6 seconds.",
       "pua_icon": "0xe401",
-      "raw_data_json": "",
-      "sort_order": 4,
-      "synergy_bots": [],
-      "status": "implemented"
-    },
-    {
-      "id": 2959,
-      "bot_id": "bonecrusher_cin_rotf",
-      "category": "signature",
-      "title_zh": "纯粹的仇恨",
-      "title_en": "Pure Hate",
-      "desc_zh": "对手流血会加剧碎骨者的仇恨，提高他的攻击力和力量值，同时降低对手的攻击力和力量值。\n\n被动：流血的对手会加剧碎骨者的仇恨，每层流血都会将他的攻击力提高 {{var_10}}，将功率提高 {{var_11}}。对手的攻击力和力量值减少相同的量。\n\n+ 每级大约 {{var_12}}。",
-      "desc_en": "Pure Hate\nBleeding opponents fuel Bonecrusher's hatred, raising his Attack and Power Rate while reducing the opponent's.\nPassive: Bleeding opponents fuel Bonecrusher's hatred, raising his Attack by {{var_10}} and Power Rate by {{var_11}} per stack of Bleed. Opponent's Attack and Power Rate are reduced by the same amount.\n+ about {{var_12}} per level.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 6,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2963,
-      "bot_id": "bonecrusher_cin_rotf",
-      "category": "synergy",
-      "title_zh": "盟友",
-      "title_en": "Allies",
-      "desc_zh": "+{{var_22}}~{{var_23}} 装甲。",
-      "desc_en": "+{{var_22}}~{{var_23}} Armor.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 10,
-      "synergy_bots": [
-        "barricade_cin_dotm"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2964,
-      "bot_id": "bonecrusher_cin_rotf",
-      "category": "synergy",
-      "title_zh": "盟友",
-      "title_en": "Allies",
-      "desc_zh": "{{var_24}}~{{var_25}} 装甲。",
-      "desc_en": "{{var_24}}~{{var_25}} Armor.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 11,
-      "synergy_bots": [
-        "grindor_cin_rotf",
-        "mixmaster_cin_rotf"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2965,
-      "bot_id": "bonecrusher_cin_rotf",
-      "category": "synergy",
-      "title_zh": "宿敌",
-      "title_en": "Enemies",
-      "desc_zh": "+{{var_26}}~{{var_27}} 攻击评级。",
-      "desc_en": "+{{var_26}}~{{var_27}} Attack Rating.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 12,
-      "synergy_bots": [
-        "optimusprime_cin_tf"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2966,
-      "bot_id": "bonecrusher_cin_rotf",
-      "category": "synergy",
-      "title_zh": "锻造服务",
-      "title_en": "Forged to Serve",
-      "desc_zh": "当对手达到 20 个伤害指控时，威震天有 {{var_28}}~{{var_29}} 机会击晕对手。",
-      "desc_en": "Megatron has {{var_28}}~{{var_29}} chance to Stun his opponent when they reach 20 impair charges.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 13,
-      "synergy_bots": [
-        "megatron_cin_rotf"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2967,
-      "bot_id": "bonecrusher_cin_rotf",
-      "category": "synergy",
-      "title_zh": "锻造服务",
-      "title_en": "Forged to Serve",
-      "desc_zh": "威震天的每个爪牙都为他提供了独特的能力。作为回报，威震天提供+{{var_30}}~{{var_31}} 装甲。",
-      "desc_en": "Megatron's minions each provide him with a unique ability. In return Megatron provides +{{var_30}}~{{var_31}} Armor.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 14,
-      "synergy_bots": [
-        "megatron_gs_leader2015"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2968,
-      "bot_id": "bonecrusher_cin_rotf",
-      "category": "synergy",
-      "title_zh": "领袖威仪 (5星)",
-      "title_en": "Leadership (5 Star)",
-      "desc_zh": "作为团队的领导灯塔，所有较低级别的队友都会获得 +{{var_32}} 暴击伤害。",
-      "desc_en": "Acting as a beacon of leadership for the team, all lower tier teammates gain +{{var_32}} Critical Damage.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 15,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2969,
-      "title_zh": "流血",
-      "title_en": "Heavy Attacks Bleed",
-      "desc_zh": "每一击90%的概率触发流血，造成攻击力115%的伤害，持续2秒。",
-      "desc_en": "Heavy Attacks: 70% chance to inflict Bleed, dealing 45% Attack over 5.6 seconds.",
-      "pua_icon": "0xe401",
-      "status": "implemented",
-      "synergy_bots": [],
-      "bot_id": "bonecrusher_cin_rotf",
-      "category": "sp1",
-      "sort_order": 16
-    },
-    {
-      "id": 2970,
-      "title_zh": "流血",
-      "title_en": "Bleed",
-      "desc_zh": "每一击71%的概率触发流血，造成攻击力72%的伤害，持续7秒。",
-      "desc_en": "Heavy Attacks: 70% chance to inflict Bleed, dealing 45% Attack over 5.6 seconds.",
-      "pua_icon": "0xe401",
-      "status": "implemented",
-      "synergy_bots": [],
-      "bot_id": "bonecrusher_cin_rotf",
-      "category": "sp2",
-      "sort_order": 16
-    },
-    {
-      "id": 2971,
-      "title_zh": "流血",
-      "title_en": "Heavy Attacks Bleed",
-      "desc_zh": "每一击45%的概率触发流血，造成攻击力198%的伤害，持续18秒。",
-      "desc_en": "Heavy Attacks: 70% chance to inflict Bleed, dealing 45% Attack over 5.6 seconds.",
-      "pua_icon": "0xe401",
-      "status": "implemented",
-      "synergy_bots": [],
-      "bot_id": "bonecrusher_cin_rotf",
-      "category": "sp3",
-      "sort_order": 17
+      "ui_trigger": "重击流血"
     }
   ]
 }

@@ -36,137 +36,21 @@
   "effective_crit_melee": 0.18,
   "portrait_url": "portraits/bitstream_gs_leader2015.png",
   "portrait_large_url": "portraits/bitstream_gs_leader2015_large.png",
-  "abilities": [
+  "basic_abilities": [
     {
-      "id": 3612,
-      "bot_id": "bitstream_gs_leader2015",
-      "category": "basic",
       "title_zh": "网络干扰射击",
       "title_en": "Data Scramble Shot",
       "desc_zh": "远程射击注入数据木马，使敌人无法使用特殊技 3 秒，并扰乱其能量条。",
-      "desc_en": "Ranged shots inject trojan code, locking opponent Special Attacks for 3s and corrupting their power meter.",
-      "pua_icon": "",
-      "raw_data_json": "{}",
-      "sort_order": 0,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
+      "pua_icon": ""
+    }
+  ],
+  "game_abilities": [
     {
-      "id": 3613,
-      "category": "passive",
       "title_zh": "数据防火墙",
       "title_en": "Firewall Protocol",
       "desc_zh": "战斗开始时获得 4 个护盾增益，每个护盾增益将一次攻击造成的伤害上限限制为对手攻击力的 75%。被近战攻击命中或者防御攻击时消耗一个护盾。护盾全消耗完之后触发系统反噬：对敌人施加震击减益，造成攻击力 50% 的伤害，持续 4 秒，并进入 10 秒充能状态，倒计时结束后重新获得 4 个护盾。",
-      "desc_en": "Starts the fight with 4 Shield Buffs, each capping incoming damage to 75% of opponent Attack. Consumes 1 Shield upon being hit by or blocking an attack. When all Shields are depleted, triggers a system backlash inflicting Shock (50% Attack over 4s), then enters a 10s cooldown before refreshing 4 Shields.",
       "pua_icon": "0xe515",
-      "raw_data_json": "{}",
-      "sort_order": 1,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "bitstream_gs_leader2015"
-    },
-    {
-      "id": 3614,
-      "category": "signature",
-      "title_zh": "零日漏洞拦截",
-      "title_en": "Zero-Day Exploit",
-      "desc_zh": "当敌方蓄满任意一整格能量时，有 [40% - 75%] 概率退回其刚获取的该格能量，并对其施加持续 [3 - 5] 秒的能量锁定减益，阻止其获得能量和释放特殊技。",
-      "desc_en": "When the opponent fills any full bar of Power, has a [40% - 75%] chance to deplete that entire filled bar and inflict Power Lock for [3s - 5s], preventing Power Gain and Special Attacks.",
-      "pua_icon": "0xe523",
-      "raw_data_json": "{}",
-      "sort_order": 2,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "bitstream_gs_leader2015"
-    },
-    {
-      "id": 3615,
-      "category": "sp1",
-      "title_zh": "干扰脉冲",
-      "title_en": "Scramble Pulse",
-      "desc_zh": "最后一击命中 100% 概率施加能量锁定减益，阻止对方获得能量和释放特殊技，持续 3.5 秒；50% 概率施加眩晕减益，持续 1.5 秒。",
-      "desc_en": "Last hit: 100% chance to inflict Power Lock for 3.5s, preventing Power Gain and Special Attacks; 50% chance to inflict Stun for 1.5s.",
-      "pua_icon": "0xe523",
-      "raw_data_json": "{}",
-      "sort_order": 3,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "bitstream_gs_leader2015"
-    },
-    {
-      "id": 3616,
-      "category": "sp2",
-      "title_zh": "逻辑蠕虫",
-      "title_en": "Logic Worm",
-      "desc_zh": "最后一击命中 100% 概率触发能量窃取，窃取对手当前能量值的 20% 转化为自身能量；并施加持续 5 秒的能量流失减益，在持续时间内扣除对方 1 格能量的 60%。",
-      "desc_en": "Last hit: 100% chance to trigger Power Steal, stealing 20% of opponent current Power; and inflicts Power Leak for 5s, draining 60% of 1 bar of Power over the duration.",
-      "pua_icon": "0xe607",
-      "raw_data_json": "{}",
-      "sort_order": 4,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "bitstream_gs_leader2015"
-    },
-    {
-      "id": 3617,
-      "category": "sp3",
-      "title_zh": "全盘系统重置",
-      "title_en": "Kernel Wipeout",
-      "desc_zh": "最后一击 100% 概率即时扣除对方全部现有能量；技能结束后 100% 概率施加能量锁定减益，持续 6 秒，并施加 25% 的攻击减益，持续 6 秒。",
-      "desc_en": "Last hit: 100% chance to completely drain all opponent Power; inflicts Power Lock for 6s and a 25% Attack Debuff for 6s after the Special ends.",
-      "pua_icon": "0xe523",
-      "raw_data_json": "{}",
-      "sort_order": 5,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "bitstream_gs_leader2015"
-    },
-    {
-      "id": 3618,
-      "bot_id": "bitstream_gs_leader2015",
-      "category": "synergy",
-      "title_zh": "网络电子战同盟",
-      "title_en": "Cyber Warfare",
-      "desc_zh": "与声波、震荡波同队时，能量获取率提升 {{var_1}}。",
-      "desc_en": "+{{var_1}} Power Rate when teamed with Soundwave or Shockwave.",
-      "pua_icon": "",
-      "raw_data_json": "{}",
-      "sort_order": 6,
-      "synergy_bots": [
-        "soundwave_gs",
-        "shockwave_gs"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 3619,
-      "bot_id": "bitstream_gs_leader2015",
-      "category": "synergy",
-      "title_zh": "寻猎空军",
-      "title_en": "Seekers",
-      "desc_zh": "与红蜘蛛同队时，获得 +{{var_2}} 破甲。",
-      "desc_en": "+{{var_2}} Armor Piercing when paired with Starscream.",
-      "pua_icon": "",
-      "raw_data_json": "{}",
-      "sort_order": 7,
-      "synergy_bots": [
-        "fte_stars_gs_t3"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 3620,
-      "bot_id": "bitstream_gs_leader2015",
-      "category": "synergy",
-      "title_zh": "领袖威仪 (5星)",
-      "title_en": "Leadership (5 Star)",
-      "desc_zh": "团队所有低星级队员获得 +{{var_3}} 暴击率。",
-      "desc_en": "All lower tier teammates gain +{{var_3}} Critical Rating.",
-      "pua_icon": "",
-      "raw_data_json": "{}",
-      "sort_order": 8,
-      "synergy_bots": [],
-      "status": "unimplemented"
+      "ui_trigger": "数据防火墙"
     }
   ]
 }

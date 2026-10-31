@@ -36,244 +36,28 @@
   "effective_crit_melee": 0.14,
   "portrait_url": "portraits/ironhide_cin_rotf.png",
   "portrait_large_url": "portraits/ironhide_cin_rotf_large.png",
-  "abilities": [
+  "basic_abilities": [],
+  "game_abilities": [
     {
-      "id": 2586,
-      "bot_id": "ironhide_cin_rotf",
-      "category": "basic",
-      "title_zh": "基础特长",
-      "title_en": "Basic Abilities",
-      "desc_zh": "严重伤害",
-      "desc_en": "Critical Damage",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 0,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2587,
-      "bot_id": "ironhide_cin_rotf",
-      "category": "basic",
-      "title_zh": "基础特长",
-      "title_en": "Basic Abilities",
-      "desc_zh": "烧伤",
-      "desc_en": "Burn",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 1,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2588,
-      "bot_id": "ironhide_cin_rotf",
-      "category": "passive",
       "title_zh": "暴击伤害",
       "title_en": "Crit Damage",
       "desc_zh": "铁皮受到攻击时：有12%的概率获得暴击伤害增益，增加140%的暴击伤害，持续8秒",
-      "desc_en": "When Attacked: {{var_1}} chance to increase Critical Damage by {{var_2}} for {{var_3}}.",
       "pua_icon": "0xe906",
-      "raw_data_json": "",
-      "sort_order": 2,
-      "synergy_bots": [],
-      "status": "unimplemented"
+      "ui_trigger": "暴击伤害"
     },
     {
-      "id": 2589,
-      "bot_id": "ironhide_cin_rotf",
-      "category": "passive",
       "title_zh": "燃烧",
       "title_en": "Burn",
       "desc_zh": "所有导弹攻击（重击、SP1的最后一击，SP2的所有攻击）命中时有70%几率造成燃烧，施加攻击力80%的伤害，持续4秒。\n如果对手正在燃烧中，则燃烧可以叠加，每层依旧是4秒，但伤害为攻击力的30%。",
-      "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
       "pua_icon": "0xe41d",
-      "raw_data_json": "",
-      "sort_order": 3,
-      "synergy_bots": [],
-      "status": "implemented"
+      "ui_trigger": "燃烧"
     },
     {
-      "id": 2594,
-      "bot_id": "ironhide_cin_rotf",
-      "category": "signature",
-      "title_zh": "湮灭",
-      "title_en": "Obliteration",
-      "desc_zh": "特殊技：铁皮的特殊技有 {{var_10}} 几率消灭对手，造成 +{{var_11}} 暴击伤害。每场战斗可能会发生一次。\n\n每级 +{{var_12}}。",
-      "desc_en": "Obliteration\nSpecial Attacks: Ironhide has a {{var_10}} chance to obliterate the opponent with +{{var_11}} Critical Damage on his Special Attacks. This may occur once per fight.\n+{{var_12}} per level.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 8,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2595,
-      "bot_id": "ironhide_cin_rotf",
-      "category": "sp1",
-      "title_zh": "眩晕",
-      "title_en": "Stun",
-      "desc_zh": "最后一击有80%概率造成眩晕，持续2.5秒",
-      "desc_en": "Feelin' Lucky - He loves to show off his cannons.",
-      "pua_icon": "0xe605",
-      "raw_data_json": "",
-      "sort_order": 9,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2596,
-      "bot_id": "ironhide_cin_rotf",
-      "category": "sp2",
-      "title_zh": "暴击伤害",
-      "title_en": "Crit Damage",
-      "desc_zh": "有76%的概率获得暴击伤害增益，增加75%的暴击伤害，持续4秒",
-      "desc_en": "{{var_13}} chance to Stun for {{var_14}}.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 10,
-      "synergy_bots": [],
-      "status": "implemented"
-    },
-    {
-      "id": 2598,
-      "bot_id": "ironhide_cin_rotf",
-      "category": "synergy",
-      "title_zh": "盟友",
-      "title_en": "Allies",
-      "desc_zh": "+{{var_20}} 装甲。",
-      "desc_en": "+{{var_20}} Armor.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 12,
-      "synergy_bots": [
-        "ratchet_gs_kabam",
-        "bumblebee_gs_kabam"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2599,
-      "bot_id": "ironhide_cin_rotf",
-      "category": "synergy",
-      "title_zh": "盟友",
-      "title_en": "Allies",
-      "desc_zh": "{{var_21}}~{{var_22}} 装甲。",
-      "desc_en": "{{var_21}}~{{var_22}} Armor.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 13,
-      "synergy_bots": [
-        "optimusprime_cin_tf",
-        "arcee_gs_deluxe2014",
-        "windblade_gs"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2600,
-      "bot_id": "ironhide_cin_rotf",
-      "category": "synergy",
-      "title_zh": "老朋友",
-      "title_en": "Old Friends",
-      "desc_zh": "{{var_23}}~{{var_24}} 在造成流血时有机会造成额外的流血叠加。",
-      "desc_en": "{{var_23}}~{{var_24}} chance to deal an additional Bleed stack when inflicting Bleed.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 14,
-      "synergy_bots": [
-        "optimusprime_cin_tf"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2601,
-      "bot_id": "ironhide_cin_rotf",
-      "category": "synergy",
-      "title_zh": "武器专家",
-      "title_en": "Weapon Specialists",
-      "desc_zh": "+{{var_25}}~{{var_26}} 伤害减益持续时间。 +{{var_27}}~{{var_28}} 联盟任务中的攻击评级。",
-      "desc_en": "+{{var_25}}~{{var_26}} duration for Damaging Debuffs. +{{var_27}}~{{var_28}} Attack Rating in Alliance Missions.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 15,
-      "synergy_bots": [
-        "mixmaster_cin_rotf",
-        "rhinox_gs_voyager2014",
-        "hound_cin_tlk"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2602,
-      "bot_id": "ironhide_cin_rotf",
-      "category": "synergy",
-      "title_zh": "战友兄弟",
-      "title_en": "Brother in Arms",
-      "desc_zh": "{{var_29}}~{{var_30}} 汽车人装甲。 +{{var_31}}~{{var_32}} 单人任务中汽车人的近战伤害。",
-      "desc_en": "{{var_29}}~{{var_30}} Armor for Autobots. +{{var_31}}~{{var_32}} Melee Damage for Autobots in Solo Missions.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 16,
-      "synergy_bots": [
-        "fte_optimus_gs_t3"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2603,
-      "bot_id": "ironhide_cin_rotf",
-      "category": "synergy",
-      "title_zh": "医疗支持",
-      "title_en": "Medic Support",
-      "desc_zh": "战斗开始时修复基地生命值的{{var_33}}~{{var_34}}。 +{{var_35}}~{{var_36}} 突袭中的额外修复。",
-      "desc_en": "{{var_33}}~{{var_34}} of Base Health Repaired at the start of the fight. +{{var_35}}~{{var_36}} extra Repair in Raids.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 17,
-      "synergy_bots": [
-        "ratchet_gs_kabam"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2604,
-      "bot_id": "ironhide_cin_rotf",
-      "category": "synergy",
-      "title_zh": "领袖威仪 (5星)",
-      "title_en": "Leadership (5 Star)",
-      "desc_zh": "+{{var_37}} 对所有低等级队友造成特殊伤害。",
-      "desc_en": "+{{var_37}} Special Damage for all lower tier teammates.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 18,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2605,
-      "bot_id": "ironhide_cin_rotf",
-      "category": "passive",
       "title_zh": "导弹暴击",
       "title_en": "Missile Crit",
       "desc_zh": "所有导弹攻击（重击、SP1的最后一击，SP2的所有攻击）+100%暴击概率",
-      "desc_en": "",
       "pua_icon": "0xe40d",
-      "status": "partial",
-      "sort_order": 19
-    },
-    {
-      "id": 2606,
-      "title_zh": "燃烧",
-      "title_en": "Burn",
-      "desc_zh": "最后一击有30%几率造成燃烧，施加攻击力100%的伤害，持续8秒。",
-      "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
-      "pua_icon": "",
-      "status": "implemented",
-      "synergy_bots": [],
-      "bot_id": "ironhide_cin_rotf",
-      "category": "sp3",
-      "sort_order": 17
+      "ui_trigger": "导弹暴击"
     }
   ]
 }

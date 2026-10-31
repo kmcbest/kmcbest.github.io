@@ -36,137 +36,21 @@
   "effective_crit_melee": 0.24,
   "portrait_url": "portraits/sunstorm_gs_leader2015.png",
   "portrait_large_url": "portraits/sunstorm_gs_leader2015_large.png",
-  "abilities": [
+  "basic_abilities": [
     {
-      "id": 3594,
-      "bot_id": "sunstorm_gs_leader2015",
-      "category": "basic",
       "title_zh": "白热等离子光刃",
       "title_en": "Solar Blades",
       "desc_zh": "近战攻击散发白热聚变辐射，刀刀见血，造成辐射撕裂 (Radiation Bleed) 与重度破甲。",
-      "desc_en": "Melee strikes glow with white-hot solar radiation, causing Radiation Bleed and heavy Armor Break.",
-      "pua_icon": "",
-      "raw_data_json": "{}",
-      "sort_order": 0,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
+      "pua_icon": ""
+    }
+  ],
+  "game_abilities": [
     {
-      "id": 3595,
-      "category": "passive",
       "title_zh": "热核锁定",
       "title_en": "Solar Lock",
       "desc_zh": "重击命中 100% 概率施加一层燃烧减益，造成攻击力 50% 的伤害，持续 4.5 秒。暴击命中时 50% 概率额外施加一层燃烧减益，造成攻击力 30% 的伤害，持续 4 秒。当对手处于燃烧减益状态时，其规避几率降低 35%。",
-      "desc_en": "Heavy Attacks: 100% chance to inflict Burn, dealing 50% Attack over 4.5s. Critical Hits: 50% chance to inflict Burn, dealing 30% Attack over 4s. While the opponent has a Burn Debuff, their chance to Evade is reduced by 35%.",
       "pua_icon": "0xe41d",
-      "raw_data_json": "{}",
-      "sort_order": 1,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "sunstorm_gs_leader2015"
-    },
-    {
-      "id": 3596,
-      "category": "signature",
-      "title_zh": "聚变过载",
-      "title_en": "Solar Overdrive",
-      "desc_zh": "当生命值高于 40% 时，体内失控的恒星反应堆过热，每秒扣除自身 0.5% 生命值；作为代价，每扣除累计 10% 生命值，获得一层持续到战斗结束的 [10% - 18%] 近战增益（上限 4 层）。当生命值降至 40% 及以下时，停止扣除自身生命值，并保留已获得的全部近战增益。",
-      "desc_en": "While Health is above 40%, his unstable fusion core overloads, consuming 0.5% of his own Health per second; in return, gains a permanent [10% - 18%] Melee Buff for every 10% Health consumed (Max Stacks: 4). When Health drops to 40% or below, stops consuming Health and retains all accumulated Melee Buffs.",
-      "pua_icon": "0xe412",
-      "raw_data_json": "{}",
-      "sort_order": 2,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "sunstorm_gs_leader2015"
-    },
-    {
-      "id": 3597,
-      "category": "sp1",
-      "title_zh": "烈火射线",
-      "title_en": "Solar Ray",
-      "desc_zh": "最后一击命中 100% 几率施加一层燃烧减益，造成攻击力 45% 的伤害，持续 4 秒；技能结束后获得一个暴击增益，增加 25% 暴击率，持续 4 秒。",
-      "desc_en": "Last hit: 100% chance to inflict Burn dealing 45% Attack over 4s; grants a 25% Critical Chance Buff for 4s after the Special ends.",
-      "pua_icon": "0xe41d",
-      "raw_data_json": "{}",
-      "sort_order": 3,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "sunstorm_gs_leader2015"
-    },
-    {
-      "id": 3598,
-      "category": "sp2",
-      "title_zh": "耀斑闪光",
-      "title_en": "Solar Flare Flash",
-      "desc_zh": "最后一击命中 80% 几率施加 2 层燃烧减益，造成攻击力 60% 的伤害，持续 5 秒；并有 50% 概率造成眩晕，持续 1.5 秒。",
-      "desc_en": "Last hit: 80% chance to inflict 2 stacks of Burn dealing 60% Attack over 5s; 50% chance to inflict Stun for 1.5s.",
-      "pua_icon": "0xe41d",
-      "raw_data_json": "{}",
-      "sort_order": 4,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "sunstorm_gs_leader2015"
-    },
-    {
-      "id": 3599,
-      "category": "sp3",
-      "title_zh": "太阳风暴",
-      "title_en": "Cataclysmic Solar Storm",
-      "desc_zh": "最后一击命中 100% 几率施加 3 层燃烧减益，造成攻击力 90% 的伤害，持续 6 秒；技能结束后获得一个暴击伤害增益，增加 35% 暴击伤害，持续 6 秒。",
-      "desc_en": "Last hit: 100% chance to inflict 3 stacks of Burn dealing 90% Attack over 6s; grants a 35% Crit Damage Buff for 6s after the Special ends.",
-      "pua_icon": "0xe404",
-      "raw_data_json": "{}",
-      "sort_order": 5,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "sunstorm_gs_leader2015"
-    },
-    {
-      "id": 3600,
-      "bot_id": "sunstorm_gs_leader2015",
-      "category": "synergy",
-      "title_zh": "狂热狂信徒",
-      "title_en": "Solar Zealots",
-      "desc_zh": "与雷震、震天尊同队时，破甲效果提升 {{var_1}}。",
-      "desc_en": "+{{var_1}} Armor Piercing when teamed with Bludgeon or Megatronus.",
-      "pua_icon": "",
-      "raw_data_json": "{}",
-      "sort_order": 6,
-      "synergy_bots": [
-        "bludgeon_gs_rd20",
-        "megatronus_gs_kabam"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 3601,
-      "bot_id": "sunstorm_gs_leader2015",
-      "category": "synergy",
-      "title_zh": "寻猎空军",
-      "title_en": "Seekers",
-      "desc_zh": "与红蜘蛛同队时，获得 +{{var_2}} 暴击伤害。",
-      "desc_en": "+{{var_2}} Critical Damage when teamed with Starscream.",
-      "pua_icon": "",
-      "raw_data_json": "{}",
-      "sort_order": 7,
-      "synergy_bots": [
-        "fte_stars_gs_t3"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 3602,
-      "bot_id": "sunstorm_gs_leader2015",
-      "category": "synergy",
-      "title_zh": "领袖威仪 (5星)",
-      "title_en": "Leadership (5 Star)",
-      "desc_zh": "团队所有低星级队员获得 +{{var_3}} 暴击伤害。",
-      "desc_en": "All lower tier teammates gain +{{var_3}} Critical Damage.",
-      "pua_icon": "",
-      "raw_data_json": "{}",
-      "sort_order": 8,
-      "synergy_bots": [],
-      "status": "unimplemented"
+      "ui_trigger": "热核锁定"
     }
   ]
 }

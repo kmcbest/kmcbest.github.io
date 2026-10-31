@@ -1,0 +1,388 @@
+{
+  "bot_id": "elita_one_gs_kabam",
+  "name_zh": "艾丽塔",
+  "name_en": "Elita-1",
+  "faction": "autobot",
+  "class": "tact",
+  "star_default": 5,
+  "source": "Kabam",
+  "health_mult": 1,
+  "attack_mult": 1,
+  "crit_chance": null,
+  "crit_damage": null,
+  "crit_chance_ranged": null,
+  "crit_chance_melee": null,
+  "block_proficiency": 0.5,
+  "mana_gain_mult": 1,
+  "origin": "Generation 1",
+  "desc_zh": "塞伯坦抵抗军女领袖，战术系精锐。身形娇小敏捷，射击极度精准，拥有操控时空停滞的远古能力。",
+  "desc_en": "Commander of the Autobot Resistance, Tactician elite. Agile and precise sharpshooter with the legendary Chrono Stasis power.",
+  "note": "抵抗军女领袖，战术系",
+  "pua_faction_icon": "E132",
+  "pua_class_icon": "E302",
+  "updated_at": "2026-10-31 13:15:24",
+  "hp": 38400,
+  "attack": 2780,
+  "rating": 6574,
+  "sp1_name_zh": "等离子疾射",
+  "sp1_name_en": "Plasma Burst",
+  "sp2_name_zh": "领袖之怒",
+  "sp2_name_en": "Commander's Wrath",
+  "sp3_name_zh": "时空绝杀：塞伯坦之愿",
+  "sp3_name_en": "Chrono Annihilation",
+  "effective_crit_chance": 0.14,
+  "effective_crit_damage": 1.5,
+  "effective_crit_ranged": 0.14,
+  "effective_crit_melee": 0.14,
+  "portrait_url": "portraits/elita_one_gs_kabam.png",
+  "portrait_large_url": "portraits/elita_one_gs_kabam_large.png",
+  "basic_abilities": [],
+  "game_abilities": [
+    {
+      "title_zh": "战术洞察与霸体破除",
+      "title_en": "Tactical Insight",
+      "desc_zh": "命中处于不可阻挡状态的对手时，100% 概率无视其霸体硬直并造成击退，同时施加 32% 重度破甲持续 6 秒。对手身上每存在一层正面增益（护甲、攻击提升、狂暴），其增益数值被艾丽塔的战术压制削弱 30%。",
+      "pua_icon": "0xe915",
+      "category": "game_ability",
+      "ui_trigger": "对战不可阻挡敌人时"
+    },
+    {
+      "title_zh": "娇小机动与敏捷后撤",
+      "title_en": "Nimble Step",
+      "desc_zh": "向后滑步与翻滚闪避时获得持续 2 秒的战术机动，期间完全免疫近战扑击与冲锋击退，且下一次远程/重击必定暴击。",
+      "pua_icon": "0xe518",
+      "category": "game_ability",
+      "ui_trigger": "滑步后撤与翻滚闪避"
+    },
+    {
+      "title_zh": "精准关节狙击",
+      "title_en": "Precision Marksmanship",
+      "desc_zh": "所有远程攻击与重击无视对手 60% 基础护甲。远程暴击命中减益目标时暴击伤害增加 55%，并有 70% 概率刷新对手身上的减益与破甲持续时间。",
+      "pua_icon": "0xe40d",
+      "category": "game_ability",
+      "ui_trigger": "远程射击与重击"
+    },
+    {
+      "title_zh": "战术拆解与能量回溯",
+      "title_en": "Tactical Dispel",
+      "desc_zh": "重击命中必定驱散对手 2 层正面增益（优先驱散护甲与狂暴），每驱散一层返还自身 12% 能量，并削减对手 35% 能量获取率持续 7 秒。",
+      "pua_icon": "0xe950",
+      "category": "game_ability",
+      "ui_trigger": "重击撞击命中"
+    },
+    {
+      "title_zh": "领袖威仪",
+      "title_en": "Commander's Presence",
+      "desc_zh": "受到非伤害性减益持续时间减少 40%。当对手身上的正面增益被完全清空时，自身攻击力提升 25%。",
+      "pua_icon": "0xe41f",
+      "category": "game_ability",
+      "ui_trigger": "常驻效果"
+    },
+    {
+      "title_zh": "抵抗军之火",
+      "title_en": "Resistance Flame",
+      "desc_zh": "生命值首次低于 50% 时激活相当于 20% 生命值的护盾持续 8 秒并净化流血；队伍中有擎天柱时护盾提升 50%。",
+      "pua_icon": "0xe942",
+      "category": "game_ability",
+      "ui_trigger": "生命值低于 50% 时"
+    }
+  ],
+  "signature": {
+    "title_zh": "时空力场",
+    "title_en": "Chrono Stasis",
+    "desc_zh": "艾丽塔激活体内的远古时空发生器。\n\n• 对手每次激活特殊攻击时，有 45%~85% 概率触发【时间停滞】0.8秒，打断其特技起手动作并扣除其 50% 能量；对阵斗士系时触发几率额外提升 15%。\n• 在时空力场影响下，对手闪避几率强制降为 0%，承受暴击伤害提升 30%~65%。",
+    "pua_icon": "0xE41F",
+    "ui_trigger": "none"
+  },
+  "special_attacks": {
+    "sp1": {
+      "name_zh": "等离子疾射",
+      "name_en": "Plasma Burst",
+      "ui_trigger": "特殊攻击 1",
+      "effects": [
+        {
+          "title_zh": "核心穿甲",
+          "title_en": "Core Breach",
+          "desc_zh": "最后一击 100% 施加 35% 破甲持续 7 秒；对阵斗士系时破甲提升至 50%。",
+          "pua_icon": "0xE40D"
+        },
+        {
+          "title_zh": "能量点燃",
+          "title_en": "Power Burn",
+          "desc_zh": "每次射击 60% 概率扣除对手 1.5% 能量，并封印对手受击获得能量途径持续 4 秒。",
+          "pua_icon": "0xE607"
+        }
+      ]
+    },
+    "sp2": {
+      "name_zh": "领袖之怒",
+      "name_en": "Commander's Wrath",
+      "ui_trigger": "特殊攻击 2",
+      "effects": [
+        {
+          "title_zh": "全面净化与增益过载",
+          "title_en": "Total Purge & Overload",
+          "desc_zh": "强制驱散对手全部正面增益；每净化一层造成相当于攻击力 60% 的额外能量绝杀伤害（可暴击）。",
+          "pua_icon": "0xE950"
+        },
+        {
+          "title_zh": "战术致盲 / 霸体转化眩晕",
+          "title_en": "Tactical Blindness",
+          "desc_zh": "致盲对手 6 秒（45% 攻击落空）；若对手受击前处于不可阻挡状态，则直接转化为 2.5 秒重度眩晕。",
+          "pua_icon": "0xE41F"
+        }
+      ]
+    },
+    "sp3": {
+      "name_zh": "时空绝杀：塞伯坦之愿",
+      "name_en": "Chrono Annihilation",
+      "ui_trigger": "特殊攻击 3",
+      "effects": [
+        {
+          "title_zh": "火种舱裂解与绝对禁疗",
+          "title_en": "Spark Rupture",
+          "desc_zh": "施加持续 10 秒的等离子裂解，每秒造成攻击力 18% 伤害，期间 100% 阻止对手所有生命恢复。",
+          "pua_icon": "0xE401"
+        },
+        {
+          "title_zh": "战术封锁与领袖鼓舞",
+          "title_en": "Tactical Lockdown & Vanguard Inspire",
+          "desc_zh": "封印对手全部特殊攻击 8 秒；同时自身获得攻击力提升 40% 与普攻 100% 暴击率，持续 12 秒。",
+          "pua_icon": "0xE41F"
+        }
+      ]
+    }
+  },
+  "abilities": [
+    {
+      "id": 4001,
+      "bot_id": "elita_one_gs_kabam",
+      "category": "passive",
+      "title_zh": "战术洞察与霸体破除",
+      "title_en": "Tactical Insight",
+      "desc_zh": "命中处于不可阻挡状态的对手时，100% 概率无视其霸体硬直并造成击退，同时施加 32% 重度破甲持续 6 秒。对手身上每存在一层正面增益（护甲、攻击提升、狂暴），其增益数值被艾丽塔的战术压制削弱 30%。",
+      "desc_en": "Attacks ignore Unstoppable poise, knocking back opponents and inflicting 32% Armor Break for 6s. Each active Buff on the opponent has its potency reduced by 30%.",
+      "pua_icon": "0xe915",
+      "raw_data_json": "{}",
+      "sort_order": 1,
+      "synergy_bots": [],
+      "status": "priority"
+    },
+    {
+      "id": 4002,
+      "bot_id": "elita_one_gs_kabam",
+      "category": "passive",
+      "title_zh": "娇小机动与敏捷后撤",
+      "title_en": "Nimble Step",
+      "desc_zh": "向后滑步与翻滚闪避时获得持续 2 秒的战术机动，期间完全免疫近战扑击与冲锋击退，且下一次远程/重击必定暴击。",
+      "desc_en": "Dashing back or dodging grants Tactical Mobility for 2s, granting complete immunity to melee dashes and knockbacks, while making the next Ranged/Heavy Attack a guaranteed Critical Hit.",
+      "pua_icon": "0xe518",
+      "raw_data_json": "{}",
+      "sort_order": 2,
+      "synergy_bots": [],
+      "status": "priority"
+    },
+    {
+      "id": 4003,
+      "bot_id": "elita_one_gs_kabam",
+      "category": "passive",
+      "title_zh": "精准关节狙击",
+      "title_en": "Precision Marksmanship",
+      "desc_zh": "所有远程攻击与重击无视对手 60% 基础护甲。远程暴击命中减益目标时暴击伤害增加 55%，并有 70% 概率刷新对手身上的减益与破甲持续时间。",
+      "desc_en": "All Ranged and Heavy Attacks ignore 60% base Armor. Ranged Critical Hits on debuffed opponents deal +55% Critical Damage and have a 70% chance to refresh all active Debuffs.",
+      "pua_icon": "0xe40d",
+      "raw_data_json": "{}",
+      "sort_order": 3,
+      "synergy_bots": [],
+      "status": "priority"
+    },
+    {
+      "id": 4004,
+      "bot_id": "elita_one_gs_kabam",
+      "category": "passive",
+      "title_zh": "战术拆解与能量回溯",
+      "title_en": "Tactical Dispel",
+      "desc_zh": "重击命中必定驱散对手 2 层正面增益（优先驱散护甲与狂暴），每驱散一层返还自身 12% 能量，并削减对手 35% 能量获取率持续 7 秒。",
+      "desc_en": "Heavy Attacks 100% dispel up to 2 Buffs (prioritizing Armor and Fury). Each dispelled Buff restores 12% Max Power and reduces opponent Power Gain by 35% for 7s.",
+      "pua_icon": "0xe950",
+      "raw_data_json": "{}",
+      "sort_order": 4,
+      "synergy_bots": [],
+      "status": "priority"
+    },
+    {
+      "id": 4005,
+      "bot_id": "elita_one_gs_kabam",
+      "category": "passive",
+      "title_zh": "领袖威仪",
+      "title_en": "Commander's Presence",
+      "desc_zh": "受到非伤害性减益持续时间减少 40%。当对手身上的正面增益被完全清空时，自身攻击力提升 25%。",
+      "desc_en": "Duration of non-damaging Debuffs reduced by 40%. When the opponent has no active Buffs, Attack is increased by 25%.",
+      "pua_icon": "0xe41f",
+      "raw_data_json": "{}",
+      "sort_order": 5,
+      "synergy_bots": [],
+      "status": "priority"
+    },
+    {
+      "id": 4006,
+      "bot_id": "elita_one_gs_kabam",
+      "category": "passive",
+      "title_zh": "抵抗军之火",
+      "title_en": "Resistance Flame",
+      "desc_zh": "生命值首次低于 50% 时激活相当于 20% 生命值的护盾持续 8 秒并净化流血；队伍中有擎天柱时护盾提升 50%。",
+      "desc_en": "Health drops below 50%: gains a Shield absorbing 20% Max Health for 8s and cleanses Bleeds. Shield potency +50% if Optimus Prime is on the team.",
+      "pua_icon": "0xe942",
+      "raw_data_json": "{}",
+      "sort_order": 6,
+      "synergy_bots": [],
+      "status": "priority"
+    },
+    {
+      "id": 4007,
+      "bot_id": "elita_one_gs_kabam",
+      "category": "signature",
+      "title_zh": "时空力场：时间停滞",
+      "title_en": "Chrono Stasis: Time Dilation",
+      "desc_zh": "对手激活特殊攻击时，有 45%~85% 概率触发【时间停滞】0.8秒，打断其特技起手动作并扣除其 50% 能量；对阵斗士系时触发几率额外提升 15%。",
+      "desc_en": "When the opponent activates a Special Attack, 45%~85% chance to inflict Chrono Stasis for 0.8s, interrupting their startup and burning 50% of the consumed Power (+15% chance vs Brawlers).",
+      "pua_icon": "0xe41f",
+      "raw_data_json": "{}",
+      "sort_order": 7,
+      "synergy_bots": [],
+      "status": "priority"
+    },
+    {
+      "id": 4008,
+      "bot_id": "elita_one_gs_kabam",
+      "category": "signature",
+      "title_zh": "时空力场：绝命判决",
+      "title_en": "Chrono Stasis: Execution Window",
+      "desc_zh": "在时空力场或时间静止生效期间，对手闪避几率强制降为 0%（无法触发任何规避），且承受来自艾丽塔的所有攻击伤害提升 30%~65%。",
+      "desc_en": "During Chrono Stasis, opponent Evade chance is reduced to 0%, and incoming damage from Elita is increased by 30%~65%.",
+      "pua_icon": "0xe40d",
+      "raw_data_json": "{}",
+      "sort_order": 8,
+      "synergy_bots": [],
+      "status": "priority"
+    },
+    {
+      "id": 4009,
+      "bot_id": "elita_one_gs_kabam",
+      "category": "sp1",
+      "title_zh": "核心穿甲",
+      "title_en": "Core Breach",
+      "desc_zh": "最后一击 100% 施加 35% 破甲持续 7 秒；对阵斗士系时破甲提升至 50%。",
+      "desc_en": "Last hit 100% inflicts 35% Armor Break for 7s (increases to 50% vs Brawlers).",
+      "pua_icon": "0xe40d",
+      "raw_data_json": "{}",
+      "sort_order": 9,
+      "synergy_bots": [],
+      "status": "priority"
+    },
+    {
+      "id": 4010,
+      "bot_id": "elita_one_gs_kabam",
+      "category": "sp1",
+      "title_zh": "能量点燃",
+      "title_en": "Power Burn",
+      "desc_zh": "每次射击 60% 概率扣除对手 1.5% 能量，并封印对手受击获得能量途径持续 4 秒。",
+      "desc_en": "Each shot has a 60% chance to burn 1.5% Power and locks power gain from hits for 4s.",
+      "pua_icon": "0xe607",
+      "raw_data_json": "{}",
+      "sort_order": 10,
+      "synergy_bots": [],
+      "status": "priority"
+    },
+    {
+      "id": 4011,
+      "bot_id": "elita_one_gs_kabam",
+      "category": "sp2",
+      "title_zh": "全面净化与增益过载",
+      "title_en": "Total Purge & Overload",
+      "desc_zh": "强制驱散对手全部正面增益；每净化一层造成相当于攻击力 60% 的额外能量绝杀伤害（可暴击）。",
+      "desc_en": "Purges all Buffs on the opponent. Each purged Buff deals +60% Attack as instant burst energy damage (can Crit).",
+      "pua_icon": "0xe950",
+      "raw_data_json": "{}",
+      "sort_order": 11,
+      "synergy_bots": [],
+      "status": "priority"
+    },
+    {
+      "id": 4012,
+      "bot_id": "elita_one_gs_kabam",
+      "category": "sp2",
+      "title_zh": "战术致盲 / 霸体转化眩晕",
+      "title_en": "Tactical Blindness",
+      "desc_zh": "致盲对手 6 秒（45% 攻击落空）；若对手受击前处于不可阻挡状态，则直接转化为 2.5 秒重度眩晕。",
+      "desc_en": "Inflicts Blindness for 6s (45% miss chance). If the opponent had Unstoppable, converts it into a 2.5s Stun instead.",
+      "pua_icon": "0xe41f",
+      "raw_data_json": "{}",
+      "sort_order": 12,
+      "synergy_bots": [],
+      "status": "priority"
+    },
+    {
+      "id": 4013,
+      "bot_id": "elita_one_gs_kabam",
+      "category": "sp3",
+      "title_zh": "火种舱裂解与绝对禁疗",
+      "title_en": "Spark Rupture",
+      "desc_zh": "施加持续 10 秒的等离子裂解，每秒造成攻击力 18% 伤害，期间 100% 阻止对手所有生命恢复。",
+      "desc_en": "Inflicts Plasma Rupture for 10s dealing 18% Attack per second and prevents 100% of opponent healing.",
+      "pua_icon": "0xe401",
+      "raw_data_json": "{}",
+      "sort_order": 13,
+      "synergy_bots": [],
+      "status": "priority"
+    },
+    {
+      "id": 4014,
+      "bot_id": "elita_one_gs_kabam",
+      "category": "sp3",
+      "title_zh": "战术封锁与领袖鼓舞",
+      "title_en": "Tactical Lockdown & Vanguard Inspire",
+      "desc_zh": "封印对手全部特殊攻击 8 秒；同时自身获得攻击力提升 40% 与普攻 100% 暴击率，持续 12 秒。",
+      "desc_en": "Locks all opponent Special Attacks for 8s; Elita gains +40% Attack and 100% Crit Rate for 12s.",
+      "pua_icon": "0xe41f",
+      "raw_data_json": "{}",
+      "sort_order": 14,
+      "synergy_bots": [],
+      "status": "priority"
+    },
+    {
+      "id": 4015,
+      "bot_id": "elita_one_gs_kabam",
+      "category": "synergy",
+      "title_zh": "永恒誓言",
+      "title_en": "Eternal Bond",
+      "desc_zh": "与擎天柱协同：战斗开始时，双方获得相当于自身最大生命值 15% 的能量护盾，持续整个战斗直到被打破。",
+      "desc_en": "Synergy with Optimus Prime: Both start combat with a 15% Max Health Shield.",
+      "pua_icon": "0xe41f",
+      "raw_data_json": "{}",
+      "sort_order": 15,
+      "synergy_bots": [
+        "fte_optimus_gs_t3",
+        "optimusprime_cin_tf"
+      ],
+      "status": "priority"
+    },
+    {
+      "id": 4016,
+      "bot_id": "elita_one_gs_kabam",
+      "category": "synergy",
+      "title_zh": "抵抗军姐妹",
+      "title_en": "Resistance Sisters",
+      "desc_zh": "与克劳莉娅、阿尔茜协同：暴击率额外提升 +10%，重击击退距离增加 25%。",
+      "desc_en": "Synergy with Chromia & Arcee: +10% Crit Rate and +25% Heavy Attack knockback.",
+      "pua_icon": "0xe40d",
+      "raw_data_json": "{}",
+      "sort_order": 16,
+      "synergy_bots": [
+        "chromia_gs_kabam",
+        "arcee_gs_deluxe2014"
+      ],
+      "status": "priority"
+    }
+  ]
+}

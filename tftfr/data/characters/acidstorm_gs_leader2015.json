@@ -36,153 +36,27 @@
   "effective_crit_melee": 0.18,
   "portrait_url": "portraits/acidstorm_gs_leader2015.png",
   "portrait_large_url": "portraits/acidstorm_gs_leader2015_large.png",
-  "abilities": [
+  "basic_abilities": [
     {
-      "id": 3566,
-      "bot_id": "acidstorm_gs_leader2015",
-      "category": "basic",
       "title_zh": "强酸喷射",
       "title_en": "Corrosive Jet",
       "desc_zh": "远程攻击与重击向敌人喷射强腐蚀性酸液，施加强酸 (Acid Burn)，每秒溶解敌方护甲并造成持续伤害。",
-      "desc_en": "Ranged and Heavy Attacks spray corrosive acid, inflicting Acid Burn which steadily melts enemy Armor and deals damage over time.",
-      "pua_icon": "",
-      "raw_data_json": "{}",
-      "sort_order": 0,
-      "synergy_bots": [],
-      "status": "unimplemented"
+      "pua_icon": ""
     },
     {
-      "id": 3567,
-      "bot_id": "acidstorm_gs_leader2015",
-      "category": "basic",
       "title_zh": "酸蚀外壳",
       "title_en": "Acidic Plating",
       "desc_zh": "受到近战物理攻击时，25% 几率将强酸飞溅至攻击者身上，削减其护甲评级 {{var_1}}。",
-      "desc_en": "Taking physical melee hits has a 25% chance to splash acid onto the attacker, reducing their Armor by {{var_1}}.",
-      "pua_icon": "",
-      "raw_data_json": "{}",
-      "sort_order": 1,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
+      "pua_icon": ""
+    }
+  ],
+  "game_abilities": [
     {
-      "id": 3568,
-      "category": "passive",
       "title_zh": "酸化反应",
       "title_en": "Corrosive Acidification",
       "desc_zh": "远程攻击与重击命中时有 35% 概率施加一层酸化减益，造成攻击力 35% 的伤害，持续 5 秒，并施加 10% 的破甲减益，持续 5 秒（上限 3 层）。当敌方身上存在酸化减益时，酸雨的所有攻击造成的伤害增加 20%。",
-      "desc_en": "Ranged and Heavy Attacks: 35% chance to inflict Acid, dealing 35% Attack over 5s and inflicting a 10% Armor Break Debuff for 5s (Max Stacks: 3). While the opponent has an Acid Debuff, all of Acid Storm's attacks deal +20% damage.",
       "pua_icon": "0xe524",
-      "raw_data_json": "{}",
-      "sort_order": 2,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "acidstorm_gs_leader2015"
-    },
-    {
-      "id": 3569,
-      "category": "signature",
-      "title_zh": "酸性气溶胶",
-      "title_en": "Acidic Vapor Phase",
-      "desc_zh": "战斗开始时以及施放特殊攻击后，酸雨周身环绕酸性气溶胶 5 秒。若在这 5 秒内未被敌人击中且未进行防御，气溶胶冷凝为 [2 - 4] 个酸性护盾增益（每个护盾将单次受击伤害限制为对手攻击力的 70%，被击中时消耗一个护盾并对攻击者施加一层酸化减益）；若在气溶胶持续时间内施放特殊攻击，该特殊攻击施加的酸化减益持续时间延长 [50% - 100%]。",
-      "desc_en": "At battle start and after every Special, surrounds himself with acidic vapor for 5s. If not hit and not blocking during this time, condenses into [2 - 4] Acid Shield Buffs (each caps incoming hit damage to 70% opponent Attack, and inflicts 1 Acid Debuff when consumed); if a Special is launched during the vapor, its Acid duration is extended by [50% - 100%].",
-      "pua_icon": "0xe515",
-      "raw_data_json": "{}",
-      "sort_order": 3,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "acidstorm_gs_leader2015"
-    },
-    {
-      "id": 3570,
-      "category": "sp1",
-      "title_zh": "酸化枪",
-      "title_en": "Acid Blaster",
-      "desc_zh": "最后一击命中 70% 几率施加一层酸化减益，造成攻击力 40% 的伤害，持续 4 秒。",
-      "desc_en": "Last hit: 70% chance to inflict Acid, dealing 40% Attack over 4s.",
-      "pua_icon": "0xe524",
-      "raw_data_json": "{}",
-      "sort_order": 4,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "acidstorm_gs_leader2015"
-    },
-    {
-      "id": 3571,
-      "category": "sp2",
-      "title_zh": "腐蚀雨云",
-      "title_en": "Corrosive Raincloud",
-      "desc_zh": "每一击有 70% 几率施加一层酸化减益，造成攻击力 50% 的伤害，持续 5 秒；并有 45% 概率施加 20% 的破甲减益，持续 6 秒。",
-      "desc_en": "Each hit has a 70% chance to inflict Acid dealing 50% Attack over 5s; 45% chance to inflict a 20% Armor Break Debuff for 6s.",
-      "pua_icon": "0xe516",
-      "raw_data_json": "{}",
-      "sort_order": 5,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "acidstorm_gs_leader2015"
-    },
-    {
-      "id": 3572,
-      "category": "sp3",
-      "title_zh": "天幕强酸溶蚀",
-      "title_en": "Skyfall Acid Deluge",
-      "desc_zh": "最后一击 100% 几率施加 2 层酸化减益，造成攻击力 80% 的伤害，持续 6.5 秒；并施加 30% 的破甲减益，持续 8 秒。",
-      "desc_en": "Last hit: 100% chance to inflict 2 stacks of Acid dealing 80% Attack over 6.5s; and inflicts a 30% Armor Break Debuff for 8s.",
-      "pua_icon": "0xe524",
-      "raw_data_json": "{}",
-      "sort_order": 6,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "acidstorm_gs_leader2015"
-    },
-    {
-      "id": 3573,
-      "bot_id": "acidstorm_gs_leader2015",
-      "category": "synergy",
-      "title_zh": "雨师三人组",
-      "title_en": "The Rainmakers",
-      "desc_zh": "与离子风、新星风同队时，全队元素减益持续时间延长 {{var_2}}。",
-      "desc_en": "Elemental debuffs last {{var_2}} longer when teamed with Ion Storm and Nova Storm.",
-      "pua_icon": "",
-      "raw_data_json": "{}",
-      "sort_order": 7,
-      "synergy_bots": [
-        "ionstorm_gs_leader2015",
-        "novastorm_gs_leader2015"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 3574,
-      "bot_id": "acidstorm_gs_leader2015",
-      "category": "synergy",
-      "title_zh": "寻猎空军",
-      "title_en": "Seeker Armada",
-      "desc_zh": "与红蜘蛛、闹翻天、惊天雷同队时，远程伤害提升 {{var_3}}。",
-      "desc_en": "+{{var_3}} Ranged Damage when paired with Starscream, Skywarp, or Thundercracker.",
-      "pua_icon": "",
-      "raw_data_json": "{}",
-      "sort_order": 8,
-      "synergy_bots": [
-        "fte_stars_gs_t3",
-        "skywarp_gs_leader2015",
-        "thundercracker_gs_leader2015"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 3575,
-      "bot_id": "acidstorm_gs_leader2015",
-      "category": "synergy",
-      "title_zh": "领袖威仪 (5星)",
-      "title_en": "Leadership (5 Star)",
-      "desc_zh": "团队所有低星级队员获得 +{{var_4}} 酸液腐蚀伤害。",
-      "desc_en": "All lower tier teammates gain +{{var_4}} Acid Damage.",
-      "pua_icon": "",
-      "raw_data_json": "{}",
-      "sort_order": 9,
-      "synergy_bots": [],
-      "status": "unimplemented"
+      "ui_trigger": "酸化反应"
     }
   ]
 }

@@ -36,137 +36,21 @@
   "effective_crit_melee": 0.08,
   "portrait_url": "portraits/hotlink_gs_leader2015.png",
   "portrait_large_url": "portraits/hotlink_gs_leader2015_large.png",
-  "abilities": [
+  "basic_abilities": [
     {
-      "id": 3603,
-      "bot_id": "hotlink_gs_leader2015",
-      "category": "basic",
       "title_zh": "背负式重型喷火器",
       "title_en": "Twin Flamethrowers",
       "desc_zh": "重击喷出猛烈烈焰火海，击退敌人并施加持续燃烧。自身完全免疫燃烧效果。",
-      "desc_en": "Heavy attacks spray roaring flame walls that push foes back and apply Burn. Hotlink is completely immune to Burn.",
-      "pua_icon": "",
-      "raw_data_json": "{}",
-      "sort_order": 0,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
+      "pua_icon": ""
+    }
+  ],
+  "game_abilities": [
     {
-      "id": 3604,
-      "category": "passive",
       "title_zh": "淬火装甲",
       "title_en": "Tempered Armor",
       "desc_zh": "重击命中 100% 概率施加燃烧减益，造成攻击力 60% 的伤害，持续 6 秒。当对手处于燃烧状态时，热链接的近战攻击命中 100% 刷新该燃烧减益的持续时间，且额外造成 25% 的近战物理伤害。热链接自身受到流血减益影响时，受到的流血伤害降低 30%。",
-      "desc_en": "Heavy Attacks: 100% chance to inflict Burn, dealing 60% Attack as heat damage over 6s. While the opponent is Burning, Hotlink's Melee hits 100% refresh the Burn duration and deal +25% bonus Melee Damage. Reduces incoming Bleed damage by 30% while suffering from Bleed Debuffs.",
       "pua_icon": "0xe517",
-      "raw_data_json": "{}",
-      "sort_order": 1,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "hotlink_gs_leader2015"
-    },
-    {
-      "id": 3605,
-      "category": "signature",
-      "title_zh": "过热熔炉",
-      "title_en": "Crucible Overdrive",
-      "desc_zh": "当生命值低于 50% 时触发：获得持续 6 秒的不可阻挡增益；且在此期间每次近战攻击命中处于燃烧状态的敌人时，额外获得一层 15% 的近战增益，持续 5 秒（上限 3 层）。",
-      "desc_en": "When Health drops below 50%: gains Unstoppable for 6s. Melee hits landed on Burning opponents grant a 15% Melee Buff for 5s (Max Stacks: 3).",
-      "pua_icon": "0xe412",
-      "raw_data_json": "{}",
-      "sort_order": 2,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "hotlink_gs_leader2015"
-    },
-    {
-      "id": 3606,
-      "category": "sp1",
-      "title_zh": "热能推进",
-      "title_en": "Thermal Thrusters",
-      "desc_zh": "最后一击命中 100% 概率施加燃烧减益，造成攻击力 50% 的伤害，持续 5 秒；技能结束后自身获得一层 20% 的近战增益，持续 6 秒。",
-      "desc_en": "Last hit: 100% chance to inflict Burn dealing 50% Attack over 5s; grants a 20% Melee Buff for 6s after the Special ends.",
-      "pua_icon": "0xe41d",
-      "raw_data_json": "{}",
-      "sort_order": 3,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "hotlink_gs_leader2015"
-    },
-    {
-      "id": 3607,
-      "category": "sp2",
-      "title_zh": "炼狱火幕",
-      "title_en": "Infernal Barrage",
-      "desc_zh": "每一击有 85% 概率施加燃烧减益，造成攻击力 70% 的伤害，持续 6 秒；并有 50% 概率造成眩晕，持续 1.5 秒。",
-      "desc_en": "Each hit has an 85% chance to inflict Burn dealing 70% Attack over 6s; 50% chance to inflict Stun for 1.5s.",
-      "pua_icon": "0xe41d",
-      "raw_data_json": "{}",
-      "sort_order": 4,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "hotlink_gs_leader2015"
-    },
-    {
-      "id": 3608,
-      "category": "sp3",
-      "title_zh": "熔铁焚毁",
-      "title_en": "Foundry Incineration",
-      "desc_zh": "最后一击 100% 概率施加燃烧减益，造成攻击力 100% 的伤害，持续 8 秒；技能结束后获得一层 30% 的护甲增益，持续 8 秒，以及持续 4 秒的不可阻挡增益。",
-      "desc_en": "Last hit: 100% chance to inflict Burn dealing 100% Attack over 8s; grants a 30% Armor Buff for 8s and Unstoppable for 4s after the Special ends.",
-      "pua_icon": "0xe915",
-      "raw_data_json": "{}",
-      "sort_order": 5,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "hotlink_gs_leader2015"
-    },
-    {
-      "id": 3609,
-      "bot_id": "hotlink_gs_leader2015",
-      "category": "synergy",
-      "title_zh": "军火工程师",
-      "title_en": "Weapons Engineers",
-      "desc_zh": "与千斤顶、声波同队时，火焰伤害提升 {{var_1}}。",
-      "desc_en": "+{{var_1}} Fire Damage when teamed with Wheeljack or Soundwave.",
-      "pua_icon": "",
-      "raw_data_json": "{}",
-      "sort_order": 6,
-      "synergy_bots": [
-        "wheeljack_gs_mp20",
-        "soundwave_gs"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 3610,
-      "bot_id": "hotlink_gs_leader2015",
-      "category": "synergy",
-      "title_zh": "寻猎空军",
-      "title_en": "Seekers",
-      "desc_zh": "与红蜘蛛同队时，攻击力提升 {{var_2}}。",
-      "desc_en": "+{{var_2}} Attack Rating when paired with Starscream.",
-      "pua_icon": "",
-      "raw_data_json": "{}",
-      "sort_order": 7,
-      "synergy_bots": [
-        "fte_stars_gs_t3"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 3611,
-      "bot_id": "hotlink_gs_leader2015",
-      "category": "synergy",
-      "title_zh": "领袖威仪 (5星)",
-      "title_en": "Leadership (5 Star)",
-      "desc_zh": "团队所有低星级队员获得 +{{var_3}} 护甲。",
-      "desc_en": "All lower tier teammates gain +{{var_3}} Armor.",
-      "pua_icon": "",
-      "raw_data_json": "{}",
-      "sort_order": 8,
-      "synergy_bots": [],
-      "status": "unimplemented"
+      "ui_trigger": "淬火装甲"
     }
   ]
 }

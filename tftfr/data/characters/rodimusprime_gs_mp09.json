@@ -36,181 +36,28 @@
   "effective_crit_melee": 0.14,
   "portrait_url": "portraits/rodimusprime_gs_mp09.png",
   "portrait_large_url": "portraits/rodimusprime_gs_mp09_large.png",
-  "abilities": [
+  "basic_abilities": [],
+  "game_abilities": [
     {
-      "id": 2792,
-      "bot_id": "rodimusprime_gs_mp09",
-      "category": "basic",
-      "title_zh": "基础特长",
-      "title_en": "Basic Abilities",
-      "desc_zh": "修复",
-      "desc_en": "Repair",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 2,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2796,
-      "bot_id": "rodimusprime_gs_mp09",
-      "category": "passive",
       "title_zh": "前冲净化",
       "title_en": "Dashing Purify",
-      "desc_zh": "前冲时有70%的概率净化补天士身上的一个减益。//无图标，净化成功显示文字“净化！”",
-      "desc_en": "Dashing",
+      "desc_zh": "前冲时有70%的概率净化补天士身上的一个减益。",
       "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 6,
-      "synergy_bots": [],
-      "status": "priority"
+      "ui_trigger": "前冲净化"
     },
     {
-      "id": 2798,
-      "bot_id": "rodimusprime_gs_mp09",
-      "category": "passive",
       "title_zh": "近战驱散",
       "title_en": "Melee Nullify",
       "desc_zh": "近战组合的最后一击（M2或者L2）命中时：\n50%的概率驱散对方一个近战增益\n50%的概率驱散对方一个护甲增益",
-      "desc_en": "Last Hit of a Melee Combo",
       "pua_icon": "0xe950",
-      "raw_data_json": "",
-      "sort_order": 8,
-      "synergy_bots": [],
-      "status": "priority"
+      "ui_trigger": "近战驱散"
     },
     {
-      "id": 2801,
-      "bot_id": "rodimusprime_gs_mp09",
-      "category": "passive",
       "title_zh": "重击破甲",
       "title_en": "Heavy Attack Armor Break",
-      "desc_zh": "重击命中时，对方身上有几个增益，就施加几层破甲，每层强度15%，持续7秒。同时移除对方身上所有的护甲增益。//不移除对方其他增益\n//用例：对方有5个近战增益和5个护甲增益，则施加10层破甲，扩大150%的伤害",
-      "desc_en": "Heavy Attack",
+      "desc_zh": "重击命中时，对方身上有几个增益，就施加几层破甲，每层强度15%，持续7秒。同时移除对方身上所有的护甲增益。",
       "pua_icon": "0xe516",
-      "raw_data_json": "",
-      "sort_order": 11,
-      "synergy_bots": [],
-      "status": "priority"
-    },
-    {
-      "id": 2805,
-      "bot_id": "rodimusprime_gs_mp09",
-      "category": "signature",
-      "title_zh": "补天士崛起",
-      "title_en": "Arise Rodimus Prime",
-      "desc_zh": "当形势对他不利时，补天士会在Primes的力量的推动下更加努力地战斗。\n\n被动：\n\n每失去 {{var_13}} 生命值，补天士 Prime 就会获得 +{{var_12}} 攻击评级。对于故事或事件任务的最终 Boss，该值会加倍。\n\n+{{var_14}} 每级",
-      "desc_en": "Arise Rodimus Prime\nWhen the odds are against him, Rodimus Prime is fueled by the power of the Primes to fight even harder.\nPassive:\nRodimus Prime gains +{{var_12}} Attack Rating for every {{var_13}} of missing health. This value is doubled against the Final Boss of a Story or Event Mission.\n+{{var_14}} per level",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 15,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2806,
-      "bot_id": "rodimusprime_gs_mp09",
-      "category": "sp1",
-      "title_zh": "敢于相信",
-      "title_en": "Dare to Believe",
-      "desc_zh": "补天士手中掌握着未来！",
-      "desc_en": "Dare to Believe - Rodimus Prime holds the future in his hands!",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 16,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2807,
-      "bot_id": "rodimusprime_gs_mp09",
-      "category": "sp2",
-      "title_zh": "特殊技 2",
-      "title_en": "Special Attack 2",
-      "desc_zh": "激活后，将不可阻挡者从对手身上移除。",
-      "desc_en": "On activation, remove Unstoppable from the opponent.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 17,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2808,
-      "bot_id": "rodimusprime_gs_mp09",
-      "category": "sp3",
-      "title_zh": "特殊技 3",
-      "title_en": "Special Attack 3",
-      "desc_zh": "{{var_15}} 次机会无效化对手 1 个增益。",
-      "desc_en": "{{var_15}} chance to Nullify 1 Buff on the opponent.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 18,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2809,
-      "bot_id": "rodimusprime_gs_mp09",
-      "category": "synergy",
-      "title_zh": "宿敌",
-      "title_en": "Enemies",
-      "desc_zh": "+{{var_26}}~{{var_27}} 攻击评级。",
-      "desc_en": "+{{var_26}}~{{var_27}} Attack Rating.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 19,
-      "synergy_bots": [
-        "galvatron_gs_voyager2016"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2810,
-      "bot_id": "rodimusprime_gs_mp09",
-      "category": "synergy",
-      "title_zh": "汽车人领袖",
-      "title_en": "Autobot Leaders",
-      "desc_zh": "所有汽车人对抗霸天虎时都会获得 +{{var_28}}~{{var_29}} 破甲穿透。",
-      "desc_en": "All Autobots gain +{{var_28}}~{{var_29}} Armor Penetration against Decepticons.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 20,
-      "synergy_bots": [
-        "fte_optimus_gs_t3",
-        "ultramagnus_gs_leader"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2811,
-      "bot_id": "rodimusprime_gs_mp09",
-      "category": "synergy",
-      "title_zh": "奇怪的时代",
-      "title_en": "Strange Times",
-      "desc_zh": "增加 {{var_30}}~{{var_31}} 触发减速的机会。",
-      "desc_en": "Increase chance for Deceleration to trigger by {{var_30}}~{{var_31}}.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 21,
-      "synergy_bots": [
-        "hotrod_cin_tlk"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2812,
-      "bot_id": "rodimusprime_gs_mp09",
-      "category": "synergy",
-      "title_zh": "领袖威仪 (5星)",
-      "title_en": "Leadership (5 Star)",
-      "desc_zh": "作为领导的灯塔，所有低级别队友都获得 +{{var_32}} 装甲等级。",
-      "desc_en": "Acting as a beacon of leadership, all lower tier teammates gain +{{var_32}} Armor Rating.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 22,
-      "synergy_bots": [],
-      "status": "unimplemented"
+      "ui_trigger": "重击破甲"
     }
   ]
 }

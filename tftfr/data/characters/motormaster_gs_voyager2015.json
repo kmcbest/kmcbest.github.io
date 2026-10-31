@@ -36,228 +36,34 @@
   "effective_crit_melee": 0.08,
   "portrait_url": "portraits/motormaster_gs_voyager2015.png",
   "portrait_large_url": "portraits/motormaster_gs_voyager2015_large.png",
-  "abilities": [
+  "basic_abilities": [
     {
-      "id": 3177,
-      "bot_id": "motormaster_gs_voyager2015",
-      "category": "basic",
       "title_zh": "冲压",
       "title_en": "Ramming",
       "desc_zh": "暂时降低对手的攻击力",
-      "desc_en": "Temporarily decreases opponent's Attack Rating",
-      "pua_icon": "0xe916",
-      "raw_data_json": "",
-      "sort_order": 0,
-      "synergy_bots": [],
-      "status": "unimplemented"
+      "pua_icon": "0xe916"
     },
     {
-      "id": 3178,
-      "bot_id": "motormaster_gs_voyager2015",
-      "category": "basic",
       "title_zh": "不可阻挡",
       "title_en": "Unstoppable",
       "desc_zh": "角色行动不会被对手攻击打断",
-      "desc_en": "Character's movement cannot be interrupted by opponent's attacks",
-      "pua_icon": "0xe915",
-      "raw_data_json": "",
-      "sort_order": 1,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
+      "pua_icon": "0xe915"
+    }
+  ],
+  "game_abilities": [
     {
-      "id": 3179,
-      "bot_id": "motormaster_gs_voyager2015",
-      "category": "passive",
       "title_zh": "前冲不可阻挡",
       "title_en": "Dashing Unstoppable",
       "desc_zh": "汽车大师以不可阻挡的力量向前冲锋，无视对手攻击的影响。",
-      "desc_en": "Motormaster charges forward with Unstoppable force, shrugging off the impact of the opponent's attacks.",
       "pua_icon": "0xe915",
-      "raw_data_json": "",
-      "sort_order": 2,
-      "synergy_bots": [],
-      "status": "implemented"
+      "ui_trigger": "前冲不可阻挡"
     },
     {
-      "id": 3180,
-      "bot_id": "motormaster_gs_voyager2015",
-      "category": "passive",
       "title_zh": "重击冲压",
       "title_en": "Ram With Heavy Attacks",
       "desc_zh": "用重击撞击对手时随机造成三个减益效果之一（均持续6秒）\n* -21.6%的攻击力\n* -29.7%的破甲\n* -24.3%的能量功率",
-      "desc_en": "Inflicts one of three Debuffs when ramming opponents with Heavy Attacks.\n* -21.6% Attack for 6 seconds.\n* -29.7% Armor Break for 6 seconds.\n* -24.3% Power Rate for 6 seconds.",
       "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 3,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 3184,
-      "bot_id": "motormaster_gs_voyager2015",
-      "category": "signature",
-      "title_zh": "公路之王",
-      "title_en": "King of the Road",
-      "desc_zh": "他的生命值越低，汽车大师就越愤怒，从而给予他近战伤害增益。\n\n被动：每损失最大生命值的20%，汽车大师的愤怒就会赋予他60%的近战伤害增益。",
-      "desc_en": "King of the Road\nThe lower his Health, the angrier Motormaster gets,  granting him Melee Damage Buffs.\nPassive: For every {{var_7}} of max Health lost, Motormaster's anger grants him a {{var_8}} Melee Damage Buff.",
-      "pua_icon": "0xe406",
-      "raw_data_json": "",
-      "sort_order": 7,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 3185,
-      "bot_id": "motormaster_gs_voyager2015",
-      "category": "sp1",
-      "title_zh": "离子发生器叶片",
-      "title_en": "Ionizer Blade",
-      "desc_zh": "真空金属化能量的爆炸帮助对手成为垃圾场之王。",
-      "desc_en": "Ionizer Blade - A blast of vacuum-metalized energy helps opponents become King of the Junkyard.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 8,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 3186,
-      "bot_id": "motormaster_gs_voyager2015",
-      "category": "sp2",
-      "title_zh": "大师级工艺 (不可阻挡)",
-      "title_en": "A Master Craft (Unstoppable)",
-      "desc_zh": "特殊技2激活时：获得4秒的不可阻挡增益。",
-      "desc_en": "Special 2: Gains an Unstoppable Buff for 4 seconds.",
-      "pua_icon": "0xe915",
-      "raw_data_json": "",
-      "sort_order": 9,
-      "synergy_bots": [],
-      "status": "implemented"
-    },
-    {
-      "id": 3187,
-      "bot_id": "motormaster_gs_voyager2015",
-      "category": "sp3",
-      "title_zh": "特殊技 3",
-      "title_en": "Special Attack 3",
-      "desc_zh": "汽车大师获得不可阻挡的增益，持续 {{var_9}} 秒。",
-      "desc_en": "Motormaster gains an Unstoppable Buff for {{var_9}}seconds.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 10,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 3188,
-      "bot_id": "motormaster_gs_voyager2015",
-      "category": "synergy",
-      "title_zh": "宿敌",
-      "title_en": "Enemies",
-      "desc_zh": "+{{var_12}}~{{var_13}} 攻击评级。",
-      "desc_en": "+{{var_12}}~{{var_13}} Attack Rating.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 11,
-      "synergy_bots": [
-        "fte_optimus_gs_t3",
-        "grimlock_gs_mp08",
-        "wheeljack_gs_mp20"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 3189,
-      "bot_id": "motormaster_gs_voyager2015",
-      "category": "synergy",
-      "title_zh": "协同加成",
-      "title_en": "Synergy Bonus",
-      "desc_zh": "不可阻挡的力量——冲压发动机",
-      "desc_en": "Unstoppable Force – Ramjet",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 12,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 3190,
-      "bot_id": "motormaster_gs_voyager2015",
-      "category": "synergy",
-      "title_zh": "协同加成",
-      "title_en": "Synergy Bonus",
-      "desc_zh": "{{var_14}}~{{var_15}} 机会冲压发动机在特殊技的最后一次命中后获得 {{var_16}} 的不可阻挡。",
-      "desc_en": "{{var_14}}~{{var_15}} chance Ramjet gains Unstoppable for {{var_16}} after the last hit of a special attack.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 13,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 3191,
-      "bot_id": "motormaster_gs_voyager2015",
-      "category": "synergy",
-      "title_zh": "协同加成",
-      "title_en": "Synergy Bonus",
-      "desc_zh": "{{var_17}}~{{var_18}} 机会 Motormaster 在特殊技的最后一击后击晕对手以获得 {{var_19}}。",
-      "desc_en": "{{var_17}}~{{var_18}} chance Motormaster stuns his opponent for {{var_19}} after the last hit of a special attack.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 14,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 3192,
-      "bot_id": "motormaster_gs_voyager2015",
-      "category": "synergy",
-      "title_zh": "执行者",
-      "title_en": "Enforcers",
-      "desc_zh": "减益效果持续 {{var_20}}~{{var_21}} 的时间更长且无法净化。",
-      "desc_en": "Debuffs last {{var_20}}~{{var_21}} longer and cannot be Purified.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 15,
-      "synergy_bots": [
-        "ramjet_gs_deluxe2008",
-        "kickback_gs_kabam"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 3193,
-      "bot_id": "motormaster_gs_voyager2015",
-      "category": "synergy",
-      "title_zh": "领袖威仪 (5星)",
-      "title_en": "Leadership (5 Star)",
-      "desc_zh": "+{{var_22}} 攻击评级。",
-      "desc_en": "+{{var_22}} Attack Rating.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 16,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 3534,
-      "bot_id": "motormaster_gs_voyager2015",
-      "category": "synergy",
-      "title_zh": "飞天虎 (Menasor)",
-      "title_en": "Menasor",
-      "desc_zh": "战斗开始时获得 {{var_23}}~{{var_24}} 初始能量与 +{{var_25}} 攻击力和护甲。仅当队伍中所有成员均具有此协同（飞虎队全员）时激活。",
-      "desc_en": "Start the fight with {{var_23}}~{{var_24}} Power and +{{var_25}} Attack & Armor. Bots only benefit if all Bots on the team have this Synergy.",
-      "pua_icon": "",
-      "raw_data_json": "{}",
-      "sort_order": 17,
-      "synergy_bots": [
-        "deadend_gs_deluxe2015",
-        "breakdown_gs",
-        "dragstrip_gs_deluxe2016",
-        "wildrider_gs_deluxe2016"
-      ],
-      "status": "unimplemented"
+      "ui_trigger": "重击冲压"
     }
   ]
 }

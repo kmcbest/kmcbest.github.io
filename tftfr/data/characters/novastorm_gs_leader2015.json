@@ -36,138 +36,21 @@
   "effective_crit_melee": 0.14,
   "portrait_url": "portraits/novastorm_gs_leader2015.png",
   "portrait_large_url": "portraits/novastorm_gs_leader2015_large.png",
-  "abilities": [
+  "basic_abilities": [
     {
-      "id": 3585,
-      "bot_id": "novastorm_gs_leader2015",
-      "category": "basic",
       "title_zh": "凝固热核弹幕",
       "title_en": "Incendiary Barrage",
       "desc_zh": "远程重火器发射高温热核弹，击中必定引发燃烧 (Burn)，持续造成火热伤害并阻止敌方任何生命恢复。",
-      "desc_en": "Fires thermonuclear incendiary rounds, inflicting Burn that deals continuous damage and completely nullifies enemy Healing/Regen.",
-      "pua_icon": "",
-      "raw_data_json": "{}",
-      "sort_order": 0,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
+      "pua_icon": ""
+    }
+  ],
+  "game_abilities": [
     {
-      "id": 3586,
-      "category": "passive",
       "title_zh": "热核爆轰装药",
       "title_en": "Thermobaric Charge",
       "desc_zh": "连击计数达到 5 的倍数时，获得一层爆轰增益：使下一次重击必定暴击，并获得 35% 的暴击伤害增益。重击命中 100% 概率施加燃烧减益，造成攻击力 60% 的伤害，持续 5 秒。",
-      "desc_en": "At every 5 combo hits, gains a Charge Buff: makes the next Heavy Attack guaranteed to Critically Hit with a 35% Crit Damage Buff. Heavy Attacks: 100% chance to inflict Burn dealing 60% Attack over 5s.",
       "pua_icon": "0xe404",
-      "raw_data_json": "{}",
-      "sort_order": 1,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "novastorm_gs_leader2015"
-    },
-    {
-      "id": 3587,
-      "category": "signature",
-      "title_zh": "裂变引爆",
-      "title_en": "Fission Detonation",
-      "desc_zh": "特殊攻击暴击时，引爆目标身上所有的燃烧减益，每层燃烧立即造成攻击力 [30% - 60%] 的瞬时爆发热伤害；如果目标身上没有任何燃烧减益，则立即对其施加一层燃烧减益，造成攻击力 [50% - 100%] 的伤害，持续 5 秒。",
-      "desc_en": "When a Special Attack lands a Critical Hit, detonates all active Burns on the opponent, dealing [30% - 60%] Attack as instant burst damage per stack; if the opponent has no active Burn, immediately inflicts Burn dealing [50% - 100%] Attack over 5s.",
-      "pua_icon": "0xe40d",
-      "raw_data_json": "{}",
-      "sort_order": 2,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "novastorm_gs_leader2015"
-    },
-    {
-      "id": 3588,
-      "category": "sp1",
-      "title_zh": "微弹齐射",
-      "title_en": "Micro-Salvo",
-      "desc_zh": "每一击有 75% 概率施加燃烧减益，造成攻击力 40% 的伤害，持续 4 秒；若发生暴击，额外获得 30% 暴击伤害增益，持续 4 秒。",
-      "desc_en": "Each hit has a 75% chance to inflict Burn dealing 40% Attack over 4s; Critical Hits grant a 30% Crit Damage Buff for 4s.",
-      "pua_icon": "0xe41d",
-      "raw_data_json": "{}",
-      "sort_order": 3,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "novastorm_gs_leader2015"
-    },
-    {
-      "id": 3589,
-      "category": "sp2",
-      "title_zh": "焦土热爆",
-      "title_en": "Scorched Earth Blast",
-      "desc_zh": "技能激活时获得不可阻挡增益，持续至技能结束。最后一击 100% 概率施加 2 层燃烧减益，造成攻击力 80% 的伤害，持续 6 秒。",
-      "desc_en": "Gains Unstoppable while the Special is active. Last hit: 100% chance to inflict 2 stacks of Burn dealing 80% Attack over 6s.",
-      "pua_icon": "0xe915",
-      "raw_data_json": "{}",
-      "sort_order": 4,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "novastorm_gs_leader2015"
-    },
-    {
-      "id": 3590,
-      "category": "sp3",
-      "title_zh": "超新星灭绝轰炸",
-      "title_en": "Supernova Carpet Blast",
-      "desc_zh": "最后一击 100% 概率施加 3 层燃烧减益，造成攻击力 120% 的伤害，持续 7 秒；并即时扣除对方最大能量值的 20%。",
-      "desc_en": "Last hit: 100% chance to inflict 3 stacks of Burn dealing 120% Attack over 7s, and immediately drains 20% of opponent Max Power.",
-      "pua_icon": "0xe404",
-      "raw_data_json": "{}",
-      "sort_order": 5,
-      "synergy_bots": [],
-      "status": "unimplemented",
-      "bot_id": "novastorm_gs_leader2015"
-    },
-    {
-      "id": 3591,
-      "bot_id": "novastorm_gs_leader2015",
-      "category": "synergy",
-      "title_zh": "雨师三人组",
-      "title_en": "The Rainmakers",
-      "desc_zh": "与酸雨、离子风同队时，全队元素减益持续时间延长 {{var_1}}。",
-      "desc_en": "Elemental debuffs last {{var_1}} longer when teamed with Acid Storm and Ion Storm.",
-      "pua_icon": "",
-      "raw_data_json": "{}",
-      "sort_order": 6,
-      "synergy_bots": [
-        "acidstorm_gs_leader2015",
-        "ionstorm_gs_leader2015"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 3592,
-      "bot_id": "novastorm_gs_leader2015",
-      "category": "synergy",
-      "title_zh": "爆破重炮",
-      "title_en": "Heavy Artillery",
-      "desc_zh": "与电影铁皮、搅拌者同队时，暴击率提升 {{var_2}}。",
-      "desc_en": "+{{var_2}} Critical Rating when teamed with Ironhide or Mixmaster.",
-      "pua_icon": "",
-      "raw_data_json": "{}",
-      "sort_order": 7,
-      "synergy_bots": [
-        "ironhide_cin_rotf",
-        "mixmaster_cin_rotf"
-      ],
-      "status": "unimplemented"
-    },
-    {
-      "id": 3593,
-      "bot_id": "novastorm_gs_leader2015",
-      "category": "synergy",
-      "title_zh": "领袖威仪 (5星)",
-      "title_en": "Leadership (5 Star)",
-      "desc_zh": "团队所有低星级队员获得 +{{var_3}} 爆炸伤害。",
-      "desc_en": "All lower tier teammates gain +{{var_3}} Explosive Damage.",
-      "pua_icon": "",
-      "raw_data_json": "{}",
-      "sort_order": 8,
-      "synergy_bots": [],
-      "status": "unimplemented"
+      "ui_trigger": "热核爆轰装药"
     }
   ]
 }

@@ -1,0 +1,6459 @@
+{
+  "meta": {
+    "title": "TFTF Common Basic Abilities Catalog",
+    "version": "2.0",
+    "total_abilities": 49,
+    "total_characters": 79,
+    "updated_at": "2026-11-02"
+  },
+  "characters_all": [
+    {
+      "id": "megatron_gs_leader2015",
+      "name_zh": "G1威震天",
+      "name_en": "Megatron",
+      "class": "tact",
+      "faction": "decepticon"
+    },
+    {
+      "id": "fte_optimus_gs_t3",
+      "name_zh": "G1擎天柱",
+      "name_en": "Optimus Prime",
+      "class": "tact",
+      "faction": "autobot"
+    },
+    {
+      "id": "ironhide_gs_kabam",
+      "name_zh": "G1铁皮",
+      "name_en": "Ironhide",
+      "class": "braw",
+      "faction": "autobot"
+    },
+    {
+      "id": "necrotronus_gs_kabam",
+      "name_zh": "亡灵天尊",
+      "name_en": "Necrotronus",
+      "class": "warr",
+      "faction": "decepticon"
+    },
+    {
+      "id": "optimusprime_sg_voyager2015",
+      "name_zh": "倾天柱",
+      "name_en": "SG Optimus Prime",
+      "class": "braw",
+      "faction": "autobot"
+    },
+    {
+      "id": "chromia_gs_kabam",
+      "name_zh": "克劳莉娅",
+      "name_en": "Chromia",
+      "class": "warr",
+      "faction": "autobot"
+    },
+    {
+      "id": "thrust_gs_deluxe2008",
+      "name_zh": "冲锋",
+      "name_en": "Thrust",
+      "class": "scou",
+      "faction": "decepticon"
+    },
+    {
+      "id": "wheeljack_gs_mp20",
+      "name_zh": "千斤顶",
+      "name_en": "Wheeljack",
+      "class": "tech",
+      "faction": "autobot"
+    },
+    {
+      "id": "kickback_gs_kabam",
+      "name_zh": "反冲",
+      "name_en": "Kickback",
+      "class": "scou",
+      "faction": "decepticon"
+    },
+    {
+      "id": "starsaber_gs_leader2014",
+      "name_zh": "史达",
+      "name_en": "Star Saber",
+      "class": "tact",
+      "faction": "autobot"
+    },
+    {
+      "id": "ramjet_gs_deluxe2008",
+      "name_zh": "喷气机",
+      "name_en": "Ramjet",
+      "class": "demo",
+      "faction": "decepticon"
+    },
+    {
+      "id": "lifeline_gs_deluxe2014",
+      "name_zh": "回春手",
+      "name_en": "Lifeline",
+      "class": "tech",
+      "faction": "autobot"
+    },
+    {
+      "id": "soundwave_gs",
+      "name_zh": "声波",
+      "name_en": "Soundwave",
+      "class": "tech",
+      "faction": "decepticon"
+    },
+    {
+      "id": "bumblebee_cin_dotm",
+      "name_zh": "大黄蜂",
+      "name_en": "Bumblebee (DOTM)",
+      "class": "tact",
+      "faction": "autobot"
+    },
+    {
+      "id": "jetfire_gs_leader2014",
+      "name_zh": "天火",
+      "name_en": "Jetfire",
+      "class": "tech",
+      "faction": "autobot"
+    },
+    {
+      "id": "sunstorm_gs_leader2015",
+      "name_zh": "太阳风",
+      "name_en": "Sunstorm",
+      "class": "warr",
+      "faction": "decepticon"
+    },
+    {
+      "id": "deadend_gs_deluxe2015",
+      "name_zh": "封锁",
+      "name_en": "Dead End",
+      "class": "demo",
+      "faction": "decepticon"
+    },
+    {
+      "id": "bumblebee_gs_kabam",
+      "name_zh": "小黄蜂",
+      "name_en": "Bumblebee",
+      "class": "scou",
+      "faction": "autobot"
+    },
+    {
+      "id": "scorponok_bw_kabam",
+      "name_zh": "巨蝎勇士",
+      "name_en": "Scorponok",
+      "class": "warr",
+      "faction": "predacon"
+    },
+    {
+      "id": "mirage_gs_deluxe2016",
+      "name_zh": "幻影",
+      "name_en": "Mirage",
+      "class": "tech",
+      "faction": "autobot"
+    },
+    {
+      "id": "blaster_gs_leader2016",
+      "name_zh": "录音机",
+      "name_en": "Blaster",
+      "class": "tech",
+      "faction": "autobot"
+    },
+    {
+      "id": "dinobot_bw_kabam",
+      "name_zh": "恐龙勇士",
+      "name_en": "Dinobot",
+      "class": "tact",
+      "faction": "maximal"
+    },
+    {
+      "id": "thundercracker_gs_leader2015",
+      "name_zh": "惊天雷",
+      "name_en": "Thundercracker",
+      "class": "braw",
+      "faction": "decepticon"
+    },
+    {
+      "id": "galvatron_gs_voyager2016",
+      "name_zh": "惊破天",
+      "name_en": "Galvatron",
+      "class": "demo",
+      "faction": "decepticon"
+    },
+    {
+      "id": "breakdown_gs",
+      "name_zh": "打击",
+      "name_en": "Breakdown",
+      "class": "scou",
+      "faction": "decepticon"
+    },
+    {
+      "id": "dragstrip_gs_deluxe2016",
+      "name_zh": "抢劫",
+      "name_en": "Dragstrip",
+      "class": "warr",
+      "faction": "decepticon"
+    },
+    {
+      "id": "dirge_gs_deluxe2008",
+      "name_zh": "挽歌",
+      "name_en": "Dirge",
+      "class": "warr",
+      "faction": "decepticon"
+    },
+    {
+      "id": "ultramagnus_sg_leader",
+      "name_zh": "捅天枭",
+      "name_en": "SG Ultra Magnus",
+      "class": "demo",
+      "faction": "autobot"
+    },
+    {
+      "id": "hound_cin_tlk",
+      "name_zh": "探长",
+      "name_en": "Hound",
+      "class": "warr",
+      "faction": "autobot"
+    },
+    {
+      "id": "mixmaster_cin_rotf",
+      "name_zh": "搅拌者",
+      "name_en": "Mixmaster",
+      "class": "demo",
+      "faction": "decepticon"
+    },
+    {
+      "id": "ratchet_gs_kabam",
+      "name_zh": "救护车",
+      "name_en": "Ratchet",
+      "class": "tech",
+      "faction": "autobot"
+    },
+    {
+      "id": "novastorm_gs_leader2015",
+      "name_zh": "新星风",
+      "name_en": "Nova Storm",
+      "class": "demo",
+      "faction": "decepticon"
+    },
+    {
+      "id": "nemesisprime_gs_voyager2015",
+      "name_zh": "暗天陨",
+      "name_en": "Nemesis Prime",
+      "class": "tact",
+      "faction": "decepticon"
+    },
+    {
+      "id": "sideswipe_gs",
+      "name_zh": "横炮",
+      "name_en": "Sideswipe",
+      "class": "scou",
+      "faction": "autobot"
+    },
+    {
+      "id": "bitstream_gs_leader2015",
+      "name_zh": "比特流",
+      "name_en": "Bitstream",
+      "class": "tech",
+      "faction": "decepticon"
+    },
+    {
+      "id": "motormaster_gs_voyager2015",
+      "name_zh": "汽车大师",
+      "name_en": "Motormaster",
+      "class": "braw",
+      "faction": "decepticon"
+    },
+    {
+      "id": "slipstream_gs",
+      "name_zh": "滑流",
+      "name_en": "Slipstream",
+      "class": "scou",
+      "faction": "decepticon"
+    },
+    {
+      "id": "drift_cin_aoe",
+      "name_zh": "漂移",
+      "name_en": "Drift",
+      "class": "warr",
+      "faction": "autobot"
+    },
+    {
+      "id": "hotrod_cin_tlk",
+      "name_zh": "热破",
+      "name_en": "Hot Rod",
+      "class": "warr",
+      "faction": "autobot"
+    },
+    {
+      "id": "hotlink_gs_leader2015",
+      "name_zh": "热链接",
+      "name_en": "Hotlink",
+      "class": "braw",
+      "faction": "decepticon"
+    },
+    {
+      "id": "jazz_gs_twm05",
+      "name_zh": "爵士",
+      "name_en": "Jazz",
+      "class": "scou",
+      "faction": "autobot"
+    },
+    {
+      "id": "rhinox_gs_voyager2014",
+      "name_zh": "犀牛",
+      "name_en": "Rhinox",
+      "class": "tech",
+      "faction": "maximal"
+    },
+    {
+      "id": "cyclonus_gs_uw06",
+      "name_zh": "狂飙",
+      "name_en": "Cyclonus",
+      "class": "tact",
+      "faction": "decepticon"
+    },
+    {
+      "id": "optimusprimal_bw_mp32",
+      "name_zh": "猩猩队长",
+      "name_en": "Optimus Primal",
+      "class": "braw",
+      "faction": "maximal"
+    },
+    {
+      "id": "megatron_cin_rotf",
+      "name_zh": "电影威震天",
+      "name_en": "Megatron (ROTF)",
+      "class": "demo",
+      "faction": "decepticon"
+    },
+    {
+      "id": "optimusprime_cin_tf",
+      "name_zh": "电影擎天柱",
+      "name_en": "Optimus Prime (MV1)",
+      "class": "braw",
+      "faction": "autobot"
+    },
+    {
+      "id": "ironhide_cin_rotf",
+      "name_zh": "电影铁皮",
+      "name_en": "Ironhide (ROTF)",
+      "class": "demo",
+      "faction": "autobot"
+    },
+    {
+      "id": "bonecrusher_cin_rotf",
+      "name_zh": "碎骨魔",
+      "name_en": "Bonecrusher",
+      "class": "warr",
+      "faction": "decepticon"
+    },
+    {
+      "id": "grindor_cin_rotf",
+      "name_zh": "碾碎器",
+      "name_en": "Grindor",
+      "class": "braw",
+      "faction": "decepticon"
+    },
+    {
+      "id": "ionstorm_gs_leader2015",
+      "name_zh": "离子风",
+      "name_en": "Ion Storm",
+      "class": "tact",
+      "faction": "decepticon"
+    },
+    {
+      "id": "fte_stars_gs_t3",
+      "name_zh": "红蜘蛛",
+      "name_en": "Starscream",
+      "class": "tact",
+      "faction": "decepticon"
+    },
+    {
+      "id": "elita_one_gs",
+      "name_zh": "艾丽塔",
+      "name_en": "Elita-1",
+      "class": "tact",
+      "faction": "autobot"
+    },
+    {
+      "id": "wildrider_gs_deluxe2016",
+      "name_zh": "莽撞",
+      "name_en": "Wildrider",
+      "class": "braw",
+      "faction": "decepticon"
+    },
+    {
+      "id": "rodimusprime_gs_mp09",
+      "name_zh": "补天士",
+      "name_en": "Rodimus Prime",
+      "class": "tact",
+      "faction": "autobot"
+    },
+    {
+      "id": "prowl_gs_deluxe2016",
+      "name_zh": "警车",
+      "name_en": "Prowl",
+      "class": "scou",
+      "faction": "autobot"
+    },
+    {
+      "id": "barricade_cin_dotm",
+      "name_zh": "路障",
+      "name_en": "Barricade",
+      "class": "scou",
+      "faction": "decepticon"
+    },
+    {
+      "id": "ultramagnus_gs_leader",
+      "name_zh": "通天晓",
+      "name_en": "Ultra Magnus",
+      "class": "tact",
+      "faction": "autobot"
+    },
+    {
+      "id": "acidstorm_gs_leader2015",
+      "name_zh": "酸雨",
+      "name_en": "Acid Storm",
+      "class": "tech",
+      "faction": "decepticon"
+    },
+    {
+      "id": "tantrum_gs_kabam",
+      "name_zh": "野牛",
+      "name_en": "Tantrum",
+      "class": "braw",
+      "faction": "decepticon"
+    },
+    {
+      "id": "grimlock_gs_mp08",
+      "name_zh": "钢锁",
+      "name_en": "Grimlock",
+      "class": "braw",
+      "faction": "autobot"
+    },
+    {
+      "id": "skywarp_gs_leader2015",
+      "name_zh": "闹翻天",
+      "name_en": "Skywarp",
+      "class": "tech",
+      "faction": "decepticon"
+    },
+    {
+      "id": "arcee_gs_deluxe2014",
+      "name_zh": "阿尔茜",
+      "name_en": "Arcee",
+      "class": "warr",
+      "faction": "autobot"
+    },
+    {
+      "id": "bludgeon_gs_rd20",
+      "name_zh": "雷震",
+      "name_en": "Bludgeon",
+      "class": "warr",
+      "faction": "decepticon"
+    },
+    {
+      "id": "megatronus_gs_kabam",
+      "name_zh": "震天尊",
+      "name_en": "Megatronus",
+      "class": "demo",
+      "faction": "decepticon"
+    },
+    {
+      "id": "shockwave_gs",
+      "name_zh": "震荡波",
+      "name_en": "Shockwave",
+      "class": "tech",
+      "faction": "decepticon"
+    },
+    {
+      "id": "soundblaster_gs_mp13b",
+      "name_zh": "音板",
+      "name_en": "Soundblaster",
+      "class": "tact",
+      "faction": "decepticon"
+    },
+    {
+      "id": "windblade_gs",
+      "name_zh": "风刃",
+      "name_en": "Windblade",
+      "class": "scou",
+      "faction": "autobot"
+    },
+    {
+      "id": "sunstreaker_gs_deluxe2008",
+      "name_zh": "飞毛腿",
+      "name_en": "Sunstreaker",
+      "class": "braw",
+      "faction": "autobot"
+    },
+    {
+      "id": "cliffjumper_gs_kabam",
+      "name_zh": "飞过山",
+      "name_en": "Cliffjumper",
+      "class": "demo",
+      "faction": "autobot"
+    },
+    {
+      "id": "sharkticon_gs_brawler",
+      "name_zh": "饿鲨",
+      "name_en": "Sharkticon (Brawler)",
+      "class": "braw",
+      "faction": "decepticon"
+    },
+    {
+      "id": "sharkticon_gs_demolition",
+      "name_zh": "饿鲨",
+      "name_en": "Sharkticon (Demolition)",
+      "class": "demo",
+      "faction": "decepticon"
+    },
+    {
+      "id": "sharkticon_gs_scout",
+      "name_zh": "饿鲨",
+      "name_en": "Sharkticon (Scout)",
+      "class": "scou",
+      "faction": "decepticon"
+    },
+    {
+      "id": "sharkticon_gs_tactician",
+      "name_zh": "饿鲨",
+      "name_en": "Sharkticon (Tactician)",
+      "class": "tact",
+      "faction": "decepticon"
+    },
+    {
+      "id": "sharkticon_gs_tech",
+      "name_zh": "饿鲨",
+      "name_en": "Sharkticon (Tech)",
+      "class": "tech",
+      "faction": "decepticon"
+    },
+    {
+      "id": "sharkticon_gs_warrior",
+      "name_zh": "饿鲨",
+      "name_en": "Sharkticon (Warrior)",
+      "class": "warr",
+      "faction": "decepticon"
+    },
+    {
+      "id": "sharkticon_gs_kabam",
+      "name_zh": "饿鲨1000",
+      "name_en": "Sharkticon",
+      "class": "scou",
+      "faction": "decepticon"
+    },
+    {
+      "id": "starscream_ghost_gs",
+      "name_zh": "鬼魂红蜘蛛",
+      "name_en": "Ghost Starscream",
+      "class": "scou",
+      "faction": "decepticon"
+    },
+    {
+      "id": "waspinator_gs_deluxe",
+      "name_zh": "黄蜂勇士",
+      "name_en": "Waspinator",
+      "class": "demo",
+      "faction": "predacon"
+    },
+    {
+      "id": "cheetor_bw_transmetal",
+      "name_zh": "黄豹",
+      "name_en": "Cheetor",
+      "class": "scou",
+      "faction": "maximal"
+    }
+  ],
+  "abilities": [
+    {
+      "id": "bleed",
+      "name_zh": "流血",
+      "name_en": "Bleed",
+      "category": "持续伤害",
+      "pua_icon": "E401",
+      "pua_char": "",
+      "desc_zh": "流失的能量晶体会持续造成直接伤害。",
+      "desc_en": "Bleeding energon causes direct damage over time.",
+      "bot_count": 31,
+      "associated_bots": [
+        {
+          "bot_id": "fte_optimus_gs_t3",
+          "name_zh": "G1擎天柱",
+          "name_en": "Optimus Prime",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "necrotronus_gs_kabam",
+          "name_zh": "亡灵天尊",
+          "name_en": "Necrotronus",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "optimusprime_sg_voyager2015",
+          "name_zh": "倾天柱",
+          "name_en": "SG Optimus Prime",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "chromia_gs_kabam",
+          "name_zh": "克劳莉娅",
+          "name_en": "Chromia",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "wheeljack_gs_mp20",
+          "name_zh": "千斤顶",
+          "name_en": "Wheeljack",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "kickback_gs_kabam",
+          "name_zh": "反冲",
+          "name_en": "Kickback",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "starsaber_gs_leader2014",
+          "name_zh": "史达",
+          "name_en": "Star Saber",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "lifeline_gs_deluxe2014",
+          "name_zh": "回春手",
+          "name_en": "Lifeline",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "sunstorm_gs_leader2015",
+          "name_zh": "太阳风",
+          "name_en": "Sunstorm",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "scorponok_bw_kabam",
+          "name_zh": "巨蝎勇士",
+          "name_en": "Scorponok",
+          "faction": "predacon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "dinobot_bw_kabam",
+          "name_zh": "恐龙勇士",
+          "name_en": "Dinobot",
+          "faction": "maximal",
+          "class": "tact"
+        },
+        {
+          "bot_id": "thundercracker_gs_leader2015",
+          "name_zh": "惊天雷",
+          "name_en": "Thundercracker",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "dragstrip_gs_deluxe2016",
+          "name_zh": "抢劫",
+          "name_en": "Dragstrip",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "dirge_gs_deluxe2008",
+          "name_zh": "挽歌",
+          "name_en": "Dirge",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "hound_cin_tlk",
+          "name_zh": "探长",
+          "name_en": "Hound",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "drift_cin_aoe",
+          "name_zh": "漂移",
+          "name_en": "Drift",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "hotlink_gs_leader2015",
+          "name_zh": "热链接",
+          "name_en": "Hotlink",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "rhinox_gs_voyager2014",
+          "name_zh": "犀牛",
+          "name_en": "Rhinox",
+          "faction": "maximal",
+          "class": "tech"
+        },
+        {
+          "bot_id": "optimusprimal_bw_mp32",
+          "name_zh": "猩猩队长",
+          "name_en": "Optimus Primal",
+          "faction": "maximal",
+          "class": "braw"
+        },
+        {
+          "bot_id": "optimusprime_cin_tf",
+          "name_zh": "电影擎天柱",
+          "name_en": "Optimus Prime (MV1)",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "ironhide_cin_rotf",
+          "name_zh": "电影铁皮",
+          "name_en": "Ironhide (ROTF)",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "bonecrusher_cin_rotf",
+          "name_zh": "碎骨魔",
+          "name_en": "Bonecrusher",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "wildrider_gs_deluxe2016",
+          "name_zh": "莽撞",
+          "name_en": "Wildrider",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "grimlock_gs_mp08",
+          "name_zh": "钢锁",
+          "name_en": "Grimlock",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "arcee_gs_deluxe2014",
+          "name_zh": "阿尔茜",
+          "name_en": "Arcee",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "bludgeon_gs_rd20",
+          "name_zh": "雷震",
+          "name_en": "Bludgeon",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "windblade_gs",
+          "name_zh": "风刃",
+          "name_en": "Windblade",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "cliffjumper_gs_kabam",
+          "name_zh": "飞过山",
+          "name_en": "Cliffjumper",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "sharkticon_gs_warrior",
+          "name_zh": "饿鲨",
+          "name_en": "Sharkticon (Warrior)",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "cheetor_bw_transmetal",
+          "name_zh": "黄豹",
+          "name_en": "Cheetor",
+          "faction": "maximal",
+          "class": "scou"
+        }
+      ]
+    },
+    {
+      "id": "burn",
+      "name_zh": "燃烧",
+      "name_en": "Burn",
+      "category": "持续伤害",
+      "pua_icon": "E41D",
+      "pua_char": "",
+      "desc_zh": "持续造成能量伤害。",
+      "desc_en": "Deals energy damage over time.",
+      "bot_count": 37,
+      "associated_bots": [
+        {
+          "bot_id": "ironhide_gs_kabam",
+          "name_zh": "G1铁皮",
+          "name_en": "Ironhide",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "optimusprime_sg_voyager2015",
+          "name_zh": "倾天柱",
+          "name_en": "SG Optimus Prime",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "wheeljack_gs_mp20",
+          "name_zh": "千斤顶",
+          "name_en": "Wheeljack",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "ramjet_gs_deluxe2008",
+          "name_zh": "喷气机",
+          "name_en": "Ramjet",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "sunstorm_gs_leader2015",
+          "name_zh": "太阳风",
+          "name_en": "Sunstorm",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "mirage_gs_deluxe2016",
+          "name_zh": "幻影",
+          "name_en": "Mirage",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "thundercracker_gs_leader2015",
+          "name_zh": "惊天雷",
+          "name_en": "Thundercracker",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "galvatron_gs_voyager2016",
+          "name_zh": "惊破天",
+          "name_en": "Galvatron",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "breakdown_gs",
+          "name_zh": "打击",
+          "name_en": "Breakdown",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "dirge_gs_deluxe2008",
+          "name_zh": "挽歌",
+          "name_en": "Dirge",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "ultramagnus_sg_leader",
+          "name_zh": "捅天枭",
+          "name_en": "SG Ultra Magnus",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "hound_cin_tlk",
+          "name_zh": "探长",
+          "name_en": "Hound",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "mixmaster_cin_rotf",
+          "name_zh": "搅拌者",
+          "name_en": "Mixmaster",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "novastorm_gs_leader2015",
+          "name_zh": "新星风",
+          "name_en": "Nova Storm",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "nemesisprime_gs_voyager2015",
+          "name_zh": "暗天陨",
+          "name_en": "Nemesis Prime",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "sideswipe_gs",
+          "name_zh": "横炮",
+          "name_en": "Sideswipe",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "motormaster_gs_voyager2015",
+          "name_zh": "汽车大师",
+          "name_en": "Motormaster",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "hotlink_gs_leader2015",
+          "name_zh": "热链接",
+          "name_en": "Hotlink",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "rhinox_gs_voyager2014",
+          "name_zh": "犀牛",
+          "name_en": "Rhinox",
+          "faction": "maximal",
+          "class": "tech"
+        },
+        {
+          "bot_id": "cyclonus_gs_uw06",
+          "name_zh": "狂飙",
+          "name_en": "Cyclonus",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "ironhide_cin_rotf",
+          "name_zh": "电影铁皮",
+          "name_en": "Ironhide (ROTF)",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "grindor_cin_rotf",
+          "name_zh": "碾碎器",
+          "name_en": "Grindor",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "fte_stars_gs_t3",
+          "name_zh": "红蜘蛛",
+          "name_en": "Starscream",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "wildrider_gs_deluxe2016",
+          "name_zh": "莽撞",
+          "name_en": "Wildrider",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "prowl_gs_deluxe2016",
+          "name_zh": "警车",
+          "name_en": "Prowl",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "ultramagnus_gs_leader",
+          "name_zh": "通天晓",
+          "name_en": "Ultra Magnus",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "acidstorm_gs_leader2015",
+          "name_zh": "酸雨",
+          "name_en": "Acid Storm",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "tantrum_gs_kabam",
+          "name_zh": "野牛",
+          "name_en": "Tantrum",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "grimlock_gs_mp08",
+          "name_zh": "钢锁",
+          "name_en": "Grimlock",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "skywarp_gs_leader2015",
+          "name_zh": "闹翻天",
+          "name_en": "Skywarp",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "megatronus_gs_kabam",
+          "name_zh": "震天尊",
+          "name_en": "Megatronus",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "sunstreaker_gs_deluxe2008",
+          "name_zh": "飞毛腿",
+          "name_en": "Sunstreaker",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "cliffjumper_gs_kabam",
+          "name_zh": "飞过山",
+          "name_en": "Cliffjumper",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "starscream_ghost_gs",
+          "name_zh": "鬼魂红蜘蛛",
+          "name_en": "Ghost Starscream",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "waspinator_gs_deluxe",
+          "name_zh": "黄蜂勇士",
+          "name_en": "Waspinator",
+          "faction": "predacon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "cheetor_bw_transmetal",
+          "name_zh": "黄豹",
+          "name_en": "Cheetor",
+          "faction": "maximal",
+          "class": "scou"
+        }
+      ]
+    },
+    {
+      "id": "shock",
+      "name_zh": "震击",
+      "name_en": "Shock",
+      "category": "持续伤害",
+      "pua_icon": "E914",
+      "pua_char": "",
+      "desc_zh": "持续造成电磁能量伤害。",
+      "desc_en": "Deals electrical energy damage over time.",
+      "bot_count": 33,
+      "associated_bots": [
+        {
+          "bot_id": "megatron_gs_leader2015",
+          "name_zh": "G1威震天",
+          "name_en": "Megatron",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "optimusprime_sg_voyager2015",
+          "name_zh": "倾天柱",
+          "name_en": "SG Optimus Prime",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "wheeljack_gs_mp20",
+          "name_zh": "千斤顶",
+          "name_en": "Wheeljack",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "kickback_gs_kabam",
+          "name_zh": "反冲",
+          "name_en": "Kickback",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "lifeline_gs_deluxe2014",
+          "name_zh": "回春手",
+          "name_en": "Lifeline",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "soundwave_gs",
+          "name_zh": "声波",
+          "name_en": "Soundwave",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "bumblebee_cin_dotm",
+          "name_zh": "大黄蜂",
+          "name_en": "Bumblebee (DOTM)",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "jetfire_gs_leader2014",
+          "name_zh": "天火",
+          "name_en": "Jetfire",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "bumblebee_gs_kabam",
+          "name_zh": "小黄蜂",
+          "name_en": "Bumblebee",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "scorponok_bw_kabam",
+          "name_zh": "巨蝎勇士",
+          "name_en": "Scorponok",
+          "faction": "predacon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "mirage_gs_deluxe2016",
+          "name_zh": "幻影",
+          "name_en": "Mirage",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "blaster_gs_leader2016",
+          "name_zh": "录音机",
+          "name_en": "Blaster",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "thundercracker_gs_leader2015",
+          "name_zh": "惊天雷",
+          "name_en": "Thundercracker",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "galvatron_gs_voyager2016",
+          "name_zh": "惊破天",
+          "name_en": "Galvatron",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "ratchet_gs_kabam",
+          "name_zh": "救护车",
+          "name_en": "Ratchet",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "nemesisprime_gs_voyager2015",
+          "name_zh": "暗天陨",
+          "name_en": "Nemesis Prime",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "sideswipe_gs",
+          "name_zh": "横炮",
+          "name_en": "Sideswipe",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "bitstream_gs_leader2015",
+          "name_zh": "比特流",
+          "name_en": "Bitstream",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "slipstream_gs",
+          "name_zh": "滑流",
+          "name_en": "Slipstream",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "jazz_gs_twm05",
+          "name_zh": "爵士",
+          "name_en": "Jazz",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "rhinox_gs_voyager2014",
+          "name_zh": "犀牛",
+          "name_en": "Rhinox",
+          "faction": "maximal",
+          "class": "tech"
+        },
+        {
+          "bot_id": "megatron_cin_rotf",
+          "name_zh": "电影威震天",
+          "name_en": "Megatron (ROTF)",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "ionstorm_gs_leader2015",
+          "name_zh": "离子风",
+          "name_en": "Ion Storm",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "fte_stars_gs_t3",
+          "name_zh": "红蜘蛛",
+          "name_en": "Starscream",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "grimlock_gs_mp08",
+          "name_zh": "钢锁",
+          "name_en": "Grimlock",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "skywarp_gs_leader2015",
+          "name_zh": "闹翻天",
+          "name_en": "Skywarp",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "megatronus_gs_kabam",
+          "name_zh": "震天尊",
+          "name_en": "Megatronus",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "shockwave_gs",
+          "name_zh": "震荡波",
+          "name_en": "Shockwave",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "soundblaster_gs_mp13b",
+          "name_zh": "音板",
+          "name_en": "Soundblaster",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "windblade_gs",
+          "name_zh": "风刃",
+          "name_en": "Windblade",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "cliffjumper_gs_kabam",
+          "name_zh": "飞过山",
+          "name_en": "Cliffjumper",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "starscream_ghost_gs",
+          "name_zh": "鬼魂红蜘蛛",
+          "name_en": "Ghost Starscream",
+          "faction": "decepticon",
+          "class": "scou"
+        }
+      ]
+    },
+    {
+      "id": "acid",
+      "name_zh": "酸液",
+      "name_en": "Acid",
+      "category": "持续伤害",
+      "pua_icon": "E524",
+      "pua_char": "",
+      "desc_zh": "持续造成酸性伤害。",
+      "desc_en": "Deals corrosive acid damage over time.",
+      "bot_count": 9,
+      "associated_bots": [
+        {
+          "bot_id": "optimusprime_sg_voyager2015",
+          "name_zh": "倾天柱",
+          "name_en": "SG Optimus Prime",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "lifeline_gs_deluxe2014",
+          "name_zh": "回春手",
+          "name_en": "Lifeline",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "thundercracker_gs_leader2015",
+          "name_zh": "惊天雷",
+          "name_en": "Thundercracker",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "mixmaster_cin_rotf",
+          "name_zh": "搅拌者",
+          "name_en": "Mixmaster",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "novastorm_gs_leader2015",
+          "name_zh": "新星风",
+          "name_en": "Nova Storm",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "ionstorm_gs_leader2015",
+          "name_zh": "离子风",
+          "name_en": "Ion Storm",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "acidstorm_gs_leader2015",
+          "name_zh": "酸雨",
+          "name_en": "Acid Storm",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "grimlock_gs_mp08",
+          "name_zh": "钢锁",
+          "name_en": "Grimlock",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "cliffjumper_gs_kabam",
+          "name_zh": "飞过山",
+          "name_en": "Cliffjumper",
+          "faction": "autobot",
+          "class": "demo"
+        }
+      ]
+    },
+    {
+      "id": "dark_burn",
+      "name_zh": "黑暗燃烧",
+      "name_en": "Dark Burn",
+      "category": "持续伤害",
+      "pua_icon": "E810",
+      "pua_char": "",
+      "desc_zh": "造成瞬时黑暗能量伤害。",
+      "desc_en": "Deals instant dark energy damage.",
+      "bot_count": 5,
+      "associated_bots": [
+        {
+          "bot_id": "galvatron_gs_voyager2016",
+          "name_zh": "惊破天",
+          "name_en": "Galvatron",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "nemesisprime_gs_voyager2015",
+          "name_zh": "暗天陨",
+          "name_en": "Nemesis Prime",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "cyclonus_gs_uw06",
+          "name_zh": "狂飙",
+          "name_en": "Cyclonus",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "grimlock_gs_mp08",
+          "name_zh": "钢锁",
+          "name_en": "Grimlock",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "megatronus_gs_kabam",
+          "name_zh": "震天尊",
+          "name_en": "Megatronus",
+          "faction": "decepticon",
+          "class": "demo"
+        }
+      ]
+    },
+    {
+      "id": "headshot",
+      "name_zh": "爆头射击",
+      "name_en": "Headshot",
+      "category": "持续伤害",
+      "pua_icon": "E401",
+      "pua_char": "",
+      "desc_zh": "爆头导致瞬间的能量晶体流失伤害并持续造成直接伤害，对手回避时额外承受伤害。",
+      "desc_en": "Headshots cause instant damage and bleeding damage over time, dealing extra damage if the opponent evades.",
+      "bot_count": 1,
+      "associated_bots": [
+        {
+          "bot_id": "arcee_gs_deluxe2014",
+          "name_zh": "阿尔茜",
+          "name_en": "Arcee",
+          "faction": "autobot",
+          "class": "warr"
+        }
+      ]
+    },
+    {
+      "id": "armor_break",
+      "name_zh": "破甲",
+      "name_en": "Armor Break",
+      "category": "防御削弱",
+      "pua_icon": "E516",
+      "pua_char": "",
+      "desc_zh": "移除护甲增益，降低护甲评级并提升受到攻击的伤害量。",
+      "desc_en": "Removes armor buffs and reduces armor rating, amplifying incoming damage.",
+      "bot_count": 31,
+      "associated_bots": [
+        {
+          "bot_id": "megatron_gs_leader2015",
+          "name_zh": "G1威震天",
+          "name_en": "Megatron",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "fte_optimus_gs_t3",
+          "name_zh": "G1擎天柱",
+          "name_en": "Optimus Prime",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "optimusprime_sg_voyager2015",
+          "name_zh": "倾天柱",
+          "name_en": "SG Optimus Prime",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "thrust_gs_deluxe2008",
+          "name_zh": "冲锋",
+          "name_en": "Thrust",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "starsaber_gs_leader2014",
+          "name_zh": "史达",
+          "name_en": "Star Saber",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "bumblebee_cin_dotm",
+          "name_zh": "大黄蜂",
+          "name_en": "Bumblebee (DOTM)",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "sunstorm_gs_leader2015",
+          "name_zh": "太阳风",
+          "name_en": "Sunstorm",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "dinobot_bw_kabam",
+          "name_zh": "恐龙勇士",
+          "name_en": "Dinobot",
+          "faction": "maximal",
+          "class": "tact"
+        },
+        {
+          "bot_id": "breakdown_gs",
+          "name_zh": "打击",
+          "name_en": "Breakdown",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "dragstrip_gs_deluxe2016",
+          "name_zh": "抢劫",
+          "name_en": "Dragstrip",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "ultramagnus_sg_leader",
+          "name_zh": "捅天枭",
+          "name_en": "SG Ultra Magnus",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "nemesisprime_gs_voyager2015",
+          "name_zh": "暗天陨",
+          "name_en": "Nemesis Prime",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "bitstream_gs_leader2015",
+          "name_zh": "比特流",
+          "name_en": "Bitstream",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "motormaster_gs_voyager2015",
+          "name_zh": "汽车大师",
+          "name_en": "Motormaster",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "optimusprimal_bw_mp32",
+          "name_zh": "猩猩队长",
+          "name_en": "Optimus Primal",
+          "faction": "maximal",
+          "class": "braw"
+        },
+        {
+          "bot_id": "megatron_cin_rotf",
+          "name_zh": "电影威震天",
+          "name_en": "Megatron (ROTF)",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "optimusprime_cin_tf",
+          "name_zh": "电影擎天柱",
+          "name_en": "Optimus Prime (MV1)",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "grindor_cin_rotf",
+          "name_zh": "碾碎器",
+          "name_en": "Grindor",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "ionstorm_gs_leader2015",
+          "name_zh": "离子风",
+          "name_en": "Ion Storm",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "fte_stars_gs_t3",
+          "name_zh": "红蜘蛛",
+          "name_en": "Starscream",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "wildrider_gs_deluxe2016",
+          "name_zh": "莽撞",
+          "name_en": "Wildrider",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "rodimusprime_gs_mp09",
+          "name_zh": "补天士",
+          "name_en": "Rodimus Prime",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "ultramagnus_gs_leader",
+          "name_zh": "通天晓",
+          "name_en": "Ultra Magnus",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "acidstorm_gs_leader2015",
+          "name_zh": "酸雨",
+          "name_en": "Acid Storm",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "tantrum_gs_kabam",
+          "name_zh": "野牛",
+          "name_en": "Tantrum",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "megatronus_gs_kabam",
+          "name_zh": "震天尊",
+          "name_en": "Megatronus",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "soundblaster_gs_mp13b",
+          "name_zh": "音板",
+          "name_en": "Soundblaster",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "cliffjumper_gs_kabam",
+          "name_zh": "飞过山",
+          "name_en": "Cliffjumper",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "starscream_ghost_gs",
+          "name_zh": "鬼魂红蜘蛛",
+          "name_en": "Ghost Starscream",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "cheetor_bw_transmetal",
+          "name_zh": "黄豹",
+          "name_en": "Cheetor",
+          "faction": "maximal",
+          "class": "scou"
+        }
+      ]
+    },
+    {
+      "id": "armor_pen",
+      "name_zh": "护甲穿透",
+      "name_en": "Armor Penetration",
+      "category": "攻击特长",
+      "pua_icon": "E409",
+      "pua_char": "",
+      "desc_zh": "忽略对手当前护甲值的固定百分比造成伤害。",
+      "desc_en": "Ignores a percentage of the opponent's current armor.",
+      "bot_count": 14,
+      "associated_bots": [
+        {
+          "bot_id": "fte_optimus_gs_t3",
+          "name_zh": "G1擎天柱",
+          "name_en": "Optimus Prime",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "necrotronus_gs_kabam",
+          "name_zh": "亡灵天尊",
+          "name_en": "Necrotronus",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "ramjet_gs_deluxe2008",
+          "name_zh": "喷气机",
+          "name_en": "Ramjet",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "dinobot_bw_kabam",
+          "name_zh": "恐龙勇士",
+          "name_en": "Dinobot",
+          "faction": "maximal",
+          "class": "tact"
+        },
+        {
+          "bot_id": "thundercracker_gs_leader2015",
+          "name_zh": "惊天雷",
+          "name_en": "Thundercracker",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "dragstrip_gs_deluxe2016",
+          "name_zh": "抢劫",
+          "name_en": "Dragstrip",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "dirge_gs_deluxe2008",
+          "name_zh": "挽歌",
+          "name_en": "Dirge",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "cyclonus_gs_uw06",
+          "name_zh": "狂飙",
+          "name_en": "Cyclonus",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "fte_stars_gs_t3",
+          "name_zh": "红蜘蛛",
+          "name_en": "Starscream",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "ultramagnus_gs_leader",
+          "name_zh": "通天晓",
+          "name_en": "Ultra Magnus",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "skywarp_gs_leader2015",
+          "name_zh": "闹翻天",
+          "name_en": "Skywarp",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "shockwave_gs",
+          "name_zh": "震荡波",
+          "name_en": "Shockwave",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "windblade_gs",
+          "name_zh": "风刃",
+          "name_en": "Windblade",
+          "faction": "autobot",
+          "class": "scou"
+        }
+      ]
+    },
+    {
+      "id": "armor_buff",
+      "name_zh": "护甲增益",
+      "name_en": "Armor Buff",
+      "category": "属性增益",
+      "pua_icon": "E517",
+      "pua_char": "",
+      "desc_zh": "临时提升装甲厚度，降低受到攻击的伤害。",
+      "desc_en": "Temporarily increases armor thickness, reducing damage from incoming attacks.",
+      "bot_count": 23,
+      "associated_bots": [
+        {
+          "bot_id": "megatron_gs_leader2015",
+          "name_zh": "G1威震天",
+          "name_en": "Megatron",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "fte_optimus_gs_t3",
+          "name_zh": "G1擎天柱",
+          "name_en": "Optimus Prime",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "ironhide_gs_kabam",
+          "name_zh": "G1铁皮",
+          "name_en": "Ironhide",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "optimusprime_sg_voyager2015",
+          "name_zh": "倾天柱",
+          "name_en": "SG Optimus Prime",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "bumblebee_cin_dotm",
+          "name_zh": "大黄蜂",
+          "name_en": "Bumblebee (DOTM)",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "deadend_gs_deluxe2015",
+          "name_zh": "封锁",
+          "name_en": "Dead End",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "dinobot_bw_kabam",
+          "name_zh": "恐龙勇士",
+          "name_en": "Dinobot",
+          "faction": "maximal",
+          "class": "tact"
+        },
+        {
+          "bot_id": "ultramagnus_sg_leader",
+          "name_zh": "捅天枭",
+          "name_en": "SG Ultra Magnus",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "hound_cin_tlk",
+          "name_zh": "探长",
+          "name_en": "Hound",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "nemesisprime_gs_voyager2015",
+          "name_zh": "暗天陨",
+          "name_en": "Nemesis Prime",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "hotlink_gs_leader2015",
+          "name_zh": "热链接",
+          "name_en": "Hotlink",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "optimusprimal_bw_mp32",
+          "name_zh": "猩猩队长",
+          "name_en": "Optimus Primal",
+          "faction": "maximal",
+          "class": "braw"
+        },
+        {
+          "bot_id": "megatron_cin_rotf",
+          "name_zh": "电影威震天",
+          "name_en": "Megatron (ROTF)",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "optimusprime_cin_tf",
+          "name_zh": "电影擎天柱",
+          "name_en": "Optimus Prime (MV1)",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "grindor_cin_rotf",
+          "name_zh": "碾碎器",
+          "name_en": "Grindor",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "ionstorm_gs_leader2015",
+          "name_zh": "离子风",
+          "name_en": "Ion Storm",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "rodimusprime_gs_mp09",
+          "name_zh": "补天士",
+          "name_en": "Rodimus Prime",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "ultramagnus_gs_leader",
+          "name_zh": "通天晓",
+          "name_en": "Ultra Magnus",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "tantrum_gs_kabam",
+          "name_zh": "野牛",
+          "name_en": "Tantrum",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "bludgeon_gs_rd20",
+          "name_zh": "雷震",
+          "name_en": "Bludgeon",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "megatronus_gs_kabam",
+          "name_zh": "震天尊",
+          "name_en": "Megatronus",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "sunstreaker_gs_deluxe2008",
+          "name_zh": "飞毛腿",
+          "name_en": "Sunstreaker",
+          "faction": "autobot",
+          "class": "braw"
+        }
+      ]
+    },
+    {
+      "id": "permanent_armor",
+      "name_zh": "永久护甲",
+      "name_en": "Permanent Armor",
+      "category": "属性增益",
+      "pua_icon": "E501",
+      "pua_char": "",
+      "desc_zh": "全程持续获得固定的伤害减免，不可被破甲效果移除。",
+      "desc_en": "Provides permanent passive damage reduction that cannot be removed by Armor Break.",
+      "bot_count": 6,
+      "associated_bots": [
+        {
+          "bot_id": "fte_optimus_gs_t3",
+          "name_zh": "G1擎天柱",
+          "name_en": "Optimus Prime",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "optimusprime_sg_voyager2015",
+          "name_zh": "倾天柱",
+          "name_en": "SG Optimus Prime",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "optimusprimal_bw_mp32",
+          "name_zh": "猩猩队长",
+          "name_en": "Optimus Primal",
+          "faction": "maximal",
+          "class": "braw"
+        },
+        {
+          "bot_id": "megatron_cin_rotf",
+          "name_zh": "电影威震天",
+          "name_en": "Megatron (ROTF)",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "grindor_cin_rotf",
+          "name_zh": "碾碎器",
+          "name_en": "Grindor",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "tantrum_gs_kabam",
+          "name_zh": "野牛",
+          "name_en": "Tantrum",
+          "faction": "decepticon",
+          "class": "braw"
+        }
+      ]
+    },
+    {
+      "id": "shield",
+      "name_zh": "护盾",
+      "name_en": "Shield",
+      "category": "生存防御",
+      "pua_icon": "E515",
+      "pua_char": "",
+      "desc_zh": "展开力场吸收来袭伤害，优先于生命值消耗。",
+      "desc_en": "Deploys a forcefield that absorbs incoming damage before reducing health.",
+      "bot_count": 24,
+      "associated_bots": [
+        {
+          "bot_id": "wheeljack_gs_mp20",
+          "name_zh": "千斤顶",
+          "name_en": "Wheeljack",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "starsaber_gs_leader2014",
+          "name_zh": "史达",
+          "name_en": "Star Saber",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "lifeline_gs_deluxe2014",
+          "name_zh": "回春手",
+          "name_en": "Lifeline",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "soundwave_gs",
+          "name_zh": "声波",
+          "name_en": "Soundwave",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "jetfire_gs_leader2014",
+          "name_zh": "天火",
+          "name_en": "Jetfire",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "bumblebee_gs_kabam",
+          "name_zh": "小黄蜂",
+          "name_en": "Bumblebee",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "mirage_gs_deluxe2016",
+          "name_zh": "幻影",
+          "name_en": "Mirage",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "blaster_gs_leader2016",
+          "name_zh": "录音机",
+          "name_en": "Blaster",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "dinobot_bw_kabam",
+          "name_zh": "恐龙勇士",
+          "name_en": "Dinobot",
+          "faction": "maximal",
+          "class": "tact"
+        },
+        {
+          "bot_id": "thundercracker_gs_leader2015",
+          "name_zh": "惊天雷",
+          "name_en": "Thundercracker",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "breakdown_gs",
+          "name_zh": "打击",
+          "name_en": "Breakdown",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "ultramagnus_sg_leader",
+          "name_zh": "捅天枭",
+          "name_en": "SG Ultra Magnus",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "hound_cin_tlk",
+          "name_zh": "探长",
+          "name_en": "Hound",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "mixmaster_cin_rotf",
+          "name_zh": "搅拌者",
+          "name_en": "Mixmaster",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "bitstream_gs_leader2015",
+          "name_zh": "比特流",
+          "name_en": "Bitstream",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "slipstream_gs",
+          "name_zh": "滑流",
+          "name_en": "Slipstream",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "hotlink_gs_leader2015",
+          "name_zh": "热链接",
+          "name_en": "Hotlink",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "rhinox_gs_voyager2014",
+          "name_zh": "犀牛",
+          "name_en": "Rhinox",
+          "faction": "maximal",
+          "class": "tech"
+        },
+        {
+          "bot_id": "ionstorm_gs_leader2015",
+          "name_zh": "离子风",
+          "name_en": "Ion Storm",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "acidstorm_gs_leader2015",
+          "name_zh": "酸雨",
+          "name_en": "Acid Storm",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "shockwave_gs",
+          "name_zh": "震荡波",
+          "name_en": "Shockwave",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "soundblaster_gs_mp13b",
+          "name_zh": "音板",
+          "name_en": "Soundblaster",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "starscream_ghost_gs",
+          "name_zh": "鬼魂红蜘蛛",
+          "name_en": "Ghost Starscream",
+          "faction": "decepticon",
+          "class": "scou"
+        }
+      ]
+    },
+    {
+      "id": "shield_breaker",
+      "name_zh": "破盾",
+      "name_en": "Shield Break",
+      "category": "机制克制",
+      "pua_icon": "E807",
+      "pua_char": "",
+      "desc_zh": "粉碎对手的护盾力场。",
+      "desc_en": "Shatters the opponent's shield.",
+      "bot_count": 4,
+      "associated_bots": [
+        {
+          "bot_id": "thrust_gs_deluxe2008",
+          "name_zh": "冲锋",
+          "name_en": "Thrust",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "bumblebee_gs_kabam",
+          "name_zh": "小黄蜂",
+          "name_en": "Bumblebee",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "breakdown_gs",
+          "name_zh": "打击",
+          "name_en": "Breakdown",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        }
+      ]
+    },
+    {
+      "id": "stun",
+      "name_zh": "眩晕",
+      "name_en": "Stun",
+      "category": "行动控制",
+      "pua_icon": "E605",
+      "pua_char": "",
+      "desc_zh": "临时阻止目标采取任何行动。",
+      "desc_en": "Temporarily paralyzes the target, preventing all actions.",
+      "bot_count": 37,
+      "associated_bots": [
+        {
+          "bot_id": "megatron_gs_leader2015",
+          "name_zh": "G1威震天",
+          "name_en": "Megatron",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "fte_optimus_gs_t3",
+          "name_zh": "G1擎天柱",
+          "name_en": "Optimus Prime",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "optimusprime_sg_voyager2015",
+          "name_zh": "倾天柱",
+          "name_en": "SG Optimus Prime",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "chromia_gs_kabam",
+          "name_zh": "克劳莉娅",
+          "name_en": "Chromia",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "thrust_gs_deluxe2008",
+          "name_zh": "冲锋",
+          "name_en": "Thrust",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "wheeljack_gs_mp20",
+          "name_zh": "千斤顶",
+          "name_en": "Wheeljack",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "kickback_gs_kabam",
+          "name_zh": "反冲",
+          "name_en": "Kickback",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "starsaber_gs_leader2014",
+          "name_zh": "史达",
+          "name_en": "Star Saber",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "ramjet_gs_deluxe2008",
+          "name_zh": "喷气机",
+          "name_en": "Ramjet",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "lifeline_gs_deluxe2014",
+          "name_zh": "回春手",
+          "name_en": "Lifeline",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "soundwave_gs",
+          "name_zh": "声波",
+          "name_en": "Soundwave",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "jetfire_gs_leader2014",
+          "name_zh": "天火",
+          "name_en": "Jetfire",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "sunstorm_gs_leader2015",
+          "name_zh": "太阳风",
+          "name_en": "Sunstorm",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "mirage_gs_deluxe2016",
+          "name_zh": "幻影",
+          "name_en": "Mirage",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "galvatron_gs_voyager2016",
+          "name_zh": "惊破天",
+          "name_en": "Galvatron",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "dirge_gs_deluxe2008",
+          "name_zh": "挽歌",
+          "name_en": "Dirge",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "hound_cin_tlk",
+          "name_zh": "探长",
+          "name_en": "Hound",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "ratchet_gs_kabam",
+          "name_zh": "救护车",
+          "name_en": "Ratchet",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "sideswipe_gs",
+          "name_zh": "横炮",
+          "name_en": "Sideswipe",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "bitstream_gs_leader2015",
+          "name_zh": "比特流",
+          "name_en": "Bitstream",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "motormaster_gs_voyager2015",
+          "name_zh": "汽车大师",
+          "name_en": "Motormaster",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "hotrod_cin_tlk",
+          "name_zh": "热破",
+          "name_en": "Hot Rod",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "hotlink_gs_leader2015",
+          "name_zh": "热链接",
+          "name_en": "Hotlink",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "jazz_gs_twm05",
+          "name_zh": "爵士",
+          "name_en": "Jazz",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "cyclonus_gs_uw06",
+          "name_zh": "狂飙",
+          "name_en": "Cyclonus",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "megatron_cin_rotf",
+          "name_zh": "电影威震天",
+          "name_en": "Megatron (ROTF)",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "ironhide_cin_rotf",
+          "name_zh": "电影铁皮",
+          "name_en": "Ironhide (ROTF)",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "bonecrusher_cin_rotf",
+          "name_zh": "碎骨魔",
+          "name_en": "Bonecrusher",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "fte_stars_gs_t3",
+          "name_zh": "红蜘蛛",
+          "name_en": "Starscream",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "wildrider_gs_deluxe2016",
+          "name_zh": "莽撞",
+          "name_en": "Wildrider",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "prowl_gs_deluxe2016",
+          "name_zh": "警车",
+          "name_en": "Prowl",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "bludgeon_gs_rd20",
+          "name_zh": "雷震",
+          "name_en": "Bludgeon",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "shockwave_gs",
+          "name_zh": "震荡波",
+          "name_en": "Shockwave",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "soundblaster_gs_mp13b",
+          "name_zh": "音板",
+          "name_en": "Soundblaster",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "windblade_gs",
+          "name_zh": "风刃",
+          "name_en": "Windblade",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "cliffjumper_gs_kabam",
+          "name_zh": "飞过山",
+          "name_en": "Cliffjumper",
+          "faction": "autobot",
+          "class": "demo"
+        }
+      ]
+    },
+    {
+      "id": "decelerate",
+      "name_zh": "减速",
+      "name_en": "Decelerate",
+      "category": "行动控制",
+      "pua_icon": "E952",
+      "pua_char": "",
+      "desc_zh": "阻止对手躲避攻击，并减少对手行动时的能量流速。",
+      "desc_en": "Prevents the opponent from dodging and slows their power flow.",
+      "bot_count": 3,
+      "associated_bots": [
+        {
+          "bot_id": "chromia_gs_kabam",
+          "name_zh": "克劳莉娅",
+          "name_en": "Chromia",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "hotrod_cin_tlk",
+          "name_zh": "热破",
+          "name_en": "Hot Rod",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "rodimusprime_gs_mp09",
+          "name_zh": "补天士",
+          "name_en": "Rodimus Prime",
+          "faction": "autobot",
+          "class": "tact"
+        }
+      ]
+    },
+    {
+      "id": "tactical_lockdown",
+      "name_zh": "战术封锁",
+      "name_en": "Tactical Lockdown",
+      "category": "行动控制",
+      "pua_icon": "E419",
+      "pua_char": "",
+      "desc_zh": "封印对手全部特殊攻击，期间对手无法发动任何特殊技。",
+      "desc_en": "Locks down all special attacks, preventing the opponent from launching any special move.",
+      "bot_count": 1,
+      "associated_bots": [
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        }
+      ]
+    },
+    {
+      "id": "fear",
+      "name_zh": "恐惧",
+      "name_en": "Fear",
+      "category": "状态减益",
+      "pua_icon": "E907",
+      "pua_char": "",
+      "desc_zh": "使敌人因恐惧造成多种负面效果",
+      "desc_en": "Intimidates fleeing opponents, inflicting multiple debuffs.",
+      "bot_count": 2,
+      "associated_bots": [
+        {
+          "bot_id": "dirge_gs_deluxe2008",
+          "name_zh": "挽歌",
+          "name_en": "Dirge",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "cliffjumper_gs_kabam",
+          "name_zh": "飞过山",
+          "name_en": "Cliffjumper",
+          "faction": "autobot",
+          "class": "demo"
+        }
+      ]
+    },
+    {
+      "id": "daze",
+      "name_zh": "目眩",
+      "name_en": "Daze",
+      "category": "状态减益",
+      "pua_icon": "E519",
+      "pua_char": "",
+      "desc_zh": "使对手陷入目眩，大幅降低其远程攻击命中率。",
+      "desc_en": "Dazes the opponent, causing their basic and special ranged attacks to miss.",
+      "bot_count": 1,
+      "associated_bots": [
+        {
+          "bot_id": "scorponok_bw_kabam",
+          "name_zh": "巨蝎勇士",
+          "name_en": "Scorponok",
+          "faction": "predacon",
+          "class": "warr"
+        }
+      ]
+    },
+    {
+      "id": "evade",
+      "name_zh": "规避",
+      "name_en": "Evade",
+      "category": "机动防御",
+      "pua_icon": "E509",
+      "pua_char": "",
+      "desc_zh": "自动闪避即将到来的攻击。",
+      "desc_en": "Automatically evade incoming attack.",
+      "bot_count": 31,
+      "associated_bots": [
+        {
+          "bot_id": "necrotronus_gs_kabam",
+          "name_zh": "亡灵天尊",
+          "name_en": "Necrotronus",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "chromia_gs_kabam",
+          "name_zh": "克劳莉娅",
+          "name_en": "Chromia",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "thrust_gs_deluxe2008",
+          "name_zh": "冲锋",
+          "name_en": "Thrust",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "kickback_gs_kabam",
+          "name_zh": "反冲",
+          "name_en": "Kickback",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "lifeline_gs_deluxe2014",
+          "name_zh": "回春手",
+          "name_en": "Lifeline",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "bumblebee_cin_dotm",
+          "name_zh": "大黄蜂",
+          "name_en": "Bumblebee (DOTM)",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "jetfire_gs_leader2014",
+          "name_zh": "天火",
+          "name_en": "Jetfire",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "sunstorm_gs_leader2015",
+          "name_zh": "太阳风",
+          "name_en": "Sunstorm",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "bumblebee_gs_kabam",
+          "name_zh": "小黄蜂",
+          "name_en": "Bumblebee",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "mirage_gs_deluxe2016",
+          "name_zh": "幻影",
+          "name_en": "Mirage",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "thundercracker_gs_leader2015",
+          "name_zh": "惊天雷",
+          "name_en": "Thundercracker",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "breakdown_gs",
+          "name_zh": "打击",
+          "name_en": "Breakdown",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "dragstrip_gs_deluxe2016",
+          "name_zh": "抢劫",
+          "name_en": "Dragstrip",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "dirge_gs_deluxe2008",
+          "name_zh": "挽歌",
+          "name_en": "Dirge",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "hound_cin_tlk",
+          "name_zh": "探长",
+          "name_en": "Hound",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "sideswipe_gs",
+          "name_zh": "横炮",
+          "name_en": "Sideswipe",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "slipstream_gs",
+          "name_zh": "滑流",
+          "name_en": "Slipstream",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "drift_cin_aoe",
+          "name_zh": "漂移",
+          "name_en": "Drift",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "hotrod_cin_tlk",
+          "name_zh": "热破",
+          "name_en": "Hot Rod",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "jazz_gs_twm05",
+          "name_zh": "爵士",
+          "name_en": "Jazz",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "fte_stars_gs_t3",
+          "name_zh": "红蜘蛛",
+          "name_en": "Starscream",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "prowl_gs_deluxe2016",
+          "name_zh": "警车",
+          "name_en": "Prowl",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "barricade_cin_dotm",
+          "name_zh": "路障",
+          "name_en": "Barricade",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "skywarp_gs_leader2015",
+          "name_zh": "闹翻天",
+          "name_en": "Skywarp",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "arcee_gs_deluxe2014",
+          "name_zh": "阿尔茜",
+          "name_en": "Arcee",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "shockwave_gs",
+          "name_zh": "震荡波",
+          "name_en": "Shockwave",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "windblade_gs",
+          "name_zh": "风刃",
+          "name_en": "Windblade",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "starscream_ghost_gs",
+          "name_zh": "鬼魂红蜘蛛",
+          "name_en": "Ghost Starscream",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "waspinator_gs_deluxe",
+          "name_zh": "黄蜂勇士",
+          "name_en": "Waspinator",
+          "faction": "predacon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "cheetor_bw_transmetal",
+          "name_zh": "黄豹",
+          "name_en": "Cheetor",
+          "faction": "maximal",
+          "class": "scou"
+        }
+      ]
+    },
+    {
+      "id": "precision",
+      "name_zh": "精准",
+      "name_en": "Precision",
+      "category": "攻击特长",
+      "pua_icon": "E409",
+      "pua_char": "",
+      "desc_zh": "增加暴击命中几率，降低对手规避能力。",
+      "desc_en": "Increases critical rate and reduce the chance of opponent evading attacks",
+      "bot_count": 12,
+      "associated_bots": [
+        {
+          "bot_id": "necrotronus_gs_kabam",
+          "name_zh": "亡灵天尊",
+          "name_en": "Necrotronus",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "lifeline_gs_deluxe2014",
+          "name_zh": "回春手",
+          "name_en": "Lifeline",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "thundercracker_gs_leader2015",
+          "name_zh": "惊天雷",
+          "name_en": "Thundercracker",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "breakdown_gs",
+          "name_zh": "打击",
+          "name_en": "Breakdown",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "dragstrip_gs_deluxe2016",
+          "name_zh": "抢劫",
+          "name_en": "Dragstrip",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "dirge_gs_deluxe2008",
+          "name_zh": "挽歌",
+          "name_en": "Dirge",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "hound_cin_tlk",
+          "name_zh": "探长",
+          "name_en": "Hound",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "drift_cin_aoe",
+          "name_zh": "漂移",
+          "name_en": "Drift",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "windblade_gs",
+          "name_zh": "风刃",
+          "name_en": "Windblade",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "waspinator_gs_deluxe",
+          "name_zh": "黄蜂勇士",
+          "name_en": "Waspinator",
+          "faction": "predacon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "cheetor_bw_transmetal",
+          "name_zh": "黄豹",
+          "name_en": "Cheetor",
+          "faction": "maximal",
+          "class": "scou"
+        }
+      ]
+    },
+    {
+      "id": "unstoppable",
+      "name_zh": "不可阻挡",
+      "name_en": "Unstoppable",
+      "category": "进攻强化",
+      "pua_icon": "E915",
+      "pua_char": "",
+      "desc_zh": "进攻动作无视对手攻击冲击与受击打断。",
+      "desc_en": "Shrugs off hit reactions; attacks cannot be interrupted.",
+      "bot_count": 26,
+      "associated_bots": [
+        {
+          "bot_id": "megatron_gs_leader2015",
+          "name_zh": "G1威震天",
+          "name_en": "Megatron",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "ironhide_gs_kabam",
+          "name_zh": "G1铁皮",
+          "name_en": "Ironhide",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "necrotronus_gs_kabam",
+          "name_zh": "亡灵天尊",
+          "name_en": "Necrotronus",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "thrust_gs_deluxe2008",
+          "name_zh": "冲锋",
+          "name_en": "Thrust",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "starsaber_gs_leader2014",
+          "name_zh": "史达",
+          "name_en": "Star Saber",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "ramjet_gs_deluxe2008",
+          "name_zh": "喷气机",
+          "name_en": "Ramjet",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "blaster_gs_leader2016",
+          "name_zh": "录音机",
+          "name_en": "Blaster",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "thundercracker_gs_leader2015",
+          "name_zh": "惊天雷",
+          "name_en": "Thundercracker",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "galvatron_gs_voyager2016",
+          "name_zh": "惊破天",
+          "name_en": "Galvatron",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "dragstrip_gs_deluxe2016",
+          "name_zh": "抢劫",
+          "name_en": "Dragstrip",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "novastorm_gs_leader2015",
+          "name_zh": "新星风",
+          "name_en": "Nova Storm",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "motormaster_gs_voyager2015",
+          "name_zh": "汽车大师",
+          "name_en": "Motormaster",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "hotlink_gs_leader2015",
+          "name_zh": "热链接",
+          "name_en": "Hotlink",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "cyclonus_gs_uw06",
+          "name_zh": "狂飙",
+          "name_en": "Cyclonus",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "megatron_cin_rotf",
+          "name_zh": "电影威震天",
+          "name_en": "Megatron (ROTF)",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "grindor_cin_rotf",
+          "name_zh": "碾碎器",
+          "name_en": "Grindor",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "ionstorm_gs_leader2015",
+          "name_zh": "离子风",
+          "name_en": "Ion Storm",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "wildrider_gs_deluxe2016",
+          "name_zh": "莽撞",
+          "name_en": "Wildrider",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "rodimusprime_gs_mp09",
+          "name_zh": "补天士",
+          "name_en": "Rodimus Prime",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "tantrum_gs_kabam",
+          "name_zh": "野牛",
+          "name_en": "Tantrum",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "grimlock_gs_mp08",
+          "name_zh": "钢锁",
+          "name_en": "Grimlock",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "megatronus_gs_kabam",
+          "name_zh": "震天尊",
+          "name_en": "Megatronus",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "soundblaster_gs_mp13b",
+          "name_zh": "音板",
+          "name_en": "Soundblaster",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "sunstreaker_gs_deluxe2008",
+          "name_zh": "飞毛腿",
+          "name_en": "Sunstreaker",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "cliffjumper_gs_kabam",
+          "name_zh": "飞过山",
+          "name_en": "Cliffjumper",
+          "faction": "autobot",
+          "class": "demo"
+        }
+      ]
+    },
+    {
+      "id": "unblockable",
+      "name_zh": "无法格挡",
+      "name_en": "Unblockable",
+      "category": "进攻强化",
+      "pua_icon": "E41F",
+      "pua_char": "",
+      "desc_zh": "特定攻击无法被防御。",
+      "desc_en": "Certain attacks cannot be blocked.",
+      "bot_count": 9,
+      "associated_bots": [
+        {
+          "bot_id": "optimusprime_sg_voyager2015",
+          "name_zh": "倾天柱",
+          "name_en": "SG Optimus Prime",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "scorponok_bw_kabam",
+          "name_zh": "巨蝎勇士",
+          "name_en": "Scorponok",
+          "faction": "predacon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "mirage_gs_deluxe2016",
+          "name_zh": "幻影",
+          "name_en": "Mirage",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "dragstrip_gs_deluxe2016",
+          "name_zh": "抢劫",
+          "name_en": "Dragstrip",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "mixmaster_cin_rotf",
+          "name_zh": "搅拌者",
+          "name_en": "Mixmaster",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "nemesisprime_gs_voyager2015",
+          "name_zh": "暗天陨",
+          "name_en": "Nemesis Prime",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "skywarp_gs_leader2015",
+          "name_zh": "闹翻天",
+          "name_en": "Skywarp",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "megatronus_gs_kabam",
+          "name_zh": "震天尊",
+          "name_en": "Megatronus",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "cliffjumper_gs_kabam",
+          "name_zh": "飞过山",
+          "name_en": "Cliffjumper",
+          "faction": "autobot",
+          "class": "demo"
+        }
+      ]
+    },
+    {
+      "id": "counterpunch",
+      "name_zh": "灵动反击",
+      "name_en": "Counterpunch",
+      "category": "战术反制",
+      "pua_icon": "E50A",
+      "pua_char": "",
+      "desc_zh": "成功闪避近战或前冲后获得反击契机，可打出硬直或眩晕。",
+      "desc_en": "Successful dodges grant counter windows to stagger or stun the opponent.",
+      "bot_count": 1,
+      "associated_bots": [
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        }
+      ]
+    },
+    {
+      "id": "parry_shield",
+      "name_zh": "招架护盾",
+      "name_en": "Parry Shield",
+      "category": "防御反制",
+      "pua_icon": "E911",
+      "pua_char": "",
+      "desc_zh": "成功格挡攻击时吸收冲击，并反弹来袭的近战攻击或远程火力。",
+      "desc_en": "Absorbs impact upon successful block and reflects melee or ranged strikes.",
+      "bot_count": 6,
+      "associated_bots": [
+        {
+          "bot_id": "ironhide_gs_kabam",
+          "name_zh": "G1铁皮",
+          "name_en": "Ironhide",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "starsaber_gs_leader2014",
+          "name_zh": "史达",
+          "name_en": "Star Saber",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "jetfire_gs_leader2014",
+          "name_zh": "天火",
+          "name_en": "Jetfire",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "dinobot_bw_kabam",
+          "name_zh": "恐龙勇士",
+          "name_en": "Dinobot",
+          "faction": "maximal",
+          "class": "tact"
+        },
+        {
+          "bot_id": "thundercracker_gs_leader2015",
+          "name_zh": "惊天雷",
+          "name_en": "Thundercracker",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "wildrider_gs_deluxe2016",
+          "name_zh": "莽撞",
+          "name_en": "Wildrider",
+          "faction": "decepticon",
+          "class": "braw"
+        }
+      ]
+    },
+    {
+      "id": "attack_buff",
+      "name_zh": "攻击增益",
+      "name_en": "Attack Buff",
+      "category": "属性增益",
+      "pua_icon": "E406",
+      "pua_char": "",
+      "desc_zh": "临时增加机体攻击评分与造成的全部伤害。",
+      "desc_en": "Temporarily increases overall attack rating and damage dealt.",
+      "bot_count": 59,
+      "associated_bots": [
+        {
+          "bot_id": "megatron_gs_leader2015",
+          "name_zh": "G1威震天",
+          "name_en": "Megatron",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "fte_optimus_gs_t3",
+          "name_zh": "G1擎天柱",
+          "name_en": "Optimus Prime",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "ironhide_gs_kabam",
+          "name_zh": "G1铁皮",
+          "name_en": "Ironhide",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "optimusprime_sg_voyager2015",
+          "name_zh": "倾天柱",
+          "name_en": "SG Optimus Prime",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "wheeljack_gs_mp20",
+          "name_zh": "千斤顶",
+          "name_en": "Wheeljack",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "kickback_gs_kabam",
+          "name_zh": "反冲",
+          "name_en": "Kickback",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "ramjet_gs_deluxe2008",
+          "name_zh": "喷气机",
+          "name_en": "Ramjet",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "soundwave_gs",
+          "name_zh": "声波",
+          "name_en": "Soundwave",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "bumblebee_cin_dotm",
+          "name_zh": "大黄蜂",
+          "name_en": "Bumblebee (DOTM)",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "jetfire_gs_leader2014",
+          "name_zh": "天火",
+          "name_en": "Jetfire",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "sunstorm_gs_leader2015",
+          "name_zh": "太阳风",
+          "name_en": "Sunstorm",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "deadend_gs_deluxe2015",
+          "name_zh": "封锁",
+          "name_en": "Dead End",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "bumblebee_gs_kabam",
+          "name_zh": "小黄蜂",
+          "name_en": "Bumblebee",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "scorponok_bw_kabam",
+          "name_zh": "巨蝎勇士",
+          "name_en": "Scorponok",
+          "faction": "predacon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "mirage_gs_deluxe2016",
+          "name_zh": "幻影",
+          "name_en": "Mirage",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "blaster_gs_leader2016",
+          "name_zh": "录音机",
+          "name_en": "Blaster",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "dinobot_bw_kabam",
+          "name_zh": "恐龙勇士",
+          "name_en": "Dinobot",
+          "faction": "maximal",
+          "class": "tact"
+        },
+        {
+          "bot_id": "thundercracker_gs_leader2015",
+          "name_zh": "惊天雷",
+          "name_en": "Thundercracker",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "galvatron_gs_voyager2016",
+          "name_zh": "惊破天",
+          "name_en": "Galvatron",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "breakdown_gs",
+          "name_zh": "打击",
+          "name_en": "Breakdown",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "hound_cin_tlk",
+          "name_zh": "探长",
+          "name_en": "Hound",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "mixmaster_cin_rotf",
+          "name_zh": "搅拌者",
+          "name_en": "Mixmaster",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "ratchet_gs_kabam",
+          "name_zh": "救护车",
+          "name_en": "Ratchet",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "nemesisprime_gs_voyager2015",
+          "name_zh": "暗天陨",
+          "name_en": "Nemesis Prime",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "sideswipe_gs",
+          "name_zh": "横炮",
+          "name_en": "Sideswipe",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "motormaster_gs_voyager2015",
+          "name_zh": "汽车大师",
+          "name_en": "Motormaster",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "slipstream_gs",
+          "name_zh": "滑流",
+          "name_en": "Slipstream",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "drift_cin_aoe",
+          "name_zh": "漂移",
+          "name_en": "Drift",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "hotrod_cin_tlk",
+          "name_zh": "热破",
+          "name_en": "Hot Rod",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "jazz_gs_twm05",
+          "name_zh": "爵士",
+          "name_en": "Jazz",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "rhinox_gs_voyager2014",
+          "name_zh": "犀牛",
+          "name_en": "Rhinox",
+          "faction": "maximal",
+          "class": "tech"
+        },
+        {
+          "bot_id": "cyclonus_gs_uw06",
+          "name_zh": "狂飙",
+          "name_en": "Cyclonus",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "optimusprimal_bw_mp32",
+          "name_zh": "猩猩队长",
+          "name_en": "Optimus Primal",
+          "faction": "maximal",
+          "class": "braw"
+        },
+        {
+          "bot_id": "megatron_cin_rotf",
+          "name_zh": "电影威震天",
+          "name_en": "Megatron (ROTF)",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "optimusprime_cin_tf",
+          "name_zh": "电影擎天柱",
+          "name_en": "Optimus Prime (MV1)",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "ironhide_cin_rotf",
+          "name_zh": "电影铁皮",
+          "name_en": "Ironhide (ROTF)",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "bonecrusher_cin_rotf",
+          "name_zh": "碎骨魔",
+          "name_en": "Bonecrusher",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "grindor_cin_rotf",
+          "name_zh": "碾碎器",
+          "name_en": "Grindor",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "ionstorm_gs_leader2015",
+          "name_zh": "离子风",
+          "name_en": "Ion Storm",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "fte_stars_gs_t3",
+          "name_zh": "红蜘蛛",
+          "name_en": "Starscream",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "rodimusprime_gs_mp09",
+          "name_zh": "补天士",
+          "name_en": "Rodimus Prime",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "prowl_gs_deluxe2016",
+          "name_zh": "警车",
+          "name_en": "Prowl",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "barricade_cin_dotm",
+          "name_zh": "路障",
+          "name_en": "Barricade",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "ultramagnus_gs_leader",
+          "name_zh": "通天晓",
+          "name_en": "Ultra Magnus",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "acidstorm_gs_leader2015",
+          "name_zh": "酸雨",
+          "name_en": "Acid Storm",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "tantrum_gs_kabam",
+          "name_zh": "野牛",
+          "name_en": "Tantrum",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "grimlock_gs_mp08",
+          "name_zh": "钢锁",
+          "name_en": "Grimlock",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "skywarp_gs_leader2015",
+          "name_zh": "闹翻天",
+          "name_en": "Skywarp",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "arcee_gs_deluxe2014",
+          "name_zh": "阿尔茜",
+          "name_en": "Arcee",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "bludgeon_gs_rd20",
+          "name_zh": "雷震",
+          "name_en": "Bludgeon",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "megatronus_gs_kabam",
+          "name_zh": "震天尊",
+          "name_en": "Megatronus",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "shockwave_gs",
+          "name_zh": "震荡波",
+          "name_en": "Shockwave",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "soundblaster_gs_mp13b",
+          "name_zh": "音板",
+          "name_en": "Soundblaster",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "windblade_gs",
+          "name_zh": "风刃",
+          "name_en": "Windblade",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "sunstreaker_gs_deluxe2008",
+          "name_zh": "飞毛腿",
+          "name_en": "Sunstreaker",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "starscream_ghost_gs",
+          "name_zh": "鬼魂红蜘蛛",
+          "name_en": "Ghost Starscream",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "waspinator_gs_deluxe",
+          "name_zh": "黄蜂勇士",
+          "name_en": "Waspinator",
+          "faction": "predacon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "cheetor_bw_transmetal",
+          "name_zh": "黄豹",
+          "name_en": "Cheetor",
+          "faction": "maximal",
+          "class": "scou"
+        }
+      ]
+    },
+    {
+      "id": "attack_debuff",
+      "name_zh": "攻击减益",
+      "name_en": "Attack Debuff",
+      "category": "状态减益",
+      "pua_icon": "E916",
+      "pua_char": "",
+      "desc_zh": "削弱机体动力，临时减少对手攻击评分与输出。",
+      "desc_en": "Temporarily reduces the opponent's attack rating and damage output.",
+      "bot_count": 10,
+      "associated_bots": [
+        {
+          "bot_id": "megatron_gs_leader2015",
+          "name_zh": "G1威震天",
+          "name_en": "Megatron",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "mirage_gs_deluxe2016",
+          "name_zh": "幻影",
+          "name_en": "Mirage",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "bitstream_gs_leader2015",
+          "name_zh": "比特流",
+          "name_en": "Bitstream",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "motormaster_gs_voyager2015",
+          "name_zh": "汽车大师",
+          "name_en": "Motormaster",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "optimusprimal_bw_mp32",
+          "name_zh": "猩猩队长",
+          "name_en": "Optimus Primal",
+          "faction": "maximal",
+          "class": "braw"
+        },
+        {
+          "bot_id": "megatron_cin_rotf",
+          "name_zh": "电影威震天",
+          "name_en": "Megatron (ROTF)",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "megatronus_gs_kabam",
+          "name_zh": "震天尊",
+          "name_en": "Megatronus",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "soundblaster_gs_mp13b",
+          "name_zh": "音板",
+          "name_en": "Soundblaster",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "starscream_ghost_gs",
+          "name_zh": "鬼魂红蜘蛛",
+          "name_en": "Ghost Starscream",
+          "faction": "decepticon",
+          "class": "scou"
+        }
+      ]
+    },
+    {
+      "id": "melee_buff",
+      "name_zh": "近战增益",
+      "name_en": "Melee Buff",
+      "category": "属性增益",
+      "pua_icon": "E412",
+      "pua_char": "",
+      "desc_zh": "临时增加近战普通攻击与近战重击的伤害。",
+      "desc_en": "Temporarily increases damage dealt by basic and heavy melee attacks.",
+      "bot_count": 32,
+      "associated_bots": [
+        {
+          "bot_id": "megatron_gs_leader2015",
+          "name_zh": "G1威震天",
+          "name_en": "Megatron",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "fte_optimus_gs_t3",
+          "name_zh": "G1擎天柱",
+          "name_en": "Optimus Prime",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "ironhide_gs_kabam",
+          "name_zh": "G1铁皮",
+          "name_en": "Ironhide",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "necrotronus_gs_kabam",
+          "name_zh": "亡灵天尊",
+          "name_en": "Necrotronus",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "bumblebee_cin_dotm",
+          "name_zh": "大黄蜂",
+          "name_en": "Bumblebee (DOTM)",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "jetfire_gs_leader2014",
+          "name_zh": "天火",
+          "name_en": "Jetfire",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "sunstorm_gs_leader2015",
+          "name_zh": "太阳风",
+          "name_en": "Sunstorm",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "deadend_gs_deluxe2015",
+          "name_zh": "封锁",
+          "name_en": "Dead End",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "bumblebee_gs_kabam",
+          "name_zh": "小黄蜂",
+          "name_en": "Bumblebee",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "thundercracker_gs_leader2015",
+          "name_zh": "惊天雷",
+          "name_en": "Thundercracker",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "breakdown_gs",
+          "name_zh": "打击",
+          "name_en": "Breakdown",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "dragstrip_gs_deluxe2016",
+          "name_zh": "抢劫",
+          "name_en": "Dragstrip",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "ratchet_gs_kabam",
+          "name_zh": "救护车",
+          "name_en": "Ratchet",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "nemesisprime_gs_voyager2015",
+          "name_zh": "暗天陨",
+          "name_en": "Nemesis Prime",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "motormaster_gs_voyager2015",
+          "name_zh": "汽车大师",
+          "name_en": "Motormaster",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "hotrod_cin_tlk",
+          "name_zh": "热破",
+          "name_en": "Hot Rod",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "hotlink_gs_leader2015",
+          "name_zh": "热链接",
+          "name_en": "Hotlink",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "rhinox_gs_voyager2014",
+          "name_zh": "犀牛",
+          "name_en": "Rhinox",
+          "faction": "maximal",
+          "class": "tech"
+        },
+        {
+          "bot_id": "optimusprimal_bw_mp32",
+          "name_zh": "猩猩队长",
+          "name_en": "Optimus Primal",
+          "faction": "maximal",
+          "class": "braw"
+        },
+        {
+          "bot_id": "megatron_cin_rotf",
+          "name_zh": "电影威震天",
+          "name_en": "Megatron (ROTF)",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "optimusprime_cin_tf",
+          "name_zh": "电影擎天柱",
+          "name_en": "Optimus Prime (MV1)",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "ironhide_cin_rotf",
+          "name_zh": "电影铁皮",
+          "name_en": "Ironhide (ROTF)",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "grindor_cin_rotf",
+          "name_zh": "碾碎器",
+          "name_en": "Grindor",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "rodimusprime_gs_mp09",
+          "name_zh": "补天士",
+          "name_en": "Rodimus Prime",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "prowl_gs_deluxe2016",
+          "name_zh": "警车",
+          "name_en": "Prowl",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "ultramagnus_gs_leader",
+          "name_zh": "通天晓",
+          "name_en": "Ultra Magnus",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "tantrum_gs_kabam",
+          "name_zh": "野牛",
+          "name_en": "Tantrum",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "grimlock_gs_mp08",
+          "name_zh": "钢锁",
+          "name_en": "Grimlock",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "megatronus_gs_kabam",
+          "name_zh": "震天尊",
+          "name_en": "Megatronus",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "soundblaster_gs_mp13b",
+          "name_zh": "音板",
+          "name_en": "Soundblaster",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "sunstreaker_gs_deluxe2008",
+          "name_zh": "飞毛腿",
+          "name_en": "Sunstreaker",
+          "faction": "autobot",
+          "class": "braw"
+        }
+      ]
+    },
+    {
+      "id": "ranged_buff",
+      "name_zh": "远程增益",
+      "name_en": "Ranged Buff",
+      "category": "属性增益",
+      "pua_icon": "E41B",
+      "pua_char": "",
+      "desc_zh": "临时增加远程攻击的速度、射击频率与伤害。",
+      "desc_en": "Temporarily increases ranged attack speed and damage.",
+      "bot_count": 19,
+      "associated_bots": [
+        {
+          "bot_id": "lifeline_gs_deluxe2014",
+          "name_zh": "回春手",
+          "name_en": "Lifeline",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "jetfire_gs_leader2014",
+          "name_zh": "天火",
+          "name_en": "Jetfire",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "scorponok_bw_kabam",
+          "name_zh": "巨蝎勇士",
+          "name_en": "Scorponok",
+          "faction": "predacon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "mirage_gs_deluxe2016",
+          "name_zh": "幻影",
+          "name_en": "Mirage",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "blaster_gs_leader2016",
+          "name_zh": "录音机",
+          "name_en": "Blaster",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "galvatron_gs_voyager2016",
+          "name_zh": "惊破天",
+          "name_en": "Galvatron",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "breakdown_gs",
+          "name_zh": "打击",
+          "name_en": "Breakdown",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "bitstream_gs_leader2015",
+          "name_zh": "比特流",
+          "name_en": "Bitstream",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "rhinox_gs_voyager2014",
+          "name_zh": "犀牛",
+          "name_en": "Rhinox",
+          "faction": "maximal",
+          "class": "tech"
+        },
+        {
+          "bot_id": "megatron_cin_rotf",
+          "name_zh": "电影威震天",
+          "name_en": "Megatron (ROTF)",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "fte_stars_gs_t3",
+          "name_zh": "红蜘蛛",
+          "name_en": "Starscream",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "prowl_gs_deluxe2016",
+          "name_zh": "警车",
+          "name_en": "Prowl",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "acidstorm_gs_leader2015",
+          "name_zh": "酸雨",
+          "name_en": "Acid Storm",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "arcee_gs_deluxe2014",
+          "name_zh": "阿尔茜",
+          "name_en": "Arcee",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "soundblaster_gs_mp13b",
+          "name_zh": "音板",
+          "name_en": "Soundblaster",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "sunstreaker_gs_deluxe2008",
+          "name_zh": "飞毛腿",
+          "name_en": "Sunstreaker",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "waspinator_gs_deluxe",
+          "name_zh": "黄蜂勇士",
+          "name_en": "Waspinator",
+          "faction": "predacon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "cheetor_bw_transmetal",
+          "name_zh": "黄豹",
+          "name_en": "Cheetor",
+          "faction": "maximal",
+          "class": "scou"
+        }
+      ]
+    },
+    {
+      "id": "special_damage",
+      "name_zh": "特殊伤害",
+      "name_en": "Special Damage",
+      "category": "属性增益",
+      "pua_icon": "E41C",
+      "pua_char": "",
+      "desc_zh": "增加组合连击与全部特殊攻击造成的破坏力。",
+      "desc_en": "Increases damage dealt by combo finishers and special attacks.",
+      "bot_count": 15,
+      "associated_bots": [
+        {
+          "bot_id": "ramjet_gs_deluxe2008",
+          "name_zh": "喷气机",
+          "name_en": "Ramjet",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "thundercracker_gs_leader2015",
+          "name_zh": "惊天雷",
+          "name_en": "Thundercracker",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "galvatron_gs_voyager2016",
+          "name_zh": "惊破天",
+          "name_en": "Galvatron",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "mixmaster_cin_rotf",
+          "name_zh": "搅拌者",
+          "name_en": "Mixmaster",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "jazz_gs_twm05",
+          "name_zh": "爵士",
+          "name_en": "Jazz",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "rhinox_gs_voyager2014",
+          "name_zh": "犀牛",
+          "name_en": "Rhinox",
+          "faction": "maximal",
+          "class": "tech"
+        },
+        {
+          "bot_id": "cyclonus_gs_uw06",
+          "name_zh": "狂飙",
+          "name_en": "Cyclonus",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "megatron_cin_rotf",
+          "name_zh": "电影威震天",
+          "name_en": "Megatron (ROTF)",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "ironhide_cin_rotf",
+          "name_zh": "电影铁皮",
+          "name_en": "Ironhide (ROTF)",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "skywarp_gs_leader2015",
+          "name_zh": "闹翻天",
+          "name_en": "Skywarp",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "soundblaster_gs_mp13b",
+          "name_zh": "音板",
+          "name_en": "Soundblaster",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "sunstreaker_gs_deluxe2008",
+          "name_zh": "飞毛腿",
+          "name_en": "Sunstreaker",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "cliffjumper_gs_kabam",
+          "name_zh": "飞过山",
+          "name_en": "Cliffjumper",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "waspinator_gs_deluxe",
+          "name_zh": "黄蜂勇士",
+          "name_en": "Waspinator",
+          "faction": "predacon",
+          "class": "demo"
+        }
+      ]
+    },
+    {
+      "id": "crit_rate_buff",
+      "name_zh": "暴击率增益",
+      "name_en": "Crit Rate Buff",
+      "category": "属性增益",
+      "pua_icon": "E40D",
+      "pua_char": "",
+      "desc_zh": "临时增加攻击命中时触发暴击的几率。",
+      "desc_en": "Temporarily increases the chance of scoring critical hits.",
+      "bot_count": 29,
+      "associated_bots": [
+        {
+          "bot_id": "ironhide_gs_kabam",
+          "name_zh": "G1铁皮",
+          "name_en": "Ironhide",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "necrotronus_gs_kabam",
+          "name_zh": "亡灵天尊",
+          "name_en": "Necrotronus",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "chromia_gs_kabam",
+          "name_zh": "克劳莉娅",
+          "name_en": "Chromia",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "kickback_gs_kabam",
+          "name_zh": "反冲",
+          "name_en": "Kickback",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "bumblebee_cin_dotm",
+          "name_zh": "大黄蜂",
+          "name_en": "Bumblebee (DOTM)",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "bumblebee_gs_kabam",
+          "name_zh": "小黄蜂",
+          "name_en": "Bumblebee",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "dinobot_bw_kabam",
+          "name_zh": "恐龙勇士",
+          "name_en": "Dinobot",
+          "faction": "maximal",
+          "class": "tact"
+        },
+        {
+          "bot_id": "galvatron_gs_voyager2016",
+          "name_zh": "惊破天",
+          "name_en": "Galvatron",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "breakdown_gs",
+          "name_zh": "打击",
+          "name_en": "Breakdown",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "dragstrip_gs_deluxe2016",
+          "name_zh": "抢劫",
+          "name_en": "Dragstrip",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "hound_cin_tlk",
+          "name_zh": "探长",
+          "name_en": "Hound",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "mixmaster_cin_rotf",
+          "name_zh": "搅拌者",
+          "name_en": "Mixmaster",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "novastorm_gs_leader2015",
+          "name_zh": "新星风",
+          "name_en": "Nova Storm",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "sideswipe_gs",
+          "name_zh": "横炮",
+          "name_en": "Sideswipe",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "slipstream_gs",
+          "name_zh": "滑流",
+          "name_en": "Slipstream",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "hotrod_cin_tlk",
+          "name_zh": "热破",
+          "name_en": "Hot Rod",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "jazz_gs_twm05",
+          "name_zh": "爵士",
+          "name_en": "Jazz",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "megatron_cin_rotf",
+          "name_zh": "电影威震天",
+          "name_en": "Megatron (ROTF)",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "ironhide_cin_rotf",
+          "name_zh": "电影铁皮",
+          "name_en": "Ironhide (ROTF)",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "bonecrusher_cin_rotf",
+          "name_zh": "碎骨魔",
+          "name_en": "Bonecrusher",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "grindor_cin_rotf",
+          "name_zh": "碾碎器",
+          "name_en": "Grindor",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "barricade_cin_dotm",
+          "name_zh": "路障",
+          "name_en": "Barricade",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "skywarp_gs_leader2015",
+          "name_zh": "闹翻天",
+          "name_en": "Skywarp",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "arcee_gs_deluxe2014",
+          "name_zh": "阿尔茜",
+          "name_en": "Arcee",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "megatronus_gs_kabam",
+          "name_zh": "震天尊",
+          "name_en": "Megatronus",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "windblade_gs",
+          "name_zh": "风刃",
+          "name_en": "Windblade",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "cliffjumper_gs_kabam",
+          "name_zh": "飞过山",
+          "name_en": "Cliffjumper",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "waspinator_gs_deluxe",
+          "name_zh": "黄蜂勇士",
+          "name_en": "Waspinator",
+          "faction": "predacon",
+          "class": "demo"
+        }
+      ]
+    },
+    {
+      "id": "crit_rate_debuff",
+      "name_zh": "暴击率减益",
+      "name_en": "Crit Rate Debuff",
+      "category": "状态减益",
+      "pua_icon": "E912",
+      "pua_char": "",
+      "desc_zh": "降低对手攻击命中时触发暴击的几率。",
+      "desc_en": "Reduces the opponent's chance of scoring critical hits.",
+      "bot_count": 5,
+      "associated_bots": [
+        {
+          "bot_id": "hound_cin_tlk",
+          "name_zh": "探长",
+          "name_en": "Hound",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "slipstream_gs",
+          "name_zh": "滑流",
+          "name_en": "Slipstream",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "grindor_cin_rotf",
+          "name_zh": "碾碎器",
+          "name_en": "Grindor",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "bludgeon_gs_rd20",
+          "name_zh": "雷震",
+          "name_en": "Bludgeon",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "windblade_gs",
+          "name_zh": "风刃",
+          "name_en": "Windblade",
+          "faction": "autobot",
+          "class": "scou"
+        }
+      ]
+    },
+    {
+      "id": "crit_damage_buff",
+      "name_zh": "暴击伤害增益",
+      "name_en": "Crit Damage Buff",
+      "category": "属性增益",
+      "pua_icon": "E906",
+      "pua_char": "",
+      "desc_zh": "临时增加暴击命中时造成的伤害。",
+      "desc_en": "Temporarily increases the damage of critical hits.",
+      "bot_count": 35,
+      "associated_bots": [
+        {
+          "bot_id": "ironhide_gs_kabam",
+          "name_zh": "G1铁皮",
+          "name_en": "Ironhide",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "necrotronus_gs_kabam",
+          "name_zh": "亡灵天尊",
+          "name_en": "Necrotronus",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "optimusprime_sg_voyager2015",
+          "name_zh": "倾天柱",
+          "name_en": "SG Optimus Prime",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "thrust_gs_deluxe2008",
+          "name_zh": "冲锋",
+          "name_en": "Thrust",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "starsaber_gs_leader2014",
+          "name_zh": "史达",
+          "name_en": "Star Saber",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "bumblebee_cin_dotm",
+          "name_zh": "大黄蜂",
+          "name_en": "Bumblebee (DOTM)",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "jetfire_gs_leader2014",
+          "name_zh": "天火",
+          "name_en": "Jetfire",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "sunstorm_gs_leader2015",
+          "name_zh": "太阳风",
+          "name_en": "Sunstorm",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "deadend_gs_deluxe2015",
+          "name_zh": "封锁",
+          "name_en": "Dead End",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "bumblebee_gs_kabam",
+          "name_zh": "小黄蜂",
+          "name_en": "Bumblebee",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "scorponok_bw_kabam",
+          "name_zh": "巨蝎勇士",
+          "name_en": "Scorponok",
+          "faction": "predacon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "mirage_gs_deluxe2016",
+          "name_zh": "幻影",
+          "name_en": "Mirage",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "dinobot_bw_kabam",
+          "name_zh": "恐龙勇士",
+          "name_en": "Dinobot",
+          "faction": "maximal",
+          "class": "tact"
+        },
+        {
+          "bot_id": "galvatron_gs_voyager2016",
+          "name_zh": "惊破天",
+          "name_en": "Galvatron",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "breakdown_gs",
+          "name_zh": "打击",
+          "name_en": "Breakdown",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "dragstrip_gs_deluxe2016",
+          "name_zh": "抢劫",
+          "name_en": "Dragstrip",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "dirge_gs_deluxe2008",
+          "name_zh": "挽歌",
+          "name_en": "Dirge",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "hound_cin_tlk",
+          "name_zh": "探长",
+          "name_en": "Hound",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "mixmaster_cin_rotf",
+          "name_zh": "搅拌者",
+          "name_en": "Mixmaster",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "novastorm_gs_leader2015",
+          "name_zh": "新星风",
+          "name_en": "Nova Storm",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "sideswipe_gs",
+          "name_zh": "横炮",
+          "name_en": "Sideswipe",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "slipstream_gs",
+          "name_zh": "滑流",
+          "name_en": "Slipstream",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "drift_cin_aoe",
+          "name_zh": "漂移",
+          "name_en": "Drift",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "hotrod_cin_tlk",
+          "name_zh": "热破",
+          "name_en": "Hot Rod",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "cyclonus_gs_uw06",
+          "name_zh": "狂飙",
+          "name_en": "Cyclonus",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "megatron_cin_rotf",
+          "name_zh": "电影威震天",
+          "name_en": "Megatron (ROTF)",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "ironhide_cin_rotf",
+          "name_zh": "电影铁皮",
+          "name_en": "Ironhide (ROTF)",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "bonecrusher_cin_rotf",
+          "name_zh": "碎骨魔",
+          "name_en": "Bonecrusher",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "fte_stars_gs_t3",
+          "name_zh": "红蜘蛛",
+          "name_en": "Starscream",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "barricade_cin_dotm",
+          "name_zh": "路障",
+          "name_en": "Barricade",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "arcee_gs_deluxe2014",
+          "name_zh": "阿尔茜",
+          "name_en": "Arcee",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "bludgeon_gs_rd20",
+          "name_zh": "雷震",
+          "name_en": "Bludgeon",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "windblade_gs",
+          "name_zh": "风刃",
+          "name_en": "Windblade",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "cliffjumper_gs_kabam",
+          "name_zh": "飞过山",
+          "name_en": "Cliffjumper",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "starscream_ghost_gs",
+          "name_zh": "鬼魂红蜘蛛",
+          "name_en": "Ghost Starscream",
+          "faction": "decepticon",
+          "class": "scou"
+        }
+      ]
+    },
+    {
+      "id": "crit_damage_debuff",
+      "name_zh": "暴击伤害减益",
+      "name_en": "Crit Damage Debuff",
+      "category": "状态减益",
+      "pua_icon": "E905",
+      "pua_char": "",
+      "desc_zh": "降低对手产生暴击时造成的伤害。",
+      "desc_en": "Reduces the severity of incoming critical hit damage.",
+      "bot_count": 0,
+      "associated_bots": []
+    },
+    {
+      "id": "resistance_buff",
+      "name_zh": "抗性提升",
+      "name_en": "Resistance Buff",
+      "category": "生存防御",
+      "pua_icon": "E60A",
+      "pua_char": "",
+      "desc_zh": "提升抗性，整体降低结算伤害。",
+      "desc_en": "Increases the resistance and reduces the calculated damage.",
+      "bot_count": 5,
+      "associated_bots": [
+        {
+          "bot_id": "soundwave_gs",
+          "name_zh": "声波",
+          "name_en": "Soundwave",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "ultramagnus_sg_leader",
+          "name_zh": "捅天枭",
+          "name_en": "SG Ultra Magnus",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "ultramagnus_gs_leader",
+          "name_zh": "通天晓",
+          "name_en": "Ultra Magnus",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "megatronus_gs_kabam",
+          "name_zh": "震天尊",
+          "name_en": "Megatronus",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "waspinator_gs_deluxe",
+          "name_zh": "黄蜂勇士",
+          "name_en": "Waspinator",
+          "faction": "predacon",
+          "class": "demo"
+        }
+      ]
+    },
+    {
+      "id": "resistance_debuff",
+      "name_zh": "抗性减益",
+      "name_en": "Resistance Debuff",
+      "category": "防御削弱",
+      "pua_icon": "E60A",
+      "pua_char": "",
+      "desc_zh": "降低目标抗性评级，放大其承受的所有伤害。",
+      "desc_en": "Reduces target resistance rating, amplifying all incoming damage.",
+      "bot_count": 10,
+      "associated_bots": [
+        {
+          "bot_id": "fte_optimus_gs_t3",
+          "name_zh": "G1擎天柱",
+          "name_en": "Optimus Prime",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "optimusprime_sg_voyager2015",
+          "name_zh": "倾天柱",
+          "name_en": "SG Optimus Prime",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "deadend_gs_deluxe2015",
+          "name_zh": "封锁",
+          "name_en": "Dead End",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "ultramagnus_sg_leader",
+          "name_zh": "捅天枭",
+          "name_en": "SG Ultra Magnus",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "hound_cin_tlk",
+          "name_zh": "探长",
+          "name_en": "Hound",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "slipstream_gs",
+          "name_zh": "滑流",
+          "name_en": "Slipstream",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "optimusprimal_bw_mp32",
+          "name_zh": "猩猩队长",
+          "name_en": "Optimus Primal",
+          "faction": "maximal",
+          "class": "braw"
+        },
+        {
+          "bot_id": "optimusprime_cin_tf",
+          "name_zh": "电影擎天柱",
+          "name_en": "Optimus Prime (MV1)",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "ultramagnus_gs_leader",
+          "name_zh": "通天晓",
+          "name_en": "Ultra Magnus",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "waspinator_gs_deluxe",
+          "name_zh": "黄蜂勇士",
+          "name_en": "Waspinator",
+          "faction": "predacon",
+          "class": "demo"
+        }
+      ]
+    },
+    {
+      "id": "power_gain",
+      "name_zh": "能量获取",
+      "name_en": "Power Gain",
+      "category": "能量控制",
+      "pua_icon": "E608",
+      "pua_char": "",
+      "desc_zh": "持续进行的被动能量积蓄，加速特殊技能量条充盈。",
+      "desc_en": "Passively gains power over time to fill special attack bars faster.",
+      "bot_count": 27,
+      "associated_bots": [
+        {
+          "bot_id": "necrotronus_gs_kabam",
+          "name_zh": "亡灵天尊",
+          "name_en": "Necrotronus",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "chromia_gs_kabam",
+          "name_zh": "克劳莉娅",
+          "name_en": "Chromia",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "kickback_gs_kabam",
+          "name_zh": "反冲",
+          "name_en": "Kickback",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "starsaber_gs_leader2014",
+          "name_zh": "史达",
+          "name_en": "Star Saber",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "lifeline_gs_deluxe2014",
+          "name_zh": "回春手",
+          "name_en": "Lifeline",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "soundwave_gs",
+          "name_zh": "声波",
+          "name_en": "Soundwave",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "bumblebee_cin_dotm",
+          "name_zh": "大黄蜂",
+          "name_en": "Bumblebee (DOTM)",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "bumblebee_gs_kabam",
+          "name_zh": "小黄蜂",
+          "name_en": "Bumblebee",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "mirage_gs_deluxe2016",
+          "name_zh": "幻影",
+          "name_en": "Mirage",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "blaster_gs_leader2016",
+          "name_zh": "录音机",
+          "name_en": "Blaster",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "dirge_gs_deluxe2008",
+          "name_zh": "挽歌",
+          "name_en": "Dirge",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "ratchet_gs_kabam",
+          "name_zh": "救护车",
+          "name_en": "Ratchet",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "nemesisprime_gs_voyager2015",
+          "name_zh": "暗天陨",
+          "name_en": "Nemesis Prime",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "sideswipe_gs",
+          "name_zh": "横炮",
+          "name_en": "Sideswipe",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "bitstream_gs_leader2015",
+          "name_zh": "比特流",
+          "name_en": "Bitstream",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "slipstream_gs",
+          "name_zh": "滑流",
+          "name_en": "Slipstream",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "hotrod_cin_tlk",
+          "name_zh": "热破",
+          "name_en": "Hot Rod",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "cyclonus_gs_uw06",
+          "name_zh": "狂飙",
+          "name_en": "Cyclonus",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "ionstorm_gs_leader2015",
+          "name_zh": "离子风",
+          "name_en": "Ion Storm",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "wildrider_gs_deluxe2016",
+          "name_zh": "莽撞",
+          "name_en": "Wildrider",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "prowl_gs_deluxe2016",
+          "name_zh": "警车",
+          "name_en": "Prowl",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "skywarp_gs_leader2015",
+          "name_zh": "闹翻天",
+          "name_en": "Skywarp",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "megatronus_gs_kabam",
+          "name_zh": "震天尊",
+          "name_en": "Megatronus",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "shockwave_gs",
+          "name_zh": "震荡波",
+          "name_en": "Shockwave",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "sunstreaker_gs_deluxe2008",
+          "name_zh": "飞毛腿",
+          "name_en": "Sunstreaker",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "cheetor_bw_transmetal",
+          "name_zh": "黄豹",
+          "name_en": "Cheetor",
+          "faction": "maximal",
+          "class": "scou"
+        }
+      ]
+    },
+    {
+      "id": "power_flow",
+      "name_zh": "能量涌动",
+      "name_en": "Power Flow",
+      "category": "能量控制",
+      "pua_icon": "E608",
+      "pua_char": "",
+      "desc_zh": "提高所有攻击与受击时所产生的能量功率。",
+      "desc_en": "Increases power generation rate from all attacks and hits taken.",
+      "bot_count": 14,
+      "associated_bots": [
+        {
+          "bot_id": "necrotronus_gs_kabam",
+          "name_zh": "亡灵天尊",
+          "name_en": "Necrotronus",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "chromia_gs_kabam",
+          "name_zh": "克劳莉娅",
+          "name_en": "Chromia",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "wheeljack_gs_mp20",
+          "name_zh": "千斤顶",
+          "name_en": "Wheeljack",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "kickback_gs_kabam",
+          "name_zh": "反冲",
+          "name_en": "Kickback",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "soundwave_gs",
+          "name_zh": "声波",
+          "name_en": "Soundwave",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "bumblebee_cin_dotm",
+          "name_zh": "大黄蜂",
+          "name_en": "Bumblebee (DOTM)",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "jetfire_gs_leader2014",
+          "name_zh": "天火",
+          "name_en": "Jetfire",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "bumblebee_gs_kabam",
+          "name_zh": "小黄蜂",
+          "name_en": "Bumblebee",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "mirage_gs_deluxe2016",
+          "name_zh": "幻影",
+          "name_en": "Mirage",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "motormaster_gs_voyager2015",
+          "name_zh": "汽车大师",
+          "name_en": "Motormaster",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "slipstream_gs",
+          "name_zh": "滑流",
+          "name_en": "Slipstream",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "hotrod_cin_tlk",
+          "name_zh": "热破",
+          "name_en": "Hot Rod",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "skywarp_gs_leader2015",
+          "name_zh": "闹翻天",
+          "name_en": "Skywarp",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "cheetor_bw_transmetal",
+          "name_zh": "黄豹",
+          "name_en": "Cheetor",
+          "faction": "maximal",
+          "class": "scou"
+        }
+      ]
+    },
+    {
+      "id": "power_leak",
+      "name_zh": "能量流失",
+      "name_en": "Power Leak",
+      "category": "能量控制",
+      "pua_icon": "E607",
+      "pua_char": "",
+      "desc_zh": "随时间推移持续扣减对手一定比例的能量槽。",
+      "desc_en": "Drains a percentage of the opponent's power gauge over time.",
+      "bot_count": 18,
+      "associated_bots": [
+        {
+          "bot_id": "wheeljack_gs_mp20",
+          "name_zh": "千斤顶",
+          "name_en": "Wheeljack",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "kickback_gs_kabam",
+          "name_zh": "反冲",
+          "name_en": "Kickback",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "soundwave_gs",
+          "name_zh": "声波",
+          "name_en": "Soundwave",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "jetfire_gs_leader2014",
+          "name_zh": "天火",
+          "name_en": "Jetfire",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "mirage_gs_deluxe2016",
+          "name_zh": "幻影",
+          "name_en": "Mirage",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "breakdown_gs",
+          "name_zh": "打击",
+          "name_en": "Breakdown",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "dragstrip_gs_deluxe2016",
+          "name_zh": "抢劫",
+          "name_en": "Dragstrip",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "novastorm_gs_leader2015",
+          "name_zh": "新星风",
+          "name_en": "Nova Storm",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "bitstream_gs_leader2015",
+          "name_zh": "比特流",
+          "name_en": "Bitstream",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "motormaster_gs_voyager2015",
+          "name_zh": "汽车大师",
+          "name_en": "Motormaster",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "ionstorm_gs_leader2015",
+          "name_zh": "离子风",
+          "name_en": "Ion Storm",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "prowl_gs_deluxe2016",
+          "name_zh": "警车",
+          "name_en": "Prowl",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "barricade_cin_dotm",
+          "name_zh": "路障",
+          "name_en": "Barricade",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "skywarp_gs_leader2015",
+          "name_zh": "闹翻天",
+          "name_en": "Skywarp",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "megatronus_gs_kabam",
+          "name_zh": "震天尊",
+          "name_en": "Megatronus",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "shockwave_gs",
+          "name_zh": "震荡波",
+          "name_en": "Shockwave",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "cheetor_bw_transmetal",
+          "name_zh": "黄豹",
+          "name_en": "Cheetor",
+          "faction": "maximal",
+          "class": "scou"
+        }
+      ]
+    },
+    {
+      "id": "power_burn",
+      "name_zh": "能量燃烧",
+      "name_en": "Power Burn",
+      "category": "能量控制",
+      "pua_icon": "E607",
+      "pua_char": "",
+      "desc_zh": "立即扣减对手的能量槽。",
+      "desc_en": "Instantly burns the opponent's power gauge.",
+      "bot_count": 17,
+      "associated_bots": [
+        {
+          "bot_id": "wheeljack_gs_mp20",
+          "name_zh": "千斤顶",
+          "name_en": "Wheeljack",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "kickback_gs_kabam",
+          "name_zh": "反冲",
+          "name_en": "Kickback",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "soundwave_gs",
+          "name_zh": "声波",
+          "name_en": "Soundwave",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "mirage_gs_deluxe2016",
+          "name_zh": "幻影",
+          "name_en": "Mirage",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "breakdown_gs",
+          "name_zh": "打击",
+          "name_en": "Breakdown",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "dragstrip_gs_deluxe2016",
+          "name_zh": "抢劫",
+          "name_en": "Dragstrip",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "novastorm_gs_leader2015",
+          "name_zh": "新星风",
+          "name_en": "Nova Storm",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "bitstream_gs_leader2015",
+          "name_zh": "比特流",
+          "name_en": "Bitstream",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "motormaster_gs_voyager2015",
+          "name_zh": "汽车大师",
+          "name_en": "Motormaster",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "ionstorm_gs_leader2015",
+          "name_zh": "离子风",
+          "name_en": "Ion Storm",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "prowl_gs_deluxe2016",
+          "name_zh": "警车",
+          "name_en": "Prowl",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "barricade_cin_dotm",
+          "name_zh": "路障",
+          "name_en": "Barricade",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "skywarp_gs_leader2015",
+          "name_zh": "闹翻天",
+          "name_en": "Skywarp",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "megatronus_gs_kabam",
+          "name_zh": "震天尊",
+          "name_en": "Megatronus",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "shockwave_gs",
+          "name_zh": "震荡波",
+          "name_en": "Shockwave",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "cheetor_bw_transmetal",
+          "name_zh": "黄豹",
+          "name_en": "Cheetor",
+          "faction": "maximal",
+          "class": "scou"
+        }
+      ]
+    },
+    {
+      "id": "power_lock",
+      "name_zh": "能量锁定",
+      "name_en": "Power Lock",
+      "category": "能量控制",
+      "pua_icon": "E523",
+      "pua_char": "",
+      "desc_zh": "临时阻止目标从攻击或被动机制中获取任何能量。",
+      "desc_en": "Temporarily prevents the target from gaining power from any source.",
+      "bot_count": 12,
+      "associated_bots": [
+        {
+          "bot_id": "kickback_gs_kabam",
+          "name_zh": "反冲",
+          "name_en": "Kickback",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "soundwave_gs",
+          "name_zh": "声波",
+          "name_en": "Soundwave",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "bumblebee_cin_dotm",
+          "name_zh": "大黄蜂",
+          "name_en": "Bumblebee (DOTM)",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "jetfire_gs_leader2014",
+          "name_zh": "天火",
+          "name_en": "Jetfire",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "bumblebee_gs_kabam",
+          "name_zh": "小黄蜂",
+          "name_en": "Bumblebee",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "dragstrip_gs_deluxe2016",
+          "name_zh": "抢劫",
+          "name_en": "Dragstrip",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "bitstream_gs_leader2015",
+          "name_zh": "比特流",
+          "name_en": "Bitstream",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "rhinox_gs_voyager2014",
+          "name_zh": "犀牛",
+          "name_en": "Rhinox",
+          "faction": "maximal",
+          "class": "tech"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "prowl_gs_deluxe2016",
+          "name_zh": "警车",
+          "name_en": "Prowl",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "skywarp_gs_leader2015",
+          "name_zh": "闹翻天",
+          "name_en": "Skywarp",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "cheetor_bw_transmetal",
+          "name_zh": "黄豹",
+          "name_en": "Cheetor",
+          "faction": "maximal",
+          "class": "scou"
+        }
+      ]
+    },
+    {
+      "id": "power_steal",
+      "name_zh": "能量窃取",
+      "name_en": "Power Steal",
+      "category": "能量控制",
+      "pua_icon": "E607",
+      "pua_char": "",
+      "desc_zh": "盗取对手当前储存的能量槽，并将其转移给自己。",
+      "desc_en": "Steals stored power from the opponent and transfers it to the user.",
+      "bot_count": 4,
+      "associated_bots": [
+        {
+          "bot_id": "bitstream_gs_leader2015",
+          "name_zh": "比特流",
+          "name_en": "Bitstream",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "barricade_cin_dotm",
+          "name_zh": "路障",
+          "name_en": "Barricade",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "skywarp_gs_leader2015",
+          "name_zh": "闹翻天",
+          "name_en": "Skywarp",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "megatronus_gs_kabam",
+          "name_zh": "震天尊",
+          "name_en": "Megatronus",
+          "faction": "decepticon",
+          "class": "demo"
+        }
+      ]
+    },
+    {
+      "id": "nullify",
+      "name_zh": "驱散",
+      "name_en": "Nullify",
+      "category": "机制克制",
+      "pua_icon": "E950",
+      "pua_char": "",
+      "desc_zh": "消除对手身上的增益效果，使其增益立即失效。",
+      "desc_en": "Clears active buffs from the opponent, instantly ending their effects.",
+      "bot_count": 21,
+      "associated_bots": [
+        {
+          "bot_id": "wheeljack_gs_mp20",
+          "name_zh": "千斤顶",
+          "name_en": "Wheeljack",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "kickback_gs_kabam",
+          "name_zh": "反冲",
+          "name_en": "Kickback",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "thundercracker_gs_leader2015",
+          "name_zh": "惊天雷",
+          "name_en": "Thundercracker",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "breakdown_gs",
+          "name_zh": "打击",
+          "name_en": "Breakdown",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "dirge_gs_deluxe2008",
+          "name_zh": "挽歌",
+          "name_en": "Dirge",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "hound_cin_tlk",
+          "name_zh": "探长",
+          "name_en": "Hound",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "nemesisprime_gs_voyager2015",
+          "name_zh": "暗天陨",
+          "name_en": "Nemesis Prime",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "sideswipe_gs",
+          "name_zh": "横炮",
+          "name_en": "Sideswipe",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "slipstream_gs",
+          "name_zh": "滑流",
+          "name_en": "Slipstream",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "rhinox_gs_voyager2014",
+          "name_zh": "犀牛",
+          "name_en": "Rhinox",
+          "faction": "maximal",
+          "class": "tech"
+        },
+        {
+          "bot_id": "cyclonus_gs_uw06",
+          "name_zh": "狂飙",
+          "name_en": "Cyclonus",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "ionstorm_gs_leader2015",
+          "name_zh": "离子风",
+          "name_en": "Ion Storm",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "fte_stars_gs_t3",
+          "name_zh": "红蜘蛛",
+          "name_en": "Starscream",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "rodimusprime_gs_mp09",
+          "name_zh": "补天士",
+          "name_en": "Rodimus Prime",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "ultramagnus_gs_leader",
+          "name_zh": "通天晓",
+          "name_en": "Ultra Magnus",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "grimlock_gs_mp08",
+          "name_zh": "钢锁",
+          "name_en": "Grimlock",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "arcee_gs_deluxe2014",
+          "name_zh": "阿尔茜",
+          "name_en": "Arcee",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "soundblaster_gs_mp13b",
+          "name_zh": "音板",
+          "name_en": "Soundblaster",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "windblade_gs",
+          "name_zh": "风刃",
+          "name_en": "Windblade",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "starscream_ghost_gs",
+          "name_zh": "鬼魂红蜘蛛",
+          "name_en": "Ghost Starscream",
+          "faction": "decepticon",
+          "class": "scou"
+        }
+      ]
+    },
+    {
+      "id": "purify",
+      "name_zh": "净化",
+      "name_en": "Purify",
+      "category": "机制克制",
+      "pua_icon": "E950",
+      "pua_char": "",
+      "desc_zh": "清除自身所承受的伤害减益与负面状态。",
+      "desc_en": "Cleanses damaging debuffs and negative status effects from oneself.",
+      "bot_count": 22,
+      "associated_bots": [
+        {
+          "bot_id": "optimusprime_sg_voyager2015",
+          "name_zh": "倾天柱",
+          "name_en": "SG Optimus Prime",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "kickback_gs_kabam",
+          "name_zh": "反冲",
+          "name_en": "Kickback",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "ramjet_gs_deluxe2008",
+          "name_zh": "喷气机",
+          "name_en": "Ramjet",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "lifeline_gs_deluxe2014",
+          "name_zh": "回春手",
+          "name_en": "Lifeline",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "scorponok_bw_kabam",
+          "name_zh": "巨蝎勇士",
+          "name_en": "Scorponok",
+          "faction": "predacon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "mirage_gs_deluxe2016",
+          "name_zh": "幻影",
+          "name_en": "Mirage",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "thundercracker_gs_leader2015",
+          "name_zh": "惊天雷",
+          "name_en": "Thundercracker",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "hound_cin_tlk",
+          "name_zh": "探长",
+          "name_en": "Hound",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "sideswipe_gs",
+          "name_zh": "横炮",
+          "name_en": "Sideswipe",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "motormaster_gs_voyager2015",
+          "name_zh": "汽车大师",
+          "name_en": "Motormaster",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "slipstream_gs",
+          "name_zh": "滑流",
+          "name_en": "Slipstream",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "rhinox_gs_voyager2014",
+          "name_zh": "犀牛",
+          "name_en": "Rhinox",
+          "faction": "maximal",
+          "class": "tech"
+        },
+        {
+          "bot_id": "optimusprimal_bw_mp32",
+          "name_zh": "猩猩队长",
+          "name_en": "Optimus Primal",
+          "faction": "maximal",
+          "class": "braw"
+        },
+        {
+          "bot_id": "optimusprime_cin_tf",
+          "name_zh": "电影擎天柱",
+          "name_en": "Optimus Prime (MV1)",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "rodimusprime_gs_mp09",
+          "name_zh": "补天士",
+          "name_en": "Rodimus Prime",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "tantrum_gs_kabam",
+          "name_zh": "野牛",
+          "name_en": "Tantrum",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "grimlock_gs_mp08",
+          "name_zh": "钢锁",
+          "name_en": "Grimlock",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "skywarp_gs_leader2015",
+          "name_zh": "闹翻天",
+          "name_en": "Skywarp",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "shockwave_gs",
+          "name_zh": "震荡波",
+          "name_en": "Shockwave",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "sunstreaker_gs_deluxe2008",
+          "name_zh": "飞毛腿",
+          "name_en": "Sunstreaker",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "waspinator_gs_deluxe",
+          "name_zh": "黄蜂勇士",
+          "name_en": "Waspinator",
+          "faction": "predacon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "cheetor_bw_transmetal",
+          "name_zh": "黄豹",
+          "name_en": "Cheetor",
+          "faction": "maximal",
+          "class": "scou"
+        }
+      ]
+    },
+    {
+      "id": "repair",
+      "name_zh": "修复",
+      "name_en": "Repair",
+      "category": "生命恢复",
+      "pua_icon": "E503",
+      "pua_char": "",
+      "desc_zh": "随时间推移持续修复生命值，或按受损比例回血。",
+      "desc_en": "Repairs health over time or restores a percentage of lost health.",
+      "bot_count": 23,
+      "associated_bots": [
+        {
+          "bot_id": "fte_optimus_gs_t3",
+          "name_zh": "G1擎天柱",
+          "name_en": "Optimus Prime",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "wheeljack_gs_mp20",
+          "name_zh": "千斤顶",
+          "name_en": "Wheeljack",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "kickback_gs_kabam",
+          "name_zh": "反冲",
+          "name_en": "Kickback",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "lifeline_gs_deluxe2014",
+          "name_zh": "回春手",
+          "name_en": "Lifeline",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "bumblebee_cin_dotm",
+          "name_zh": "大黄蜂",
+          "name_en": "Bumblebee (DOTM)",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "jetfire_gs_leader2014",
+          "name_zh": "天火",
+          "name_en": "Jetfire",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "scorponok_bw_kabam",
+          "name_zh": "巨蝎勇士",
+          "name_en": "Scorponok",
+          "faction": "predacon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "blaster_gs_leader2016",
+          "name_zh": "录音机",
+          "name_en": "Blaster",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "dinobot_bw_kabam",
+          "name_zh": "恐龙勇士",
+          "name_en": "Dinobot",
+          "faction": "maximal",
+          "class": "tact"
+        },
+        {
+          "bot_id": "dragstrip_gs_deluxe2016",
+          "name_zh": "抢劫",
+          "name_en": "Dragstrip",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "hound_cin_tlk",
+          "name_zh": "探长",
+          "name_en": "Hound",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "ratchet_gs_kabam",
+          "name_zh": "救护车",
+          "name_en": "Ratchet",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "nemesisprime_gs_voyager2015",
+          "name_zh": "暗天陨",
+          "name_en": "Nemesis Prime",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "slipstream_gs",
+          "name_zh": "滑流",
+          "name_en": "Slipstream",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "drift_cin_aoe",
+          "name_zh": "漂移",
+          "name_en": "Drift",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "optimusprime_cin_tf",
+          "name_zh": "电影擎天柱",
+          "name_en": "Optimus Prime (MV1)",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "ironhide_cin_rotf",
+          "name_zh": "电影铁皮",
+          "name_en": "Ironhide (ROTF)",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "rodimusprime_gs_mp09",
+          "name_zh": "补天士",
+          "name_en": "Rodimus Prime",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "skywarp_gs_leader2015",
+          "name_zh": "闹翻天",
+          "name_en": "Skywarp",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "megatronus_gs_kabam",
+          "name_zh": "震天尊",
+          "name_en": "Megatronus",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "shockwave_gs",
+          "name_zh": "震荡波",
+          "name_en": "Shockwave",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "soundblaster_gs_mp13b",
+          "name_zh": "音板",
+          "name_en": "Soundblaster",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "cheetor_bw_transmetal",
+          "name_zh": "黄豹",
+          "name_en": "Cheetor",
+          "faction": "maximal",
+          "class": "scou"
+        }
+      ]
+    },
+    {
+      "id": "heal_block",
+      "name_zh": "修复阻止",
+      "name_en": "Heal Block",
+      "category": "机制克制",
+      "pua_icon": "E90C",
+      "pua_char": "",
+      "desc_zh": "临时阻止目标回复生命值，全面抑制回血与再生效果。",
+      "desc_en": "Temporarily prevents the target from regaining health, shutting down all healing.",
+      "bot_count": 12,
+      "associated_bots": [
+        {
+          "bot_id": "optimusprime_sg_voyager2015",
+          "name_zh": "倾天柱",
+          "name_en": "SG Optimus Prime",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "jetfire_gs_leader2014",
+          "name_zh": "天火",
+          "name_en": "Jetfire",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "mirage_gs_deluxe2016",
+          "name_zh": "幻影",
+          "name_en": "Mirage",
+          "faction": "autobot",
+          "class": "tech"
+        },
+        {
+          "bot_id": "dragstrip_gs_deluxe2016",
+          "name_zh": "抢劫",
+          "name_en": "Dragstrip",
+          "faction": "decepticon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "nemesisprime_gs_voyager2015",
+          "name_zh": "暗天陨",
+          "name_en": "Nemesis Prime",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "megatron_cin_rotf",
+          "name_zh": "电影威震天",
+          "name_en": "Megatron (ROTF)",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "elita_one_gs",
+          "name_zh": "艾丽塔",
+          "name_en": "Elita-1",
+          "faction": "autobot",
+          "class": "tact"
+        },
+        {
+          "bot_id": "skywarp_gs_leader2015",
+          "name_zh": "闹翻天",
+          "name_en": "Skywarp",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "megatronus_gs_kabam",
+          "name_zh": "震天尊",
+          "name_en": "Megatronus",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "shockwave_gs",
+          "name_zh": "震荡波",
+          "name_en": "Shockwave",
+          "faction": "decepticon",
+          "class": "tech"
+        },
+        {
+          "bot_id": "cliffjumper_gs_kabam",
+          "name_zh": "飞过山",
+          "name_en": "Cliffjumper",
+          "faction": "autobot",
+          "class": "demo"
+        },
+        {
+          "bot_id": "cheetor_bw_transmetal",
+          "name_zh": "黄豹",
+          "name_en": "Cheetor",
+          "faction": "maximal",
+          "class": "scou"
+        }
+      ]
+    },
+    {
+      "id": "backfire",
+      "name_zh": "逆火",
+      "name_en": "Backfire",
+      "category": "状态减益",
+      "pua_icon": "E901",
+      "pua_char": "",
+      "desc_zh": "对手激活特殊攻击时发生回火反冲，造成直接伤害并打断动作。",
+      "desc_en": "Causes backfire recoil when the opponent activates a special attack, dealing damage.",
+      "bot_count": 7,
+      "associated_bots": [
+        {
+          "bot_id": "scorponok_bw_kabam",
+          "name_zh": "巨蝎勇士",
+          "name_en": "Scorponok",
+          "faction": "predacon",
+          "class": "warr"
+        },
+        {
+          "bot_id": "thundercracker_gs_leader2015",
+          "name_zh": "惊天雷",
+          "name_en": "Thundercracker",
+          "faction": "decepticon",
+          "class": "braw"
+        },
+        {
+          "bot_id": "slipstream_gs",
+          "name_zh": "滑流",
+          "name_en": "Slipstream",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "jazz_gs_twm05",
+          "name_zh": "爵士",
+          "name_en": "Jazz",
+          "faction": "autobot",
+          "class": "scou"
+        },
+        {
+          "bot_id": "ionstorm_gs_leader2015",
+          "name_zh": "离子风",
+          "name_en": "Ion Storm",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "barricade_cin_dotm",
+          "name_zh": "路障",
+          "name_en": "Barricade",
+          "faction": "decepticon",
+          "class": "scou"
+        },
+        {
+          "bot_id": "megatronus_gs_kabam",
+          "name_zh": "震天尊",
+          "name_en": "Megatronus",
+          "faction": "decepticon",
+          "class": "demo"
+        }
+      ]
+    },
+    {
+      "id": "willpower",
+      "name_zh": "意志力",
+      "name_en": "Willpower",
+      "category": "生存反制",
+      "pua_icon": "E942",
+      "pua_char": "",
+      "desc_zh": "处于减益状态时，将受到的部分伤害转化为生命值回复。",
+      "desc_en": "Converts a portion of incoming damage into health recovery while suffering debuffs.",
+      "bot_count": 3,
+      "associated_bots": [
+        {
+          "bot_id": "optimusprime_sg_voyager2015",
+          "name_zh": "倾天柱",
+          "name_en": "SG Optimus Prime",
+          "faction": "autobot",
+          "class": "braw"
+        },
+        {
+          "bot_id": "chromia_gs_kabam",
+          "name_zh": "克劳莉娅",
+          "name_en": "Chromia",
+          "faction": "autobot",
+          "class": "warr"
+        },
+        {
+          "bot_id": "optimusprime_cin_tf",
+          "name_zh": "电影擎天柱",
+          "name_en": "Optimus Prime (MV1)",
+          "faction": "autobot",
+          "class": "braw"
+        }
+      ]
+    },
+    {
+      "id": "dark_energy",
+      "name_zh": "暗能量",
+      "name_en": "Dark Energy",
+      "category": "特殊机制",
+      "pua_icon": "E90A",
+      "pua_char": "",
+      "desc_zh": "聚集黑暗能量充能，提高攻击评级并为黑暗场提供动力。",
+      "desc_en": "Harvests dark energy charges, boosting attack rating and powering dark fields.",
+      "bot_count": 3,
+      "associated_bots": [
+        {
+          "bot_id": "galvatron_gs_voyager2016",
+          "name_zh": "惊破天",
+          "name_en": "Galvatron",
+          "faction": "decepticon",
+          "class": "demo"
+        },
+        {
+          "bot_id": "nemesisprime_gs_voyager2015",
+          "name_zh": "暗天陨",
+          "name_en": "Nemesis Prime",
+          "faction": "decepticon",
+          "class": "tact"
+        },
+        {
+          "bot_id": "cyclonus_gs_uw06",
+          "name_zh": "狂飙",
+          "name_en": "Cyclonus",
+          "faction": "decepticon",
+          "class": "tact"
+        }
+      ]
+    },
+    {
+      "id": "system_upgrade",
+      "name_zh": "升级",
+      "name_en": "Upgrade",
+      "category": "特殊机制",
+      "pua_icon": "E306",
+      "pua_char": "",
+      "desc_zh": "构建进攻、防御或能量系统模块升级，全面强化机体性能。",
+      "desc_en": "Constructs offensive, defensive, or energy module upgrades to enhance chassis performance.",
+      "bot_count": 2,
+      "associated_bots": [
+        {
+          "bot_id": "wheeljack_gs_mp20",
+          "name_zh": "千斤顶",
+          "name_en": "Wheeljack",
+          "faction": "autobot",
+          "class": "tech"
+        }
+      ]
+    },
+    {
+      "id": "venom_charge",
+      "name_zh": "毒液充能",
+      "name_en": "Venom Charge",
+      "category": "特殊机制",
+      "pua_icon": "E40A",
+      "pua_char": "",
+      "desc_zh": "积累毒囊充能，转化为致命神经毒素与腐蚀伤害。",
+      "desc_en": "Accumulates venom charges, converting them into neurotoxins and corrosive damage.",
+      "bot_count": 1,
+      "associated_bots": [
+        {
+          "bot_id": "scorponok_bw_kabam",
+          "name_zh": "巨蝎勇士",
+          "name_en": "Scorponok",
+          "faction": "predacon",
+          "class": "warr"
+        }
+      ]
+    }
+  ]
+}

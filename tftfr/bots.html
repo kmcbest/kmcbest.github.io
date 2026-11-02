@@ -2886,7 +2886,308 @@
             word-break: break-word;
         }
 
-    </style>
+    
+
+        /* ==================== SELECT BASIC ABILITY MODAL ==================== */
+        .btn-select-basic-ability {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.25) 0%, rgba(59, 130, 246, 0.2) 100%) !important;
+            border: 1px solid rgba(56, 189, 248, 0.5) !important;
+            color: #38BDF8 !important;
+            padding: 4px 12px !important;
+            border-radius: 6px !important;
+            font-size: 12px !important;
+            font-weight: 700 !important;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.15);
+        }
+        .btn-select-basic-ability:hover {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.45) 0%, rgba(59, 130, 246, 0.4) 100%) !important;
+            color: #FFFFFF !important;
+            border-color: #38BDF8 !important;
+            box-shadow: 0 0 16px rgba(56, 189, 248, 0.35);
+            transform: translateY(-1px);
+        }
+        .select-basic-modal-content {
+            max-width: 960px;
+            width: 95vw;
+            max-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            background: #0F172A;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 189, 248, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .select-basic-filter-area {
+            padding: 12px 18px;
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .select-basic-search-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .select-basic-search-input {
+            flex: 1;
+            padding: 8px 12px;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            color: #FFF;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+        .select-basic-search-input:focus {
+            outline: none;
+            border-color: #38BDF8;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .select-basic-state-tabs {
+            display: flex;
+            gap: 4px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            flex-shrink: 0;
+        }
+        .select-basic-state-tab {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-sub);
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            transition: all 0.15s;
+        }
+        .select-basic-state-tab:hover {
+            color: #FFF;
+        }
+        .select-basic-state-tab.active {
+            background: #0284C7;
+            color: #FFF;
+        }
+        .select-basic-cat-pills {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 2px;
+            scrollbar-width: thin;
+        }
+        .select-basic-cat-pill {
+            padding: 3px 9px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-sub);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.15s;
+        }
+        .select-basic-cat-pill:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #FFF;
+        }
+        .select-basic-cat-pill.active {
+            background: rgba(56, 189, 248, 0.2);
+            border-color: #38BDF8;
+            color: #38BDF8;
+        }
+        .select-basic-cards-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 18px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+            gap: 12px;
+            background: rgba(10, 15, 28, 0.6);
+        }
+        @media (max-width: 600px) {
+            .select-basic-cards-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        .basic-picker-card {
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        .basic-picker-card:hover {
+            border-color: rgba(56, 189, 248, 0.35);
+            background: rgba(20, 30, 55, 0.9);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        .basic-picker-card.is-added {
+            border-color: rgba(16, 185, 129, 0.4);
+            background: rgba(6, 32, 24, 0.7);
+        }
+        .basic-card-top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .basic-card-info-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 0;
+        }
+        .basic-pua-icon-badge {
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .basic-pua-icon-badge .glyph {
+            font-size: 18px;
+            color: #38BDF8;
+            line-height: 1;
+        }
+        .basic-pua-icon-badge .hex {
+            font-size: 8px;
+            color: var(--text-sub);
+            letter-spacing: 0.5px;
+            line-height: 1;
+            margin-top: 2px;
+        }
+        .basic-card-titles {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 0;
+        }
+        .basic-card-title-zh {
+            font-size: 14px;
+            font-weight: 700;
+            color: #F8FAFC;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .basic-card-title-en {
+            font-size: 11px;
+            color: var(--text-sub);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .basic-cat-tag {
+            font-size: 10px;
+            padding: 1px 6px;
+            border-radius: 4px;
+            background: rgba(147, 51, 234, 0.18);
+            border: 1px solid rgba(147, 51, 234, 0.35);
+            color: #C084FC;
+            font-weight: 500;
+        }
+        .basic-bot-count-tag {
+            font-size: 10px;
+            color: var(--text-sub);
+            background: rgba(255, 255, 255, 0.06);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+        .basic-card-btn-action {
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+            border: 1px solid transparent;
+            flex-shrink: 0;
+        }
+        .basic-card-btn-action.btn-add {
+            background: rgba(16, 185, 129, 0.18);
+            border-color: rgba(16, 185, 129, 0.4);
+            color: #34D399;
+        }
+        .basic-card-btn-action.btn-add:hover {
+            background: #10B981;
+            border-color: #10B981;
+            color: #FFF;
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+        }
+        .basic-card-btn-action.btn-added {
+            background: rgba(56, 189, 248, 0.15);
+            border-color: rgba(56, 189, 248, 0.4);
+            color: #38BDF8;
+        }
+        .basic-card-btn-action.btn-added:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.5);
+            color: #F87171;
+        }
+        .basic-card-btn-action.btn-added:hover .txt-added {
+            display: none;
+        }
+        .basic-card-btn-action.btn-added:hover .txt-remove {
+            display: inline;
+        }
+        .basic-card-btn-action.btn-added .txt-remove {
+            display: none;
+        }
+        .basic-card-desc-zh {
+            font-size: 12px;
+            line-height: 1.5;
+            color: #CBD5E1;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .basic-card-desc-en {
+            font-size: 11px;
+            line-height: 1.4;
+            color: #94A3B8;
+            font-style: italic;
+            padding-left: 2px;
+        }
+        .select-basic-modal-footer {
+            padding: 10px 18px;
+            background: rgba(15, 23, 42, 0.95);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+</style>
 </head>
 <body>
 
@@ -3134,7 +3435,52 @@
         </div>
     </div>
 
-    <!-- PUA Icon Picker Modal -->
+    
+    <!-- Select Basic Ability Modal (Canonical 49 Basic Abilities) -->
+    <div class="modal-overlay" id="selectBasicAbilityModal" onclick="closeModalOnBackdrop(event, 'selectBasicAbilityModal')">
+        <div class="modal-content select-basic-modal-content">
+            <div class="modal-header">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 32px; height: 32px; border-radius: 6px; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.35); display: flex; align-items: center; justify-content: center; font-size: 16px;">⚡</div>
+                    <div>
+                        <div style="font-size: 16px; font-weight: 700; color: #FFF; display: flex; align-items: center; gap: 8px;">
+                            <span>选择基础能力 (Select Basic Ability)</span>
+                            <span class="basic-cat-tag" style="font-size: 11px; background: rgba(56,189,248,0.15); border-color: rgba(56,189,248,0.35); color: #38BDF8;">官方标准 49 项能力库</span>
+                        </div>
+                        <div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">
+                            正在为【<b id="selBasicCurrentBotName" style="color: #38BDF8;">-</b>】挑选基础能力，点击按钮即可即时添加或移除
+                        </div>
+                    </div>
+                </div>
+                <button class="modal-close-btn" onclick="closeSelectBasicAbilityModal()">&times;</button>
+            </div>
+            <div class="select-basic-filter-area">
+                <div class="select-basic-search-row">
+                    <input type="text" id="selBasicSearchInput" class="select-basic-search-input" placeholder="输入名称、英文、效果机制搜索 (如 流血, Bleed, 眩晕, 护甲, 破甲)..." oninput="renderSelectBasicAbilityCards()">
+                    <div class="select-basic-state-tabs">
+                        <button type="button" class="select-basic-state-tab active" data-state="all" onclick="setSelectBasicStateFilter('all', this)">全部 (49)</button>
+                        <button type="button" class="select-basic-state-tab" data-state="unadded" onclick="setSelectBasicStateFilter('unadded', this)">未拥有 (可添加)</button>
+                        <button type="button" class="select-basic-state-tab" data-state="added" onclick="setSelectBasicStateFilter('added', this)">已拥有</button>
+                    </div>
+                </div>
+                <div class="select-basic-cat-pills" id="selBasicCatPills">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+            <div class="select-basic-cards-container" id="selBasicCardsList">
+                <!-- Cards rendered dynamically -->
+            </div>
+            <div class="select-basic-modal-footer">
+                <div style="color: var(--text-sub);">
+                    当前英雄已拥有基础能力: <b id="selBasicBotOwnedCount" style="color: #10B981; font-size: 13px;">0</b> 项
+                </div>
+                <button type="button" class="btn-card-action save" onclick="closeSelectBasicAbilityModal()" style="padding: 6px 18px; font-size: 13px;">完成</button>
+            </div>
+        </div>
+    </div>
+
+
+<!-- PUA Icon Picker Modal -->
     <div class="modal-overlay" id="puaModal" onclick="closeModalOnBackdrop(event, 'puaModal')">
         <div class="modal-content pua-modal-content">
             <div class="modal-header">
@@ -5540,9 +5886,15 @@
                                 <button type="button" class="btn-copy-from-ability" onclick="openCopyFromModal('${secDef.key}', '${secDef.name}')" title="从其他角色复制技能并导入至本分类">
                                     <span>📥 从他处复制</span>
                                 </button>
+                                ${secDef.key === 'basic' ? `
+                                <button type="button" class="btn-select-basic-ability" onclick="openSelectBasicAbilityModal()" title="从49项官方确认的基础能力库中挑选添加">
+                                    <span>+</span> 选择基础能力
+                                </button>
+                                ` : `
                                 <button class="btn-add-ability" onclick="openAddAbilityModal('${secDef.key}', '${secDef.name}')">
                                     <span>+</span> 新增能力
                                 </button>
+                                `}
                             </div>
                         </div>
                         <div class="category-content-area" id="cat_content_${secDef.key}"></div>
@@ -5555,7 +5907,11 @@
                             contentArea.appendChild(createAbilityCardElement(ab));
                         });
                     } else {
-                        contentArea.innerHTML = `<div class="empty-category-placeholder">暂无该分类技能，点击右上角 <b>[+ 新增能力]</b> 进行创作</div>`;
+                        if (secDef.key === 'basic') {
+                            contentArea.innerHTML = `<div class="empty-category-placeholder">暂无基础能力，点击右上角 <b>[+ 选择基础能力]</b> 从49项官方标准库中挑选添加</div>`;
+                        } else {
+                            contentArea.innerHTML = `<div class="empty-category-placeholder">暂无该分类技能，点击右上角 <b>[+ 新增能力]</b> 进行创作</div>`;
+                        }
                     }
                 } else if (secDef.type === 'special_group') {
                     // Exactly 3 fixed SP slots: SP1, SP2, SP3, each with dedicated move name row and dynamic effects list!
@@ -7705,8 +8061,241 @@
                 if (modalId === 'cardDossierModal') closeCardDossierModal();
                 if (modalId === 'priorityModal') closePriorityModal();
                 if (modalId === 'implementedModal') closeImplementedModal();
+                if (modalId === 'selectBasicAbilityModal') closeSelectBasicAbilityModal();
             }
         }
+
+        
+        // ==================== CANONICAL BASIC ABILITIES PICKER LOGIC ====================
+        const CANONICAL_BASIC_ABILITIES = [{"id": "bleed", "name_zh": "流血", "name_en": "Bleed", "category": "持续伤害", "pua_icon": "E401", "desc_zh": "流失的能量晶体会持续造成直接伤害。", "desc_en": "Bleeding energon causes direct damage over time.", "bot_count": 31}, {"id": "burn", "name_zh": "燃烧", "name_en": "Burn", "category": "持续伤害", "pua_icon": "E41D", "desc_zh": "持续造成能量伤害。", "desc_en": "Deals energy damage over time.", "bot_count": 37}, {"id": "shock", "name_zh": "震击", "name_en": "Shock", "category": "持续伤害", "pua_icon": "E914", "desc_zh": "持续造成电磁能量伤害。", "desc_en": "Deals electrical energy damage over time.", "bot_count": 33}, {"id": "acid", "name_zh": "酸液", "name_en": "Acid", "category": "持续伤害", "pua_icon": "E524", "desc_zh": "持续造成酸性伤害。", "desc_en": "Deals corrosive acid damage over time.", "bot_count": 9}, {"id": "dark_burn", "name_zh": "黑暗燃烧", "name_en": "Dark Burn", "category": "持续伤害", "pua_icon": "E810", "desc_zh": "造成瞬时黑暗能量伤害。", "desc_en": "Deals instant dark energy damage.", "bot_count": 5}, {"id": "headshot", "name_zh": "爆头射击", "name_en": "Headshot", "category": "持续伤害", "pua_icon": "E401", "desc_zh": "爆头导致瞬间的能量晶体流失伤害并持续造成直接伤害，对手回避时额外承受伤害。", "desc_en": "Headshots cause instant damage and bleeding damage over time, dealing extra damage if the opponent evades.", "bot_count": 1}, {"id": "armor_break", "name_zh": "破甲", "name_en": "Armor Break", "category": "防御削弱", "pua_icon": "E516", "desc_zh": "移除护甲增益，降低护甲评级并提升受到攻击的伤害量。", "desc_en": "Removes armor buffs and reduces armor rating, amplifying incoming damage.", "bot_count": 31}, {"id": "armor_pen", "name_zh": "护甲穿透", "name_en": "Armor Penetration", "category": "攻击特长", "pua_icon": "E409", "desc_zh": "忽略对手当前护甲值的固定百分比造成伤害。", "desc_en": "Ignores a percentage of the opponent's current armor.", "bot_count": 14}, {"id": "armor_buff", "name_zh": "护甲增益", "name_en": "Armor Buff", "category": "属性增益", "pua_icon": "E517", "desc_zh": "临时提升装甲厚度，降低受到攻击的伤害。", "desc_en": "Temporarily increases armor thickness, reducing damage from incoming attacks.", "bot_count": 23}, {"id": "permanent_armor", "name_zh": "永久护甲", "name_en": "Permanent Armor", "category": "属性增益", "pua_icon": "E501", "desc_zh": "全程持续获得固定的伤害减免，不可被破甲效果移除。", "desc_en": "Provides permanent passive damage reduction that cannot be removed by Armor Break.", "bot_count": 6}, {"id": "shield", "name_zh": "护盾", "name_en": "Shield", "category": "生存防御", "pua_icon": "E515", "desc_zh": "展开力场吸收来袭伤害，优先于生命值消耗。", "desc_en": "Deploys a forcefield that absorbs incoming damage before reducing health.", "bot_count": 24}, {"id": "shield_breaker", "name_zh": "破盾", "name_en": "Shield Break", "category": "机制克制", "pua_icon": "E807", "desc_zh": "粉碎对手的护盾力场。", "desc_en": "Shatters the opponent's shield.", "bot_count": 4}, {"id": "stun", "name_zh": "眩晕", "name_en": "Stun", "category": "行动控制", "pua_icon": "E605", "desc_zh": "临时阻止目标采取任何行动。", "desc_en": "Temporarily paralyzes the target, preventing all actions.", "bot_count": 37}, {"id": "decelerate", "name_zh": "减速", "name_en": "Decelerate", "category": "行动控制", "pua_icon": "E952", "desc_zh": "阻止对手躲避攻击，并减少对手行动时的能量流速。", "desc_en": "Prevents the opponent from dodging and slows their power flow.", "bot_count": 3}, {"id": "tactical_lockdown", "name_zh": "战术封锁", "name_en": "Tactical Lockdown", "category": "行动控制", "pua_icon": "E419", "desc_zh": "封印对手全部特殊攻击，期间对手无法发动任何特殊技。", "desc_en": "Locks down all special attacks, preventing the opponent from launching any special move.", "bot_count": 1}, {"id": "fear", "name_zh": "恐惧", "name_en": "Fear", "category": "状态减益", "pua_icon": "E907", "desc_zh": "使敌人因恐惧造成多种负面效果", "desc_en": "Intimidates fleeing opponents, inflicting multiple debuffs.", "bot_count": 2}, {"id": "daze", "name_zh": "目眩", "name_en": "Daze", "category": "状态减益", "pua_icon": "E519", "desc_zh": "使对手陷入目眩，大幅降低其远程攻击命中率。", "desc_en": "Dazes the opponent, causing their basic and special ranged attacks to miss.", "bot_count": 1}, {"id": "evade", "name_zh": "规避", "name_en": "Evade", "category": "机动防御", "pua_icon": "E509", "desc_zh": "自动闪避即将到来的攻击。", "desc_en": "Automatically evade incoming attack.", "bot_count": 31}, {"id": "precision", "name_zh": "精准", "name_en": "Precision", "category": "攻击特长", "pua_icon": "E409", "desc_zh": "增加暴击命中几率，降低对手规避能力。", "desc_en": "Increases critical rate and reduce the chance of opponent evading attacks", "bot_count": 12}, {"id": "unstoppable", "name_zh": "不可阻挡", "name_en": "Unstoppable", "category": "进攻强化", "pua_icon": "E915", "desc_zh": "进攻动作无视对手攻击冲击与受击打断。", "desc_en": "Shrugs off hit reactions; attacks cannot be interrupted.", "bot_count": 26}, {"id": "unblockable", "name_zh": "无法格挡", "name_en": "Unblockable", "category": "进攻强化", "pua_icon": "E41F", "desc_zh": "特定攻击无法被防御。", "desc_en": "Certain attacks cannot be blocked.", "bot_count": 9}, {"id": "counterpunch", "name_zh": "灵动反击", "name_en": "Counterpunch", "category": "战术反制", "pua_icon": "E50A", "desc_zh": "成功闪避近战或前冲后获得反击契机，可打出硬直或眩晕。", "desc_en": "Successful dodges grant counter windows to stagger or stun the opponent.", "bot_count": 1}, {"id": "parry_shield", "name_zh": "招架护盾", "name_en": "Parry Shield", "category": "防御反制", "pua_icon": "E911", "desc_zh": "成功格挡攻击时吸收冲击，并反弹来袭的近战攻击或远程火力。", "desc_en": "Absorbs impact upon successful block and reflects melee or ranged strikes.", "bot_count": 6}, {"id": "attack_buff", "name_zh": "攻击增益", "name_en": "Attack Buff", "category": "属性增益", "pua_icon": "E406", "desc_zh": "临时增加机体攻击评分与造成的全部伤害。", "desc_en": "Temporarily increases overall attack rating and damage dealt.", "bot_count": 59}, {"id": "attack_debuff", "name_zh": "攻击减益", "name_en": "Attack Debuff", "category": "状态减益", "pua_icon": "E916", "desc_zh": "削弱机体动力，临时减少对手攻击评分与输出。", "desc_en": "Temporarily reduces the opponent's attack rating and damage output.", "bot_count": 10}, {"id": "melee_buff", "name_zh": "近战增益", "name_en": "Melee Buff", "category": "属性增益", "pua_icon": "E412", "desc_zh": "临时增加近战普通攻击与近战重击的伤害。", "desc_en": "Temporarily increases damage dealt by basic and heavy melee attacks.", "bot_count": 32}, {"id": "ranged_buff", "name_zh": "远程增益", "name_en": "Ranged Buff", "category": "属性增益", "pua_icon": "E41B", "desc_zh": "临时增加远程攻击的速度、射击频率与伤害。", "desc_en": "Temporarily increases ranged attack speed and damage.", "bot_count": 19}, {"id": "special_damage", "name_zh": "特殊伤害", "name_en": "Special Damage", "category": "属性增益", "pua_icon": "E41C", "desc_zh": "增加组合连击与全部特殊攻击造成的破坏力。", "desc_en": "Increases damage dealt by combo finishers and special attacks.", "bot_count": 15}, {"id": "crit_rate_buff", "name_zh": "暴击率增益", "name_en": "Crit Rate Buff", "category": "属性增益", "pua_icon": "E40D", "desc_zh": "临时增加攻击命中时触发暴击的几率。", "desc_en": "Temporarily increases the chance of scoring critical hits.", "bot_count": 29}, {"id": "crit_rate_debuff", "name_zh": "暴击率减益", "name_en": "Crit Rate Debuff", "category": "状态减益", "pua_icon": "E912", "desc_zh": "降低对手攻击命中时触发暴击的几率。", "desc_en": "Reduces the opponent's chance of scoring critical hits.", "bot_count": 5}, {"id": "crit_damage_buff", "name_zh": "暴击伤害增益", "name_en": "Crit Damage Buff", "category": "属性增益", "pua_icon": "E906", "desc_zh": "临时增加暴击命中时造成的伤害。", "desc_en": "Temporarily increases the damage of critical hits.", "bot_count": 35}, {"id": "crit_damage_debuff", "name_zh": "暴击伤害减益", "name_en": "Crit Damage Debuff", "category": "状态减益", "pua_icon": "E905", "desc_zh": "降低对手产生暴击时造成的伤害。", "desc_en": "Reduces the severity of incoming critical hit damage.", "bot_count": 0}, {"id": "resistance_buff", "name_zh": "抗性提升", "name_en": "Resistance Buff", "category": "生存防御", "pua_icon": "E60A", "desc_zh": "提升抗性，整体降低结算伤害。", "desc_en": "Increases the resistance and reduces the calculated damage.", "bot_count": 5}, {"id": "resistance_debuff", "name_zh": "抗性减益", "name_en": "Resistance Debuff", "category": "防御削弱", "pua_icon": "E60A", "desc_zh": "降低目标抗性评级，放大其承受的所有伤害。", "desc_en": "Reduces target resistance rating, amplifying all incoming damage.", "bot_count": 10}, {"id": "power_gain", "name_zh": "能量获取", "name_en": "Power Gain", "category": "能量控制", "pua_icon": "E608", "desc_zh": "持续进行的被动能量积蓄，加速特殊技能量条充盈。", "desc_en": "Passively gains power over time to fill special attack bars faster.", "bot_count": 27}, {"id": "power_flow", "name_zh": "能量涌动", "name_en": "Power Flow", "category": "能量控制", "pua_icon": "E608", "desc_zh": "提高所有攻击与受击时所产生的能量功率。", "desc_en": "Increases power generation rate from all attacks and hits taken.", "bot_count": 14}, {"id": "power_leak", "name_zh": "能量流失", "name_en": "Power Leak", "category": "能量控制", "pua_icon": "E607", "desc_zh": "随时间推移持续扣减对手一定比例的能量槽。", "desc_en": "Drains a percentage of the opponent's power gauge over time.", "bot_count": 18}, {"id": "power_burn", "name_zh": "能量燃烧", "name_en": "Power Burn", "category": "能量控制", "pua_icon": "E607", "desc_zh": "立即扣减对手的能量槽。", "desc_en": "Instantly burns the opponent's power gauge.", "bot_count": 17}, {"id": "power_lock", "name_zh": "能量锁定", "name_en": "Power Lock", "category": "能量控制", "pua_icon": "E523", "desc_zh": "临时阻止目标从攻击或被动机制中获取任何能量。", "desc_en": "Temporarily prevents the target from gaining power from any source.", "bot_count": 12}, {"id": "power_steal", "name_zh": "能量窃取", "name_en": "Power Steal", "category": "能量控制", "pua_icon": "E607", "desc_zh": "盗取对手当前储存的能量槽，并将其转移给自己。", "desc_en": "Steals stored power from the opponent and transfers it to the user.", "bot_count": 4}, {"id": "nullify", "name_zh": "驱散", "name_en": "Nullify", "category": "机制克制", "pua_icon": "E950", "desc_zh": "消除对手身上的增益效果，使其增益立即失效。", "desc_en": "Clears active buffs from the opponent, instantly ending their effects.", "bot_count": 21}, {"id": "purify", "name_zh": "净化", "name_en": "Purify", "category": "机制克制", "pua_icon": "E950", "desc_zh": "清除自身所承受的伤害减益与负面状态。", "desc_en": "Cleanses damaging debuffs and negative status effects from oneself.", "bot_count": 22}, {"id": "repair", "name_zh": "修复", "name_en": "Repair", "category": "生命恢复", "pua_icon": "E503", "desc_zh": "随时间推移持续修复生命值，或按受损比例回血。", "desc_en": "Repairs health over time or restores a percentage of lost health.", "bot_count": 23}, {"id": "heal_block", "name_zh": "修复阻止", "name_en": "Heal Block", "category": "机制克制", "pua_icon": "E90C", "desc_zh": "临时阻止目标回复生命值，全面抑制回血与再生效果。", "desc_en": "Temporarily prevents the target from regaining health, shutting down all healing.", "bot_count": 12}, {"id": "backfire", "name_zh": "逆火", "name_en": "Backfire", "category": "状态减益", "pua_icon": "E901", "desc_zh": "对手激活特殊攻击时发生回火反冲，造成直接伤害并打断动作。", "desc_en": "Causes backfire recoil when the opponent activates a special attack, dealing damage.", "bot_count": 7}, {"id": "willpower", "name_zh": "意志力", "name_en": "Willpower", "category": "生存反制", "pua_icon": "E942", "desc_zh": "处于减益状态时，将受到的部分伤害转化为生命值回复。", "desc_en": "Converts a portion of incoming damage into health recovery while suffering debuffs.", "bot_count": 3}, {"id": "dark_energy", "name_zh": "暗能量", "name_en": "Dark Energy", "category": "特殊机制", "pua_icon": "E90A", "desc_zh": "聚集黑暗能量充能，提高攻击评级并为黑暗场提供动力。", "desc_en": "Harvests dark energy charges, boosting attack rating and powering dark fields.", "bot_count": 3}, {"id": "system_upgrade", "name_zh": "升级", "name_en": "Upgrade", "category": "特殊机制", "pua_icon": "E306", "desc_zh": "构建进攻、防御或能量系统模块升级，全面强化机体性能。", "desc_en": "Constructs offensive, defensive, or energy module upgrades to enhance chassis performance.", "bot_count": 2}, {"id": "venom_charge", "name_zh": "毒液充能", "name_en": "Venom Charge", "category": "特殊机制", "pua_icon": "E40A", "desc_zh": "积累毒囊充能，转化为致命神经毒素与腐蚀伤害。", "desc_en": "Accumulates venom charges, converting them into neurotoxins and corrosive damage.", "bot_count": 1}];
+
+        let gSelBasicActiveCategory = 'all';
+        let gSelBasicActiveState = 'all'; // 'all', 'unadded', 'added'
+
+        function openSelectBasicAbilityModal() {
+            if (!gCurBotId) {
+                alert('请先选择角色');
+                return;
+            }
+            const botName = (gCurBotDetail && (gCurBotDetail.name_zh || gCurBotDetail.name_en)) || gCurBotId;
+            const nameEl = document.getElementById('selBasicCurrentBotName');
+            if (nameEl) nameEl.textContent = botName;
+
+            gSelBasicActiveCategory = 'all';
+            gSelBasicActiveState = 'all';
+
+            const searchInput = document.getElementById('selBasicSearchInput');
+            if (searchInput) searchInput.value = '';
+
+            renderSelectBasicCategoryPills();
+            renderSelectBasicAbilityCards();
+
+            const modal = document.getElementById('selectBasicAbilityModal');
+            if (modal) modal.classList.add('active');
+        }
+
+        function closeSelectBasicAbilityModal() {
+            const modal = document.getElementById('selectBasicAbilityModal');
+            if (modal) modal.classList.remove('active');
+        }
+
+        function setSelectBasicStateFilter(state, el) {
+            gSelBasicActiveState = state;
+            document.querySelectorAll('.select-basic-state-tab').forEach(b => b.classList.remove('active'));
+            if (el) el.classList.add('active');
+            renderSelectBasicAbilityCards();
+        }
+
+        function setSelectBasicCategory(cat, el) {
+            gSelBasicActiveCategory = cat;
+            document.querySelectorAll('.select-basic-cat-pill').forEach(b => b.classList.remove('active'));
+            if (el) el.classList.add('active');
+            renderSelectBasicAbilityCards();
+        }
+
+        function renderSelectBasicCategoryPills() {
+            const container = document.getElementById('selBasicCatPills');
+            if (!container) return;
+
+            const counts = { 'all': CANONICAL_BASIC_ABILITIES.length };
+            CANONICAL_BASIC_ABILITIES.forEach(ab => {
+                const c = ab.category || '其它';
+                counts[c] = (counts[c] || 0) + 1;
+            });
+
+            // Specific sorted categories
+            const mainCats = ['all', '持续伤害', '属性增益', '防御削弱', '状态减益', '行动控制', '能量控制', '机制克制', '生命恢复', '特殊机制', '进攻强化', '攻击特长', '生存防御'];
+            const allCatsInDb = Object.keys(counts);
+            const otherCats = allCatsInDb.filter(c => !mainCats.includes(c));
+            const orderedCats = [...mainCats.filter(c => counts[c] !== undefined), ...otherCats];
+
+            container.innerHTML = orderedCats.map(cat => {
+                const label = cat === 'all' ? `全部 (${counts[cat]})` : `${cat} (${counts[cat]})`;
+                const isActive = gSelBasicActiveCategory === cat ? 'active' : '';
+                return `<button type="button" class="select-basic-cat-pill ${isActive}" onclick="setSelectBasicCategory('${cat}', this)">${label}</button>`;
+            }).join('');
+        }
+
+        function getCurBotBasicAbilityTitles() {
+            const set = new Set();
+            if (gCurBotDetail && Array.isArray(gCurBotDetail.abilities)) {
+                gCurBotDetail.abilities.forEach(a => {
+                    if (a.category === 'basic') {
+                        if (a.title_zh) set.add(a.title_zh.trim());
+                        if (a.title_en) set.add(a.title_en.trim().toLowerCase());
+                    }
+                });
+            }
+            return set;
+        }
+
+        function renderSelectBasicAbilityCards() {
+            const container = document.getElementById('selBasicCardsList');
+            if (!container) return;
+
+            const query = (document.getElementById('selBasicSearchInput')?.value || '').trim().toLowerCase();
+            const ownedTitles = getCurBotBasicAbilityTitles();
+
+            const ownedCountEl = document.getElementById('selBasicBotOwnedCount');
+            if (ownedCountEl) {
+                const totalOwned = gCurBotDetail && gCurBotDetail.abilities ? gCurBotDetail.abilities.filter(a => a.category === 'basic').length : 0;
+                ownedCountEl.textContent = totalOwned;
+            }
+
+            const filtered = CANONICAL_BASIC_ABILITIES.filter(ab => {
+                // Category filter
+                if (gSelBasicActiveCategory !== 'all' && ab.category !== gSelBasicActiveCategory) return false;
+
+                const isOwned = ownedTitles.has(ab.name_zh) || (ab.name_en && ownedTitles.has(ab.name_en.toLowerCase()));
+
+                // State filter
+                if (gSelBasicActiveState === 'unadded' && isOwned) return false;
+                if (gSelBasicActiveState === 'added' && !isOwned) return false;
+
+                // Keyword search
+                if (query) {
+                    const matchZh = ab.name_zh && ab.name_zh.toLowerCase().includes(query);
+                    const matchEn = ab.name_en && ab.name_en.toLowerCase().includes(query);
+                    const matchDescZh = ab.desc_zh && ab.desc_zh.toLowerCase().includes(query);
+                    const matchDescEn = ab.desc_en && ab.desc_en.toLowerCase().includes(query);
+                    const matchCat = ab.category && ab.category.toLowerCase().includes(query);
+                    if (!matchZh && !matchEn && !matchDescZh && !matchDescEn && !matchCat) return false;
+                }
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px 0; color: var(--text-sub);">
+                        <div style="font-size: 32px; margin-bottom: 8px;">🔍</div>
+                        <div style="font-size: 13px;">没有找到匹配的基础能力</div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(ab => {
+                const isOwned = ownedTitles.has(ab.name_zh) || (ab.name_en && ownedTitles.has(ab.name_en.toLowerCase()));
+                const puaChar = ab.pua_icon ? String.fromCharCode(parseInt(ab.pua_icon, 16)) : '⯁';
+                const puaHex = ab.pua_icon || 'PUA';
+
+                return `
+                    <div class="basic-picker-card ${isOwned ? 'is-added' : ''}">
+                        <div class="basic-card-top-row">
+                            <div class="basic-card-info-left">
+                                <div class="basic-pua-icon-badge">
+                                    <span class="tecnica-icon glyph">${puaChar}</span>
+                                    <span class="hex">${puaHex}</span>
+                                </div>
+                                <div class="basic-card-titles">
+                                    <div class="basic-card-title-zh">
+                                        <span>${escapeHtml(ab.name_zh)}</span>
+                                        <span class="basic-cat-tag">${escapeHtml(ab.category)}</span>
+                                        <span class="basic-bot-count-tag">${ab.bot_count}英雄</span>
+                                    </div>
+                                    <div class="basic-card-title-en">${escapeHtml(ab.name_en || '')}</div>
+                                </div>
+                            </div>
+                            <div>
+                                ${isOwned ? `
+                                    <button type="button" class="basic-card-btn-action btn-added" onclick="removeBasicAbilityFromCurBot('${ab.id}', '${escapeHtml(ab.name_zh)}')" title="点击从当前英雄移除本基础能力">
+                                        <span class="txt-added"><span style="color:#10B981;">✓</span> 已拥有</span>
+                                        <span class="txt-remove">✕ 移除</span>
+                                    </button>
+                                ` : `
+                                    <button type="button" class="basic-card-btn-action btn-add" onclick="addBasicAbilityToCurBot('${ab.id}')">
+                                        <span>+</span> 添加
+                                    </button>
+                                `}
+                            </div>
+                        </div>
+                        <div class="basic-card-desc-zh">${escapeHtml(ab.desc_zh || '暂无效果描述')}</div>
+                        ${ab.desc_en ? `<div class="basic-card-desc-en">${escapeHtml(ab.desc_en)}</div>` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function addBasicAbilityToCurBot(abilityId) {
+            if (!gCurBotId) return;
+            const ab = CANONICAL_BASIC_ABILITIES.find(a => a.id === abilityId);
+            if (!ab) return;
+
+            const payload = {
+                bot_id: gCurBotId,
+                category: 'basic',
+                title_zh: ab.name_zh,
+                title_en: ab.name_en || '',
+                desc_zh: ab.desc_zh || '',
+                desc_en: ab.desc_en || '',
+                pua_icon: ab.pua_icon || '',
+                status: 'unimplemented'
+            };
+
+            try {
+                const ret = await saveNewAbility(payload);
+                if (ret && (ret.ok || ret.success)) {
+                    showToast(`🎉 已成功为【${gCurBotDetail.name_zh || gCurBotId}】添加基础能力【${ab.name_zh}】！`);
+                    if (gCurBotDetail && gCurBotDetail.abilities) {
+                        renderCategorizedAbilities(gCurBotDetail.abilities);
+                    }
+                    renderSelectBasicAbilityCards();
+                } else {
+                    alert('添加失败，请重试');
+                }
+            } catch (err) {
+                console.error("Failed to add canonical basic ability:", err);
+                alert("添加失败: " + err.message);
+            }
+        }
+
+        async function removeBasicAbilityFromCurBot(abilityId, titleZh) {
+            if (!gCurBotId || !gCurBotDetail || !Array.isArray(gCurBotDetail.abilities)) return;
+
+            // Find matching ability in current bot's abilities
+            const existing = gCurBotDetail.abilities.find(a => a.category === 'basic' && (a.title_zh === titleZh || (titleZh && a.title_zh && a.title_zh.trim() === titleZh.trim())));
+            if (!existing) {
+                showToast("未找到该能力实例");
+                return;
+            }
+
+            try {
+                const ret = await deleteAbilityData(existing.id);
+                if (ret && (ret.ok || ret.success)) {
+                    showToast(`已从当前英雄移除基础能力【${titleZh}】`);
+                    if (gCurBotDetail && gCurBotDetail.abilities) {
+                        renderCategorizedAbilities(gCurBotDetail.abilities);
+                    }
+                    renderSelectBasicAbilityCards();
+                } else {
+                    alert("移除失败");
+                }
+            } catch (err) {
+                console.error("Failed to remove basic ability:", err);
+                alert("移除失败: " + err.message);
+            }
+        }
+
 
         // ==================== CARD DOSSIER MODAL LOGIC ====================
         let gCurCardBotId = null;

@@ -3187,6 +3187,178 @@
             flex-shrink: 0;
         }
 
+
+        .btn-create-bot {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(5, 150, 105, 0.45));
+            border: 1px solid rgba(16, 185, 129, 0.55);
+            color: #A7F3D0;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
+            margin-left: 10px;
+        }
+        .btn-create-bot:hover {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.45), rgba(5, 150, 105, 0.7));
+            border-color: #34D399;
+            color: #FFFFFF;
+            box-shadow: 0 0 14px rgba(16, 185, 129, 0.4);
+            transform: translateY(-1px);
+        }
+        .add-bot-modal-content {
+            max-width: 920px;
+            width: 94%;
+        }
+        .add-bot-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 1fr;
+            gap: 24px;
+        }
+        @media (max-width: 820px) {
+            .add-bot-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .add-bot-section-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #38BDF8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .form-hint {
+            font-size: 11px;
+            color: var(--text-sub);
+            margin-top: 3px;
+        }
+        .btn-calc-rating {
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            color: #38BDF8;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-calc-rating:hover {
+            background: rgba(56, 189, 248, 0.25);
+            border-color: #38BDF8;
+        }
+        .avatar-upload-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .avatar-upload-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .avatar-upload-header {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-align: center;
+        }
+        .avatar-upload-dropzone {
+            width: 100%;
+            height: 110px;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.2);
+            transition: all 0.2s;
+            overflow: hidden;
+        }
+        .avatar-upload-dropzone:hover {
+            border-color: #38BDF8;
+            background: rgba(56, 189, 248, 0.05);
+        }
+        .avatar-preview-box {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .avatar-preview-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .avatar-preview-placeholder {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+        .avatar-card-actions {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+            width: 100%;
+        }
+        .btn-avatar-subaction {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 11px;
+            padding: 3px 0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        .btn-avatar-subaction:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #FFF;
+        }
+        .btn-submit-new-bot {
+            background: linear-gradient(135deg, #10B981, #059669);
+            border: none;
+            color: #FFF;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 8px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-submit-new-bot:hover {
+            background: linear-gradient(135deg, #34D399, #10B981);
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.5);
+            transform: translateY(-1px);
+        }
+        .btn-submit-new-bot:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
 </style>
 </head>
 <body>
@@ -3197,6 +3369,9 @@
             <div class="logo-group">
                 <span class="logo-title">TFTF 数值与技能中枢</span>
                 <span class="logo-badge">SQLite Database Live</span>
+                <button type="button" class="btn-create-bot" onclick="openAddBotModal()" title="新建并录入新机器人">
+                    <span style="font-size: 14px; margin-right: 4px;">➕</span>新建机器人
+                </button>
             </div>
             <div class="controls-bar">
                 <input type="text" id="searchInput" class="search-box" placeholder="搜索机器人中英文名 / ID..." oninput="handleSearch()">
@@ -3870,6 +4045,197 @@
 
             <div class="impl-export-watermark" style="display: none; text-align: center; padding: 14px 20px 10px; font-size: 11px; color: #64748B; border-top: 1px solid rgba(255, 255, 255, 0.08); background: rgba(0,0,0,0.25);">
                 ⚡ Transformers: Forged to Fight Offline Project // 战技实现进度一览 · 导出时间：<span id="implExportTime"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Add Bot Modal -->
+    <div class="modal-overlay" id="addBotModal" onclick="closeModalOnBackdrop(event, 'addBotModal')">
+        <div class="modal-content add-bot-modal-content">
+            <div class="modal-header">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); display: flex; align-items: center; justify-content: center; font-size: 18px;">🤖</div>
+                    <div>
+                        <div style="font-size: 16px; font-weight: 700; color: #FFF; display: flex; align-items: center; gap: 8px;">
+                            <span>录入新机器人 (Add New Bot)</span>
+                            <span class="basic-cat-tag" style="font-size: 11px; background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.35); color: #34D399;">一键建档入库</span>
+                        </div>
+                        <div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">
+                            输入基础数值与信息、上传大小头像，保存后将自动同步写入云端 KV 数据库
+                        </div>
+                    </div>
+                </div>
+                <button class="modal-close-btn" onclick="closeAddBotModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="padding: 20px; overflow-y: auto; max-height: calc(85vh - 130px);">
+                <div class="add-bot-grid">
+                    <!-- Left Column: 基本信息与身份 -->
+                    <div class="add-bot-col">
+                        <div class="add-bot-section-title">1. 身份与阵营属性</div>
+                        
+                        <div class="form-row">
+                            <label>机器人唯一标识 (Bot ID) <span style="color: #EF4444;">*</span></label>
+                            <input type="text" id="newBotId" class="modal-input" placeholder="小写下划线, 如: sunstreaker_gs_deluxe2008" oninput="sanitizeBotId(this)">
+                            <div class="form-hint">英文字母、数字和下划线，作为全局唯一键名</div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div class="form-row">
+                                <label>中文名称 (Name ZH) <span style="color: #EF4444;">*</span></label>
+                                <input type="text" id="newBotNameZh" class="modal-input" placeholder="如: 飞毛腿">
+                            </div>
+                            <div class="form-row">
+                                <label>英文名称 (Name EN)</label>
+                                <input type="text" id="newBotNameEn" class="modal-input" placeholder="如: Sunstreaker">
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div class="form-row">
+                                <label>职业系别 (Class) <span style="color: #EF4444;">*</span></label>
+                                <select id="newBotClass" class="modal-select">
+                                    <option value="tact">战术系 (Tactician)</option>
+                                    <option value="braw" selected>斗士系 (Brawler)</option>
+                                    <option value="warr">战士系 (Warrior)</option>
+                                    <option value="scou">侦查系 (Scout)</option>
+                                    <option value="tech">科技系 (Tech)</option>
+                                    <option value="demo">爆破系 (Demolition)</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <label>阵营派系 (Faction) <span style="color: #EF4444;">*</span></label>
+                                <select id="newBotFaction" class="modal-select">
+                                    <option value="autobot">汽车人 (Autobot)</option>
+                                    <option value="decepticon">霸天虎 (Decepticon)</option>
+                                    <option value="mercenary">雇佣兵 (Mercenary)</option>
+                                    <option value="maximal">巨无霸 (Maximal)</option>
+                                    <option value="predacon">原始兽 (Predacon)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div class="form-row">
+                                <label>数据来源 (Source)</label>
+                                <select id="newBotSource" class="modal-select">
+                                    <option value="Revival" selected>Revival (重塑/原创)</option>
+                                    <option value="Kabam">Kabam (原版)</option>
+                                    <option value="Netflix">Netflix 独占</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <label>默认星级 (Star)</label>
+                                <select id="newBotStar" class="modal-select">
+                                    <option value="5" selected>5 星</option>
+                                    <option value="4">4 星</option>
+                                    <option value="3">3 星</option>
+                                    <option value="2">2 星</option>
+                                    <option value="1">1 星</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <label>背景说明 / 备注 (Note)</label>
+                            <input type="text" id="newBotNote" class="modal-input" placeholder="如: 经典G1 战士系 飞毛腿">
+                        </div>
+
+                        <div class="add-bot-section-title" style="margin-top: 16px;">3. 特殊攻击命名 (选填)</div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                            <input type="text" id="newBotSp1Zh" class="modal-input" placeholder="特殊技1 中文名 (如: 黄金猛踢)">
+                            <input type="text" id="newBotSp1En" class="modal-input" placeholder="SP1 English">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px;">
+                            <input type="text" id="newBotSp2Zh" class="modal-input" placeholder="特殊技2 中文名 (如: 能量拥堵)">
+                            <input type="text" id="newBotSp2En" class="modal-input" placeholder="SP2 English">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px;">
+                            <input type="text" id="newBotSp3Zh" class="modal-input" placeholder="特殊技3 中文名 (如: 驰骋之旅)">
+                            <input type="text" id="newBotSp3En" class="modal-input" placeholder="SP3 English">
+                        </div>
+                    </div>
+
+                    <!-- Right Column: 数值与头像上传 -->
+                    <div class="add-bot-col">
+                        <div class="add-bot-section-title">2. 满级战斗数值 (5星 60级 100锻造)</div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div class="form-row">
+                                <label>生命值 (HP) <span style="color: #EF4444;">*</span></label>
+                                <input type="number" id="newBotHp" class="modal-input" placeholder="如: 45000" oninput="autoCalculateRatingIfEmpty()">
+                            </div>
+                            <div class="form-row">
+                                <label>攻击力 (Attack) <span style="color: #EF4444;">*</span></label>
+                                <input type="number" id="newBotAtk" class="modal-input" placeholder="如: 3500" oninput="autoCalculateRatingIfEmpty()">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                <label style="margin-bottom: 0;">战力评级 (Rating) <span style="color: #EF4444;">*</span></label>
+                                <button type="button" class="btn-calc-rating" onclick="triggerAutoCalcRating()" title="根据公式自动拟合战力">
+                                    <span>⚡ 官方公式拟合</span>
+                                </button>
+                            </div>
+                            <input type="number" id="newBotRating" class="modal-input" placeholder="可手动输入或点右上角自动拟合">
+                        </div>
+
+                        <div class="add-bot-section-title" style="margin-top: 16px;">4. 上传大小头像图片</div>
+                        
+                        <div class="avatar-upload-grid">
+                            <!-- Small Avatar -->
+                            <div class="avatar-upload-card">
+                                <div class="avatar-upload-header">
+                                    <span>卡片小头像 (128×128 / 220×220)</span>
+                                </div>
+                                <div class="avatar-upload-dropzone" onclick="document.getElementById('fileInpSmall').click()">
+                                    <input type="file" id="fileInpSmall" accept="image/*" style="display: none;" onchange="handleNewBotAvatarFile(event, 'small')">
+                                    <div id="previewSmallBox" class="avatar-preview-box">
+                                        <span class="avatar-preview-placeholder">点击选择图片<br><small style="color: #64748B;">PNG / JPG</small></span>
+                                    </div>
+                                </div>
+                                <div class="avatar-card-actions">
+                                    <button type="button" class="btn-avatar-subaction" onclick="document.getElementById('fileInpSmall').click()">选择文件</button>
+                                    <button type="button" class="btn-avatar-subaction" id="btnDownloadSmall" style="display: none;" onclick="downloadUploadedAvatar('small')">下载PNG</button>
+                                </div>
+                            </div>
+
+                            <!-- Large Avatar -->
+                            <div class="avatar-upload-card">
+                                <div class="avatar-upload-header">
+                                    <span>详情大头像 (256×256)</span>
+                                </div>
+                                <div class="avatar-upload-dropzone" onclick="document.getElementById('fileInpLarge').click()">
+                                    <input type="file" id="fileInpLarge" accept="image/*" style="display: none;" onchange="handleNewBotAvatarFile(event, 'large')">
+                                    <div id="previewLargeBox" class="avatar-preview-box">
+                                        <span class="avatar-preview-placeholder">点击选择图片<br><small style="color: #64748B;">PNG / JPG</small></span>
+                                    </div>
+                                </div>
+                                <div class="avatar-card-actions">
+                                    <button type="button" class="btn-avatar-subaction" onclick="document.getElementById('fileInpLarge').click()">选择文件</button>
+                                    <button type="button" class="btn-avatar-subaction" id="btnDownloadLarge" style="display: none;" onclick="downloadUploadedAvatar('large')">下载PNG</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 10px; font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 6px;">
+                            <input type="checkbox" id="chkAutoSyncAvatars" checked style="cursor: pointer;">
+                            <label for="chkAutoSyncAvatars" style="margin-bottom: 0; cursor: pointer;">若只上传了其中一张，自动缩放填充另一张头像</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="padding: 14px 20px; background: rgba(0,0,0,0.2); border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                <div style="font-size: 12px; color: var(--text-sub);" id="addBotStatusMsg">
+                    录入完成后，卡片将即时加入视图，并可直接进入战技面板添加技能
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" class="filter-btn" onclick="closeAddBotModal()">取消</button>
+                    <button type="button" class="btn-submit-new-bot" id="btnSubmitNewBot" onclick="submitNewBot()">
+                        <span>💾 确认录入并同步至云端</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -5006,8 +5372,12 @@
                     gOverviewData = await kvGet('tftf:overview');
                     if (gOverviewData && gOverviewData.characters) {
                         gOverviewData.characters.forEach(c => {
-                            c.portrait_url = `portraits/${c.bot_id}.png`;
-                            c.portrait_large_url = `portraits/${c.bot_id}_large.png`;
+                            if (!c.portrait_url || (!c.portrait_url.startsWith('data:') && !c.portrait_url.startsWith('http'))) {
+                                c.portrait_url = `portraits/${c.bot_id}.png`;
+                            }
+                            if (!c.portrait_large_url || (!c.portrait_large_url.startsWith('data:') && !c.portrait_large_url.startsWith('http'))) {
+                                c.portrait_large_url = `portraits/${c.bot_id}_large.png`;
+                            }
                         });
                     }
                     const puaData = await kvGet('tftf:pua_icons');
@@ -8840,6 +9210,336 @@
 
         // Start
         window.addEventListener('DOMContentLoaded', init);
+    
+        // ==========================================
+        // Add Bot Feature (新建录入机器人)
+        // ==========================================
+        let gNewBotSmallDataUrl = null;
+        let gNewBotLargeDataUrl = null;
+
+        function openAddBotModal() {
+            document.getElementById('newBotId').value = '';
+            document.getElementById('newBotNameZh').value = '';
+            document.getElementById('newBotNameEn').value = '';
+            document.getElementById('newBotClass').value = 'braw';
+            document.getElementById('newBotFaction').value = 'autobot';
+            document.getElementById('newBotSource').value = 'Revival';
+            document.getElementById('newBotStar').value = '5';
+            document.getElementById('newBotNote').value = '';
+
+            document.getElementById('newBotHp').value = '';
+            document.getElementById('newBotAtk').value = '';
+            document.getElementById('newBotRating').value = '';
+            document.getElementById('newBotRating').dataset.autoCalc = '0';
+
+            document.getElementById('newBotSp1Zh').value = '';
+            document.getElementById('newBotSp1En').value = '';
+            document.getElementById('newBotSp2Zh').value = '';
+            document.getElementById('newBotSp2En').value = '';
+            document.getElementById('newBotSp3Zh').value = '';
+            document.getElementById('newBotSp3En').value = '';
+
+            gNewBotSmallDataUrl = null;
+            gNewBotLargeDataUrl = null;
+            document.getElementById('previewSmallBox').innerHTML = '<span class="avatar-preview-placeholder">点击选择图片<br><small style="color: #64748B;">PNG / JPG</small></span>';
+            document.getElementById('previewLargeBox').innerHTML = '<span class="avatar-preview-placeholder">点击选择图片<br><small style="color: #64748B;">PNG / JPG</small></span>';
+            document.getElementById('btnDownloadSmall').style.display = 'none';
+            document.getElementById('btnDownloadLarge').style.display = 'none';
+            document.getElementById('fileInpSmall').value = '';
+            document.getElementById('fileInpLarge').value = '';
+
+            document.getElementById('addBotModal').classList.add('active');
+            setTimeout(() => document.getElementById('newBotId').focus(), 100);
+        }
+
+        function closeAddBotModal() {
+            document.getElementById('addBotModal').classList.remove('active');
+        }
+
+        function sanitizeBotId(input) {
+            input.value = input.value.toLowerCase().replace(/[^a-z0-9_]/g, '_');
+        }
+
+        function calcBotRating(hp, atk, sigLvl = 100) {
+            hp = parseInt(hp) || 0;
+            atk = parseInt(atk) || 0;
+            if (!hp || !atk) return 0;
+            const baseHp = Math.ceil(hp * 0.075);
+            const baseAtk = Math.ceil(atk * 1.0);
+            let rHp = baseHp;
+            let rAtk = baseAtk;
+            if (sigLvl > 0) {
+                const sigBonus = 0.035 * Math.log(Math.max(1, sigLvl));
+                rHp += Math.ceil(baseHp * sigBonus);
+                rAtk += Math.ceil(baseAtk * sigBonus);
+            }
+            const total = rHp + rAtk;
+            if (total === 0) return 0;
+            const num = Math.floor(Math.log10(Math.abs(total))) + 1.0;
+            if (num <= 4) return Math.round(total);
+            const num2 = Math.pow(10.0, num);
+            return Math.round(num2 * Math.round(total / num2 * 10000) / 10000);
+        }
+
+        function autoCalculateRatingIfEmpty() {
+            const hp = document.getElementById('newBotHp').value;
+            const atk = document.getElementById('newBotAtk').value;
+            const ratingInp = document.getElementById('newBotRating');
+            if (hp && atk && (!ratingInp.value || ratingInp.dataset.autoCalc === '1')) {
+                ratingInp.value = calcBotRating(hp, atk);
+                ratingInp.dataset.autoCalc = '1';
+            }
+        }
+
+        function triggerAutoCalcRating() {
+            const hp = document.getElementById('newBotHp').value;
+            const atk = document.getElementById('newBotAtk').value;
+            if (!hp || !atk) {
+                alert('请先输入生命值 (HP) 与攻击力 (Attack)');
+                return;
+            }
+            const ratingInp = document.getElementById('newBotRating');
+            ratingInp.value = calcBotRating(hp, atk);
+            ratingInp.dataset.autoCalc = '1';
+            showToast('已根据官方公式自动拟合评级: ' + ratingInp.value);
+        }
+
+        function handleNewBotAvatarFile(event, type) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    if (type === 'small') {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = 220;
+                        canvas.height = 220;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, 220, 220);
+                        gNewBotSmallDataUrl = canvas.toDataURL('image/png');
+                        document.getElementById('previewSmallBox').innerHTML = `<img src="${gNewBotSmallDataUrl}" style="width:100%;height:100%;object-fit:contain;">`;
+                        document.getElementById('btnDownloadSmall').style.display = 'block';
+
+                        if (document.getElementById('chkAutoSyncAvatars').checked && !gNewBotLargeDataUrl) {
+                            const cL = document.createElement('canvas');
+                            cL.width = 256;
+                            cL.height = 256;
+                            const ctxL = cL.getContext('2d');
+                            ctxL.drawImage(img, 0, 0, 256, 256);
+                            gNewBotLargeDataUrl = cL.toDataURL('image/png');
+                            document.getElementById('previewLargeBox').innerHTML = `<img src="${gNewBotLargeDataUrl}" style="width:100%;height:100%;object-fit:contain;">`;
+                            document.getElementById('btnDownloadLarge').style.display = 'block';
+                        }
+                    } else {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = 256;
+                        canvas.height = 256;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, 256, 256);
+                        gNewBotLargeDataUrl = canvas.toDataURL('image/png');
+                        document.getElementById('previewLargeBox').innerHTML = `<img src="${gNewBotLargeDataUrl}" style="width:100%;height:100%;object-fit:contain;">`;
+                        document.getElementById('btnDownloadLarge').style.display = 'block';
+
+                        if (document.getElementById('chkAutoSyncAvatars').checked && !gNewBotSmallDataUrl) {
+                            const cS = document.createElement('canvas');
+                            cS.width = 220;
+                            cS.height = 220;
+                            const ctxS = cS.getContext('2d');
+                            ctxS.drawImage(img, 0, 0, 220, 220);
+                            gNewBotSmallDataUrl = cS.toDataURL('image/png');
+                            document.getElementById('previewSmallBox').innerHTML = `<img src="${gNewBotSmallDataUrl}" style="width:100%;height:100%;object-fit:contain;">`;
+                            document.getElementById('btnDownloadSmall').style.display = 'block';
+                        }
+                    }
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function downloadUploadedAvatar(type) {
+            const dataUrl = type === 'small' ? gNewBotSmallDataUrl : gNewBotLargeDataUrl;
+            if (!dataUrl) return;
+            const botId = document.getElementById('newBotId').value.trim() || 'bot';
+            const a = document.createElement('a');
+            a.href = dataUrl;
+            a.download = type === 'small' ? `${botId}.png` : `${botId}_large.png`;
+            a.click();
+        }
+
+        async function submitNewBot() {
+            const botId = document.getElementById('newBotId').value.trim();
+            const nameZh = document.getElementById('newBotNameZh').value.trim();
+            const nameEn = document.getElementById('newBotNameEn').value.trim();
+            const classId = document.getElementById('newBotClass').value;
+            const faction = document.getElementById('newBotFaction').value;
+            const source = document.getElementById('newBotSource').value;
+            const star = parseInt(document.getElementById('newBotStar').value) || 5;
+            const note = document.getElementById('newBotNote').value.trim();
+
+            const hp = parseInt(document.getElementById('newBotHp').value);
+            const atk = parseInt(document.getElementById('newBotAtk').value);
+            let rating = parseInt(document.getElementById('newBotRating').value);
+
+            const sp1Zh = document.getElementById('newBotSp1Zh').value.trim() || '特殊攻击 1';
+            const sp1En = document.getElementById('newBotSp1En').value.trim() || 'Special Attack 1';
+            const sp2Zh = document.getElementById('newBotSp2Zh').value.trim() || '特殊攻击 2';
+            const sp2En = document.getElementById('newBotSp2En').value.trim() || 'Special Attack 2';
+            const sp3Zh = document.getElementById('newBotSp3Zh').value.trim() || '特殊攻击 3';
+            const sp3En = document.getElementById('newBotSp3En').value.trim() || 'Special Attack 3';
+
+            if (!botId) {
+                alert('请输入机器人唯一标识 (Bot ID)');
+                document.getElementById('newBotId').focus();
+                return;
+            }
+            if (!/^[a-z0-9_]+$/.test(botId)) {
+                alert('Bot ID 只能包含小写字母、数字和下划线');
+                document.getElementById('newBotId').focus();
+                return;
+            }
+            if (!nameZh) {
+                alert('请输入中文名称');
+                document.getElementById('newBotNameZh').focus();
+                return;
+            }
+            if (isNaN(hp) || hp <= 0) {
+                alert('请输入有效的生命值 (HP)');
+                document.getElementById('newBotHp').focus();
+                return;
+            }
+            if (isNaN(atk) || atk <= 0) {
+                alert('请输入有效的攻击力 (Attack)');
+                document.getElementById('newBotAtk').focus();
+                return;
+            }
+            if (isNaN(rating) || rating <= 0) {
+                rating = calcBotRating(hp, atk);
+            }
+
+            if (gOverviewData && gOverviewData.characters && gOverviewData.characters.some(c => c.bot_id === botId)) {
+                alert(`Bot ID [${botId}] 已存在于角色库中，请更换！`);
+                document.getElementById('newBotId').focus();
+                return;
+            }
+
+            const btn = document.getElementById('btnSubmitNewBot');
+            btn.disabled = true;
+            btn.innerHTML = '<span>⏳ 正在同步录入云端...</span>';
+
+            try {
+                const nowStr = new Date().toISOString().replace('T', ' ').substring(0, 19);
+
+                const classCritMap = {
+                    tact: { crit: 0.14, critDmg: 1.50 },
+                    braw: { crit: 0.08, critDmg: 1.35 },
+                    warr: { crit: 0.24, critDmg: 1.55 },
+                    scou: { crit: 0.32, critDmg: 1.70 },
+                    tech: { crit: 0.15, critDmg: 1.45 },
+                    demo: { crit: 0.14, critDmg: 1.60 }
+                };
+                const critStats = classCritMap[classId] || { crit: 0.15, critDmg: 1.50 };
+
+                const factionPuaMap = {
+                    autobot: 'E132',
+                    decepticon: 'E133',
+                    mercenary: 'E99F',
+                    maximal: 'E160',
+                    predacon: 'E161',
+                    sharkticon: 'E99E'
+                };
+                const facPua = factionPuaMap[faction] || '';
+
+                const portraitUrl = gNewBotSmallDataUrl || `portraits/${botId}.png`;
+                const portraitLargeUrl = gNewBotLargeDataUrl || `portraits/${botId}_large.png`;
+
+                const botOverviewEntry = {
+                    bot_id: botId,
+                    name_zh: nameZh,
+                    name_en: nameEn,
+                    faction: faction,
+                    class: classId,
+                    star_default: star,
+                    source: source,
+                    health_mult: 1.0,
+                    attack_mult: 1.0,
+                    crit_chance: null,
+                    crit_damage: null,
+                    crit_chance_ranged: null,
+                    crit_chance_melee: null,
+                    block_proficiency: 0.5,
+                    mana_gain_mult: 1.0,
+                    origin: source === 'Revival' ? 'Generation 1' : '',
+                    desc_zh: '',
+                    desc_en: '',
+                    note: note,
+                    pua_faction_icon: facPua,
+                    pua_class_icon: '',
+                    updated_at: nowStr,
+                    hp: hp,
+                    attack: atk,
+                    rating: rating,
+                    sp1_name_zh: sp1Zh,
+                    sp1_name_en: sp1En,
+                    sp2_name_zh: sp2Zh,
+                    sp2_name_en: sp2En,
+                    sp3_name_zh: sp3Zh,
+                    sp3_name_en: sp3En,
+                    effective_crit_chance: critStats.crit,
+                    effective_crit_damage: critStats.critDmg,
+                    effective_crit_ranged: critStats.crit,
+                    effective_crit_melee: critStats.crit,
+                    portrait_url: portraitUrl,
+                    portrait_large_url: portraitLargeUrl
+                };
+
+                const botDetail = Object.assign({}, botOverviewEntry, {
+                    abilities: [],
+                    abilities_count: 0
+                });
+
+                if (typeof kvSet === 'function') {
+                    await kvSet('tftf:char:' + botId, botDetail);
+
+                    if (!gOverviewData) gOverviewData = { characters: [], classes: [], factions: [] };
+                    if (!gOverviewData.characters) gOverviewData.characters = [];
+                    gOverviewData.characters.push(botOverviewEntry);
+                    await kvSet('tftf:overview', gOverviewData);
+
+                    if (gAllAbilitiesData) {
+                        if (!gAllAbilitiesData.bots) gAllAbilitiesData.bots = {};
+                        gAllAbilitiesData.bots[botId] = botDetail;
+                        gAllAbilitiesData.total_bots = Object.keys(gAllAbilitiesData.bots).length;
+                        await kvSet('tftf:all_abilities', gAllAbilitiesData);
+                    }
+                } else {
+                    if (gOverviewData && gOverviewData.characters) {
+                        gOverviewData.characters.push(botOverviewEntry);
+                    }
+                }
+
+                if (!gAllBotsData) gAllBotsData = {};
+                gAllBotsData[botId] = botDetail;
+
+                closeAddBotModal();
+                renderDashboard();
+                showToast(`已成功录入机器人【${nameZh}】！`);
+
+                setTimeout(() => {
+                    openCharacterModal(botId);
+                }, 300);
+
+            } catch (err) {
+                console.error('Failed to add bot:', err);
+                alert('录入失败: ' + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<span>💾 确认录入并同步至云端</span>';
+            }
+        }
+
     </script>
 </body>
 </html>

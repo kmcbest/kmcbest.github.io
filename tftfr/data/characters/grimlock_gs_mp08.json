@@ -20,7 +20,7 @@
   "note": "恐龙派领袖 格斗系",
   "pua_faction_icon": "E132",
   "pua_class_icon": "",
-  "updated_at": "2026-10-31 02:35:52",
+  "updated_at": "2026-11-02 08:58:24",
   "hp": 39256,
   "attack": 2490,
   "rating": 10320,
@@ -189,30 +189,6 @@
       "sort_order": 18
     },
     {
-      "id": 2547,
-      "bot_id": "grimlock_gs_mp08",
-      "category": "basic",
-      "title_zh": "近战增益",
-      "title_en": "Melee Buff",
-      "desc_zh": "",
-      "desc_en": "While at {{var_1}} HP and above, Sunstreaker is in Pristine State and gains {{var_2}} Melee Evade and {{var_3}} Armor. Melee Evade is {{var_4}} against Melee Critical Hits.",
-      "pua_icon": "E412",
-      "status": "unimplemented",
-      "sort_order": 13
-    },
-    {
-      "id": 2548,
-      "bot_id": "grimlock_gs_mp08",
-      "category": "basic",
-      "title_zh": "燃烧",
-      "title_en": "Burn",
-      "desc_zh": "",
-      "desc_en": "Heavy Attacks: Double Missile Attack has +{{var_4}} chance to inflict Burn.",
-      "pua_icon": "0xe41d",
-      "status": "unimplemented",
-      "sort_order": 14
-    },
-    {
       "id": 2549,
       "title_zh": "近战增益",
       "title_en": "Melee Buff",
@@ -236,6 +212,42 @@
       "synergy_bots": [],
       "bot_id": "grimlock_gs_mp08",
       "category": "sp3",
+      "sort_order": 16
+    },
+    {
+      "id": 2551,
+      "bot_id": "grimlock_gs_mp08",
+      "category": "basic",
+      "title_zh": "近战增益",
+      "title_en": "Melee Buff",
+      "desc_zh": "临时增加近战普通攻击与近战重击的伤害。",
+      "desc_en": "Temporarily increases damage dealt by basic and heavy melee attacks.",
+      "pua_icon": "E412",
+      "status": "unimplemented",
+      "sort_order": 14
+    },
+    {
+      "id": 2552,
+      "bot_id": "grimlock_gs_mp08",
+      "category": "basic",
+      "title_zh": "燃烧",
+      "title_en": "Burn",
+      "desc_zh": "持续造成能量伤害。",
+      "desc_en": "Deals energy damage over time.",
+      "pua_icon": "E41D",
+      "status": "unimplemented",
+      "sort_order": 15
+    },
+    {
+      "id": 2553,
+      "bot_id": "grimlock_gs_mp08",
+      "category": "basic",
+      "title_zh": "不可阻挡",
+      "title_en": "Unstoppable",
+      "desc_zh": "进攻动作无视对手攻击冲击与受击打断。",
+      "desc_en": "Shrugs off hit reactions; attacks cannot be interrupted.",
+      "pua_icon": "E915",
+      "status": "unimplemented",
       "sort_order": 16
     }
   ]

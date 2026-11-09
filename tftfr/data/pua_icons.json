@@ -4706,6 +4706,15 @@
       "name_zh": "疯狂喂食",
       "name_en": "Feeding Frenzy",
       "notes": "精通"
+    },
+    {
+      "codepoint_hex": "0xe99f",
+      "codepoint_dec": 59807,
+      "glyph_name": "uniE99F",
+      "category": "faction",
+      "name_zh": "雇佣兵",
+      "name_en": "Mercenary",
+      "notes": "雇佣兵阵营徽标"
     }
   ]
 }

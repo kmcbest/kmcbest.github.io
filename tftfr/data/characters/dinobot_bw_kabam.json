@@ -20,7 +20,7 @@
   "note": "超能勇士 战术系",
   "pua_faction_icon": "E160",
   "pua_class_icon": "",
-  "updated_at": "2026-10-31 04:16:05",
+  "updated_at": "2026-11-02 08:21:25",
   "hp": 30844,
   "attack": 2421,
   "rating": 9962,
@@ -43,13 +43,13 @@
       "category": "signature",
       "title_zh": "适者生存",
       "title_en": "Survival of the Fittest",
-      "desc_zh": "恐龙机器人鄙视弱点，会用破损的装甲刺穿敌人的方块。\n\n格挡对手：如果格挡对手破甲，恐龙机器人会通过格挡造成 {{var_14}} 点更多伤害，并有 {{var_15}} 几率发动不可格挡攻击。",
+      "desc_zh": "如果对手在破甲状态下格挡恐龙勇士的任何攻击，格挡伤害提高20%，并且恐龙勇士的攻击有20%的概率不可防御。//不可防御图标不在战斗中出现",
       "desc_en": "Survival of the Fittest\nDinobot despises weakness and will pierce the blocks of enemies with broken armor.\nBlocking Opponents: If a Blocking opponent is Armor Broken, Dinobot deals {{var_14}} more damage through their Block and has a {{var_15}} chance to deliver an Unblockable Attack.",
-      "pua_icon": "",
+      "pua_icon": "E41F",
       "raw_data_json": "",
       "sort_order": 12,
       "synergy_bots": [],
-      "status": "unimplemented"
+      "status": "priority"
     },
     {
       "id": 2501,
@@ -218,6 +218,54 @@
       "pua_icon": "E501",
       "status": "priority",
       "sort_order": 14
+    },
+    {
+      "id": 2515,
+      "bot_id": "dinobot_bw_kabam",
+      "category": "basic",
+      "title_zh": "格挡反伤",
+      "title_en": "Block Damage",
+      "desc_zh": "格挡时对对手造成伤害",
+      "desc_en": "Temporarily increases the damage of critical hits.",
+      "pua_icon": "E50F",
+      "status": "unimplemented",
+      "sort_order": 15
+    },
+    {
+      "id": 2516,
+      "bot_id": "dinobot_bw_kabam",
+      "category": "basic",
+      "title_zh": "破甲",
+      "title_en": "Armor Break",
+      "desc_zh": "移除护甲增益，降低护甲评级并提升受到攻击的伤害量。",
+      "desc_en": "Removes armor buffs and reduces armor rating, amplifying incoming damage.",
+      "pua_icon": "E516",
+      "status": "unimplemented",
+      "sort_order": 16
+    },
+    {
+      "id": 2517,
+      "bot_id": "dinobot_bw_kabam",
+      "category": "basic",
+      "title_zh": "流血",
+      "title_en": "Bleed",
+      "desc_zh": "流失的能量晶体会持续造成直接伤害。",
+      "desc_en": "Bleeding energon causes direct damage over time.",
+      "pua_icon": "E401",
+      "status": "unimplemented",
+      "sort_order": 17
+    },
+    {
+      "id": 2518,
+      "bot_id": "dinobot_bw_kabam",
+      "category": "basic",
+      "title_zh": "修复",
+      "title_en": "Repair",
+      "desc_zh": "随时间推移持续修复生命值，或按受损比例回血。",
+      "desc_en": "Repairs health over time or restores a percentage of lost health.",
+      "pua_icon": "E503",
+      "status": "unimplemented",
+      "sort_order": 18
     }
   ]
 }

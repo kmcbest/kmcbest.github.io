@@ -20,51 +20,303 @@
   "note": "经典G1 科技系",
   "pua_faction_icon": "E132",
   "pua_class_icon": "",
-  "updated_at": "2026-10-24 16:32:04",
+  "updated_at": "2026-11-03 07:35:08",
   "hp": 28352,
   "attack": 2145,
   "rating": 10973,
-  "sp1_name_zh": "快速启动",
+  "sp1_name_zh": "抢跑",
   "sp1_name_en": "Jump Start",
-  "sp2_name_zh": "特殊技 2",
-  "sp2_name_en": "Special Attack 2",
-  "sp3_name_zh": "功夫与拳头",
-  "sp3_name_en": "Sleight of Hand and Fist",
+  "sp2_name_zh": "掌法和拳法",
+  "sp2_name_en": "Sleight of Hand and Fist",
+  "sp3_name_zh": "借口",
+  "sp3_name_en": "Pretense",
   "effective_crit_chance": 0.18,
   "effective_crit_damage": 1.5,
   "effective_crit_ranged": 0.18,
   "effective_crit_melee": 0.18,
   "portrait_url": "portraits/mirage_gs_deluxe2016.png",
   "portrait_large_url": "portraits/mirage_gs_deluxe2016_large.png",
-  "basic_abilities": [],
-  "game_abilities": [
+  "abilities": [
     {
+      "id": 2687,
+      "bot_id": "mirage_gs_deluxe2016",
+      "category": "signature",
+      "title_zh": "K.E.R.S",
+      "title_en": "The Kinetic Energy Recovery System generates the following buffs when activating Special Attacks:",
+      "desc_zh": "发动不同特殊技得到不同的加成\n\n特殊技1：远程攻击射速提升50%，持续19秒  // 橙图标 E41B\n特殊技2：近战攻击变得无法防御，持续19秒  // 橙图标 E41F\n特殊技3：获得90%的攻击加成，持续19秒     //  橙图标 E406\n\n//不管是否命中，都在发动瞬间得到加成",
+      "desc_en": "K.E.R.S - The Kinetic Energy Recovery System generates the following buffs when activating Special Attacks:\nSpecial 1 - Faster projectiles for {{var_5}}seconds.\nSpecial 2 - Unblockable basic Melee Attacks for {{var_6}}seconds.\nSpecial 3 - +{{var_7}} Attack for {{var_8}}seconds.\n+{{var_9}} per level.\n(The buffs refresh for each special attack hit, essentially letting him take full advantage of the buffs during the Specials and only counts down after it ends.)",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 7,
+      "synergy_bots": [],
+      "status": "priority"
+    },
+    {
+      "id": 2691,
+      "bot_id": "mirage_gs_deluxe2016",
+      "category": "synergy",
+      "title_zh": "速度追逐者",
+      "title_en": "Speed Chasers",
+      "desc_zh": "+{{var_17}}~{{var_18}} 躲避对手攻击时进行下一次攻击。",
+      "desc_en": "+{{var_17}}~{{var_18}} Attack on the next hit when dodging opponents' attacks.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 11,
+      "synergy_bots": [
+        "sideswipe_gs",
+        "bumblebee_cin_dotm",
+        "cheetor_bw_transmetal"
+      ],
+      "status": "unimplemented"
+    },
+    {
+      "id": 2692,
+      "bot_id": "mirage_gs_deluxe2016",
+      "category": "synergy",
+      "title_zh": "神枪手",
+      "title_en": "Sharpshooters",
+      "desc_zh": "+{{var_19}}~{{var_20}} 远程攻击的暴击率。",
+      "desc_en": "+{{var_19}}~{{var_20}} Critical Rate on ranged attacks.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 12,
+      "synergy_bots": [
+        "arcee_gs_deluxe2014",
+        "hound_cin_tlk"
+      ],
+      "status": "unimplemented"
+    },
+    {
+      "id": 2693,
+      "bot_id": "mirage_gs_deluxe2016",
+      "category": "synergy",
+      "title_zh": "间谍专家",
+      "title_en": "Espionage Specialists",
+      "desc_zh": "{{var_21}}~{{var_22}} 在使用特殊 2 或 3 击球时激活对手能力的可能性较小。",
+      "desc_en": "{{var_21}}~{{var_22}} less likely to activate the opponent's abilities when hitting with Special 2 or 3.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 13,
+      "synergy_bots": [
+        "bumblebee_cin_dotm",
+        "bumblebee_gs_kabam"
+      ],
+      "status": "unimplemented"
+    },
+    {
+      "id": 2694,
+      "bot_id": "mirage_gs_deluxe2016",
+      "category": "synergy",
+      "title_zh": "赛车对手",
+      "title_en": "Racing Rivals",
+      "desc_zh": "+{{var_23}}~{{var_24}} 严重伤害。",
+      "desc_en": "+{{var_23}}~{{var_24}} Critical Damage.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 14,
+      "synergy_bots": [
+        "hotrod_cin_tlk"
+      ],
+      "status": "unimplemented"
+    },
+    {
+      "id": 2695,
+      "bot_id": "mirage_gs_deluxe2016",
+      "category": "synergy",
+      "title_zh": "屏蔽放大器",
+      "title_en": "Shield Amp",
+      "desc_zh": "+{{var_25}}~{{var_26}} 屏蔽时伤害扣除。",
+      "desc_en": "+{{var_25}}~{{var_26}} damage deduction when Shielded.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 15,
+      "synergy_bots": [
+        "soundwave_gs",
+        "blaster_gs_leader2016"
+      ],
+      "status": "unimplemented"
+    },
+    {
+      "id": 2696,
+      "bot_id": "mirage_gs_deluxe2016",
+      "category": "synergy",
+      "title_zh": "心智压榨",
+      "title_en": "Brain Drain",
+      "desc_zh": "冲击波会从震惊的对手身上消耗更多 {{var_27}}~{{var_28}} 的能量。",
+      "desc_en": "Shockwave Drains {{var_27}}~{{var_28}} more Power from Shocked opponents.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 16,
+      "synergy_bots": [
+        "shockwave_gs"
+      ],
+      "status": "unimplemented"
+    },
+    {
+      "id": 2697,
+      "bot_id": "mirage_gs_deluxe2016",
+      "category": "synergy",
+      "title_zh": "不安的盟友",
+      "title_en": "Uneasy Allies",
+      "desc_zh": "+{{var_29}}~{{var_30}} 装甲。",
+      "desc_en": "+{{var_29}}~{{var_30}} Armor.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 17,
+      "synergy_bots": [
+        "cliffjumper_gs_kabam"
+      ],
+      "status": "unimplemented"
+    },
+    {
+      "id": 2698,
+      "bot_id": "mirage_gs_deluxe2016",
+      "category": "synergy",
+      "title_zh": "巨擎天柱",
+      "title_en": "Optimus Maximus",
+      "desc_zh": "使用{{var_31}}~{{var_32}} Power开始战斗。仅当团队中的所有机器人都具有此协同羁绊时才适用。",
+      "desc_en": "Start the fight with {{var_31}}~{{var_32}} Power. Only applies if all Bots on the team have this Synergy.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 18,
+      "synergy_bots": [
+        "fte_optimus_gs_t3"
+      ],
+      "status": "unimplemented"
+    },
+    {
+      "id": 2699,
+      "bot_id": "mirage_gs_deluxe2016",
+      "category": "synergy",
+      "title_zh": "领袖威仪 (5星)",
+      "title_en": "Leadership (5 Star)",
+      "desc_zh": "所有较低级别的队友都会获得+{{var_33}} 功率值。",
+      "desc_en": "All lower tier teammates gain +{{var_33}} Power Rate.",
+      "pua_icon": "",
+      "raw_data_json": "",
+      "sort_order": 19,
+      "synergy_bots": [],
+      "status": "unimplemented"
+    },
+    {
+      "id": 2700,
+      "bot_id": "mirage_gs_deluxe2016",
+      "category": "sp1",
+      "title_zh": "破坏模式",
+      "title_en": "Disruption Mode",
+      "desc_zh": "进入破坏模式，该模式下远程攻击命中或被防有60%的概率扣除对方最大能量的9%  // 紫色图标出现，无倒计时，并移除存在的失能模式和敏捷模式的图标",
+      "desc_en": "",
+      "pua_icon": "E41B",
+      "status": "priority",
+      "sort_order": 14
+    },
+    {
+      "id": 2701,
+      "bot_id": "mirage_gs_deluxe2016",
+      "category": "sp2",
+      "title_zh": "失能模式",
+      "title_en": "Incapacitation Mode",
+      "desc_zh": "进入失能模式，该模式下近战攻击每一击能施加1层攻击减益，降低对方4.75%的攻击力，持续20秒，最多叠加15层 // 紫色E41F图标出现，无倒计时，并移除存在的破坏模式和敏捷模式的图标\n//攻击减益图标为e916，出现在对方侧\n每施加7层攻击减益，眩晕对手1.5秒。",
+      "desc_en": "",
+      "pua_icon": "E41F",
+      "status": "priority",
+      "sort_order": 15
+    },
+    {
+      "id": 2702,
+      "bot_id": "mirage_gs_deluxe2016",
+      "category": "sp3",
+      "title_zh": "敏捷模式",
+      "title_en": "Agility Mode",
+      "desc_zh": "进入敏捷模式，每次极限闪避对方攻击时，获得15%的永久攻击增益，最大堆叠20层。 // 紫色E406图标出现，无倒计时，并移除存在的失能模式和破坏模式的图标\n//得到的攻击增益是橙色的E406图标，无倒计时，可叠加。",
+      "desc_en": "",
+      "pua_icon": "E406",
+      "status": "priority",
+      "sort_order": 16
+    },
+    {
+      "id": 2703,
+      "bot_id": "mirage_gs_deluxe2016",
+      "category": "passive",
       "title_zh": "护盾",
       "title_en": "Shield",
       "desc_zh": "对方发动特殊技时得到一个护盾，降低对方90%的暴击伤害和远程伤害（包括特殊技中的远程攻击），直到幻影被击倒。",
+      "desc_en": "Sonic Shield\nSoundwave projects a Sonic Shield that grants him Energy Resistance and a chance to Reflect incoming Ranged Attacks.\nWhen filling a Power Bar: Soundwave projects a Sonic Shield that grants him {{var_5}} Energy Resistance and has a {{var_6}} chance to Reflect incoming Ranged Attacks, dealing {{var_7}} of their original damage.\n+about {{var_8}} per level",
       "pua_icon": "E515",
-      "ui_trigger": "护盾"
+      "status": "priority",
+      "sort_order": 17
     },
     {
+      "id": 2704,
+      "bot_id": "mirage_gs_deluxe2016",
+      "category": "passive",
       "title_zh": "能量涌动",
       "title_en": "Power Flow",
-      "desc_zh": "幻影开局时进入能量模式，获得能量的功率提高30%，被击倒后退出能量模式，15秒后恢复",
+      "desc_zh": "幻影开局时进入能量模式，获得能量的功率提高30%，被击倒后退出能量模式，15秒后恢复  // 开局紫色图标，被击倒后变成灰色15秒倒计时图标，倒计时结束再变成紫色。",
+      "desc_en": "",
       "pua_icon": "E608",
-      "ui_trigger": "能量涌动"
+      "status": "priority",
+      "sort_order": 18
     },
     {
+      "id": 2705,
+      "bot_id": "mirage_gs_deluxe2016",
+      "category": "passive",
       "title_zh": "重击远程穿透",
       "title_en": "Heavy Range Immunue",
-      "desc_zh": "重击全程不会被远程普通攻击和远程重击击中。",
-      "pua_icon": "E518",
-      "ui_trigger": "重击远程穿透"
+      "desc_zh": "重击全程不会被远程普通攻击和远程重击击中。//对方的远程普通攻击和远程重击会直接从幻影身边飞过，这个过程显示一个黄色的图标，重击完成后消失。\n//与风刃的重击有同样效果",
+      "desc_en": "",
+      "pua_icon": "0xe518",
+      "status": "priority",
+      "sort_order": 19
     },
     {
+      "id": 2706,
+      "bot_id": "mirage_gs_deluxe2016",
+      "category": "passive",
       "title_zh": "重击净化",
       "title_en": "Heavy Purify",
       "desc_zh": "发动重击时净化所有燃烧伤害",
-      "pua_icon": "E41D",
-      "ui_trigger": "重击净化"
+      "desc_en": "Sideswipe purifies all Shock debuffs.",
+      "pua_icon": "",
+      "status": "priority",
+      "sort_order": 20
+    },
+    {
+      "id": 2707,
+      "bot_id": "mirage_gs_deluxe2016",
+      "category": "basic",
+      "title_zh": "护盾",
+      "title_en": "Shield",
+      "desc_zh": "展开力场吸收来袭伤害，优先于生命值消耗。",
+      "desc_en": "Deploys a forcefield that absorbs incoming damage before reducing health.",
+      "pua_icon": "E515",
+      "status": "unimplemented",
+      "sort_order": 18
+    },
+    {
+      "id": 2708,
+      "bot_id": "mirage_gs_deluxe2016",
+      "category": "basic",
+      "title_zh": "能量燃烧",
+      "title_en": "Power Burn",
+      "desc_zh": "立即扣减对手的能量槽。",
+      "desc_en": "Instantly burns the opponent's power gauge.",
+      "pua_icon": "E607",
+      "status": "unimplemented",
+      "sort_order": 19
+    },
+    {
+      "id": 2709,
+      "bot_id": "mirage_gs_deluxe2016",
+      "category": "basic",
+      "title_zh": "攻击减益",
+      "title_en": "Attack Debuff",
+      "desc_zh": "削弱机体动力，临时减少对手攻击评分与输出。",
+      "desc_en": "Temporarily reduces the opponent's attack rating and damage output.",
+      "pua_icon": "E916",
+      "status": "unimplemented",
+      "sort_order": 20
     }
   ]
 }

@@ -20,7 +20,7 @@
   "note": "经典G1 格斗系 [特性: 0近战暴击，远程暴击率加成]",
   "pua_faction_icon": "E133",
   "pua_class_icon": "",
-  "updated_at": "2026-10-31 03:51:02",
+  "updated_at": "2026-11-02 09:00:21",
   "hp": 32402,
   "attack": 2306,
   "rating": 10009,
@@ -230,6 +230,54 @@
       "sort_order": 30,
       "synergy_bots": [],
       "status": "unimplemented"
+    },
+    {
+      "id": 3426,
+      "bot_id": "thundercracker_gs_leader2015",
+      "category": "basic",
+      "title_zh": "燃烧",
+      "title_en": "Burn",
+      "desc_zh": "持续造成能量伤害。",
+      "desc_en": "Deals energy damage over time.",
+      "pua_icon": "E41D",
+      "status": "unimplemented",
+      "sort_order": 14
+    },
+    {
+      "id": 3427,
+      "bot_id": "thundercracker_gs_leader2015",
+      "category": "basic",
+      "title_zh": "不可阻挡",
+      "title_en": "Unstoppable",
+      "desc_zh": "进攻动作无视对手攻击冲击与受击打断。",
+      "desc_en": "Shrugs off hit reactions; attacks cannot be interrupted.",
+      "pua_icon": "E915",
+      "status": "unimplemented",
+      "sort_order": 15
+    },
+    {
+      "id": 3428,
+      "bot_id": "thundercracker_gs_leader2015",
+      "category": "basic",
+      "title_zh": "近战增益",
+      "title_en": "Melee Buff",
+      "desc_zh": "临时增加近战普通攻击与近战重击的伤害。",
+      "desc_en": "Temporarily increases damage dealt by basic and heavy melee attacks.",
+      "pua_icon": "E412",
+      "status": "unimplemented",
+      "sort_order": 16
+    },
+    {
+      "id": 3429,
+      "bot_id": "thundercracker_gs_leader2015",
+      "category": "basic",
+      "title_zh": "格挡宗师",
+      "title_en": "Blocking Master",
+      "desc_zh": "大幅度提升格挡能力和格挡效果",
+      "desc_en": "Shatters the opponent's shield.",
+      "pua_icon": "E984",
+      "status": "unimplemented",
+      "sort_order": 17
     }
   ]
 }

@@ -3204,6 +3204,7 @@
                     <button class="filter-btn faction-filter-btn active" onclick="filterFaction('all', this)">全部阵营</button>
                     <button class="filter-btn faction-filter-btn" id="btnFilter_autobot" onclick="filterFaction('autobot', this)">汽车人</button>
                     <button class="filter-btn faction-filter-btn" id="btnFilter_decepticon" onclick="filterFaction('decepticon', this)">霸天虎</button>
+                    <button class="filter-btn faction-filter-btn" id="btnFilter_mercenary" onclick="filterFaction('mercenary', this)"><span class="tecnica-icon" style="margin-right: 4px;">&#xE99F;</span>雇佣兵</button>
                     <button class="filter-btn faction-filter-btn" id="btnFilter_sharkticon" onclick="filterFaction('sharkticon', this)"><span class="tecnica-icon" style="margin-right: 4px;">&#xE99E;</span>饿鲨</button>
                     <button class="filter-btn faction-filter-btn" id="btnFilter_predacon" onclick="filterFaction('predacon', this)">原始兽</button>
                     <button class="filter-btn faction-filter-btn" id="btnFilter_maximal" onclick="filterFaction('maximal', this)">巨无霸</button>
@@ -4722,6 +4723,7 @@
                     else if (bot.faction === 'maximal') facPua = 'E160';
                     else if (bot.faction === 'predacon') facPua = 'E161';
                     else if (bot.faction === 'sharkticon') facPua = 'E99E';
+                    else if (bot.faction === 'mercenary') facPua = 'E99F';
                 }
                 const facGlyph = facPua ? String.fromCharCode(parseInt(facPua, 16)) : '';
                 const clsPua = classObj.pua_icon || '';
@@ -5062,12 +5064,14 @@
             const sharkCount = characters.filter(b => b.bot_id && b.bot_id.includes('sharkticon')).length;
             const autoCount = characters.filter(b => b.faction === 'autobot').length;
             const decCount = characters.filter(b => b.faction === 'decepticon' && !(b.bot_id && b.bot_id.includes('sharkticon'))).length;
+            const mercCount = characters.filter(b => b.faction === 'mercenary').length;
             const predCount = characters.filter(b => b.faction === 'predacon').length;
             const maxCount = characters.filter(b => b.faction === 'maximal').length;
 
             const factionCounts = {
                 autobot: autoCount,
                 decepticon: decCount,
+                mercenary: mercCount,
                 predacon: predCount,
                 maximal: maxCount,
             };
@@ -5265,6 +5269,7 @@
                 else if (bot.faction === 'decepticon') facPua = isMovie ? 'E135' : 'E133';
                 else if (bot.faction === 'maximal') facPua = 'E160';
                 else if (bot.faction === 'predacon') facPua = 'E161';
+                else if (bot.faction === 'mercenary') facPua = 'E99F';
             }
             const isCritOverridden = bot.crit_chance !== null && bot.crit_chance !== undefined;
             const critDisplay = Math.round((bot.effective_crit_chance !== undefined ? bot.effective_crit_chance : 0.15) * 100);
@@ -8431,6 +8436,7 @@
                 else if (bot.faction === 'decepticon') facPua = isMovie ? 'E135' : 'E133';
                 else if (bot.faction === 'maximal') facPua = 'E160';
                 else if (bot.faction === 'predacon') facPua = 'E161';
+                else if (bot.faction === 'mercenary') facPua = 'E99F';
             }
 
             const facGlyph = facPua ? String.fromCharCode(parseInt(facPua, 16)) : '⯁';

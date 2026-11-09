@@ -20,7 +20,7 @@
   "note": "抵抗军女领袖，战术系",
   "pua_faction_icon": "E132",
   "pua_class_icon": "E302",
-  "updated_at": "2026-10-31 13:15:24",
+  "updated_at": "2026-11-02 08:16:43",
   "hp": 38400,
   "attack": 2780,
   "rating": 6574,
@@ -39,115 +39,116 @@
   "basic_abilities": [],
   "game_abilities": [
     {
-      "title_zh": "战术洞察",
+      "title_zh": "战术洞察与霸体破除",
       "title_en": "Tactical Insight",
-      "desc_zh": "100%概率规避不可阻挡状态对手的近战攻击，并获得30%的近战增益，持续3秒。",
-      "pua_icon": "E509",
+      "desc_zh": "命中处于不可阻挡状态的对手时，100% 概率无视其霸体硬直并造成击退，同时施加 32% 重度破甲持续 6 秒。对手身上每存在一层正面增益（护甲、攻击提升、狂暴），其增益数值被艾丽塔的战术压制削弱 30%。",
+      "pua_icon": "0xe915",
       "category": "game_ability",
-      "ui_trigger": "战术洞察"
+      "ui_trigger": "对战不可阻挡敌人时"
     },
     {
-      "title_zh": "灵动反击",
-      "title_en": "Nimble Counter",
-      "desc_zh": "闪避对手前冲攻击或近战攻击时，有50%的概率得到一个反击锦囊，持续1秒，此时间内如果击中对手，可将对手眩晕1.5秒；如果攻击被对手闪避，则对对手施加1层50%的攻击减益，持续3秒。",
-      "pua_icon": "E50A",
+      "title_zh": "娇小机动与敏捷后撤",
+      "title_en": "Nimble Step",
+      "desc_zh": "向后滑步与翻滚闪避时获得持续 2 秒的战术机动，期间完全免疫近战扑击与冲锋击退，且下一次远程/重击必定暴击。",
+      "pua_icon": "0xe518",
       "category": "game_ability",
-      "ui_trigger": "灵动反击"
+      "ui_trigger": "滑步后撤与翻滚闪避"
     },
     {
-      "title_zh": "关节狙击",
-      "title_en": "Joint Aim",
-      "desc_zh": "远程攻击100%护甲穿透\n远程攻击命中或被防均有70%概率刷新对手身上的减益持续时间。",
-      "pua_icon": "E409",
+      "title_zh": "精准关节狙击",
+      "title_en": "Precision Marksmanship",
+      "desc_zh": "所有远程攻击与重击无视对手 60% 基础护甲。远程暴击命中减益目标时暴击伤害增加 55%，并有 70% 概率刷新对手身上的减益与破甲持续时间。",
+      "pua_icon": "0xe40d",
       "category": "game_ability",
-      "ui_trigger": "关节狙击"
+      "ui_trigger": "远程射击与重击"
     },
     {
-      "title_zh": "破甲",
-      "title_en": "Armor Break",
-      "desc_zh": "远程暴击命中时施加1层50%的破甲减益，持续6秒，最大叠加1层。",
-      "pua_icon": "E516",
+      "title_zh": "战术拆解与能量回溯",
+      "title_en": "Tactical Dispel",
+      "desc_zh": "重击命中必定驱散对手 2 层正面增益（优先驱散护甲与狂暴），每驱散一层返还自身 12% 能量，并削减对手 35% 能量获取率持续 7 秒。",
+      "pua_icon": "0xe950",
       "category": "game_ability",
-      "ui_trigger": "破甲"
+      "ui_trigger": "重击撞击命中"
     },
     {
       "title_zh": "领袖威仪",
       "title_en": "Commander's Presence",
-      "desc_zh": "受到DOT伤害时，每击中对手一次，DOT倒计时加速20%。",
+      "desc_zh": "受到非伤害性减益持续时间减少 40%。当对手身上的正面增益被完全清空时，自身攻击力提升 25%。",
       "pua_icon": "0xe41f",
       "category": "game_ability",
-      "ui_trigger": "领袖威仪"
+      "ui_trigger": "常驻效果"
+    },
+    {
+      "title_zh": "抵抗军之火",
+      "title_en": "Resistance Flame",
+      "desc_zh": "生命值首次低于 50% 时激活相当于 20% 生命值的护盾持续 8 秒并净化流血；队伍中有擎天柱时护盾提升 50%。",
+      "pua_icon": "0xe942",
+      "category": "game_ability",
+      "ui_trigger": "生命值低于 50% 时"
     }
   ],
   "signature": {
-    "title_zh": "抵抗军之火",
-    "title_en": "Resistance Flame",
-    "desc_zh": "生命值首次低于50%时激活1层50%的攻击增益和1层50%的暴击率增益，持续6秒。\n生命值首次低于25%时激活1层90%的护甲增益，持续6秒\n生命值低于25%时，对手释放特殊技1或2，有40%的概率被打断，进入眩晕状态1.5秒，每局只能触发一次。对斗士系角色概率为70% 。",
-    "desc_en": "When health falls below 50%, activate 50% Attack and 50% Crit Rate buffs for 6s. Below 25%, activate 90% Armor buff for 6s. Below 25%, enemy SP1/SP2 has a 40% chance (70% vs Brawlers) to be interrupted and stunned for 1.5s (once per match).",
-    "pua_icon": "E942",
+    "title_zh": "时空力场",
+    "title_en": "Chrono Stasis",
+    "desc_zh": "艾丽塔激活体内的远古时空发生器。\n\n• 对手每次激活特殊攻击时，有 45%~85% 概率触发【时间停滞】0.8秒，打断其特技起手动作并扣除其 50% 能量；对阵斗士系时触发几率额外提升 15%。\n• 在时空力场影响下，对手闪避几率强制降为 0%，承受暴击伤害提升 30%~65%。",
+    "pua_icon": "0xE41F",
     "ui_trigger": "none"
   },
   "special_attacks": {
     "sp1": {
       "name_zh": "等离子疾射",
       "name_en": "Plasma Burst",
-      "ui_trigger": "onSpecial1Hit",
-      "desc_zh": "最后一击命中100%施加35%的破甲减益，持续 7 秒；对阵斗士系时破甲提升至50%。",
-      "pua_icon": "E516",
+      "ui_trigger": "特殊攻击 1",
       "effects": [
         {
-          "title_zh": "破甲",
-          "title_en": "Armor Break",
-          "desc_zh": "最后一击命中100%施加35%的破甲减益，持续 7 秒；对阵斗士系时破甲提升至50%。",
-          "pua_icon": "E516"
+          "title_zh": "核心穿甲",
+          "title_en": "Core Breach",
+          "desc_zh": "最后一击 100% 施加 35% 破甲持续 7 秒；对阵斗士系时破甲提升至 50%。",
+          "pua_icon": "0xE40D"
         },
         {
-          "title_zh": "能量燃烧",
+          "title_zh": "能量点燃",
           "title_en": "Power Burn",
-          "desc_zh": "如果对方3格能量满，则最后一击命中时立即扣除其最大能量的5%。",
-          "pua_icon": "0xe607"
+          "desc_zh": "每次射击 60% 概率扣除对手 1.5% 能量，并封印对手受击获得能量途径持续 4 秒。",
+          "pua_icon": "0xE607"
         }
       ]
     },
     "sp2": {
-      "name_zh": "混沌舞步",
-      "name_en": "Chaotic Dance",
-      "ui_trigger": "onSpecial2Hit",
-      "desc_zh": "每1击有80%的驱散对手1层护甲、护盾或攻击增益。",
-      "pua_icon": "0xe950",
+      "name_zh": "领袖之怒",
+      "name_en": "Commander's Wrath",
+      "ui_trigger": "特殊攻击 2",
       "effects": [
         {
-          "title_zh": "驱散",
-          "title_en": "Nullify",
-          "desc_zh": "每1击有80%的驱散对手1层护甲、护盾或攻击增益。",
-          "pua_icon": "0xe950"
+          "title_zh": "全面净化与增益过载",
+          "title_en": "Total Purge & Overload",
+          "desc_zh": "强制驱散对手全部正面增益；每净化一层造成相当于攻击力 60% 的额外能量绝杀伤害（可暴击）。",
+          "pua_icon": "0xE950"
         },
         {
-          "title_zh": "震击",
-          "title_en": "Shock",
-          "desc_zh": "最后一击100%的概率施加震击，造成攻击100%的伤害，持续10秒。",
-          "pua_icon": "0xe914"
+          "title_zh": "战术致盲 / 霸体转化眩晕",
+          "title_en": "Tactical Blindness",
+          "desc_zh": "致盲对手 6 秒（45% 攻击落空）；若对手受击前处于不可阻挡状态，则直接转化为 2.5 秒重度眩晕。",
+          "pua_icon": "0xE41F"
         }
       ]
     },
     "sp3": {
-      "name_zh": "塞伯坦和平年代",
-      "name_en": "Pax Cybertronia",
-      "ui_trigger": "onSpecial3Hit",
-      "desc_zh": "最后一击施加流血，造成攻击力120%的伤害，持续6秒。",
-      "pua_icon": "0xe401",
+      "name_zh": "时空绝杀：塞伯坦之愿",
+      "name_en": "Chrono Annihilation",
+      "ui_trigger": "特殊攻击 3",
       "effects": [
         {
-          "title_zh": "流血",
-          "title_en": "Bleed",
-          "desc_zh": "最后一击施加流血，造成攻击力120%的伤害，持续6秒。",
-          "pua_icon": "0xe401"
+          "title_zh": "火种舱裂解与绝对禁疗",
+          "title_en": "Spark Rupture",
+          "desc_zh": "施加持续 10 秒的等离子裂解，每秒造成攻击力 18% 伤害，期间 100% 阻止对手所有生命恢复。",
+          "pua_icon": "0xE401"
         },
         {
-          "title_zh": "战术封锁",
-          "title_en": "Tactical Lockdown",
-          "desc_zh": "技能结束后封印对手全部特殊攻击8秒。",
-          "pua_icon": "E419"
+          "title_zh": "战术封锁与领袖鼓舞",
+          "title_en": "Tactical Lockdown & Vanguard Inspire",
+          "desc_zh": "封印对手全部特殊攻击 8 秒；同时自身获得攻击力提升 40% 与普攻 100% 暴击率，持续 12 秒。",
+          "pua_icon": "0xE41F"
         }
       ]
     }
@@ -173,7 +174,7 @@
       "category": "passive",
       "title_zh": "灵动反击",
       "title_en": "Nimble Counter",
-      "desc_zh": "闪避对手前冲攻击或近战攻击时，有50%的概率得到一个反击锦囊，持续1秒，此时间内如果击中对手，可将对手眩晕1.5秒；如果攻击被对手闪避，则对对手施加1层50%的攻击减益，持续3秒。 // 反击锦囊为黄色图标 E50A，攻击减益用技能工厂定义好的红色图标",
+      "desc_zh": "闪避对手前冲攻击或近战攻击时，有50%的概率得到一个反击锦囊，持续2秒，此时间内：\n- 如果击中对手，可将对手眩晕1.5秒\n- 如果攻击被对手闪避，则对对手施加1层50%的攻击减益，持续3秒。 // 反击锦囊为黄色图标 E50A，攻击减益用技能工厂定义好的红色图标",
       "desc_en": "Dashing back or dodging grants Tactical Mobility for 2s, granting complete immunity to melee dashes and knockbacks, while making the next Ranged/Heavy Attack a guaranteed Critical Hit.",
       "pua_icon": "E50A",
       "raw_data_json": "{}",
@@ -229,7 +230,7 @@
       "category": "sp1",
       "title_zh": "破甲",
       "title_en": "Armor Break",
-      "desc_zh": "最后一击命中100%施加35%的破甲减益，持续 7 秒；对阵斗士系时破甲提升至50%。",
+      "desc_zh": "最后一击命中100%施加35%的破甲减益，持续7秒；对阵斗士系时破甲提升至50%。",
       "desc_en": "Last hit 100% inflicts 35% Armor Break for 7s (increases to 50% vs Brawlers).",
       "pua_icon": "E516",
       "raw_data_json": "{}",
@@ -350,36 +351,54 @@
       "pua_icon": "0xe914",
       "status": "priority",
       "sort_order": 17
-    }
-  ],
-  "synergies": [
-    {
-      "title_zh": "永恒誓言",
-      "title_en": "Eternal Bond",
-      "desc_zh": "（双向）战斗开始时，获得相当于自身最大生命值15%的能量护盾，优先承受普通攻击的伤害，直到消耗完。",
-      "pua_icon": "E815",
-      "bonus_heroes": [
-        "fte_optimus_gs_t3",
-        "optimusprime_cin_tf"
-      ],
-      "synergy_bots": [
-        "fte_optimus_gs_t3",
-        "optimusprime_cin_tf"
-      ]
     },
     {
-      "title_zh": "抵抗军姐妹",
-      "title_en": "Resistance Sisters",
-      "desc_zh": "暴击率额外提升10%，重击伤害增益25%。",
-      "pua_icon": "0xe40d",
-      "bonus_heroes": [
-        "chromia_gs_kabam",
-        "arcee_gs_deluxe2014"
-      ],
-      "synergy_bots": [
-        "chromia_gs_kabam",
-        "arcee_gs_deluxe2014"
-      ]
+      "id": 4019,
+      "bot_id": "elita_one_gs_kabam",
+      "category": "basic",
+      "title_zh": "流血",
+      "title_en": "Bleed",
+      "desc_zh": "流失的能量晶体会持续造成直接伤害。",
+      "desc_en": "Bleeding energon causes direct damage over time.",
+      "pua_icon": "E401",
+      "status": "unimplemented",
+      "sort_order": 15
+    },
+    {
+      "id": 4020,
+      "bot_id": "elita_one_gs_kabam",
+      "category": "basic",
+      "title_zh": "灵动反击",
+      "title_en": "Counterpunch",
+      "desc_zh": "成功闪避近战或前冲后获得反击契机，可打出硬直或眩晕。",
+      "desc_en": "Successful dodges grant counter windows to stagger or stun the opponent.",
+      "pua_icon": "E50A",
+      "status": "unimplemented",
+      "sort_order": 16
+    },
+    {
+      "id": 4021,
+      "bot_id": "elita_one_gs_kabam",
+      "category": "basic",
+      "title_zh": "战术封锁",
+      "title_en": "Tactical Lockdown",
+      "desc_zh": "封印对手全部特殊攻击，期间对手无法发动任何特殊技。",
+      "desc_en": "Locks down all special attacks, preventing the opponent from launching any special move.",
+      "pua_icon": "E419",
+      "status": "unimplemented",
+      "sort_order": 17
+    },
+    {
+      "id": 4022,
+      "bot_id": "elita_one_gs_kabam",
+      "category": "basic",
+      "title_zh": "破甲",
+      "title_en": "Armor Break",
+      "desc_zh": "移除护甲增益，降低护甲评级并提升受到攻击的伤害量。",
+      "desc_en": "Removes armor buffs and reduces armor rating, amplifying incoming damage.",
+      "pua_icon": "E516",
+      "status": "unimplemented",
+      "sort_order": 18
     }
   ]
 }

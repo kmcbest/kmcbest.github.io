@@ -1,6 +1,6 @@
 {
-  "total_bots": 80,
-  "total_abilities": 1176,
+  "total_bots": 81,
+  "total_abilities": 1184,
   "bots": {
     "acidstorm_gs_leader2015": {
       "bot_id": "acidstorm_gs_leader2015",
@@ -19889,7 +19889,167 @@
           "status": "priority"
         }
       ]
+    },
+    "bugbite_gs_kabam": {
+      "bot_id": "bugbite_gs_kabam",
+      "name_zh": "杀人蜂",
+      "name_en": "Bug Bite",
+      "faction": "mercenary",
+      "class": "braw",
+      "star_default": 5,
+      "source": "Revival",
+      "health_mult": 1.0,
+      "attack_mult": 1.0,
+      "crit_chance": null,
+      "crit_damage": null,
+      "crit_chance_ranged": null,
+      "crit_chance_melee": null,
+      "block_proficiency": 0.5,
+      "mana_gain_mult": 1.0,
+      "origin": "Generation 1",
+      "desc_zh": "",
+      "desc_en": "",
+      "note": "经典G1 斗士系 杀人蜂",
+      "pua_faction_icon": "E99F",
+      "pua_class_icon": "",
+      "updated_at": "2026-11-09 12:58:02",
+      "hp": 45022,
+      "attack": 3637,
+      "rating": 8146,
+      "sp1_name_zh": "音波冲击",
+      "sp1_name_en": "Sonic Blast",
+      "sp2_name_zh": "蜂刺毒弹",
+      "sp2_name_en": "Wasp Sting",
+      "sp3_name_zh": "碎玻璃毒气终结",
+      "sp3_name_en": "Glass Gas Crash",
+      "effective_crit_chance": 0.08,
+      "effective_crit_damage": 1.35,
+      "effective_crit_ranged": 0.08,
+      "effective_crit_melee": 0.08,
+      "portrait_url": "portraits/bugbite_gs_kabam.png",
+      "portrait_large_url": "portraits/bugbite_gs_kabam_large.png",
+      "abilities": [
+        {
+          "id": 4023,
+          "bot_id": "bugbite_gs_kabam",
+          "category": "signature",
+          "title_zh": "背叛之刺",
+          "title_en": "Traitor's Sting",
+          "desc_zh": "杀人蜂狡诈地突破敌人的防御。每当进入近战距离，获得能量涌动与近战狂乱增益，近战伤害提升25%。",
+          "desc_en": "Bug Bite slyly breaches defenses. Upon entering melee range, gains Power Gain and Melee Fury buff, increasing melee damage by 25%.",
+          "pua_icon": "E99F",
+          "raw_data_json": "{}",
+          "sort_order": 1,
+          "synergy_bots": [],
+          "status": "unimplemented"
+        },
+        {
+          "id": 4024,
+          "bot_id": "bugbite_gs_kabam",
+          "category": "sp1",
+          "title_zh": "音波冲击",
+          "title_en": "Sonic Blast",
+          "desc_zh": "技能发动过程中暴击伤害提升60%",
+          "desc_en": "Increases Critical Damage by 60% during the special attack.",
+          "pua_icon": "0xe906",
+          "raw_data_json": "{}",
+          "sort_order": 2,
+          "synergy_bots": [],
+          "status": "unimplemented"
+        },
+        {
+          "id": 4025,
+          "bot_id": "bugbite_gs_kabam",
+          "category": "sp2",
+          "title_zh": "蜂刺毒弹",
+          "title_en": "Wasp Sting",
+          "desc_zh": "命中时100%概率触发能量锁定，阻止对方获得能量，持续10秒",
+          "desc_en": "100% chance on hit to inflict Power Lock, preventing the opponent from gaining Power for 10s.",
+          "pua_icon": "0xe523",
+          "raw_data_json": "{}",
+          "sort_order": 3,
+          "synergy_bots": [],
+          "status": "unimplemented"
+        },
+        {
+          "id": 4026,
+          "bot_id": "bugbite_gs_kabam",
+          "category": "sp3",
+          "title_zh": "碎玻璃毒气终结",
+          "title_en": "Glass Gas Crash",
+          "desc_zh": "技能结束后获得7.5秒的不可阻挡增益与毒气破甲效果。",
+          "desc_en": "Grants 7.5s of Unstoppable and Glass Gas Armor Break upon finishing.",
+          "pua_icon": "E915",
+          "raw_data_json": "{}",
+          "sort_order": 4,
+          "synergy_bots": [],
+          "status": "unimplemented"
+        },
+        {
+          "id": 4027,
+          "bot_id": "bugbite_gs_kabam",
+          "category": "synergy",
+          "title_zh": "盟友——威震天、红蜘蛛",
+          "title_en": "Allies – Megatron, Starscream",
+          "desc_zh": "+10%~20% 暴击伤害。",
+          "desc_en": "+10%~20% Critical Damage when teamed with Megatron or Starscream.",
+          "pua_icon": "",
+          "raw_data_json": "{}",
+          "sort_order": 5,
+          "synergy_bots": [
+            "megatron_gs_leader2015",
+            "fte_stars_gs_t3"
+          ],
+          "status": "unimplemented"
+        },
+        {
+          "id": 4028,
+          "bot_id": "bugbite_gs_kabam",
+          "category": "synergy",
+          "title_zh": "敌人——大黄蜂、飞过山",
+          "title_en": "Enemies – Bumblebee, Cliffjumper",
+          "desc_zh": "+15% 攻击评级。",
+          "desc_en": "+15% Attack Rating when fighting Bumblebee or Cliffjumper.",
+          "pua_icon": "",
+          "raw_data_json": "{}",
+          "sort_order": 6,
+          "synergy_bots": [
+            "bumblebee_gs_kabam",
+            "cliffjumper_gs_kabam"
+          ],
+          "status": "unimplemented"
+        },
+        {
+          "id": 4029,
+          "bot_id": "bugbite_gs_kabam",
+          "category": "basic",
+          "title_zh": "近战增益",
+          "title_en": "Melee Buff",
+          "desc_zh": "增加近战攻击伤害。",
+          "desc_en": "Increases melee damage dealt.",
+          "pua_icon": "E412",
+          "raw_data_json": "{}",
+          "sort_order": 7,
+          "synergy_bots": [],
+          "status": "unimplemented"
+        },
+        {
+          "id": 4030,
+          "bot_id": "bugbite_gs_kabam",
+          "category": "basic",
+          "title_zh": "不可阻挡",
+          "title_en": "Unstoppable",
+          "desc_zh": "进攻动作无视对手攻击冲击。",
+          "desc_en": "Attacks cannot be interrupted.",
+          "pua_icon": "E915",
+          "raw_data_json": "{}",
+          "sort_order": 8,
+          "synergy_bots": [],
+          "status": "unimplemented"
+        }
+      ],
+      "abilities_count": 8
     }
   },
-  "updated_at": "2026-10-31 13:15:24"
+  "updated_at": "2026-11-09 12:46:38"
 }

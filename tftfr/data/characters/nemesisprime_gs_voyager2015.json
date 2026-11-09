@@ -20,7 +20,7 @@
   "note": "暗黑煞 战术系",
   "pua_faction_icon": "E133",
   "pua_class_icon": "",
-  "updated_at": "2026-10-31 03:51:38",
+  "updated_at": "2026-11-02 08:12:53",
   "hp": 32402,
   "attack": 2306,
   "rating": 10009,
@@ -37,34 +37,6 @@
   "portrait_url": "portraits/nemesisprime_gs_voyager2015.png",
   "portrait_large_url": "portraits/nemesisprime_gs_voyager2015_large.png",
   "abilities": [
-    {
-      "id": 3207,
-      "bot_id": "nemesisprime_gs_voyager2015",
-      "category": "basic",
-      "title_zh": "暗能量",
-      "title_en": "Dark Energy",
-      "desc_zh": "增加复制增益的几率、特殊技的效果和重击的伤害。",
-      "desc_en": "Dark Energy - Increases chance to copy Buffs, effectiveness of Special Attacks and damage of Heavy Attack.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 0,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 3208,
-      "bot_id": "nemesisprime_gs_voyager2015",
-      "category": "basic",
-      "title_zh": "子空间脉冲克隆器",
-      "title_en": "Subspace Impulse Cloner",
-      "desc_zh": "每当对手获得近战攻击增益或装甲增益时，复仇女神就有机会复制相同的增益。",
-      "desc_en": "Subspace Impulse Cloner - Whenever the opponent gains a Melee Attack Buff or Armor Buff, Nemesis Prime has a chance to copy the same buff.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 1,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
     {
       "id": 3209,
       "bot_id": "nemesisprime_gs_voyager2015",
@@ -246,6 +218,42 @@
       "sort_order": 23,
       "synergy_bots": [],
       "status": "unimplemented"
+    },
+    {
+      "id": 3231,
+      "bot_id": "nemesisprime_gs_voyager2015",
+      "category": "basic",
+      "title_zh": "黑暗能量",
+      "title_en": "Dark Energy",
+      "desc_zh": "聚集黑暗能量充能，提高攻击评级并为黑暗场提供动力。",
+      "desc_en": "Harvests dark energy charges, boosting attack rating and powering dark fields.",
+      "pua_icon": "E90A",
+      "status": "unimplemented",
+      "sort_order": 14
+    },
+    {
+      "id": 3232,
+      "bot_id": "nemesisprime_gs_voyager2015",
+      "category": "basic",
+      "title_zh": "驱散",
+      "title_en": "Nullify",
+      "desc_zh": "消除对手身上的增益效果，使其增益立即失效。",
+      "desc_en": "Clears active buffs from the opponent, instantly ending their effects.",
+      "pua_icon": "E950",
+      "status": "unimplemented",
+      "sort_order": 15
+    },
+    {
+      "id": 3233,
+      "bot_id": "nemesisprime_gs_voyager2015",
+      "category": "basic",
+      "title_zh": "无法格挡",
+      "title_en": "Unblockable",
+      "desc_zh": "特定攻击无法被防御。",
+      "desc_en": "Certain attacks cannot be blocked.",
+      "pua_icon": "E41F",
+      "status": "unimplemented",
+      "sort_order": 16
     }
   ]
 }

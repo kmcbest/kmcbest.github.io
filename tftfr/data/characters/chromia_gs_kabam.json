@@ -20,7 +20,7 @@
   "note": "经典G1 勇士系",
   "pua_faction_icon": "E132",
   "pua_class_icon": "",
-  "updated_at": "2026-10-31 05:06:28",
+  "updated_at": "2026-11-02 15:43:33",
   "hp": 32402,
   "attack": 2306,
   "rating": 10009,
@@ -37,34 +37,6 @@
   "portrait_url": "portraits/chromia_gs_kabam.png",
   "portrait_large_url": "portraits/chromia_gs_kabam_large.png",
   "abilities": [
-    {
-      "id": 2471,
-      "bot_id": "chromia_gs_kabam",
-      "category": "basic",
-      "title_zh": "基础特长",
-      "title_en": "Basic Abilities",
-      "desc_zh": "缓慢：阻止对手躲避攻击，并减少对手攻击时的能量流。",
-      "desc_en": "Slow: Prevents the opponent from Evading attacks and reduces the opponent's Power Flow on attacks.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 0,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
-    {
-      "id": 2472,
-      "bot_id": "chromia_gs_kabam",
-      "category": "basic",
-      "title_zh": "基础特长",
-      "title_en": "Basic Abilities",
-      "desc_zh": "暴击率增益：击中遭受缓慢减益效果的对手时，暂时提高暴击率。",
-      "desc_en": "Crit Rate Buff: Temporarily increases Critical Hit Rate when hitting opponents that are suffering the effects of a Slow Debuff.",
-      "pua_icon": "",
-      "raw_data_json": "",
-      "sort_order": 1,
-      "synergy_bots": [],
-      "status": "unimplemented"
-    },
     {
       "id": 2481,
       "bot_id": "chromia_gs_kabam",
@@ -174,7 +146,7 @@
       "category": "signature",
       "title_zh": "顶光区的炸弹",
       "title_en": "Acrolight Bomb",
-      "desc_zh": "所有特殊技：技能命中后最后一击施加炸弹减益，持续5秒  // 灰色图标\n5秒内未被对手击中，炸弹造成攻击力100%的即时伤害，并眩晕2.5秒",
+      "desc_zh": "所有特殊技：技能命中后最后一击有30%概率施加炸弹减益，持续5秒  // 灰色图标\n5秒内未被对手击中，炸弹造成攻击力100%的即时伤害，并眩晕2.5秒",
       "desc_en": "",
       "pua_icon": "E40E",
       "status": "priority",
@@ -203,6 +175,54 @@
       "pua_icon": "E806",
       "status": "priority",
       "sort_order": 13
+    },
+    {
+      "id": 2496,
+      "bot_id": "chromia_gs_kabam",
+      "category": "basic",
+      "title_zh": "流血",
+      "title_en": "Bleed",
+      "desc_zh": "流失的能量晶体会持续造成直接伤害。",
+      "desc_en": "Bleeding energon causes direct damage over time.",
+      "pua_icon": "E401",
+      "status": "unimplemented",
+      "sort_order": 12
+    },
+    {
+      "id": 2497,
+      "bot_id": "chromia_gs_kabam",
+      "category": "basic",
+      "title_zh": "减速",
+      "title_en": "Decelerate",
+      "desc_zh": "阻止对手躲避攻击，并减少对手行动时的能量流速。",
+      "desc_en": "Prevents the opponent from dodging and slows their power flow.",
+      "pua_icon": "E952",
+      "status": "unimplemented",
+      "sort_order": 13
+    },
+    {
+      "id": 2498,
+      "bot_id": "chromia_gs_kabam",
+      "category": "basic",
+      "title_zh": "顶光区的炸弹",
+      "title_en": "Acrolight Bomb",
+      "desc_zh": "持续造成酸性伤害。",
+      "desc_en": "Deals corrosive acid damage over time.",
+      "pua_icon": "E40E",
+      "status": "unimplemented",
+      "sort_order": 14
+    },
+    {
+      "id": 2499,
+      "bot_id": "chromia_gs_kabam",
+      "category": "basic",
+      "title_zh": "感应电荷",
+      "title_en": "Sensor Charge",
+      "desc_zh": "爆头导致瞬间的能量晶体流失伤害并持续造成直接伤害，对手回避时额外承受伤害。",
+      "desc_en": "Headshots cause instant damage and bleeding damage over time, dealing extra damage if the opponent evades.",
+      "pua_icon": "E806",
+      "status": "unimplemented",
+      "sort_order": 15
     }
   ]
 }

@@ -20,7 +20,7 @@
   "note": "经典G1 侦察系",
   "pua_faction_icon": "E132",
   "pua_class_icon": "",
-  "updated_at": "2026-10-31 04:43:24",
+  "updated_at": "2026-11-02 16:00:10",
   "hp": 28810,
   "attack": 2721,
   "rating": 11250,
@@ -259,6 +259,54 @@
       "pua_icon": "0xe901",
       "status": "priority",
       "sort_order": 16
+    },
+    {
+      "id": 2658,
+      "bot_id": "jazz_gs_twm05",
+      "category": "basic",
+      "title_zh": "规避",
+      "title_en": "Evade",
+      "desc_zh": "自动闪避即将到来的攻击。",
+      "desc_en": "Automatically evade incoming attack.",
+      "pua_icon": "E509",
+      "status": "unimplemented",
+      "sort_order": 17
+    },
+    {
+      "id": 2659,
+      "bot_id": "jazz_gs_twm05",
+      "category": "basic",
+      "title_zh": "暴击率增益",
+      "title_en": "Crit Rate Buff",
+      "desc_zh": "临时增加攻击命中时触发暴击的几率。",
+      "desc_en": "Temporarily increases the chance of scoring critical hits.",
+      "pua_icon": "E40D",
+      "status": "unimplemented",
+      "sort_order": 18
+    },
+    {
+      "id": 2660,
+      "bot_id": "jazz_gs_twm05",
+      "category": "basic",
+      "title_zh": "眩晕",
+      "title_en": "Stun",
+      "desc_zh": "临时阻止目标采取任何行动。",
+      "desc_en": "Temporarily paralyzes the target, preventing all actions.",
+      "pua_icon": "E605",
+      "status": "unimplemented",
+      "sort_order": 19
+    },
+    {
+      "id": 2661,
+      "bot_id": "jazz_gs_twm05",
+      "category": "basic",
+      "title_zh": "混乱",
+      "title_en": "Confused",
+      "desc_zh": "阻止对手躲避攻击，并减少对手行动时的能量流速。",
+      "desc_en": "Prevents the opponent from dodging and slows their power flow.",
+      "pua_icon": "E91B",
+      "status": "unimplemented",
+      "sort_order": 20
     }
   ]
 }
